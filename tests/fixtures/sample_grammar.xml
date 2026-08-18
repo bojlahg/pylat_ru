@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/print.xsl" ?>
+<?xml-stylesheet type="text/css" href="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.css"
+title="Easy reading stylesheet" ?>
+<!--
+Sample Russian Grammar Rules for Unit Testing
+-->
+<rules lang="ru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../../../../../languagetool-core/src/main/resources/org/languagetool/rules/rules.xsd">
+
+    <unification feature="number">
+        <equivalence type="singular">
+            <token postag=".*:.*:sg:.*" postag_regexp="yes"/>
+        </equivalence>
+        <equivalence type="plural">
+            <token postag=".*:.*:pl:.*" postag_regexp="yes"/>
+        </equivalence>
+    </unification>
+
+    <category id="TEST_CATEGORY" name="Test Rules Category">
+        <rule id="TEST_STANDALONE_RULE" name="Test Standalone Rule">
+            <pattern>
+                <token>тест</token>
+                <token>ошибки</token>
+            </pattern>
+            <message>Обнаружена тестовая ошибка.</message>
+            <suggestion>тест исправления</suggestion>
+            <example type="incorrect">Это <marker>тест ошибки</marker> в тексте.</example>
+            <example type="correct">Это тест исправления в тексте.</example>
+        </rule>
+
+        <rulegroup id="TEST_RULEGROUP" name="Test Rulegroup">
+            <rule id="TEST_RULEGROUP_1" name="Rulegroup Subrule 1">
+                <pattern>
+                    <token inflected="yes">неправильный</token>
+                    <marker>
+                        <token>вариант</token>
+                    </marker>
+                </pattern>
+                <message>Попробуйте заменить вариант.</message>
+                <suggestion>способ</suggestion>
+                <example type="incorrect" correction="способ">Это неправильный <marker>вариант</marker>.</example>
+                <example type="correct">Это правильный вариант.</example>
+            </rule>
+            <rule id="TEST_RULEGROUP_2" name="Rulegroup Subrule 2 with Filter">
+                <pattern>
+                    <token>дата</token>
+                    <marker>
+                        <token regexp="yes">\d{1,2}\.\d{1,2}\.\d{4}</token>
+                    </marker>
+                </pattern>
+                <filter class="org.languagetool.rules.ru.DateCheckFilter" args="year:\2 month:\2 day:\2"/>
+                <message>Некорректная дата.</message>
+                <example type="incorrect">Сегодня дата <marker>31.02.2024</marker>.</example>
+                <example type="correct">Сегодня дата 28.02.2024.</example>
+            </rule>
+        </rulegroup>
+    </category>
+</rules>

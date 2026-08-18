@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-08-19T02:27:00Z",
+  "pinned_upstream": {
+    "repository": "https://github.com/languagetool-org/languagetool.git",
+    "tag": "v6.8",
+    "commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "commit_date": "2026-05-05T15:03:23Z"
+  },
+  "compatibility_status": {
+    "task_milestone": "0001_project_foundation_upstream_inventory",
+    "overall_state": "FOUNDATION_ESTABLISHED",
+    "summary": {
+      "rules_total": 992,
+      "grammar_rules_total": 892,
+      "disambiguation_rules_total": 77,
+      "java_rules_total": 23,
+      "xml_filters_total": 7,
+      "upstream_test_files_total": 18,
+      "grammar_examples_total": 2446
+    },
+    "implementation_progress": {
+      "xml_constructs": {
+        "status": "NOT_YET_IMPLEMENTED",
+        "supported_count": 0,
+        "partial_count": 0,
+        "unsupported_count": 23,
+        "known_tags": [
+          "and", "antipattern", "category", "equivalence", "example",
+          "exception", "feature", "filter", "marker", "match", "message",
+          "or", "pattern", "rule", "rulegroup", "rules", "short",
+          "suggestion", "token", "unification", "unify", "unify-ignore", "url"
+        ]
+      },
+      "xml_filters": {
+        "status": "NOT_YET_IMPLEMENTED",
+        "implemented": 0,
+        "total": 7,
+        "filter_classes": [
+          "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+          "org.languagetool.rules.ru.DateCheckFilter",
+          "org.languagetool.rules.ru.FutureDateFilter",
+          "org.languagetool.rules.ru.INNNumberFilter",
+          "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
+          "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+          "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter"
+        ]
+      },
+      "java_rules": {
+        "status": "NOT_YET_IMPLEMENTED",
+        "implemented": 0,
+        "total": 23,
+        "russian_specific_implemented": 0,
+        "russian_specific_total": 13,
+        "generic_implemented": 0,
+        "generic_total": 10
+      },
+      "upstream_tests": {
+        "status": "INVENTORIED_NOT_PORTED",
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "not_yet_ported": 18,
+        "total": 18
+      },
+      "grammar_xml_examples": {
+        "status": "EXTRACTED_NOT_RUNNABLE",
+        "passed": 0,
+        "failed": 0,
+        "not_yet_runnable": 2446,
+        "total": 2446
+      },
+      "parity_metrics": {
+        "finding_parity": null,
+        "span_parity": null,
+        "suggestion_parity": null,
+        "evaluation_state": "NOT_EVALUATED"
+      }
+    },
+    "known_differences": []
+  }
+}

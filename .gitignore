@@ -1,8 +1,10 @@
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -22,29 +24,42 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Virtual environments
-.venv/
-venv/
-env/
-ENV/
+# PyInstaller / binary builds
+*.manifest
+*.spec
 
-# Test / quality caches
+# Virtual environments
+.env
+.venv
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .pyre/
-.coverage
-.coverage.*
-htmlcov/
-coverage.xml
 
-# IDE / OS
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
+# Differential testing / Oracle downloads & caches
+.oracle_cache/
+oracle_downloads/
+oracle/
+*.log
 
 # Local development artifacts
 .cache/
@@ -57,18 +72,23 @@ temp/
 corpora/
 test_corpora/
 
-# Local Java LanguageTool oracle artifacts
-# Java is allowed only for development/conformance tooling, never as a production dependency.
-oracle/
-
 # Downloaded/generated upstream work areas
 .upstream-work/
 .upstream-cache/
 
 # Secrets / local configuration
-.env
 .env.*
 !.env.example
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # NOTE:
 # third_party/languagetool/ is intentionally NOT ignored. Pinned upstream resources whose
