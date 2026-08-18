@@ -10,12 +10,23 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Sequence
 
+from pylat_ru.morfologik import (
+    DictionaryEntry,
+    MorfologikDictionary,
+)
+from pylat_ru.tagset import RussianTag, parse_tag
+
 __version__ = "0.1.0a0"
 __all__ = [
     "__version__",
+    "DictionaryEntry",
     "LanguageToolRU",
+    "MorfologikDictionary",
     "RuleMatch",
+    "RussianTag",
+    "parse_tag",
 ]
+
 
 
 @dataclass(frozen=True)

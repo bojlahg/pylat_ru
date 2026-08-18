@@ -4,11 +4,12 @@
     "repository": "https://github.com/languagetool-org/languagetool.git",
     "tag": "v6.8",
     "commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-    "commit_date": "2026-05-05T15:03:23Z"
+    "commit_date": "2026-05-05T15:03:23Z",
+    "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0001_project_foundation_upstream_inventory",
-    "overall_state": "FOUNDATION_ESTABLISHED",
+    "task_milestone": "0002_dictionary_formats_lt_russian_tagset",
+    "overall_state": "DICTIONARY_FOUNDATION_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -18,7 +19,29 @@
       "all_java_rules_total": 24,
       "xml_filters_total": 7,
       "upstream_test_files_total": 18,
-      "grammar_examples_total": 2446
+      "grammar_examples_total": 2446,
+      "tagset_unique_tags_total": 1200,
+      "tagset_empty_colon_tags_total": 154,
+      "tagset_pos_prefixes_total": 19,
+      "tagset_feature_atoms_total": 62
+    },
+    "dictionary_and_tagset": {
+      "dictionary_metadata": "SUPPORTED",
+      "morfologik_fsa_reader": "SUPPORTED",
+      "sequence_decoder": "SUPPORTED",
+      "tag_dictionary_low_level_lookup": "SUPPORTED",
+      "synthesis_dictionary_low_level_lookup": "SUPPORTED",
+      "russian_tagset_inventory": "SUPPORTED",
+      "russian_tag_representation": "SUPPORTED"
+    },
+    "pipeline_components": {
+      "RussianSentenceTokenizer": "NOT_YET_IMPLEMENTED",
+      "RussianWordTokenizer": "NOT_YET_IMPLEMENTED",
+      "RussianTagger": "NOT_YET_IMPLEMENTED",
+      "RussianDisambiguator": "NOT_YET_IMPLEMENTED",
+      "RussianChunker": "NOT_YET_IMPLEMENTED",
+      "RussianSynthesizer": "NOT_YET_IMPLEMENTED",
+      "XMLRuleEngine": "NOT_YET_IMPLEMENTED"
     },
     "implementation_progress": {
       "xml_constructs": {

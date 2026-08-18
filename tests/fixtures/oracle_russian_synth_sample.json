@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
+    "dictionary": "russian_synth.dict",
+    "morfologik_version": "2.1.9",
+    "encoding": "koi8-r",
+    "encoder": "SUFFIX",
+    "format": "CFSA2 (0xc6)"
+  },
+  "queries": {
+    "семья|NN:Inanim:Fem:Sin:Nom": [
+      "семья"
+    ],
+    "семья|NN:Inanim:Fem:Sin:R": [
+      "семьи"
+    ],
+    "дом|NN:Inanim:Masc:PL:Nom": [
+      "дома"
+    ],
+    "дом|NN:Inanim:Masc:Sin:Nom": [
+      "дом"
+    ],
+    "человек|NN:Anim:Masc:Sin:Nom": [
+      "человек"
+    ],
+    "несуществующеесловоxyz|NN:Inanim:Fem:Sin:Nom": []
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
+    "dictionary": "russian.dict",
+    "morfologik_version": "2.1.9",
+    "encoding": "koi8-r",
+    "encoder": "SUFFIX",
+    "format": "CFSA2 (0xc6)"
+  },
+  "words": {
+    "все": [
+      {
+        "stem": "все",
+        "tag": "PNN:PL:V"
+      },
+      {
+        "stem": "все",
+        "tag": "PNN:PL:Nom"
+      },
+      {
+        "stem": "все",
+        "tag": "PNN:Sin:V"
+      },
+      {
+        "stem": "все",
+        "tag": "PNN:Sin:Nom"
+      },
+      {
+        "stem": "весь",
+        "tag": "ADJ:MPR:PL:V"
+      },
+      {
+        "stem": "весь",
+        "tag": "ADJ:MPR:PL:Nom"
+      }
+    ],
+    "счастливые": [
+      {
+        "stem": "счастливый",
+        "tag": "ADJ:Posit:PL:V"
+      },
+      {
+        "stem": "счастливый",
+        "tag": "ADJ:Posit:PL:Nom"
+      }
+    ],
+    "семьи": [
+      {
+        "stem": "семья",
+        "tag": "NN:Inanim:Fem:PL:V"
+      },
+      {
+        "stem": "семья",
+        "tag": "NN:Inanim:Fem:PL:Nom"
+      },
+      {
+        "stem": "семья",
+        "tag": "NN:Inanim:Fem:Sin:R"
+      }
+    ],
+    "смешалось": [
+      {
+        "stem": "смешаться",
+        "tag": "VB:Past:INTR:PFV:Neut"
+      }
+    ],
+    "дом": [
+      {
+        "stem": "дом",
+        "tag": "NN:Inanim:Masc:Sin:V"
+      },
+      {
+        "stem": "дом",
+        "tag": "NN:Inanim:Masc:Sin:Nom"
+      }
+    ],
+    "блукать": [
+      {
+        "stem": "блукать",
+        "tag": "VB:INF:"
+      }
+    ],
+    "книга": [
+      {
+        "stem": "книга",
+        "tag": "NN:Inanim:Fem:Sin:Nom"
+      }
+    ],
+    "человек": [
+      {
+        "stem": "человек",
+        "tag": "NN:Anim:Masc:PL:R"
+      },
+      {
+        "stem": "человек",
+        "tag": "NN:Anim:Masc:Sin:Nom"
+      }
+    ],
+    "бежать": [
+      {
+        "stem": "бежать",
+        "tag": "VB:INF:INTR:IMPFV"
+      },
+      {
+        "stem": "бежать",
+        "tag": "VB:INF:INTR:PFV"
+      }
+    ],
+    "красивый": [
+      {
+        "stem": "красивый",
+        "tag": "ADJ:Posit:Masc:V"
+      },
+      {
+        "stem": "красивый",
+        "tag": "ADJ:Posit:Masc:Nom"
+      }
+    ],
+    "несуществующеесловоxyz": []
+  }
+}
