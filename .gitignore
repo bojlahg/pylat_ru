@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test / quality caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local development artifacts
+.cache/
+.tools/
+tmp/
+temp/
+
+# Local corpora and differential-test data
+# External corpora may have incompatible licenses and must not be committed by accident.
+corpora/
+test_corpora/
+
+# Local Java LanguageTool oracle artifacts
+# Java is allowed only for development/conformance tooling, never as a production dependency.
+oracle/
+
+# Downloaded/generated upstream work areas
+.upstream-work/
+.upstream-cache/
+
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+
+# NOTE:
+# third_party/languagetool/ is intentionally NOT ignored. Pinned upstream resources whose
+# provenance/license has been reviewed are expected to be tracked explicitly.
