@@ -1,6 +1,5 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-19T02:27:00Z",
   "pinned_upstream": {
     "repository": "https://github.com/languagetool-org/languagetool.git",
     "tag": "v6.8",
@@ -11,10 +10,12 @@
     "task_milestone": "0001_project_foundation_upstream_inventory",
     "overall_state": "FOUNDATION_ESTABLISHED",
     "summary": {
-      "rules_total": 992,
+      "rules_total": 993,
       "grammar_rules_total": 892,
       "disambiguation_rules_total": 77,
-      "java_rules_total": 23,
+      "relevant_java_rules_total": 23,
+      "language_model_rules_total": 1,
+      "all_java_rules_total": 24,
       "xml_filters_total": 7,
       "upstream_test_files_total": 18,
       "grammar_examples_total": 2446
@@ -48,12 +49,20 @@
       },
       "java_rules": {
         "status": "NOT_YET_IMPLEMENTED",
-        "implemented": 0,
-        "total": 23,
-        "russian_specific_implemented": 0,
-        "russian_specific_total": 13,
-        "generic_implemented": 0,
-        "generic_total": 10
+        "all_java_rules_total": 24,
+        "relevant_rules": {
+          "implemented": 0,
+          "total": 23,
+          "russian_specific_implemented": 0,
+          "russian_specific_total": 13,
+          "generic_implemented": 0,
+          "generic_total": 10
+        },
+        "language_model_rules": {
+          "implemented": 0,
+          "total": 1,
+          "rules": ["RussianConfusionProbabilityRule"]
+        }
       },
       "upstream_tests": {
         "status": "INVENTORIED_NOT_PORTED",

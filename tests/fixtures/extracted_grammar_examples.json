@@ -1,7 +1,6 @@
 {
   "schema_version": "1.0.0",
   "source_file": "grammar.xml",
-  "extracted_at": "2026-08-18T21:27:37.140844Z",
   "summary": {
     "total_examples": 2446,
     "incorrect_examples": 1083,

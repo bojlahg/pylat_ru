@@ -8,7 +8,7 @@ Reports:
 - Added / removed / modified Russian resource files (with SHA-256 changes)
 - Added / removed XML tags and attribute pairs in grammar.xml and disambiguation.xml
 - Added / removed / changed XML filter classes
-- Added / removed / changed Java rules in Russian.java
+- Added / removed / changed Java rules in Russian.java (relevant rules vs language model rules)
 - Changes in grammar rules, rulegroups, and categories counts
 - Changes in upstream test file inventories
 
@@ -21,7 +21,6 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Set
 
@@ -120,6 +119,10 @@ def compare_inventories(
     target_gen_rules = target_inv.get("russian_java", {}).get("generic_rules_enabled", [])
     gen_rules_diff = compute_set_diff(pinned_gen_rules, target_gen_rules)
 
+    pinned_lm_rules = pinned_inv.get("russian_java", {}).get("language_model_rules", [])
+    target_lm_rules = target_inv.get("russian_java", {}).get("language_model_rules", [])
+    lm_rules_diff = compute_set_diff(pinned_lm_rules, target_lm_rules)
+
     # 6. Summary metrics diff
     pinned_summary = pinned_inv.get("summary", {})
     target_summary = target_inv.get("summary", {})
@@ -134,12 +137,12 @@ def compare_inventories(
         or filters_diff["is_different"]
         or ru_rules_diff["is_different"]
         or gen_rules_diff["is_different"]
+        or lm_rules_diff["is_different"]
         or summary_diff["is_different"]
     )
 
     return {
         "diff_schema_version": "1.0.0",
-        "compared_at": datetime.utcnow().isoformat() + "Z",
         "has_drift": has_drift,
         "pinned_meta": pinned_inv.get("pinned_upstream", {}),
         "target_meta": target_inv.get("pinned_upstream", {}),
@@ -155,8 +158,9 @@ def compare_inventories(
         },
         "xml_filters_diff": filters_diff,
         "java_rules_diff": {
-            "russian_specific": ru_rules_diff,
-            "generic": gen_rules_diff,
+            "russian_specific_relevant": ru_rules_diff,
+            "generic_relevant": gen_rules_diff,
+            "language_model": lm_rules_diff,
         },
     }
 
@@ -217,8 +221,8 @@ def main() -> int:
                 print(f"Resource file changes: +{len(diff['resources_diff']['added'])}, -{len(diff['resources_diff']['removed'])}, ~{len(diff['resources_diff']['changed'])}")
             if diff["xml_filters_diff"]["is_different"]:
                 print(f"Filter changes: +{diff['xml_filters_diff']['added']}, -{diff['xml_filters_diff']['removed']}")
-            if diff["java_rules_diff"]["russian_specific"]["is_different"]:
-                print(f"Russian Java rule changes: {diff['java_rules_diff']['russian_specific']}")
+            if diff["java_rules_diff"]["russian_specific_relevant"]["is_different"]:
+                print(f"Russian Java rule changes: {diff['java_rules_diff']['russian_specific_relevant']}")
         else:
             print("No drift detected against pinned inventory.")
 

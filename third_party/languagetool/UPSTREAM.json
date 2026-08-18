@@ -4,7 +4,6 @@
   "pinned_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
-  "retrieval_timestamp": "2026-08-18T21:26:32.786434Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
   "vendored_files_count": 88,
   "files": {
@@ -12,351 +11,351 @@
       "size": 26432,
       "sha256": "95a62130965bddc821631fcec03abe97246f9130f11a8be6f47579f8bc016fc8"
     },
-    "languagetool-core\\src\\main\\resources\\org\\languagetool\\resource\\segment.srx": {
+    "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
       "size": 213633,
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
     },
-    "languagetool-language-modules\\ru\\pom.xml": {
+    "languagetool-language-modules/ru/pom.xml": {
       "size": 2752,
       "sha256": "a13bf1d41223cfec41e2b7a0bec991d3e469de6acdeb0744881cf0a30e3bfba2"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\chunking\\RussianChunker.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/chunking/RussianChunker.java": {
       "size": 14544,
       "sha256": "df0035c002e5453cbe970cbef3880ae19cb9aaab24d98d669bf746c2a70b27d1"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\language\\Russian.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/language/Russian.java": {
       "size": 8757,
       "sha256": "e42c7b3ee2aaf1e76deea246beb16d3f08df64fd65943495f1e3d0ad017cfaa6"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\AdvancedSynthesizerFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/AdvancedSynthesizerFilter.java": {
       "size": 1295,
       "sha256": "cf22ddf959d8e1a34819e5e7a9ac26a7c9bf14ec08317aa6e2861609fbb8e217"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\DateCheckFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/DateCheckFilter.java": {
       "size": 4003,
       "sha256": "cc26ae004a9e79c09ac665af4c9d3177590cde360fdf02c43dec13ef103e517b"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\DateFilterHelper.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/DateFilterHelper.java": {
       "size": 3162,
       "sha256": "6df7247720d0de6cf307012a538c47379f818130fddbebfb3c05705db7e3a043"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\FutureDateFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/FutureDateFilter.java": {
       "size": 1362,
       "sha256": "2fdb29dd3d60f63a1dfed8d748dd19ca50c212566acc6f8ac4826b21a15cfe73"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\INNNumberFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/INNNumberFilter.java": {
       "size": 3343,
       "sha256": "f48ef5d44148bc6f2e1d90fc16b7a26534caa1c4f3cc33bc1554c9f9fd5b40a6"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\MorfologikRussianSpellerRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/MorfologikRussianSpellerRule.java": {
       "size": 4407,
       "sha256": "ec8a78abe30b03202d18378bdce575138b0f8ec3dba0937f3c60002e56e52d73"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\MorfologikRussianYOSpellerRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRule.java": {
       "size": 4791,
       "sha256": "ab44364af5e7dada97112706ca30eaa70ebf13e3a94c63efa7979fd7fbd14d6e"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\NoDisambiguationRussianPartialPosTagFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/NoDisambiguationRussianPartialPosTagFilter.java": {
       "size": 1851,
       "sha256": "19e2dce954f1241f59e63809a18aff463a7f02adff7f2324ac2cb6d1729f50e0"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianCompoundRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianCompoundRule.java": {
       "size": 2675,
       "sha256": "bf9370afe44da38a5a5e0d74391bb71cb377313d9cf8d8c532e66eeb6b7d9a0a"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianConfusionProbabilityRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianConfusionProbabilityRule.java": {
       "size": 1541,
       "sha256": "d828cbd86390d72dedeca97660b32be62ca34f793c8178deda905ff7b4f1a7e8"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianDashRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianDashRule.java": {
       "size": 2387,
       "sha256": "22561c7d99518bfb5abb4d284c39bff060015265ece4629518dcad0300e6335b"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianFillerWordsRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianFillerWordsRule.java": {
       "size": 2472,
       "sha256": "84dea8cf6c9354f17ec9cc13cf9f96fbd7923e5b4badaad46856fa6e6e8c7bd4"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianPartialPosTagFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianPartialPosTagFilter.java": {
       "size": 2124,
       "sha256": "8fec721bab1fd57c2831f7376e871f26d1dd7acdd9850d2d28defe994202ba19"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianSimpleReplaceRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSimpleReplaceRule.java": {
       "size": 2922,
       "sha256": "fe2a636be817541168ce5716e5a6fbdf601024cf255a3e485179a2df30a33ed0"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianSimpleWordRepeatRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSimpleWordRepeatRule.java": {
       "size": 2422,
       "sha256": "862f02ffec6de08458158faf0d409b868a6785c94433ffc857527f61a1288abf"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianSpecificCaseRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSpecificCaseRule.java": {
       "size": 4633,
       "sha256": "d78eb7708b998aa2d37d7ed8121d5c1b1329ac7d8c21e63d884f06bbcaf1757e"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianSuppressMisspelledSuggestionsFilter.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSuppressMisspelledSuggestionsFilter.java": {
       "size": 1169,
       "sha256": "98a8525ce97c6c8b45576a9af80c294234dcfe8c6ad8409bb3fbf8783b72e35f"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianUnpairedBracketsRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianUnpairedBracketsRule.java": {
       "size": 2454,
       "sha256": "2bee29b6de45038c0a632dd4b9dd1578a91364ce07af42defcbc9b14af18cdf9"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianVerbConjugationRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianVerbConjugationRule.java": {
       "size": 6682,
       "sha256": "6e97a306da3445ae33087be444e7b842dad74f50166d8a88ad13cdbcfa9652c1"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianWordCoherencyRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordCoherencyRule.java": {
       "size": 2730,
       "sha256": "c47c310a74fb7accc9b08073c0fc5f4fd0add14bae170332eff334e7f4833988"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianWordRepeatRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordRepeatRule.java": {
       "size": 3367,
       "sha256": "c72b3c2100c95aa16695d29a1080bf83333c6ea73d17b7c82baaab382a6f44ca"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\rules\\ru\\RussianWordRootRepeatRule.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordRootRepeatRule.java": {
       "size": 2506,
       "sha256": "43250f2b391bd763e41b2947051074df821fda7a466b288fc110f695c9e82440"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\synthesis\\ru\\RussianSynthesizer.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/synthesis/ru/RussianSynthesizer.java": {
       "size": 1538,
       "sha256": "08cff9e72d3ec8d69b2a6072cae973f447a4cf89bfa64ac2bb9bbb10e7ed9e83"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\tagging\\disambiguation\\ru\\RussianHybridDisambiguator.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/tagging/disambiguation/ru/RussianHybridDisambiguator.java": {
       "size": 2678,
       "sha256": "ab89fc3b2253bdfeb643f5f432e975933e19d905e4086c996ce9fb6e5db84e4c"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\tagging\\ru\\RussianTagger.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/tagging/ru/RussianTagger.java": {
       "size": 3653,
       "sha256": "bb3aeb8aab5f9f7f1475091811521686ff0af44cc319703c9a67f0c4f87306d0"
     },
-    "languagetool-language-modules\\ru\\src\\main\\java\\org\\languagetool\\tokenizers\\ru\\RussianWordTokenizer.java": {
+    "languagetool-language-modules/ru/src/main/java/org/languagetool/tokenizers/ru/RussianWordTokenizer.java": {
       "size": 2296,
       "sha256": "27cc30bb1a294f5d9fd443d8d64b6423c2aa2657442230a89a1383bf931d06d8"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\META-INF\\org\\languagetool\\language-module.properties": {
+    "languagetool-language-modules/ru/src/main/resources/META-INF/org/languagetool/language-module.properties": {
       "size": 50,
       "sha256": "30e77559bf70da3496d18fb9f75a3c83ac6eca17c78c30f008e0fe068277b26d"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\MessagesBundle_ru.properties": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/MessagesBundle_ru.properties": {
       "size": 46877,
       "sha256": "5d3f2e2ce573e56d45766faee6a06b1bd396f58cccda97b1964fd3c34a5f2b5f"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\README.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/README.txt": {
       "size": 711,
       "sha256": "ff130639a81e6843c6a5662499510e75dc0c26d6cb1cfb19844f8c8dbbe4383d"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\added.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/added.txt": {
       "size": 92745,
       "sha256": "4748f15da5cf97095e4d96dda3a3431028c660ff2456c30f143162616d0d8b40"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\added_custom.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/added_custom.txt": {
       "size": 260,
       "sha256": "30c7602fe9a69730e194dbe5f5b332fba6adf00f49af85d8c5358055c17d339b"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\common_words.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/common_words.txt": {
       "size": 145914,
       "sha256": "f49b0f61b641f437df1bf4a58b86a57d7a4d72fdd9473ca0e6397871f4dd9a9e"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\compounds.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/compounds.txt": {
       "size": 899551,
       "sha256": "71b4217689cf83c07eb88b4f4b5c9c5e482171a053b48fa93e1cd1c14e8e720a"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\confusion_sets.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/confusion_sets.txt": {
       "size": 308,
       "sha256": "f2a165a02c7b8d382f0a0ca0041e36376175193854c88991970e59dc323408de"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\disambiguation.xml": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/disambiguation.xml": {
       "size": 47039,
       "sha256": "088da5e49938e7f4b1251e4de29de059822ab7e9fc299b07fbeca970b73d0f18"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\make_dict_ru.sh": {
-      "size": 331,
-      "sha256": "2b1967cc2f226b40088a21af7951c6b3c0673162574d6c8f6cafd83a5ef9293b"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\multiwords.txt": {
-      "size": 5289,
-      "sha256": "b802c6c9cb5a251348f0b392e4167c5e12543a44b04f3ce616e4253bc8af4e06"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\removed.txt": {
-      "size": 3205,
-      "sha256": "193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\removed_custom.txt": {
-      "size": 223,
-      "sha256": "b840a31465a40eaf6401e4262db9d9980cd81246e7ef23357cbc54bb6e8da31c"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\russian.dict": {
-      "size": 2322253,
-      "sha256": "387f9fcf652a574c9d361397c30aa87ef6f7397a76d3d51cd04c94e8dcbc4015"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\russian.info": {
-      "size": 410,
-      "sha256": "e9768f4a50285756cb3505f6ce1e8ed4eaae4defc822ab76f22d7e06ada07c6f"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\russian_manual_add.txt": {
-      "size": 803316,
-      "sha256": "489475f53caec2b9e9b3ea65bfee161b333ff35b30d3e6c2dfaf8d0786ed428e"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\russian_synth.dict": {
-      "size": 1481255,
-      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\russian_synth.info": {
-      "size": 431,
-      "sha256": "916c0ff9a6101c5f36e33c109b15e9cd37da0e75b772f97bca1df8f5fcdcca3b"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\specific_case.txt": {
-      "size": 915,
-      "sha256": "c35d08b0909b45acf242621961e2dbf0148792b70e4696be40248ad952c50966"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\tags_russian.txt": {
-      "size": 27195,
-      "sha256": "1efed64cfc852bb4619da092034dcb208acde303baeb55109718afe9cf56729a"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\tagset.txt": {
-      "size": 23447,
-      "sha256": "06ff17a8640596e710b8147564490d649ed05489e656021a5a7262098e6b2b5c"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\yo.awk": {
-      "size": 48,
-      "sha256": "8b0f373773efa48037b7db55d6f2b97e2518cb3842b3f09cc093f63117def229"
-    },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\README.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/README.txt": {
       "size": 699,
       "sha256": "ee6d4c22cbd2c4f27e987cacfbe41f245cf451a2371d11aad052c2096d88fc94"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\freq-wordlist.awk": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/freq-wordlist.awk": {
       "size": 175,
       "sha256": "596c2d0013e82e626ae4a4214312f028db3b62828a6dd17e30b36d41d9a3c21a"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\ignore.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ignore.txt": {
       "size": 72,
       "sha256": "0561df4242ce2d6c6768cb57a0be7822ffda7c3e5991c8664aef7da05351f616"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\make-freq-wordlist-ru.sh": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/make-freq-wordlist-ru.sh": {
       "size": 242,
       "sha256": "72447be1a9a871857e8ea23d1ee247fef498bb6a56fe4b0ca190f278c5e26d15"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\make_ru_RU.sh": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/make_ru_RU.sh": {
       "size": 160,
       "sha256": "ec562a0f704795a79f8336888d5792692087197863b3d333123c49dffd51bef3"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\make_spell_dict.awk": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/make_spell_dict.awk": {
       "size": 112,
       "sha256": "6aa6bac5c71a4d5c83b79343c8e97da5691569531d5d2042c65ce8caaaad03fa"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\prohibit.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/prohibit.txt": {
       "size": 868,
       "sha256": "fb56a59b07d43fc0543e6e39d845cfc0d2674438bde628efca7fba93b4f1bcae"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\ru_RU.dict": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU.dict": {
       "size": 1889147,
       "sha256": "10c3acd195935a589d3baebe8de4a829def7d19ee4d0613664196795fe91403f"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\ru_RU.info": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU.info": {
       "size": 1078,
       "sha256": "1d6a66af2b3c1812c44d03d2b8d27e6f407e8c99b071956a82296c600679f6a4"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\ru_RU_yo.dict": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU_yo.dict": {
       "size": 1783672,
       "sha256": "215cc717920e814a40702f65c2aa3c8e4598fd8f41004140aa00cf1a4893434b"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\ru_RU_yo.info": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU_yo.info": {
       "size": 1086,
       "sha256": "956e5db4022ffe4b989ac841ab30b33781867b6a1f20905e40bca83c81650573"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\resource\\ru\\hunspell\\spelling.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/spelling.txt": {
       "size": 39687,
       "sha256": "964c4bb256ebe8170c4df7e91cea6c66a5717a3ad984debe321f4d65f6a268d7"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\rules\\ru\\bitext.xml": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/make_dict_ru.sh": {
+      "size": 331,
+      "sha256": "2b1967cc2f226b40088a21af7951c6b3c0673162574d6c8f6cafd83a5ef9293b"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/multiwords.txt": {
+      "size": 5289,
+      "sha256": "b802c6c9cb5a251348f0b392e4167c5e12543a44b04f3ce616e4253bc8af4e06"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/removed.txt": {
+      "size": 3205,
+      "sha256": "193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/removed_custom.txt": {
+      "size": 223,
+      "sha256": "b840a31465a40eaf6401e4262db9d9980cd81246e7ef23357cbc54bb6e8da31c"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict": {
+      "size": 2322253,
+      "sha256": "387f9fcf652a574c9d361397c30aa87ef6f7397a76d3d51cd04c94e8dcbc4015"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.info": {
+      "size": 410,
+      "sha256": "e9768f4a50285756cb3505f6ce1e8ed4eaae4defc822ab76f22d7e06ada07c6f"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian_manual_add.txt": {
+      "size": 803316,
+      "sha256": "489475f53caec2b9e9b3ea65bfee161b333ff35b30d3e6c2dfaf8d0786ed428e"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian_synth.dict": {
+      "size": 1481255,
+      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian_synth.info": {
+      "size": 431,
+      "sha256": "916c0ff9a6101c5f36e33c109b15e9cd37da0e75b772f97bca1df8f5fcdcca3b"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/specific_case.txt": {
+      "size": 915,
+      "sha256": "c35d08b0909b45acf242621961e2dbf0148792b70e4696be40248ad952c50966"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tags_russian.txt": {
+      "size": 27195,
+      "sha256": "1efed64cfc852bb4619da092034dcb208acde303baeb55109718afe9cf56729a"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tagset.txt": {
+      "size": 23447,
+      "sha256": "06ff17a8640596e710b8147564490d649ed05489e656021a5a7262098e6b2b5c"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/yo.awk": {
+      "size": 48,
+      "sha256": "8b0f373773efa48037b7db55d6f2b97e2518cb3842b3f09cc093f63117def229"
+    },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/bitext.xml": {
       "size": 1375,
       "sha256": "68dfe8efc1a56ac793a0d8ef7918a94c3049c2d4441501b61e4c2821d24c46db"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\rules\\ru\\coherency.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/coherency.txt": {
       "size": 987,
       "sha256": "f6b282c5da932fc5025ce068ba96261c24255d7b1cc8c95dd56d6dd400167bd2"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\rules\\ru\\grammar.xml": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml": {
       "size": 1194903,
       "sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\rules\\ru\\replace.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/replace.txt": {
       "size": 13485,
       "sha256": "38bfd8fc096dd0581d4213847c39ee51bc9b5ef3f63b9663900de8da2b091829"
     },
-    "languagetool-language-modules\\ru\\src\\main\\resources\\org\\languagetool\\rules\\ru\\wordrootrep.txt": {
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/wordrootrep.txt": {
       "size": 565589,
       "sha256": "a6c59703ddf81ae0bb8b1525455e48b055ca4865b351f279a7bb324499a239d5"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\RussianConcurrencyTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java": {
       "size": 1335,
       "sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\DateCheckFilterTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/DateCheckFilterTest.java": {
       "size": 2067,
       "sha256": "995d5a5c44fa80394ddee6278e279d0a04dec1047522fae3cba5e0401a657e22"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\LanguageSpecificSpellcheckerTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/LanguageSpecificSpellcheckerTest.java": {
       "size": 1174,
       "sha256": "b7873cd617a1c88da42e4f3ae2d7f6e28a4c98fce455d7eadce10cc544bc8e21"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\MorfologikRussianSpellerRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianSpellerRuleTest.java": {
       "size": 2307,
       "sha256": "9e6698d9c77db5def7dd5402954d8b1d4cbfd08a01d7736b62a30c1b5f769d62"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\MorfologikRussianYOSpellerRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRuleTest.java": {
       "size": 2346,
       "sha256": "8f0c995503f53b3300f9bb393fdf2472815392af8fa347d7b0ac6d1b22ada0dc"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianCompoundRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianCompoundRuleTest.java": {
       "size": 3447,
       "sha256": "0100a70daad3cae39a398dd2304e58c87153a84f3c49d1bcfb98326ec804cc3f"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianDashRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java": {
       "size": 3040,
       "sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianPatternRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianPatternRuleTest.java": {
       "size": 1163,
       "sha256": "aed0367fa0bc2a404efef54885bd31e254949fe15b66ec6e986a48d446782a02"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianSimpleReplaceRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSimpleReplaceRuleTest.java": {
       "size": 2054,
       "sha256": "eeae67ae0082331540613560250ecce1033aa0eb7f693c62624e76f0103d90a7"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianSpecificCaseRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSpecificCaseRuleTest.java": {
       "size": 2433,
       "sha256": "fd9140318292318209f138640bae60b899c2df7a333de30215c0567657e48440"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianTest.java": {
       "size": 1684,
       "sha256": "f79b1ad05d72bf54b860a7237bc944c031e2b554fd9549d64dca14183104abbd"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianUnpairedBracketsRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianUnpairedBracketsRuleTest.java": {
       "size": 2636,
       "sha256": "05d4f2dd486bc40556c368d4b2c6634a5da64a55e8e8944683609c496afc6d64"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianVerbConjugationRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianVerbConjugationRuleTest.java": {
       "size": 3205,
       "sha256": "c985c7d3045da2aea7df5b9dbdf5635decc457d9c06779212db45fdddd6743a7"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianWordCoherencyRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java": {
       "size": 3429,
       "sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\rules\\ru\\RussianWordRepeatRuleTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordRepeatRuleTest.java": {
       "size": 1768,
       "sha256": "0c3464fa95158b4e81b9e0cb2dc8d241f35b570bed487c37853c5c7f7812469e"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\synthesis\\ru\\RussianSynthesizerTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java": {
       "size": 1725,
       "sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\tagging\\ru\\RussianTaggerTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/tagging/ru/RussianTaggerTest.java": {
       "size": 3208,
       "sha256": "fcf14eaa3fa59d83d9180caa8d35c937717b5e6dd000f900006ee98c92ab3205"
     },
-    "languagetool-language-modules\\ru\\src\\test\\java\\org\\languagetool\\tokenizers\\ru\\RussianSRXSentenceTokenizerTest.java": {
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java": {
       "size": 2800,
       "sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c"
     }

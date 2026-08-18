@@ -21,24 +21,24 @@ import os
 import re
 import sys
 import xml.etree.ElementTree as ET
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 def get_default_upstream_dir() -> Path:
-    repo_root = Path(__file__).resolve().parent.parent
-    return repo_root / "third_party" / "languagetool"
+    return REPO_ROOT / "third_party" / "languagetool"
 
 
 def get_default_compat_dir() -> Path:
-    repo_root = Path(__file__).resolve().parent.parent
-    return repo_root / "compat"
+    return REPO_ROOT / "compat"
 
 
 def get_default_fixtures_dir() -> Path:
-    repo_root = Path(__file__).resolve().parent.parent
-    return repo_root / "tests" / "fixtures"
+    return REPO_ROOT / "tests" / "fixtures"
 
 
 def parse_example_element(
@@ -193,7 +193,6 @@ def extract_grammar_examples(grammar_path: Path) -> Dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "source_file": grammar_path.name,
-        "extracted_at": datetime.utcnow().isoformat() + "Z",
         "summary": {
             "total_examples": len(all_examples),
             "incorrect_examples": len(incorrect_examples),
@@ -206,7 +205,7 @@ def extract_grammar_examples(grammar_path: Path) -> Dict[str, Any]:
 
 
 def inventory_junit_tests(upstream_dir: Path) -> Dict[str, Any]:
-    """Inventory Russian JUnit test files in the upstream tree."""
+    """Inventory Russian JUnit test files in the upstream tree with POSIX paths."""
     test_src_dir = (
         upstream_dir
         / "languagetool-language-modules"
@@ -216,12 +215,12 @@ def inventory_junit_tests(upstream_dir: Path) -> Dict[str, Any]:
         / "java"
     )
     if not test_src_dir.exists():
-        return {"error": f"Test source dir not found: {test_src_dir}"}
+        raise FileNotFoundError(f"Test source dir not found: {test_src_dir}")
 
     test_files: List[Dict[str, Any]] = []
 
     for path in sorted(test_src_dir.rglob("*Test.java")):
-        rel_path = path.relative_to(upstream_dir).as_posix()
+        rel_posix = path.relative_to(upstream_dir).as_posix()
         content = path.read_text(encoding="utf-8")
 
         # Find test methods
@@ -260,7 +259,7 @@ def inventory_junit_tests(upstream_dir: Path) -> Dict[str, Any]:
 
         test_files.append({
             "file_name": name,
-            "rel_path": rel_path,
+            "rel_path": rel_posix,
             "size_bytes": path.stat().st_size,
             "has_test_annotation": has_test_annot,
             "test_methods": test_methods,
@@ -325,18 +324,21 @@ def main() -> int:
     # Save to compat/
     args.compat_dir.mkdir(parents=True, exist_ok=True)
     compat_examples_file = args.compat_dir / "extracted_grammar_examples.json"
-    with open(compat_examples_file, "w", encoding="utf-8") as f:
+    with open(compat_examples_file, "w", encoding="utf-8", newline="\n") as f:
         json.dump(extracted_examples, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
     compat_junit_file = args.compat_dir / "upstream_test_inventory.json"
-    with open(compat_junit_file, "w", encoding="utf-8") as f:
+    with open(compat_junit_file, "w", encoding="utf-8", newline="\n") as f:
         json.dump(junit_inventory, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
     # Also save fixture copy to tests/fixtures/
     args.fixtures_dir.mkdir(parents=True, exist_ok=True)
     fixture_examples_file = args.fixtures_dir / "extracted_grammar_examples.json"
-    with open(fixture_examples_file, "w", encoding="utf-8") as f:
+    with open(fixture_examples_file, "w", encoding="utf-8", newline="\n") as f:
         json.dump(extracted_examples, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
     print(f"Extracted {extracted_examples['summary']['total_examples']} grammar examples.")
     print(f"Saved examples to {compat_examples_file} and {fixture_examples_file}")

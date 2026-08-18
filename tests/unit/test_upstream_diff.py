@@ -58,9 +58,10 @@ def test_compare_inventories_detects_drift(compat_dir: Path):
     pinned = json.loads(inv_file.read_text(encoding="utf-8"))
     target = copy.deepcopy(pinned)
 
-    # Simulate drift
+    # Simulate drift in rules, filters, and language model rules
     target["summary"]["grammar_rules_total"] += 5
     target["russian_java"]["russian_specific_rules"].append("NewRussianRule")
+    target["russian_java"]["language_model_rules"].append("NewLMRule")
     target["filters_resolution"]["org.languagetool.rules.ru.NewFilter"] = {
         "status": "RESOLVED_IN_TREE"
     }
@@ -68,5 +69,6 @@ def test_compare_inventories_detects_drift(compat_dir: Path):
     diff = compare_inventories(pinned, target)
     assert diff["has_drift"] is True
     assert diff["summary_diff"]["changed"]["grammar_rules_total"]["target"] == pinned["summary"]["grammar_rules_total"] + 5
-    assert "NewRussianRule" in diff["java_rules_diff"]["russian_specific"]["added"]
+    assert "NewRussianRule" in diff["java_rules_diff"]["russian_specific_relevant"]["added"]
+    assert "NewLMRule" in diff["java_rules_diff"]["language_model"]["added"]
     assert "org.languagetool.rules.ru.NewFilter" in diff["xml_filters_diff"]["added"]

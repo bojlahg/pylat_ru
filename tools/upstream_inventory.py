@@ -16,21 +16,22 @@ import os
 import re
 import sys
 import xml.etree.ElementTree as ET
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Set
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 
 def get_default_upstream_dir() -> Path:
     """Return the default path to third_party/languagetool."""
-    repo_root = Path(__file__).resolve().parent.parent
-    return repo_root / "third_party" / "languagetool"
+    return REPO_ROOT / "third_party" / "languagetool"
 
 
 def get_default_output_path() -> Path:
     """Return the default path to compat/inventory.json."""
-    repo_root = Path(__file__).resolve().parent.parent
-    return repo_root / "compat" / "inventory.json"
+    return REPO_ROOT / "compat" / "inventory.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -42,8 +43,32 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def load_upstream_metadata(upstream_dir: Path) -> Dict[str, Any]:
+    """Load and strictly validate UPSTREAM.json metadata.
+
+    Raises:
+        FileNotFoundError: If UPSTREAM.json does not exist.
+        ValueError: If UPSTREAM.json is malformed or missing required fields.
+    """
+    upstream_json_path = upstream_dir / "UPSTREAM.json"
+    if not upstream_json_path.is_file():
+        raise FileNotFoundError(f"Missing required upstream metadata at {upstream_json_path}")
+
+    try:
+        data = json.loads(upstream_json_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise ValueError(f"Malformed UPSTREAM.json at {upstream_json_path}: {e}") from e
+
+    required_fields = ["pinned_commit", "pinned_tag", "upstream_repository", "files"]
+    missing = [f for f in required_fields if f not in data]
+    if missing:
+        raise ValueError(f"UPSTREAM.json is missing required fields: {missing}")
+
+    return data
+
+
 def scan_resource_files(upstream_dir: Path) -> Dict[str, Any]:
-    """Scan all Russian resource and rule files, recording paths, sizes, and hashes."""
+    """Scan all Russian resource and rule files, recording POSIX paths, sizes, and hashes."""
     ru_base = upstream_dir / "languagetool-language-modules" / "ru"
     resources: Dict[str, Any] = {}
 
@@ -52,22 +77,32 @@ def scan_resource_files(upstream_dir: Path) -> Dict[str, Any]:
 
     for path in sorted(ru_base.rglob("*")):
         if path.is_file():
-            rel_path = path.relative_to(upstream_dir).as_posix()
-            resources[rel_path] = {
+            rel_posix = path.relative_to(upstream_dir).as_posix()
+            resources[rel_posix] = {
                 "size_bytes": path.stat().st_size,
                 "sha256": sha256_file(path),
             }
 
     # Also include segment.srx if present
-    segment_srx = upstream_dir / "languagetool-core" / "src" / "main" / "resources" / "org" / "languagetool" / "resource" / "segment.srx"
+    segment_srx = (
+        upstream_dir
+        / "languagetool-core"
+        / "src"
+        / "main"
+        / "resources"
+        / "org"
+        / "languagetool"
+        / "resource"
+        / "segment.srx"
+    )
     if segment_srx.is_file():
-        rel = segment_srx.relative_to(upstream_dir).as_posix()
-        resources[rel] = {
+        rel_posix = segment_srx.relative_to(upstream_dir).as_posix()
+        resources[rel_posix] = {
             "size_bytes": segment_srx.stat().st_size,
             "sha256": sha256_file(segment_srx),
         }
 
-    return resources
+    return dict(sorted(resources.items()))
 
 
 def analyze_xml_structure(root: ET.Element) -> Dict[str, Any]:
@@ -78,7 +113,7 @@ def analyze_xml_structure(root: ET.Element) -> Dict[str, Any]:
     for elem in root.iter():
         tag = elem.tag
         tag_counts[tag] = tag_counts.get(tag, 0) + 1
-        for attr, val in elem.attrib.items():
+        for attr in sorted(elem.attrib.keys()):
             pair = f"{tag}@{attr}"
             attr_counts[pair] = attr_counts.get(pair, 0) + 1
 
@@ -91,7 +126,7 @@ def analyze_xml_structure(root: ET.Element) -> Dict[str, Any]:
 def analyze_grammar_xml(grammar_path: Path) -> Dict[str, Any]:
     """Analyze grammar.xml in detail."""
     if not grammar_path.is_file():
-        return {"error": f"File not found: {grammar_path}"}
+        raise FileNotFoundError(f"grammar.xml not found at {grammar_path}")
 
     tree = ET.parse(grammar_path)
     root = tree.getroot()
@@ -188,7 +223,7 @@ def analyze_grammar_xml(grammar_path: Path) -> Dict[str, Any]:
 def analyze_disambiguation_xml(disambig_path: Path) -> Dict[str, Any]:
     """Analyze disambiguation.xml in detail."""
     if not disambig_path.is_file():
-        return {"error": f"File not found: {disambig_path}"}
+        raise FileNotFoundError(f"disambiguation.xml not found at {disambig_path}")
 
     tree = ET.parse(disambig_path)
     root = tree.getroot()
@@ -227,18 +262,17 @@ def analyze_disambiguation_xml(disambig_path: Path) -> Dict[str, Any]:
 def analyze_russian_java(java_path: Path) -> Dict[str, Any]:
     """Parse Russian.java to extract enabled rules, pipeline components, and priority overrides."""
     if not java_path.is_file():
-        return {"error": f"File not found: {java_path}"}
+        raise FileNotFoundError(f"Russian.java not found at {java_path}")
 
     content = java_path.read_text(encoding="utf-8")
 
     # Extract rules from getRelevantRules
-    # Look for new RuleClass(...) in getRelevantRules block
     rel_rules_match = re.search(
         r"public List<Rule> getRelevantRules\([^)]*\)[^{]*\{(.*?)\n\s*\}",
         content,
         re.DOTALL,
     )
-    enabled_rule_classes: List[str] = []
+    relevant_rule_classes: List[str] = []
     if rel_rules_match:
         body = rel_rules_match.group(1)
         for line in body.splitlines():
@@ -248,13 +282,15 @@ def analyze_russian_java(java_path: Path) -> Dict[str, Any]:
             matches = re.findall(r"new\s+([A-Za-z0-9_]+)\s*\(", line)
             for m in matches:
                 if m not in ("Example", "Rule"):
-                    enabled_rule_classes.append(m)
+                    relevant_rule_classes.append(m)
 
-    # Classify into Russian-specific vs Generic
-    russian_specific_rules = [r for r in enabled_rule_classes if r.startswith("Russian") or r.startswith("Morfologik")]
-    generic_rules = [r for r in enabled_rule_classes if r not in russian_specific_rules]
+    # Classify relevant rules into Russian-specific vs Generic
+    russian_specific_rules = [
+        r for r in relevant_rule_classes if r.startswith("Russian") or r.startswith("Morfologik")
+    ]
+    generic_rules = [r for r in relevant_rule_classes if r not in russian_specific_rules]
 
-    # Extract language model rules
+    # Extract language model rules (getRelevantLanguageModelRules)
     lm_rules_match = re.search(
         r"public List<Rule> getRelevantLanguageModelRules\([^)]*\)[^{]*\{(.*?)\n\s*\}",
         content,
@@ -290,7 +326,10 @@ def analyze_russian_java(java_path: Path) -> Dict[str, Any]:
     synth_match = re.search(r"createDefaultSynthesizer\(\)[^{]*\{\s*return\s+([^;]+);", content)
     s_tok_match = re.search(r"createDefaultSentenceTokenizer\(\)[^{]*\{\s*return\s+([^;]+);", content)
     w_tok_match = re.search(r"createDefaultWordTokenizer\(\)[^{]*\{\s*return\s+([^;]+);", content)
-    ignored_chars_match = re.search(r"getIgnoredCharactersRegex\(\)[^{]*\{\s*return\s+Pattern\.compile\(\"([^\"]+)\"\);", content)
+    ignored_chars_match = re.search(
+        r"getIgnoredCharactersRegex\(\)[^{]*\{\s*return\s+Pattern\.compile\(\"([^\"]+)\"\);",
+        content,
+    )
 
     return {
         "file": java_path.name,
@@ -305,7 +344,14 @@ def analyze_russian_java(java_path: Path) -> Dict[str, Any]:
             "word_tokenizer": w_tok_match.group(1).strip() if w_tok_match else "RussianWordTokenizer",
             "ignored_characters_regex": ignored_chars_match.group(1) if ignored_chars_match else "[\\u00AD\\u0301\\u0300]",
         },
-        "enabled_rules_total": len(enabled_rule_classes),
+        "rule_accounting": {
+            "relevant_rules_total": len(relevant_rule_classes),
+            "russian_specific_relevant_rules_total": len(russian_specific_rules),
+            "generic_relevant_rules_total": len(generic_rules),
+            "language_model_rules_total": len(lm_rules),
+            "all_java_rules_total": len(relevant_rule_classes) + len(lm_rules),
+        },
+        "relevant_rules": relevant_rule_classes,
         "russian_specific_rules": russian_specific_rules,
         "generic_rules_enabled": generic_rules,
         "language_model_rules": lm_rules,
@@ -322,8 +368,6 @@ def resolve_filters(
     java_src_root = upstream_dir / "languagetool-language-modules" / "ru" / "src" / "main" / "java"
 
     for filter_cls in sorted(filters_used):
-        # Convert package notation to relative path
-        rel_java = filter_cls.replace(".", "/") + ".java"
         # Check within Russian module
         ru_subpath = Path("org/languagetool/rules/ru") / (filter_cls.split(".")[-1] + ".java")
         full_candidate = java_src_root / ru_subpath
@@ -341,26 +385,17 @@ def resolve_filters(
                 "notes": f"Filter class {filter_cls} could not be located in Russian Java source directory",
             }
 
-    return resolved
+    return dict(sorted(resolved.items()))
 
 
 def generate_inventory(upstream_dir: Path | None = None) -> Dict[str, Any]:
-    """Generate complete Russian upstream inventory dictionary."""
+    """Generate complete, deterministic Russian upstream inventory dictionary."""
     if upstream_dir is None:
         upstream_dir = get_default_upstream_dir()
 
-    upstream_json_path = upstream_dir / "UPSTREAM.json"
-    upstream_meta: Dict[str, Any] = {}
-    if upstream_json_path.is_file():
-        try:
-            upstream_meta = json.loads(upstream_json_path.read_text(encoding="utf-8"))
-        except Exception:
-            pass
+    upstream_meta = load_upstream_metadata(upstream_dir)
 
-    pinned_commit = upstream_meta.get("pinned_commit", "e807fcde6a6506191e1470744d2345da28c26be6")
-    pinned_tag = upstream_meta.get("pinned_tag", "v6.8")
-
-    # Resource files scan
+    # Resource files scan (POSIX paths, sorted)
     resources = scan_resource_files(upstream_dir)
 
     # grammar.xml
@@ -411,7 +446,7 @@ def generate_inventory(upstream_dir: Path | None = None) -> Dict[str, Any]:
     java_analysis = analyze_russian_java(java_path)
 
     # Combine all filters
-    all_filters = set()
+    all_filters: Set[str] = set()
     if isinstance(grammar_analysis.get("filters_referenced"), dict):
         all_filters.update(grammar_analysis["filters_referenced"].keys())
     if isinstance(disambig_analysis.get("filters_referenced"), dict):
@@ -423,26 +458,29 @@ def generate_inventory(upstream_dir: Path | None = None) -> Dict[str, Any]:
         cls for cls, info in filters_resolution.items() if info["status"] != "RESOLVED_IN_TREE"
     ]
 
+    rule_acct = java_analysis["rule_accounting"]
+
     inventory: Dict[str, Any] = {
         "schema_version": "1.0.0",
-        "generated_at": datetime.utcnow().isoformat() + "Z",
         "pinned_upstream": {
-            "repository": "https://github.com/languagetool-org/languagetool.git",
-            "tag": pinned_tag,
-            "commit": pinned_commit,
-            "commit_date": upstream_meta.get("commit_date", "2026-05-05T15:03:23Z"),
+            "repository": upstream_meta["upstream_repository"],
+            "tag": upstream_meta["pinned_tag"],
+            "commit": upstream_meta["pinned_commit"],
+            "commit_date": upstream_meta["commit_date"],
         },
         "summary": {
             "total_vendored_resources": len(resources),
-            "grammar_rules_total": grammar_analysis.get("total_rule_count", 0),
-            "grammar_rulegroups_total": grammar_analysis.get("rulegroup_count", 0),
-            "grammar_categories_total": grammar_analysis.get("category_count", 0),
-            "grammar_examples_total": grammar_analysis.get("examples_summary", {}).get("total_examples", 0),
-            "disambiguation_rules_total": disambig_analysis.get("total_rule_count", 0),
-            "disambiguation_rulegroups_total": disambig_analysis.get("rulegroup_count", 0),
-            "enabled_java_rules_total": java_analysis.get("enabled_rules_total", 0),
-            "russian_specific_java_rules_total": len(java_analysis.get("russian_specific_rules", [])),
-            "generic_java_rules_total": len(java_analysis.get("generic_rules_enabled", [])),
+            "grammar_rules_total": grammar_analysis["total_rule_count"],
+            "grammar_rulegroups_total": grammar_analysis["rulegroup_count"],
+            "grammar_categories_total": grammar_analysis["category_count"],
+            "grammar_examples_total": grammar_analysis["examples_summary"]["total_examples"],
+            "disambiguation_rules_total": disambig_analysis["total_rule_count"],
+            "disambiguation_rulegroups_total": disambig_analysis["rulegroup_count"],
+            "relevant_java_rules_total": rule_acct["relevant_rules_total"],
+            "russian_specific_relevant_rules_total": rule_acct["russian_specific_relevant_rules_total"],
+            "generic_relevant_rules_total": rule_acct["generic_relevant_rules_total"],
+            "language_model_rules_total": rule_acct["language_model_rules_total"],
+            "all_java_rules_total": rule_acct["all_java_rules_total"],
             "xml_filters_total": len(all_filters),
             "unresolved_filters_count": len(unresolved_filters),
         },
@@ -476,7 +514,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Check existing inventory without modifying",
+        help="Check existing inventory without modifying; compares entire inventory for exact match",
     )
 
     args = parser.parse_args()
@@ -488,18 +526,22 @@ def main() -> int:
             print(f"Error: Inventory file {args.output} does not exist.", file=sys.stderr)
             return 1
         existing = json.loads(args.output.read_text(encoding="utf-8"))
-        # Compare key metrics
-        if inventory["summary"] != existing.get("summary"):
-            print("Inventory mismatch detected!", file=sys.stderr)
+        if inventory != existing:
+            # Report first differences
+            print("Error: Inventory mismatch detected between generated inventory and disk!", file=sys.stderr)
+            for k in inventory.keys():
+                if inventory.get(k) != existing.get(k):
+                    print(f"  Difference in section: {k}", file=sys.stderr)
             return 1
-        print("Inventory is up to date.")
+        print("Inventory is up to date (exact match).")
         return 0
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    with open(args.output, "w", encoding="utf-8") as f:
+    with open(args.output, "w", encoding="utf-8", newline="\n") as f:
         json.dump(inventory, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
-    print(f"Wrote inventory to {args.output}")
+    print(f"Wrote deterministic inventory to {args.output}")
     print(f"Summary: {json.dumps(inventory['summary'], indent=2)}")
     return 0
 

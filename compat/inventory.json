@@ -1,6 +1,5 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-08-18T21:27:17.198242Z",
   "pinned_upstream": {
     "repository": "https://github.com/languagetool-org/languagetool.git",
     "tag": "v6.8",
@@ -15,9 +14,11 @@
     "grammar_examples_total": 2446,
     "disambiguation_rules_total": 77,
     "disambiguation_rulegroups_total": 11,
-    "enabled_java_rules_total": 23,
-    "russian_specific_java_rules_total": 13,
-    "generic_java_rules_total": 10,
+    "relevant_java_rules_total": 23,
+    "russian_specific_relevant_rules_total": 13,
+    "generic_relevant_rules_total": 10,
+    "language_model_rules_total": 1,
+    "all_java_rules_total": 24,
     "xml_filters_total": 7,
     "unresolved_filters_count": 0
   },
@@ -308,7 +309,38 @@
       "word_tokenizer": "new RussianWordTokenizer()",
       "ignored_characters_regex": "[\\u00AD\\u0301\\u0300]"
     },
-    "enabled_rules_total": 23,
+    "rule_accounting": {
+      "relevant_rules_total": 23,
+      "russian_specific_relevant_rules_total": 13,
+      "generic_relevant_rules_total": 10,
+      "language_model_rules_total": 1,
+      "all_java_rules_total": 24
+    },
+    "relevant_rules": [
+      "CommaWhitespaceRule",
+      "UppercaseSentenceStartRule",
+      "MorfologikRussianSpellerRule",
+      "MultipleWhitespaceRule",
+      "SentenceWhitespaceRule",
+      "WhiteSpaceBeforeParagraphEnd",
+      "WhiteSpaceAtBeginOfParagraph",
+      "LongSentenceRule",
+      "LongParagraphRule",
+      "ParagraphRepeatBeginningRule",
+      "RussianFillerWordsRule",
+      "PunctuationMarkAtParagraphEnd2",
+      "MorfologikRussianYOSpellerRule",
+      "RussianUnpairedBracketsRule",
+      "RussianCompoundRule",
+      "RussianSimpleReplaceRule",
+      "RussianSimpleWordRepeatRule",
+      "RussianWordCoherencyRule",
+      "RussianWordRepeatRule",
+      "RussianWordRootRepeatRule",
+      "RussianVerbConjugationRule",
+      "RussianDashRule",
+      "RussianSpecificCaseRule"
+    ],
     "russian_specific_rules": [
       "MorfologikRussianSpellerRule",
       "RussianFillerWordsRule",
@@ -390,6 +422,10 @@
   },
   "unresolved_filters": [],
   "resources_manifest": {
+    "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
+      "size_bytes": 213633,
+      "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+    },
     "languagetool-language-modules/ru/pom.xml": {
       "size_bytes": 2752,
       "sha256": "a13bf1d41223cfec41e2b7a0bec991d3e469de6acdeb0744881cf0a30e3bfba2"
@@ -514,6 +550,10 @@
       "size_bytes": 46877,
       "sha256": "5d3f2e2ce573e56d45766faee6a06b1bd396f58cccda97b1964fd3c34a5f2b5f"
     },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/README.txt": {
+      "size_bytes": 711,
+      "sha256": "ff130639a81e6843c6a5662499510e75dc0c26d6cb1cfb19844f8c8dbbe4383d"
+    },
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/added.txt": {
       "size_bytes": 92745,
       "sha256": "4748f15da5cf97095e4d96dda3a3431028c660ff2456c30f143162616d0d8b40"
@@ -538,6 +578,10 @@
       "size_bytes": 47039,
       "sha256": "088da5e49938e7f4b1251e4de29de059822ab7e9fc299b07fbeca970b73d0f18"
     },
+    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/README.txt": {
+      "size_bytes": 699,
+      "sha256": "ee6d4c22cbd2c4f27e987cacfbe41f245cf451a2371d11aad052c2096d88fc94"
+    },
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/freq-wordlist.awk": {
       "size_bytes": 175,
       "sha256": "596c2d0013e82e626ae4a4214312f028db3b62828a6dd17e30b36d41d9a3c21a"
@@ -561,10 +605,6 @@
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/prohibit.txt": {
       "size_bytes": 868,
       "sha256": "fb56a59b07d43fc0543e6e39d845cfc0d2674438bde628efca7fba93b4f1bcae"
-    },
-    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/README.txt": {
-      "size_bytes": 699,
-      "sha256": "ee6d4c22cbd2c4f27e987cacfbe41f245cf451a2371d11aad052c2096d88fc94"
     },
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU.dict": {
       "size_bytes": 1889147,
@@ -593,10 +633,6 @@
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/multiwords.txt": {
       "size_bytes": 5289,
       "sha256": "b802c6c9cb5a251348f0b392e4167c5e12543a44b04f3ce616e4253bc8af4e06"
-    },
-    "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/README.txt": {
-      "size_bytes": 711,
-      "sha256": "ff130639a81e6843c6a5662499510e75dc0c26d6cb1cfb19844f8c8dbbe4383d"
     },
     "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/removed.txt": {
       "size_bytes": 3205,
@@ -662,6 +698,10 @@
       "size_bytes": 565589,
       "sha256": "a6c59703ddf81ae0bb8b1525455e48b055ca4865b351f279a7bb324499a239d5"
     },
+    "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java": {
+      "size_bytes": 1335,
+      "sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254"
+    },
     "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/DateCheckFilterTest.java": {
       "size_bytes": 2067,
       "sha256": "995d5a5c44fa80394ddee6278e279d0a04dec1047522fae3cba5e0401a657e22"
@@ -718,10 +758,6 @@
       "size_bytes": 1768,
       "sha256": "0c3464fa95158b4e81b9e0cb2dc8d241f35b570bed487c37853c5c7f7812469e"
     },
-    "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java": {
-      "size_bytes": 1335,
-      "sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254"
-    },
     "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java": {
       "size_bytes": 1725,
       "sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d"
@@ -733,10 +769,6 @@
     "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java": {
       "size_bytes": 2800,
       "sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c"
-    },
-    "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
-      "size_bytes": 213633,
-      "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
     }
   }
 }

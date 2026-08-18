@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary
 
-Task 0001 establishes the reproducible foundation for `pylat_ru` without implementing the linguistic engine or checker prematurely. The exact LanguageTool upstream revision has been pinned, all 88 Russian language assets have been vendored with verified SHA-256 digests and LGPL-2.1 licensing, full machine-readable inventories of XML constructs, filter classes, Java rules, and JUnit tests have been extracted, an upstream drift detector and differential test harness have been implemented, and a 27-test unit test suite verifies tooling and runtime isolation.
+Task 0001 establishes the reproducible foundation for `pylat_ru` without implementing the linguistic engine or checker prematurely. The exact LanguageTool upstream revision has been pinned, all 88 Russian language assets have been vendored with verified SHA-256 digests and LGPL-2.1 licensing, full machine-readable inventories of XML constructs, filter classes, Java rules, and JUnit tests have been extracted, an upstream drift detector and differential test harness have been implemented, all manifests and tools are 100% platform-independent (using POSIX path formatting), and a 33-test unit test suite verifies tooling, determinism, and runtime isolation.
 
 ## 2. Pinned Upstream Revision
 
@@ -11,10 +11,12 @@ Task 0001 establishes the reproducible foundation for `pylat_ru` without impleme
 - **Pinned Commit SHA:** `e807fcde6a6506191e1470744d2345da28c26be6`
 - **Commit Date:** `2026-05-05T15:03:23Z`
 - **Selection Rationale:** `v6.8` is the latest stable official release tag of LanguageTool, providing the latest Russian grammar rules, dictionary definitions, and test coverage.
+- **Error Handling:** `tools/upstream_inventory.py` strictly verifies `UPSTREAM.json` integrity and fails explicitly with clear `FileNotFoundError` or `ValueError` if metadata is missing, malformed, or incomplete.
 
 ## 3. Vendored Assets & License Inventory
 
 - **Total Vendored Files:** 88
+- **Path Format:** 100% normalized POSIX `/` format across all manifests and inventories (`UPSTREAM.json`, `license_inventory.json`, `inventory.json`, `upstream_test_inventory.json`).
 - **License Status:**
   - `VERIFIED_LGPL` (LGPL-2.1-or-later): 88 files
   - `BLOCKED_LICENSE_REVIEW`: 0 files
@@ -33,7 +35,7 @@ Task 0001 establishes the reproducible foundation for `pylat_ru` without impleme
 
 ## 4. Russian Feature & Compatibility Inventory
 
-Generated deterministically by `tools/upstream_inventory.py` into `compat/inventory.json`:
+Generated deterministically by `tools/upstream_inventory.py` into `compat/inventory.json` (running multiple times produces byte-identical output without dynamic volatile timestamps; `--check` performs a full structural comparison):
 
 ### 4.1 Rule & Resource Counts
 - **Resource Files Tracked:** 88
@@ -64,34 +66,35 @@ Generated deterministically by `tools/upstream_inventory.py` into `compat/invent
 7. `org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter` (disambiguation.xml)
 - **Unresolved Filter Classes:** 0
 
-### 4.4 Russian Java Rules
-- **Enabled Java Rules Total:** 23
-  - **Russian-Specific Rules (13):**
-    - `MorfologikRussianSpellerRule`
-    - `MorfologikRussianYOSpellerRule` (disabled by default)
-    - `RussianUnpairedBracketsRule`
-    - `RussianCompoundRule`
-    - `RussianSimpleReplaceRule`
-    - `RussianSimpleWordRepeatRule`
-    - `RussianWordCoherencyRule`
-    - `RussianWordRepeatRule`
-    - `RussianWordRootRepeatRule`
-    - `RussianVerbConjugationRule`
-    - `RussianDashRule`
-    - `RussianSpecificCaseRule`
-    - `RussianFillerWordsRule`
-  - **Generic LanguageTool Rules Enabled for Russian (10):**
-    - `CommaWhitespaceRule`
-    - `UppercaseSentenceStartRule`
-    - `MultipleWhitespaceRule`
-    - `SentenceWhitespaceRule`
-    - `WhiteSpaceBeforeParagraphEnd`
-    - `WhiteSpaceAtBeginOfParagraph`
-    - `LongSentenceRule`
-    - `LongParagraphRule`
-    - `ParagraphRepeatBeginningRule`
-    - `PunctuationMarkAtParagraphEnd2`
-  - **Language Model Rules (1):**
+### 4.4 Russian Java Rule Accounting
+- **Total Java Rules:** 24
+  - **Relevant Rules (`getRelevantRules()`):** 23
+    - **Russian-Specific Relevant Rules (13):**
+      - `MorfologikRussianSpellerRule`
+      - `MorfologikRussianYOSpellerRule` (disabled by default)
+      - `RussianUnpairedBracketsRule`
+      - `RussianCompoundRule`
+      - `RussianSimpleReplaceRule`
+      - `RussianSimpleWordRepeatRule`
+      - `RussianWordCoherencyRule`
+      - `RussianWordRepeatRule`
+      - `RussianWordRootRepeatRule`
+      - `RussianVerbConjugationRule`
+      - `RussianDashRule`
+      - `RussianSpecificCaseRule`
+      - `RussianFillerWordsRule`
+    - **Generic LanguageTool Rules Enabled for Russian (10):**
+      - `CommaWhitespaceRule`
+      - `UppercaseSentenceStartRule`
+      - `MultipleWhitespaceRule`
+      - `SentenceWhitespaceRule`
+      - `WhiteSpaceBeforeParagraphEnd`
+      - `WhiteSpaceAtBeginOfParagraph`
+      - `LongSentenceRule`
+      - `LongParagraphRule`
+      - `ParagraphRepeatBeginningRule`
+      - `PunctuationMarkAtParagraphEnd2`
+  - **Language Model Rules (`getRelevantLanguageModelRules()`):** 1
     - `RussianConfusionProbabilityRule`
 - **Priority Overrides Extracted:**
   - `RU_DASH_RULE`: 12
@@ -108,35 +111,36 @@ Generated deterministically by `tools/upstream_inventory.py` into `compat/invent
 
 Tool: `tools/extract_upstream_tests.py`
 Artifacts generated:
-- `compat/extracted_grammar_examples.json` & `tests/fixtures/extracted_grammar_examples.json`: 2,446 structured example test cases with exact marker spans, offsets, lengths, corrections, rule IDs, and categories.
-- `compat/upstream_test_inventory.json`: 18 Russian JUnit test files with 21 `@Test` annotations categorized by component target and porting strategy (mechanical vs semantic port).
+- `compat/extracted_grammar_examples.json` & `tests/fixtures/extracted_grammar_examples.json`: 2,446 structured example test cases with exact marker spans, offsets, lengths, corrections, rule IDs, and categories (deterministic, newline-terminated).
+- `compat/upstream_test_inventory.json`: 18 Russian JUnit test files with 21 `@Test` annotations categorized by component target and porting strategy (mechanical vs semantic port, all POSIX paths).
 
 ## 6. Tooling Created
 
-1. `tools/upstream_inventory.py`: Generates complete machine-readable `compat/inventory.json`.
+1. `tools/upstream_inventory.py`: Generates deterministic machine-readable `compat/inventory.json` with strict `UPSTREAM.json` validation, POSIX paths, full-structure `--check`, and Java rule accounting.
 2. `tools/extract_upstream_tests.py`: Extracts XML grammar examples and catalogs JUnit test sources.
 3. `tools/differential_lt.py`: Development-only differential oracle harness for comparing findings against Java LanguageTool. Cleanly isolated from library runtime.
-4. `tools/upstream_diff.py`: Drift detector comparing pinned surface against another tree/revision.
+4. `tools/upstream_diff.py`: Drift detector comparing pinned surface against another tree/revision across resources, XML tags/attributes, filters, and Java rules (relevant and language-model).
 
 ## 7. Compatibility Matrix Baseline
 
 File: `compat/compatibility.json`
 - Milestone: `0001_project_foundation_upstream_inventory`
 - State: `FOUNDATION_ESTABLISHED`
+- Java rules accurately classified (23 relevant + 1 language model = 24 total).
 - Unimplemented components honestly reported at 0% / `NOT_YET_IMPLEMENTED`.
 
 ## 8. Test Execution & Verification
 
 Run: `python -m pytest`
-Results: **27 passed in 0.16s**
+Results: **33 passed in 0.30s**
 
 Test modules:
 - `tests/unit/test_foundation.py` (4 tests): package import, metadata, `LanguageToolRU` stub, clean process isolation.
-- `tests/unit/test_inventory.py` (6 tests): XML structure analysis, grammar analysis, disambiguation analysis, filter resolution, full tree inventory, file consistency.
-- `tests/unit/test_test_extraction.py` (6 tests): example parsing with markers/corrections, fixture extraction, upstream extraction, JUnit cataloguing.
-- `tests/unit/test_upstream_diff.py` (5 tests): dict/set diffs, zero drift on self, mutation drift detection.
+- `tests/unit/test_inventory.py` (10 tests): `UPSTREAM.json` validation (missing, malformed, incomplete), XML structure analysis, grammar analysis, disambiguation analysis, Java rule accounting (23 relevant + 1 LM), filter resolution, full tree inventory, deterministic generation, full-structure consistency check.
+- `tests/unit/test_test_extraction.py` (6 tests): example parsing with markers/corrections, fixture extraction, upstream extraction, JUnit cataloguing with POSIX path assertions.
+- `tests/unit/test_upstream_diff.py` (5 tests): dict/set diffs, zero drift on self, mutation drift detection on rules, filters, and LM rules.
 - `tests/unit/test_differential_boundary.py` (4 tests): Finding dataclass, exact matches, mismatch reporting, oracle isolation/error handling.
-- `tests/unit/test_license_inventory.py` (2 tests): `UPSTREAM.json` hash integrity, `license_inventory.json` zero blocked items.
+- `tests/unit/test_license_inventory.py` (2 tests): `UPSTREAM.json` hash integrity with POSIX paths, `license_inventory.json` platform-independence and zero blocked items.
 
 ## 9. Known Limitations & Blocked Items
 

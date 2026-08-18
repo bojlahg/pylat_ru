@@ -61,7 +61,7 @@ def test_parse_example_element_with_corrections():
 
 def test_parse_example_element_correct():
     """Test parsing a correct example without markers."""
-    xml_str = "<example type=\"correct\">Это правильное предложение.</example>"
+    xml_str = '<example type="correct">Это правильное предложение.</example>'
     elem = ET.fromstring(xml_str)
     parsed = parse_example_element(
         example_elem=elem,
@@ -103,13 +103,17 @@ def test_extracted_grammar_examples_pinned_upstream(compat_dir: Path):
     assert len(data["examples"]) == 2446
 
 
-def test_inventory_junit_tests_pinned_upstream(third_party_dir: Path, compat_dir: Path):
-    """Verify JUnit test inventory on pinned upstream tree."""
+def test_inventory_junit_tests_pinned_upstream_and_posix_paths(third_party_dir: Path):
+    """Verify JUnit test inventory on pinned upstream tree with POSIX paths."""
     res = inventory_junit_tests(third_party_dir)
     assert res["total_test_files"] == 18
     assert res["total_test_methods"] == 21
 
-    # Check that key tests are catalogued
+    # Check that all paths are pure POSIX
+    for tf in res["test_files"]:
+        assert "\\" not in tf["rel_path"], f"Non-POSIX path in test inventory: {tf['rel_path']}"
+
+    # Check key tests catalogued
     file_names = [tf["file_name"] for tf in res["test_files"]]
     assert "RussianPatternRuleTest.java" in file_names
     assert "RussianTaggerTest.java" in file_names
