@@ -13,7 +13,7 @@ from pylat_ru.morfologik.errors import (
     UnsupportedEncodingError,
     UnsupportedFSAFormatError,
 )
-from pylat_ru.morfologik.fsa import CFSA2, FSA, read_fsa
+from pylat_ru.morfologik.fsa import CFSA2, FSA, ByteSequenceIterator, read_fsa
 from pylat_ru.morfologik.metadata import DictionaryMetadata
 from pylat_ru.morfologik.sequence_encoder import (
     SequenceEncoder,
@@ -22,8 +22,10 @@ from pylat_ru.morfologik.sequence_encoder import (
 )
 
 __all__ = [
+    "ByteSequenceIterator",
     "CFSA2",
     "CorruptedFSAError",
+
     "DictionaryEntry",
     "DictionaryMetadata",
     "FSA",

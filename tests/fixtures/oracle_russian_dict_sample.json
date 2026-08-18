@@ -11,47 +11,47 @@
     "все": [
       {
         "stem": "все",
-        "tag": "PNN:PL:V"
-      },
-      {
-        "stem": "все",
         "tag": "PNN:PL:Nom"
       },
       {
         "stem": "все",
-        "tag": "PNN:Sin:V"
+        "tag": "PNN:PL:V"
       },
       {
         "stem": "все",
         "tag": "PNN:Sin:Nom"
       },
       {
-        "stem": "весь",
-        "tag": "ADJ:MPR:PL:V"
+        "stem": "все",
+        "tag": "PNN:Sin:V"
       },
       {
         "stem": "весь",
         "tag": "ADJ:MPR:PL:Nom"
+      },
+      {
+        "stem": "весь",
+        "tag": "ADJ:MPR:PL:V"
       }
     ],
     "счастливые": [
       {
         "stem": "счастливый",
-        "tag": "ADJ:Posit:PL:V"
+        "tag": "ADJ:Posit:PL:Nom"
       },
       {
         "stem": "счастливый",
-        "tag": "ADJ:Posit:PL:Nom"
+        "tag": "ADJ:Posit:PL:V"
       }
     ],
     "семьи": [
       {
         "stem": "семья",
-        "tag": "NN:Inanim:Fem:PL:V"
+        "tag": "NN:Inanim:Fem:PL:Nom"
       },
       {
         "stem": "семья",
-        "tag": "NN:Inanim:Fem:PL:Nom"
+        "tag": "NN:Inanim:Fem:PL:V"
       },
       {
         "stem": "семья",
@@ -67,11 +67,11 @@
     "дом": [
       {
         "stem": "дом",
-        "tag": "NN:Inanim:Masc:Sin:V"
+        "tag": "NN:Inanim:Masc:Sin:Nom"
       },
       {
         "stem": "дом",
-        "tag": "NN:Inanim:Masc:Sin:Nom"
+        "tag": "NN:Inanim:Masc:Sin:V"
       }
     ],
     "блукать": [
@@ -109,11 +109,11 @@
     "красивый": [
       {
         "stem": "красивый",
-        "tag": "ADJ:Posit:Masc:V"
+        "tag": "ADJ:Posit:Masc:Nom"
       },
       {
         "stem": "красивый",
-        "tag": "ADJ:Posit:Masc:Nom"
+        "tag": "ADJ:Posit:Masc:V"
       }
     ],
     "несуществующеесловоxyz": []

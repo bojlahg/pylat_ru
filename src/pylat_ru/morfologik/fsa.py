@@ -1,7 +1,7 @@
 """src/pylat_ru/morfologik/fsa.py
 
 Native Python finite state automaton (FSA) reader and traversal engine.
-Implements Morfologik CFSA2 (Compact Finite State Automaton version 2, magic '\fsa', version 0xc6).
+Implements Morfologik CFSA2 (Compact Finite State Automaton version 2, magic '\\fsa', version 0xc6).
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 import struct
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import BinaryIO, Iterator, List, Optional, Set, Tuple, Union
+from typing import BinaryIO, Iterator, List, Optional, Tuple, Union
 
 from pylat_ru.morfologik.errors import CorruptedFSAError, UnsupportedFSAFormatError
 
@@ -21,6 +21,13 @@ NO_MATCH = 0
 EXACT_MATCH = 1
 AUTOMATON_HAS_PREFIX = 2
 SEQUENCE_IS_A_PREFIX = 3
+
+# Supported FSA flags for CFSA2
+FLAG_FLEXIBLE = 1 << 0  # 0x0001
+FLAG_STOPBIT = 1 << 1   # 0x0002
+FLAG_NEXTBIT = 1 << 2   # 0x0004
+FLAG_NUMBERS = 1 << 3   # 0x0008 (intentionally unsupported)
+SUPPORTED_FLAGS = FLAG_FLEXIBLE | FLAG_STOPBIT | FLAG_NEXTBIT  # 0x0007
 
 
 class FSA(ABC):
@@ -68,8 +75,56 @@ class FSA(ABC):
 
     @abstractmethod
     def get_sequences(self, node: Optional[int] = None) -> Iterator[bytes]:
-        """Iterate over all suffix byte sequences reachable from a node."""
+        """Iterate over all suffix byte sequences reachable from a node in Morfologik DFS order."""
         ...
+
+
+class ByteSequenceIterator(Iterator[bytes]):
+    """Traverse all suffix sequences reachable from a node in exact Morfologik DFS order."""
+
+    def __init__(self, fsa: FSA, node: Optional[int] = None) -> None:
+        self.fsa = fsa
+        self.arcs: List[int] = []
+        self.buffer = bytearray()
+        self.position = 0
+        start = fsa.get_root_node() if node is None else node
+        if start != 0 and fsa.get_first_arc(start) != 0:
+            self._push_node(start)
+
+    def _push_node(self, node: int) -> None:
+        first_arc = self.fsa.get_first_arc(node)
+        if self.position == len(self.arcs):
+            self.arcs.append(first_arc)
+            self.buffer.append(0)
+        else:
+            self.arcs[self.position] = first_arc
+        self.position += 1
+
+    def __iter__(self) -> Iterator[bytes]:
+        return self
+
+    def __next__(self) -> bytes:
+        while self.position > 0:
+            last_index = self.position - 1
+            arc = self.arcs[last_index]
+
+            if arc == 0:
+                self.position -= 1
+                continue
+
+            self.arcs[last_index] = self.fsa.get_next_arc(arc)
+
+            if last_index >= len(self.buffer):
+                self.buffer.extend([0] * (last_index - len(self.buffer) + 1))
+            self.buffer[last_index] = self.fsa.get_arc_label(arc)
+
+            if not self.fsa.is_arc_terminal(arc):
+                self._push_node(self.fsa.get_end_node(arc))
+
+            if self.fsa.is_arc_final(arc):
+                return bytes(self.buffer[:last_index + 1])
+
+        raise StopIteration
 
 
 class CFSA2(FSA):
@@ -95,11 +150,20 @@ class CFSA2(FSA):
         label_mapping: bytes,
         source_name: str = "<memory>",
     ) -> None:
+        # Validate flags explicitly against supported boundary
+        if (flags & FLAG_NUMBERS) != 0:
+            raise UnsupportedFSAFormatError(
+                f"FSA flag NUMBERS (0x0008, perfect hashing) in {source_name} is unsupported."
+            )
+        if flags != SUPPORTED_FLAGS:
+            raise UnsupportedFSAFormatError(
+                f"Unsupported FSA flags 0x{flags:04x} in {source_name}. Supported flags: 0x{SUPPORTED_FLAGS:04x}."
+            )
+
         self.arcs = arcs
         self.flags = flags
         self.label_mapping = label_mapping
         self.source_name = source_name
-        self.has_numbers = bool(flags & 0x0008)
         self._arcs_len = len(arcs)
         self._root_node = self._init_root_node()
 
@@ -152,8 +216,6 @@ class CFSA2(FSA):
         return curr + 1
 
     def get_first_arc(self, node: int) -> int:
-        if self.has_numbers:
-            return self._skip_vint(node)
         return node
 
     def is_arc_last(self, arc: int) -> bool:
@@ -269,41 +331,8 @@ class CFSA2(FSA):
         return SEQUENCE_IS_A_PREFIX, seq_len, node
 
     def get_sequences(self, node: Optional[int] = None) -> Iterator[bytes]:
-        """Iterate over all suffix sequences reachable from `node` in deterministic order."""
-        start = self._root_node if node is None else node
-        if start == 0:
-            return
-
-        # Stack contains tuples of (arc, current_path_buffer)
-        # We pre-allocate or manage DFS stack efficiently
-        stack: List[Tuple[int, bytes]] = []
-        first_arc = self.get_first_arc(start)
-        if first_arc != 0:
-            stack.append((first_arc, b""))
-
-        while stack:
-            arc, path = stack.pop()
-            if arc == 0:
-                continue
-
-            # Collect all sibling arcs of the current node to maintain left-to-right order
-            curr_arc = arc
-            sibling_arcs: List[int] = []
-            while curr_arc != 0:
-                sibling_arcs.append(curr_arc)
-                curr_arc = self.get_next_arc(curr_arc)
-
-            # Push sibling arcs in reverse order so the first arc is popped and processed first
-            for a in reversed(sibling_arcs):
-                lbl = self.get_arc_label(a)
-                new_path = path + bytes([lbl])
-                if self.is_arc_final(a):
-                    yield new_path
-                dest = self.get_destination_node_offset(a)
-                if dest != 0:
-                    dest_first = self.get_first_arc(dest)
-                    if dest_first != 0:
-                        stack.append((dest_first, new_path))
+        """Iterate over all suffix sequences reachable from `node` in exact Morfologik DFS order."""
+        return ByteSequenceIterator(self, node)
 
 
 def read_fsa(source: Union[bytes, BinaryIO, Path, str]) -> FSA:

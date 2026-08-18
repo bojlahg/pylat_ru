@@ -6,6 +6,13 @@ Task 0002 has established the pure Python foundation for reading, traversing, an
 
 All operations execute in native Python with **zero Java/JRE, zero daemon/server, and zero external NLP runtime dependencies** (such as Natasha or pymorphy).
 
+Review findings addressed:
+- Exact Morfologik `ByteSequenceIterator` DFS traversal state machine in `CFSA2.get_sequences()` (immediate child descent before siblings).
+- Synthetic FSA regression test verifying exact DFS sibling/child/final order (`a`, `ab`, `c`).
+- Full binary dictionary graph validation against `tags_russian.txt` proving 100% tag coverage parity (0 missing tags).
+- Complete structural/deterministic dynamic regeneration test for `compat/russian_tagset.json`.
+- Strict FSA flag validation rejecting `NUMBERS` (`0x0008`) and unknown flags.
+
 ---
 
 ## 2. Upstream Pin & Reference Versions
@@ -45,15 +52,16 @@ src/pylat_ru/
     errors.py            # Explicit error classes (UnsupportedFSAFormatError, CorruptedFSAError, etc.)
     metadata.py          # DictionaryMetadata parser and validator (.info)
     sequence_encoder.py  # TrimSuffixEncoder (SUFFIX) byte transformation decoder/encoder
-    fsa.py               # CFSA2 binary FSA reader, traversal, and sequence enumerator
+    fsa.py               # CFSA2 binary FSA reader, ByteSequenceIterator, and traversal
     dictionary.py        # MorfologikDictionary and DictionaryEntry lookup APIs
   tagset.py              # Lossless RussianTag dataclass, POS prefixes, structured views
 ```
 
 ### Key Architectural Decisions:
-1. **Zero Full Expansion**: Dictionaries are loaded once per instance as compact binary buffers (`bytes`), traversing arcs on demand in `O(word_len)`. No millions of heavyweight Python objects are created at startup.
-2. **Explicit Format & Corruption Safety**: Bounds checking on all arc offsets and v-int addresses ensures malformed or truncated binary data raises `CorruptedFSAError` or `UnsupportedFSAFormatError` instead of generic unhandled exceptions.
-3. **Lossless Tag Representation**: `RussianTag` maintains `raw: str` as authoritative. Splitting by `:` strictly preserves empty components (e.g. `VB:INF:`, `NN::Masc:Sin:Nom`), ensuring 100% regex and pattern compatibility for downstream `grammar.xml` matching. Non-destructive structured view properties (`pos`, `animacy`, `gender`, `number`, `case`, `tense`, `person`, `voice`, `aspect`, `transitivity`) provide typed inspection without altering raw strings.
+1. **Exact Morfologik DFS Traversal**: `ByteSequenceIterator` implements Morfologik's exact recursive DFS state machine over `arcs` stack, yielding accepting states and descending into child subtrees before advancing to sibling transitions.
+2. **Zero Full Expansion**: Dictionaries are loaded once per instance as compact binary buffers (`bytes`), traversing arcs on demand in `O(word_len)`. No millions of heavyweight Python objects are created at startup.
+3. **Explicit Format & Flag Safety**: Strict validation of header magic, version (`0xC6`), and flags (`0x0007`). Unsupported flags such as `NUMBERS` (`0x0008`) or unrecognized bits raise `UnsupportedFSAFormatError`. Bounds checking on all arc offsets and v-int addresses ensures malformed data raises `CorruptedFSAError`.
+4. **Lossless Tag Representation**: `RussianTag` maintains `raw: str` as authoritative. Splitting by `:` strictly preserves empty components (e.g. `VB:INF:`, `NN::Masc:Sin:Nom`), ensuring 100% regex and pattern compatibility for downstream `grammar.xml` matching. Non-destructive structured view properties (`pos`, `animacy`, `gender`, `number`, `case`, `tense`, `person`, `voice`, `aspect`, `transitivity`) provide typed inspection without altering raw strings.
 
 ---
 
@@ -61,13 +69,15 @@ src/pylat_ru/
 
 ### Supported:
 - Binary format: **CFSA2** (version `0xC6`).
+- Supported flags: `0x0007` (`FLEXIBLE | STOPBIT | NEXTBIT`).
 - Sequence encoder: **`SUFFIX`** (`TrimSuffixEncoder`).
 - Charset encoding: **`koi8-r`**.
 - Metadata properties: Comments, blank lines, `separator`, `encoding`, `encoder`, boolean flags (`frequency-included`, `ignore-punctuation`, `ignore-numbers`, `ignore-camel-case`, `ignore-all-uppercase`, `ignore-diacritics`, `convert-case`, `support-run-on-words`), input/output conversion pairs.
-- Suffix enumeration: deterministic traversal order matching upstream Morfologik.
+- Suffix enumeration: Exact Morfologik DFS traversal order.
 
 ### Explicitly Unsupported (Raising Typed Exceptions):
 - Legacy formats `FSA5` (`0x05`) and `CFSA` v1 (`0xC5`) -> `UnsupportedFSAFormatError`.
+- Unsupported flags (`NUMBERS` `0x0008`, `WEIGHTED` `0x0010`, unknown bits) -> `UnsupportedFSAFormatError`.
 - Unsupported encoders (`PREFIX`, `INFIX`, `NONE`) -> `UnsupportedEncoderError`.
 - Unsupported charsets -> `UnsupportedEncodingError`.
 - Corrupt/out-of-bounds binary graphs -> `CorruptedFSAError`.
@@ -81,16 +91,16 @@ src/pylat_ru/
 
 | Input Word | Decoded Readings `(stem, tag)` | Upstream Parity |
 | :--- | :--- | :--- |
-| `все` | `[('все', 'PNN:PL:V'), ('все', 'PNN:PL:Nom'), ('все', 'PNN:Sin:V'), ('все', 'PNN:Sin:Nom'), ('весь', 'ADJ:MPR:PL:V'), ('весь', 'ADJ:MPR:PL:Nom')]` | EXACT MATCH (6 readings) |
-| `счастливые` | `[('счастливый', 'ADJ:Posit:PL:V'), ('счастливый', 'ADJ:Posit:PL:Nom')]` | EXACT MATCH (2 readings) |
-| `семьи` | `[('семья', 'NN:Inanim:Fem:PL:V'), ('семья', 'NN:Inanim:Fem:PL:Nom'), ('семья', 'NN:Inanim:Fem:Sin:R')]` | EXACT MATCH (3 readings) |
+| `все` | `[('все', 'PNN:PL:Nom'), ('все', 'PNN:PL:V'), ('все', 'PNN:Sin:Nom'), ('все', 'PNN:Sin:V'), ('весь', 'ADJ:MPR:PL:Nom'), ('весь', 'ADJ:MPR:PL:V')]` | EXACT MATCH (canonical DFS order) |
+| `счастливые` | `[('счастливый', 'ADJ:Posit:PL:Nom'), ('счастливый', 'ADJ:Posit:PL:V')]` | EXACT MATCH (canonical DFS order) |
+| `семьи` | `[('семья', 'NN:Inanim:Fem:PL:Nom'), ('семья', 'NN:Inanim:Fem:PL:V'), ('семья', 'NN:Inanim:Fem:Sin:R')]` | EXACT MATCH (canonical DFS order) |
 | `смешалось` | `[('смешаться', 'VB:Past:INTR:PFV:Neut')]` | EXACT MATCH (1 reading) |
-| `дом` | `[('дом', 'NN:Inanim:Masc:Sin:V'), ('дом', 'NN:Inanim:Masc:Sin:Nom')]` | EXACT MATCH (2 readings) |
+| `дом` | `[('дом', 'NN:Inanim:Masc:Sin:Nom'), ('дом', 'NN:Inanim:Masc:Sin:V')]` | EXACT MATCH (canonical DFS order) |
 | `блукать` | `[('блукать', 'VB:INF:')]` | EXACT MATCH (preserves trailing `:`) |
 | `книга` | `[('книга', 'NN:Inanim:Fem:Sin:Nom')]` | EXACT MATCH (1 reading) |
-| `человек` | `[('человек', 'NN:Anim:Masc:PL:R'), ('человек', 'NN:Anim:Masc:Sin:Nom')]` | EXACT MATCH (2 readings) |
-| `бежать` | `[('бежать', 'VB:INF:INTR:IMPFV'), ('бежать', 'VB:INF:INTR:PFV')]` | EXACT MATCH (2 readings) |
-| `красивый` | `[('красивый', 'ADJ:Posit:Masc:V'), ('красивый', 'ADJ:Posit:Masc:Nom')]` | EXACT MATCH (2 readings) |
+| `человек` | `[('человек', 'NN:Anim:Masc:PL:R'), ('человек', 'NN:Anim:Masc:Sin:Nom')]` | EXACT MATCH (canonical DFS order) |
+| `бежать` | `[('бежать', 'VB:INF:INTR:IMPFV'), ('бежать', 'VB:INF:INTR:PFV')]` | EXACT MATCH (canonical DFS order) |
+| `красивый` | `[('красивый', 'ADJ:Posit:Masc:Nom'), ('красивый', 'ADJ:Posit:Masc:V')]` | EXACT MATCH (canonical DFS order) |
 | `несуществующеесловоxyz` | `[]` (empty tuple) | EXACT MATCH (empty) |
 
 ### 6.2 Synthesis Dictionary (`russian_synth.dict`)
@@ -106,17 +116,24 @@ src/pylat_ru/
 
 ---
 
-## 7. Tagset Inventory & Cross-Validation Findings
+## 7. Tagset Inventory & Full Dictionary Cross-Validation Findings
 
-Deterministic analysis of `tags_russian.txt` and `tagset.txt` produced `compat/russian_tagset.json` with the following verified metrics:
+Deterministic analysis of `tags_russian.txt`, `tagset.txt`, and full graph traversal of `russian.dict` produced `compat/russian_tagset.json` with the following verified metrics:
 
 - **Total raw lines in `tags_russian.txt`**: 1,201
-- **Unique tags**: 1,200
-- **Duplicate occurrences**: 1 (`NN:Inanim:Masc:PL:P` occurs on line 462 with trailing spaces `"NN:Inanim:Masc:PL:P  "` and clean on line 463).
+- **Unique stripped tags**: 1,200
+- **Duplicate occurrences in file**: 1 (`NN:Inanim:Masc:PL:P` on line 462 has trailing spaces `"NN:Inanim:Masc:PL:P  "`, line 463 is clean).
 - **Tags with empty colon components**: 154 (e.g. `VB:INF:`, `DPT:Past:`, `NN::Masc:PL:Nom`, `PT_Short:Past::STR:Fem`).
 - **Coarse POS prefixes**: 19 (`ABR`, `ADJ`, `ADV`, `CONJ`, `DPT`, `INTERJECTION`, `Misc`, `NN`, `Num`, `NumC`, `Ord`, `PARENTHESIS`, `PARTICLE`, `PNN`, `PRDC`, `PREP`, `PT`, `PT_Short`, `VB`).
 - **Feature atoms**: 62 distinct atomic feature tokens.
 - **AOT ancode conversion mappings extracted from `tagset.txt`**: 578.
+- **Full Binary Dictionary Tag Validation**:
+  - `tag_root_nodes_count`: 2,344
+  - `dict_distinct_raw_tags_count`: 1,201
+  - `dict_distinct_normalized_tags_count`: 1,200
+  - `missing_in_dict_count`: 0 (every normalized tag in `tags_russian.txt` is present in `russian.dict`)
+  - `extra_in_dict_raw`: `["NN:Inanim:Masc:PL:P  "]` (the identical trailing whitespace tag is present in the binary dictionary)
+  - `is_full_tag_coverage`: **`True`** (100% tag parity between binary dictionary and tagset file).
 
 ---
 
@@ -127,13 +144,14 @@ Benchmark results on representative test suite hardware:
 - **`russian.dict` Open / Initialization**: **1.70 ms**
 - **First Single Lookup**: **0.105 ms** (105 µs)
 - **Sustained Lookups (10,000 queries)**: **0.933 s** (~93.3 µs per lookup, >10,700 lookups/second single-threaded)
+- **Full Tagset Graph Validation (2,344 tag root nodes)**: **~1.3 s**
 - **Memory Footprint**: Flat ~2.3 MB buffer per dictionary instance with zero auxiliary object expansion.
 
 ---
 
 ## 9. Verification & Test Suite Summary
 
-The complete pytest test suite passes with **62 passed tests in 0.33s**:
+The complete pytest test suite passes with **65 passed tests in 2.54s**:
 
 ```text
 tests/unit/test_differential_boundary.py ................ 4 passed
@@ -141,15 +159,15 @@ tests/unit/test_foundation.py ........................... 4 passed
 tests/unit/test_inventory.py ............................ 12 passed
 tests/unit/test_license_inventory.py .................... 2 passed
 tests/unit/test_morfologik_dictionary.py ................ 4 passed
-tests/unit/test_morfologik_fsa.py ....................... 6 passed
+tests/unit/test_morfologik_fsa.py ....................... 8 passed
 tests/unit/test_morfologik_metadata.py .................. 7 passed
 tests/unit/test_morfologik_sequence_encoder.py .......... 4 passed
-tests/unit/test_russian_tagset.py ....................... 4 passed
+tests/unit/test_russian_tagset.py ....................... 5 passed
 tests/unit/test_test_extraction.py ...................... 6 passed
 tests/unit/test_upstream_diff.py ........................ 5 passed
 tests/upstream/test_russian_dictionary_lookup.py ........ 2 passed
 tests/upstream/test_russian_synth_dictionary_lookup.py .. 2 passed
-======================================================== 62 passed in 0.33s
+======================================================== 65 passed in 2.54s
 ```
 
 ---

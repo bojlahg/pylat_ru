@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from pylat_ru.tagset import RussianTag, load_tags_file, parse_tag
+from tools.russian_tagset_inventory import generate_tagset_inventory
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 RU_RESOURCE_DIR = (
@@ -90,15 +91,25 @@ def test_tagset_file_loading():
     assert len(unique_raw) == 1200  # 1 duplicate in raw file
 
 
-def test_tagset_inventory_json():
-    """Verify compat/russian_tagset.json matches expected deterministic values."""
+def test_tagset_inventory_json_exact_regeneration():
+    """Verify compat/russian_tagset.json matches dynamic complete regeneration structurally and deterministically."""
     assert TAGSET_JSON_PATH.is_file(), f"Missing {TAGSET_JSON_PATH}"
+    with open(TAGSET_JSON_PATH, "r", encoding="utf-8") as f:
+        committed = json.load(f)
+
+    generated = generate_tagset_inventory(write_to_disk=False)
+    assert generated == committed, "Regenerated tagset inventory differs from committed compat/russian_tagset.json"
+
+
+def test_dictionary_tagset_cross_validation():
+    """Verify 100% tag coverage parity between binary russian.dict and tags_russian.txt."""
     with open(TAGSET_JSON_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    summary = data.get("tags_russian_summary", {})
-    assert summary.get("total_lines") == 1201
-    assert summary.get("unique_tags_count") == 1200
-    assert summary.get("empty_colon_tags_count") == 154
-    assert summary.get("pos_prefixes_count") == 19
-    assert summary.get("feature_atoms_count") == 62
+    cross_val = data.get("dictionary_cross_validation", {})
+    assert cross_val.get("is_full_tag_coverage") is True
+    assert cross_val.get("missing_in_dict_count") == 0
+    assert cross_val.get("missing_in_dict") == []
+    assert cross_val.get("dict_distinct_normalized_tags_count") == 1200
+    assert cross_val.get("dict_distinct_raw_tags_count") == 1201
+    assert "NN:Inanim:Masc:PL:P  " in cross_val.get("extra_in_dict_raw", [])

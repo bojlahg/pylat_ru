@@ -2,9 +2,10 @@
   "metadata": {
     "source_files": [
       "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tags_russian.txt",
-      "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tagset.txt"
+      "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tagset.txt",
+      "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict"
     ],
-    "description": "Deterministic Russian LanguageTool tagset inventory"
+    "description": "Deterministic Russian LanguageTool tagset inventory and dictionary validation"
   },
   "tags_russian_summary": {
     "total_lines": 1201,
@@ -232,6 +233,22 @@
         "content": "Ancodes for verbs lemma"
       }
     ]
+  },
+  "dictionary_cross_validation": {
+    "dictionary_file": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict",
+    "tag_root_nodes_count": 2344,
+    "dict_distinct_raw_tags_count": 1201,
+    "dict_distinct_normalized_tags_count": 1200,
+    "missing_in_dict_count": 0,
+    "missing_in_dict": [],
+    "extra_in_dict_raw_count": 1,
+    "extra_in_dict_raw": [
+      "NN:Inanim:Masc:PL:P  "
+    ],
+    "extra_in_dict_normalized_count": 0,
+    "extra_in_dict_normalized": [],
+    "is_full_tag_coverage": true,
+    "notes": "100% tag coverage parity between russian.dict and tags_russian.txt. Both contain the raw trailing whitespace anomaly 'NN:Inanim:Masc:PL:P  '."
   },
   "tags": [
     "ABR",

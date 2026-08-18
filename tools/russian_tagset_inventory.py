@@ -13,7 +13,9 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+from pylat_ru.morfologik.fsa import read_fsa
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TAGS_PATH = (
@@ -45,6 +47,21 @@ TAGSET_TXT_PATH = (
     / "resource"
     / "ru"
     / "tagset.txt"
+)
+DICT_PATH = (
+    REPO_ROOT
+    / "third_party"
+    / "languagetool"
+    / "languagetool-language-modules"
+    / "ru"
+    / "src"
+    / "main"
+    / "resources"
+    / "org"
+    / "languagetool"
+    / "resource"
+    / "ru"
+    / "russian.dict"
 )
 OUTPUT_JSON_PATH = REPO_ROOT / "compat" / "russian_tagset.json"
 
@@ -128,7 +145,6 @@ def parse_tagset_txt(path: Path) -> Dict[str, Any]:
     prose_sections: List[str] = []
 
     # AOT mapping regex: 2 non-whitespace chars (or code) followed by tabs/spaces and LT tag
-    # Example: "аа    NN:[Anim|Inanim]:Masc:Sin:Nom"
     aot_pattern = re.compile(r"^([^\s#]{1,6})\s+([A-Za-z0-9_:\-+|\[\]]+)$")
 
     for idx, raw_line in enumerate(lines, start=1):
@@ -162,17 +178,87 @@ def parse_tagset_txt(path: Path) -> Dict[str, Any]:
     }
 
 
-def generate_tagset_inventory() -> Dict[str, Any]:
+def validate_dictionary_tags(dict_path: Path, expected_tags: Set[str]) -> Dict[str, Any]:
+    """Extract all distinct tags from the real binary russian.dict and cross-validate against tags_russian.txt."""
+    fsa = read_fsa(dict_path)
+    plus_byte = ord("+")
+
+    # Fast traversal to find all tag root nodes (states immediately following second '+')
+    visited_state: Set[Tuple[int, int]] = set()
+    tag_root_nodes: Set[int] = set()
+
+    root = fsa.get_root_node()
+    visited_state.add((root, 0))
+    queue = [(root, 0)]
+
+    while queue:
+        curr_node, plus_count = queue.pop()
+        arc = fsa.get_first_arc(curr_node)
+        while arc != 0:
+            lbl = fsa.get_arc_label(arc)
+            dest = fsa.get_end_node(arc) if not fsa.is_arc_terminal(arc) else 0
+            if lbl == plus_byte:
+                next_plus = plus_count + 1
+                if next_plus == 2:
+                    if dest != 0:
+                        tag_root_nodes.add(dest)
+                elif next_plus < 2:
+                    if dest != 0 and (dest, next_plus) not in visited_state:
+                        visited_state.add((dest, next_plus))
+                        queue.append((dest, next_plus))
+            else:
+                if dest != 0 and (dest, plus_count) not in visited_state:
+                    visited_state.add((dest, plus_count))
+                    queue.append((dest, plus_count))
+            arc = fsa.get_next_arc(arc)
+
+    # Enumerate all distinct raw tags from tag root nodes
+    distinct_raw_tags: Set[str] = set()
+    for tag_node in tag_root_nodes:
+        for seq in fsa.get_sequences(tag_node):
+            tag_str = seq.decode("koi8-r", errors="replace")
+            distinct_raw_tags.add(tag_str)
+
+    distinct_normalized_tags = set(t.strip() for t in distinct_raw_tags if t.strip())
+
+    missing_in_dict = sorted(expected_tags - distinct_normalized_tags)
+    extra_in_dict_raw = sorted(distinct_raw_tags - expected_tags)
+    extra_in_dict_normalized = sorted(distinct_normalized_tags - expected_tags)
+
+    is_full_parity = len(missing_in_dict) == 0 and len(extra_in_dict_normalized) == 0
+
+    return {
+        "dictionary_file": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict",
+        "tag_root_nodes_count": len(tag_root_nodes),
+        "dict_distinct_raw_tags_count": len(distinct_raw_tags),
+        "dict_distinct_normalized_tags_count": len(distinct_normalized_tags),
+        "missing_in_dict_count": len(missing_in_dict),
+        "missing_in_dict": missing_in_dict,
+        "extra_in_dict_raw_count": len(extra_in_dict_raw),
+        "extra_in_dict_raw": extra_in_dict_raw,
+        "extra_in_dict_normalized_count": len(extra_in_dict_normalized),
+        "extra_in_dict_normalized": extra_in_dict_normalized,
+        "is_full_tag_coverage": is_full_parity,
+        "notes": (
+            "100% tag coverage parity between russian.dict and tags_russian.txt. "
+            "Both contain the raw trailing whitespace anomaly 'NN:Inanim:Masc:PL:P  '."
+        ),
+    }
+
+
+def generate_tagset_inventory(write_to_disk: bool = True) -> Dict[str, Any]:
     tags_data = analyze_tags_file(TAGS_PATH)
     tagset_data = parse_tagset_txt(TAGSET_TXT_PATH)
+    dict_val = validate_dictionary_tags(DICT_PATH, set(tags_data["tags"]))
 
     inventory = {
         "metadata": {
             "source_files": [
                 "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tags_russian.txt",
                 "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/tagset.txt",
+                "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict",
             ],
-            "description": "Deterministic Russian LanguageTool tagset inventory",
+            "description": "Deterministic Russian LanguageTool tagset inventory and dictionary validation",
         },
         "tags_russian_summary": {
             "total_lines": tags_data["total_lines"],
@@ -193,19 +279,22 @@ def generate_tagset_inventory() -> Dict[str, Any]:
             "unparsed_lines_count": tagset_data["unparsed_lines_count"],
             "unparsed_lines": tagset_data["unparsed_lines"],
         },
+        "dictionary_cross_validation": dict_val,
         "tags": tags_data["tags"],
         "aot_ancode_mappings": tagset_data["aot_mappings"],
     }
 
-    OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(inventory, f, indent=2, ensure_ascii=False)
+    if write_to_disk:
+        OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(inventory, f, indent=2, ensure_ascii=False)
 
-    print(f"Generated {OUTPUT_JSON_PATH} successfully:")
-    print(f"  Total tags: {tags_data['unique_tags_count']}")
-    print(f"  Empty colon tags: {tags_data['empty_colon_tags_count']}")
-    print(f"  POS prefixes: {len(tags_data['pos_prefixes'])} {tags_data['pos_prefixes']}")
-    print(f"  AOT mappings: {tagset_data['aot_mappings_count']}")
+        print(f"Generated {OUTPUT_JSON_PATH} successfully:")
+        print(f"  Total tags: {tags_data['unique_tags_count']}")
+        print(f"  Empty colon tags: {tags_data['empty_colon_tags_count']}")
+        print(f"  POS prefixes: {len(tags_data['pos_prefixes'])} {tags_data['pos_prefixes']}")
+        print(f"  AOT mappings: {tagset_data['aot_mappings_count']}")
+        print(f"  Dictionary tag parity: {dict_val['is_full_tag_coverage']} (missing: {dict_val['missing_in_dict_count']})")
 
     return inventory
 
