@@ -35,17 +35,23 @@ For every numbered task:
 5. Review `git diff` and remove accidental/unrelated changes.
 6. Write a completion report in `reports/`.
 7. Commit the completed task yourself.
-8. **Do not push.**
-9. **Do not begin the next numbered task automatically.**
+8. Push the committed current branch to `origin` immediately after a successful commit.
+9. Verify that the pushed commit is visible on the remote branch.
+10. **Do not begin the next numbered task automatically.**
 
 A task is not complete merely because code exists. Its acceptance criteria and report must be satisfied.
 
-## 4. Commit policy
+If commit or push fails, do not silently continue or claim completion. Report the exact error and leave the working tree/repository state intact for recovery.
 
-- One intentional commit per completed numbered task unless the task explicitly requires otherwise.
+## 4. Commit and push policy
+
+- One intentional commit per completed numbered task unless the task explicitly requires otherwise. Follow-up review-fix commits are allowed when needed.
 - Commit message should identify the task, for example `chore: complete task 0001 project foundation`.
 - Do not leave the task completed but uncommitted.
-- Do not push, create a PR, merge, tag, or publish unless explicitly requested.
+- After a successful task commit, push the current branch to `origin` immediately and verify the remote commit.
+- Do not force-push or rewrite published history.
+- Do not push unrelated local changes.
+- Do not create a PR, merge, tag, or publish unless explicitly requested.
 
 ## 5. Compatibility rules
 
