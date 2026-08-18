@@ -354,7 +354,7 @@ Task 0001 is complete only if all are true:
 16. Completion report is written under `reports/`.
 17. `git diff` is reviewed.
 18. Task is committed.
-19. No push is performed by the coding agent.
+19. The completed task commit is pushed to `origin` on the current branch and verified as visible remotely.
 20. Task 0002 is **not** started.
 
 ## Completion report
