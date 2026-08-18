@@ -417,9 +417,11 @@ implement
 → completion report
 → git diff review
 → commit
+→ push current branch to origin
+→ verify remote commit
 ```
 
-Do not push without an explicit command. Do not automatically start the next numbered task.
+Push the completed task commit automatically after a successful commit. If push fails, report the exact error and do not claim the task is complete. Never force-push or rewrite published history. Do not automatically start the next numbered task.
 
 ## 17. Definition of Done for the overall project
 
