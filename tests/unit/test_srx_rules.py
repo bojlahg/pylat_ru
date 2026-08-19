@@ -11,6 +11,10 @@ from pylat_ru.tokenization.errors import (
     UnsupportedSRXFeatureError,
 )
 from pylat_ru.tokenization.srx import (
+    EXPECTED_LOOMCHILD_VERSION,
+    EXPECTED_LT_COMMIT,
+    EXPECTED_LT_TAG,
+    EXPECTED_SOURCE_SHA256,
     SRXRule,
     SRXRuleManager,
     SRXRuleMatcher,
@@ -78,7 +82,7 @@ def test_srx_rule_compilation_and_failure():
 def test_srx_inventory_and_rules_complete_regeneration(
     third_party_dir: Path, compat_dir: Path, repo_root: Path
 ):
-    """Regenerate complete SRX inventory and rules and assert byte-for-byte / struct equality against committed files."""
+    """Regenerate complete SRX inventory and rules and assert byte-exact serialized equality against committed files."""
     srx_path = (
         third_party_dir
         / "languagetool-core"
@@ -92,17 +96,19 @@ def test_srx_inventory_and_rules_complete_regeneration(
     )
     inventory, runtime_rules = analyze_srx(srx_path)
 
-    # Compare inventory
+    # Compare inventory serialized string exactly
     inv_file = compat_dir / "russian_srx_inventory.json"
     assert inv_file.is_file(), f"Missing {inv_file}"
-    committed_inv = json.loads(inv_file.read_text(encoding="utf-8"))
-    assert inventory == committed_inv
+    expected_inv_str = json.dumps(inventory, indent=2, ensure_ascii=False) + "\n"
+    actual_inv_str = inv_file.read_text(encoding="utf-8")
+    assert actual_inv_str == expected_inv_str, "Committed russian_srx_inventory.json differs from serialized regeneration"
 
-    # Compare runtime rules
+    # Compare runtime rules serialized string exactly
     rules_file = repo_root / "src" / "pylat_ru" / "resources" / "russian_srx_rules.json"
     assert rules_file.is_file(), f"Missing {rules_file}"
-    committed_rules = json.loads(rules_file.read_text(encoding="utf-8"))
-    assert runtime_rules == committed_rules
+    expected_rules_str = json.dumps(runtime_rules, indent=2, ensure_ascii=False) + "\n"
+    actual_rules_str = rules_file.read_text(encoding="utf-8")
+    assert actual_rules_str == expected_rules_str, "Committed russian_srx_rules.json differs from serialized regeneration"
 
 
 def test_srx_source_hash_mismatch_raises_error(tmp_path: Path):
@@ -154,55 +160,131 @@ def test_load_russian_srx_rule_manager_modes():
         load_russian_srx_rule_manager("ru_unknown_mode")
 
 
-def test_strict_srx_runtime_resource_validation(tmp_path: Path):
-    """Verify strict validation on missing metadata, missing configs, or invalid break attributes."""
-    fake_path = tmp_path / "bad_rules.json"
+def test_strict_srx_metadata_exact_values(tmp_path: Path):
+    """Verify runtime SRX metadata strictly enforces exact expected commit, tag, version, and hash."""
+    def make_rules_with_meta(meta: dict) -> Path:
+        p = tmp_path / f"meta_test_{len(list(tmp_path.iterdir()))}.json"
+        p.write_text(
+            json.dumps({
+                "metadata": meta,
+                "configurations": {"ru_two": {"rules": []}},
+                "groups": {},
+            }),
+            encoding="utf-8",
+        )
+        return p
 
-    # Missing metadata
-    fake_path.write_text(json.dumps({"configurations": {}, "groups": {}}), encoding="utf-8")
-    with pytest.raises(SRXFormatError, match="missing required top-level keys"):
-        load_russian_srx_rule_manager("ru_two", rules_json_path=fake_path)
+    # Valid metadata
+    valid_meta = {
+        "languagetool_commit": EXPECTED_LT_COMMIT,
+        "languagetool_tag": EXPECTED_LT_TAG,
+        "loomchild_version": EXPECTED_LOOMCHILD_VERSION,
+        "source_sha256": EXPECTED_SOURCE_SHA256,
+    }
+    p_valid = make_rules_with_meta(valid_meta)
+    assert load_russian_srx_rule_manager("ru_two", rules_json_path=p_valid) is not None
 
-    # Missing required metadata field
-    fake_path.write_text(
-        json.dumps({
-            "metadata": {"languagetool_tag": "v6.8"},
-            "configurations": {"ru_two": {"rules": []}},
-            "groups": {},
-        }),
-        encoding="utf-8",
-    )
-    with pytest.raises(SRXFormatError, match="metadata missing required keys"):
-        load_russian_srx_rule_manager("ru_two", rules_json_path=fake_path)
+    # Wrong commit
+    p_bad_commit = make_rules_with_meta({**valid_meta, "languagetool_commit": "wrong_commit_123"})
+    with pytest.raises(SRXFormatError, match="mismatching languagetool_commit"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=p_bad_commit)
 
-    # Invalid break attribute value
-    fake_path.write_text(
-        json.dumps({
-            "metadata": {
-                "languagetool_commit": "abc",
-                "languagetool_tag": "v6.8",
-                "loomchild_version": "2.0.3",
-                "source_sha256": "123",
-            },
-            "configurations": {
-                "ru_two": {
-                    "rules": [
-                        {
-                            "group": "G",
-                            "rule_index": 1,
-                            "break": "maybe",
-                            "beforebreak": ".",
-                            "afterbreak": "",
-                        }
-                    ]
-                }
-            },
-            "groups": {},
-        }),
-        encoding="utf-8",
-    )
-    with pytest.raises(SRXFormatError, match="invalid break value"):
-        load_russian_srx_rule_manager("ru_two", rules_json_path=fake_path)
+    # Wrong tag
+    p_bad_tag = make_rules_with_meta({**valid_meta, "languagetool_tag": "v6.7"})
+    with pytest.raises(SRXFormatError, match="mismatching languagetool_tag"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=p_bad_tag)
+
+    # Wrong loomchild version
+    p_bad_loomchild = make_rules_with_meta({**valid_meta, "loomchild_version": "2.0.4"})
+    with pytest.raises(SRXFormatError, match="mismatching loomchild_version"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=p_bad_loomchild)
+
+    # Wrong source SHA-256
+    p_bad_sha = make_rules_with_meta({**valid_meta, "source_sha256": "00000000000000000000000000000000"})
+    with pytest.raises(SRXFormatError, match="mismatching source_sha256"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=p_bad_sha)
+
+
+def test_strict_srx_rule_field_types(tmp_path: Path):
+    """Verify strict type validation on rule dictionary fields without coercion."""
+    valid_meta = {
+        "languagetool_commit": EXPECTED_LT_COMMIT,
+        "languagetool_tag": EXPECTED_LT_TAG,
+        "loomchild_version": EXPECTED_LOOMCHILD_VERSION,
+        "source_sha256": EXPECTED_SOURCE_SHA256,
+    }
+
+    def make_rules_with_rule(rule_dict: dict) -> Path:
+        p = tmp_path / f"rule_type_{len(list(tmp_path.iterdir()))}.json"
+        p.write_text(
+            json.dumps({
+                "metadata": valid_meta,
+                "configurations": {"ru_two": {"rules": [rule_dict]}},
+                "groups": {},
+            }),
+            encoding="utf-8",
+        )
+        return p
+
+    valid_rule = {
+        "group": "Russian",
+        "rule_index": 1,
+        "break": "yes",
+        "beforebreak": "\\.",
+        "afterbreak": "\\s",
+    }
+
+    # Valid rule passes
+    assert load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule(valid_rule)) is not None
+
+    # group is not a str (e.g. 123 or None)
+    with pytest.raises(SRXFormatError, match="field 'group' must be a str"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "group": 123}))
+
+    with pytest.raises(SRXFormatError, match="field 'group' must be a str"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "group": None}))
+
+    # rule_index is not an int (e.g. "1", None, or bool True)
+    with pytest.raises(SRXFormatError, match="field 'rule_index' must be an int"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "rule_index": "1"}))
+
+    with pytest.raises(SRXFormatError, match="field 'rule_index' must be an int"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "rule_index": True}))
+
+    # beforebreak / afterbreak is not a str
+    with pytest.raises(SRXFormatError, match="field 'beforebreak' must be a str"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "beforebreak": None}))
+
+    with pytest.raises(SRXFormatError, match="field 'afterbreak' must be a str"):
+        load_russian_srx_rule_manager("ru_two", rules_json_path=make_rules_with_rule({**valid_rule, "afterbreak": 123}))
+
+
+def test_synthetic_overlapping_and_same_boundary_rules():
+    """Verify loomchild 2.0.3 cut_matchers() and move_matchers() semantics on overlapping and same-boundary rules."""
+    # Construct rules:
+    # Rule 1 (break=yes): before="[A-Z]\\.", after="\\s" (matches "A. ") -> break at 2
+    # Rule 2 (break=yes): before="[0-9]\\.", after="\\s" (matches "1. ") -> break at 2
+    # Rule 3 (break=no exception for Rule 4): before="Dr\\.", after="\\s"
+    # Rule 4 (break=yes): before="\\.", after="\\s" (matches any dot-space)
+    r1 = SRXRule(is_break=True, before_pattern_str="[A-Z]\\.", after_pattern_str="\\s", group_name="G1", rule_index=1)
+    r2 = SRXRule(is_break=True, before_pattern_str="[0-9]\\.", after_pattern_str="\\s", group_name="G1", rule_index=2)
+    r3 = SRXRule(is_break=False, before_pattern_str="Dr\\.", after_pattern_str="\\s", group_name="G2", rule_index=3)
+    r4 = SRXRule(is_break=True, before_pattern_str="\\.", after_pattern_str="\\s", group_name="G2", rule_index=4)
+
+    mgr = SRXRuleManager.from_rules([r1, r2, r3, r4])
+    segmenter = SRXSegmenter(mgr)
+
+    # 1. Text with suppressed break: "Dr. Watson is here. Next sentence."
+    # Break at 3 ("Dr.") is suppressed by exception r3 for r4.
+    # Break at 19 ("here.") is accepted by r4.
+    sents = segmenter.segment("Dr. Watson is here. Next sentence.")
+    assert sents == ("Dr. Watson is here.", " Next sentence.")
+
+    # 2. Text with multi-rule match at same break boundary:
+    # Text "A. B. C." -> R1 breaks at 2 ("A.") and R4 also breaks at 2 (".").
+    # R1 fires first, cut_matchers / move_matchers must advance R4 past 2 without redundant zero-length split.
+    sents_same = segmenter.segment("A. B. C.")
+    assert sents_same == ("A.", " B.", " C.")
 
 
 def test_srx_rule_matcher_advancement_and_zero_width():

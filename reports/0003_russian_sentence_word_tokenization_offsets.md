@@ -3,7 +3,7 @@
 ## 1. Executive Summary
 
 Task 0003 has implemented the complete pure Python tokenization and span offset subsystem for LanguageTool's Russian pipeline:
-- **`RussianSentenceTokenizer`**: Implements SRX 2.0 segmentation following `net.loomchild.segment 2.0.3` semantics for both `ru_two` (default) and `ru_one` (single-line paragraph) modes with 100% rule coverage and dynamic `<languagemap>` resolution.
+- **`RussianSentenceTokenizer`**: Implements SRX 2.0 segmentation faithfully following `net.loomchild.segment 2.0.3` semantics for both `ru_two` (default) and `ru_one` (single-line paragraph) modes with 100% rule coverage, dynamic `<languagemap>` resolution, and exact `cut_matchers()`/`move_matchers()` control flow.
 - **`RussianWordTokenizer`**: Implements LanguageTool's `RussianWordTokenizer` + `WordTokenizer` character-based splitting, Russian special sentinels (`б/у`, `б/н`, dot-space sentinels), `fullmatch` email checking matching Java `Matcher.matches()`, and inherited URL/email rejoining.
 - **Exact Offsets & Span Representation**: `TextSpan`, `SentenceSpan`, and `TokenSpan` provide both Python code-point offsets and Java UTF-16 code unit offsets with $O(N)$ conversion and strict cumulative derivation (no substring searches).
 - **Source Text Reconstruction Guarantee**: Every sentence and word tokenization operation strictly guarantees:
@@ -25,33 +25,27 @@ All operations execute in native Python with **zero Java/JRE, zero daemon/server
 
 ## 3. Review Findings & Implemented Fixes
 
-1. **Dynamic `<languagemap>` Resolution**:
-   - Replaced hard-coded group lists with dynamic evaluation of all `<languagemap>` entries in XML document order against `languagepattern` matching target code (`ru_two`, `ru_one`), respecting `cascade="yes"`.
-   - Added unit test `test_dynamic_languagemap_cascade_resolution` proving dynamic resolution on custom/synthetic mappings.
-2. **Strict Source Hash Verification**:
-   - Added SHA-256 check against `746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da` in `tools/russian_srx_inventory.py`. Added test `test_srx_source_hash_mismatch_raises_error`.
-3. **Java `Matcher.find()` Advance Semantics**:
-   - Fixed `SRXRuleMatcher.find()` to advance from `before_match.end()` after a non-empty match, and advance by 1 code point only after a zero-width match (`^`, `\b`).
-   - Added `test_srx_rule_matcher_advancement_and_zero_width` verifying non-empty and zero-width pattern searches.
-4. **Loomchild `segment 2.0.3` Lookbehind Finitization**:
-   - Implemented `finitize(pattern, max_length=100)` with `remove_block_quotes()`:
-     - `\Q...\E` $\to$ `\a\b\c...`
-     - unescaped `*` $\to$ `{0,100}`
-     - unescaped `+` $\to$ `{1,100}`
-     - unescaped `{n,}` $\to$ `{n,100}`
-   - Added `test_remove_block_quotes_and_finitize` testing Russian beforebreak exception patterns with unbounded quantifiers.
-5. **Strict Runtime SRX Resource Validation**:
-   - Added strict validation of top-level keys (`metadata`, `configurations`, `groups`), metadata fields (`languagetool_commit`, `languagetool_tag`, `loomchild_version`, `source_sha256`), rule objects (`group`, `rule_index`, `break`, `beforebreak`, `afterbreak`), and break values (`"yes"` or `"no"`). Raises `SRXFormatError` on any violation.
-   - Added `test_strict_srx_runtime_resource_validation`.
-6. **Development-Only Pinned-LT v6.8 Oracle Generator**:
-   - Added `--generate-tokenization-fixtures` in `tools/differential_lt.py` which compiles and runs lightweight Java harnesses against `org.languagetool.language.Russian` in `LanguageTool-6.8/languagetool-commandline.jar`.
-7. **Full-Content Regeneration Pytest**:
-   - Added `test_srx_inventory_and_rules_complete_regeneration` asserting exact structural and byte equality of regenerated `compat/russian_srx_inventory.json` and `src/pylat_ru/resources/russian_srx_rules.json` against committed files.
-8. **`RussianWordTokenizer.is_email()` Fullmatch Semantics**:
+1. **Strict SRX Metadata & Rule Field Type Validation**:
+   - Runtime loader `load_russian_srx_rule_manager()` strictly checks exact expected metadata values (`EXPECTED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"`, `EXPECTED_LT_TAG = "v6.8"`, `EXPECTED_LOOMCHILD_VERSION = "2.0.3"`, `EXPECTED_SOURCE_SHA256 = "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"`).
+   - Strict type-checking on all rule fields (rejecting non-str `group`, non-int/bool `rule_index`, non-str `beforebreak`/`afterbreak`) without unsafe type coercion.
+   - Added negative tests `test_strict_srx_metadata_exact_values` and `test_strict_srx_rule_field_types`.
+2. **Verifiably Pinned Java Development Oracle**:
+   - Implemented `validate_oracle()` in `tools/differential_lt.py` that checks Java availability, validates JAR presence, runs a Java probe verifying `org.languagetool.JLanguageTool.VERSION == "6.8"`, and computes JAR SHA-256.
+   - Explicitly refuses fixture generation when oracle identity cannot be proven.
+3. **Exact Loomchild 2.0.3 `SrxTextIterator` Alignment**:
+   - Reimplemented `SRXSegmenter` with explicit `_init_matchers()`, `_get_min_matcher()`, `_is_exception()`, `_cut_matchers()`, and `_move_matchers()` methods matching `net.loomchild.segment.srx.SrxTextIterator` line-by-line.
+   - Ensured `while matcher.break_pos <= end` loop semantics after every candidate boundary.
+   - Added synthetic tests `test_synthetic_overlapping_and_same_boundary_rules` verifying multi-rule and overlapping boundary behavior.
+4. **Byte-Exact Regeneration Pytest**:
+   - Updated `test_srx_inventory_and_rules_complete_regeneration` to compare raw serialized string contents (`read_text()`) against committed `compat/russian_srx_inventory.json` and `src/pylat_ru/resources/russian_srx_rules.json`.
+5. **Dynamic `<languagemap>` Resolution**:
+   - Dynamic evaluation of all `<languagemap>` entries in XML document order against `languagepattern` matching target code (`ru_two`, `ru_one`), respecting `cascade="yes"`.
+6. **Loomchild `segment 2.0.3` Lookbehind Finitization**:
+   - Implemented `finitize(pattern, max_length=100)` with `remove_block_quotes()`.
+7. **`RussianWordTokenizer.is_email()` Fullmatch Semantics**:
    - Fixed `is_email()` to use `fullmatch()` matching Java `Matcher.matches()`.
-   - Added positive and negative regression tests in `test_url_and_email_detection_helpers`.
-9. **Tightly Bounded `regex` Dependency**:
-   - Updated `pyproject.toml` to `dependencies = ["regex>=2024.5.15,<=2026.7.19"]`. Documented Apache-2.0 / PSF license and Java-vs-Python regex semantics in `docs/russian_tokenization.md`.
+8. **Tightly Bounded `regex` Dependency**:
+   - Updated `pyproject.toml` to `dependencies = ["regex>=2024.5.15,<=2026.7.19"]`. Documented Apache-2.0 / PSF license in `docs/russian_tokenization.md`.
 
 ---
 
@@ -92,7 +86,7 @@ src/pylat_ru/
 
 ## 6. Verification & Test Suite Summary
 
-The complete pytest suite passes with **91 passed tests in 2.61s**:
+The complete pytest suite passes with **93 passed tests in 2.35s**:
 
 ```text
 tests/unit/test_differential_boundary.py ................ 4 passed
@@ -107,14 +101,14 @@ tests/unit/test_offsets.py .............................. 5 passed
 tests/unit/test_russian_sentence_tokenizer.py ........... 4 passed
 tests/unit/test_russian_tagset.py ....................... 5 passed
 tests/unit/test_russian_word_tokenizer.py ............... 5 passed
-tests/unit/test_srx_rules.py ............................ 9 passed
+tests/unit/test_srx_rules.py ............................ 11 passed
 tests/unit/test_test_extraction.py ...................... 6 passed
 tests/unit/test_upstream_diff.py ........................ 5 passed
 tests/upstream/test_russian_dictionary_lookup.py ........ 2 passed
 tests/upstream/test_russian_sentence_tokenizer_parity.py  2 passed
 tests/upstream/test_russian_synth_dictionary_lookup.py .. 2 passed
 tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
-======================================================== 91 passed in 2.61s
+======================================================== 93 passed in 2.35s
 ```
 
 ---

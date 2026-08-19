@@ -8,6 +8,7 @@ from tools.differential_lt import (
     Finding,
     JavaLanguageToolOracle,
     compare_findings,
+    generate_tokenization_fixtures,
 )
 
 
@@ -96,8 +97,18 @@ def test_oracle_isolation_and_error_handling(tmp_path: Path):
     """Verify oracle can be instantiated without Java and raises cleanly when not configured."""
     oracle = JavaLanguageToolOracle(cache_dir=tmp_path)
     assert isinstance(oracle.is_java_available(), bool)
+    assert oracle.is_oracle_configured() is False
 
     # When jar is missing, check() should raise informative RuntimeError
     with pytest.raises(RuntimeError) as exc_info:
         oracle.check("Текст")
-    assert "not found" in str(exc_info.value) or "Java is not installed" in str(exc_info.value)
+    assert "not found" in str(exc_info.value) or "Java runtime" in str(exc_info.value)
+
+    # When jar is missing, validate_oracle() raises RuntimeError
+    with pytest.raises(RuntimeError) as exc_info2:
+        oracle.validate_oracle()
+    assert "not found" in str(exc_info2.value) or "Java runtime" in str(exc_info2.value)
+
+    # Refuse fixture generation when oracle identity cannot be proven
+    with pytest.raises(RuntimeError):
+        generate_tokenization_fixtures(oracle, tmp_path)

@@ -13,6 +13,7 @@ IMPORTANT:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -25,6 +26,16 @@ from typing import Any, Dict, List, Optional, Sequence
 
 PINNED_LT_VERSION = "6.8"
 PINNED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
+LOOMCHILD_VERSION = "2.0.3"
+
+
+def sha256_file(path: Path) -> str:
+    """Compute SHA-256 hex digest of a file."""
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 @dataclass(frozen=True)
@@ -88,23 +99,11 @@ class JavaLanguageToolOracle:
         self.jar_path = jar_path
 
     def is_java_available(self) -> bool:
-        """Check if java runtime is available on the system."""
-        return shutil.which("java") is not None
-
-    def is_oracle_configured(self) -> bool:
-        """Check if Java LanguageTool jar is available."""
-        if not self.is_java_available():
-            return False
-        if self.jar_path and self.jar_path.is_file():
-            return True
-        candidate = (
-            self.cache_dir
-            / f"LanguageTool-{PINNED_LT_VERSION}"
-            / "languagetool-commandline.jar"
-        )
-        return candidate.is_file()
+        """Check if java and javac runtimes are available on the system."""
+        return shutil.which("java") is not None and shutil.which("javac") is not None
 
     def get_jar_path(self) -> Optional[Path]:
+        """Resolve candidate path to languagetool-commandline.jar."""
         if self.jar_path and self.jar_path.is_file():
             return self.jar_path
         candidate = (
@@ -116,19 +115,102 @@ class JavaLanguageToolOracle:
             return candidate
         return None
 
+    def validate_oracle(self) -> Dict[str, Any]:
+        """Strictly validate the configured Java LanguageTool oracle identity and provenance."""
+        if not self.is_java_available():
+            raise RuntimeError("Java runtime (java/javac) is not available in PATH.")
+
+        jar = self.get_jar_path()
+        if not jar or not jar.is_file():
+            raise RuntimeError(
+                f"LanguageTool standalone jar not found in {self.cache_dir}. "
+                f"Oracle requires LanguageTool-{PINNED_LT_VERSION} standalone."
+            )
+
+        jar_hash = sha256_file(jar)
+
+        # Run minimal Java probe to verify JLanguageTool version and Russian pipeline classes
+        java_probe = """
+import org.languagetool.JLanguageTool;
+import org.languagetool.language.Russian;
+import net.loomchild.segment.srx.SrxDocument;
+
+public class OracleProbe {
+    public static void main(String[] args) {
+        String ver = JLanguageTool.VERSION;
+        String lang = Russian.getInstance().getShortCode();
+        System.out.print(ver + "|" + lang);
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "OracleProbe.java"
+            src_file.write_text(java_probe, encoding="utf-8")
+
+            try:
+                subprocess.run(
+                    ["javac", "-cp", str(jar), str(src_file)],
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                )
+                proc = subprocess.run(
+                    ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "OracleProbe"],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                )
+                output = proc.stdout.strip()
+                parts = output.split("|")
+                if len(parts) != 2:
+                    raise RuntimeError(f"Unexpected probe output: {output!r}")
+                version, lang_code = parts
+                if not version.startswith(PINNED_LT_VERSION):
+                    raise RuntimeError(
+                        f"LanguageTool version mismatch: expected '{PINNED_LT_VERSION}', got '{version}'"
+                    )
+                if lang_code != "ru":
+                    raise RuntimeError(
+                        f"Russian language module mismatch: expected 'ru', got '{lang_code}'"
+                    )
+
+                return {
+                    "is_verified": True,
+                    "version": version,
+                    "language_code": lang_code,
+                    "jar_path": str(jar),
+                    "jar_sha256": jar_hash,
+                    "pinned_version": PINNED_LT_VERSION,
+                    "pinned_commit": PINNED_LT_COMMIT,
+                }
+            except subprocess.CalledProcessError as e:
+                raise RuntimeError(
+                    f"Java LanguageTool oracle probe failed: {e.stderr}"
+                ) from e
+            except Exception as e:
+                raise RuntimeError(
+                    f"Failed to verify Java LanguageTool oracle identity: {e}"
+                ) from e
+
+    def is_oracle_configured(self) -> bool:
+        """Check if Java LanguageTool oracle is available and passes identity verification."""
+        if not self.is_java_available():
+            return False
+        if not self.get_jar_path():
+            return False
+        try:
+            val = self.validate_oracle()
+            return val.get("is_verified", False)
+        except Exception:
+            return False
+
     def check(
         self, text: str, disabled_rules: Sequence[str] | None = None
     ) -> List[Finding]:
         """Run text through Java LanguageTool CLI and return structured findings."""
-        if not self.is_java_available():
-            raise RuntimeError("Java is not installed or not in PATH.")
-
+        self.validate_oracle()
         jar = self.get_jar_path()
-        if not jar:
-            raise RuntimeError(
-                f"LanguageTool standalone jar not found in {self.cache_dir}. "
-                "Oracle is development-only and requires LanguageTool-6.8 standalone."
-            )
 
         cmd = [
             "java",
@@ -189,13 +271,8 @@ class JavaLanguageToolOracle:
         self, text: str, single_line_breaks: bool = False
     ) -> List[str]:
         """Run text through Java LanguageTool Russian SRXSentenceTokenizer."""
-        if not self.is_java_available():
-            raise RuntimeError("Java is not installed or not in PATH.")
+        self.validate_oracle()
         jar = self.get_jar_path()
-        if not jar:
-            raise RuntimeError(
-                f"LanguageTool standalone jar not found in {self.cache_dir}."
-            )
 
         java_src = """
 import org.languagetool.language.Russian;
@@ -241,7 +318,13 @@ public class TokenizeSentences {
 
             mode_arg = "ru_one" if single_line_breaks else "ru_two"
             proc = subprocess.run(
-                ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "TokenizeSentences", mode_arg],
+                [
+                    "java",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "TokenizeSentences",
+                    mode_arg,
+                ],
                 input=text.encode("utf-8"),
                 capture_output=True,
                 check=True,
@@ -253,13 +336,8 @@ public class TokenizeSentences {
 
     def tokenize_words(self, text: str) -> List[str]:
         """Run text through Java LanguageTool RussianWordTokenizer."""
-        if not self.is_java_available():
-            raise RuntimeError("Java is not installed or not in PATH.")
+        self.validate_oracle()
         jar = self.get_jar_path()
-        if not jar:
-            raise RuntimeError(
-                f"LanguageTool standalone jar not found in {self.cache_dir}."
-            )
 
         java_src = """
 import org.languagetool.language.Russian;
@@ -365,6 +443,9 @@ def generate_tokenization_fixtures(
     oracle: JavaLanguageToolOracle, fixtures_dir: Path
 ) -> None:
     """Regenerate oracle sentence and word fixtures directly from pinned Java LT."""
+    # Refuse fixture generation if oracle cannot be strictly proven
+    oracle.validate_oracle()
+
     sent_fixture_path = fixtures_dir / "oracle_russian_sentence_tokenization.json"
     word_fixture_path = fixtures_dir / "oracle_russian_word_tokenization.json"
 
@@ -414,25 +495,44 @@ def main() -> int:
     oracle = JavaLanguageToolOracle()
 
     if args.status:
-        status_info = {
-            "java_available": oracle.is_java_available(),
-            "oracle_configured": oracle.is_oracle_configured(),
-            "pinned_version": PINNED_LT_VERSION,
-            "pinned_commit": PINNED_LT_COMMIT,
-            "jar_path": str(oracle.get_jar_path()) if oracle.get_jar_path() else None,
-        }
+        try:
+            val = oracle.validate_oracle()
+            status_info = {
+                "java_available": True,
+                "oracle_configured": True,
+                "oracle_verified": True,
+                "pinned_version": PINNED_LT_VERSION,
+                "pinned_commit": PINNED_LT_COMMIT,
+                "jar_path": str(oracle.get_jar_path()),
+                "jar_sha256": val.get("jar_sha256"),
+            }
+        except Exception as e:
+            status_info = {
+                "java_available": oracle.is_java_available(),
+                "oracle_configured": False,
+                "oracle_verified": False,
+                "pinned_version": PINNED_LT_VERSION,
+                "pinned_commit": PINNED_LT_COMMIT,
+                "jar_path": str(oracle.get_jar_path()) if oracle.get_jar_path() else None,
+                "error": str(e),
+            }
+
         if args.json:
             print(json.dumps(status_info, indent=2))
         else:
             print(f"Java Available: {status_info['java_available']}")
             print(f"Oracle Configured: {status_info['oracle_configured']}")
             print(f"Pinned Version: {PINNED_LT_VERSION} ({PINNED_LT_COMMIT})")
+            if not status_info["oracle_configured"]:
+                print(f"Oracle Status Error: {status_info.get('error')}")
         return 0
 
     if args.generate_tokenization_fixtures:
-        if not oracle.is_oracle_configured():
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
             print(
-                "Java LanguageTool oracle is not configured. Cannot generate fixtures.",
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
                 file=sys.stderr,
             )
             return 1
@@ -444,10 +544,11 @@ def main() -> int:
         parser.print_help()
         return 1
 
-    if not oracle.is_oracle_configured():
+    try:
+        oracle.validate_oracle()
+    except Exception as e:
         print(
-            "Java LanguageTool oracle is not configured. "
-            "Place LanguageTool-6.8 standalone jar in .oracle_cache/ or specify path.",
+            f"Java LanguageTool oracle error: {e}",
             file=sys.stderr,
         )
         return 1

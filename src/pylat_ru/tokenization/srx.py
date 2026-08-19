@@ -20,6 +20,13 @@ from pylat_ru.tokenization.errors import (
     UnsupportedSRXFeatureError,
 )
 
+EXPECTED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
+EXPECTED_LT_TAG = "v6.8"
+EXPECTED_LOOMCHILD_VERSION = "2.0.3"
+EXPECTED_SOURCE_SHA256 = (
+    "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+)
+
 DEFAULT_MAX_LOOKBEHIND_LENGTH = 100
 
 STAR_PATTERN = regex.compile(r"(?<=(?<!\\)(?:\\\\)*)\*")
@@ -126,9 +133,10 @@ class SRXRuleMatcher:
     net.loomchild.segment.srx.RuleMatcher.
     """
 
-    def __init__(self, rule: SRXRule, text: str) -> None:
+    def __init__(self, rule: SRXRule, text: str, rule_index: int = 0) -> None:
         self.rule = rule
         self.text = text
+        self.rule_index = rule_index
         self.before_pattern = rule.before_pattern
         self.after_pattern = rule.after_pattern
 
@@ -137,6 +145,7 @@ class SRXRuleMatcher:
         self.start_pos: int = 0
         self.break_pos: int = 0
         self.end_pos: int = 0
+
 
     def reset(self, text: Optional[str] = None) -> None:
         """Reset matcher state and optionally update target text."""
@@ -272,69 +281,99 @@ class SRXRuleManager:
 
 
 class SRXSegmenter:
-    """Executes SRX segmentation matching loomchild SrxTextIterator algorithm."""
+    """Executes SRX segmentation matching loomchild 2.0.3 SrxTextIterator algorithm."""
 
     def __init__(self, rule_manager: SRXRuleManager) -> None:
         self.rule_manager = rule_manager
         self.break_rules = rule_manager.break_rules
         self.exception_patterns = rule_manager.exception_patterns
 
+    def _init_matchers(self, text: str) -> List[SRXRuleMatcher]:
+        matchers: List[SRXRuleMatcher] = []
+        for idx, rule in enumerate(self.break_rules):
+            m = SRXRuleMatcher(rule, text, rule_index=idx)
+            m.find()
+            if m.found:
+                matchers.append(m)
+        return matchers
+
+    def _get_min_matcher(
+        self, matchers: Sequence[SRXRuleMatcher]
+    ) -> Optional[SRXRuleMatcher]:
+        min_pos = 1_000_000_000
+        min_matcher: Optional[SRXRuleMatcher] = None
+        for matcher in matchers:
+            if matcher.break_pos < min_pos:
+                min_pos = matcher.break_pos
+                min_matcher = matcher
+        return min_matcher
+
+    def _is_exception(self, matcher: SRXRuleMatcher, text: str) -> bool:
+        """Return True if an exception pattern prevents this rule matcher from breaking."""
+        pattern = self.exception_patterns[matcher.rule_index]
+        if pattern is not None:
+            m = pattern.match(text, matcher.break_pos)
+            return m is not None
+        return False
+
+
+    def _cut_matchers(self, matchers: List[SRXRuleMatcher], end: int) -> None:
+        """Move matchers that start before previous segment end (start_pos < end)."""
+        i = 0
+        while i < len(matchers):
+            matcher = matchers[i]
+            if matcher.start_pos < end:
+                matcher.find(end)
+                if not matcher.found:
+                    matchers.pop(i)
+                    continue
+            i += 1
+
+    def _move_matchers(self, matchers: List[SRXRuleMatcher], end: int) -> None:
+        """Move all matchers to next position while their break position <= end."""
+        i = 0
+        while i < len(matchers):
+            matcher = matchers[i]
+            hit_end = False
+            while matcher.break_pos <= end:
+                matcher.find()
+                if not matcher.found:
+                    matchers.pop(i)
+                    hit_end = True
+                    break
+            if not hit_end:
+                i += 1
+
     def segment(self, text: str) -> tuple[str, ...]:
         """Segment input text into a tuple of sentence strings."""
         if not text:
             return ()
 
-        # Initialize matchers
-        matchers: List[SRXRuleMatcher] = [
-            SRXRuleMatcher(rule, text) for rule in self.break_rules
-        ]
-        for m in matchers:
-            m.find()
-
         segments: List[str] = []
-        segment_start = 0
+        start = 0
+        end = 0
         text_len = len(text)
+        matchers = self._init_matchers(text)
 
-        while segment_start < text_len:
-            # Find the active matcher with lowest break_position
-            min_matcher_idx: Optional[int] = None
-            min_break_pos = text_len + 1
+        while start < text_len:
+            found = False
+            while not found:
+                min_matcher = self._get_min_matcher(matchers)
+                if min_matcher is None:
+                    found = True
+                    end = text_len
+                else:
+                    end = min_matcher.break_pos
+                    if end > start:
+                        if not self._is_exception(min_matcher, text):
+                            found = True
+                            self._cut_matchers(matchers, end)
 
-            for idx, m in enumerate(matchers):
-                if m.found and m.break_pos < min_break_pos:
-                    min_break_pos = m.break_pos
-                    min_matcher_idx = idx
+                self._move_matchers(matchers, end)
 
-            if min_matcher_idx is None:
-                # No more breaks found; emit remainder
-                segments.append(text[segment_start:])
-                break
-
-            break_pos = min_break_pos
-            exception_pat = self.exception_patterns[min_matcher_idx]
-
-            # Check if break is suppressed by exception pattern
-            is_suppressed = False
-            if exception_pat is not None:
-                m_ex = exception_pat.match(text, break_pos)
-                if m_ex is not None:
-                    is_suppressed = True
-
-            if not is_suppressed:
-                if break_pos > segment_start:
-                    segments.append(text[segment_start:break_pos])
-                    segment_start = break_pos
-
-                # Advance matchers according to loomchild algorithm
-                for m in matchers:
-                    if m.found:
-                        if m.start_pos < segment_start:
-                            m.find(segment_start)
-                        elif m.break_pos <= segment_start:
-                            m.find()
-            else:
-                # Suppressed: advance the triggering matcher
-                matchers[min_matcher_idx].find()
+            segment = text[start:end]
+            start = end
+            segments.append(segment)
 
         return tuple(segments)
 
@@ -361,9 +400,15 @@ def load_russian_srx_rule_manager(
         raw_json = rules_json_path.read_text(encoding="utf-8")
     else:
         try:
-            raw_json = resources.files("pylat_ru.resources").joinpath("russian_srx_rules.json").read_text(encoding="utf-8")
+            raw_json = (
+                resources.files("pylat_ru.resources")
+                .joinpath("russian_srx_rules.json")
+                .read_text(encoding="utf-8")
+            )
         except Exception as e:
-            raise SRXFormatError(f"Failed to read packaged russian_srx_rules.json: {e}") from e
+            raise SRXFormatError(
+                f"Failed to read packaged russian_srx_rules.json: {e}"
+            ) from e
 
     try:
         data = json.loads(raw_json)
@@ -377,16 +422,38 @@ def load_russian_srx_rule_manager(
     required_top_keys = {"metadata", "configurations", "groups"}
     missing_top = required_top_keys - set(data.keys())
     if missing_top:
-        raise SRXFormatError(f"SRX rules missing required top-level keys: {missing_top}")
+        raise SRXFormatError(
+            f"SRX rules missing required top-level keys: {missing_top}"
+        )
 
     metadata = data.get("metadata")
     if not isinstance(metadata, dict):
         raise SRXFormatError("SRX rules metadata must be an object")
 
-    required_meta = {"languagetool_commit", "languagetool_tag", "loomchild_version", "source_sha256"}
-    missing_meta = required_meta - set(metadata.keys())
-    if missing_meta:
-        raise SRXFormatError(f"SRX rules metadata missing required keys: {missing_meta}")
+    # Strict validation of exact metadata values and types
+    commit_val = metadata.get("languagetool_commit")
+    if not isinstance(commit_val, str) or commit_val != EXPECTED_LT_COMMIT:
+        raise SRXFormatError(
+            f"SRX rules invalid or mismatching languagetool_commit: expected {EXPECTED_LT_COMMIT!r}, got {commit_val!r}"
+        )
+
+    tag_val = metadata.get("languagetool_tag")
+    if not isinstance(tag_val, str) or tag_val != EXPECTED_LT_TAG:
+        raise SRXFormatError(
+            f"SRX rules invalid or mismatching languagetool_tag: expected {EXPECTED_LT_TAG!r}, got {tag_val!r}"
+        )
+
+    loomchild_val = metadata.get("loomchild_version")
+    if not isinstance(loomchild_val, str) or loomchild_val != EXPECTED_LOOMCHILD_VERSION:
+        raise SRXFormatError(
+            f"SRX rules invalid or mismatching loomchild_version: expected {EXPECTED_LOOMCHILD_VERSION!r}, got {loomchild_val!r}"
+        )
+
+    sha_val = metadata.get("source_sha256")
+    if not isinstance(sha_val, str) or sha_val != EXPECTED_SOURCE_SHA256:
+        raise SRXFormatError(
+            f"SRX rules invalid or mismatching source_sha256: expected {EXPECTED_SOURCE_SHA256!r}, got {sha_val!r}"
+        )
 
     configs = data.get("configurations")
     if not isinstance(configs, dict):
@@ -410,28 +477,56 @@ def load_russian_srx_rule_manager(
         if not isinstance(r, dict):
             raise SRXFormatError(f"Rule {idx} in config '{mode}' is not an object")
 
-        required_rule_keys = {"group", "rule_index", "break", "beforebreak", "afterbreak"}
+        required_rule_keys = {
+            "group",
+            "rule_index",
+            "break",
+            "beforebreak",
+            "afterbreak",
+        }
         missing_rule = required_rule_keys - set(r.keys())
         if missing_rule:
-            raise SRXFormatError(f"Rule {idx} in config '{mode}' missing keys: {missing_rule}")
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' missing keys: {missing_rule}"
+            )
+
+        group_val = r["group"]
+        if not isinstance(group_val, str):
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' field 'group' must be a str, got {type(group_val).__name__}"
+            )
+
+        rule_idx_val = r["rule_index"]
+        if not isinstance(rule_idx_val, int) or isinstance(rule_idx_val, bool):
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' field 'rule_index' must be an int, got {type(rule_idx_val).__name__}"
+            )
 
         break_val = r["break"]
-        if break_val not in ("yes", "no"):
-            raise SRXFormatError(f"Rule {idx} in config '{mode}' has invalid break value: {break_val!r}")
+        if not isinstance(break_val, str) or break_val not in ("yes", "no"):
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' has invalid break value: {break_val!r}"
+            )
 
-        is_break = break_val == "yes"
-        group_name = str(r["group"])
-        rule_idx = int(r["rule_index"])
-        bb_str = str(r["beforebreak"])
-        ab_str = str(r["afterbreak"])
+        bb_val = r["beforebreak"]
+        if not isinstance(bb_val, str):
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' field 'beforebreak' must be a str, got {type(bb_val).__name__}"
+            )
+
+        ab_val = r["afterbreak"]
+        if not isinstance(ab_val, str):
+            raise SRXFormatError(
+                f"Rule {idx} in config '{mode}' field 'afterbreak' must be a str, got {type(ab_val).__name__}"
+            )
 
         parsed_rules.append(
             SRXRule(
-                is_break=is_break,
-                before_pattern_str=bb_str,
-                after_pattern_str=ab_str,
-                group_name=group_name,
-                rule_index=rule_idx,
+                is_break=(break_val == "yes"),
+                before_pattern_str=bb_val,
+                after_pattern_str=ab_val,
+                group_name=group_val,
+                rule_index=rule_idx_val,
             )
         )
 
