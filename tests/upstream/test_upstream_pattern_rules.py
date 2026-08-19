@@ -244,8 +244,13 @@ def test_pattern_rule_matcher_inflected_exact_semantics():
 def test_russian_pattern_rule_execution_suite():
     """Direct equivalent of RussianPatternRuleTest.testRules() running grammar.xml rules."""
     engine = RussianGrammarEngine.get_instance()
-    core_rules = engine.get_runnable_rules()
+    all_runnable_rules = engine.get_runnable_rules()
+    assert len(all_runnable_rules) == 735
+
+    core_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
+    advanced_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     assert len(core_rules) == 506
+    assert len(advanced_rules) == 229
 
     # Verify execution of representative core rules
     zadat = engine.get_rule("zadat_test[1]")
@@ -254,23 +259,38 @@ def test_russian_pattern_rule_execution_suite():
 
     # Verify deferred rules raise typed error when checked directly
     deferred_rule = engine.get_rule("SKL_N_I_NN[1]")
-    if deferred_rule is not None and deferred_rule.execution_state != ExecutionState.CORE_0007_RUNNABLE:
+    if deferred_rule is not None and deferred_rule.execution_state not in (
+        ExecutionState.CORE_0007_RUNNABLE,
+        ExecutionState.ADVANCED_0008_RUNNABLE,
+    ):
         sent = _make_sentence(["test"])
         with pytest.raises(UnsupportedGrammarFeatureError):
             engine.check_rule(sent, deferred_rule)
 
 
 def test_deferred_features_inventory_task_0008_to_0010():
-    """Exhaustive inventory assertion of features deferred to Tasks 0008-0010."""
+    """Exhaustive inventory assertion of features for Task 0008 and deferred future tasks."""
     loader = GrammarLoader()
     rules = loader.load_default()
 
-    deferred_0008 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0008_ADVANCED_MATCHING]
+    runnable_0007 = [r for r in rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
+    runnable_0008 = [r for r in rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     deferred_0009 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0009_UNIFICATION]
     deferred_0010 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0010_FILTER]
+    deferred_0012 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0012_SPELLING_OR_SUPPRESSION]
     multi_blocker = [r for r in rules if r.execution_state == ExecutionState.MULTI_BLOCKER]
 
-    assert len(deferred_0008) == 157, f"Expected 157 deferred 0008 rules, got {len(deferred_0008)}"
-    assert len(deferred_0009) == 8, f"Expected 8 deferred 0009 rules, got {len(deferred_0009)}"
-    assert len(deferred_0010) == 64, f"Expected 64 deferred 0010 rules, got {len(deferred_0010)}"
-    assert len(multi_blocker) == 157, f"Expected 157 multi-blocker rules, got {len(multi_blocker)}"
+    assert len(runnable_0007) == 506, f"Expected 506 core 0007 rules, got {len(runnable_0007)}"
+    assert len(runnable_0008) == 229, f"Expected 229 advanced 0008 rules, got {len(runnable_0008)}"
+    assert len(deferred_0009) == 24, f"Expected 24 deferred 0009 rules, got {len(deferred_0009)}"
+    assert len(deferred_0010) == 16, f"Expected 16 deferred 0010 rules, got {len(deferred_0010)}"
+    assert len(deferred_0012) == 110, f"Expected 110 deferred 0012 rules, got {len(deferred_0012)}"
+    assert len(multi_blocker) == 7, f"Expected 7 multi-blocker rules, got {len(multi_blocker)}"
+    assert (
+        len(runnable_0007)
+        + len(runnable_0008)
+        + len(deferred_0009)
+        + len(deferred_0010)
+        + len(deferred_0012)
+        + len(multi_blocker)
+    ) == 892

@@ -1,12 +1,14 @@
 """src/pylat_ru/grammar/engine.py
 
 Core XML Grammar Engine for LanguageTool Russian rules.
-Executes compiled pattern rules over AnalyzedSentence tokens to produce structured findings.
+Executes compiled pattern rule variants over AnalyzedSentence tokens to produce structured findings.
+Supports Core 0007 and Advanced 0008 pattern matching rules.
 """
 
 from __future__ import annotations
 
 from typing import Dict, List, Optional, Sequence, Set, Tuple, Union
+import regex
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedTokenReadings
 from pylat_ru.grammar.classifier import classify_rule_element
@@ -15,14 +17,20 @@ from pylat_ru.grammar.errors import (
     GrammarRuleDisabledError,
     UnsupportedGrammarFeatureError,
 )
-from pylat_ru.grammar.formatter import TemplateFormatter
+from pylat_ru.grammar.formatter import TemplateFormatter, uppercase_first_char
 from pylat_ru.grammar.loader import GrammarLoader
-from pylat_ru.grammar.matcher import CompiledPattern
+from pylat_ru.grammar.matcher import (
+    CompiledRuleVariant,
+    MatchStateResult,
+    expand_rule_into_variants,
+    filter_subsumed_rule_matches,
+)
 from pylat_ru.grammar.model import (
     ExecutionState,
     GrammarRule,
     RuleMatchResult,
 )
+from pylat_ru.synthesis.synthesizer import RussianSynthesizer
 
 
 def _utf16_len(s: Optional[str]) -> int:
@@ -54,19 +62,28 @@ def _compute_utf16_offsets(text: str, char_from: int, char_to: int) -> Tuple[int
 
 
 class RussianGrammarEngine:
-    """Core rule engine executing LanguageTool Russian grammar rules."""
+    """Rule engine executing LanguageTool Russian grammar rules."""
 
     _default_instance: Optional[RussianGrammarEngine] = None
 
-    def __init__(self, rules: Optional[Sequence[GrammarRule]] = None) -> None:
+    def __init__(
+        self,
+        rules: Optional[Sequence[GrammarRule]] = None,
+        synthesizer: Optional[RussianSynthesizer] = None,
+        loader: Optional[GrammarLoader] = None,
+    ) -> None:
         if rules is None:
-            loader = GrammarLoader()
-            rules = loader.load_default()
+            gloader = loader or GrammarLoader()
+            rules = gloader.load_default()
+            self._loader = gloader
+        else:
+            self._loader = loader or GrammarLoader()
 
+        self._synthesizer = synthesizer or RussianSynthesizer.get_instance()
         self._all_rules: List[GrammarRule] = list(rules)
         self._rules_by_id: Dict[str, GrammarRule] = {}
         self._rules_by_full_id: Dict[str, GrammarRule] = {}
-        self._compiled_patterns: Dict[str, CompiledPattern] = {}
+        self._compiled_variants: Dict[str, List[CompiledRuleVariant]] = {}
         self._disabled_rules: Set[str] = set()
 
         for r in self._all_rules:
@@ -75,8 +92,12 @@ class RussianGrammarEngine:
             if r.default_off:
                 self._disabled_rules.add(r.full_id)
 
-            if r.execution_state == ExecutionState.CORE_0007_RUNNABLE:
-                self._compiled_patterns[r.full_id] = CompiledPattern(r.pattern)
+            if r.execution_state in (
+                ExecutionState.CORE_0007_RUNNABLE,
+                ExecutionState.ADVANCED_0008_RUNNABLE,
+            ):
+                variants = expand_rule_into_variants(r, self._loader.global_phrases)
+                self._compiled_variants[r.full_id] = variants
 
     @classmethod
     def get_instance(cls) -> RussianGrammarEngine:
@@ -90,9 +111,14 @@ class RussianGrammarEngine:
         return list(self._all_rules)
 
     def get_runnable_rules(self) -> List[GrammarRule]:
-        """Return all rules eligible for execution in core 0007 engine."""
+        """Return all rules eligible for execution in 0007 core + 0008 advanced engine."""
         return [
-            r for r in self._all_rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE
+            r
+            for r in self._all_rules
+            if r.execution_state in (
+                ExecutionState.CORE_0007_RUNNABLE,
+                ExecutionState.ADVANCED_0008_RUNNABLE,
+            )
         ]
 
     def get_rule(self, rule_id_or_full_id: str) -> Optional[GrammarRule]:
@@ -105,7 +131,8 @@ class RussianGrammarEngine:
         if rule_id_or_full_id in self._rules_by_full_id:
             return [rule_id_or_full_id]
         matched = [
-            r.full_id for r in self._all_rules
+            r.full_id
+            for r in self._all_rules
             if r.id == rule_id_or_full_id or r.rulegroup_id == rule_id_or_full_id
         ]
         return matched if matched else [rule_id_or_full_id]
@@ -138,7 +165,10 @@ class RussianGrammarEngine:
         else:
             rule = rule_or_id
 
-        if rule.execution_state != ExecutionState.CORE_0007_RUNNABLE:
+        if rule.execution_state not in (
+            ExecutionState.CORE_0007_RUNNABLE,
+            ExecutionState.ADVANCED_0008_RUNNABLE,
+        ):
             blocker_desc = ", ".join(f"{b.feature} (task {b.target_task})" for b in rule.blockers)
             raise UnsupportedGrammarFeatureError(
                 f"Rule {rule.full_id} is deferred: {blocker_desc}",
@@ -146,28 +176,28 @@ class RussianGrammarEngine:
                 rule_id=rule.full_id,
             )
 
-        compiled = self._compiled_patterns.get(rule.full_id)
-        if compiled is None:
-            compiled = CompiledPattern(rule.pattern)
-            self._compiled_patterns[rule.full_id] = compiled
+        variants = self._compiled_variants.get(rule.full_id)
+        if variants is None:
+            variants = expand_rule_into_variants(rule, self._loader.global_phrases)
+            self._compiled_variants[rule.full_id] = variants
 
-        return self._execute_rule(sentence, rule, compiled)
+        return self._execute_rule(sentence, rule, variants)
 
     def check_sentence(
         self,
         sentence: AnalyzedSentence,
         include_disabled: bool = False,
     ) -> List[RuleMatchResult]:
-        """Execute all core-runnable rules on an AnalyzedSentence."""
+        """Execute all runnable rules on an AnalyzedSentence."""
         results: List[RuleMatchResult] = []
 
         for rule in self.get_runnable_rules():
             if not include_disabled and not self.is_rule_enabled(rule.full_id):
                 continue
-            compiled = self._compiled_patterns.get(rule.full_id)
-            if compiled is None:
+            variants = self._compiled_variants.get(rule.full_id)
+            if not variants:
                 continue
-            rule_matches = self._execute_rule(sentence, rule, compiled)
+            rule_matches = self._execute_rule(sentence, rule, variants)
             results.extend(rule_matches)
 
         return results
@@ -176,90 +206,134 @@ class RussianGrammarEngine:
         self,
         sentence: AnalyzedSentence,
         rule: GrammarRule,
-        compiled: CompiledPattern,
+        variants: List[CompiledRuleVariant],
     ) -> List[RuleMatchResult]:
-        """Match compiled rule against sentence non-blank tokens."""
-        non_blank_tokens = [
-            t for t in sentence.tokens if t.has_pos_tag("SENT_START") or (t.token and not t.is_whitespace())
-        ]
-        if not non_blank_tokens:
-            return []
-
-        results: List[RuleMatchResult] = []
-        token_count = len(non_blank_tokens)
+        """Match compiled rule variants against sentence tokens with antipatterns and RuleWithMaxFilter."""
+        all_variant_matches: List[RuleMatchResult] = []
         text_full = sentence.text if hasattr(sentence, "text") and sentence.text else ""
 
-        for start_idx in range(token_count):
-            match_span = compiled.match_at(non_blank_tokens, start_idx)
-            if match_span is None:
+        for variant in variants:
+            # 1. Antipattern evaluation (immunize matched tokens)
+            immunized_tokens: Set[int] = set()
+            if variant.antipatterns:
+                for ap_variant in variant.antipatterns:
+                    ap_results = ap_variant.match_sentence(
+                        sentence=sentence,
+                        synthesizer=self._synthesizer,
+                        immunized_tokens=set(),
+                    )
+                    for ap_res in ap_results:
+                        for imm_idx in range(ap_res.error_start_idx, ap_res.error_end_idx):
+                            immunized_tokens.add(imm_idx)
+
+            # 2. Main pattern match
+            match_results = variant.match_sentence(
+                sentence=sentence,
+                synthesizer=self._synthesizer,
+                immunized_tokens=immunized_tokens,
+            )
+
+            if not match_results:
                 continue
 
-            match_start, match_end, error_start, error_end = match_span
-
-            # Matched token objects
-            matched_tokens = non_blank_tokens[match_start:match_end]
-            error_tokens = non_blank_tokens[error_start:error_end]
-
-            # Format message and suggestions
-            message = TemplateFormatter.format_message(rule.message_template, matched_tokens)
-            suggestions = [
-                TemplateFormatter.format_suggestion(sug_tmpl, matched_tokens, error_tokens)
-                for sug_tmpl in rule.suggestions
+            # Select token stream
+            all_tokens = sentence.pre_disambig_tokens if variant.raw_pos else sentence.tokens
+            non_blank_tokens = [
+                t for t in all_tokens if t.has_pos_tag("SENT_START") or (t.token and not t.is_whitespace())
             ]
 
-            # Error / Marker span offsets
-            from_tok = non_blank_tokens[error_start]
-            to_tok = non_blank_tokens[error_end - 1]
-            from_utf16 = from_tok.start_pos
-            to_utf16 = to_tok.start_pos + _utf16_len(to_tok.token)
+            for match_res in match_results:
+                matched_tokens = non_blank_tokens[match_res.match_start_idx : match_res.match_end_idx]
+                error_tokens = non_blank_tokens[match_res.error_start_idx : match_res.error_end_idx]
 
-            # Match Java LT PatternRuleMatcher comma-prepended whitespace semantics
-            if error_start >= 1:
-                has_comma_sugg = any(s.startswith(",") for s in suggestions) or ("<suggestion>," in message)
-                if has_comma_sugg:
-                    prev_tok = non_blank_tokens[error_start - 1]
-                    from_utf16 = prev_tok.start_pos + _utf16_len(prev_tok.token)
+                # Format message
+                message = TemplateFormatter.format_message(
+                    template=rule.message_template,
+                    tokens=non_blank_tokens,
+                    token_positions=match_res.token_positions,
+                    first_match_token=match_res.first_match_token,
+                    element_lengths=variant.element_lengths,
+                    synthesizer=self._synthesizer,
+                )
 
-            if text_full:
-                from_pos = _utf16_to_codepoint_offset(text_full, from_utf16)
-                to_pos = _utf16_to_codepoint_offset(text_full, to_utf16)
-            else:
-                from_pos = from_utf16
-                to_pos = to_utf16
+                # Format suggestions
+                sug_matches = regex.findall(r"<suggestion>(.*?)</suggestion>", message)
+                first_err_tok = error_tokens[0].token or "" if error_tokens else ""
+                is_sentence_start = bool(match_res.error_start_idx <= 1)
+                is_first_upper = bool(is_sentence_start and first_err_tok and first_err_tok[0].isupper())
+                if sug_matches:
+                    if is_first_upper:
+                        suggestions = [uppercase_first_char(s) for s in sug_matches]
+                    else:
+                        suggestions = sug_matches
+                else:
+                    suggestions = []
+                    for sug_tmpl in rule.suggestions:
+                        sug_list = TemplateFormatter.format_suggestions_list(
+                            template=sug_tmpl,
+                            tokens=non_blank_tokens,
+                            token_positions=match_res.token_positions,
+                            first_match_token=match_res.first_match_token,
+                            error_tokens=error_tokens,
+                            element_lengths=variant.element_lengths,
+                            synthesizer=self._synthesizer,
+                        )
+                        suggestions.extend(sug_list)
 
-            # Full pattern span offsets
-            pat_from_tok = non_blank_tokens[match_start]
-            pat_to_tok = non_blank_tokens[match_end - 1]
-            pat_from_utf16 = pat_from_tok.start_pos
-            pat_to_utf16 = pat_to_tok.start_pos + _utf16_len(pat_to_tok.token)
+                # Error / Marker span offsets
+                from_tok = non_blank_tokens[match_res.error_start_idx]
+                to_tok = non_blank_tokens[match_res.error_end_idx - 1]
+                from_utf16 = from_tok.start_pos
+                to_utf16 = to_tok.start_pos + _utf16_len(to_tok.token)
 
-            if text_full:
-                pat_from_pos = _utf16_to_codepoint_offset(text_full, pat_from_utf16)
-                pat_to_pos = _utf16_to_codepoint_offset(text_full, pat_to_utf16)
-            else:
-                pat_from_pos = pat_from_utf16
-                pat_to_pos = pat_to_utf16
+                # Match Java LT PatternRuleMatcher comma-prepended whitespace semantics
+                if match_res.error_start_idx >= 1:
+                    has_comma_sugg = any(s.startswith(",") for s in suggestions) or ("<suggestion>," in message)
+                    if has_comma_sugg:
+                        prev_tok = non_blank_tokens[match_res.error_start_idx - 1]
+                        from_utf16 = prev_tok.start_pos + _utf16_len(prev_tok.token)
 
-            match_res = RuleMatchResult(
-                rule_id=rule.id,
-                full_rule_id=rule.full_id,
-                category_id=rule.category_id,
-                category_name=rule.category_name,
-                description=rule.name,
-                message=message,
-                short_message=rule.short_message,
-                suggestions=suggestions,
-                from_pos=from_pos,
-                to_pos=to_pos,
-                from_pos_utf16=from_utf16,
-                to_pos_utf16=to_utf16,
-                pattern_from_pos=pat_from_pos,
-                pattern_to_pos=pat_to_pos,
-                pattern_from_pos_utf16=pat_from_utf16,
-                pattern_to_pos_utf16=pat_to_utf16,
-                matched_tokens_indices=list(range(match_start, match_end)),
-                marker_tokens_indices=list(range(error_start, error_end)),
-            )
-            results.append(match_res)
+                if text_full:
+                    from_pos = _utf16_to_codepoint_offset(text_full, from_utf16)
+                    to_pos = _utf16_to_codepoint_offset(text_full, to_utf16)
+                else:
+                    from_pos = from_utf16
+                    to_pos = to_utf16
 
-        return results
+                # Full pattern span offsets
+                pat_from_tok = non_blank_tokens[match_res.match_start_idx]
+                pat_to_tok = non_blank_tokens[match_res.match_end_idx - 1]
+                pat_from_utf16 = pat_from_tok.start_pos
+                pat_to_utf16 = pat_to_tok.start_pos + _utf16_len(pat_to_tok.token)
+
+                if text_full:
+                    pat_from_pos = _utf16_to_codepoint_offset(text_full, pat_from_utf16)
+                    pat_to_pos = _utf16_to_codepoint_offset(text_full, pat_to_utf16)
+                else:
+                    pat_from_pos = pat_from_utf16
+                    pat_to_pos = pat_to_utf16
+
+                res = RuleMatchResult(
+                    rule_id=rule.id,
+                    full_rule_id=rule.full_id,
+                    category_id=rule.category_id,
+                    category_name=rule.category_name,
+                    description=rule.name,
+                    message=message,
+                    short_message=rule.short_message or "",
+                    suggestions=suggestions,
+                    from_pos=from_pos,
+                    to_pos=to_pos,
+                    from_pos_utf16=from_utf16,
+                    to_pos_utf16=to_utf16,
+                    pattern_from_pos=pat_from_pos,
+                    pattern_to_pos=pat_to_pos,
+                    pattern_from_pos_utf16=pat_from_utf16,
+                    pattern_to_pos_utf16=pat_to_utf16,
+                    matched_tokens_indices=list(range(match_res.match_start_idx, match_res.match_end_idx)),
+                    marker_tokens_indices=list(range(match_res.error_start_idx, match_res.error_end_idx)),
+                )
+                all_variant_matches.append(res)
+
+        # Apply RuleWithMaxFilter overlap elimination across all variant matches of this rule
+        return filter_subsumed_rule_matches(all_variant_matches)

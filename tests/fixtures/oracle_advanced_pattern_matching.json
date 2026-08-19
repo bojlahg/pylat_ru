@@ -1,0 +1,2757 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Advanced Pattern Matching Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "cases_count": 120
+  },
+  "cases": [
+    {
+      "id": "adv_pat_001_INVALID_DATE_0",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_DATE[1]",
+      "text": "Это случилось 31 ноября 2014 г.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_DATE",
+        "full_rule_id": "INVALID_DATE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Неверная дата, например: «31 февраля 2014»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 14,
+            "to_utf16": 23,
+            "message": "В ноябре только 30 дней.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_002_INVALID_DATE_1",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_DATE[1]",
+      "text": "Это случилось 31 апреля 2014 г.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_DATE",
+        "full_rule_id": "INVALID_DATE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Неверная дата, например: «31 февраля 2014»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 14,
+            "to_utf16": 23,
+            "message": "В апреле только 30 дней.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_003_INVALID_DATE_2",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_DATE[1]",
+      "text": "Это случилось 30 ноября 2014 г.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_DATE",
+        "full_rule_id": "INVALID_DATE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Неверная дата, например: «31 февраля 2014»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_004_YEAR_20001_0",
+      "category": "LOGIC",
+      "full_rule_id": "YEAR_20001[1]",
+      "text": "Моя поездка на море запланирована на май 20014 г.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "YEAR_20001",
+        "full_rule_id": "YEAR_20001[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Май 20001 (Май 2001)»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 37,
+            "to_utf16": 46,
+            "message": "Действительно 20014? или <suggestion>май 2014</suggestion>?",
+            "short_message": "Опечатка?",
+            "suggestions": [
+              "май 2014"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_005_razvevatsja_razvivatsja_0",
+      "category": "LOGIC",
+      "full_rule_id": "razvevatsja_razvivatsja[1]",
+      "text": "развевался флаг",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "razvevatsja_razvivatsja",
+        "full_rule_id": "razvevatsja_razvivatsja[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «развеваться» или «развиваться»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_006_razvevatsja_razvivatsja_1",
+      "category": "LOGIC",
+      "full_rule_id": "razvevatsja_razvivatsja[1]",
+      "text": "развевалась болезнь",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "razvevatsja_razvivatsja",
+        "full_rule_id": "razvevatsja_razvivatsja[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «развеваться» или «развиваться»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "message": "Опечатка: <suggestion>развивалась болезнь</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "развивалась болезнь"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_007_zakonchit_shkolu_0",
+      "category": "LOGIC",
+      "full_rule_id": "zakonchit_shkolu[1]",
+      "text": "В этом году он закончил университет.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "zakonchit_shkolu",
+        "full_rule_id": "zakonchit_shkolu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «закончить или окончить»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 15,
+            "to_utf16": 35,
+            "message": "Опечатка: <suggestion>окончил университет</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "окончил университет"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_008_dlitelnij_dlinnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "dlitelnij_dlinnij[1]",
+      "text": "длительный разговор",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "dlitelnij_dlinnij",
+        "full_rule_id": "dlitelnij_dlinnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «длительный» или «длинный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "message": "Опечатка: <suggestion>длинный разговор</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "длинный разговор"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_009_dlitelnij_dlinnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "dlitelnij_dlinnij[2]",
+      "text": "длинный полёт",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "dlitelnij_dlinnij",
+        "full_rule_id": "dlitelnij_dlinnij[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «длительный» или «длинный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Опечатка: <suggestion>длительный полёт</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "длительный полёт"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_010_sovestnij_sovmestnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "sovestnij_sovmestnij[1]",
+      "text": "совестное предприятие",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "sovestnij_sovmestnij",
+        "full_rule_id": "sovestnij_sovmestnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «совестный» или «совместный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 21,
+            "message": "Опечатка: <suggestion>совместное предприятие</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "совместное предприятие"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_011_V_sortimente_0",
+      "category": "LOGIC",
+      "full_rule_id": "V_sortimente[1]",
+      "text": "Товары в сортименте.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_sortimente",
+        "full_rule_id": "V_sortimente[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «в сортименте» или «в ассортименте»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 7,
+            "to_utf16": 20,
+            "message": "Опечатка: <suggestion>в ассортименте.</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "в ассортименте."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_012_V_sortimente_1",
+      "category": "LOGIC",
+      "full_rule_id": "V_sortimente[1]",
+      "text": "Товары в широком сортименте.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_sortimente",
+        "full_rule_id": "V_sortimente[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «в сортименте» или «в ассортименте»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 7,
+            "to_utf16": 28,
+            "message": "Опечатка: <suggestion>в широком ассортименте.</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "в широком ассортименте."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_013_V_sortimente_2",
+      "category": "LOGIC",
+      "full_rule_id": "V_sortimente[1]",
+      "text": "Товары в ассортименте.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_sortimente",
+        "full_rule_id": "V_sortimente[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «в сортименте» или «в ассортименте»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_014_Slovosoch_v_proshlom_0",
+      "category": "LOGIC",
+      "full_rule_id": "Slovosoch_v_proshlom[1]",
+      "text": "Хотя в пошлом были предложены решения, мы только сегодня имеем результат.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Slovosoch_v_proshlom",
+        "full_rule_id": "Slovosoch_v_proshlom[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «в прошлом» или «в пошлом»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 5,
+            "to_utf16": 13,
+            "message": "Опечатка: <suggestion>в прошлом</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "в прошлом"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_015_Slovosoch_v_proshlom_1",
+      "category": "LOGIC",
+      "full_rule_id": "Slovosoch_v_proshlom[1]",
+      "text": "Хотя в прошлом были предложены решения, мы только сегодня имеем результат.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Slovosoch_v_proshlom",
+        "full_rule_id": "Slovosoch_v_proshlom[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «в прошлом» или «в пошлом»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_016_v_ruchnuju_0",
+      "category": "LOGIC",
+      "full_rule_id": "v_ruchnuju[2]",
+      "text": "Вручную кладь можно сдать сумку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "v_ruchnuju",
+        "full_rule_id": "v_ruchnuju[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «в ручную» или «вручную»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Имелось в виду: <suggestion>в ручную кладь</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "В ручную кладь"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_017_v_ruchnuju_1",
+      "category": "LOGIC",
+      "full_rule_id": "v_ruchnuju[2]",
+      "text": "В ручную кладь можно сдать сумку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "v_ruchnuju",
+        "full_rule_id": "v_ruchnuju[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «в ручную» или «вручную»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_018_v_ruchnuju_2",
+      "category": "LOGIC",
+      "full_rule_id": "v_ruchnuju[2]",
+      "text": "Я бы вручную их обновил.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "v_ruchnuju",
+        "full_rule_id": "v_ruchnuju[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «в ручную» или «вручную»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_019_v_ruchnuju_3",
+      "category": "LOGIC",
+      "full_rule_id": "v_ruchnuju[2]",
+      "text": "И двери открыть вручную.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "v_ruchnuju",
+        "full_rule_id": "v_ruchnuju[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «в ручную» или «вручную»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_020_INFORMATIVNIJ_INFORMACIONNIJ_0",
+      "category": "LOGIC",
+      "full_rule_id": "INFORMATIVNIJ_INFORMACIONNIJ[1]",
+      "text": "По всем вопросам обращайтесь в информативный отдел.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INFORMATIVNIJ_INFORMACIONNIJ",
+        "full_rule_id": "INFORMATIVNIJ_INFORMACIONNIJ[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «информативный» или «информационный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 31,
+            "to_utf16": 50,
+            "message": "Имелось в виду <suggestion>информационный отдел</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "информационный отдел"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_021_uroven_uvelichilsja_0",
+      "category": "LOGIC",
+      "full_rule_id": "uroven_uvelichilsja[1]",
+      "text": "Уровень воды увеличился.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "uroven_uvelichilsja",
+        "full_rule_id": "uroven_uvelichilsja[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровень повысился или увеличился»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "message": "Имелось в виду: <suggestion>Уровень воды повысился</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Уровень воды повысился"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_022_uroven_uvelichilsja_1",
+      "category": "LOGIC",
+      "full_rule_id": "uroven_uvelichilsja[1]",
+      "text": "Уровень воды в реке увеличился.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "uroven_uvelichilsja",
+        "full_rule_id": "uroven_uvelichilsja[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровень повысился или увеличился»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 30,
+            "message": "Имелось в виду: <suggestion>Уровень воды в реке повысился</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Уровень воды в реке повысился"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_023_uroven_uvelichilsja_2",
+      "category": "LOGIC",
+      "full_rule_id": "uroven_uvelichilsja[1]",
+      "text": "Уровень воды в озере повысился.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "uroven_uvelichilsja",
+        "full_rule_id": "uroven_uvelichilsja[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровень повысился или увеличился»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_024_gerojsky_geroichesky_0",
+      "category": "LOGIC",
+      "full_rule_id": "gerojsky_geroichesky[1]",
+      "text": "Геройский эпос народов мира.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "gerojsky_geroichesky",
+        "full_rule_id": "gerojsky_geroichesky[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «геройский» или «героический»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Имелось в виду: <suggestion>героический эпос</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Героический эпос"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_025_gerojsky_geroichesky_1",
+      "category": "LOGIC",
+      "full_rule_id": "gerojsky_geroichesky[1]",
+      "text": "Героический эпос народов мира.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "gerojsky_geroichesky",
+        "full_rule_id": "gerojsky_geroichesky[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «геройский» или «героический»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_026_dvigatel_dvizhetel_0",
+      "category": "LOGIC",
+      "full_rule_id": "dvigatel_dvizhetel[1]",
+      "text": "Кооперация и аренда — движители перестройки.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "dvigatel_dvizhetel",
+        "full_rule_id": "dvigatel_dvizhetel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Устойчивые словосочетания со словами: «двигатель» или «движитель»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 22,
+            "to_utf16": 43,
+            "message": "Имелось в виду: <suggestion>двигатели перестройки</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "двигатели перестройки"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_027_dvigatel_dvizhetel_1",
+      "category": "LOGIC",
+      "full_rule_id": "dvigatel_dvizhetel[1]",
+      "text": "Кооперация и аренда — двигатели перестройки.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "dvigatel_dvizhetel",
+        "full_rule_id": "dvigatel_dvizhetel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Устойчивые словосочетания со словами: «двигатель» или «движитель»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_028_companija_campanija_0",
+      "category": "LOGIC",
+      "full_rule_id": "companija_campanija[1]",
+      "text": "Производственная кампания.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "companija_campanija",
+        "full_rule_id": "companija_campanija[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «компания» или «кампания»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "message": "Имелось в виду: <suggestion>Производственная компания</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Производственная компания"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_029_companija_campanija_1",
+      "category": "LOGIC",
+      "full_rule_id": "companija_campanija[1]",
+      "text": "Производственная компания была основана в 1990 году.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "companija_campanija",
+        "full_rule_id": "companija_campanija[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «компания» или «кампания»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_030_companija_campanija_0",
+      "category": "LOGIC",
+      "full_rule_id": "companija_campanija[2]",
+      "text": "Началась компания по сбору урожая.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "companija_campanija",
+        "full_rule_id": "companija_campanija[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «компания» или «кампания»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "message": "Имелось в виду: <suggestion>Началась кампания по</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Началась кампания по"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_031_companija_campanija_1",
+      "category": "LOGIC",
+      "full_rule_id": "companija_campanija[2]",
+      "text": "Кампания по сбору урожая.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "companija_campanija",
+        "full_rule_id": "companija_campanija[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «компания» или «кампания»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_032_urovnjat_uravnjat_0",
+      "category": "LOGIC",
+      "full_rule_id": "urovnjat_uravnjat[1]",
+      "text": "уравнять дорогу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "urovnjat_uravnjat",
+        "full_rule_id": "urovnjat_uravnjat[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровнять» или «уравнять»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "message": "Имелось в виду: <suggestion>уровнять дорогу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "уровнять дорогу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_033_urovnjat_uravnjat_1",
+      "category": "LOGIC",
+      "full_rule_id": "urovnjat_uravnjat[1]",
+      "text": "уровнять дорогу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "urovnjat_uravnjat",
+        "full_rule_id": "urovnjat_uravnjat[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровнять» или «уравнять»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_034_urovnjat_uravnjat_0",
+      "category": "LOGIC",
+      "full_rule_id": "urovnjat_uravnjat[2]",
+      "text": "уровнять в правах",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "urovnjat_uravnjat",
+        "full_rule_id": "urovnjat_uravnjat[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровнять» или «уравнять»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "message": "Имелось в виду: <suggestion>уравнять в правах</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "уравнять в правах"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_035_urovnjat_uravnjat_1",
+      "category": "LOGIC",
+      "full_rule_id": "urovnjat_uravnjat[2]",
+      "text": "уравнять в правах",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "urovnjat_uravnjat",
+        "full_rule_id": "urovnjat_uravnjat[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «уровнять» или «уравнять»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_036_bolotnij_bolotistiy_0",
+      "category": "LOGIC",
+      "full_rule_id": "bolotnij_bolotistiy[1]",
+      "text": "Здесь располагается болотная территория.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "bolotnij_bolotistiy",
+        "full_rule_id": "bolotnij_bolotistiy[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «болотный» или «болотистый»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 20,
+            "to_utf16": 39,
+            "message": "Имелось в виду: <suggestion>болотистая территория</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "болотистая территория"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_037_bolotnij_bolotistiy_0",
+      "category": "LOGIC",
+      "full_rule_id": "bolotnij_bolotistiy[2]",
+      "text": "Из воды выходил болотистый газ.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "bolotnij_bolotistiy",
+        "full_rule_id": "bolotnij_bolotistiy[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «болотный» или «болотистый»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 30,
+            "message": "Имелось в виду: <suggestion>болотный газ</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "болотный газ"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_038_tcifra_zanijena_0",
+      "category": "LOGIC",
+      "full_rule_id": "tcifra_zanijena[1]",
+      "text": "Эта цифра в отчёте занижена.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "tcifra_zanijena",
+        "full_rule_id": "tcifra_zanijena[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «цифра занижена»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 27,
+            "message": "Вместо выражения: «цифра занижена» необходимо употреблять: «количество (значение, ...) занижено».",
+            "short_message": "Логическая ошибка",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_039_podvesti_rezume_0",
+      "category": "LOGIC",
+      "full_rule_id": "podvesti_rezume[1]",
+      "text": "Они подвели резюме.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "podvesti_rezume",
+        "full_rule_id": "podvesti_rezume[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «подвести резюме»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 18,
+            "message": "Имелось в виду <suggestion>вывели резюме</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "вывели резюме"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_040_kavalkada_mashin_0",
+      "category": "LOGIC",
+      "full_rule_id": "kavalkada_mashin[1]",
+      "text": "Нам встретилась кавалькада всадников.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "kavalkada_mashin",
+        "full_rule_id": "kavalkada_mashin[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «кавалькада машин»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 36,
+            "message": "Слово «кавалькада» обозначает «группу всадников» и не требует после себя пояснительного слова: <suggestion>кавалькада</suggestion> или <suggestion>группа всадников</suggestion> ?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "кавалькада",
+              "группа всадников"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_041_bivshij_biloj_0",
+      "category": "LOGIC",
+      "full_rule_id": "bivshij_biloj[1]",
+      "text": "былого мужа",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "bivshij_biloj",
+        "full_rule_id": "bivshij_biloj[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «бывший» или «былой»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "message": "Должно быть: <suggestion>бывшего мужа</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "бывшего мужа"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_042_bivshij_biloj_0",
+      "category": "LOGIC",
+      "full_rule_id": "bivshij_biloj[2]",
+      "text": "былая жена",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "bivshij_biloj",
+        "full_rule_id": "bivshij_biloj[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «бывший» или «былой»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 10,
+            "message": "Должно быть: <suggestion>бывшая жена</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "бывшая жена"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_043_bivshij_biloj_0",
+      "category": "LOGIC",
+      "full_rule_id": "bivshij_biloj[3]",
+      "text": "бывшие заслуги",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "bivshij_biloj",
+        "full_rule_id": "bivshij_biloj[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «бывший» или «былой»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Должно быть: <suggestion>былые заслуги</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "былые заслуги"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_044_okazat_zabotu_0",
+      "category": "LOGIC",
+      "full_rule_id": "okazat_zabotu[1]",
+      "text": "оказать заботу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "okazat_zabotu",
+        "full_rule_id": "okazat_zabotu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «оказать заботу»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Должно быть: <suggestion>проявить заботу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "проявить заботу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_045_okazat_zabotu_1",
+      "category": "LOGIC",
+      "full_rule_id": "okazat_zabotu[1]",
+      "text": "оказал заботу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "okazat_zabotu",
+        "full_rule_id": "okazat_zabotu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «оказать заботу»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Должно быть: <suggestion>проявил заботу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "проявил заботу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_046_okazat_zabotu_2",
+      "category": "LOGIC",
+      "full_rule_id": "okazat_zabotu[1]",
+      "text": "оказала заботу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "okazat_zabotu",
+        "full_rule_id": "okazat_zabotu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «оказать заботу»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Должно быть: <suggestion>проявила заботу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "проявила заботу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_047_okazat_zabotu_3",
+      "category": "LOGIC",
+      "full_rule_id": "okazat_zabotu[1]",
+      "text": "окажем заботу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "okazat_zabotu",
+        "full_rule_id": "okazat_zabotu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «оказать заботу»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Должно быть: <suggestion>проявим заботу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "проявим заботу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_048_okazat_zabotu_4",
+      "category": "LOGIC",
+      "full_rule_id": "okazat_zabotu[1]",
+      "text": "окажу заботу",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "okazat_zabotu",
+        "full_rule_id": "okazat_zabotu[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «оказать заботу»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "message": "Должно быть: <suggestion>проявлю заботу</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "проявлю заботу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_049_povisit_svoi_krugozor_0",
+      "category": "LOGIC",
+      "full_rule_id": "povisit_svoi_krugozor[1]",
+      "text": "повысить свой кругозор",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "povisit_svoi_krugozor",
+        "full_rule_id": "povisit_svoi_krugozor[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «повысить свой кругозор»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "message": "Должно быть: <suggestion>расширить свой кругозор</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "расширить свой кругозор"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_050_predprinjat_meri_0",
+      "category": "LOGIC",
+      "full_rule_id": "predprinjat_meri[1]",
+      "text": "предпринять меры",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "predprinjat_meri",
+        "full_rule_id": "predprinjat_meri[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «предпринять меры»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "message": "Должно быть: <suggestion>принять меры</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "принять меры"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_051_predprinjat_meri_1",
+      "category": "LOGIC",
+      "full_rule_id": "predprinjat_meri[1]",
+      "text": "предпринял меры",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "predprinjat_meri",
+        "full_rule_id": "predprinjat_meri[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «предпринять меры»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "message": "Должно быть: <suggestion>принял меры</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "принял меры"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_052_ISKLUCHIT_ISKLUCHENIE_0",
+      "category": "LOGIC",
+      "full_rule_id": "ISKLUCHIT_ISKLUCHENIE[1]",
+      "text": "исключить исключение",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ISKLUCHIT_ISKLUCHENIE",
+        "full_rule_id": "ISKLUCHIT_ISKLUCHENIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «исключить исключение»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "message": "Языковая избыточность: <suggestion>убрать исключение</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "убрать исключение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_053_ISKLUCHIT_ISKLUCHENIE_1",
+      "category": "LOGIC",
+      "full_rule_id": "ISKLUCHIT_ISKLUCHENIE[1]",
+      "text": "исключить то исключение",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ISKLUCHIT_ISKLUCHENIE",
+        "full_rule_id": "ISKLUCHIT_ISKLUCHENIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «исключить исключение»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "message": "Языковая избыточность: <suggestion>убрать то исключение</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "убрать то исключение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_054_POTREBOVAT_TREBOVANIE_0",
+      "category": "LOGIC",
+      "full_rule_id": "POTREBOVAT_TREBOVANIE[1]",
+      "text": "потребовать требование",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POTREBOVAT_TREBOVANIE",
+        "full_rule_id": "POTREBOVAT_TREBOVANIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «потребовать требование»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "message": "Языковая избыточность: <suggestion>заявить требование</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "заявить требование"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_055_POTREBOVAT_TREBOVANIE_1",
+      "category": "LOGIC",
+      "full_rule_id": "POTREBOVAT_TREBOVANIE[1]",
+      "text": "потребовать денежное требование",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POTREBOVAT_TREBOVANIE",
+        "full_rule_id": "POTREBOVAT_TREBOVANIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «потребовать требование»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 31,
+            "message": "Языковая избыточность: <suggestion>заявить денежное требование</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "заявить денежное требование"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_056_POJELAT_JELANIE_0",
+      "category": "LOGIC",
+      "full_rule_id": "POJELAT_JELANIE[1]",
+      "text": "пожелать желание",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POJELAT_JELANIE",
+        "full_rule_id": "POJELAT_JELANIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «пожелать желание»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "message": "Языковая избыточность: <suggestion>загадать желание</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "загадать желание"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_057_POJELAT_JELANIE_1",
+      "category": "LOGIC",
+      "full_rule_id": "POJELAT_JELANIE[1]",
+      "text": "пожелать заветное желание",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POJELAT_JELANIE",
+        "full_rule_id": "POJELAT_JELANIE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «пожелать желание»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "message": "Языковая избыточность: <suggestion>загадать заветное желание</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "загадать заветное желание"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_058_ZAKAZAT_ZAKAZ_0",
+      "category": "LOGIC",
+      "full_rule_id": "ZAKAZAT_ZAKAZ[1]",
+      "text": "заказать заказ",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ZAKAZAT_ZAKAZ",
+        "full_rule_id": "ZAKAZAT_ZAKAZ[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «заказать заказ»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Языковая избыточность: <suggestion>сделать заказ</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "сделать заказ"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_059_ZAKAZAT_ZAKAZ_1",
+      "category": "LOGIC",
+      "full_rule_id": "ZAKAZAT_ZAKAZ[1]",
+      "text": "заказать важный заказ",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ZAKAZAT_ZAKAZ",
+        "full_rule_id": "ZAKAZAT_ZAKAZ[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «заказать заказ»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 21,
+            "message": "Языковая избыточность: <suggestion>сделать важный заказ</suggestion>?",
+            "short_message": "Языковая избыточность",
+            "suggestions": [
+              "сделать важный заказ"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_060_PODARIT_PODAROK_0",
+      "category": "LOGIC",
+      "full_rule_id": "PODARIT_PODAROK[1]",
+      "text": "Он подарил подарок.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PODARIT_PODAROK",
+        "full_rule_id": "PODARIT_PODAROK[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «подарить подарок»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 18,
+            "message": "Языковая избыточность (плеоназм): <suggestion>вручил подарок</suggestion>?",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "вручил подарок"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_061_PODARIT_PODAROK_1",
+      "category": "LOGIC",
+      "full_rule_id": "PODARIT_PODAROK[1]",
+      "text": "Он подарил долгожданный подарок.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PODARIT_PODAROK",
+        "full_rule_id": "PODARIT_PODAROK[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «подарить подарок»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 31,
+            "message": "Языковая избыточность (плеоназм): <suggestion>вручил долгожданный подарок</suggestion>?",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "вручил долгожданный подарок"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_062_translate_carreer_diplomat_0",
+      "category": "LOGIC",
+      "full_rule_id": "translate_carreer_diplomat[1]",
+      "text": "Карьерный дипломат – это человек, получивший специальное дипломатическое образование.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "translate_carreer_diplomat",
+        "full_rule_id": "translate_carreer_diplomat[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки перевода «карьерный дипломат»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 18,
+            "message": "Ошибка перевода: <suggestion>профессиональный дипломат</suggestion>?",
+            "short_message": "Ошибка перевода",
+            "suggestions": [
+              "Профессиональный дипломат"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_063_translate_carreer_diplomat_1",
+      "category": "LOGIC",
+      "full_rule_id": "translate_carreer_diplomat[1]",
+      "text": "Профессиональный дипломат – это человек, получивший специальное дипломатическое образование.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "translate_carreer_diplomat",
+        "full_rule_id": "translate_carreer_diplomat[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки перевода «карьерный дипломат»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_064_Logical_komandirovochnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[1]",
+      "text": "командированное удостоверение",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 29,
+            "message": "Логическая ошибка: <suggestion>командировочное удостоверение</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "командировочное удостоверение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_065_Logical_komandirovochnij_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[1]",
+      "text": "командированного удостоверения",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 30,
+            "message": "Логическая ошибка: <suggestion>командировочного удостоверения</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "командировочного удостоверения"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_066_Logical_komandirovochnij_2",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[1]",
+      "text": "командировочное удостоверение",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_067_Logical_komandirovochnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[2]",
+      "text": "командировочный сотрудник",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "message": "Логическая ошибка: <suggestion>командированный сотрудник</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "командированный сотрудник"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_068_Logical_komandirovochnij_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[2]",
+      "text": "командированный сотрудник",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_069_Logical_komandirovochnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[3]",
+      "text": "командировачный сотрудник",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "message": "Логическая ошибка: <suggestion>командированный сотрудник</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "командированный сотрудник"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_070_Logical_komandirovochnij_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_komandirovochnij[3]",
+      "text": "командированный сотрудник",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_komandirovochnij",
+        "full_rule_id": "Logical_komandirovochnij[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «командировочный» или «командированный»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_071_Logical_kurica_nasijivaet_jajca_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+      "text": "курица высиживает яйца",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_kurica_nasijivaet_jajca",
+        "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «курица насиживает яйца»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "message": "Логическая ошибка: <suggestion>курица насиживает яйца</suggestion>.",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "курица насиживает яйца"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_072_Logical_kurica_nasijivaet_jajca_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+      "text": "курица высиживала яйца",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_kurica_nasijivaet_jajca",
+        "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «курица насиживает яйца»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "message": "Логическая ошибка: <suggestion>курица насиживала яйца</suggestion>.",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "курица насиживала яйца"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_073_Logical_kurica_nasijivaet_jajca_2",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+      "text": "курица насиживает яйца",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_kurica_nasijivaet_jajca",
+        "full_rule_id": "Logical_kurica_nasijivaet_jajca[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «курица насиживает яйца»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_074_Logical_skritij_skritnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_skritij_skritnij[1]",
+      "text": "В комнате выполнена скрытная проводка.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_skritij_skritnij",
+        "full_rule_id": "Logical_skritij_skritnij[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «скрытый» или «скрытный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 20,
+            "to_utf16": 37,
+            "message": "Логическая ошибка: <suggestion>скрытая проводка</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "скрытая проводка"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_075_ZASEDANIJE_ZAJEDANIJE_0",
+      "category": "LOGIC",
+      "full_rule_id": "ZASEDANIJE_ZAJEDANIJE[2]",
+      "text": "Заедание суда перенесено на завтра.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ZASEDANIJE_ZAJEDANIJE",
+        "full_rule_id": "ZASEDANIJE_ZAJEDANIJE[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «заседание» или «заедание»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Имелось в виду: <suggestion>Заседание суда</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "Заседание суда"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_076_Logical_skritij_skritnij_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_skritij_skritnij[3]",
+      "text": "У этого человека очень скрытый характер.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_skritij_skritnij",
+        "full_rule_id": "Logical_skritij_skritnij[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «скрытый» или «скрытный»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 23,
+            "to_utf16": 39,
+            "message": "Логическая ошибка: <suggestion>скрытный характер</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "скрытный характер"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_077_Logical_skritij_skritnij_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_skritij_skritnij[3]",
+      "text": "Повреждения носят скрытый характер.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_skritij_skritnij",
+        "full_rule_id": "Logical_skritij_skritnij[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «скрытый» или «скрытный»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_078_Logical_odel_nadel_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[1]",
+      "text": "Он одел рубашку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 15,
+            "message": "Логическая ошибка: <suggestion>надел рубашку</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "надел рубашку"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_079_Logical_odel_nadel_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[1]",
+      "text": "На девушке было одето красивое пальто.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 37,
+            "message": "Логическая ошибка: <suggestion>надето красивое пальто</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "надето красивое пальто"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_080_Logical_odel_nadel_2",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[1]",
+      "text": "Кутюрье одел модель в красивое платье.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_081_Logical_odel_nadel_3",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[1]",
+      "text": "Он надел рубашку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_082_Logical_odel_nadel_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[2]",
+      "text": "Она переодела платье.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 20,
+            "message": "Логическая ошибка: <suggestion>поменяла платье</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "поменяла платье"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_083_Logical_odel_nadel_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[2]",
+      "text": "Она поменяла платье.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_084_Logical_odel_nadel_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[6]",
+      "text": "Он надел Ивана.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[6]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 14,
+            "message": "Логическая ошибка: <suggestion>одел Ивана</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "одел Ивана"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_085_Logical_odel_nadel_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[6]",
+      "text": "Он надел майку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[6]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_086_Logical_odel_nadel_2",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_odel_nadel[6]",
+      "text": "Он одел Ивана.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_odel_nadel",
+        "full_rule_id": "Logical_odel_nadel[6]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Логические ошибки: «одеть» или «надеть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_087_Logical_prazdnoe_prazdnichnoe_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_prazdnoe_prazdnichnoe[1]",
+      "text": "Человек ведет  праздничную жизнь.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_prazdnoe_prazdnichnoe",
+        "full_rule_id": "Logical_prazdnoe_prazdnichnoe[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки в употреблении: «праздничное» или «праздное»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 15,
+            "to_utf16": 32,
+            "message": "Логическая ошибка: <suggestion>праздную жизнь</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "праздную жизнь"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_088_Logical_prazdnoe_prazdnichnoe_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_prazdnoe_prazdnichnoe[1]",
+      "text": "Человек ведет праздную жизнь.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_prazdnoe_prazdnichnoe",
+        "full_rule_id": "Logical_prazdnoe_prazdnichnoe[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки в употреблении: «праздничное» или «праздное»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_089_Logical_prazdnoe_prazdnichnoe_0",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_prazdnoe_prazdnichnoe[2]",
+      "text": "У меня сегодня праздное настроение.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_prazdnoe_prazdnichnoe",
+        "full_rule_id": "Logical_prazdnoe_prazdnichnoe[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки в употреблении: «праздничное» или «праздное»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 15,
+            "to_utf16": 34,
+            "message": "Логическая ошибка: <suggestion>праздничное настроение</suggestion>?",
+            "short_message": "Логическая ошибка",
+            "suggestions": [
+              "праздничное настроение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_090_Logical_prazdnoe_prazdnichnoe_1",
+      "category": "LOGIC",
+      "full_rule_id": "Logical_prazdnoe_prazdnichnoe[2]",
+      "text": "У меня сегодня праздничное настроение.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_prazdnoe_prazdnichnoe",
+        "full_rule_id": "Logical_prazdnoe_prazdnichnoe[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Ошибки в употреблении: «праздничное» или «праздное»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_091_Linguistics_hrabry_0",
+      "category": "LOGIC",
+      "full_rule_id": "Linguistics_hrabry[1]",
+      "text": "Это храбрая идея.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Linguistics_hrabry",
+        "full_rule_id": "Linguistics_hrabry[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Лингвистические ошибки: «храбрая (или смелая) мысль, решение, идея»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 16,
+            "message": "Лингвистическая ошибка: <suggestion>смелая идея</suggestion>?",
+            "short_message": "Лингвистическая ошибка",
+            "suggestions": [
+              "смелая идея"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_092_Linguistics_hrabry_1",
+      "category": "LOGIC",
+      "full_rule_id": "Linguistics_hrabry[1]",
+      "text": "Это смелая идея.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Linguistics_hrabry",
+        "full_rule_id": "Linguistics_hrabry[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Лингвистические ошибки: «храбрая (или смелая) мысль, решение, идея»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_093_ROST_0",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[1]",
+      "text": "Дом большого роста.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 18,
+            "message": "Рост бывает у одушевлённых слов (человек большого роста), некого числа характеристик (рост показателей, рост качества, количества), в некоторых устойчивых выражениях (рост экономики, преступности, безработицы).",
+            "short_message": "Замените другим словом",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_094_ROST_1",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[1]",
+      "text": "Дом большой высоты.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_095_ROST_2",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[1]",
+      "text": "В СССР имеются неограниченные возможности роста народного богатства и повышения материального и культурного уровня жизни трудящихся.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_096_ROST_3",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[1]",
+      "text": "В последнее время импорт в России находится в стагнации, при этом наблюдается рост экономики.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_097_ROST_4",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[1]",
+      "text": "Эти расходы были практически целиком профинансированы за счёт роста госдолга с 6,6 до 8,7 млрд руб.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_098_ROST_0",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "Сопутствующий рост доступных учебных материалов по языку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 14,
+            "to_utf16": 47,
+            "message": "Рост бывает у одушевлённых слов (человек большого роста), некого числа характеристик (рост показателей, рост качества, количества) и в некоторых устойчивых выражениях (рост экономики, преступности, безработицы).",
+            "short_message": "Ошибка!",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_099_ROST_1",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "Сопутствующий рост количества доступных учебных материалов по языку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_100_ROST_2",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "По останкам установлено, что рост Ивана Грозного был около 179—180 сантиметров.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_101_ROST_3",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "Города Ростов и Таганрог, слобода Батайск.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_102_ROST_4",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "Вы видите невысокого роста женщину средних лет.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_103_ROST_5",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[2]",
+      "text": "По отзывам современников, он был сухощав, имел высокий рост и хорошее телосложение.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_104_ROST_0",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[3]",
+      "text": "Цвет характеризует величину вектора Пойнтинга (он растёт от синего к красному).",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 50,
+            "to_utf16": 59,
+            "message": "Рост бывает у одушевлённых слов (человек большого роста), некого числа характеристик (рост показателей, рост качества, количества) и в некоторых устойчивых выражениях (рост экономики, преступности, безработицы).",
+            "short_message": "Ошибка!",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_105_ROST_1",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[3]",
+      "text": "Цвет характеризует величину вектора Пойнтинга (он меняется от синего к красному)",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_106_ROST_2",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[3]",
+      "text": "Количество дорожно-транспортных происшествий растёт год от года.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_107_ROST_3",
+      "category": "LOGIC",
+      "full_rule_id": "ROST[3]",
+      "text": "В результате трудоёмкость (а значит, и стоимость) разработки растёт от объёма реализованной функциональности по вогнутому закону\n                    (в языках с полиморфной семантикой системы типов этот рост характеризуется выпуклой кривой за счёт существенно более высокого показателя повторного использования кода).",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ROST",
+        "full_rule_id": "ROST[3]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "«Рост»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_108_DOUBLE_PUNCTUATION_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+      "text": "Это  пример..",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 11,
+            "to_utf16": 13,
+            "message": "Две точки подряд: <suggestion>.</suggestion> или <suggestion>…</suggestion>",
+            "short_message": "Две точки",
+            "suggestions": [
+              ".",
+              "…"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_109_DOUBLE_PUNCTUATION_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+      "text": "Вот лишь некоторые из них: Implement interface, Iterate with 'for..of'.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_110_DOUBLE_PUNCTUATION_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+      "text": "Как вы… как вы смеете!..",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_111_DOUBLE_PUNCTUATION_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+      "text": "Это  пример.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_112_DOUBLE_PUNCTUATION_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[2]",
+      "text": "Вероятно,, мы пойдём в поход летом.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 8,
+            "to_utf16": 10,
+            "message": "Две запятые подряд: <suggestion>,</suggestion>",
+            "short_message": "Две запятые",
+            "suggestions": [
+              ","
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_113_DOUBLE_PUNCTUATION_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DOUBLE_PUNCTUATION[2]",
+      "text": "Вероятно, мы пойдём в поход летом.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DOUBLE_PUNCTUATION",
+        "full_rule_id": "DOUBLE_PUNCTUATION[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Повтор точки или запятой",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_114_PUNCT_DPT_2_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Уменьшая значение параметров построения (пороговый угол и минимальная длина отрезка) несложно проверить его стабильность.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 103,
+            "message": "Требуется запятая или запятые до конца предложения, обнаружен деепричастный оборот.",
+            "short_message": "Требуется запятая",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_115_PUNCT_DPT_2_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Учитывая высокую стоимость и трудоёмкость эксперимента в области оптики наночастиц вариант с предварительным теоретическим анализом проблемы оказывается более рациональным.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 152,
+            "message": "Требуется запятая или запятые до конца предложения, обнаружен деепричастный оборот.",
+            "short_message": "Требуется запятая",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv_pat_116_PUNCT_DPT_2_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Боясь упасть с дерева, Том ухватился за ветку.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_117_PUNCT_DPT_2_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Мэри не колеблясь прыгнула в ледяную воду.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_118_PUNCT_DPT_2_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Уменьшая значение параметров построения (пороговый угол и минимальная длина отрезка), несложно проверить его стабильность.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_119_PUNCT_DPT_2_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNCT_DPT_2[1]",
+      "text": "Учитывая высокую стоимость и трудоёмкость эксперимента в области оптики наночастиц, вариант с предварительным теоретическим анализом проблемы оказывается более рациональным.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNCT_DPT_2",
+        "full_rule_id": "PUNCT_DPT_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при деепричастном обороте (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "adv_pat_120_Punct_PT_oborot_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Punct_PT_oborot[1]",
+      "text": "Картинка висящая на белой стене упала.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Punct_PT_oborot",
+        "full_rule_id": "Punct_PT_oborot[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при причастном обороте",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 31,
+            "message": "Пропущены запятые при причастном обороте: <suggestion>Картинка, висящая на белой стене,</suggestion>",
+            "short_message": "Причастный оборот",
+            "suggestions": [
+              "Картинка, висящая на белой стене,"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

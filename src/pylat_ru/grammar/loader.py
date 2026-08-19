@@ -180,7 +180,7 @@ class GrammarLoader:
     """Strict fail-closed loader and parser for Russian grammar.xml rule definitions."""
 
     def __init__(self) -> None:
-        pass
+        self.global_phrases: Dict[str, PatternPhrase] = {}
 
     def load_default(self) -> List[GrammarRule]:
         """Load and parse default packaged Russian grammar.xml."""
@@ -353,8 +353,9 @@ class GrammarLoader:
 
             rule_num += 1
             r_id = r.attrib.get("id")
-            sub_id = r_id if r_id else str(rule_num)
-            full_id = f"{group_id}[{sub_id}]"
+            assigned_id = r_id if r_id else group_id
+            sub_id = str(rule_num)
+            full_id = f"{assigned_id}[{sub_id}]"
             r_name = r.attrib.get("name", group_name)
             r_default = r.attrib.get("default", group_default)
             if r_default not in ("on", "off", "temp_off"):
@@ -793,9 +794,12 @@ class GrammarLoader:
         _validate_children(exc_elem, ALLOWED_EXCEPTION_CHILDREN, context)
 
         exc_cs = _parse_bool_attr(exc_elem, "case_sensitive", context, default=tok_cs)
-        exc_text = exc_elem.text.strip() if exc_elem.text else None
-        if exc_text == "":
-            exc_text = None
+        exc_text_parts = [exc_elem.text or ""]
+        for exc_child in exc_elem:
+            if exc_child.tail:
+                exc_text_parts.append(exc_child.tail)
+        combined_exc_text = "".join(exc_text_parts).strip()
+        exc_text = combined_exc_text if combined_exc_text else None
 
         scope_val = exc_elem.attrib.get("scope", "current")
         if scope_val not in ("current", "next", "previous"):
@@ -805,6 +809,10 @@ class GrammarLoader:
 
         match_elem = exc_elem.find("match")
         match_ref = self._parse_match(match_elem, f"<match> in {context}") if match_elem is not None else None
+
+        spacebefore = exc_elem.attrib.get("spacebefore")
+        if spacebefore is not None and spacebefore not in ("yes", "no"):
+            raise GrammarFormatError(f"Invalid spacebefore '{spacebefore}' in <exception> in {context}")
 
         return PatternTokenException(
             text=exc_text,
@@ -816,7 +824,7 @@ class GrammarLoader:
             inflected=_parse_bool_attr(exc_elem, "inflected", context, default=False),
             case_sensitive=exc_cs,
             scope=scope_val,
-            spacebefore=exc_elem.attrib.get("spacebefore"),
+            spacebefore=spacebefore,
             raw_pos=raw_pos,
             match=match_ref,
         )
@@ -826,9 +834,12 @@ class GrammarLoader:
         _validate_children(tok_elem, ALLOWED_TOKEN_CHILDREN, context)
 
         tok_cs = _parse_bool_attr(tok_elem, "case_sensitive", context, default=pat_case_sensitive)
-        text = tok_elem.text.strip() if tok_elem.text else None
-        if text == "":
-            text = None
+        raw_text_parts = [tok_elem.text or ""]
+        for child in tok_elem:
+            if child.tail:
+                raw_text_parts.append(child.tail)
+        combined_text = "".join(raw_text_parts).strip()
+        text = combined_text if combined_text else None
 
         postag = tok_elem.attrib.get("postag")
         postag_regexp = _parse_bool_attr(tok_elem, "postag_regexp", context, default=False)
@@ -838,10 +849,22 @@ class GrammarLoader:
         inflected = _parse_bool_attr(tok_elem, "inflected", context, default=False)
 
         skip_val = _parse_int_attr(tok_elem, "skip", context, default=None)
+        if skip_val is not None and (skip_val < -1 or skip_val > 127):
+            raise GrammarFormatError(f"'skip' attribute value must be between -1 and 127: {skip_val} in {context}")
+
         min_val = _parse_int_attr(tok_elem, "min", context, default=None)
+        if min_val is not None and (min_val < 0 or min_val > 127):
+            raise GrammarFormatError(f"minOccurrences must be between 0 and 127: {min_val} in {context}")
+
         max_val = _parse_int_attr(tok_elem, "max", context, default=None)
+        if max_val is not None and (max_val == 0 or max_val < -1 or max_val > 127):
+            raise GrammarFormatError(f"maxOccurrences must be between -1 and 127 (excluding 0): {max_val} in {context}")
+
         chunk_val = tok_elem.attrib.get("chunk")
         spacebefore = tok_elem.attrib.get("spacebefore")
+        if spacebefore is not None and spacebefore not in ("yes", "no"):
+            raise GrammarFormatError(f"Invalid spacebefore '{spacebefore}' in {context}")
+
         raw_pos = _parse_bool_attr(tok_elem, "raw_pos", context, default=False)
         setpostag = tok_elem.attrib.get("setpostag")
 
@@ -963,14 +986,19 @@ class GrammarLoader:
             raise GrammarFormatError(f"Attribute 'no' in <match> must be >= 0 in {context}")
 
         case_conversion = match_elem.attrib.get("case_conversion")
-        if case_conversion and case_conversion not in ("alllower", "allupper", "startlower", "startupper", "firstupper", "preserve"):
+        if case_conversion and case_conversion.lower() not in (
+            "none", "alllower", "allupper", "startlower", "startupper", "firstupper", "preserve", "notashkeel"
+        ):
             raise GrammarFormatError(f"Invalid case_conversion '{case_conversion}' in {context}")
 
         include_skipped = match_elem.attrib.get("include_skipped")
-        if include_skipped and include_skipped not in ("all", "none", "following"):
+        if include_skipped and include_skipped.lower() not in ("all", "none", "following"):
             raise GrammarFormatError(f"Invalid include_skipped '{include_skipped}' in {context}")
 
         setpos = match_elem.attrib.get("setpos")
+        lemma_text = match_elem.text.strip() if match_elem.text else None
+        if lemma_text == "":
+            lemma_text = None
 
         return MatchReference(
             no=no_val,
@@ -983,6 +1011,7 @@ class GrammarLoader:
             regexp_match=match_elem.attrib.get("regexp_match"),
             regexp_replace=match_elem.attrib.get("regexp_replace"),
             sub_type=match_elem.attrib.get("sub_type"),
+            lemma=lemma_text,
         )
 
     def _parse_example(self, ex_elem: ET.Element, context: str) -> Example:

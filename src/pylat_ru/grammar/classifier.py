@@ -1,6 +1,7 @@
 """src/pylat_ru/grammar/classifier.py
 
-Deterministic rule classifier identifying core-runnable rules vs deferred tasks.
+Deterministic rule classifier identifying runnable rules (Core 0007 & Advanced 0008)
+vs deferred future tasks (0009 Unification, 0010 Java Filters, 0012 Spelling/Suppression).
 """
 
 from __future__ import annotations
@@ -12,66 +13,69 @@ from pylat_ru.grammar.model import ExecutionState, RuleBlocker
 
 
 def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[RuleBlocker]]:
-    """Inspect XML rule element and determine its execution state and blockers."""
-    blockers: List[RuleBlocker] = []
+    """Inspect XML rule element and determine its execution state and remaining blockers."""
+    remaining_blockers: List[RuleBlocker] = []
+    uses_0008_advanced: bool = False
 
     # Check patterns
     for pat in rule_elem.findall("pattern"):
         if pat.attrib.get("raw_pos") == "yes":
-            blockers.append(RuleBlocker("pattern@raw_pos", "0008", "Pattern raw_pos attribute"))
+            uses_0008_advanced = True
 
         if pat.findall(".//and"):
-            blockers.append(RuleBlocker("pattern:and", "0008", "<and> token construct"))
+            uses_0008_advanced = True
         if pat.findall(".//or"):
-            blockers.append(RuleBlocker("pattern:or", "0008", "<or> token construct"))
+            uses_0008_advanced = True
+        if pat.findall(".//phrase"):
+            uses_0008_advanced = True
+
         if pat.findall(".//unify"):
-            blockers.append(RuleBlocker("pattern:unify", "0009", "<unify> feature agreement"))
+            remaining_blockers.append(RuleBlocker("pattern:unify", "0009", "<unify> feature agreement"))
         if pat.findall(".//unify-ignore"):
-            blockers.append(RuleBlocker("pattern:unify-ignore", "0009", "<unify-ignore> feature agreement"))
+            remaining_blockers.append(RuleBlocker("pattern:unify-ignore", "0009", "<unify-ignore> feature agreement"))
 
         for tok in pat.findall(".//token"):
+            if "raw_pos" in tok.attrib:
+                uses_0008_advanced = True
             if "skip" in tok.attrib:
-                blockers.append(RuleBlocker("token@skip", "0008", "Token skip attribute"))
+                uses_0008_advanced = True
             if "min" in tok.attrib or "max" in tok.attrib:
-                blockers.append(RuleBlocker("token@min_max", "0008", "Token min/max quantifier attributes"))
+                uses_0008_advanced = True
             if "spacebefore" in tok.attrib:
-                blockers.append(RuleBlocker("token@spacebefore", "0008", "Token spacebefore attribute"))
+                uses_0008_advanced = True
             if "chunk" in tok.attrib:
-                blockers.append(RuleBlocker("token@chunk", "0008", "Token chunk attribute"))
+                uses_0008_advanced = True
+            if tok.findall("match"):
+                uses_0008_advanced = True
 
             for exc in tok.findall("exception"):
                 if "scope" in exc.attrib and exc.attrib["scope"] != "current":
-                    blockers.append(
-                        RuleBlocker(
-                            f"exception@scope={exc.attrib['scope']}",
-                            "0008",
-                            f"Exception scope={exc.attrib['scope']}",
-                        )
-                    )
+                    uses_0008_advanced = True
                 if "spacebefore" in exc.attrib:
-                    blockers.append(RuleBlocker("exception@spacebefore", "0008", "Exception spacebefore attribute"))
+                    uses_0008_advanced = True
 
-    # Antipatterns
+    # Antipatterns (supported in Task 0008)
     if rule_elem.findall("antipattern"):
-        blockers.append(RuleBlocker("antipattern", "0008", "Rule contains antipattern(s)"))
+        uses_0008_advanced = True
 
-    # Filters
-    for filt in rule_elem.findall("filter"):
-        cls_name = filt.attrib.get("class", "unknown")
-        blockers.append(RuleBlocker(f"filter:{cls_name}", "0010", f"Filter class {cls_name}"))
-
-    # Complex match attributes in message and suggestion
+    # Generic <match> attributes in message and suggestion (supported in Task 0008)
     match_elements = rule_elem.findall(".//message//match") + rule_elem.findall(".//suggestion//match")
     for match in match_elements:
+        if match.text and match.text.strip():
+            uses_0008_advanced = True
         complex_attrs = set(match.attrib.keys()) - {"no"}
-        for attr in sorted(list(complex_attrs)):
-            target_task = "0008" if attr in ("include_skipped", "case_conversion") else "0010"
-            blockers.append(RuleBlocker(f"match@{attr}", target_task, f"Match element attribute @{attr}"))
+        if complex_attrs:
+            uses_0008_advanced = True
 
-    # Suppress misspelled
+    # Java/XML Filters (deferred to Task 0010)
+    for filt in rule_elem.findall("filter"):
+        cls_name = filt.attrib.get("class", "unknown")
+        remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "0010", f"Filter class {cls_name}"))
+
+    # Suppress misspelled (deferred to Task 0012)
     for msg in rule_elem.findall("message"):
         if msg.attrib.get("suppress_misspelled") == "yes":
-            blockers.append(
+            remaining_blockers.append(
                 RuleBlocker(
                     "message@suppress_misspelled",
                     "0012",
@@ -80,7 +84,7 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
             )
     for sug in rule_elem.findall(".//suggestion"):
         if sug.attrib.get("suppress_misspelled") == "yes":
-            blockers.append(
+            remaining_blockers.append(
                 RuleBlocker(
                     "suggestion@suppress_misspelled",
                     "0012",
@@ -88,23 +92,23 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
                 )
             )
 
-    # Deduplicate blockers preserving order
+    # Deduplicate remaining blockers preserving order
     unique_blockers: List[RuleBlocker] = []
     seen: set[Tuple[str, str]] = set()
-    for b in blockers:
+    for b in remaining_blockers:
         key = (b.feature, b.target_task)
         if key not in seen:
             seen.add(key)
             unique_blockers.append(b)
 
     if not unique_blockers:
+        if uses_0008_advanced:
+            return ExecutionState.ADVANCED_0008_RUNNABLE, []
         return ExecutionState.CORE_0007_RUNNABLE, []
 
     tasks = {b.target_task for b in unique_blockers}
     if len(tasks) > 1:
         return ExecutionState.MULTI_BLOCKER, unique_blockers
-    elif "0008" in tasks:
-        return ExecutionState.DEFERRED_0008_ADVANCED_MATCHING, unique_blockers
     elif "0009" in tasks:
         return ExecutionState.DEFERRED_0009_UNIFICATION, unique_blockers
     elif "0010" in tasks:

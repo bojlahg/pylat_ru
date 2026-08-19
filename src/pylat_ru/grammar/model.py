@@ -15,6 +15,7 @@ class ExecutionState(str, Enum):
     """Execution classification state for a grammar rule."""
 
     CORE_0007_RUNNABLE = "CORE_0007_RUNNABLE"
+    ADVANCED_0008_RUNNABLE = "ADVANCED_0008_RUNNABLE"
     DEFERRED_0008_ADVANCED_MATCHING = "DEFERRED_0008_ADVANCED_MATCHING"
     DEFERRED_0009_UNIFICATION = "DEFERRED_0009_UNIFICATION"
     DEFERRED_0010_FILTER = "DEFERRED_0010_FILTER"
@@ -72,6 +73,7 @@ class PatternToken:
     exceptions: List[PatternTokenException] = field(default_factory=list)
     match: Optional[Any] = None  # MatchReference when token contains <match>
     is_in_marker: bool = False
+    and_elements: List[Any] = field(default_factory=list)
 
 
 @dataclass
@@ -159,6 +161,7 @@ class MatchReference:
     regexp_match: Optional[str] = None
     regexp_replace: Optional[str] = None
     sub_type: Optional[str] = None
+    lemma: Optional[str] = None
 
 
 @dataclass(frozen=True)

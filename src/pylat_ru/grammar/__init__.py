@@ -14,7 +14,13 @@ from pylat_ru.grammar.errors import (
 )
 from pylat_ru.grammar.formatter import TemplateFormatter
 from pylat_ru.grammar.loader import GrammarLoader
-from pylat_ru.grammar.matcher import CompiledPattern, CompiledPatternToken
+from pylat_ru.grammar.matcher import (
+    CompiledPattern,
+    CompiledPatternToken,
+    CompiledRuleVariant,
+    expand_rule_into_variants,
+    filter_subsumed_rule_matches,
+)
 from pylat_ru.grammar.model import (
     Example,
     ExecutionState,
@@ -46,6 +52,9 @@ __all__ = [
     "TemplateFormatter",
     "CompiledPattern",
     "CompiledPatternToken",
+    "CompiledRuleVariant",
+    "expand_rule_into_variants",
+    "filter_subsumed_rule_matches",
     "classify_rule_element",
     "GrammarError",
     "GrammarFormatError",

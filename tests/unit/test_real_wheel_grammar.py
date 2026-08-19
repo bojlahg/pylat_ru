@@ -96,9 +96,22 @@ assert m.to_pos == 24
 assert m.suggestions == ["предложить тест"]
 assert text[m.from_pos:m.to_pos] == "задать тест"
 
-# 4. Check whole sentence with all core rules
+# 4. Check whole sentence with all runnable rules
 all_matches = engine.check_sentence(sentence)
 assert any(x.rule_id == "zadat_test" for x in all_matches)
+
+# 5. Check advanced 0008 rule (vopreki_NN) with synthesis and multiple suggestions
+adv_text = "Вопреки утверждения ФАС дефицит топлива возможен."
+adv_sentence = disambiguator.disambiguate_text(adv_text)
+adv_sentence.text = adv_text
+chunker.chunk(adv_sentence)
+adv_matches = engine.check_rule(adv_sentence, "vopreki_NN")
+assert len(adv_matches) == 1, f"Expected 1 match for vopreki_NN, got {{len(adv_matches)}}"
+adv_m = adv_matches[0]
+assert adv_m.rule_id == "vopreki_NN"
+assert adv_m.from_pos == 0
+assert adv_m.to_pos == 19
+assert adv_m.suggestions == ["Вопреки утверждению", "Вопреки утвержденью"]
 
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """

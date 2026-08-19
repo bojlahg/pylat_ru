@@ -8,14 +8,16 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0007_xml_grammar_engine_core",
-    "overall_state": "GRAMMAR_CORE_AND_CHUNKER_ESTABLISHED",
+    "task_milestone": "0008_advanced_xml_matching",
+    "overall_state": "ADVANCED_XML_PATTERN_MATCHING_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
       "grammar_core_runnable_rules_total": 506,
-      "grammar_core_deferred_rules_total": 386,
-      "grammar_core_examples_runnable": 988,
+      "grammar_advanced_runnable_rules_total": 229,
+      "grammar_total_runnable_rules": 735,
+      "grammar_deferred_rules_total": 157,
+      "grammar_runnable_examples_total": 1738,
       "disambiguation_rules_total": 77,
       "relevant_java_rules_total": 23,
       "language_model_rules_total": 1,
@@ -36,7 +38,17 @@
       "disambiguation_rules_loaded": 77,
       "synthesizer_oracle_queries_total": 52,
       "chunker_oracle_cases_total": 34,
-      "grammar_core_oracle_cases_total": 62
+      "grammar_core_oracle_cases_total": 62,
+      "grammar_advanced_oracle_cases_total": 870
+    },
+    "russian_grammar_advanced": {
+      "and_or_token_groups": "SUPPORTED",
+      "skip_and_min_quantifiers": "SUPPORTED",
+      "include_skipped_references": "SUPPORTED",
+      "match_state_synthesis_and_regex": "SUPPORTED",
+      "multi_form_suggestion_expansion": "SUPPORTED",
+      "advanced_pattern_oracle_parity": "SUPPORTED",
+      "advanced_russian_rules_oracle_parity": "SUPPORTED"
     },
     "russian_chunker": {
       "token_expression_evaluation": "SUPPORTED",

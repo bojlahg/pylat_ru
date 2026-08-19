@@ -1221,44 +1221,87 @@ public class CheckPatternRules {
         PatternRuleLoader loader = new PatternRuleLoader();
         InputStream is = Russian.class.getResourceAsStream("/org/languagetool/rules/ru/grammar.xml");
         List<AbstractPatternRule> rules = loader.getRules(is, "/org/languagetool/rules/ru/grammar.xml", russian);
-        Map<String, AbstractPatternRule> ruleMap = new HashMap<>();
+        Map<String, Set<AbstractPatternRule>> ruleMap = new HashMap<>();
         for (AbstractPatternRule r : rules) {
-            ruleMap.put(r.getFullId(), r);
-            ruleMap.putIfAbsent(r.getId(), r);
+            ruleMap.computeIfAbsent(r.getFullId(), k -> new LinkedHashSet<>()).add(r);
+            if (!r.getFullId().equals(r.getId())) {
+                ruleMap.computeIfAbsent(r.getId(), k -> new LinkedHashSet<>()).add(r);
+            }
+            if (r.getSubId() != null) {
+                ruleMap.computeIfAbsent(r.getId() + "[" + r.getSubId() + "]", k -> new LinkedHashSet<>()).add(r);
+            }
         }
 
         PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         for (int i = 0; i < caseArray.length; i++) {
-            if (i > 0) out.print("\\u0006");
-            String[] pair = caseArray[i].split("\\u0007", 2);
+            if (i > 0) out.print("\u0006");
+            String[] pair = caseArray[i].split("\u0007", 2);
             String targetId = pair[0];
             String inputText = pair.length > 1 ? pair[1] : "";
 
-            AbstractPatternRule r = ruleMap.get(targetId);
-            if (r == null) {
-                out.print("NOT_FOUND\\u0008" + targetId);
+            Set<AbstractPatternRule> rSet = ruleMap.get(targetId);
+            if (rSet == null && targetId.contains("[")) {
+                String baseId = targetId.substring(0, targetId.indexOf('['));
+                String sub = targetId.substring(targetId.indexOf('[') + 1, targetId.length() - 1);
+                rSet = ruleMap.get(sub);
+                if (rSet == null) {
+                    rSet = ruleMap.get(baseId);
+                }
+            }
+            if (rSet == null || rSet.isEmpty()) {
+                out.print("NOT_FOUND\u0008" + targetId);
                 continue;
             }
 
+            AbstractPatternRule r = rSet.iterator().next();
             AnalyzedSentence sent = lt.getAnalyzedSentence(inputText);
-            RuleMatch[] matches = r.match(sent);
-            StringBuilder sb = new StringBuilder();
-            sb.append("FOUND\\u0008").append(r.getId()).append("\\u0008").append(r.getFullId()).append("\\u0008")
-              .append(r.getCategory().getId().toString()).append("\\u0008")
-              .append(r.getCategory().getName()).append("\\u0008")
-              .append(r.getDescription()).append("\\u0008")
-              .append(r.isDefaultOff() ? "1" : "0").append("\\u0008")
-              .append(matches.length);
+            List<RuleMatch> allMatches = new ArrayList<>();
+            for (AbstractPatternRule variant : rSet) {
+                RuleMatch[] matches = variant.match(sent);
+                if (matches != null) {
+                    for (RuleMatch m : matches) {
+                        allMatches.add(m);
+                    }
+                }
+            }
+            List<RuleMatch> filteredMatches = new ArrayList<>();
+            for (RuleMatch m : allMatches) {
+                boolean subsumed = false;
+                for (RuleMatch other : allMatches) {
+                    if (other != m && other.getFromPos() <= m.getFromPos() && other.getToPos() >= m.getToPos()
+                        && (other.getToPos() - other.getFromPos() > m.getToPos() - m.getFromPos())) {
+                        subsumed = true;
+                        break;
+                    }
+                    if (other != m && other.getFromPos() == m.getFromPos() && other.getToPos() == m.getToPos()) {
+                        if (allMatches.indexOf(other) < allMatches.indexOf(m)) {
+                            subsumed = true;
+                            break;
+                        }
+                    }
+                }
+                if (!subsumed) {
+                    filteredMatches.add(m);
+                }
+            }
 
-            for (RuleMatch m : matches) {
-                sb.append("\\u0008");
-                sb.append(m.getFromPos()).append("\\u0002")
-                  .append(m.getToPos()).append("\\u0002")
-                  .append(m.getMessage()).append("\\u0002")
-                  .append(m.getShortMessage() != null ? m.getShortMessage() : "\\u0005null").append("\\u0002");
+            StringBuilder sb = new StringBuilder();
+            sb.append("FOUND\u0008").append(r.getId()).append("\u0008").append(r.getFullId()).append("\u0008")
+              .append(r.getCategory().getId().toString()).append("\u0008")
+              .append(r.getCategory().getName()).append("\u0008")
+              .append(r.getDescription()).append("\u0008")
+              .append(r.isDefaultOff() ? "1" : "0").append("\u0008")
+              .append(filteredMatches.size());
+
+            for (RuleMatch m : filteredMatches) {
+                sb.append("\u0008");
+                sb.append(m.getFromPos()).append("\u0002")
+                  .append(m.getToPos()).append("\u0002")
+                  .append(m.getMessage()).append("\u0002")
+                  .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
                 List<String> repls = m.getSuggestedReplacements();
                 for (int repIdx = 0; repIdx < repls.size(); repIdx++) {
-                    if (repIdx > 0) sb.append("\\u0003");
+                    if (repIdx > 0) sb.append("\u0003");
                     sb.append(repls.get(repIdx));
                 }
             }
