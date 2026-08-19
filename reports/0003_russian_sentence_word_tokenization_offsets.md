@@ -30,11 +30,11 @@ All operations execute in native Python with **zero Java/JRE, zero daemon/server
    - Runtime loader `load_russian_srx_rule_manager()` strictly checks exact expected metadata values (`EXPECTED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"`, `EXPECTED_LT_TAG = "v6.8"`, `EXPECTED_LOOMCHILD_VERSION = "2.0.3"`, `EXPECTED_SOURCE_SHA256 = "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"`).
    - Strict type-checking on all rule fields (rejecting non-str `group`, non-int/bool `rule_index`, non-str `beforebreak`/`afterbreak`) without unsafe type coercion.
    - Added negative tests `test_strict_srx_metadata_exact_values` and `test_strict_srx_rule_field_types`.
-2. **Verifiably Pinned Java Development Oracle**:
-   - Implemented `validate_oracle()` in `tools/differential_lt.py` that checks Java availability, validates JAR presence, loads trusted manifest `compat/oracle_manifest.json`, verifies JAR SHA-256, and runs a Java probe verifying `org.languagetool.JLanguageTool.VERSION == "6.8"`.
-   - Explicitly refuses fixture generation when oracle identity or hash cannot be proven.
+2. **Verifiably Pinned Java Development Oracle & Fail-Closed SHA Verification**:
+   - Implemented `validate_oracle()` in `tools/differential_lt.py` that checks Java availability, validates JAR presence, strictly verifies `compat/oracle_manifest.json` fields (`schema_version`, `pinned_version`, `pinned_commit`, `loomchild_version`, `jar_name`, 64-character hex `oracle_sha256`), and runs a Java probe verifying `org.languagetool.JLanguageTool.VERSION == "6.8"`.
+   - **Fail Closed**: Refuses to use the oracle if no trusted expected SHA-256 can be resolved. A missing, malformed, or invalid manifest raises an explicit error unless an explicit trusted argument or `PYLAT_ORACLE_SHA256` environment override is supplied.
    - Recorded verified oracle SHA-256 in `oracle_russian_sentence_tokenization.json` and `oracle_russian_word_tokenization.json`.
-   - Added test `test_oracle_manifest_structure_and_sha_mismatch`.
+   - Added regression tests for missing manifest, malformed JSON, missing SHA, wrong version/commit, and valid env/argument overrides.
 3. **Exact Loomchild 2.0.3 `SrxTextIterator` Alignment**:
    - Reimplemented `SRXSegmenter` with explicit `_init_matchers()`, `_get_min_matcher()`, `_is_exception()`, `_cut_matchers()`, and `_move_matchers()` methods matching `net.loomchild.segment.srx.SrxTextIterator` line-by-line.
    - Ensured `while matcher.break_pos <= end` loop semantics after every candidate boundary.
@@ -89,10 +89,10 @@ src/pylat_ru/
 
 ## 6. Verification & Test Suite Summary
 
-The complete pytest suite passes with **94 passed tests in 2.41s**:
+The complete pytest suite passes with **98 passed tests in 2.49s**:
 
 ```text
-tests/unit/test_differential_boundary.py ................ 5 passed
+tests/unit/test_differential_boundary.py ................ 9 passed
 tests/unit/test_foundation.py ........................... 4 passed
 tests/unit/test_inventory.py ............................ 12 passed
 tests/unit/test_license_inventory.py .................... 2 passed
@@ -111,7 +111,7 @@ tests/upstream/test_russian_dictionary_lookup.py ........ 2 passed
 tests/upstream/test_russian_sentence_tokenizer_parity.py  2 passed
 tests/upstream/test_russian_synth_dictionary_lookup.py .. 2 passed
 tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
-======================================================== 94 passed in 2.41s
+======================================================== 98 passed in 2.49s
 ```
 
 ---

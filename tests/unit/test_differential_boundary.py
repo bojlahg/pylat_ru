@@ -1,11 +1,13 @@
 """Unit tests for differential test oracle boundary and comparison schemas."""
 
 import json
+import os
 from pathlib import Path
 import pytest
 
 from tools.differential_lt import (
     DEFAULT_ORACLE_MANIFEST_PATH,
+    LOOMCHILD_VERSION,
     PINNED_LT_COMMIT,
     PINNED_LT_VERSION,
     DifferentialComparisonResult,
@@ -13,6 +15,7 @@ from tools.differential_lt import (
     JavaLanguageToolOracle,
     compare_findings,
     generate_tokenization_fixtures,
+    validate_oracle_manifest,
 )
 
 
@@ -121,9 +124,11 @@ def test_oracle_isolation_and_error_handling(tmp_path: Path):
 def test_oracle_manifest_structure_and_sha_mismatch(tmp_path: Path):
     """Verify oracle manifest bindings and SHA-256 mismatch rejection."""
     assert DEFAULT_ORACLE_MANIFEST_PATH.is_file(), f"Missing {DEFAULT_ORACLE_MANIFEST_PATH}"
-    manifest_data = json.loads(DEFAULT_ORACLE_MANIFEST_PATH.read_text(encoding="utf-8"))
+    manifest_data = validate_oracle_manifest(DEFAULT_ORACLE_MANIFEST_PATH)
     assert manifest_data.get("pinned_version") == PINNED_LT_VERSION
     assert manifest_data.get("pinned_commit") == PINNED_LT_COMMIT
+    assert manifest_data.get("loomchild_version") == LOOMCHILD_VERSION
+    assert manifest_data.get("jar_name") == "languagetool-commandline.jar"
     assert "oracle_sha256" in manifest_data
 
     # Fake jar with wrong SHA-256
@@ -134,3 +139,75 @@ def test_oracle_manifest_structure_and_sha_mismatch(tmp_path: Path):
     if oracle_fake.is_java_available():
         with pytest.raises(RuntimeError, match="Oracle JAR SHA-256 mismatch"):
             oracle_fake.validate_oracle()
+
+
+def test_oracle_manifest_missing_fails_closed(tmp_path: Path):
+    """Verify validate_oracle() fails closed when manifest is missing and no override given."""
+    missing_manifest = tmp_path / "non_existent_manifest.json"
+    fake_jar = tmp_path / "languagetool-commandline.jar"
+    fake_jar.write_text("dummy jar", encoding="utf-8")
+
+    oracle = JavaLanguageToolOracle(jar_path=fake_jar, manifest_path=missing_manifest)
+    if oracle.is_java_available():
+        with pytest.raises(RuntimeError, match="manifest file not found"):
+            oracle.validate_oracle()
+
+
+def test_oracle_manifest_malformed_json(tmp_path: Path):
+    """Verify validate_oracle_manifest fails cleanly on malformed JSON."""
+    bad_manifest = tmp_path / "bad_manifest.json"
+    bad_manifest.write_text("{broken json", encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="Malformed oracle manifest"):
+        validate_oracle_manifest(bad_manifest)
+
+
+def test_oracle_manifest_validation_negative_cases(tmp_path: Path):
+    """Verify validate_oracle_manifest validates required fields, versions, and hex SHA-256."""
+    valid_data = {
+        "schema_version": "1.0.0",
+        "pinned_version": PINNED_LT_VERSION,
+        "pinned_commit": PINNED_LT_COMMIT,
+        "loomchild_version": LOOMCHILD_VERSION,
+        "jar_name": "languagetool-commandline.jar",
+        "oracle_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+    }
+
+    def write_manifest(data: dict) -> Path:
+        p = tmp_path / f"m_{len(list(tmp_path.iterdir()))}.json"
+        p.write_text(json.dumps(data), encoding="utf-8")
+        return p
+
+    # Missing key
+    with pytest.raises(RuntimeError, match="missing required keys"):
+        bad_data = {k: v for k, v in valid_data.items() if k != "oracle_sha256"}
+        validate_oracle_manifest(write_manifest(bad_data))
+
+    # Wrong version
+    with pytest.raises(RuntimeError, match="pinned_version mismatch"):
+        validate_oracle_manifest(write_manifest({**valid_data, "pinned_version": "6.7"}))
+
+    # Wrong commit
+    with pytest.raises(RuntimeError, match="pinned_commit mismatch"):
+        validate_oracle_manifest(write_manifest({**valid_data, "pinned_commit": "wrong_commit"}))
+
+    # Invalid SHA format (not 64 hex chars)
+    with pytest.raises(RuntimeError, match="valid 64-char hex SHA-256 string"):
+        validate_oracle_manifest(write_manifest({**valid_data, "oracle_sha256": "short_hash"}))
+
+
+def test_oracle_sha_env_and_argument_override(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    """Verify expected_sha256 argument and PYLAT_ORACLE_SHA256 environment overrides manifest."""
+    fake_jar = tmp_path / "languagetool-commandline.jar"
+    fake_jar.write_text("sample jar content", encoding="utf-8")
+
+    oracle = JavaLanguageToolOracle(jar_path=fake_jar, manifest_path=tmp_path / "missing.json")
+
+    # Invalid override format raises immediately
+    if oracle.is_java_available():
+        with pytest.raises(RuntimeError, match="Invalid expected_sha256 format"):
+            oracle.validate_oracle(expected_sha256="not_a_valid_sha")
+
+        monkeypatch.setenv("PYLAT_ORACLE_SHA256", "invalid_env_sha")
+        with pytest.raises(RuntimeError, match="Invalid PYLAT_ORACLE_SHA256"):
+            oracle.validate_oracle()

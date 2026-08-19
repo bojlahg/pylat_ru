@@ -24,12 +24,15 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
+import regex
+
 PINNED_LT_VERSION = "6.8"
 PINNED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
 LOOMCHILD_VERSION = "2.0.3"
 DEFAULT_ORACLE_MANIFEST_PATH = (
     Path(__file__).resolve().parent.parent / "compat" / "oracle_manifest.json"
 )
+HEX_SHA256_PATTERN = regex.compile(r"^[0-9a-fA-F]{64}$")
 
 
 def sha256_file(path: Path) -> str:
@@ -39,6 +42,67 @@ def sha256_file(path: Path) -> str:
         while chunk := f.read(65536):
             h.update(chunk)
     return h.hexdigest()
+
+
+def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
+    """Validate schema, required keys, pinned versions, and SHA-256 in oracle manifest."""
+    if not manifest_path.is_file():
+        raise RuntimeError(f"Oracle manifest file not found: {manifest_path}")
+
+    try:
+        data = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        raise RuntimeError(f"Malformed oracle manifest at {manifest_path}: {e}") from e
+
+    if not isinstance(data, dict):
+        raise RuntimeError(f"Oracle manifest at {manifest_path} must be a JSON object")
+
+    required_keys = {
+        "schema_version",
+        "pinned_version",
+        "pinned_commit",
+        "loomchild_version",
+        "jar_name",
+        "oracle_sha256",
+    }
+    missing = required_keys - set(data.keys())
+    if missing:
+        raise RuntimeError(
+            f"Oracle manifest at {manifest_path} missing required keys: {missing}"
+        )
+
+    if data.get("schema_version") != "1.0.0":
+        raise RuntimeError(
+            f"Unsupported oracle manifest schema_version: {data.get('schema_version')!r}"
+        )
+
+    if data.get("pinned_version") != PINNED_LT_VERSION:
+        raise RuntimeError(
+            f"Oracle manifest pinned_version mismatch: expected {PINNED_LT_VERSION!r}, got {data.get('pinned_version')!r}"
+        )
+
+    if data.get("pinned_commit") != PINNED_LT_COMMIT:
+        raise RuntimeError(
+            f"Oracle manifest pinned_commit mismatch: expected {PINNED_LT_COMMIT!r}, got {data.get('pinned_commit')!r}"
+        )
+
+    if data.get("loomchild_version") != LOOMCHILD_VERSION:
+        raise RuntimeError(
+            f"Oracle manifest loomchild_version mismatch: expected {LOOMCHILD_VERSION!r}, got {data.get('loomchild_version')!r}"
+        )
+
+    if data.get("jar_name") != "languagetool-commandline.jar":
+        raise RuntimeError(
+            f"Oracle manifest jar_name mismatch: expected 'languagetool-commandline.jar', got {data.get('jar_name')!r}"
+        )
+
+    sha = data.get("oracle_sha256")
+    if not isinstance(sha, str) or not HEX_SHA256_PATTERN.match(sha):
+        raise RuntimeError(
+            f"Oracle manifest oracle_sha256 must be a valid 64-char hex SHA-256 string, got {sha!r}"
+        )
+
+    return data
 
 
 @dataclass(frozen=True)
@@ -124,7 +188,11 @@ class JavaLanguageToolOracle:
         self,
         expected_sha256: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Strictly validate the configured Java LanguageTool oracle identity, provenance, and SHA-256."""
+        """Strictly validate the configured Java LanguageTool oracle identity, provenance, and SHA-256.
+
+        Fails closed: refuses execution if no valid trusted SHA-256 can be resolved from
+        argument, environment (PYLAT_ORACLE_SHA256), or validated manifest file.
+        """
         if not self.is_java_available():
             raise RuntimeError("Java runtime (java/javac) is not available in PATH.")
 
@@ -137,18 +205,33 @@ class JavaLanguageToolOracle:
 
         jar_hash = sha256_file(jar)
 
-        # Resolve expected SHA-256 from argument, manifest, or environment
-        expected_hash = expected_sha256
-        if expected_hash is None and self.manifest_path.is_file():
-            try:
-                manifest_data = json.loads(self.manifest_path.read_text(encoding="utf-8"))
-                expected_hash = manifest_data.get("oracle_sha256")
-            except Exception:
-                pass
-        if expected_hash is None:
-            expected_hash = os.environ.get("PYLAT_ORACLE_SHA256")
+        # Fail closed on trusted SHA-256 resolution
+        expected_hash: Optional[str] = None
+        if expected_sha256 is not None:
+            if not isinstance(expected_sha256, str) or not HEX_SHA256_PATTERN.match(
+                expected_sha256
+            ):
+                raise RuntimeError(
+                    f"Invalid expected_sha256 format: {expected_sha256!r}"
+                )
+            expected_hash = expected_sha256.lower()
+        elif "PYLAT_ORACLE_SHA256" in os.environ:
+            env_val = os.environ["PYLAT_ORACLE_SHA256"].strip()
+            if not HEX_SHA256_PATTERN.match(env_val):
+                raise RuntimeError(
+                    f"Invalid PYLAT_ORACLE_SHA256 environment variable format: {env_val!r}"
+                )
+            expected_hash = env_val.lower()
+        else:
+            manifest_data = validate_oracle_manifest(self.manifest_path)
+            expected_hash = manifest_data["oracle_sha256"].lower()
 
-        if expected_hash and jar_hash != expected_hash:
+        if not expected_hash:
+            raise RuntimeError(
+                "Oracle SHA-256 verification failed: no trusted expected SHA-256 could be obtained."
+            )
+
+        if jar_hash != expected_hash:
             raise RuntimeError(
                 f"Oracle JAR SHA-256 mismatch for {jar}:\n"
                 f"  Expected: {expected_hash}\n"
@@ -503,8 +586,12 @@ def generate_tokenization_fixtures(
     word_fixture_path.write_text(
         json.dumps(word_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
-    print(f"Updated sentence fixture from Java Oracle -> {sent_fixture_path} (oracle SHA: {oracle_sha})")
-    print(f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha})")
+    print(
+        f"Updated sentence fixture from Java Oracle -> {sent_fixture_path} (oracle SHA: {oracle_sha})"
+    )
+    print(
+        f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha})"
+    )
 
 
 def main() -> int:
@@ -544,7 +631,9 @@ def main() -> int:
                 "oracle_verified": False,
                 "pinned_version": PINNED_LT_VERSION,
                 "pinned_commit": PINNED_LT_COMMIT,
-                "jar_path": str(oracle.get_jar_path()) if oracle.get_jar_path() else None,
+                "jar_path": str(oracle.get_jar_path())
+                if oracle.get_jar_path()
+                else None,
                 "error": str(e),
             }
 
