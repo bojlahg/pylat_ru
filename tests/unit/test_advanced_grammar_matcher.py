@@ -408,3 +408,508 @@ def test_rule_with_max_filter_subsumption():
     assert m_larger in filtered
     assert m_different_rule in filtered
     assert m_subsumed not in filtered
+
+
+# ==============================================================================
+# Ported Upstream PatternRuleMatcherTest Tests
+# ==============================================================================
+
+def _analyze_words(text: str) -> AnalyzedSentence:
+    """Create an AnalyzedSentence from space-separated tokens with start_pos/end_pos."""
+    tokens = []
+    tokens.append(
+        AnalyzedTokenReadings(
+            readings=[AnalyzedToken("", "", "SENT_START")],
+            start_pos=0,
+            whitespace_before="",
+            is_sentence_start=True,
+        )
+    )
+
+    pos = 0
+    parts = text.split(" ")
+    for idx, p in enumerate(parts):
+        start = text.find(p, pos) if p else pos
+        atr = AnalyzedTokenReadings(
+            readings=[AnalyzedToken(p, p, None)],
+            start_pos=start,
+            whitespace_before=" " if idx > 0 else "",
+            is_sentence_start=False,
+        )
+        tokens.append(atr)
+        pos = start + len(p)
+
+    sent = AnalyzedSentence(tokens=tokens)
+    sent.text = text
+    return sent
+
+
+def _get_matches(text: str, rule: GrammarRule) -> list:
+    engine = RussianGrammarEngine(rules=[rule])
+    sent = _analyze_words(text)
+    return engine.check_rule(sent, rule)
+
+
+def _assert_no_match(text: str, rule: GrammarRule):
+    matches = _get_matches(text, rule)
+    assert len(matches) == 0, f"Expected 0 matches, got {len(matches)} for '{text}'"
+
+
+def _assert_partial_match(text: str, rule: GrammarRule):
+    matches = _get_matches(text, rule)
+    assert len(matches) == 1, f"Expected 1 match, got {len(matches)} for '{text}'"
+    m = matches[0]
+    assert m.from_pos > 0 or m.to_pos < len(text), f"Expected partial match, got {m.from_pos}-{m.to_pos} for '{text}'"
+
+
+def _assert_complete_match(text: str, rule: GrammarRule):
+    matches = _get_matches(text, rule)
+    assert len(matches) == 1, f"Expected 1 match, got {len(matches)} for '{text}'"
+    m = matches[0]
+    assert m.from_pos == 0 and m.to_pos == len(text), f"Expected complete match (0, {len(text)}), got ({m.from_pos}, {m.to_pos}) for '{text}'"
+
+
+def _assert_pos(match: RuleMatchResult, exp_from: int, exp_to: int):
+    assert match.from_pos == exp_from, f"Expected from_pos {exp_from}, got {match.from_pos}"
+    assert match.to_pos == exp_to, f"Expected to_pos {exp_to}, got {match.to_pos}"
+
+
+def test_upstream_zero_min_occurrences():
+    pt_b = PatternToken(text="b", min=0)
+    rule = _make_rule("test_zero_min", Pattern(tokens=[PatternToken(text="a"), pt_b, PatternToken(text="c")]))
+    _assert_no_match("b a", rule)
+    _assert_no_match("c a b", rule)
+    _assert_partial_match("b a c", rule)
+    _assert_partial_match("a c b", rule)
+    _assert_no_match("a b b c", rule)
+    _assert_complete_match("a c", rule)
+    _assert_complete_match("a b c", rule)
+    _assert_no_match("a X c", rule)
+
+    matches = _get_matches("a b c FOO a b c FOO a c a b c", rule)
+    assert len(matches) == 4
+    _assert_pos(matches[0], 0, 5)
+    _assert_pos(matches[1], 10, 15)
+    _assert_pos(matches[2], 20, 23)
+    _assert_pos(matches[3], 24, 29)
+
+
+def test_upstream_two_zero_min_occurrences():
+    pt_b1 = PatternToken(text="ba", min=0)
+    pt_b2 = PatternToken(text="bb", min=0)
+    rule = _make_rule("test_two_zero_min", Pattern(tokens=[PatternToken(text="a"), pt_b1, pt_b2, PatternToken(text="c")]))
+    _assert_no_match("ba a", rule)
+    _assert_no_match("c a bb", rule)
+    _assert_partial_match("z a c", rule)
+    _assert_partial_match("a c z", rule)
+    _assert_no_match("a ba ba c", rule)
+    _assert_complete_match("a ba bb c", rule)
+    _assert_complete_match("a ba c", rule)
+    _assert_complete_match("a bb c", rule)
+    _assert_complete_match("a c", rule)
+    _assert_no_match("a X c", rule)
+
+    matches = _get_matches("a ba c FOO a bb c FOO a c a ba bb c", rule)
+    assert len(matches) == 4
+    _assert_pos(matches[0], 0, 6)
+    _assert_pos(matches[1], 11, 17)
+    _assert_pos(matches[2], 22, 25)
+    _assert_pos(matches[3], 26, 35)
+
+
+def test_upstream_zero_min_occurrences2():
+    pt_b = PatternToken(text="b", min=0)
+    rule = _make_rule("test_zero_min2", Pattern(tokens=[
+        PatternToken(text="a"), pt_b, PatternToken(text="c"), PatternToken(text="d"), PatternToken(text="e")
+    ]))
+    _assert_complete_match("a b c d e", rule)
+    _assert_complete_match("a c d e", rule)
+    _assert_no_match("a d", rule)
+    _assert_no_match("a c b d", rule)
+    _assert_no_match("a c b d e", rule)
+
+
+def test_upstream_zero_min_occurrences3():
+    pt_c = PatternToken(text="c", min=0)
+    rule = _make_rule("test_zero_min3", Pattern(tokens=[
+        PatternToken(text="a"), PatternToken(text="b"), pt_c, PatternToken(text="d"), PatternToken(text="e")
+    ]))
+    _assert_complete_match("a b c d e", rule)
+    _assert_complete_match("a b d e", rule)
+    _assert_partial_match("a b c d e x", rule)
+    _assert_partial_match("x a b c d e", rule)
+    _assert_no_match("a b c e d", rule)
+    _assert_no_match("a c b d e", rule)
+
+
+def test_upstream_zero_min_occurrences4():
+    pt_a = PatternToken(text="a", min=0)
+    pt_c = PatternToken(text="c", min=0)
+    rule = _make_rule("test_zero_min4", Pattern(tokens=[
+        pt_a, PatternToken(text="b"), pt_c, PatternToken(text="d"), PatternToken(text="e")
+    ]))
+    matches = _get_matches("a b c d e", rule)
+    assert len(matches) == 1
+    _assert_pos(matches[0], 0, 9)
+
+
+def test_upstream_zero_min_occurrences_with_empty_element():
+    pt_any = PatternToken(text=None, min=0)
+    rule = _make_rule("test_zero_min_empty", Pattern(tokens=[PatternToken(text="a"), pt_any, PatternToken(text="c")]))
+    _assert_no_match("b a", rule)
+    _assert_no_match("c a b", rule)
+    _assert_partial_match("b a c", rule)
+    _assert_partial_match("a c b", rule)
+    _assert_no_match("a b b c", rule)
+    _assert_complete_match("a c", rule)
+    _assert_complete_match("a b c", rule)
+    _assert_complete_match("a X c", rule)
+
+    matches = _get_matches("a b c FOO a X c", rule)
+    assert len(matches) == 2
+    _assert_pos(matches[0], 0, 5)
+    _assert_pos(matches[1], 10, 15)
+
+
+def test_upstream_zero_min_occurrences_with_suggestion():
+    pt_b = PatternToken(text="b", min=0)
+    msg_tmpl = MessageTemplate(elements=[
+        MatchReference(no=1), " ", MatchReference(no=2), " ", MatchReference(no=3)
+    ])
+    rule = GrammarRule(
+        id="test_sugg",
+        sub_id="1",
+        full_id="test_sugg[1]",
+        name="desc",
+        category_id="C",
+        category_name="Cat",
+        rulegroup_id=None,
+        rulegroup_name=None,
+        default_off=False,
+        tags=[],
+        source_order_index=0,
+        pattern=Pattern(tokens=[PatternToken(text="a"), pt_b, PatternToken(text="c")]),
+        message_template=msg_tmpl,
+        suggestions=[SuggestionTemplate(elements=[MatchReference(no=1), " ", MatchReference(no=2), " ", MatchReference(no=3)])],
+        execution_state=ExecutionState.ADVANCED_0008_RUNNABLE,
+    )
+    matches1 = _get_matches("a b c", rule)
+    assert matches1[0].suggestions == ["a b c"]
+
+    matches2 = _get_matches("a c", rule)
+    assert matches2[0].suggestions == ["a c"]
+
+
+def test_upstream_zero_min_two_max_occurrences():
+    pt_b = PatternToken(text="b", min=0, max=2)
+    rule = _make_rule("test_0min_2max", Pattern(tokens=[PatternToken(text="a"), pt_b, PatternToken(text="c")]))
+    _assert_complete_match("a c", rule)
+    _assert_complete_match("a b c", rule)
+    _assert_complete_match("a b b c", rule)
+    _assert_no_match("a b b b c", rule)
+
+
+def test_upstream_two_max_occurrences_with_any_token():
+    pt_any = PatternToken(text=None, max=2)
+    rule = _make_rule("test_2max_any", Pattern(tokens=[PatternToken(text="a"), pt_any, PatternToken(text="c")]))
+    _assert_complete_match("a b c", rule)
+    _assert_complete_match("a b b c", rule)
+    _assert_no_match("a b b b c", rule)
+
+
+def test_upstream_three_max_occurrences_with_any_token():
+    pt_any = PatternToken(text=None, max=3)
+    rule = _make_rule("test_3max_any", Pattern(tokens=[PatternToken(text="a"), pt_any, PatternToken(text="c")]))
+    _assert_complete_match("a b c", rule)
+    _assert_complete_match("a b b c", rule)
+    _assert_complete_match("a b b b c", rule)
+    _assert_no_match("a b b b b c", rule)
+
+
+def test_upstream_zero_min_two_max_occurrences_with_any_token():
+    pt_any = PatternToken(text=None, min=0, max=2)
+    rule = _make_rule("test_0min_2max_any", Pattern(tokens=[PatternToken(text="a"), pt_any, PatternToken(text="c")]))
+    _assert_no_match("a b", rule)
+    _assert_no_match("b c", rule)
+    _assert_no_match("c", rule)
+    _assert_no_match("a", rule)
+    _assert_complete_match("a c", rule)
+    _assert_complete_match("a x c", rule)
+    _assert_complete_match("a x x c", rule)
+    _assert_no_match("a x x x c", rule)
+
+
+def test_upstream_two_max_occurrences():
+    pt_b = PatternToken(text="b", max=2)
+    rule = _make_rule("test_2max", Pattern(tokens=[PatternToken(text="a"), pt_b]))
+    _assert_no_match("a a", rule)
+    _assert_complete_match("a b", rule)
+    _assert_complete_match("a b b", rule)
+    _assert_partial_match("a b c", rule)
+    _assert_partial_match("a b b c", rule)
+    _assert_partial_match("x a b b", rule)
+
+    matches1 = _get_matches("a b b b", rule)
+    assert len(matches1) == 1
+    _assert_pos(matches1[0], 0, 5)
+
+    matches2 = _get_matches("a b b b foo a b b", rule)
+    assert len(matches2) == 2
+    _assert_pos(matches2[0], 0, 5)
+    _assert_pos(matches2[1], 12, 17)
+
+
+def test_upstream_three_max_occurrences():
+    pt_b = PatternToken(text="b", max=3)
+    rule = _make_rule("test_3max", Pattern(tokens=[PatternToken(text="a"), pt_b]))
+    _assert_no_match("a a", rule)
+    _assert_complete_match("a b", rule)
+    _assert_complete_match("a b b", rule)
+    _assert_complete_match("a b b b", rule)
+    _assert_partial_match("a b b b b", rule)
+
+    matches = _get_matches("a b b b b", rule)
+    assert len(matches) == 1
+    _assert_pos(matches[0], 0, 7)
+
+
+def test_upstream_optional_without_explicit_marker():
+    pt_b = PatternToken(text="b", min=0)
+    rule = _make_rule("test_opt_no_marker", Pattern(tokens=[PatternToken(text="a"), pt_b, PatternToken(text="c")]))
+    matches1 = _get_matches("a b c zzz", rule)
+    assert len(matches1) == 1
+    _assert_pos(matches1[0], 0, 5)
+
+    matches2 = _get_matches("a c zzz", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 0, 3)
+
+
+def test_upstream_optional_with_explicit_marker():
+    pt_a = PatternToken(text="a", is_in_marker=True)
+    pt_b = PatternToken(text="b", min=0, is_in_marker=True)
+    pt_c = PatternToken(text="c", is_in_marker=False)
+    rule = _make_rule("test_opt_marker", Pattern(
+        tokens=[pt_a, pt_b, pt_c],
+        has_marker=True,
+        marker_start_idx=0,
+        marker_end_idx=2,
+    ))
+    matches1 = _get_matches("a b c zzz", rule)
+    assert len(matches1) == 1
+    _assert_pos(matches1[0], 0, 3)
+
+    matches2 = _get_matches("a c zzz", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 0, 1)
+
+
+def test_upstream_optional_any_token_with_explicit_marker():
+    pt_a = PatternToken(text="a", is_in_marker=True)
+    pt_b = PatternToken(text=None, min=0, is_in_marker=True)
+    pt_c = PatternToken(text="c", is_in_marker=False)
+    rule = _make_rule("test_opt_any_marker", Pattern(
+        tokens=[pt_a, pt_b, pt_c],
+        has_marker=True,
+        marker_start_idx=0,
+        marker_end_idx=2,
+    ))
+    matches1 = _get_matches("a x c zzz", rule)
+    assert len(matches1) == 1
+    _assert_pos(matches1[0], 0, 3)
+
+    matches2 = _get_matches("a c zzz", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 0, 1)
+
+
+def test_upstream_optional_any_token_with_explicit_marker2():
+    pt_a = PatternToken(text="the", is_in_marker=True)
+    pt_b = PatternToken(text=None, min=0, is_in_marker=True)
+    pt_c = PatternToken(text="bike", is_in_marker=False)
+    rule = _make_rule("test_opt_any_marker2", Pattern(
+        tokens=[pt_a, pt_b, pt_c],
+        has_marker=True,
+        marker_start_idx=0,
+        marker_end_idx=2,
+    ))
+    matches1 = _get_matches("the nice bike zzz", rule)
+    assert len(matches1) == 1
+    _assert_pos(matches1[0], 0, 8)
+
+    matches2 = _get_matches("the bike zzz", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 0, 3)
+
+
+def test_upstream_unlimited_max_occurrences():
+    pt_b = PatternToken(text="b", max=-1)
+    rule = _make_rule("test_unlimited_max", Pattern(tokens=[PatternToken(text="a"), pt_b, PatternToken(text="c")]))
+    _assert_no_match("a c", rule)
+    _assert_no_match("a b", rule)
+    _assert_no_match("b c", rule)
+    _assert_complete_match("a b c", rule)
+    _assert_complete_match("a b b c", rule)
+    _assert_complete_match("a " + " ".join(["b"] * 25) + " c", rule)
+
+
+def test_upstream_max_two_and_three_occurrences():
+    pt_a = PatternToken(text="a", max=2)
+    pt_b = PatternToken(text="b", max=3)
+    rule = _make_rule("test_max2_max3", Pattern(tokens=[pt_a, pt_b]))
+    _assert_complete_match("a b", rule)
+    _assert_complete_match("a b b", rule)
+    _assert_complete_match("a b b b", rule)
+    _assert_no_match("a a", rule)
+    _assert_no_match("a x b b b", rule)
+
+    matches2 = _get_matches("a a b", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 0, 5)
+
+    matches3 = _get_matches("a a b b", rule)
+    assert len(matches3) == 1
+    _assert_pos(matches3[0], 0, 7)
+
+    matches4 = _get_matches("a a b b b", rule)
+    assert len(matches4) == 1
+    _assert_pos(matches4[0], 0, 9)
+
+
+def test_upstream_infinite_skip():
+    pt_a = PatternToken(text="a", skip=-1)
+    rule = _make_rule("test_inf_skip", Pattern(tokens=[pt_a, PatternToken(text="b")]))
+    _assert_complete_match("a b", rule)
+    _assert_complete_match("a x b", rule)
+    _assert_complete_match("a x x b", rule)
+    _assert_complete_match("a x x x b", rule)
+
+
+def test_upstream_infinite_skip_with_match_reference():
+    pt_ab = PatternToken(text="a|b", regexp=True, skip=-1)
+    pt_c = PatternToken(text=None, match=MatchReference(no=0))
+    rule = _make_rule("test_inf_skip_match_ref", Pattern(tokens=[pt_ab, pt_c]))
+    _assert_complete_match("a a", rule)
+    _assert_complete_match("b b", rule)
+    _assert_complete_match("a x a", rule)
+    _assert_complete_match("b x b", rule)
+    _assert_complete_match("a x x a", rule)
+    _assert_complete_match("b x x b", rule)
+
+    _assert_no_match("a b", rule)
+    _assert_no_match("b a", rule)
+    _assert_no_match("b x a", rule)
+    _assert_no_match("a x x b", rule)
+    _assert_no_match("b x x a", rule)
+
+    matches = _get_matches("a foo a and b foo b", rule)
+    assert len(matches) == 2
+    _assert_pos(matches[0], 0, 7)
+    _assert_pos(matches[1], 12, 19)
+
+    matches2 = _get_matches("xx a b x x x b a", rule)
+    assert len(matches2) == 1
+    _assert_pos(matches2[0], 3, 16)
+
+
+def test_upstream_no_match_reference_recursion():
+    msg_tmpl = MessageTemplate(elements=["Here come the match references: ", MatchReference(no=1), MatchReference(no=2), ". This is the end"])
+    rule = GrammarRule(
+        id="MATCH_REFERENCERE_CURSION_DEMO",
+        sub_id="1",
+        full_id="MATCH_REFERENCERE_CURSION_DEMO[1]",
+        name="desc",
+        category_id="C",
+        category_name="Cat",
+        rulegroup_id=None,
+        rulegroup_name=None,
+        default_off=False,
+        tags=[],
+        source_order_index=0,
+        pattern=Pattern(tokens=[PatternToken(text=r"\p{Punct}", regexp=True), PatternToken(text=r"\d+", regexp=True)]),
+        message_template=msg_tmpl,
+        execution_state=ExecutionState.ADVANCED_0008_RUNNABLE,
+    )
+    matches = _get_matches(": 42", rule)
+    assert len(matches) == 1
+    assert matches[0].message == "Here come the match references: :42. This is the end"
+
+
+# ==============================================================================
+# min and max Boundary Validation Tests
+# ==============================================================================
+
+def test_min_attribute_validation_boundaries():
+    from pylat_ru.grammar.errors import GrammarFormatError
+    loader = GrammarLoader()
+
+    # min=0 accepted
+    xml_0 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token min="0">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_0 = loader.load_from_string(xml_0)
+    assert rules_0[0].pattern.tokens[0].min == 0
+
+    # min=1 accepted
+    xml_1 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token min="1">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_1 = loader.load_from_string(xml_1)
+    assert rules_1[0].pattern.tokens[0].min == 1
+
+    # min=-1 rejected
+    xml_neg = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token min="-1">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="min"):
+        loader.load_from_string(xml_neg)
+
+    # min=2 rejected
+    xml_2 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token min="2">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="min"):
+        loader.load_from_string(xml_2)
+
+    # min=non-integer rejected
+    xml_str = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token min="abc">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="Invalid integer"):
+        loader.load_from_string(xml_str)
+
+
+def test_max_attribute_validation_boundaries():
+    from pylat_ru.grammar.errors import GrammarFormatError
+    loader = GrammarLoader()
+
+    # max=1 accepted
+    xml_1 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="1">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_1 = loader.load_from_string(xml_1)
+    assert rules_1[0].pattern.tokens[0].max == 1
+
+    # max=2 accepted
+    xml_2 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="2">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_2 = loader.load_from_string(xml_2)
+    assert rules_2[0].pattern.tokens[0].max == 2
+
+    # max=3 accepted
+    xml_3 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="3">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_3 = loader.load_from_string(xml_3)
+    assert rules_3[0].pattern.tokens[0].max == 3
+
+    # max=-1 accepted (unlimited)
+    xml_unlim = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="-1">а</token></pattern><message>M</message></rule></category></rules>'
+    rules_unlim = loader.load_from_string(xml_unlim)
+    assert rules_unlim[0].pattern.tokens[0].max == -1
+
+    # max=0 rejected
+    xml_0 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="0">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="max"):
+        loader.load_from_string(xml_0)
+
+    # max=-2 rejected
+    xml_neg2 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="-2">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="max"):
+        loader.load_from_string(xml_neg2)
+
+    # max=128 rejected
+    xml_128 = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="128">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="max"):
+        loader.load_from_string(xml_128)
+
+    # max=non-integer rejected
+    xml_str = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="xyz">а</token></pattern><message>M</message></rule></category></rules>'
+    with pytest.raises(GrammarFormatError, match="Invalid integer"):
+        loader.load_from_string(xml_str)
+

@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Sequence, Union
 import regex
 
 from pylat_ru.analysis import AnalyzedTokenReadings
+from pylat_ru.grammar.errors import GrammarError
 from pylat_ru.grammar.model import (
     MatchReference,
     MessageTemplate,
@@ -161,8 +162,8 @@ def resolve_match_reference_forms(
         try:
             py_repl = _java_to_python_regex_repl(ref.regexp_replace)
             raw_word = regex.sub(ref.regexp_match, py_repl, raw_word)
-        except Exception:
-            pass
+        except Exception as e:
+            raise GrammarError(f"Malformed regular expression or replacement in <match>: {e}") from e
 
     # 2. POS synthesis / modification
     target_pos = ref.postag
@@ -174,19 +175,15 @@ def resolve_match_reference_forms(
                 orig_pos = rd.pos_tag
                 matched_reading = rd
                 break
-        if matched_reading is not None:
-            target_at = matched_reading
-            py_pos_repl = _java_to_python_regex_repl(ref.postag_replace)
-            try:
+        py_pos_repl = _java_to_python_regex_repl(ref.postag_replace)
+        try:
+            if matched_reading is not None:
+                target_at = matched_reading
                 target_pos = regex.sub(ref.postag, py_pos_repl, orig_pos)
-            except Exception:
-                pass
-        else:
-            py_pos_repl = _java_to_python_regex_repl(ref.postag_replace)
-            try:
+            else:
                 target_pos = regex.sub(ref.postag, py_pos_repl, ref.postag)
-            except Exception:
-                pass
+        except Exception as e:
+            raise GrammarError(f"Malformed regular expression or replacement in postag_replace: {e}") from e
 
     words = [raw_word]
     if target_pos:

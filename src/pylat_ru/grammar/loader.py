@@ -17,6 +17,7 @@ from pylat_ru.grammar.errors import GrammarFormatError, GrammarResourceError
 from pylat_ru.grammar.model import (
     EquivalenceDef,
     Example,
+    ExecutionState,
     FeatureDef,
     FilterConfig,
     GrammarRule,
@@ -531,7 +532,13 @@ class GrammarLoader:
         # Parse primary pattern
         pat_elem = rule_elem.find("pattern")
         if pat_elem is not None:
-            pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'")
+            if exec_state in (ExecutionState.CORE_0007_RUNNABLE, ExecutionState.ADVANCED_0008_RUNNABLE):
+                pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'")
+            else:
+                try:
+                    pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'")
+                except GrammarFormatError:
+                    pattern = Pattern()
         else:
             pattern = Pattern()
 
@@ -853,8 +860,8 @@ class GrammarLoader:
             raise GrammarFormatError(f"'skip' attribute value must be between -1 and 127: {skip_val} in {context}")
 
         min_val = _parse_int_attr(tok_elem, "min", context, default=None)
-        if min_val is not None and (min_val < 0 or min_val > 127):
-            raise GrammarFormatError(f"minOccurrences must be between 0 and 127: {min_val} in {context}")
+        if min_val is not None and min_val not in (0, 1):
+            raise GrammarFormatError(f"minOccurrences must be 0 or 1: {min_val} in {context}")
 
         max_val = _parse_int_attr(tok_elem, "max", context, default=None)
         if max_val is not None and (max_val == 0 or max_val < -1 or max_val > 127):

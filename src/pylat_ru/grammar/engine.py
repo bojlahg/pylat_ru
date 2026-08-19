@@ -28,6 +28,7 @@ from pylat_ru.grammar.matcher import (
 from pylat_ru.grammar.model import (
     ExecutionState,
     GrammarRule,
+    MatchReference,
     RuleMatchResult,
 )
 from pylat_ru.synthesis.synthesizer import RussianSynthesizer
@@ -260,7 +261,20 @@ class RussianGrammarEngine:
                 sug_matches = regex.findall(r"<suggestion>(.*?)</suggestion>", message)
                 first_err_tok = error_tokens[0].token or "" if error_tokens else ""
                 is_sentence_start = bool(match_res.error_start_idx <= 1)
-                is_first_upper = bool(is_sentence_start and first_err_tok and first_err_tok[0].isupper())
+
+                has_case_conversion = False
+                if rule.message_template and rule.message_template.elements:
+                    has_case_conversion = any(
+                        isinstance(elem, MatchReference) and elem.case_conversion is not None
+                        for elem in rule.message_template.elements
+                    )
+                if not has_case_conversion and rule.suggestions:
+                    for st in rule.suggestions:
+                        if any(isinstance(elem, MatchReference) and elem.case_conversion is not None for elem in st.elements):
+                            has_case_conversion = True
+                            break
+
+                is_first_upper = bool(is_sentence_start and first_err_tok and first_err_tok[0].isupper() and not has_case_conversion)
                 if sug_matches:
                     if is_first_upper:
                         suggestions = [uppercase_first_char(s) for s in sug_matches]
@@ -285,6 +299,9 @@ class RussianGrammarEngine:
                 to_tok = non_blank_tokens[match_res.error_end_idx - 1]
                 from_utf16 = from_tok.start_pos
                 to_utf16 = to_tok.start_pos + _utf16_len(to_tok.token)
+
+                if from_utf16 >= to_utf16:
+                    continue
 
                 # Match Java LT PatternRuleMatcher comma-prepended whitespace semantics
                 if match_res.error_start_idx >= 1:

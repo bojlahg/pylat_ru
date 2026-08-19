@@ -17,12 +17,36 @@ from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
 
 FIXTURE_PATH = Path(__file__).resolve().parent.parent / "fixtures" / "oracle_advanced_russian_rules.json"
+MANIFEST_PATH = Path(__file__).resolve().parent.parent.parent / "compat" / "oracle_manifest.json"
+
+
+def load_oracle_manifest() -> Dict[str, Any]:
+    """Load the trusted oracle manifest."""
+    if not MANIFEST_PATH.is_file():
+        pytest.fail(f"Oracle manifest not found at {MANIFEST_PATH}")
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
 @pytest.fixture(scope="module")
 def fixture_data():
     assert FIXTURE_PATH.is_file(), f"Missing fixture file: {FIXTURE_PATH}"
     return json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
+
+
+def test_advanced_russian_rules_fixture_integrity(fixture_data):
+    """Verify oracle advanced Russian rules fixture metadata against oracle_manifest.json."""
+    manifest = load_oracle_manifest()
+    meta = fixture_data.get("metadata", {})
+
+    assert meta.get("pinned_lt_version") == manifest.get("pinned_version")
+    assert meta.get("pinned_lt_commit") == manifest.get("pinned_commit")
+
+    oracle_build_id = meta.get("oracle_build_id")
+    trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
+    assert oracle_build_id in trusted_builds, f"Untrusted build_id: {oracle_build_id}"
+
+    expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
+    assert meta.get("oracle_jar_sha256") == expected_sha
 
 
 def test_advanced_russian_rules_oracle_cases_count(fixture_data):

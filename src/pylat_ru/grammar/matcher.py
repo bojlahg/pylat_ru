@@ -11,9 +11,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Union
+import sys
 import regex
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
+from pylat_ru.grammar.errors import GrammarError, GrammarFormatError
 from pylat_ru.grammar.model import (
     GrammarRule,
     MatchReference,
@@ -236,7 +238,7 @@ class CompiledPatternToken:
             return
 
         ref_no = self.match_ref.no
-        target_idx = first_match_token + ref_no - 1  # 0-indexed token in tokens
+        target_idx = first_match_token + ref_no  # 0-indexed token reference relative to first_match_token
         if target_idx < 0 or target_idx >= len(tokens):
             return
 
@@ -799,52 +801,19 @@ def expand_rule_into_variants(
 def _expand_pattern_elements(
     elements: Sequence[PatternElement],
     global_phrases: Dict[str, PatternPhrase],
+    in_marker_override: Optional[bool] = None,
 ) -> List[Tuple[List[PatternToken], List[int]]]:
     """Cartesian expansion of PatternElements into (token_list, element_lengths)."""
     if not elements:
         return [([], [])]
 
     first = elements[0]
-    rest_variants = _expand_pattern_elements(elements[1:], global_phrases)
-
-    first_branches: List[Tuple[List[PatternToken], int]] = []
-
-    if isinstance(first, PatternOr):
-        for opt in first.elements:
-            if isinstance(opt, PatternToken):
-                first_branches.append(([opt], 1))
-            elif isinstance(opt, PatternAnd):
-                first_branches.append((_flatten_and_to_tokens(opt), 1))
-            elif isinstance(opt, PatternPhrase):
-                pref = opt.ref or opt.id
-                target_phrase = global_phrases.get(pref) if pref else None
-                if target_phrase:
-                    first_branches.append((_flatten_phrase_to_tokens(target_phrase), len(target_phrase.elements)))
-                else:
-                    first_branches.append(([opt], 1))  # type: ignore[list-item]
-    elif isinstance(first, PatternPhrase):
-        pref = first.ref or first.id
-        target_phrase = global_phrases.get(pref) if pref else None
-        if target_phrase:
-            has_or = any(isinstance(e, PatternOr) for e in target_phrase.elements)
-            if has_or:
-                for opt in target_phrase.elements:
-                    if isinstance(opt, PatternOr):
-                        for alt in opt.elements:
-                            if isinstance(alt, PatternToken):
-                                first_branches.append(([alt], 1))
-                            elif isinstance(alt, PatternAnd):
-                                first_branches.append((_flatten_and_to_tokens(alt), 1))
-            else:
-                first_branches.append((_flatten_phrase_to_tokens(target_phrase), len(target_phrase.elements)))
-        else:
-            first_branches.append(([first], 1))  # type: ignore[list-item]
-    elif isinstance(first, PatternAnd):
-        first_branches.append((_flatten_and_to_tokens(first), 1))
-    elif isinstance(first, PatternToken):
-        first_branches.append(([first], 1))
-    else:
-        first_branches.append(([first], 1))  # type: ignore[list-item]
+    rest_variants = _expand_pattern_elements(
+        elements[1:], global_phrases, in_marker_override=in_marker_override
+    )
+    first_branches = _expand_single_element(
+        first, global_phrases, in_marker_override=in_marker_override
+    )
 
     result: List[Tuple[List[PatternToken], List[int]]] = []
     for branch_tokens, branch_len in first_branches:
@@ -891,48 +860,95 @@ def _flatten_and_to_tokens(and_elem: PatternAnd) -> List[PatternToken]:
     return [PatternToken(is_in_marker=and_elem.is_in_marker)]
 
 
-def _flatten_phrase_to_tokens(phrase_elem: PatternPhrase) -> List[PatternToken]:
-    """Extract list of PatternTokens from a phrase definition."""
-    toks: List[PatternToken] = []
-    for child in phrase_elem.elements:
-        if isinstance(child, PatternToken):
-            toks.append(child)
-        elif isinstance(child, PatternAnd):
-            toks.extend(_flatten_and_to_tokens(child))
-    return toks
+def _expand_single_element(
+    elem: PatternElement,
+    global_phrases: Dict[str, PatternPhrase],
+    in_marker_override: Optional[bool] = None,
+) -> List[Tuple[List[PatternToken], int]]:
+    """Expand a single PatternElement into a list of (branch_tokens, logical_element_length)."""
+    effective_marker = elem.is_in_marker if in_marker_override is None else in_marker_override
+
+    if isinstance(elem, PatternToken):
+        tok = elem
+        if in_marker_override is not None and tok.is_in_marker != in_marker_override:
+            tok = PatternToken(
+                text=tok.text,
+                postag=tok.postag,
+                postag_regexp=tok.postag_regexp,
+                regexp=tok.regexp,
+                negate=tok.negate,
+                negate_pos=tok.negate_pos,
+                inflected=tok.inflected,
+                case_sensitive=tok.case_sensitive,
+                skip=tok.skip,
+                min=tok.min,
+                max=tok.max,
+                chunk=tok.chunk,
+                spacebefore=tok.spacebefore,
+                raw_pos=tok.raw_pos,
+                is_in_marker=in_marker_override,
+                match=tok.match,
+                exceptions=tok.exceptions,
+                and_elements=tok.and_elements,
+            )
+        return [([tok], 1)]
+
+    elif isinstance(elem, PatternAnd):
+        toks = _flatten_and_to_tokens(elem)
+        if in_marker_override is not None:
+            for t in toks:
+                t.is_in_marker = in_marker_override
+        return [(toks, 1)]
+
+    elif isinstance(elem, PatternOr):
+        branches: List[Tuple[List[PatternToken], int]] = []
+        for opt in elem.elements:
+            for opt_tokens, opt_len in _expand_single_element(opt, global_phrases, in_marker_override=effective_marker):
+                branches.append((opt_tokens, opt_len))
+        return branches
+
+    elif isinstance(elem, PatternPhrase):
+        pref = elem.ref or elem.id
+        if not pref or pref not in global_phrases:
+            raise GrammarFormatError(f"Undefined or missing phrase reference '{pref}' in pattern")
+        target_phrase = global_phrases[pref]
+        phrase_expansions = _expand_pattern_elements(
+            target_phrase.elements, global_phrases, in_marker_override=effective_marker
+        )
+        branches = []
+        for p_tokens, _ in phrase_expansions:
+            branches.append((p_tokens, len(p_tokens)))
+        return branches
+
+    else:
+        raise GrammarFormatError(f"Unsupported pattern element type: {type(elem).__name__}")
 
 
 def filter_subsumed_rule_matches(matches: List[RuleMatchResult]) -> List[RuleMatchResult]:
-    """Eliminate smaller subsumed matches matching Java LT RuleWithMaxFilter."""
+    """Filter subsumed rule matches exactly matching Java LT RuleWithMaxFilter."""
     if len(matches) <= 1:
-        return matches
+        return list(matches)
 
-    # Sort matches by from_pos asc, then to_pos desc
-    sorted_matches = sorted(
-        matches,
-        key=lambda m: (m.from_pos, -m.to_pos, m.rule_id, m.full_rule_id),
-    )
-
-    result: List[Any] = []
+    sorted_matches = sorted(matches, key=lambda m: m.from_pos)
+    filtered: List[RuleMatchResult] = []
+    i = 0
     n = len(sorted_matches)
-
-    for i in range(n):
-        m1 = sorted_matches[i]
-        subsumed = False
-        for j in range(i):
-            m_prev = sorted_matches[j]
+    while i < n:
+        m = sorted_matches[i]
+        while i < n - 1:
+            next_m = sorted_matches[i + 1]
             if (
-                m_prev.rule_id == m1.rule_id
-                and m_prev.full_rule_id == m1.full_rule_id
-                and m_prev.from_pos <= m1.from_pos
-                and m_prev.to_pos >= m1.to_pos
+                m.from_pos <= next_m.from_pos
+                and m.to_pos >= next_m.to_pos
+                and m.rule_id == next_m.rule_id
+                and m.full_rule_id == next_m.full_rule_id
             ):
-                subsumed = True
+                i += 1
+            else:
                 break
-        if not subsumed:
-            result.append(m1)
-
-    return result
+        filtered.append(m)
+        i += 1
+    return filtered
 
 
 class CompiledPattern:

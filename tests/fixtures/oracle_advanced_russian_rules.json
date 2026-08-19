@@ -4,6 +4,10 @@
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "generator_operation": "tools/generate_oracle_advanced_fixtures.py",
+    "corpus_version": "1.0.0",
     "cases_count": 750
   },
   "cases": [

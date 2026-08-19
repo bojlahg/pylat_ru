@@ -1264,26 +1264,7 @@ public class CheckPatternRules {
                     }
                 }
             }
-            List<RuleMatch> filteredMatches = new ArrayList<>();
-            for (RuleMatch m : allMatches) {
-                boolean subsumed = false;
-                for (RuleMatch other : allMatches) {
-                    if (other != m && other.getFromPos() <= m.getFromPos() && other.getToPos() >= m.getToPos()
-                        && (other.getToPos() - other.getFromPos() > m.getToPos() - m.getFromPos())) {
-                        subsumed = true;
-                        break;
-                    }
-                    if (other != m && other.getFromPos() == m.getFromPos() && other.getToPos() == m.getToPos()) {
-                        if (allMatches.indexOf(other) < allMatches.indexOf(m)) {
-                            subsumed = true;
-                            break;
-                        }
-                    }
-                }
-                if (!subsumed) {
-                    filteredMatches.add(m);
-                }
-            }
+            List<RuleMatch> filteredMatches = new org.languagetool.rules.RuleWithMaxFilter().filter(allMatches);
 
             StringBuilder sb = new StringBuilder();
             sb.append("FOUND\u0008").append(r.getId()).append("\u0008").append(r.getFullId()).append("\u0008")
@@ -1331,6 +1312,196 @@ public class CheckPatternRules {
                     "-cp",
                     f"{tmpdir}{os.pathsep}{jar}",
                     "CheckPatternRules",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            results: List[Dict[str, Any]] = []
+            for block in out_str.split("\u0006"):
+                fields = block.split("\u0008")
+                status = fields[0]
+                if status == "NOT_FOUND":
+                    results.append({"status": "NOT_FOUND", "target_rule_id": fields[1], "matches": []})
+                elif status == "FOUND":
+                    rule_id = fields[1]
+                    full_rule_id = fields[2]
+                    category_id = fields[3]
+                    category_name = fields[4]
+                    description = fields[5]
+                    is_default_off = fields[6] == "1"
+                    match_count = int(fields[7])
+
+                    matches: List[Dict[str, Any]] = []
+                    for m_str in fields[8 : 8 + match_count]:
+                        m_parts = m_str.split("\u0002")
+                        if len(m_parts) >= 5:
+                            from_p = int(m_parts[0])
+                            to_p = int(m_parts[1])
+                            msg = m_parts[2]
+                            short_msg = None if m_parts[3] == "\u0005null" else m_parts[3]
+                            suggs = [s for s in m_parts[4].split("\u0003") if s] if m_parts[4] else []
+                            matches.append(
+                                {
+                                    "from_utf16": from_p,
+                                    "to_utf16": to_p,
+                                    "message": msg,
+                                    "short_message": short_msg,
+                                    "suggestions": suggs,
+                                }
+                            )
+
+                    results.append(
+                        {
+                            "status": "FOUND",
+                            "rule_id": rule_id,
+                            "full_rule_id": full_rule_id,
+                            "category_id": category_id,
+                            "category_name": category_name,
+                            "description": description,
+                            "is_default_off": is_default_off,
+                            "matches_count": match_count,
+                            "matches": matches,
+                        }
+                    )
+            return results
+
+    def check_synthetic_pattern_rules(
+        self, xml_content: str, cases: Sequence[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """Execute a batch of synthetic XML pattern rules over candidate texts in Java LanguageTool oracle."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """import org.languagetool.rules.patterns.PatternRuleLoader;
+import org.languagetool.rules.patterns.AbstractPatternRule;
+import org.languagetool.rules.RuleMatch;
+import org.languagetool.language.Russian;
+import org.languagetool.JLanguageTool;
+import org.languagetool.AnalyzedSentence;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class CheckSyntheticPatternRules {
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) return;
+
+        String[] outer = text.split("\\u0004", 2);
+        String xmlContent = outer[0];
+        String casesText = outer.length > 1 ? outer[1] : "";
+
+        Russian russian = Russian.getInstance();
+        JLanguageTool lt = new JLanguageTool(russian);
+        PatternRuleLoader loader = new PatternRuleLoader();
+        InputStream is = new ByteArrayInputStream(xmlContent.getBytes(StandardCharsets.UTF_8));
+        List<AbstractPatternRule> rules = loader.getRules(is, "/synthetic_rules.xml", russian);
+        Map<String, Set<AbstractPatternRule>> ruleMap = new HashMap<>();
+        for (AbstractPatternRule r : rules) {
+            ruleMap.computeIfAbsent(r.getFullId(), k -> new LinkedHashSet<>()).add(r);
+            if (!r.getFullId().equals(r.getId())) {
+                ruleMap.computeIfAbsent(r.getId(), k -> new LinkedHashSet<>()).add(r);
+            }
+            if (r.getSubId() != null) {
+                ruleMap.computeIfAbsent(r.getId() + "[" + r.getSubId() + "]", k -> new LinkedHashSet<>()).add(r);
+            }
+        }
+
+        String[] caseArray = casesText.split("\\u0000", -1);
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+        for (int i = 0; i < caseArray.length; i++) {
+            if (i > 0) out.print("\u0006");
+            String[] pair = caseArray[i].split("\u0007", 2);
+            String targetId = pair[0];
+            String inputText = pair.length > 1 ? pair[1] : "";
+
+            Set<AbstractPatternRule> rSet = ruleMap.get(targetId);
+            if (rSet == null && targetId.contains("[")) {
+                String baseId = targetId.substring(0, targetId.indexOf('['));
+                String sub = targetId.substring(targetId.indexOf('[') + 1, targetId.length() - 1);
+                rSet = ruleMap.get(sub);
+                if (rSet == null) {
+                    rSet = ruleMap.get(baseId);
+                }
+            }
+            if (rSet == null || rSet.isEmpty()) {
+                out.print("NOT_FOUND\u0008" + targetId);
+                continue;
+            }
+
+            AbstractPatternRule r = rSet.iterator().next();
+            AnalyzedSentence sent = lt.getAnalyzedSentence(inputText);
+            List<RuleMatch> allMatches = new ArrayList<>();
+            for (AbstractPatternRule variant : rSet) {
+                RuleMatch[] matches = variant.match(sent);
+                if (matches != null) {
+                    for (RuleMatch m : matches) {
+                        allMatches.add(m);
+                    }
+                }
+            }
+            List<RuleMatch> filteredMatches = new org.languagetool.rules.RuleWithMaxFilter().filter(allMatches);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("FOUND\u0008").append(r.getId()).append("\u0008").append(r.getFullId()).append("\u0008")
+              .append(r.getCategory().getId().toString()).append("\u0008")
+              .append(r.getCategory().getName()).append("\u0008")
+              .append(r.getDescription()).append("\u0008")
+              .append(r.isDefaultOff() ? "1" : "0").append("\u0008")
+              .append(filteredMatches.size());
+
+            for (RuleMatch m : filteredMatches) {
+                sb.append("\u0008");
+                sb.append(m.getFromPos()).append("\u0002")
+                  .append(m.getToPos()).append("\u0002")
+                  .append(m.getMessage()).append("\u0002")
+                  .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
+                List<String> repls = m.getSuggestedReplacements();
+                for (int repIdx = 0; repIdx < repls.size(); repIdx++) {
+                    if (repIdx > 0) sb.append("\u0003");
+                    sb.append(repls.get(repIdx));
+                }
+            }
+            out.print(sb.toString());
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "CheckSyntheticPatternRules.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            subprocess.run(
+                ["javac", "-encoding", "UTF-8", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            case_strings = [f"{c['full_rule_id']}\u0007{c['text']}" for c in cases]
+            cases_joined = "\u0000".join(case_strings)
+            payload = f"{xml_content}\u0004{cases_joined}"
+            input_bytes = payload.encode("utf-8")
+
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "CheckSyntheticPatternRules",
                 ],
                 input=input_bytes,
                 capture_output=True,

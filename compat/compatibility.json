@@ -39,7 +39,7 @@
       "synthesizer_oracle_queries_total": 52,
       "chunker_oracle_cases_total": 34,
       "grammar_core_oracle_cases_total": 62,
-      "grammar_advanced_oracle_cases_total": 870
+      "grammar_advanced_oracle_cases_total": 874
     },
     "russian_grammar_advanced": {
       "and_or_token_groups": "SUPPORTED",

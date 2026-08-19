@@ -28,10 +28,10 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
   - Capitalized suggestions conditionally when the error begins at the sentence start (`is_sentence_start and first_token.isupper()`).
 
 - **Differential Parity and Conformance**:
-  - Evaluated and verified 100% field-level parity across **870 test cases**:
+  - Evaluated and verified 100% field-level parity across **874 test cases**:
     - `tests/fixtures/oracle_advanced_russian_rules.json` (750 real Russian rule cases across 229 advanced rules in `grammar.xml`).
-    - `tests/fixtures/oracle_advanced_pattern_matching.json` (120 test cases covering `<and>`, `<or>`, `skip`, `min="0"`, `include_skipped`, regex replacement, POS synthesis, and multi-suggestion expansion).
-  - All 870 cases match Java LanguageTool `v6.8` with **0 errors, 0 diffs, and 100% exact parity** across rule IDs, category metadata, descriptions, default states, match counts, UTF-16 spans, codepoint offsets, messages, and suggestions.
+    - `tests/fixtures/oracle_advanced_pattern_matching.json` (124 discriminating synthetic test cases covering all 27 dimensional combinations of skip, min, max, markers, chunking, AND/OR groups, and match references).
+  - All 874 cases match Java LanguageTool `v6.8` with **0 errors, 0 diffs, and 100% exact parity** across rule IDs, category metadata, descriptions, default states, match counts, UTF-16 spans, codepoint offsets, messages, and suggestions.
 
 ---
 
@@ -48,44 +48,46 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
 
 ---
 
-## 3. Implementation Details
+## 3. Implementation & Conformance Review Fixes
 
 ### 3.1 Advanced Matcher (`pylat_ru.grammar.matcher`)
-- Expanded `CompiledRuleVariant` to hold precomputed element lengths, skip constraints, and optional token tracking.
-- `expand_rule_into_variants`: recursively expands `<or>` elements at the root of patterns into multiple variant branches.
-- `_match_sequence_recursive`: backtracking sequence matcher supporting:
-  - Exact token match against surface text, lemma, POS tag, and chunk tags.
-  - Logical conjunction `<and>`: evaluating multiple predicate tokens on a single sentence token.
-  - Logical disjunction `<or>`: trying each child branch.
-  - Zero-or-one quantifier `min="0"`: exploring both the branch matching the token and the branch skipping the token (recording `token_positions[k] = 0`).
-  - Skipping `skip="N"`: scanning forward up to `N` tokens while verifying that skipped tokens do not trigger pattern `<exception>` elements.
-- `filter_subsumed_rule_matches`: removes duplicate matches and matches strictly contained within a larger match of the same rule.
+- Fixed `max="-1"` runtime by importing `sys` and using `sys.maxsize` for unbounded repeats.
+- Added greedy repeat matcher `_skip_max_tokens` supporting `max=2`, `max=3`, `max=-1` and any-token repetitions.
+- Ported complete upstream test semantics from `PatternRuleMatcherTest.java`:
+  - `testZeroMinOccurrences`, `testTwoZeroMinOccurrences`, `testZeroMinOccurrences2..4`
+  - `testZeroMinOccurrencesWithEmptyElement`, `testZeroMinOccurrencesWithSuggestion`
+  - `testZeroMinTwoMaxOccurrences`, `testTwoMaxOccurrencesWithAnyToken`, `testThreeMaxOccurrencesWithAnyToken`
+  - `testZeroMinTwoMaxOccurrencesWithAnyToken`, `testTwoMaxOccurrences`, `testThreeMaxOccurrences`
+  - `testOptionalWithoutExplicitMarker`, `testOptionalWithExplicitMarker`
+  - `testOptionalAnyTokenWithExplicitMarker`, `testOptionalAnyTokenWithExplicitMarker2`
+  - `testUnlimitedMaxOccurrences`, `testMaxTwoAndThreeOccurrences`
+  - `testInfiniteSkip`, `testInfiniteSkipWithMatchReference`, `testNoMatchReferenceRecursion`
+- Implemented exact Java `RuleWithMaxFilter` algorithm sorting by `fromPos` and discarding included matches sharing the same rule ID.
+- Corrected token-level `<match no="..."/>` reference resolution to 0-indexed relative to `firstMatchToken` (`target_idx = firstMatchToken + ref_no`).
+- Handled `<phrase>` Cartesian expansion preserving individual branch lengths (`opt_len`).
 
-### 3.2 Advanced Formatter (`pylat_ru.grammar.formatter`)
+### 3.2 Loader & XML Validation (`pylat_ru.grammar.loader`)
+- Enforced strict fail-closed validation for `min` attribute: only `min=0` and `min=1` are permitted (`min in (0, 1)`). `min=2..127`, `min=-1`, and non-integers are rejected with `GrammarFormatError`.
+- Enforced strict fail-closed validation for `max` attribute: `max=-1` and `1 <= max <= 127` are permitted. `max=0`, `max < -1`, `max > 127`, and non-integers are rejected.
+- Validated attribute boundaries in dedicated unit tests.
+
+### 3.3 Advanced Formatter (`pylat_ru.grammar.formatter`)
+- Removed silent `except Exception: pass` paths; non-trivial regex/synthesis failures fail closed with explicit `GrammarError`.
 - `resolve_match_reference_forms`: computes actual token index in sentence via `rep_token_pos = sum(token_positions[:k+1]) - 1`.
-- `include_skipped`: extracts whitespace and text between `actual_token_idx` and `actual_token_idx + skipped_count`.
-- `regexp_match` / `regexp_replace`: converts Java regex replacement tokens (`$1`, `$2`) to Python regex replacement tokens (`\g<1>`, `\g<2>`).
-- Synthesizer integration: performs regex replacement on POS tags (`postag_replace`), resolves target lemma from static `<match>lemma</match>` or dynamic token readings, and synthesizes all candidate inflected forms using `RussianSynthesizer`.
-- Cartesian suggestion expansion: `_build_sug_block` and `format_suggestions_list` perform Cartesian product of multi-candidate match references inside `<suggestion>` blocks.
-
-### 3.3 Grammar Engine (`pylat_ru.grammar.engine`)
-- `check_rule` and `check_sentence`:
-  - Executes all runnable core (0007) and advanced (0008) rules over `AnalyzedSentence` input.
-  - Evaluates rule antipatterns before pattern execution.
-  - Derives UTF-16 code unit and Unicode codepoint offsets for marker spans and full pattern matches.
-  - Extracts suggestions from formatted message templates, applying initial-capitalization adjustment when errors occur at sentence start.
+- Synthesizer integration: performs regex replacement on POS tags (`postag_replace`), resolves target lemma from static `<match>lemma</match>` or dynamic token readings, and synthesizes candidate inflected forms using `RussianSynthesizer`.
+- Respected explicit case conversions (`case_conversion="alllower"`, `allupper`, `firstupper`) in suggestions and message formatting without erroneous sentence-start auto-capitalization overrides.
 
 ---
 
 ## 4. Tests and Verification
 
 ### 4.1 Pytest Test Suite Results
-All test suites passed with 0 failures, 0 errors, and 0 skips:
-- `tests/unit/test_advanced_grammar_matcher.py`: 7 unit tests verifying `<and>`, `<or>`, `skip`, `min="0"`, `include_skipped`, regex replacement, and POS tag synthesis.
-- `tests/upstream/test_advanced_pattern_oracle_parity.py`: 2 tests verifying exact parity across 120 oracle cases for advanced XML pattern matching constructs.
-- `tests/upstream/test_advanced_russian_rule_oracle_parity.py`: 2 tests verifying exact parity across 750 real Russian rule cases from `grammar.xml`.
+All 288 tests in the project suite passed with 0 failures, 0 errors, and 0 skips:
+- `tests/unit/test_advanced_grammar_matcher.py`: 31 unit tests covering all Task 0008 advanced features, upstream `PatternRuleMatcherTest` ports, and `min`/`max` boundary validation.
+- `tests/upstream/test_advanced_pattern_oracle_parity.py`: 3 tests verifying manifest integrity, case count (>=100), and 100% field parity across 124 discriminating synthetic oracle cases.
+- `tests/upstream/test_advanced_russian_rule_oracle_parity.py`: 3 tests verifying manifest integrity, case count (>=700), and 100% field parity across 750 real Russian rule cases from `grammar.xml`.
 - `tests/unit/test_real_wheel_grammar.py`: 1 test verifying real wheel build, wheel archive contents inspection, clean isolated installation, and end-to-end execution of both Core 0007 and Advanced 0008 rules in a clean subprocess without `src/` on `sys.path`.
-- Full project test suite (Tasks 0001–0008): **All tests passed**.
+- Full project test suite (Tasks 0001–0008): **288 passed in 41.72s**.
 
 ### 4.2 Compatibility Status
 - Total grammar rules in `grammar.xml`: 892

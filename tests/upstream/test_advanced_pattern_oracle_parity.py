@@ -15,8 +15,17 @@ import pytest
 from pylat_ru.chunking.russian import RussianChunker
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
+from pylat_ru.grammar.loader import GrammarLoader
 
 FIXTURE_PATH = Path(__file__).resolve().parent.parent / "fixtures" / "oracle_advanced_pattern_matching.json"
+MANIFEST_PATH = Path(__file__).resolve().parent.parent.parent / "compat" / "oracle_manifest.json"
+
+
+def load_oracle_manifest() -> Dict[str, Any]:
+    """Load the trusted oracle manifest."""
+    if not MANIFEST_PATH.is_file():
+        pytest.fail(f"Oracle manifest not found at {MANIFEST_PATH}")
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
 @pytest.fixture(scope="module")
@@ -25,17 +34,41 @@ def fixture_data():
     return json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
 
 
+@pytest.fixture(scope="module")
+def synthetic_engine(fixture_data):
+    xml_content = fixture_data.get("synthetic_rules_xml", "")
+    assert xml_content, "Missing synthetic_rules_xml in fixture"
+    rules = GrammarLoader().load_from_string(xml_content)
+    return RussianGrammarEngine(rules=rules)
+
+
+def test_advanced_pattern_fixture_integrity(fixture_data):
+    """Verify oracle advanced pattern fixture metadata against oracle_manifest.json."""
+    manifest = load_oracle_manifest()
+    meta = fixture_data.get("metadata", {})
+
+    assert meta.get("pinned_lt_version") == manifest.get("pinned_version")
+    assert meta.get("pinned_lt_commit") == manifest.get("pinned_commit")
+
+    oracle_build_id = meta.get("oracle_build_id")
+    trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
+    assert oracle_build_id in trusted_builds, f"Untrusted build_id: {oracle_build_id}"
+
+    expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
+    assert meta.get("oracle_jar_sha256") == expected_sha
+
+
 def test_advanced_pattern_oracle_cases_count(fixture_data):
     """Verify minimum required test cases in advanced pattern fixture (>= 100 cases)."""
     cases = fixture_data.get("cases", [])
     assert len(cases) >= 100, f"Expected at least 100 test cases, found {len(cases)}"
 
 
-def test_advanced_pattern_oracle_parity_all_cases(fixture_data):
+def test_advanced_pattern_oracle_parity_all_cases(fixture_data, synthetic_engine):
     """Verify exact parity for all advanced pattern rule cases between Java LT oracle and pylat_ru."""
     disambiguator = RussianHybridDisambiguator.get_instance()
     chunker = RussianChunker()
-    engine = RussianGrammarEngine.get_instance()
+    engine = synthetic_engine
 
     cases = fixture_data.get("cases", [])
     mismatches = []
