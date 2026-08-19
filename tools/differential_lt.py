@@ -500,6 +500,116 @@ public class TokenizeWords {
                 return []
             return out_bytes.decode("utf-8").split("\u0000")
 
+    def tag_tokens(self, tokens: Sequence[str]) -> List[Dict[str, Any]]:
+        """Run token sequence through Java LanguageTool RussianTagger."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """
+import org.languagetool.tagging.ru.RussianTagger;
+import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.AnalyzedToken;
+import org.languagetool.chunking.ChunkTag;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class TagTokens {
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) {
+            return;
+        }
+        String[] tokenArray = text.split("\\u0000", -1);
+        List<String> inputTokens = Arrays.asList(tokenArray);
+        RussianTagger tagger = RussianTagger.INSTANCE;
+        List<AnalyzedTokenReadings> atrs = tagger.tag(inputTokens);
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < atrs.size(); i++) {
+            if (i > 0) sb.append("\\u0001");
+            AnalyzedTokenReadings atr = atrs.get(i);
+            sb.append(atr.getStartPos()).append("\\u0002");
+            if (atr.getChunkTags() != null) {
+                for (int c = 0; c < atr.getChunkTags().size(); c++) {
+                    if (c > 0) sb.append(",");
+                    sb.append(atr.getChunkTags().get(c).getChunkTag());
+                }
+            }
+            sb.append("\\u0002");
+            List<AnalyzedToken> readings = atr.getReadings();
+            for (int r = 0; r < readings.size(); r++) {
+                if (r > 0) sb.append("\\u0003");
+                AnalyzedToken at = readings.get(r);
+                sb.append(at.getToken()).append("\\u0004");
+                sb.append(at.getLemma() != null ? at.getLemma() : "\\u0005null").append("\\u0004");
+                sb.append(at.getPOSTag() != null ? at.getPOSTag() : "\\u0005null");
+            }
+        }
+        out.print(sb.toString());
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "TagTokens.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            # Compile
+            subprocess.run(
+                ["javac", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            input_bytes = "\u0000".join(tokens).encode("utf-8")
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "TagTokens",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            results: List[Dict[str, Any]] = []
+            atr_blocks = out_str.split("\u0001")
+            for block in atr_blocks:
+                parts = block.split("\u0002")
+                start_pos = int(parts[0])
+                chunk_tags = [c for c in parts[1].split(",") if c] if parts[1] else []
+                readings = []
+                if len(parts) > 2 and parts[2]:
+                    r_blocks = parts[2].split("\u0003")
+                    for rb in r_blocks:
+                        r_parts = rb.split("\u0004")
+                        t_str = r_parts[0]
+                        l_str = None if r_parts[1] == "\u0005null" else r_parts[1]
+                        p_str = None if r_parts[2] == "\u0005null" else r_parts[2]
+                        readings.append(
+                            {"token": t_str, "lemma": l_str, "pos_tag": p_str}
+                        )
+                results.append(
+                    {
+                        "start_pos_utf16": start_pos,
+                        "readings": readings,
+                        "chunk_tags": chunk_tags,
+                    }
+                )
+            return results
+
 
 def compare_findings(
     text: str,
@@ -594,6 +704,33 @@ def generate_tokenization_fixtures(
     )
 
 
+def generate_tagger_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Regenerate oracle Russian tagger fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+
+    tagger_fixture_path = fixtures_dir / "oracle_russian_tagger.json"
+    if not tagger_fixture_path.is_file():
+        raise FileNotFoundError(f"Fixture template not found: {tagger_fixture_path}")
+
+    tagger_data = json.loads(tagger_fixture_path.read_text(encoding="utf-8"))
+    tagger_data["metadata"]["oracle_jar_sha256"] = oracle_sha
+
+    for case in tagger_data["cases"]:
+        input_tokens = case["input_tokens"]
+        expected = oracle.tag_tokens(input_tokens)
+        case["expected_tokens"] = expected
+
+    tagger_fixture_path.write_text(
+        json.dumps(tagger_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Updated tagger fixture from Java Oracle -> {tagger_fixture_path} (oracle SHA: {oracle_sha})"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
@@ -607,6 +744,11 @@ def main() -> int:
         "--generate-tokenization-fixtures",
         action="store_true",
         help="Generate tokenization fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-tagger-fixtures",
+        action="store_true",
+        help="Generate Russian tagger fixtures from Java LanguageTool oracle",
     )
 
     args = parser.parse_args()
@@ -658,6 +800,19 @@ def main() -> int:
             return 1
         fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
         generate_tokenization_fixtures(oracle, fixtures_dir)
+        return 0
+
+    if args.generate_tagger_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_tagger_fixtures(oracle, fixtures_dir)
         return 0
 
     if not args.text:

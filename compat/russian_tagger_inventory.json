@@ -1,0 +1,370 @@
+{
+  "schema_version": "1.0.0",
+  "pinned_version": "v6.8",
+  "pinned_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+  "morfologik_version": "2.1.9",
+  "russian_tagger_source": {
+    "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/java/org/languagetool/tagging/ru/RussianTagger.java",
+    "size": 3653,
+    "sha256": "bb3aeb8aab5f9f7f1475091811521686ff0af44cc319703c9a67f0c4f87306d0"
+  },
+  "resources": {
+    "russian_dict": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict",
+      "size": 2322253,
+      "sha256": "387f9fcf652a574c9d361397c30aa87ef6f7397a76d3d51cd04c94e8dcbc4015"
+    },
+    "russian_info": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.info",
+      "size": 410,
+      "sha256": "e9768f4a50285756cb3505f6ce1e8ed4eaae4defc822ab76f22d7e06ada07c6f"
+    },
+    "added_txt": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/added.txt",
+      "size": 92745,
+      "sha256": "4748f15da5cf97095e4d96dda3a3431028c660ff2456c30f143162616d0d8b40",
+      "parsed_data_lines_count": 1282,
+      "distinct_fullforms_count": 798,
+      "total_readings_count": 1282
+    },
+    "added_custom_txt": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/added_custom.txt",
+      "size": 260,
+      "sha256": "30c7602fe9a69730e194dbe5f5b332fba6adf00f49af85d8c5358055c17d339b",
+      "parsed_data_lines_count": 0,
+      "distinct_fullforms_count": 0,
+      "total_readings_count": 0
+    },
+    "removed_txt": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/removed.txt",
+      "size": 3205,
+      "sha256": "193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5",
+      "parsed_data_lines_count": 60,
+      "distinct_fullforms_count": 39,
+      "total_readings_count": 60
+    },
+    "removed_custom_txt": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/removed_custom.txt",
+      "size": 223,
+      "sha256": "b840a31465a40eaf6401e4262db9d9980cd81246e7ef23357cbc54bb6e8da31c",
+      "parsed_data_lines_count": 0,
+      "distinct_fullforms_count": 0,
+      "total_readings_count": 0
+    }
+  },
+  "manual_parser_semantics": {
+    "encoding": "utf-8",
+    "default_separator": "\t",
+    "supports_separator_regexp": true,
+    "rejects_nbsp": true,
+    "strips_inline_comments": true,
+    "trims_pos_tags": true,
+    "field_count": 3,
+    "fields": [
+      "fullform",
+      "baseform",
+      "postag"
+    ]
+  },
+  "manual_merge_order": "manual_additions_first_then_morfologik_then_removals",
+  "case_fallback_policy": [
+    "exact_normalized_word_lookup",
+    "append_lowercase_lookup_if_not_lowercase_and_not_mixed_case",
+    "append_uppercase_first_char_lookup_if_lowercase_and_all_prior_empty",
+    "fallback_to_single_null_reading_if_still_empty"
+  ],
+  "normalization_replacements": [
+    {
+      "source": "о́",
+      "target": "о",
+      "source_codepoints": [
+        "U+043E",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+043E"
+      ]
+    },
+    {
+      "source": "а́",
+      "target": "а",
+      "source_codepoints": [
+        "U+0430",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+0430"
+      ]
+    },
+    {
+      "source": "е́",
+      "target": "е",
+      "source_codepoints": [
+        "U+0435",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+0435"
+      ]
+    },
+    {
+      "source": "у́",
+      "target": "у",
+      "source_codepoints": [
+        "U+0443",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+0443"
+      ]
+    },
+    {
+      "source": "и́",
+      "target": "и",
+      "source_codepoints": [
+        "U+0438",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+0438"
+      ]
+    },
+    {
+      "source": "ы́",
+      "target": "ы",
+      "source_codepoints": [
+        "U+044B",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+044B"
+      ]
+    },
+    {
+      "source": "э́",
+      "target": "э",
+      "source_codepoints": [
+        "U+044D",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+044D"
+      ]
+    },
+    {
+      "source": "ю́",
+      "target": "ю",
+      "source_codepoints": [
+        "U+044E",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+044E"
+      ]
+    },
+    {
+      "source": "я́",
+      "target": "я",
+      "source_codepoints": [
+        "U+044F",
+        "U+0301"
+      ],
+      "target_codepoints": [
+        "U+044F"
+      ]
+    },
+    {
+      "source": "о̀",
+      "target": "о",
+      "source_codepoints": [
+        "U+043E",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+043E"
+      ]
+    },
+    {
+      "source": "а̀",
+      "target": "а",
+      "source_codepoints": [
+        "U+0430",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+0430"
+      ]
+    },
+    {
+      "source": "ѐ",
+      "target": "е",
+      "source_codepoints": [
+        "U+0435",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+0435"
+      ]
+    },
+    {
+      "source": "у̀",
+      "target": "у",
+      "source_codepoints": [
+        "U+0443",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+0443"
+      ]
+    },
+    {
+      "source": "ѝ",
+      "target": "и",
+      "source_codepoints": [
+        "U+045D"
+      ],
+      "target_codepoints": [
+        "U+0438"
+      ]
+    },
+    {
+      "source": "ы̀",
+      "target": "ы",
+      "source_codepoints": [
+        "U+044B",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+044B"
+      ]
+    },
+    {
+      "source": "э̀",
+      "target": "э",
+      "source_codepoints": [
+        "U+044D",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+044D"
+      ]
+    },
+    {
+      "source": "ю̀",
+      "target": "ю",
+      "source_codepoints": [
+        "U+044E",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+044E"
+      ]
+    },
+    {
+      "source": "я̀",
+      "target": "я",
+      "source_codepoints": [
+        "U+044F",
+        "U+0300"
+      ],
+      "target_codepoints": [
+        "U+044F"
+      ]
+    },
+    {
+      "source": "ʼ",
+      "target": "ъ",
+      "source_codepoints": [
+        "U+02BC"
+      ],
+      "target_codepoints": [
+        "U+044A"
+      ]
+    }
+  ],
+  "may_missing_yo_conditions": {
+    "min_token_length": 2,
+    "forbidden_characters": [
+      "ё",
+      "Ё"
+    ],
+    "required_characters_any": [
+      "е",
+      "Е"
+    ],
+    "forbidden_acute_vowels": [
+      {
+        "sequence": "е́",
+        "codepoints": [
+          "U+0435",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "о́",
+        "codepoints": [
+          "U+043E",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "а́",
+        "codepoints": [
+          "U+0430",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "у́",
+        "codepoints": [
+          "U+0443",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "и́",
+        "codepoints": [
+          "U+0438",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "ю́",
+        "codepoints": [
+          "U+044E",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "ы́",
+        "codepoints": [
+          "U+044B",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "э́",
+        "codepoints": [
+          "U+044D",
+          "U+0301"
+        ]
+      },
+      {
+        "sequence": "я́",
+        "codepoints": [
+          "U+044F",
+          "U+0301"
+        ]
+      }
+    ],
+    "lookup_transformation": "lowercase_all_e_to_yo",
+    "emitted_chunk_tag": "MayMissingYO"
+  },
+  "unknown_token_behavior": {
+    "token": "normalized_word",
+    "lemma": null,
+    "pos_tag": null
+  },
+  "runtime_resource_strategy": "packaged_under_pylat_ru_resources_ru",
+  "unsupported_or_known_differences": []
+}

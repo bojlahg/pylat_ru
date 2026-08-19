@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0003_russian_sentence_word_tokenization_offsets",
-    "overall_state": "TOKENIZATION_LAYER_ESTABLISHED",
+    "task_milestone": "0004_russian_tagger",
+    "overall_state": "TAGGER_LAYER_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -25,7 +25,22 @@
       "tagset_pos_prefixes_total": 19,
       "tagset_feature_atoms_total": 62,
       "srx_ru_two_rules_total": 45,
-      "srx_ru_one_rules_total": 44
+      "srx_ru_one_rules_total": 44,
+      "tagger_added_entries_total": 1282,
+      "tagger_removed_entries_total": 60,
+      "tagger_normalization_replacements_total": 19
+    },
+    "russian_tagger": {
+      "morfologik_tagger_lookup": "SUPPORTED",
+      "manual_tagger_additions": "SUPPORTED",
+      "manual_tagger_removals": "SUPPORTED",
+      "combining_tagger": "SUPPORTED",
+      "base_tagger_case_fallback": "SUPPORTED",
+      "russian_accent_normalization": "SUPPORTED",
+      "may_missing_yo": "SUPPORTED",
+      "unknown_token_fallback": "SUPPORTED",
+      "runtime_resource_packaging": "SUPPORTED",
+      "java_tagger_oracle_parity": "SUPPORTED"
     },
     "tokenization_and_offsets": {
       "russian_srx_inventory": "SUPPORTED",
@@ -48,7 +63,7 @@
     "pipeline_components": {
       "RussianSentenceTokenizer": "SUPPORTED",
       "RussianWordTokenizer": "SUPPORTED",
-      "RussianTagger": "NOT_YET_IMPLEMENTED",
+      "RussianTagger": "SUPPORTED",
       "RussianDisambiguator": "NOT_YET_IMPLEMENTED",
       "RussianChunker": "NOT_YET_IMPLEMENTED",
       "RussianSynthesizer": "NOT_YET_IMPLEMENTED",

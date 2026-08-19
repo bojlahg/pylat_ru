@@ -10,10 +10,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Sequence
 
+from pylat_ru.analysis import (
+    AnalyzedToken,
+    AnalyzedTokenReadings,
+)
 from pylat_ru.morfologik import (
     DictionaryEntry,
     MorfologikDictionary,
 )
+from pylat_ru.tagging import RussianTagger
 from pylat_ru.tagset import RussianTag, parse_tag
 from pylat_ru.tokenization import (
     RussianSentenceTokenizer,
@@ -26,12 +31,15 @@ from pylat_ru.tokenization import (
 __version__ = "0.1.0a0"
 __all__ = [
     "__version__",
+    "AnalyzedToken",
+    "AnalyzedTokenReadings",
     "DictionaryEntry",
     "LanguageToolRU",
     "MorfologikDictionary",
     "RuleMatch",
     "RussianSentenceTokenizer",
     "RussianTag",
+    "RussianTagger",
     "RussianWordTokenizer",
     "SentenceSpan",
     "TextSpan",

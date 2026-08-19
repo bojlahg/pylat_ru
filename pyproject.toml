@@ -38,7 +38,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-pylat_ru = ["py.typed", "resources/*.json"]
+pylat_ru = ["py.typed", "resources/*.json", "resources/ru/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,0 +1,1618 @@
+{
+  "metadata": {
+    "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
+    "oracle_jar_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+    "source": "LanguageTool-v6.8 RussianTagger / BaseTagger",
+    "description": "Committed oracle Russian tagger test corpus with exact readings, reading order, chunk tags, and UTF-16 positions"
+  },
+  "cases": [
+    {
+      "id": "upstream_tolstoy_quote_1",
+      "input_tokens": [
+        "Все",
+        "счастливые",
+        "семьи",
+        "похожи",
+        "друг",
+        "на",
+        "друга",
+        ",",
+        "каждая",
+        "несчастливая",
+        "семья",
+        "несчастлива",
+        "по-своему",
+        "."
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:V"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "Все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 3,
+          "readings": [
+            {
+              "token": "счастливые",
+              "lemma": "счастливый",
+              "pos_tag": "ADJ:Posit:PL:Nom"
+            },
+            {
+              "token": "счастливые",
+              "lemma": "счастливый",
+              "pos_tag": "ADJ:Posit:PL:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 13,
+          "readings": [
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:PL:Nom"
+            },
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:PL:V"
+            },
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:Sin:R"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 18,
+          "readings": [
+            {
+              "token": "похожи",
+              "lemma": "похожий",
+              "pos_tag": "ADJ:Short:PL"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 24,
+          "readings": [
+            {
+              "token": "друг",
+              "lemma": "друг",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 28,
+          "readings": [
+            {
+              "token": "на",
+              "lemma": "на",
+              "pos_tag": "PREP"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 30,
+          "readings": [
+            {
+              "token": "друга",
+              "lemma": "друг",
+              "pos_tag": "NN:Anim:Masc:Sin:R"
+            },
+            {
+              "token": "друга",
+              "lemma": "друг",
+              "pos_tag": "NN:Anim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 35,
+          "readings": [
+            {
+              "token": ",",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 36,
+          "readings": [
+            {
+              "token": "каждая",
+              "lemma": "каждый",
+              "pos_tag": "ADJ:MPR:Fem:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 42,
+          "readings": [
+            {
+              "token": "несчастливая",
+              "lemma": "несчастливый",
+              "pos_tag": "ADJ:Posit:Fem:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 54,
+          "readings": [
+            {
+              "token": "семья",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 59,
+          "readings": [
+            {
+              "token": "несчастлива",
+              "lemma": "несчастливый",
+              "pos_tag": "ADJ:Short:Fem"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 70,
+          "readings": [
+            {
+              "token": "по-своему",
+              "lemma": "по-своему",
+              "pos_tag": "ADV"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 79,
+          "readings": [
+            {
+              "token": ".",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "upstream_oblonsky_quote",
+      "input_tokens": [
+        "Все",
+        "смешалось",
+        "в",
+        "доме",
+        "Облонских",
+        "."
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:V"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "Все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:Nom"
+            },
+            {
+              "token": "Все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 3,
+          "readings": [
+            {
+              "token": "смешалось",
+              "lemma": "смешаться",
+              "pos_tag": "VB:Past:INTR:PFV:Neut"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 12,
+          "readings": [
+            {
+              "token": "в",
+              "lemma": "в",
+              "pos_tag": "PREP"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 13,
+          "readings": [
+            {
+              "token": "доме",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:P"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 17,
+          "readings": [
+            {
+              "token": "Облонских",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 26,
+          "readings": [
+            {
+              "token": ".",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "upstream_abdullaevy",
+      "input_tokens": [
+        "Абдуллаевы"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "Абдуллаевы",
+              "lemma": "абдуллаев",
+              "pos_tag": "NN:Fam:PL:Nom"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "upstream_blukat",
+      "input_tokens": [
+        "блукать"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "блукать",
+              "lemma": "блукать",
+              "pos_tag": "VB:INF:"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "lowercase_exact",
+      "input_tokens": [
+        "книга",
+        "дом",
+        "человек"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "книга",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 8,
+          "readings": [
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "capitalized_fallback",
+      "input_tokens": [
+        "Книга",
+        "Дом",
+        "Человек"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "Книга",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "Дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "Дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 8,
+          "readings": [
+            {
+              "token": "Человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "Человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "all_uppercase_fallback",
+      "input_tokens": [
+        "КНИГА",
+        "ДОМ",
+        "ЧЕЛОВЕК"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "КНИГА",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "ДОМ",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "ДОМ",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 8,
+          "readings": [
+            {
+              "token": "ЧЕЛОВЕК",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "ЧЕЛОВЕК",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "mixed_case_no_lower_fallback",
+      "input_tokens": [
+        "кНиГа",
+        "дОм",
+        "iPod"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "кНиГа",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "дОм",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 8,
+          "readings": [
+            {
+              "token": "iPod",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "unknown_word",
+      "input_tokens": [
+        "несуществующеесловоxyz",
+        "непонятночто123"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "несуществующеесловоxyz",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 22,
+          "readings": [
+            {
+              "token": "непонятночто123",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "punct_digits",
+      "input_tokens": [
+        "123",
+        ",",
+        ".",
+        "по-своему"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "123",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 3,
+          "readings": [
+            {
+              "token": ",",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 4,
+          "readings": [
+            {
+              "token": ".",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "по-своему",
+              "lemma": "по-своему",
+              "pos_tag": "ADV"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "manual_addition_abdullaev",
+      "input_tokens": [
+        "абдуллаев",
+        "Абдуллаевы",
+        "обозревателей",
+        "трассерные"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "абдуллаев",
+              "lemma": "абдуллаев",
+              "pos_tag": "NN:Fam:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 9,
+          "readings": [
+            {
+              "token": "Абдуллаевы",
+              "lemma": "абдуллаев",
+              "pos_tag": "NN:Fam:PL:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 19,
+          "readings": [
+            {
+              "token": "обозревателей",
+              "lemma": "обозреватель",
+              "pos_tag": "NN:Inanim:Masc:PL:R"
+            },
+            {
+              "token": "обозревателей",
+              "lemma": "обозреватель",
+              "pos_tag": "NN:Inanim:Masc:PL:V"
+            },
+            {
+              "token": "обозревателей",
+              "lemma": "обозреватель",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "обозревателей",
+              "lemma": "обозреватель",
+              "pos_tag": "NN:Anim:Masc:PL:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 32,
+          "readings": [
+            {
+              "token": "трассерные",
+              "lemma": "трассерный",
+              "pos_tag": "ADJ:Posit:PL:Nom"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "manual_removal_cases",
+      "input_tokens": [
+        "второй",
+        "неуверена",
+        "под"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Fem:D"
+            },
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Fem:P"
+            },
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Fem:R"
+            },
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Fem:T"
+            },
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Masc:Nom"
+            },
+            {
+              "token": "второй",
+              "lemma": "второй",
+              "pos_tag": "Ord:Masc:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 6,
+          "readings": [
+            {
+              "token": "неуверена",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 15,
+          "readings": [
+            {
+              "token": "под",
+              "lemma": "под",
+              "pos_tag": "PREP"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "acute_accent_normalization",
+      "input_tokens": [
+        "кни́га",
+        "до́ма",
+        "челове́к",
+        "бежа́ть",
+        "краси́вый",
+        "я́блоко",
+        "э́то",
+        "ю́ность",
+        "вы́ход"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "книга",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "дома",
+              "lemma": "дома",
+              "pos_tag": "ADV"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:PL:Nom"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:PL:V"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:R"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 9,
+          "readings": [
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 16,
+          "readings": [
+            {
+              "token": "бежать",
+              "lemma": "бежать",
+              "pos_tag": "VB:INF:INTR:IMPFV"
+            },
+            {
+              "token": "бежать",
+              "lemma": "бежать",
+              "pos_tag": "VB:INF:INTR:PFV"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 22,
+          "readings": [
+            {
+              "token": "красивый",
+              "lemma": "красивый",
+              "pos_tag": "ADJ:Posit:Masc:Nom"
+            },
+            {
+              "token": "красивый",
+              "lemma": "красивый",
+              "pos_tag": "ADJ:Posit:Masc:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 30,
+          "readings": [
+            {
+              "token": "яблоко",
+              "lemma": "яблоко",
+              "pos_tag": "NN:Inanim:Neut:Sin:Nom"
+            },
+            {
+              "token": "яблоко",
+              "lemma": "яблоко",
+              "pos_tag": "NN:Inanim:Neut:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 36,
+          "readings": [
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PARTICLE"
+            },
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "это",
+              "lemma": "этот",
+              "pos_tag": "ADJ:MPR:Neut:Nom"
+            },
+            {
+              "token": "это",
+              "lemma": "этот",
+              "pos_tag": "ADJ:MPR:Neut:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 39,
+          "readings": [
+            {
+              "token": "юность",
+              "lemma": "юность",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            },
+            {
+              "token": "юность",
+              "lemma": "юность",
+              "pos_tag": "NN:Inanim:Fem:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 45,
+          "readings": [
+            {
+              "token": "выход",
+              "lemma": "выход",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "выход",
+              "lemma": "выход",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "grave_accent_normalization",
+      "input_tokens": [
+        "книга̀",
+        "дома̀",
+        "человѐк",
+        "ѝ",
+        "вы̀ход",
+        "э̀то",
+        "ю̀ность",
+        "я̀блоко"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "книга",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "дома",
+              "lemma": "дома",
+              "pos_tag": "ADV"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:PL:Nom"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:PL:V"
+            },
+            {
+              "token": "дома",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:R"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 9,
+          "readings": [
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 16,
+          "readings": [
+            {
+              "token": "ѝ",
+              "lemma": null,
+              "pos_tag": null
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 17,
+          "readings": [
+            {
+              "token": "выход",
+              "lemma": "выход",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "выход",
+              "lemma": "выход",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 22,
+          "readings": [
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PARTICLE"
+            },
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "это",
+              "lemma": "это",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "это",
+              "lemma": "этот",
+              "pos_tag": "ADJ:MPR:Neut:Nom"
+            },
+            {
+              "token": "это",
+              "lemma": "этот",
+              "pos_tag": "ADJ:MPR:Neut:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 25,
+          "readings": [
+            {
+              "token": "юность",
+              "lemma": "юность",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            },
+            {
+              "token": "юность",
+              "lemma": "юность",
+              "pos_tag": "NN:Inanim:Fem:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 31,
+          "readings": [
+            {
+              "token": "яблоко",
+              "lemma": "яблоко",
+              "pos_tag": "NN:Inanim:Neut:Sin:Nom"
+            },
+            {
+              "token": "яблоко",
+              "lemma": "яблоко",
+              "pos_tag": "NN:Inanim:Neut:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "modifier_apostrophe",
+      "input_tokens": [
+        "обʼявление",
+        "сʼесть",
+        "подʼезд"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "объявление",
+              "lemma": "объявление",
+              "pos_tag": "NN:Inanim:Neut:Sin:Nom"
+            },
+            {
+              "token": "объявление",
+              "lemma": "объявление",
+              "pos_tag": "NN:Inanim:Neut:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 10,
+          "readings": [
+            {
+              "token": "съесть",
+              "lemma": "съесть",
+              "pos_tag": "VB:INF:TRANS:PFV"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 16,
+          "readings": [
+            {
+              "token": "подъезд",
+              "lemma": "подъезд",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "подъезд",
+              "lemma": "подъезд",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "yo_already_present_no_may_missing",
+      "input_tokens": [
+        "ёлка",
+        "всё",
+        "её",
+        "самолёт"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "ёлка",
+              "lemma": "ёлка",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 4,
+          "readings": [
+            {
+              "token": "всё",
+              "lemma": "всё",
+              "pos_tag": "ADV"
+            },
+            {
+              "token": "всё",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:Neut:Nom"
+            },
+            {
+              "token": "всё",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:Neut:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 7,
+          "readings": [
+            {
+              "token": "её",
+              "lemma": "она",
+              "pos_tag": "PNN:Sin:R:P3"
+            },
+            {
+              "token": "её",
+              "lemma": "она",
+              "pos_tag": "PNN:Sin:V:P3"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 9,
+          "readings": [
+            {
+              "token": "самолёт",
+              "lemma": "самолёт",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "самолёт",
+              "lemma": "самолёт",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "e_to_yo_positive",
+      "input_tokens": [
+        "все",
+        "елка",
+        "еж",
+        "лен"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:V"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 3,
+          "readings": [
+            {
+              "token": "елка",
+              "lemma": "ёлка",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 7,
+          "readings": [
+            {
+              "token": "еж",
+              "lemma": "ёж",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            },
+            {
+              "token": "еж",
+              "lemma": "ёж",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "еж",
+              "lemma": "ёж",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 9,
+          "readings": [
+            {
+              "token": "лен",
+              "lemma": "лена",
+              "pos_tag": "NN:Name:Fem:PL:R"
+            },
+            {
+              "token": "лен",
+              "lemma": "лена",
+              "pos_tag": "NN:Name:Fem:PL:V"
+            },
+            {
+              "token": "лен",
+              "lemma": "лён",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "лен",
+              "lemma": "лён",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e_to_yo_negative",
+      "input_tokens": [
+        "место",
+        "смешалось"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "место",
+              "lemma": "место",
+              "pos_tag": "NN:Inanim:Neut:Sin:Nom"
+            },
+            {
+              "token": "место",
+              "lemma": "место",
+              "pos_tag": "NN:Inanim:Neut:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "смешалось",
+              "lemma": "смешаться",
+              "pos_tag": "VB:Past:INTR:PFV:Neut"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "multiple_e_simultaneous",
+      "input_tokens": [
+        "перепел",
+        "перелесок"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "перепел",
+              "lemma": "перепел",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            },
+            {
+              "token": "перепел",
+              "lemma": "перепеть",
+              "pos_tag": "VB:Past:TRANS:PFV:Masc"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 7,
+          "readings": [
+            {
+              "token": "перелесок",
+              "lemma": "перелесок",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "перелесок",
+              "lemma": "перелесок",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            },
+            {
+              "token": "перелесок",
+              "lemma": "перелеска",
+              "pos_tag": "NN:Inanim:Fem:PL:R"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "accent_shortens_token_position_shift",
+      "input_tokens": [
+        "кни́га",
+        "дом"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "книга",
+              "lemma": "книга",
+              "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 5,
+          "readings": [
+            {
+              "token": "дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:Nom"
+            },
+            {
+              "token": "дом",
+              "lemma": "дом",
+              "pos_tag": "NN:Inanim:Masc:Sin:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    },
+    {
+      "id": "ambiguous_multiple_readings",
+      "input_tokens": [
+        "все",
+        "семьи",
+        "человек",
+        "бежать",
+        "красивый"
+      ],
+      "expected_tokens": [
+        {
+          "start_pos_utf16": 0,
+          "readings": [
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:PL:V"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "все",
+              "pos_tag": "PNN:Sin:V"
+            },
+            {
+              "token": "все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:Nom"
+            },
+            {
+              "token": "все",
+              "lemma": "весь",
+              "pos_tag": "ADJ:MPR:PL:V"
+            }
+          ],
+          "chunk_tags": [
+            "MayMissingYO"
+          ]
+        },
+        {
+          "start_pos_utf16": 3,
+          "readings": [
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:PL:Nom"
+            },
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:PL:V"
+            },
+            {
+              "token": "семьи",
+              "lemma": "семья",
+              "pos_tag": "NN:Inanim:Fem:Sin:R"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 8,
+          "readings": [
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:PL:R"
+            },
+            {
+              "token": "человек",
+              "lemma": "человек",
+              "pos_tag": "NN:Anim:Masc:Sin:Nom"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 15,
+          "readings": [
+            {
+              "token": "бежать",
+              "lemma": "бежать",
+              "pos_tag": "VB:INF:INTR:IMPFV"
+            },
+            {
+              "token": "бежать",
+              "lemma": "бежать",
+              "pos_tag": "VB:INF:INTR:PFV"
+            }
+          ],
+          "chunk_tags": []
+        },
+        {
+          "start_pos_utf16": 21,
+          "readings": [
+            {
+              "token": "красивый",
+              "lemma": "красивый",
+              "pos_tag": "ADJ:Posit:Masc:Nom"
+            },
+            {
+              "token": "красивый",
+              "lemma": "красивый",
+              "pos_tag": "ADJ:Posit:Masc:V"
+            }
+          ],
+          "chunk_tags": []
+        }
+      ]
+    }
+  ]
+}
