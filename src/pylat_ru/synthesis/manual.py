@@ -13,19 +13,23 @@ from typing import Dict, Iterable, List, Optional, Set, TextIO, Tuple, Union
 from pylat_ru.synthesis.errors import ManualSynthesizerFormatError, SynthesisResourceError
 from pylat_ru.utils import java_regex_split
 
+TAB_PATTERN = re.compile(r"\t")
+
 
 class ManualSynthesizer:
     """Manual synthesizer overlay parsing plain-text dictionary files (added.txt, removed.txt).
 
     Matches LanguageTool org.languagetool.synthesis.ManualSynthesizer exact semantics:
       - UTF-8 encoded plain text with 3 columns: form, lemma, pos_tag.
-      - Plain-text contains full forms (not encoded suffix syntax).
+      - Plain-text contains full forms.
+      - Input full forms starting with '+' are not supported and raise ManualSynthesizerFormatError.
       - Default separator is tab character (\\t).
       - Can be altered via '#separatorRegExp=<regex>' directive.
       - Empty lines and lines starting with '#' are ignored.
       - Trailing inline comments starting with '#' are stripped.
       - Line is trimmed before splitting.
-      - Non-breaking spaces (\\u00A0) raise ManualSynthesizerFormatError.
+      - Field splitting uses Java Pattern.split(..., limit=0) semantics for both default tab
+        and regex separators (dropping trailing empty fields).
       - Invalid field counts or malformed regex directives raise ManualSynthesizerFormatError.
     """
 
@@ -119,27 +123,19 @@ class ManualSynthesizer:
             if line.startswith("#"):
                 continue
 
-            if "\u00a0" in line:
-                raise ManualSynthesizerFormatError(
-                    f"Line {line_idx} in '{source_name}' contains a non-breaking space (\\u00A0), "
-                    f"which is probably an error: {line}"
-                )
-
             # Strip trailing inline comments and whitespace
             clean_line = line.split("#", 1)[0].strip(" \t\r\n")
             if not clean_line:
                 continue
 
-            # Split fields by separator
-            if sep_pattern is None:
-                parts = clean_line.split("\t")
-            else:
-                try:
-                    parts = java_regex_split(sep_pattern, clean_line)
-                except Exception as e:
-                    raise ManualSynthesizerFormatError(
-                        f"Error splitting line with regular expression '{sep_pattern.pattern}' at Line {line_idx} in '{source_name}': {e}"
-                    ) from e
+            # Split fields by separator using Java Pattern.split(..., limit=0) semantics
+            effective_pattern = sep_pattern if sep_pattern is not None else TAB_PATTERN
+            try:
+                parts = java_regex_split(effective_pattern, clean_line)
+            except Exception as e:
+                raise ManualSynthesizerFormatError(
+                    f"Error splitting line with regular expression '{effective_pattern.pattern}' at Line {line_idx} in '{source_name}': {e}"
+                ) from e
 
             if len(parts) != 3:
                 raise ManualSynthesizerFormatError(
@@ -150,15 +146,20 @@ class ManualSynthesizer:
             lemma = parts[1]
             pos_tag = parts[2]
 
+            if form.startswith("+"):
+                raise ManualSynthesizerFormatError(
+                    f"Forms starting with '+' are not supported: '{form}' at Line {line_idx} in '{source_name}'"
+                )
+
             self._mapping[(lemma, pos_tag)].append(form)
             self._possible_tags.add(pos_tag)
 
-    def lookup(self, lemma: str, pos_tag: str) -> Optional[List[str]]:
-        """Look up all synthesized forms for (lemma, pos_tag) pair."""
+    def lookup(self, lemma: str, pos_tag: str) -> List[str]:
+        """Look up all synthesized forms for (lemma, pos_tag) pair. Returns empty list if not found."""
         forms = self._mapping.get((lemma, pos_tag))
         if forms is not None:
             return list(forms)
-        return None
+        return []
 
     def get_possible_tags(self) -> Set[str]:
         """Return all unique POS tags present in this manual dictionary."""

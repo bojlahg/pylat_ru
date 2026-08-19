@@ -916,8 +916,9 @@ public class SynthesizeQueries {
             String lemmaStr = parts[1];
             String posTag = parts[2];
             boolean isRegex = parts.length > 3 && parts[3].equals("1");
+            boolean isNullLemma = parts.length > 4 && parts[4].equals("1");
 
-            AnalyzedToken tok = new AnalyzedToken(tokenStr, "DUMMY", lemmaStr);
+            AnalyzedToken tok = new AnalyzedToken(tokenStr, "DUMMY", isNullLemma ? null : lemmaStr);
             String[] res = s.synthesize(tok, posTag, isRegex);
 
             StringBuilder sb = new StringBuilder();
@@ -942,11 +943,15 @@ public class SynthesizeQueries {
 
             input_lines = []
             for q in queries:
-                token_str = q.get("token", q.get("lemma", ""))
-                lemma_str = q.get("lemma", token_str)
+                token_str = q.get("token", "")
+                lemma_val = q.get("lemma")
+                if lemma_val is None and "lemma" not in q:
+                    lemma_val = token_str
+                is_null_lemma = "1" if lemma_val is None else "0"
+                lemma_str = "" if lemma_val is None else str(lemma_val)
                 pos_tag = q.get("pos_tag", "")
                 is_regex = "1" if q.get("pos_tag_is_regex", False) else "0"
-                input_lines.append(f"{token_str}\t{lemma_str}\t{pos_tag}\t{is_regex}")
+                input_lines.append(f"{token_str}\t{lemma_str}\t{pos_tag}\t{is_regex}\t{is_null_lemma}")
 
             input_data = "\n".join(input_lines) + "\n"
 
@@ -1244,6 +1249,9 @@ SYNTHESIS_TEST_QUERIES: List[Dict[str, Any]] = [
     # 10. Null lemma edge cases
     {"category": "null_lemma", "token": "семья", "lemma": None, "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
     {"category": "null_lemma", "token": "семья", "lemma": None, "pos_tag": "NN:Inanim:Fem:.*", "pos_tag_is_regex": True},
+    {"category": "null_lemma_special_number", "token": "123", "lemma": None, "pos_tag": "_spell_number_", "pos_tag_is_regex": False},
+    {"category": "null_lemma_special_number", "token": "123", "lemma": None, "pos_tag": "_spell_number_:feminine", "pos_tag_is_regex": False},
+    {"category": "null_lemma_special_number", "token": "123", "lemma": None, "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
     # 11. Unknown POS tag & unknown words
     {"category": "unknown_tag", "token": "семья", "lemma": "семья", "pos_tag": "UNKNOWN_POS_TAG", "pos_tag_is_regex": False},
     {"category": "unknown_word", "token": "квазимодулятор", "lemma": "квазимодулятор", "pos_tag": "NN:.*", "pos_tag_is_regex": True},
@@ -1264,12 +1272,16 @@ def generate_synthesizer_fixtures(
 
     queries_data: List[Dict[str, Any]] = []
     for i, q in enumerate(SYNTHESIS_TEST_QUERIES):
+        token_str = q.get("token", "")
+        lemma_val = q.get("lemma")
+        if lemma_val is None and "lemma" not in q:
+            lemma_val = token_str
         queries_data.append(
             {
                 "id": f"synth_{i + 1:03d}",
                 "category": q["category"],
-                "token": q.get("token", q.get("lemma", "")),
-                "lemma": q.get("lemma", ""),
+                "token": token_str,
+                "lemma": lemma_val,
                 "pos_tag": q["pos_tag"],
                 "pos_tag_is_regex": q.get("pos_tag_is_regex", False),
                 "expected_forms": results[i],

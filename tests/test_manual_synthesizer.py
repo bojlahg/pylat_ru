@@ -17,27 +17,35 @@ from pylat_ru.synthesis.errors import (
 from pylat_ru.synthesis.manual import ManualSynthesizer
 
 
-def test_manual_synthesizer_basic_parsing_and_no_suffix_decoding():
-    """Verify plain-text full forms are preserved without suffix decoding (+, ++)."""
+def test_manual_synthesizer_basic_parsing():
+    """Verify plain-text full forms are parsed and stored directly."""
     content = """
 # Sample manual synthesis file
 мадам\tмадам\tNN:Name:Fem:PL
 полу\tпол\tNN:Inanim:Masc:Sin:2R
-# Regression test: forms starting with + or ++ must NOT be decoded as suffixes
-+ой\tшлифмашина\tNN:Inanim:Masc:Sin:T
-++ин\tшлифмашина\tNN:Inanim:Masc:Sin:R
+шлифмашиной\tшлифмашина\tNN:Inanim:Fem:Sin:T
 """
     stream = io.StringIO(content)
     manual = ManualSynthesizer(stream)
 
-    assert len(manual) == 4
+    assert len(manual) == 3
     assert manual.lookup("мадам", "NN:Name:Fem:PL") == ["мадам"]
     assert manual.lookup("пол", "NN:Inanim:Masc:Sin:2R") == ["полу"]
-    # Form +ой is stored literally as +ой, NOT decoded as шлифмашина + ой
-    assert manual.lookup("шлифмашина", "NN:Inanim:Masc:Sin:T") == ["+ой"]
-    # Form ++ин is stored literally as ++ин, NOT decoded as шлифмашин + ин
-    assert manual.lookup("шлифмашина", "NN:Inanim:Masc:Sin:R") == ["++ин"]
-    assert manual.lookup("nonexistent", "TAG") is None
+    assert manual.lookup("шлифмашина", "NN:Inanim:Fem:Sin:T") == ["шлифмашиной"]
+    assert manual.lookup("nonexistent", "TAG") == []
+
+
+def test_manual_synthesizer_rejects_forms_starting_with_plus():
+    """Verify input full forms starting with '+' are rejected matching Java ManualSynthesizer."""
+    content = "+ой\tшлифмашина\tNN:Inanim:Masc:Sin:T\n"
+    stream = io.StringIO(content)
+    with pytest.raises(ManualSynthesizerFormatError, match=r"Forms starting with '\+' are not supported"):
+        ManualSynthesizer(stream)
+
+    content2 = "++ин\tшлифмашина\tNN:Inanim:Masc:Sin:R\n"
+    stream2 = io.StringIO(content2)
+    with pytest.raises(ManualSynthesizerFormatError, match=r"Forms starting with '\+' are not supported"):
+        ManualSynthesizer(stream2)
 
 
 def test_manual_synthesizer_custom_separator_and_java_split():
@@ -52,6 +60,14 @@ def test_manual_synthesizer_custom_separator_and_java_split():
 
     assert manual.lookup("лемма", "TAG1") == ["слово"]
     assert manual.lookup("лемма", "TAG2") == ["форма"]
+
+
+def test_manual_synthesizer_trailing_empty_field_split_rejection():
+    """Verify trailing empty field in default tab separator is dropped, causing length != 3 failure."""
+    content = "форма\tлемма\t\n"
+    stream = io.StringIO(content)
+    with pytest.raises(ManualSynthesizerFormatError, match="expected 3 fields, got 2"):
+        ManualSynthesizer(stream)
 
 
 def test_manual_synthesizer_inline_comments():
@@ -82,13 +98,6 @@ def test_manual_synthesizer_empty_or_invalid_separator_regexp():
     bad_sep = "#separatorRegExp=[invalid(\nслово\tлемма\tTAG\n"
     with pytest.raises(ManualSynthesizerFormatError, match="Invalid regular expression"):
         ManualSynthesizer(io.StringIO(bad_sep))
-
-
-def test_manual_synthesizer_non_breaking_space_rejection():
-    """Verify non-breaking space (\\u00A0) raises ManualSynthesizerFormatError."""
-    content = "слово\tлемма\tTAG\u00a0EXTRA\n"
-    with pytest.raises(ManualSynthesizerFormatError, match="non-breaking space"):
-        ManualSynthesizer(io.StringIO(content))
 
 
 def test_manual_synthesizer_file_not_found_raises_resource_error():

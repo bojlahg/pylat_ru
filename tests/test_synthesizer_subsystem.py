@@ -73,13 +73,19 @@ def test_exact_synthesis():
 
 
 def test_null_lemma_and_case_sensitivity():
-    """Verify AnalyzedToken with lemma=None returns empty array, and case-sensitive lemma matching."""
+    """Verify AnalyzedToken with lemma=None returns empty array for lemma-dependent tags, but processes special numbers."""
     synth = RussianSynthesizer.get_instance()
 
-    # AnalyzedToken with lemma=None
+    # AnalyzedToken with lemma=None for standard synthesis
     tok_null = AnalyzedToken("семья", lemma=None, pos_tag="NN:Inanim:Fem:Sin:Nom")
     assert synth.synthesize(tok_null, "NN:Inanim:Fem:Sin:Nom") == []
     assert synth.synthesize(tok_null, "NN:Inanim:Fem:.*", pos_tag_is_regex=True) == []
+
+    # AnalyzedToken with lemma=None for special number tags
+    tok_num_null = AnalyzedToken("123", lemma=None, pos_tag="NUM")
+    assert synth.synthesize(tok_num_null, "_spell_number_") == ["123"]
+    assert synth.synthesize(tok_num_null, "_spell_number_:feminine") == ["feminine 123"]
+    assert synth.synthesize(tok_num_null, "_spell_number_:Roman") == ["CXXIII"]
 
     # Case sensitivity: uppercase "Семья" has no entry in dictionary
     assert synth.synthesize("Семья", "NN:Inanim:Fem:Sin:Nom") == []

@@ -195,8 +195,6 @@ class BaseSynthesizer(Synthesizer):
         elif isinstance(token, AnalyzedToken):
             tok_str = token.token
             lemma = token.lemma
-            if lemma is None:
-                return []
         else:
             return []
 
@@ -217,9 +215,15 @@ class BaseSynthesizer(Synthesizer):
                     f"Error trying to synthesize POS tag {pos_tag} (posTagRegExp: true) from token {tok_str}"
                 ) from e
 
+            if lemma is None:
+                return []
+
             return self.synthesize_for_pos_tags(
                 lemma, lambda t: pattern.fullmatch(t) is not None
             )
+
+        if lemma is None:
+            return []
 
         forms = self.lookup(lemma, pos_tag)
         return self.remove_exceptions(forms)

@@ -2,7 +2,7 @@
 
 **Task Number**: 0006  
 **Title**: Russian Synthesizer Parity (`tasks/0006_russian_synthesizer.md`)  
-**Status**: COMPLETED (with Review Fixes)  
+**Status**: COMPLETED (with Final Semantic Review Fixes)  
 **Pinned Target**: LanguageTool v6.8 (`e807fcde6a6506191e1470744d2345da28c26be6`), Morfologik 2.1.9  
 
 ---
@@ -13,27 +13,20 @@ Task 0006 establishes the native Python reimplementation of the complete Languag
 
 1. **`ManualSynthesizer` Overlay Parser**:
    - Parses manual synthesis mappings (`added.txt`, `removed.txt`).
-   - Input format contains plain-text full forms (`fullform\tbaseform\tpostag`). Forms are stored and returned directly without suffix decoding (Java's internal `+/++` was an in-memory compression in Java's flat String array, not an input syntax).
-   - Exact Java parsing semantics:
-     - Line-level trim matching Java `trim()`.
-     - Non-breaking spaces (`\u00A0`) raise typed `ManualSynthesizerFormatError`.
-     - Supports `#separatorRegExp=` configuration directives (default `\t`), with empty or invalid regex raising `ManualSynthesizerFormatError`.
-     - Comment stripping (full-line `#` comments and inline `#` comments).
-     - Field splitting matching Java `Pattern.split(sep, 0)` semantics via shared `java_regex_split()` (no capturing groups in split output, trailing empty fields dropped).
-     - Malformed rows (field count != 3) raise `ManualSynthesizerFormatError` with line number and source path context.
+   - Plain-text contains full forms. Any input full form starting with `+` is rejected with typed `ManualSynthesizerFormatError` (matching pinned Java `ManualSynthesizer.java`).
+   - Uses Java `Pattern.split(..., limit=0)` semantics via shared `java_regex_split` for **both** the default tab separator and custom `#separatorRegExp=` directives. Trailing empty fields are dropped; e.g. `"form\tlemma\t"` results in 2 fields and fails cleanly.
+   - Comment stripping (full-line `#` comments and inline `#` comments).
+   - Removed `ManualTagger`-only parser restrictions (e.g. no special non-breaking space checks in `ManualSynthesizer`).
    - Nonexistent resources raise `SynthesisResourceError`.
-   - Thread-safe, non-destructive form lookup grouping by `(lemma, pos_tag)`.
+   - `ManualSynthesizer.lookup(lemma, pos_tag)` returns an empty list `[]` for unknown keys at the Python API boundary.
 
 2. **`BaseSynthesizer` & `RussianSynthesizer` Engine**:
    - Implements abstract `Synthesizer` interface matching `org.languagetool.synthesis.Synthesizer`.
    - Combines low-level Morfologik synthesis dictionary lookups (`russian_synth.dict` + `russian_synth.info`) with manual additions (`added.txt`) and manual removals (`removed.txt`).
-   - Exact lemma semantics: When `AnalyzedToken.lemma` is `None`, synthesis returns `[]` immediately without falling back to token surface.
-   - Case sensitivity: Lemma lookups are strictly case-sensitive matching Morfologik FSA dictionary keys.
+   - **Synthesize Ordering**: Special number tags (`_spell_number_`, `_spell_number_:feminine`, `_spell_number_:Roman`) are handled **before** lemma-dependent synthesis. An `AnalyzedToken` with `lemma=None` successfully processes special number tags using `token.token`.
+   - **Exact Lemma Semantics**: For lemma-dependent tags (exact POS or regex POS), an `AnalyzedToken` with `lemma=None` returns `[]` immediately without falling back to token surface.
+   - **Case Sensitivity**: Lemma lookups are strictly case-sensitive matching Morfologik FSA dictionary keys.
    - Exception filtering via `remove_exceptions()` / `is_exception()`.
-   - Special number tags:
-     - `_spell_number_`: returns `[get_spelled_number(token.token)]`
-     - `_spell_number_:feminine`: returns `[get_spelled_number("feminine " + token.token)]`
-     - `_spell_number_:Roman`: returns `[get_roman_number(token.token)]` via native integer-to-Roman converter matching `Roman.sor`.
    - Regex synthesis (`pos_tag_is_regex=True`):
      - Expands across all known tags in `tags_russian.txt` + `added.txt` in deterministic upstream order.
      - Supports trailing-empty tags such as `VB:INF:`.
@@ -50,11 +43,11 @@ Task 0006 establishes the native Python reimplementation of the complete Languag
      - `removed.txt` (3,205 bytes, SHA-256: `193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5`)
    - `test_real_installed_distribution_package_synthesis` builds a real `.whl`, verifies that all 5 resources are present in the archive, installs into an isolated directory, and executes addition, removal, and Roman lookups in an isolated subprocess.
 
-4. **Differential Oracle & Fixture Integrity**:
-   - Updated `tools/differential_lt.py` with `synthesize_queries()` and `--generate-synthesizer-fixtures` CLI command, properly passing `\u0005null` sentinels for `lemma=None` cases to the Java oracle.
-   - Generated and committed `tests/fixtures/oracle_russian_synthesizer_sample.json` directly from Java LanguageTool 6.8 standalone oracle (build `lt_6.8_source_build_jdk17_stefan`, JAR SHA-256: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`).
+4. **Differential Oracle & True Null-Lemma Protocol**:
+   - Updated `tools/differential_lt.py` with an explicit 5th-column boolean flag `isNullLemma` in `SynthesizeQueries.java`, allowing Java to instantiate `new AnalyzedToken(tokenStr, "DUMMY", null)` without stringifying Python `None`.
+   - Generated and committed `tests/fixtures/oracle_russian_synthesizer_sample.json` (46 queries) directly from Java LanguageTool 6.8 standalone oracle (build `lt_6.8_source_build_jdk17_stefan`, JAR SHA-256: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`).
    - `test_fixture_integrity` validates fixture metadata against `compat/oracle_manifest.json` (exact version, commit, build ID, and JAR SHA-256).
-   - Parity suite tests all 43 queries (nouns, verbs, adjectives, irregulars, manual additions, manual removals, null lemma, case sensitivity, unknown tags/words, trailing-empty tags, and Roman numbers), achieving 100% exact match.
+   - Parity suite tests all 46 queries (nouns, verbs, adjectives, irregulars, manual additions, manual removals, null lemma for ordinary POS/regex/special numbers, case sensitivity, unknown tags/words, trailing-empty tags, and Roman numbers), achieving 100% exact match.
 
 5. **Synthesizer Inventory Generation**:
    - `tools/russian_synthesizer_inventory.py` dynamically analyzes all upstream Java sources, FSA headers, tag sequence, overlays, material removals, and exclusions, generating `compat/russian_synthesizer_inventory.json` with byte-exact deterministic regeneration test.
@@ -63,7 +56,7 @@ Task 0006 establishes the native Python reimplementation of the complete Languag
 
 ## 2. Key Files Added and Modified
 
-### Added Implementation Files
+### Implementation Files
 - `src/pylat_ru/utils.py`: Shared Java-compatible regex splitter (`java_regex_split`).
 - `src/pylat_ru/synthesis/errors.py`: Synthesis exception hierarchy (`SynthesisError`, `ManualSynthesizerFormatError`, `SynthesisResourceError`).
 - `src/pylat_ru/synthesis/__init__.py`: Synthesis package exports.
@@ -79,17 +72,17 @@ Task 0006 establishes the native Python reimplementation of the complete Languag
 ### Modified Files
 - `src/pylat_ru/__init__.py`: Exported `RussianSynthesizer`, `Synthesizer`, `BaseSynthesizer`, `ManualSynthesizer`.
 - `src/pylat_ru/tagging/word_tagger.py`: Reused shared `java_regex_split` from `pylat_ru.utils`.
-- `tools/differential_lt.py`: Added `synthesize_queries()`, `SYNTHESIS_TEST_QUERIES`, `generate_synthesizer_fixtures()`, and `--generate-synthesizer-fixtures` flag.
+- `tools/differential_lt.py`: Added true `null` lemma transport flag, `SYNTHESIS_TEST_QUERIES`, `generate_synthesizer_fixtures()`, and `--generate-synthesizer-fixtures` flag.
 - `compat/compatibility.json`: Updated milestone to `0006_russian_synthesizer`, overall state to `SYNTHESIZER_LAYER_ESTABLISHED`, added `russian_synthesizer` section, set `RussianSynthesizer: "SUPPORTED"`.
 
-### Added Test Files & Fixtures
+### Test Files & Fixtures
 - `tasks/0006_russian_synthesizer.md`: Numbered task specification.
 - `tests/upstream/test_russian_synthesizer.py`: Direct port of upstream `RussianSynthesizerTest.java`.
-- `tests/test_manual_synthesizer.py`: Unit tests for `ManualSynthesizer`.
-- `tests/test_synthesizer_subsystem.py`: Comprehensive synthesizer tests.
-- `tests/upstream/test_russian_synthesizer_oracle_parity.py`: Exact parity and manifest integrity tests against committed oracle fixture.
+- `tests/test_manual_synthesizer.py`: Unit tests for `ManualSynthesizer` (format errors, plus forms rejection, trailing empty field split rejection, empty list for unknown keys).
+- `tests/test_synthesizer_subsystem.py`: Comprehensive synthesizer tests (special numbers with null lemma, regex, case sensitivity).
+- `tests/upstream/test_russian_synthesizer_oracle_parity.py`: Exact parity and manifest integrity tests against committed oracle fixture (46 queries).
 - `tests/unit/test_russian_synthesizer_resources.py`: Resource hash parity, inventory byte-exact regeneration, and real wheel distribution installation test.
-- `tests/fixtures/oracle_russian_synthesizer_sample.json`: Committed Java LanguageTool 6.8 synthesis oracle fixture (43 queries).
+- `tests/fixtures/oracle_russian_synthesizer_sample.json`: Committed Java LanguageTool 6.8 synthesis oracle fixture (46 queries).
 
 ---
 
@@ -101,10 +94,10 @@ pytest -v
 ```
 Output:
 ```text
-============================ 208 passed in 20.65s =============================
+============================ 209 passed in 20.54s =============================
 ```
 
-All 208 tests passed with 0 failures, 0 skipped, and zero regressions.
+All 209 tests passed with 0 failures, 0 skipped, and zero regressions.
 
 ---
 
