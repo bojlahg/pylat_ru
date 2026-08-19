@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.dict binary
+*.info text eol=lf
