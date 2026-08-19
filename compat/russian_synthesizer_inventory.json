@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "pinned_upstream": {
+    "repository": "https://github.com/languagetool-org/languagetool.git",
+    "tag": "v6.8",
+    "commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "commit_date": "2026-05-05T15:03:23Z",
+    "morfologik_version": "2.1.9"
+  },
+  "resources": {
+    "russian_synth_dict": {
+      "path": "src/pylat_ru/resources/ru/russian_synth.dict",
+      "size": 1481255,
+      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311"
+    },
+    "russian_synth_info": {
+      "path": "src/pylat_ru/resources/ru/russian_synth.info",
+      "size": 431,
+      "sha256": "916c0ff9a6101c5f36e33c109b15e9cd37da0e75b772f97bca1df8f5fcdcca3b"
+    },
+    "tags_russian_txt": {
+      "path": "src/pylat_ru/resources/ru/tags_russian.txt",
+      "size": 27195,
+      "sha256": "1efed64cfc852bb4619da092034dcb208acde303baeb55109718afe9cf56729a",
+      "total_tags_count": 1201
+    },
+    "added_txt": {
+      "path": "src/pylat_ru/resources/ru/added.txt",
+      "size": 92745,
+      "sha256": "4748f15da5cf97095e4d96dda3a3431028c660ff2456c30f143162616d0d8b40",
+      "parsed_data_lines_count": 1282,
+      "distinct_keys_count": 1282,
+      "total_forms_count": 1282,
+      "possible_tags_count": 247
+    },
+    "removed_txt": {
+      "path": "src/pylat_ru/resources/ru/removed.txt",
+      "size": 3205,
+      "sha256": "193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5",
+      "parsed_data_lines_count": 60,
+      "distinct_keys_count": 60,
+      "total_forms_count": 60,
+      "possible_tags_count": 50
+    }
+  },
+  "custom_overlay_exclusion": {
+    "added_custom.txt": {
+      "status": "EXCLUDED",
+      "rationale": "RussianSynthesizer in LT 6.8 only loads /ru/added.txt and /ru/removed.txt, not custom overlays"
+    },
+    "removed_custom.txt": {
+      "status": "EXCLUDED",
+      "rationale": "RussianSynthesizer in LT 6.8 only loads /ru/added.txt and /ru/removed.txt, not custom overlays"
+    }
+  },
+  "special_tags": {
+    "_spell_number_": {
+      "description": "Spelled number without gender prefix",
+      "handler": "get_spelled_number",
+      "supports_russian_sor": false
+    },
+    "_spell_number_:feminine": {
+      "description": "Spelled number with feminine gender prefix",
+      "handler": "get_spelled_number_feminine",
+      "supports_russian_sor": false
+    },
+    "_spell_number_:Roman": {
+      "description": "Integer to Roman numeral conversion",
+      "handler": "int_to_roman",
+      "supports_russian_sor": true
+    }
+  },
+  "possible_tags_summary": {
+    "base_tags_count": 1201,
+    "manual_only_tags_count": 1,
+    "manual_only_tags": [
+      "NN:Name:Fem:PL"
+    ],
+    "total_possible_tags_count": 1202
+  }
+}

@@ -1,0 +1,423 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Russian Synthesizer Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "queries_count": 34
+  },
+  "queries": [
+    {
+      "id": "synth_001",
+      "category": "noun_exact",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "семья"
+      ]
+    },
+    {
+      "id": "synth_002",
+      "category": "noun_exact",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:Sin:R",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "семьи"
+      ]
+    },
+    {
+      "id": "synth_003",
+      "category": "noun_exact",
+      "token": "дом",
+      "lemma": "дом",
+      "pos_tag": "NN:Inanim:Masc:PL:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "дома"
+      ]
+    },
+    {
+      "id": "synth_004",
+      "category": "noun_exact",
+      "token": "дом",
+      "lemma": "дом",
+      "pos_tag": "NN:Inanim:Masc:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "дом"
+      ]
+    },
+    {
+      "id": "synth_005",
+      "category": "noun_exact",
+      "token": "человек",
+      "lemma": "человек",
+      "pos_tag": "NN:Anim:Masc:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "человек"
+      ]
+    },
+    {
+      "id": "synth_006",
+      "category": "noun_exact",
+      "token": "окно",
+      "lemma": "окно",
+      "pos_tag": "NN:Inanim:Neut:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "окно"
+      ]
+    },
+    {
+      "id": "synth_007",
+      "category": "noun_exact",
+      "token": "рука",
+      "lemma": "рука",
+      "pos_tag": "NN:Inanim:Fem:PL:T",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "руками"
+      ]
+    },
+    {
+      "id": "synth_008",
+      "category": "verb_exact",
+      "token": "бежать",
+      "lemma": "бежать",
+      "pos_tag": "VB:INF:INTR:IMPFV",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "бежать"
+      ]
+    },
+    {
+      "id": "synth_009",
+      "category": "verb_exact",
+      "token": "говорить",
+      "lemma": "говорить",
+      "pos_tag": "VB:Past:Masc:Imperactive",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_010",
+      "category": "verb_exact",
+      "token": "идти",
+      "lemma": "идти",
+      "pos_tag": "VB:Pres:1p:Sin:Imperactive",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_011",
+      "category": "verb_exact",
+      "token": "делать",
+      "lemma": "делать",
+      "pos_tag": "VB:Pres:3p:PL:Imperactive",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_012",
+      "category": "adj_exact",
+      "token": "красивый",
+      "lemma": "красивый",
+      "pos_tag": "ADJ:Posit:Fem:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "красивая"
+      ]
+    },
+    {
+      "id": "synth_013",
+      "category": "adj_exact",
+      "token": "красивый",
+      "lemma": "красивый",
+      "pos_tag": "ADJ:Short:Fem",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "красива"
+      ]
+    },
+    {
+      "id": "synth_014",
+      "category": "adj_exact",
+      "token": "новый",
+      "lemma": "новый",
+      "pos_tag": "ADJ:Posit:PL:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "новые"
+      ]
+    },
+    {
+      "id": "synth_015",
+      "category": "adj_exact",
+      "token": "хороший",
+      "lemma": "хороший",
+      "pos_tag": "ADJ:Comp",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "лучше",
+        "получше"
+      ]
+    },
+    {
+      "id": "synth_016",
+      "category": "regex_noun",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": [
+        "семьям",
+        "семьи",
+        "семьях",
+        "семей",
+        "семьями",
+        "семьи",
+        "семье",
+        "семья",
+        "семье",
+        "семьи",
+        "семьёю",
+        "семьёй",
+        "семью"
+      ]
+    },
+    {
+      "id": "synth_017",
+      "category": "regex_noun",
+      "token": "дом",
+      "lemma": "дом",
+      "pos_tag": "NN:Inanim:Masc:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": [
+        "домам",
+        "дома",
+        "домах",
+        "домах",
+        "домов",
+        "домами",
+        "дома",
+        "дому",
+        "дому",
+        "дому",
+        "дом",
+        "доме",
+        "дому",
+        "дома",
+        "дому",
+        "домом",
+        "дом"
+      ]
+    },
+    {
+      "id": "synth_018",
+      "category": "regex_verb",
+      "token": "бежать",
+      "lemma": "бежать",
+      "pos_tag": "VB:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": [
+        "бежим",
+        "бегите",
+        "беги",
+        "бежать",
+        "бежать",
+        "бежала",
+        "бежал",
+        "бежало",
+        "бежали",
+        "бежала",
+        "бежал",
+        "бежало",
+        "бежали",
+        "бежим",
+        "бежите",
+        "бегут",
+        "бегу",
+        "бежишь",
+        "бежит"
+      ]
+    },
+    {
+      "id": "synth_019",
+      "category": "regex_verb",
+      "token": "говорить",
+      "lemma": "говорить",
+      "pos_tag": "VB:.*:3p:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_020",
+      "category": "regex_adj",
+      "token": "красивый",
+      "lemma": "красивый",
+      "pos_tag": "ADJ:Short:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": [
+        "красива",
+        "красив",
+        "красиво",
+        "красивы"
+      ]
+    },
+    {
+      "id": "synth_021",
+      "category": "manual_added",
+      "token": "мадам",
+      "lemma": "мадам",
+      "pos_tag": "NN:Name:Fem:PL",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "мадам"
+      ]
+    },
+    {
+      "id": "synth_022",
+      "category": "manual_added",
+      "token": "шлифмашина",
+      "lemma": "шлифмашина",
+      "pos_tag": "NN:Inanim:Masc:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "шлифмашина"
+      ]
+    },
+    {
+      "id": "synth_023",
+      "category": "manual_added",
+      "token": "трассерный",
+      "lemma": "трассерный",
+      "pos_tag": "ADJ:Posit:Masc:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "трассерный"
+      ]
+    },
+    {
+      "id": "synth_024",
+      "category": "manual_removed",
+      "token": "дерево",
+      "lemma": "дерево",
+      "pos_tag": "NN:Inanim:Neut:PL:R",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "деревьев"
+      ]
+    },
+    {
+      "id": "synth_025",
+      "category": "manual_removed",
+      "token": "втэк",
+      "lemma": "втэк",
+      "pos_tag": "NN:Inanim:Masc:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_026",
+      "category": "special_number",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "123"
+      ]
+    },
+    {
+      "id": "synth_027",
+      "category": "special_number",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_:feminine",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "feminine 123"
+      ]
+    },
+    {
+      "id": "synth_028",
+      "category": "special_number",
+      "token": "1",
+      "lemma": "1",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "I"
+      ]
+    },
+    {
+      "id": "synth_029",
+      "category": "special_number",
+      "token": "4",
+      "lemma": "4",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "IV"
+      ]
+    },
+    {
+      "id": "synth_030",
+      "category": "special_number",
+      "token": "9",
+      "lemma": "9",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "IX"
+      ]
+    },
+    {
+      "id": "synth_031",
+      "category": "special_number",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "CXXIII"
+      ]
+    },
+    {
+      "id": "synth_032",
+      "category": "special_number",
+      "token": "2024",
+      "lemma": "2024",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "MMXXIV"
+      ]
+    },
+    {
+      "id": "synth_033",
+      "category": "unknown_word",
+      "token": "квазимодулятор",
+      "lemma": "квазимодулятор",
+      "pos_tag": "NN:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_034",
+      "category": "unknown_word",
+      "token": "blablabla",
+      "lemma": "blablabla",
+      "pos_tag": "VB:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    }
+  ]
+}

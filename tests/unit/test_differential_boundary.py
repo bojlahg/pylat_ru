@@ -13,7 +13,9 @@ from tools.differential_lt import (
     DifferentialComparisonResult,
     Finding,
     JavaLanguageToolOracle,
+    SYNTHESIS_TEST_QUERIES,
     compare_findings,
+    generate_synthesizer_fixtures,
     generate_tokenization_fixtures,
     validate_oracle_manifest,
 )
@@ -233,4 +235,21 @@ def test_oracle_sha_env_and_argument_override(tmp_path: Path, monkeypatch: pytes
         monkeypatch.setenv("PYLAT_ORACLE_SHA256", "invalid_env_sha")
         with pytest.raises(RuntimeError, match="Invalid PYLAT_ORACLE_SHA256"):
             oracle.validate_oracle()
+
+
+def test_generate_synthesizer_fixtures(tmp_path: Path):
+    """Verify synthesizer fixtures generation produces valid JSON schema and non-empty queries."""
+    oracle = JavaLanguageToolOracle()
+    if not oracle.is_java_available() or not oracle.get_jar_path():
+        pytest.skip("Java oracle not available")
+
+    generate_synthesizer_fixtures(oracle, tmp_path)
+    fixture_file = tmp_path / "oracle_russian_synthesizer_sample.json"
+    assert fixture_file.is_file()
+
+    data = json.loads(fixture_file.read_text(encoding="utf-8"))
+    assert data["schema_version"] == "1.0.0"
+    assert data["metadata"]["pinned_lt_version"] == PINNED_LT_VERSION
+    assert len(data["queries"]) == len(SYNTHESIS_TEST_QUERIES)
+
 

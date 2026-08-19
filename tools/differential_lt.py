@@ -887,6 +887,93 @@ public class DisambiguateSentences {
                     )
             return results
 
+    def synthesize_queries(
+        self, queries: Sequence[Dict[str, Any]]
+    ) -> List[List[str]]:
+        """Run synthesis queries through Java LanguageTool RussianSynthesizer."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """
+import org.languagetool.synthesis.ru.RussianSynthesizer;
+import org.languagetool.AnalyzedToken;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class SynthesizeQueries {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
+        RussianSynthesizer s = RussianSynthesizer.INSTANCE;
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (line.isEmpty()) continue;
+            String[] parts = line.split("\\t", -1);
+            if (parts.length < 3) continue;
+            String tokenStr = parts[0];
+            String lemmaStr = parts[1];
+            String posTag = parts[2];
+            boolean isRegex = parts.length > 3 && parts[3].equals("1");
+
+            AnalyzedToken tok = new AnalyzedToken(tokenStr, "DUMMY", lemmaStr);
+            String[] res = s.synthesize(tok, posTag, isRegex);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < res.length; i++) {
+                if (i > 0) sb.append("\\u0001");
+                sb.append(res[i]);
+            }
+            out.println(sb.toString());
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "SynthesizeQueries.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            subprocess.run(
+                ["javac", "-encoding", "UTF-8", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            input_lines = []
+            for q in queries:
+                token_str = q.get("token", q.get("lemma", ""))
+                lemma_str = q.get("lemma", token_str)
+                pos_tag = q.get("pos_tag", "")
+                is_regex = "1" if q.get("pos_tag_is_regex", False) else "0"
+                input_lines.append(f"{token_str}\t{lemma_str}\t{pos_tag}\t{is_regex}")
+
+            input_data = "\n".join(input_lines) + "\n"
+
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "SynthesizeQueries",
+                ],
+                input=input_data.encode("utf-8"),
+                capture_output=True,
+                check=True,
+            )
+
+            out_str = proc.stdout.decode("utf-8")
+            results: List[List[str]] = []
+            for line in out_str.splitlines():
+                if not line:
+                    results.append([])
+                else:
+                    results.append(line.split("\u0001"))
+            return results
+
+
 
 def compare_findings(
     text: str,
@@ -1106,6 +1193,98 @@ def generate_disambiguation_fixtures(
     )
 
 
+SYNTHESIS_TEST_QUERIES: List[Dict[str, Any]] = [
+    # 1. Noun exact synthesis
+    {"category": "noun_exact", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:R", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:PL:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "человек", "pos_tag": "NN:Anim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "окно", "pos_tag": "NN:Inanim:Neut:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "lemma": "рука", "pos_tag": "NN:Inanim:Fem:PL:T", "pos_tag_is_regex": False},
+    # 2. Verb exact synthesis
+    {"category": "verb_exact", "lemma": "бежать", "pos_tag": "VB:INF:INTR:IMPFV", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "lemma": "говорить", "pos_tag": "VB:Past:Masc:Imperactive", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "lemma": "идти", "pos_tag": "VB:Pres:1p:Sin:Imperactive", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "lemma": "делать", "pos_tag": "VB:Pres:3p:PL:Imperactive", "pos_tag_is_regex": False},
+    # 3. Adjective exact synthesis
+    {"category": "adj_exact", "lemma": "красивый", "pos_tag": "ADJ:Posit:Fem:Nom", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "lemma": "красивый", "pos_tag": "ADJ:Short:Fem", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "lemma": "новый", "pos_tag": "ADJ:Posit:PL:Nom", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "lemma": "хороший", "pos_tag": "ADJ:Comp", "pos_tag_is_regex": False},
+    # 4. Regex synthesis
+    {"category": "regex_noun", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:.*", "pos_tag_is_regex": True},
+    {"category": "regex_noun", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:.*", "pos_tag_is_regex": True},
+    {"category": "regex_verb", "lemma": "бежать", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
+    {"category": "regex_verb", "lemma": "говорить", "pos_tag": "VB:.*:3p:.*", "pos_tag_is_regex": True},
+    {"category": "regex_adj", "lemma": "красивый", "pos_tag": "ADJ:Short:.*", "pos_tag_is_regex": True},
+    # 5. Manual additions overlay (added.txt)
+    {"category": "manual_added", "lemma": "мадам", "pos_tag": "NN:Name:Fem:PL", "pos_tag_is_regex": False},
+    {"category": "manual_added", "lemma": "шлифмашина", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "manual_added", "lemma": "трассерный", "pos_tag": "ADJ:Posit:Masc:Nom", "pos_tag_is_regex": False},
+    # 6. Manual removals overlay (removed.txt)
+    {"category": "manual_removed", "lemma": "дерево", "pos_tag": "NN:Inanim:Neut:PL:R", "pos_tag_is_regex": False},
+    {"category": "manual_removed", "lemma": "втэк", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    # 7. Special number tags
+    {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:feminine", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "1", "lemma": "1", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "4", "lemma": "4", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "9", "lemma": "9", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    {"category": "special_number", "token": "2024", "lemma": "2024", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    # 8. Unknown words
+    {"category": "unknown_word", "lemma": "квазимодулятор", "pos_tag": "NN:.*", "pos_tag_is_regex": True},
+    {"category": "unknown_word", "lemma": "blablabla", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
+]
+
+
+def generate_synthesizer_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Generate oracle Russian synthesizer fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
+
+    output_path = fixtures_dir / "oracle_russian_synthesizer_sample.json"
+    results = oracle.synthesize_queries(SYNTHESIS_TEST_QUERIES)
+
+    queries_data: List[Dict[str, Any]] = []
+    for i, q in enumerate(SYNTHESIS_TEST_QUERIES):
+        queries_data.append(
+            {
+                "id": f"synth_{i + 1:03d}",
+                "category": q["category"],
+                "token": q.get("token", q.get("lemma", "")),
+                "lemma": q.get("lemma", ""),
+                "pos_tag": q["pos_tag"],
+                "pos_tag_is_regex": q.get("pos_tag_is_regex", False),
+                "expected_forms": results[i],
+            }
+        )
+
+    fixture_data = {
+        "schema_version": "1.0.0",
+        "description": "Committed LanguageTool 6.8 Java Oracle Russian Synthesizer Fixture",
+        "metadata": {
+            "pinned_lt_version": PINNED_LT_VERSION,
+            "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_build_id": oracle_build_id,
+            "oracle_jar_sha256": oracle_sha,
+            "queries_count": len(queries_data),
+        },
+        "queries": queries_data,
+    }
+
+    output_path.write_text(
+        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Generated Russian synthesizer fixture -> {output_path} ({len(queries_data)} queries, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
@@ -1129,6 +1308,11 @@ def main() -> int:
         "--generate-disambiguation-fixtures",
         action="store_true",
         help="Generate Russian disambiguation fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-synthesizer-fixtures",
+        action="store_true",
+        help="Generate Russian synthesizer fixtures from Java LanguageTool oracle",
     )
 
     args = parser.parse_args()
@@ -1206,6 +1390,19 @@ def main() -> int:
             return 1
         fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
         generate_disambiguation_fixtures(oracle, fixtures_dir)
+        return 0
+
+    if args.generate_synthesizer_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_synthesizer_fixtures(oracle, fixtures_dir)
         return 0
 
     if not args.text:

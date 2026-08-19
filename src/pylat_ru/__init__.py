@@ -24,6 +24,12 @@ from pylat_ru.sentence_analyzer import (
     RussianSentenceAnalyzer,
     create_raw_analyzed_sentence,
 )
+from pylat_ru.synthesis import (
+    BaseSynthesizer,
+    ManualSynthesizer,
+    RussianSynthesizer,
+    Synthesizer,
+)
 from pylat_ru.tagging import RussianTagger
 from pylat_ru.tagset import RussianTag, parse_tag
 from pylat_ru.tokenization import (
@@ -40,17 +46,21 @@ __all__ = [
     "AnalyzedSentence",
     "AnalyzedToken",
     "AnalyzedTokenReadings",
+    "BaseSynthesizer",
     "DictionaryEntry",
     "LanguageToolRU",
+    "ManualSynthesizer",
     "MorfologikDictionary",
     "RuleMatch",
     "RussianHybridDisambiguator",
     "RussianSentenceAnalyzer",
     "RussianSentenceTokenizer",
+    "RussianSynthesizer",
     "RussianTag",
     "RussianTagger",
     "RussianWordTokenizer",
     "SentenceSpan",
+    "Synthesizer",
     "TextSpan",
     "TokenSpan",
     "create_raw_analyzed_sentence",

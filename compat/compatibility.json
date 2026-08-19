@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0005_russian_hybrid_disambiguator",
-    "overall_state": "DISAMBIGUATOR_LAYER_ESTABLISHED",
+    "task_milestone": "0006_russian_synthesizer",
+    "overall_state": "SYNTHESIZER_LAYER_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -30,7 +30,19 @@
       "tagger_removed_entries_total": 60,
       "tagger_normalization_replacements_total": 19,
       "multiwords_entries_total": 217,
-      "disambiguation_rules_loaded": 77
+      "disambiguation_rules_loaded": 77,
+      "synthesizer_oracle_queries_total": 34
+    },
+    "russian_synthesizer": {
+      "morfologik_synthesis_lookup": "SUPPORTED",
+      "manual_synthesizer_additions": "SUPPORTED",
+      "manual_synthesizer_removals": "SUPPORTED",
+      "regex_pos_tag_expansion": "SUPPORTED",
+      "predicate_pos_tag_expansion": "SUPPORTED",
+      "special_number_tags": "SUPPORTED",
+      "roman_number_speller": "SUPPORTED",
+      "runtime_resource_packaging": "SUPPORTED",
+      "java_synthesizer_oracle_parity": "SUPPORTED"
     },
     "russian_disambiguator": {
       "raw_sentence_assembly": "SUPPORTED",
@@ -83,7 +95,7 @@
       "RussianTagger": "SUPPORTED",
       "RussianDisambiguator": "SUPPORTED",
       "RussianChunker": "NOT_YET_IMPLEMENTED",
-      "RussianSynthesizer": "NOT_YET_IMPLEMENTED",
+      "RussianSynthesizer": "SUPPORTED",
       "XMLRuleEngine": "NOT_YET_IMPLEMENTED"
     },
     "implementation_progress": {
