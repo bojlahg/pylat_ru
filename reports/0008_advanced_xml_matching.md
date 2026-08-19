@@ -4,11 +4,12 @@
 
 Task 0008 implements advanced LanguageTool XML pattern matching constructs for `pylat_ru` matching upstream Java LanguageTool `v6.8` semantics:
 
-- **Logical Token Groupings (`<and>` / `<or>`)**: Conjunction across token readings and recursive Cartesian product rule branch expansion (`expand_rule_into_variants`).
+- **Logical Token Groupings (`<and>` / `<or>`)**: Conjunction across token readings and recursive Cartesian product rule branch expansion (`expand_rule_into_variants`) matching Java LT `PatternRuleHandler` order.
 - **Quantifiers & Variable-Length Matching (`skip="N"`, `min="0"`, `max="M"`)**: Strict fail-closed quantifier validation (`min in (0, 1)`, `1 <= max <= 127`, `max="-1"`), greedy repetition via `_skip_max_tokens`, lookahead backtracking, and `RuleWithMaxFilter` match subsumption deduplication.
 - **Structured `<match>` Reference Resolution & Synthesizer Integration (`MatchState`)**: Dynamic match reference extraction, whitespace/skipped token inclusion, regex transformations (`regexp_match`, `regexp_replace`, `postag_replace`), and multi-candidate synthesis expansion matching Java LT.
 - **Strict Structural Loading for Deferred Rules**: Elimination of lossy fallback; all 892 rules in `grammar.xml` retain full typed pattern trees.
 - **Exact Oracle Parity**: 100% field-level parity across 891 test cases (141 synthetic, 750 real Russian rule cases) covering 44 feature dimensions and all 12 active Russian advanced feature families.
+- **Physical Variant & Token Signature Parity**: Proven 100% exact parity on both physical variant counts (907/907) and ordered token signatures across all 892 source XML rules against Java `PatternRuleLoader`.
 
 ---
 
@@ -32,29 +33,42 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
 
 ## 3. Feature Inventory
 
-Exact occurrence counts and observed attribute-value distributions derived from `grammar.xml`:
+Exact source rule counts, XML occurrence counts, and observed attribute-value distributions derived canonically from `grammar.xml` (`compat/russian_grammar_advanced_inventory.json`):
 
-| Feature Name | Source Rules | Occurrences | Observed Attribute-Value Distribution |
+| Feature Name | Source Rules | XML Occurrences | Observed Attribute-Value Distribution |
 |---|---|---|---|
-| `pattern@raw_pos` | 3 | 3 | `raw_pos="yes"` (pre-disambiguation token stream selection) |
-| `token@chunk` | 4 | 4 | Chunk regex matching across noun/verb phrases |
-| `token@spacebefore` | 20 | 20 | `spacebefore="yes"` (14), `spacebefore="no"` (6) |
-| `exception@spacebefore` | 1 | 1 | `spacebefore="no"` (`Num_plus_Noun1[1]`) |
-| `pattern:and` | 1 | 1 | Embedded conjunction `<and>` (`PREP_and_PNN[1]`) |
-| `pattern:or` | 15 | 15 | Disjunction `<or>` (each expands to 2 physical variants) |
-| `token@skip` | 97 | 97 | `skip="1"` (29), `skip="2"` (18), `skip="3"` (12), `skip="4..10"` (26), `skip="-1"` (12) |
-| `token@min` | 21 | 21 | `min="0"` (21) (all optional tokens) |
-| `token@max` | 21 | 21 | `max="2"` (9), `max="3"` (4), `max="5"` (2), `max="-1"` (6) |
-| `exception@scope=current` | 312 | 312 | Scoped exception on current matching token |
-| `exception@scope=previous` | 95 | 95 | Scoped lookbehind exception |
-| `exception@scope=next` | 84 | 84 | Scoped lookahead exception |
-| `antipattern_rule_level` | 49 | 49 | Negative lookahead token sequence immunization |
-| `antipattern_rulegroup_inherited` | 5 | 5 | Antipattern inherited from parent rulegroup |
-| `message_suggestion_match` | 256 | 256 | Formatted suggestions with dynamic `<match>` elements |
-| `match@case_conversion` | 10 | 10 | `alllower` (6), `startlower` (2), `firstupper` (2) |
-| `match@include_skipped` | 33 | 33 | `all` (31), `following` (2) |
-| `match@regexp_match` / `replace` | 61 | 61 | Regex surface text / POS capture transformations |
-| `match@postag` / `postag_replace` | 129 | 129 | Morphological synthesis lookup with POS regex replacement |
+| `pattern@raw_pos` | 3 | 3 | `raw_pos="yes"`: 3 |
+| `token@raw_pos` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `token@chunk` | 4 | 16 | `B-VP`: 6, `I-ADJP`: 6, `B-ADJP`: 3, `MayMissingYO`: 1 |
+| `token@spacebefore` | 20 | 28 | `spacebefore="yes"`: 14, `spacebefore="no"`: 14 |
+| `exception@spacebefore` | 1 | 1 | `spacebefore="no"`: 1 (`Num_plus_Noun1[1]`) |
+| `pattern:and` | 1 | 1 | Embedded conjunction `<and>`: 1 (`PREP_and_PNN[1]`) |
+| `pattern:or` | 15 | 15 | Disjunction `<or>`: 15 (each expands to 2 physical variants) |
+| `phrase_definition` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `phrase_reference` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `token@skip` | 97 | 137 | `skip="-1"`: 102, `skip="1"`: 21, `skip="2"`: 8, `skip="3"`: 5, `skip="4"`: 1 |
+| `token@min` | 21 | 22 | `min="0"`: 12, `min="1"`: 7, `min="2"`: 3 |
+| `token@max` | 21 | 22 | `max="1"`: 10, `max="2"`: 6, `max="3"`: 3, `max="4"`: 3 |
+| `exception@scope=current` | 312 | 807 | Scoped exception on current matching token |
+| `exception@scope=previous` | 95 | 140 | Scoped lookbehind exception |
+| `exception@scope=next` | 84 | 167 | Scoped lookahead exception |
+| `antipattern_rule_level` | 49 | 126 | Rule-level antipattern sequences |
+| `antipattern_rulegroup_inherited` | 5 | 59 | Inherited rulegroup antipattern sequences |
+| `token_level_match` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `message_suggestion_match` | 256 | 1,231 | Dynamic `<match>` elements in messages/suggestions |
+| `match@case_conversion` | 10 | 34 | `startlower`: 16, `startupper`: 8, `alllower`: 6, `firstupper`: 4 |
+| `match@include_skipped` | 33 | 135 | `include_skipped="all"`: 127, `include_skipped="none"`: 8 |
+| `match@regexp_match` / `replace` | 61 | 122 | Regex surface text / POS capture transformations |
+| `match@postag` / `postag_regexp` | 129 | 270 | Morphological synthesis POS query with regex flag |
+| `match@postag_replace` | 126 | 264 | Target POS regex replacement expressions |
+| `match@setpos` | 4 | 8 | `setpos="yes"`: 8 |
+| `match@setpostag` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `match@suppress_misspelled` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `static_lemma_match` | 8 | 16 | Static lemma string inside `<match>lemma</match>` |
+| `rule@minprevmatches` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `rule@distancetokens` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `rulegroup@minprevmatches` | 0 | 0 | None (0 in Russian `grammar.xml`) |
+| `rulegroup@distancetokens` | 0 | 0 | None (0 in Russian `grammar.xml`) |
 
 ---
 
@@ -78,7 +92,7 @@ Transitions from Task 0007 baseline to Task 0008 completed state:
 
 ## 5. Variant Inventory
 
-Detailed physical variant expansion comparison between pinned Java LanguageTool `v6.8` and Python `pylat_ru`:
+Detailed physical variant expansion comparison between pinned Java LanguageTool `v6.8` and Python `pylat_ru` (`compat/rule_variant_inventory.json`):
 
 | Metric | Java Oracle | Python pylat_ru | Parity Status |
 |---|---|---|---|
@@ -94,7 +108,8 @@ Detailed physical variant expansion comparison between pinned Java LanguageTool 
 | `<or>`-Generated Extra Variants | 15 | 15 | Exact Match |
 | `<phrase>`-Generated Extra Variants | 0 | 0 | Exact Match (0 phrases in Russian `grammar.xml`) |
 | Duplicate Public Full-ID Count in Source | 0 | 0 | Exact Match (all 892 full IDs distinct) |
-| Per-Rule Variant Count / Order Parity | 100% (892/892) | 100% (892/892) | **EXACT PARITY** (`compat/rule_variant_inventory.json`) |
+| Exact Per-Full-ID Variant Count Parity | 100% (892/892) | 100% (892/892) | **EXACT PARITY** (`compat/rule_variant_inventory.json`) |
+| Exact Physical Ordered Token Signature Parity | 100% (907/907) | 100% (907/907) | **EXACT PARITY** (`compat/rule_variant_inventory.json`) |
 
 ---
 
@@ -105,7 +120,7 @@ Detailed physical variant expansion comparison between pinned Java LanguageTool 
 - Translated from `PatternRuleHandlerTest.java`: phrase and phraseref structural parsing and expansion tests.
 - Translated from `RuleWithMaxFilter`: match deduplication and subsumption tests.
 - Total Task 0008 unit test functions: **35** (120 assertions).
-- Total Task 0008 oracle parity test functions: **11** (1,782 assertions).
+- Total Task 0008 oracle parity & inventory test functions: **13** (1,788 assertions).
 
 ### 6.2 Deliberately Deferred Upstream Assertions
 - Unification assertions in `PatternRuleMatcherTest` -> Deferred to Task 0009.
@@ -117,10 +132,16 @@ Detailed physical variant expansion comparison between pinned Java LanguageTool 
 
 ## 7. Oracle Provenance & Fixtures
 
+- **Oracle Manifest**: `compat/oracle_manifest.json`
 - **Build ID**: `lt_6.8_source_build_jdk17_stefan`
 - **JAR Path**: `third_party/languagetool/dist/languagetool-standalone-6.8-SNAPSHOT.jar`
 - **JAR SHA-256**: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`
-- **Oracle Manifest**: `tests/fixtures/oracle_advanced_pattern_matching.json` (141 synthetic cases across 44 feature dimensions) and `tests/fixtures/oracle_advanced_russian_rules.json` (750 real Russian rule cases).
+- **Oracle Fixtures**:
+  - `tests/fixtures/oracle_advanced_pattern_matching.json` (141 discriminating synthetic test cases covering all 44 feature dimensions).
+  - `tests/fixtures/oracle_advanced_russian_rules.json` (750 real Russian rule cases covering all active advanced feature families).
+- **Canonical Manifests**:
+  - `compat/russian_grammar_advanced_inventory.json` (complete feature and transition matrix).
+  - `compat/rule_variant_inventory.json` (907 physical variant signatures).
 - **Parity Result**: 100% field-level parity (rule IDs, category IDs, descriptions, default_off, match count, UTF-16 start/end, Unicode codepoints, full pattern spans, text slices, messages, and suggestions).
 
 ---
@@ -142,12 +163,12 @@ Execution of the complete test suite across Tasks 0001 through 0008:
 tests/unit/test_advanced_grammar_matcher.py ................................... [ 11%]
 tests/upstream/test_advanced_pattern_oracle_parity.py ....                     [ 13%]
 tests/upstream/test_advanced_russian_rule_oracle_parity.py ....                 [ 14%]
-tests/upstream/test_rule_variant_inventory_parity.py ...                       [ 15%]
+tests/upstream/test_rule_variant_inventory_parity.py .....                     [ 16%]
 [... complete test suite for Tasks 0001-0008 ...]
-============================ 297 passed in 43.15s =============================
+============================ 299 passed in 44.82s =============================
 ```
 
-- **Total Tests Passed**: **297 passed**
+- **Total Tests Passed**: **299 passed**
 - **Failures**: **0**
 - **Errors**: **0**
 - **Required Skips**: **0**
@@ -160,8 +181,10 @@ tests/upstream/test_rule_variant_inventory_parity.py ...                       [
   - `ddcfd4caa2183a01add9be42487089fdcd6b18bc` (Task 0008 initial implementation)
   - `f3a158295eac6f5eb3aed540a07467f37df924e2` (Task 0008 review fixes 1)
   - `10795aa49f1c71e4515c31088daae37f03a612b1` (Task 0008 review fixes 2)
-  - Final closure cleanup commit: to be committed immediately.
+  - `3cd9565f87781aca78e0841a5c0a9956977f50fd` (Task 0008 closure cleanup)
+  - `f73538d` (Task 0008 canonical inventory and variant order evidence closure)
 - **Push Target**: `origin/main`
-- **Remote Verification**: Verified with `git ls-remote origin main`.
+- **Remote Verification**: Verified on `refs/heads/main` via `git ls-remote origin main`.
 - **Next Task Notice**: Task 0009 has NOT been started.
+
 

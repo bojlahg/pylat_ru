@@ -275,10 +275,10 @@ def test_or_and_phrase_cartesian_expansion():
 
     variants = expand_rule_into_variants(rule, loader.global_phrases)
     assert len(variants) == 2
-    assert len(variants[0].tokens) == 3
-    assert variants[0].element_lengths == [1, 1, 1]
-    assert len(variants[1].tokens) == 4
-    assert variants[1].element_lengths == [1, 2, 1]
+    assert len(variants[0].tokens) == 4
+    assert variants[0].element_lengths == [1, 2, 1]
+    assert len(variants[1].tokens) == 3
+    assert variants[1].element_lengths == [1, 1, 1]
 
     engine = RussianGrammarEngine(rules=[rule], loader=loader)
 

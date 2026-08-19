@@ -149,14 +149,15 @@
     "implementation_progress": {
       "xml_constructs": {
         "status": "PARTIALLY_IMPLEMENTED",
-        "supported_count": 14,
+        "supported_count": 20,
         "partial_count": 0,
-        "unsupported_count": 9,
+        "unsupported_count": 7,
         "known_tags": [
           "and", "antipattern", "category", "equivalence", "example",
           "exception", "feature", "filter", "marker", "match", "message",
-          "or", "pattern", "rule", "rulegroup", "rules", "short",
-          "suggestion", "token", "unification", "unify", "unify-ignore", "url"
+          "or", "pattern", "phrase", "phraseref", "phrases", "rule",
+          "rulegroup", "rules", "short", "suggestion", "token", "type",
+          "unification", "unify", "unify-ignore", "url"
         ]
       },
       "xml_filters": {

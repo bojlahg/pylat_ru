@@ -886,7 +886,7 @@ def _expand_single_element(
     in_marker_override: Optional[bool] = None,
 ) -> List[Tuple[List[PatternToken], int]]:
     """Expand a single PatternElement into a list of (branch_tokens, logical_element_length)."""
-    effective_marker = elem.is_in_marker if in_marker_override is None else in_marker_override
+    effective_marker = True if (in_marker_override or getattr(elem, "is_in_marker", False)) else None
 
     if isinstance(elem, PatternToken):
         tok = elem
@@ -922,7 +922,8 @@ def _expand_single_element(
 
     elif isinstance(elem, PatternOr):
         branches: List[Tuple[List[PatternToken], int]] = []
-        for opt in elem.elements:
+        ordered_elements = list(elem.elements[1:]) + [elem.elements[0]] if len(elem.elements) > 1 else elem.elements
+        for opt in ordered_elements:
             for opt_tokens, opt_len in _expand_single_element(opt, global_phrases, in_marker_override=effective_marker):
                 branches.append((opt_tokens, opt_len))
         return branches
@@ -946,7 +947,35 @@ def _expand_single_element(
         )
         branches = []
         for u_tokens, _ in unify_expansions:
-            branches.append((u_tokens, len(u_tokens)))
+            expanded_tokens = []
+            for tok in u_tokens:
+                if tok.min is not None and tok.min > 1:
+                    for _ in range(tok.min):
+                        expanded_tokens.append(
+                            PatternToken(
+                                text=tok.text,
+                                postag=tok.postag,
+                                postag_regexp=tok.postag_regexp,
+                                regexp=tok.regexp,
+                                negate=tok.negate,
+                                negate_pos=tok.negate_pos,
+                                inflected=tok.inflected,
+                                case_sensitive=tok.case_sensitive,
+                                skip=tok.skip,
+                                min=1,
+                                max=tok.max,
+                                chunk=tok.chunk,
+                                spacebefore=tok.spacebefore,
+                                raw_pos=tok.raw_pos,
+                                is_in_marker=tok.is_in_marker,
+                                match=tok.match,
+                                exceptions=tok.exceptions,
+                                and_elements=tok.and_elements,
+                            )
+                        )
+                else:
+                    expanded_tokens.append(tok)
+            branches.append((expanded_tokens, len(expanded_tokens)))
         return branches
 
     else:

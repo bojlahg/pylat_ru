@@ -315,11 +315,12 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         total_examples_count += ex_counts["total"]
 
         # Aggregate feature usage
-        for feat in r["feature_usage"]:
-            feature_source_rules[feat].add(r["full_id"])
-            feature_occurrences[feat] += 1
-            if len(feature_representative_rules[feat]) < 5:
-                feature_representative_rules[feat].append(r["full_id"])
+        for feat, count in r["feature_counts"].items():
+            if count > 0:
+                feature_source_rules[feat].add(r["full_id"])
+                feature_occurrences[feat] += count
+                if len(feature_representative_rules[feat]) < 5 and r["full_id"] not in feature_representative_rules[feat]:
+                    feature_representative_rules[feat].append(r["full_id"])
 
         # Distributions
         for k, v in r["attribute_counts"].items():
@@ -375,6 +376,8 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         "match@postag_regexp",
         "match@postag_replace",
         "match@setpos",
+        "match@setpostag",
+        "match@suppress_misspelled",
         "static_lemma_match",
         "rule@minprevmatches",
         "rule@distancetokens",
@@ -385,11 +388,36 @@ def generate_advanced_inventory() -> Dict[str, Any]:
     feature_summary: Dict[str, Any] = {}
     for feat in all_candidate_features:
         rules_set = feature_source_rules.get(feat, set())
-        feature_summary[feat] = {
+        feat_dist = None
+        if feat == "token@skip":
+            feat_dist = dict(sorted(dist_skip.items()))
+        elif feat == "token@min":
+            feat_dist = dict(sorted(dist_min.items()))
+        elif feat == "token@max":
+            feat_dist = dict(sorted(dist_max.items()))
+        elif feat == "token@spacebefore":
+            feat_dist = dict(sorted(dist_spacebefore.items()))
+        elif feat == "exception@spacebefore":
+            feat_dist = dict(sorted(dist_exc_spacebefore.items()))
+        elif feat == "token@chunk":
+            feat_dist = dict(sorted(dist_chunk.items()))
+        elif feat == "match@case_conversion":
+            feat_dist = dict(sorted(dist_case_conv.items()))
+        elif feat == "match@include_skipped":
+            feat_dist = dict(sorted(dist_include_skipped.items()))
+        elif feat == "match@setpos":
+            feat_dist = dict(sorted(dist_setpos.items()))
+        elif feat == "pattern@raw_pos":
+            feat_dist = dict(sorted(dist_raw_pos.items()))
+
+        entry: Dict[str, Any] = {
             "source_rules_count": len(rules_set),
             "occurrences_count": feature_occurrences.get(feat, 0),
             "representative_rules": feature_representative_rules.get(feat, []),
         }
+        if feat_dist is not None:
+            entry["value_distribution"] = feat_dist
+        feature_summary[feat] = entry
 
     # Run Java loader inventory if jar exists
     jar_path = get_oracle_jar_path()
@@ -480,105 +508,151 @@ def _analyze_single_rule(
 ) -> Dict[str, Any]:
     """Inspect XML structure of a rule and compute its feature usage, blockers, and transition."""
     feature_usage: Set[str] = set()
+    feature_counts: Counter = Counter()
     attr_counts: Dict[str, Counter] = defaultdict(Counter)
 
     # 1. Rule & Rulegroup modifiers
     if r_elem.attrib.get("minprevmatches"):
         feature_usage.add("rule@minprevmatches")
+        feature_counts["rule@minprevmatches"] += 1
     if r_elem.attrib.get("distancetokens"):
         feature_usage.add("rule@distancetokens")
+        feature_counts["rule@distancetokens"] += 1
     if parent_minprevmatches:
         feature_usage.add("rulegroup@minprevmatches")
+        feature_counts["rulegroup@minprevmatches"] += 1
     if parent_distancetokens:
         feature_usage.add("rulegroup@distancetokens")
+        feature_counts["rulegroup@distancetokens"] += 1
 
     # 2. Antipatterns
     rule_antipatterns = r_elem.findall("antipattern")
     if rule_antipatterns:
         feature_usage.add("antipattern_rule_level")
+        feature_counts["antipattern_rule_level"] += len(rule_antipatterns)
     if parent_antipatterns:
         feature_usage.add("antipattern_rulegroup_inherited")
+        feature_counts["antipattern_rulegroup_inherited"] += len(parent_antipatterns)
 
     # 3. Patterns
     patterns = r_elem.findall("pattern")
     for pat in patterns:
         if pat.attrib.get("raw_pos") == "yes":
             feature_usage.add("pattern@raw_pos")
-            attr_counts["raw_pos"]["pattern_raw_pos_yes"] += 1
+            feature_counts["pattern@raw_pos"] += 1
+            attr_counts["raw_pos"]["yes"] += 1
 
-        if pat.findall(".//and"):
+        and_elems = pat.findall(".//and")
+        if and_elems:
             feature_usage.add("pattern:and")
-        if pat.findall(".//or"):
+            feature_counts["pattern:and"] += len(and_elems)
+
+        or_elems = pat.findall(".//or")
+        if or_elems:
             feature_usage.add("pattern:or")
-        if pat.findall(".//unify"):
+            feature_counts["pattern:or"] += len(or_elems)
+
+        unify_elems = pat.findall(".//unify")
+        if unify_elems:
             feature_usage.add("pattern:unify")
-        if pat.findall(".//unify-ignore"):
+            feature_counts["pattern:unify"] += len(unify_elems)
+
+        unify_ignore_elems = pat.findall(".//unify-ignore")
+        if unify_ignore_elems:
             feature_usage.add("pattern:unify-ignore")
-        if pat.findall(".//phrase"):
-            for phr in pat.findall(".//phrase"):
-                if "id" in phr.attrib:
-                    feature_usage.add("phrase_definition")
-                if "ref" in phr.attrib or "idref" in phr.attrib:
-                    feature_usage.add("phrase_reference")
+            feature_counts["pattern:unify-ignore"] += len(unify_ignore_elems)
+
+        for phr in pat.findall(".//phrase"):
+            if "id" in phr.attrib:
+                feature_usage.add("phrase_definition")
+                feature_counts["phrase_definition"] += 1
+            if "ref" in phr.attrib or "idref" in phr.attrib:
+                feature_usage.add("phrase_reference")
+                feature_counts["phrase_reference"] += 1
+
+        for phr in pat.findall(".//phraseref"):
+            if "idref" in phr.attrib or "ref" in phr.attrib:
+                feature_usage.add("phrase_reference")
+                feature_counts["phrase_reference"] += 1
 
         for tok in pat.findall(".//token"):
             if "raw_pos" in tok.attrib:
                 feature_usage.add("token@raw_pos")
+                feature_counts["token@raw_pos"] += 1
                 attr_counts["raw_pos"][tok.attrib["raw_pos"]] += 1
             if "skip" in tok.attrib:
                 feature_usage.add("token@skip")
+                feature_counts["token@skip"] += 1
                 attr_counts["skip"][tok.attrib["skip"]] += 1
             if "min" in tok.attrib:
                 feature_usage.add("token@min")
+                feature_counts["token@min"] += 1
                 attr_counts["min"][tok.attrib["min"]] += 1
             if "max" in tok.attrib:
                 feature_usage.add("token@max")
+                feature_counts["token@max"] += 1
                 attr_counts["max"][tok.attrib["max"]] += 1
             if "spacebefore" in tok.attrib:
                 feature_usage.add("token@spacebefore")
+                feature_counts["token@spacebefore"] += 1
                 attr_counts["spacebefore"][tok.attrib["spacebefore"]] += 1
             if "chunk" in tok.attrib:
                 feature_usage.add("token@chunk")
+                feature_counts["token@chunk"] += 1
                 attr_counts["chunk"][tok.attrib["chunk"]] += 1
 
-            if tok.findall("match"):
+            tok_matches = tok.findall("match")
+            if tok_matches:
                 feature_usage.add("token_level_match")
+                feature_counts["token_level_match"] += len(tok_matches)
 
             for exc in tok.findall("exception"):
                 scope = exc.attrib.get("scope", "current")
                 feature_usage.add(f"exception@scope={scope}")
+                feature_counts[f"exception@scope={scope}"] += 1
                 attr_counts["exc_scope"][scope] += 1
                 if "spacebefore" in exc.attrib:
                     feature_usage.add("exception@spacebefore")
+                    feature_counts["exception@spacebefore"] += 1
                     attr_counts["exc_spacebefore"][exc.attrib["spacebefore"]] += 1
 
     # 4. Message and Suggestion <match> elements
     match_elements = r_elem.findall(".//message//match") + r_elem.findall(".//suggestion//match")
     if match_elements:
         feature_usage.add("message_suggestion_match")
+        feature_counts["message_suggestion_match"] += len(match_elements)
 
     for match in match_elements:
         if match.text and match.text.strip():
             feature_usage.add("static_lemma_match")
+            feature_counts["static_lemma_match"] += 1
         for attr, val in match.attrib.items():
             if attr == "case_conversion":
                 feature_usage.add("match@case_conversion")
+                feature_counts["match@case_conversion"] += 1
                 attr_counts["case_conversion"][val] += 1
             elif attr == "include_skipped":
                 feature_usage.add("match@include_skipped")
+                feature_counts["match@include_skipped"] += 1
                 attr_counts["include_skipped"][val] += 1
             elif attr == "regexp_match":
                 feature_usage.add("match@regexp_match")
+                feature_counts["match@regexp_match"] += 1
             elif attr == "regexp_replace":
                 feature_usage.add("match@regexp_replace")
+                feature_counts["match@regexp_replace"] += 1
             elif attr == "postag":
                 feature_usage.add("match@postag")
+                feature_counts["match@postag"] += 1
             elif attr == "postag_regexp":
                 feature_usage.add("match@postag_regexp")
+                feature_counts["match@postag_regexp"] += 1
             elif attr == "postag_replace":
                 feature_usage.add("match@postag_replace")
+                feature_counts["match@postag_replace"] += 1
             elif attr == "setpos":
                 feature_usage.add("match@setpos")
+                feature_counts["match@setpos"] += 1
                 attr_counts["setpos"][val] += 1
 
     # 5. Filters
@@ -586,12 +660,15 @@ def _analyze_single_rule(
     for filt in filter_elements:
         cls_name = filt.attrib.get("class", "unknown")
         feature_usage.add(f"filter:{cls_name}")
+        feature_counts[f"filter:{cls_name}"] += 1
 
     # 6. Spelling / suppress misspelled
     if any(m.attrib.get("suppress_misspelled") == "yes" for m in r_elem.findall("message")):
         feature_usage.add("message@suppress_misspelled")
+        feature_counts["message@suppress_misspelled"] += 1
     if any(s.attrib.get("suppress_misspelled") == "yes" for s in r_elem.findall(".//suggestion")):
         feature_usage.add("suggestion@suppress_misspelled")
+        feature_counts["suggestion@suppress_misspelled"] += 1
 
     # 7. Examples
     examples = r_elem.findall("example")
@@ -693,6 +770,7 @@ def _analyze_single_rule(
         "blockers_removed_by_0008": removed_blockers,
         "remaining_blockers_after_0008": remaining_blockers,
         "feature_usage": sorted(list(feature_usage)),
+        "feature_counts": dict(feature_counts),
         "examples_count": examples_count,
         "attribute_counts": {k: dict(v) for k, v in attr_counts.items()},
     }
