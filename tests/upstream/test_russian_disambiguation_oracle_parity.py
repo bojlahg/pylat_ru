@@ -20,6 +20,20 @@ FIXTURE_PATH = (
 )
 
 
+MANIFEST_PATH = (
+    Path(__file__).resolve().parent.parent.parent
+    / "compat"
+    / "oracle_manifest.json"
+)
+
+
+def load_oracle_manifest() -> Dict[str, Any]:
+    """Load the trusted oracle manifest."""
+    if not MANIFEST_PATH.is_file():
+        pytest.fail(f"Oracle manifest not found at {MANIFEST_PATH}")
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
 def load_oracle_fixture() -> Dict[str, Any]:
     """Load the committed LanguageTool 6.8 disambiguation fixture."""
     if not FIXTURE_PATH.is_file():
@@ -44,32 +58,58 @@ def assert_sentence_matches_oracle_stage(
     for i, (act, exp) in enumerate(zip(actual_tokens, expected_stage_tokens)):
         prefix = f"[{case_id}][{stage_name}][tok_{i}='{act.token}']"
 
+        # 1. token surface
         assert act.token == exp["token"], f"{prefix} token mismatch: '{act.token}' != '{exp['token']}'"
+
+        # 2. start_pos_utf16
         assert act.start_pos == exp["start_pos_utf16"], (
             f"{prefix} start_pos mismatch: {act.start_pos} != {exp['start_pos_utf16']}"
         )
+
+        # 3. pos_fix
         assert act.pos_fix == exp["pos_fix"], f"{prefix} pos_fix mismatch: {act.pos_fix} != {exp['pos_fix']}"
-        assert act.is_sentence_start == exp["is_sentence_start"], (
-            f"{prefix} is_sentence_start mismatch: {act.is_sentence_start} != {exp['is_sentence_start']}"
-        )
-        assert act.is_sentence_end == exp["is_sentence_end"], (
-            f"{prefix} is_sentence_end mismatch: {act.is_sentence_end} != {exp['is_sentence_end']}"
-        )
+
+        # 4. is_whitespace
         assert act.is_whitespace() == exp["is_whitespace"], (
             f"{prefix} is_whitespace mismatch: {act.is_whitespace()} != {exp['is_whitespace']}"
         )
 
-        if exp["clean_token"] is not None:
-            assert act.clean_token == exp["clean_token"], (
-                f"{prefix} clean_token mismatch: {act.clean_token} != {exp['clean_token']}"
-            )
+        # 5. is_sentence_start
+        assert act.is_sentence_start == exp["is_sentence_start"], (
+            f"{prefix} is_sentence_start mismatch: {act.is_sentence_start} != {exp['is_sentence_start']}"
+        )
 
-        if exp["chunk_tags"]:
-            assert act.chunk_tags == exp["chunk_tags"], (
-                f"{prefix} chunk_tags mismatch: {act.chunk_tags} != {exp['chunk_tags']}"
-            )
+        # 6. is_sentence_end
+        assert act.is_sentence_end == exp["is_sentence_end"], (
+            f"{prefix} is_sentence_end mismatch: {act.is_sentence_end} != {exp['is_sentence_end']}"
+        )
 
-        # Check readings
+        # 7. is_paragraph_end
+        assert act.is_paragraph_end == exp["is_paragraph_end"], (
+            f"{prefix} is_paragraph_end mismatch: {act.is_paragraph_end} != {exp['is_paragraph_end']}"
+        )
+
+        # 8. is_ignore_spelling
+        assert act.is_ignore_spelling == exp["is_ignore_spelling"], (
+            f"{prefix} is_ignore_spelling mismatch: {act.is_ignore_spelling} != {exp['is_ignore_spelling']}"
+        )
+
+        # 9. clean_token (including None / fallback)
+        assert act.clean_token == exp["clean_token"], (
+            f"{prefix} clean_token mismatch: {act.clean_token} != {exp['clean_token']}"
+        )
+
+        # 10. whitespace_before (including None / exact string)
+        assert act.whitespace_before == exp["whitespace_before"], (
+            f"{prefix} whitespace_before mismatch: {act.whitespace_before!r} != {exp['whitespace_before']!r}"
+        )
+
+        # 11. chunk_tags (including empty lists)
+        assert act.chunk_tags == exp["chunk_tags"], (
+            f"{prefix} chunk_tags mismatch: {act.chunk_tags} != {exp['chunk_tags']}"
+        )
+
+        # 12. readings (count and every reading in exact sequence)
         exp_readings = exp["readings"]
         act_readings = act.readings
 
@@ -84,6 +124,11 @@ def assert_sentence_matches_oracle_stage(
             assert ar.token == er["token"], f"{r_prefix} reading token mismatch: '{ar.token}' != '{er['token']}'"
             assert ar.lemma == er["lemma"], f"{r_prefix} reading lemma mismatch: '{ar.lemma}' != '{er['lemma']}'"
             assert ar.pos_tag == er["pos_tag"], f"{r_prefix} reading pos_tag mismatch: '{ar.pos_tag}' != '{er['pos_tag']}'"
+
+
+@pytest.fixture(scope="module")
+def manifest_data() -> Dict[str, Any]:
+    return load_oracle_manifest()
 
 
 @pytest.fixture(scope="module")
@@ -109,12 +154,17 @@ def hybrid_disambiguator() -> RussianHybridDisambiguator:
 class TestRussianDisambiguationOracleParity:
     """Differential parity test suite against LanguageTool 6.8 Java oracle fixture."""
 
-    def test_fixture_integrity(self, fixture_data: Dict[str, Any]) -> None:
-        """Verify oracle fixture metadata and test case presence."""
+    def test_fixture_integrity(
+        self, fixture_data: Dict[str, Any], manifest_data: Dict[str, Any]
+    ) -> None:
+        """Verify oracle fixture metadata and bind to trusted manifest provenance."""
         assert fixture_data["schema_version"] == "1.0.0"
-        assert fixture_data["metadata"]["pinned_lt_version"] == "6.8"
+        assert fixture_data["metadata"]["pinned_lt_version"] == manifest_data["pinned_version"]
+        assert fixture_data["metadata"]["pinned_lt_commit"] == manifest_data["pinned_commit"]
+        trusted_shas = set(manifest_data.get("trusted_sha256_set", [manifest_data["oracle_sha256"]]))
+        assert fixture_data["metadata"]["oracle_jar_sha256"] in trusted_shas
         cases = fixture_data["cases"]
-        assert len(cases) >= 35
+        assert len(cases) == 40
 
     def test_oracle_cases_parity(
         self,

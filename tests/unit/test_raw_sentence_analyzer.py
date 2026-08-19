@@ -125,3 +125,63 @@ def test_whitespace_and_mapping():
     # "еще" is non_ws[2] -> all_tokens[3] (since all_tokens[2] is " \t ")
     assert non_ws[2].token == "еще"
     assert all_tokens[sent.get_original_position(2)].token == "еще"
+
+
+def test_whitespace_before_punctuation_and_words():
+    """Verify whitespace_before and is_whitespace_before across different whitespace patterns."""
+    # 1. Word + punctuation without whitespace: "Привет!"
+    s1 = create_raw_analyzed_sentence("Привет!")
+    t1 = s1.get_tokens()
+    # t1[0] = SENT_START (ws_before = "")
+    # t1[1] = "Привет" (prev is "" -> ws_before = "")
+    # t1[2] = "!" (prev is "Привет" -> ws_before = "")
+    assert t1[0].whitespace_before == ""
+    assert t1[0].is_whitespace_before is False
+    assert t1[1].whitespace_before == ""
+    assert t1[1].is_whitespace_before is False
+    assert t1[2].whitespace_before == ""
+    assert t1[2].is_whitespace_before is False
+
+    # 2. Word + one space + word: "Привет мир"
+    s2 = create_raw_analyzed_sentence("Привет мир")
+    t2 = s2.get_tokens()
+    # t2[0] = SENT_START
+    # t2[1] = "Привет" (ws_before = "")
+    # t2[2] = " " (prev is "Привет" -> ws_before = "")
+    # t2[3] = "мир" (prev is " " -> ws_before = " ")
+    assert t2[1].whitespace_before == ""
+    assert t2[1].is_whitespace_before is False
+    assert t2[2].whitespace_before == ""
+    assert t2[2].is_whitespace_before is False
+    assert t2[3].whitespace_before == " "
+    assert t2[3].is_whitespace_before is True
+
+    # 3. Multiple spaces: "Привет   мир"
+    s3 = create_raw_analyzed_sentence("Привет   мир")
+    t3 = s3.get_tokens()
+    # t3: [SENT_START, "Привет", " ", " ", " ", "мир"]
+    mir_tok3 = [t for t in t3 if t.token == "мир"][0]
+    assert mir_tok3.whitespace_before == " "
+    assert mir_tok3.is_whitespace_before is True
+
+    # 4. Tabs and newlines: "Привет\tмир\nтест"
+    s4 = create_raw_analyzed_sentence("Привет\tмир\nтест")
+    t4 = s4.get_tokens()
+    assert t4[3].token == "мир"
+    assert t4[3].whitespace_before == "\t"
+    assert t4[3].is_whitespace_before is True
+    assert t4[5].token == "тест"
+    assert t4[5].whitespace_before == "\n"
+    assert t4[5].is_whitespace_before is True
+
+    # 5. Leading and trailing whitespace: "  Привет мир  "
+    s5 = create_raw_analyzed_sentence("  Привет мир  ")
+    t5 = s5.get_tokens()
+    privet_tok5 = [t for t in t5 if t.token == "Привет"][0]
+    mir_tok5 = [t for t in t5 if t.token == "мир"][0]
+    assert privet_tok5.whitespace_before == " "
+    assert privet_tok5.is_whitespace_before is True
+    assert mir_tok5.whitespace_before == " "
+    assert mir_tok5.is_whitespace_before is True
+
+

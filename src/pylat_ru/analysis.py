@@ -7,6 +7,7 @@ and sentence-level structures produced by the LanguageTool tagging and disambigu
 
 from __future__ import annotations
 
+import dataclasses
 import re
 from dataclasses import dataclass, field
 from typing import Any, Iterator, List, Optional, Pattern, Sequence, Tuple, Union
@@ -123,7 +124,9 @@ class AnalyzedTokenReadings:
             self.is_paragraph_end = src.is_paragraph_end or is_paragraph_end
             self.is_immunized = src.is_immunized or is_immunized
             self.is_ignore_spelling = src.is_ignore_spelling or is_ignore_spelling
-            self.whitespace_before = whitespace_before or src.whitespace_before
+            ws_val = whitespace_before if whitespace_before is not None else src.whitespace_before
+            self.whitespace_before = ws_val if ws_val is not None else ""
+            self.is_whitespace_before = bool(self.whitespace_before and self.whitespace_before.isspace())
             self.pos_fix = pos_fix or src.pos_fix
             self.clean_token = clean_token or src.clean_token
             self.source_token = source_token or src.source_token
@@ -136,7 +139,8 @@ class AnalyzedTokenReadings:
             self.is_paragraph_end = is_paragraph_end or (readings.pos_tag == PARAGRAPH_END_TAG)
             self.is_immunized = is_immunized
             self.is_ignore_spelling = is_ignore_spelling
-            self.whitespace_before = whitespace_before
+            self.whitespace_before = whitespace_before if whitespace_before is not None else ""
+            self.is_whitespace_before = bool(self.whitespace_before and self.whitespace_before.isspace())
             self.pos_fix = pos_fix
             self.clean_token = clean_token
             self.source_token = source_token
@@ -155,7 +159,8 @@ class AnalyzedTokenReadings:
             )
             self.is_immunized = is_immunized
             self.is_ignore_spelling = is_ignore_spelling
-            self.whitespace_before = whitespace_before
+            self.whitespace_before = whitespace_before if whitespace_before is not None else ""
+            self.is_whitespace_before = bool(self.whitespace_before and self.whitespace_before.isspace())
             self.pos_fix = pos_fix
             self.clean_token = clean_token
             self.source_token = source_token
@@ -240,6 +245,15 @@ class AnalyzedTokenReadings:
         """Return AnalyzedToken at index."""
         return self.readings[index]
 
+    def set_whitespace_before(self, prev_token: str) -> None:
+        """Set whitespace before token matching Java LT AnalyzedTokenReadings.setWhitespaceBefore."""
+        is_ws = bool(prev_token and prev_token.isspace())
+        self.is_whitespace_before = is_ws
+        self.whitespace_before = prev_token if is_ws else ""
+        self.readings = [
+            dataclasses.replace(r, is_whitespace_before=is_ws) for r in self.readings
+        ]
+
     def add_reading(self, reading: AnalyzedToken, rule_id: Optional[str] = None) -> None:
         """Add a reading to this token matching Java LT AnalyzedTokenReadings.addReading."""
         l: List[AnalyzedToken] = []
@@ -248,6 +262,8 @@ class AnalyzedTokenReadings:
             last_r = self.readings[-1]
             if last_r.pos_tag is not None:
                 l.append(last_r)
+        if reading.is_whitespace_before != self.is_whitespace_before:
+            reading = dataclasses.replace(reading, is_whitespace_before=self.is_whitespace_before)
         l.append(reading)
         self.readings = l
         if len(reading.token) > len(self.token):
@@ -256,6 +272,8 @@ class AnalyzedTokenReadings:
             self.is_sentence_end = True
         if any(r.pos_tag == SENT_START_TAG for r in self.readings):
             self.is_sentence_start = True
+        if any(r.pos_tag == PARAGRAPH_END_TAG for r in self.readings):
+            self.is_paragraph_end = True
 
     def remove_reading(
         self,
@@ -264,30 +282,57 @@ class AnalyzedTokenReadings:
     ) -> None:
         """Remove reading(s) matching exact AnalyzedToken or POS tag regex pattern.
 
-        If removing leaves 0 readings, creates a single null reading with the ORIGINAL token surface.
-        Preserves SENT_END reading if present.
+        Matches Java LT removeReading:
+        - If SENT_END reading was removed, restores it via set_sentence_end().
+        - If PARAGRAPH_END reading was removed, restores it via set_paragraph_end().
+        - If removing leaves 0 readings, creates a single null reading with the ORIGINAL token surface.
         """
         orig_token_surface = self.token or (self.source_token or "")
+        removed_sent_end = False
+        removed_para_end = False
+        l: List[AnalyzedToken] = []
 
         if isinstance(reading_or_tag_regex, AnalyzedToken):
             target = reading_or_tag_regex
-            self.readings = [r for r in self.readings if not r.matches(target)]
+            for r in self.readings:
+                if not r.matches(target):
+                    l.append(r)
+                else:
+                    if r.pos_tag == SENT_END_TAG:
+                        removed_sent_end = True
+                    if r.pos_tag == PARAGRAPH_END_TAG:
+                        removed_para_end = True
         else:
             p = (
                 re.compile(reading_or_tag_regex)
                 if isinstance(reading_or_tag_regex, str)
                 else reading_or_tag_regex
             )
-            self.readings = [
-                r
-                for r in self.readings
-                if r.pos_tag is None or p.fullmatch(r.pos_tag) is None
-            ]
+            for r in self.readings:
+                if r.pos_tag is not None and p.fullmatch(r.pos_tag):
+                    if r.pos_tag == SENT_END_TAG:
+                        removed_sent_end = True
+                    if r.pos_tag == PARAGRAPH_END_TAG:
+                        removed_para_end = True
+                else:
+                    l.append(r)
 
-        if not self.readings:
-            self.readings = [AnalyzedToken(token=orig_token_surface, lemma=None, pos_tag=None)]
-            if self.is_sentence_end:
-                self.readings.append(AnalyzedToken(token=orig_token_surface, lemma=None, pos_tag=SENT_END_TAG))
+        if not l:
+            null_tok = AnalyzedToken(
+                token=orig_token_surface,
+                lemma=None,
+                pos_tag=None,
+                is_whitespace_before=self.is_whitespace_before,
+            )
+            l.append(null_tok)
+
+        self.readings = l
+        if removed_sent_end:
+            self.is_sentence_end = False
+            self.set_sentence_end(True)
+        if removed_para_end:
+            self.is_paragraph_end = False
+            self.set_paragraph_end(True)
 
     def set_sentence_end(self, value: bool = True) -> None:
         """Mark this token as sentence end matching Java LT setSentEnd()."""
@@ -299,6 +344,17 @@ class AnalyzedTokenReadings:
         else:
             self.is_sentence_end = False
             self.readings = [r for r in self.readings if r.pos_tag != SENT_END_TAG]
+
+    def set_paragraph_end(self, value: bool = True) -> None:
+        """Mark this token as paragraph end matching Java LT setParagraphEnd()."""
+        if value:
+            if not any(r.pos_tag == PARAGRAPH_END_TAG for r in self.readings):
+                lemma = self.readings[0].lemma if self.readings else None
+                para_end = AnalyzedToken(token=self.token, lemma=lemma, pos_tag=PARAGRAPH_END_TAG)
+                self.add_reading(para_end, "")
+        else:
+            self.is_paragraph_end = False
+            self.readings = [r for r in self.readings if r.pos_tag != PARAGRAPH_END_TAG]
 
     def has_pos_tag(self, tag: str) -> bool:
         """Return True if any reading has exact POS tag."""

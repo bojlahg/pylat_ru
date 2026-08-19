@@ -96,9 +96,11 @@ class RussianSentenceAnalyzer:
         # 5. Apply posFix and restore source/clean token information
         num_tokens = len(a_tokens)
         pos_fix = 0
+        prev_token = ""
         for i in range(num_tokens):
+            a_tokens[i].set_whitespace_before(prev_token)
+            prev_token = tokens[i]
             if i > 0:
-                a_tokens[i].whitespace_before = a_tokens[i - 1].token
                 a_tokens[i].start_pos = a_tokens[i].start_pos + pos_fix
                 a_tokens[i].pos_fix = pos_fix
             else:

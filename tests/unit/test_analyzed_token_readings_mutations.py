@@ -76,13 +76,34 @@ def test_remove_all_readings_preserves_sent_end():
     assert len(atr.readings) == 1
     assert atr.readings[0].pos_tag == SENT_END_TAG
 
-    # Removing SENT_END falls back to null token with SENT_END preserved
+    # Removing SENT_END falls back to null token then set_sentence_end restores single SENT_END
     sent_end_reading = atr.readings[0]
     atr.remove_reading(sent_end_reading)
-    assert len(atr.readings) == 2
+    assert len(atr.readings) == 1
     assert atr.readings[0].token == "конец"
-    assert atr.readings[0].pos_tag is None
+    assert atr.readings[0].pos_tag == SENT_END_TAG
+
+
+def test_remove_sent_end_while_ordinary_reading_remains_restores_sent_end():
+    """Verify removing SENT_END while ordinary reading remains restores SENT_END matching Java LT."""
+    r1 = AnalyzedToken(token="слово", lemma="слово", pos_tag="NN:Inan:Neut:Nom")
+    atr = AnalyzedTokenReadings(readings=[r1], start_pos=10)
+    atr.set_sentence_end(True)
+
+    assert len(atr.readings) == 2
+    assert atr.readings[0] == r1
     assert atr.readings[1].pos_tag == SENT_END_TAG
+
+    # Explicitly remove the SENT_END reading
+    sent_end_reading = atr.readings[1]
+    atr.remove_reading(sent_end_reading)
+
+    # In Java LT removeReading, removedSentEnd triggers setSentEnd(), restoring SENT_END
+    assert atr.is_sentence_end is True
+    assert len(atr.readings) == 2
+    assert atr.readings[0] == r1
+    assert atr.readings[1].pos_tag == SENT_END_TAG
+    assert atr.readings[1].lemma == "слово"
 
 
 def test_metadata_preservation_on_copy_and_init():

@@ -216,3 +216,34 @@ def test_unknown_xml_element_raises_explicit_format_error() -> None:
     loader = DisambiguationRuleLoader()
     with pytest.raises(DisambiguationFormatError, match="Unsupported XML element"):
         loader.parse_xml_string(bad_xml)
+
+
+def test_unsupported_attribute_on_token_raises_format_error() -> None:
+    """Verify unsupported attribute on token fails with DisambiguationFormatError."""
+    bad_xml = """<rules lang="ru"><rule id="R1" name="R1"><pattern><token min="1">test</token></pattern><disambig postag="ADV"/></rule></rules>"""
+    loader = DisambiguationRuleLoader()
+    with pytest.raises(DisambiguationFormatError, match="Unsupported attribute 'min' on element <token>"):
+        loader.parse_xml_string(bad_xml)
+
+
+def test_unsupported_attribute_on_rule_raises_format_error() -> None:
+    """Verify unsupported attribute on rule fails with DisambiguationFormatError."""
+    bad_xml = """<rules lang="ru"><rule id="R1" name="R1" default="off"><pattern><token>test</token></pattern><disambig postag="ADV"/></rule></rules>"""
+    loader = DisambiguationRuleLoader()
+    with pytest.raises(DisambiguationFormatError, match="Unsupported attribute 'default' on element <rule>"):
+        loader.parse_xml_string(bad_xml)
+
+
+def test_invalid_child_nesting_raises_format_error() -> None:
+    """Verify invalid child element hierarchy fails explicitly with DisambiguationFormatError."""
+    # <token> directly inside <rules> is invalid
+    bad_xml1 = """<rules lang="ru"><token>test</token></rules>"""
+    loader = DisambiguationRuleLoader()
+    with pytest.raises(DisambiguationFormatError, match="XML element <token> is not allowed inside parent <rules>"):
+        loader.parse_xml_string(bad_xml1)
+
+    # <disambig> inside <pattern> is invalid
+    bad_xml2 = """<rules lang="ru"><rule id="R1" name="R1"><pattern><disambig postag="ADV"/></pattern></rule></rules>"""
+    with pytest.raises(DisambiguationFormatError, match="XML element <disambig> is not allowed inside parent <pattern>"):
+        loader.parse_xml_string(bad_xml2)
+

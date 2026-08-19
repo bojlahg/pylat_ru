@@ -127,7 +127,7 @@ def analyze_disambiguation_xml(path: Path) -> Dict[str, Any]:
     negate_pos_count = 0
     case_sensitive_count = 0
 
-    def _collect_rule_stats(rule_elem: ET.Element) -> None:
+    def _collect_rule_stats(rule_elem: ET.Element, full_id: str) -> None:
         nonlocal marker_count, antipattern_count, and_count, exception_count
         nonlocal regexp_count, postag_regexp_count, inflected_count, negate_count, negate_pos_count, case_sensitive_count
         nonlocal default_actions_count
@@ -206,7 +206,7 @@ def analyze_disambiguation_xml(path: Path) -> Dict[str, Any]:
                     k, _ = pair.split(":", 1)
                     filter_arg_keys.add(k)
             filters_list.append({
-                "rule_id": rule_elem.attrib.get("id") or rule_elem.attrib.get("name", ""),
+                "rule_id": full_id,
                 "class": f_cls,
                 "args": f_args,
             })
@@ -214,7 +214,7 @@ def analyze_disambiguation_xml(path: Path) -> Dict[str, Any]:
         for ex in rule_elem.findall("example"):
             raw_xml = (ex.text or "") + "".join(ET.tostring(c, encoding="unicode") for c in ex)
             examples.append({
-                "rule_id": rule_elem.attrib.get("id") or rule_elem.attrib.get("name", ""),
+                "rule_id": full_id,
                 "type": ex.attrib.get("type", "ambiguous"),
                 "inputform": ex.attrib.get("inputform"),
                 "outputform": ex.attrib.get("outputform"),
@@ -227,6 +227,15 @@ def analyze_disambiguation_xml(path: Path) -> Dict[str, Any]:
             rg_id = child.attrib.get("id", "")
             for ap in child.findall("antipattern"):
                 antipattern_count += 1
+            for ex in child.findall("example"):
+                raw_xml = (ex.text or "") + "".join(ET.tostring(c, encoding="unicode") for c in ex)
+                examples.append({
+                    "rule_id": rg_id,
+                    "type": ex.attrib.get("type", "ambiguous"),
+                    "inputform": ex.attrib.get("inputform"),
+                    "outputform": ex.attrib.get("outputform"),
+                    "raw_xml": raw_xml.strip(),
+                })
             for sub_idx, sub_rule in enumerate(child.findall("rule"), 1):
                 rule_counter += 1
                 sub_id = sub_rule.attrib.get("id")
@@ -234,13 +243,13 @@ def analyze_disambiguation_xml(path: Path) -> Dict[str, Any]:
                 r_id = sub_id or rg_id
                 rule_ids.append(r_id)
                 full_rule_ids.append(full_id)
-                _collect_rule_stats(sub_rule)
+                _collect_rule_stats(sub_rule, full_id)
         elif child.tag == "rule":
             rule_counter += 1
             r_id = child.attrib.get("id") or child.attrib.get("name", f"rule_{rule_counter}")
             rule_ids.append(r_id)
             full_rule_ids.append(r_id)
-            _collect_rule_stats(child)
+            _collect_rule_stats(child, r_id)
 
     formatted_attrs_by_tag = {
         tag: sorted(list(attrs)) for tag, attrs in sorted(attrs_by_tag.items())

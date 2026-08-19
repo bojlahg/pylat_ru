@@ -5,5 +5,23 @@
   "loomchild_version": "2.0.3",
   "jar_name": "languagetool-commandline.jar",
   "oracle_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
-  "description": "Trusted Java LanguageTool development oracle specification for differential and fixture generation"
+  "trusted_oracle_builds": [
+    {
+      "name": "maven_central_standalone_release_6.8",
+      "sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+      "source_url": "https://repo1.maven.org/maven2/org/languagetool/languagetool-standalone/6.8/languagetool-standalone-6.8.zip",
+      "provenance": "Official LanguageTool 6.8 standalone zip release distributed on Maven Central repository (org.languagetool:languagetool-standalone:6.8)"
+    },
+    {
+      "name": "pinned_commit_source_build_6.8",
+      "sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+      "source_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+      "provenance": "Locally compiled languagetool-commandline.jar built from pinned upstream Git commit e807fcde6a6506191e1470744d2345da28c26be6"
+    }
+  ],
+  "trusted_sha256_set": [
+    "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37"
+  ],
+  "description": "Trusted Java LanguageTool development oracle specification and provenance records for differential and fixture generation"
 }

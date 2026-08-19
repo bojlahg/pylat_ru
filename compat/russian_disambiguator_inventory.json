@@ -169,97 +169,97 @@
     ],
     "filters": [
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:TRANS:PFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[3]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:TRANS:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[5]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[6]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[7]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:PFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[8]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:PFV:Sin:P2"
       },
       {
-        "rule_id": "",
+        "rule_id": "Word-TO[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-то postag_regexp:(NN|ADJ|VB|PT_Short):.*|ADV"
       },
       {
-        "rule_id": "",
+        "rule_id": "Word-zade[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-заде postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "Word-zade[2]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-паша postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "Word-zade[3]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-беи postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "Word-zade[4]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-оглы postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Пп]ол-([АаЕеЁёИиОоУуЭэЮюЯялЛ][а-яё]+) postag_regexp:NN:.*:R"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol1-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Оо]бер-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol5-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Уу]нтер-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol6-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Лл]ейб-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol2-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Шш]таб-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol3-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Вв]ице-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "pol4-Word[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Ээ]кс-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "",
+        "rule_id": "po-ADJ[1]",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Пп]о-([а-яё]+) postag_regexp:ADJ:Posit:(.*:D|PL:V) "
       }
@@ -302,21 +302,21 @@
         "raw_xml": "<marker>12</marker> процентов"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[1]",
         "type": "ambiguous",
         "inputform": "дай-ка[дай-ка]",
         "outputform": "дай-ка[дай-ка/VB:IMP:TRANS:PFV:Sin:P2]",
         "raw_xml": "Ваня, <marker>дай-ка</marker> мне этот молоток."
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[3]",
         "type": "ambiguous",
         "inputform": "пой-ка[пой-ка]",
         "outputform": "пой-ка[пой-ка/VB:IMP:TRANS:IMPFV:Sin:P2]",
         "raw_xml": "Ваня, <marker>пой-ка</marker> эту песню!"
       },
       {
-        "rule_id": "",
+        "rule_id": "VERB-KA[6]",
         "type": "ambiguous",
         "inputform": "прыгай-ка[прыгай-ка]",
         "outputform": "прыгай-ка[прыгай-ка/VB:IMP:INTR:IMPFV:Sin:P2]",

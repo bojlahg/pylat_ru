@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-Task 0005 establishes a fully native Python reimplementation of the complete LanguageTool Russian disambiguation subsystem:
+Task 0005 establishes a native Python reimplementation of the complete LanguageTool Russian disambiguation subsystem:
 
 1. **JLanguageTool Raw Sentence Assembly**:
    - `RussianSentenceAnalyzer.analyze_raw()` mirrors `JLanguageTool.getRawAnalyzedSentence()` for Russian.
@@ -17,11 +17,14 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
    - Separate retention of `source_token`, `clean_token`, and token container surface string.
    - Artificial `SENT_START` pseudo-token prepended at index 0 (`start_pos=0`, `pos_tag="SENT_START"`, `is_sentence_start=True`).
    - `SENT_END` reading appended to the last non-whitespace token container while preserving existing morphology and token surface string.
-   - Preservation of whitespace tokens and whitespace-before state across sequence snapshots.
+   - Exact reproduction of `AnalyzedTokenReadings.getWhitespaceBefore()` and `setWhitespaceBefore()`:
+     - Initialized to empty string `""` (`is_whitespace_before = False`).
+     - Preceding whitespace tokens correctly update `whitespace_before` to the whitespace string (`is_whitespace_before = True`).
+     - Preceding non-whitespace words/punctuation or empty tokens set `whitespace_before = ""` (`is_whitespace_before = False`).
 
 2. **Morphology & Container Mutation Semantics**:
    - `AnalyzedTokenReadings.add_reading()` appends without generic deduplication, updating `source_token` if a longer token reading is appended.
-   - `AnalyzedTokenReadings.remove_reading()` removes selected readings and falls back to a single null reading with the original token surface (never empty string) if all readings are removed, while preserving `SENT_END` container state.
+   - `AnalyzedTokenReadings.remove_reading()` removes selected readings. If `SENT_END` reading is removed, it is immediately restored via `set_sentence_end()`. If all readings are removed, falls back to a null reading with original token surface (never empty string), while preserving `SENT_END` container state.
    - Container metadata (`is_sentence_end`, `is_paragraph_end`, `chunk_tags`, `is_ignore_spelling`, `is_immunized`, `whitespace_before`, `pos_fix`, `start_pos`) is preserved across all mutation and replacement operations.
 
 3. **MultiWordChunker**:
@@ -31,8 +34,9 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
 
 4. **XmlRuleDisambiguator & PatternRule Engine**:
    - Strict fail-closed parsing of `src/pylat_ru/resources/ru/disambiguation.xml` (77 rules).
-   - Strict validation of all active XML tags (`rules`, `rulegroup`, `rule`, `pattern`, `marker`, `and`, `token`, `exception`, `disambig`, `wd`, `match`, `filter`, `antipattern`, `example`) and their exact allowed attribute sets.
-   - Full rule ID resolution without `UNKNOWN` rule IDs (`rulegroup_id[sub_id]`).
+   - Tightened attribute whitelists restricted to implemented & active attributes per element.
+   - Context-aware element containment validation (`ALLOWED_CHILDREN` per parent tag), rejecting invalid hierarchies immediately.
+   - Full rule ID resolution without `UNKNOWN` or empty rule IDs (`rulegroup_id[sub_id]` or `rulegroup_id[index]`).
    - Backtracking pattern matching supporting `skip="1"` and `skip="-1"`, `<and>` reading-set conjunction matching, `scope="next"` exceptions, `<marker>` span extraction, and antipattern suppression.
    - Disambiguation actions: `ADD`, `REMOVE` (by POS regex or `<wd>`), default `REPLACE`, `REPLACE` with `<match no="...">`, and `IGNORE_SPELLING`.
 
@@ -41,28 +45,29 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
 
 6. **Java LanguageTool 6.8 Differential Oracle & Committed Fixtures**:
    - Extended `tools/differential_lt.py` with `--generate-disambiguation-fixtures`, observing `getRawAnalyzedSentence()`, `MultiWordChunker.disambiguate()`, and `RussianHybridDisambiguator.disambiguate()`.
+   - Manifest `compat/oracle_manifest.json` tracks trusted oracle builds and provenance records (`b88f2358...` Maven Central standalone release and `4b63897b...` source build).
    - Generated committed deterministic fixture: `tests/fixtures/oracle_russian_disambiguation.json` covering 40 test cases across XML examples, multiword lengths/overlaps, action families, filters, complex pattern constructs, and accents/emojis/whitespace.
-   - Differential parity verified across 100% of cases and stages.
+   - Parity assertions verify all 12 observable fields: `token`, `start_pos_utf16`, `pos_fix`, `is_whitespace`, `is_sentence_start`, `is_sentence_end`, `is_paragraph_end`, `is_ignore_spelling`, `clean_token`, `whitespace_before`, `chunk_tags`, and every reading in exact sequence across all 40 cases and all 3 stages.
 
 ---
 
 ## 2. Key Files Added and Modified
 
 ### Implementation Files
-- `src/pylat_ru/analysis.py`: Refactored `AnalyzedToken`, `AnalyzedTokenReadings`, and `AnalyzedSentence` with exact mutation semantics, UTF-16 tracking, container metadata preservation, and sentence position mapping.
+- `src/pylat_ru/analysis.py`: Refactored `AnalyzedToken`, `AnalyzedTokenReadings`, and `AnalyzedSentence` with exact mutation semantics, UTF-16 tracking, container metadata preservation, whitespace-before string semantics, and sentence position mapping.
 - `src/pylat_ru/sentence_analyzer.py`: Implemented `RussianSentenceAnalyzer` for raw sentence assembly matching `JLanguageTool.getRawAnalyzedSentence()`.
 - `src/pylat_ru/disambiguation/multiwords.py`: Implemented fail-closed `MultiWordChunker`.
 - `src/pylat_ru/disambiguation/filters.py`: Implemented `NoDisambiguationRussianPartialPosTagFilter`.
 - `src/pylat_ru/disambiguation/pattern_matcher.py`: Implemented backtracking `PatternRuleMatcher`, `PatternToken`, and `PatternTokenException`.
 - `src/pylat_ru/disambiguation/rules.py`: Implemented `DisambiguationPatternRuleReplacer` and action execution engine.
-- `src/pylat_ru/disambiguation/xml_loader.py`: Implemented fail-closed `DisambiguationRuleLoader` and `XmlRuleDisambiguator`.
+- `src/pylat_ru/disambiguation/xml_loader.py`: Implemented fail-closed `DisambiguationRuleLoader` and `XmlRuleDisambiguator` with context-aware child validation and tightened attribute whitelists.
 - `src/pylat_ru/disambiguation/hybrid.py`: Implemented top-level `RussianHybridDisambiguator`.
 - `src/pylat_ru/__init__.py`: Exported `RussianSentenceAnalyzer`, `RussianHybridDisambiguator`, and `create_raw_analyzed_sentence`.
 
 ### Tooling & Compatibility Files
 - `tools/differential_lt.py`: Extended Java LanguageTool oracle interface with `disambiguate_sentences()` and `--generate-disambiguation-fixtures`.
-- `tools/russian_disambiguator_inventory.py`: Phase 0 inventory extraction script.
-- `compat/oracle_manifest.json`: Verified official LanguageTool 6.8 standalone jar SHA-256 (`b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`).
+- `tools/russian_disambiguator_inventory.py`: Phase 0 inventory extraction script with fully-resolved rule IDs for filters and examples.
+- `compat/oracle_manifest.json`: Verified LanguageTool 6.8 standalone jar SHA-256 (`b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`) and source build (`4b63897b...`).
 - `compat/russian_disambiguator_inventory.json`: Generated disambiguator inventory.
 - `compat/compatibility.json`: Updated compatibility matrix.
 
@@ -72,11 +77,11 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
 
 ### Test Files
 - `tests/fixtures/oracle_russian_disambiguation.json`: Committed 40-case Java oracle fixture.
-- `tests/unit/test_raw_sentence_analyzer.py`: Unit tests for `RussianSentenceAnalyzer`.
-- `tests/unit/test_analyzed_token_readings_mutations.py`: Unit tests for `AnalyzedTokenReadings` mutation semantics.
+- `tests/unit/test_raw_sentence_analyzer.py`: Unit tests for `RussianSentenceAnalyzer` including whitespace patterns.
+- `tests/unit/test_analyzed_token_readings_mutations.py`: Unit tests for `AnalyzedTokenReadings` mutation semantics including `SENT_END` removal restoration.
 - `tests/unit/test_matcher_backtracking.py`: Unit tests for backtracking, `<and>` conjunctions, and `scope="next"` exceptions.
 - `tests/unit/test_multiword_chunker.py`: Unit tests for `MultiWordChunker`.
-- `tests/unit/test_disambiguation_rules.py`: Unit tests for XML rule loading and actions.
+- `tests/unit/test_disambiguation_rules.py`: Unit tests for XML rule loading, actions, and fail-closed hierarchy validation.
 - `tests/unit/test_disambiguation_filter.py`: Unit tests for `NoDisambiguationRussianPartialPosTagFilter`.
 - `tests/unit/test_russian_hybrid_disambiguator.py`: Unit tests for `RussianHybridDisambiguator`.
 - `tests/unit/test_disambiguator_resources.py`: Unit tests for packaged resource integrity and isolated wheel installation.
@@ -88,15 +93,15 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
 ## 3. Test & Verification Results
 
 ### Test Execution Summary
-- **Total Tests Passed**: 174
+- **Total Tests Passed**: 179
 - **Total Tests Failed**: 0
 - **Total Tests Skipped**: 0
 - **Test Categories**:
-  - Raw Sentence Analysis: 7 tests passed
-  - Data Model Mutations: 6 tests passed
+  - Raw Sentence Analysis: 8 tests passed
+  - Data Model Mutations: 7 tests passed
   - Backtracking & Pattern Constructs: 3 tests passed
   - MultiWord Chunker: 7 tests passed
-  - XML Disambiguation Rules: 8 tests passed
+  - XML Disambiguation Rules: 11 tests passed
   - Disambiguation Filters: 5 tests passed
   - Hybrid Disambiguator: 3 tests passed
   - Resource Packaging & Wheel Smoke Tests: 4 tests passed
@@ -111,7 +116,7 @@ Task 0005 establishes a fully native Python reimplementation of the complete Lan
 - **Disambiguation Rules**: 77 rules loaded in exact source order from `disambiguation.xml`.
 - **Filters**: `NoDisambiguationRussianPartialPosTagFilter` fully supported.
 - **Multiwords**: 217 distinct phrases from `multiwords.txt` supported.
-- **Fail-Closed Validation**: Unknown XML elements or attributes raise `DisambiguationFormatError` immediately.
+- **Fail-Closed Validation**: Unknown XML elements, invalid element nesting, or unhandled attributes raise `DisambiguationFormatError` immediately.
 - **Oracle Boundary**: Complete 3-stage isolation (`raw` -> `multiword` -> `disambiguated`) matching LanguageTool 6.8 behavior without invoking out-of-scope `RussianChunker`.
 
 ---

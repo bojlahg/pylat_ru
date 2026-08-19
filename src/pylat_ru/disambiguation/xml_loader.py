@@ -60,8 +60,8 @@ ALLOWED_ATTRIBUTES: Dict[str, Set[str]] = {
         "{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation",
         "xsi:noNamespaceSchemaLocation",
     },
-    "rulegroup": {"id", "name", "default"},
-    "rule": {"id", "name", "default"},
+    "rulegroup": {"id", "name"},
+    "rule": {"id", "name"},
     "pattern": {"case_sensitive"},
     "marker": set(),
     "and": set(),
@@ -74,8 +74,6 @@ ALLOWED_ATTRIBUTES: Dict[str, Set[str]] = {
         "postag_regexp",
         "negate_pos",
         "skip",
-        "min",
-        "max",
     },
     "exception": {
         "regexp",
@@ -89,15 +87,32 @@ ALLOWED_ATTRIBUTES: Dict[str, Set[str]] = {
     },
     "disambig": {"action", "postag"},
     "wd": {"pos", "lemma"},
-    "match": {"no", "postag", "postag_regex", "pos_replace", "set_postag"},
+    "match": {"no", "postag"},
     "filter": {"class", "args"},
     "antipattern": {"case_sensitive"},
-    "example": {"type", "inputform", "outputform", "reason"},
+    "example": {"type", "inputform", "outputform"},
+}
+
+ALLOWED_CHILDREN: Dict[str, Set[str]] = {
+    "rules": {"rule", "rulegroup"},
+    "rulegroup": {"rule", "antipattern", "example"},
+    "rule": {"antipattern", "pattern", "disambig", "filter", "example"},
+    "pattern": {"token", "marker", "and"},
+    "marker": {"token", "and"},
+    "and": {"token"},
+    "antipattern": {"token", "marker", "and"},
+    "token": {"exception"},
+    "exception": set(),
+    "disambig": {"match", "wd"},
+    "match": set(),
+    "wd": set(),
+    "filter": set(),
+    "example": {"marker"},
 }
 
 
-def _validate_element(elem: ET.Element) -> None:
-    """Validate that elem's tag and attributes are strictly supported."""
+def _validate_element(elem: ET.Element, parent_tag: Optional[str] = None) -> None:
+    """Validate that elem's tag, parent context, and attributes are strictly supported."""
     tag = elem.tag
     if not isinstance(tag, str):
         return  # e.g. comments or processing instructions
@@ -105,12 +120,23 @@ def _validate_element(elem: ET.Element) -> None:
     if tag not in ALLOWED_TAGS:
         raise DisambiguationFormatError(f"Unsupported XML element in disambiguation XML: <{tag}>")
 
+    if parent_tag is not None:
+        allowed_children = ALLOWED_CHILDREN.get(parent_tag, set())
+        if tag not in allowed_children:
+            raise DisambiguationFormatError(
+                f"XML element <{tag}> is not allowed inside parent <{parent_tag}>"
+            )
+
     allowed_attrs = ALLOWED_ATTRIBUTES.get(tag, set())
     for attr in elem.attrib:
         if attr not in allowed_attrs:
             raise DisambiguationFormatError(
                 f"Unsupported attribute '{attr}' on element <{tag}> in disambiguation XML"
             )
+
+    for child in elem:
+        if isinstance(child.tag, str):
+            _validate_element(child, parent_tag=tag)
 
 
 def _resolve_resource_path(resource_name: str) -> Path:
