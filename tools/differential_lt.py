@@ -27,6 +27,9 @@ from typing import Any, Dict, List, Optional, Sequence
 PINNED_LT_VERSION = "6.8"
 PINNED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
 LOOMCHILD_VERSION = "2.0.3"
+DEFAULT_ORACLE_MANIFEST_PATH = (
+    Path(__file__).resolve().parent.parent / "compat" / "oracle_manifest.json"
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -91,12 +94,14 @@ class JavaLanguageToolOracle:
         jar_path: Optional[Path] = None,
         cache_dir: Optional[Path] = None,
         language: str = "ru-RU",
+        manifest_path: Optional[Path] = None,
     ) -> None:
         self.language = language
         self.cache_dir = cache_dir or (
             Path(__file__).resolve().parent.parent / ".oracle_cache"
         )
         self.jar_path = jar_path
+        self.manifest_path = manifest_path or DEFAULT_ORACLE_MANIFEST_PATH
 
     def is_java_available(self) -> bool:
         """Check if java and javac runtimes are available on the system."""
@@ -115,8 +120,11 @@ class JavaLanguageToolOracle:
             return candidate
         return None
 
-    def validate_oracle(self) -> Dict[str, Any]:
-        """Strictly validate the configured Java LanguageTool oracle identity and provenance."""
+    def validate_oracle(
+        self,
+        expected_sha256: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Strictly validate the configured Java LanguageTool oracle identity, provenance, and SHA-256."""
         if not self.is_java_available():
             raise RuntimeError("Java runtime (java/javac) is not available in PATH.")
 
@@ -128,6 +136,25 @@ class JavaLanguageToolOracle:
             )
 
         jar_hash = sha256_file(jar)
+
+        # Resolve expected SHA-256 from argument, manifest, or environment
+        expected_hash = expected_sha256
+        if expected_hash is None and self.manifest_path.is_file():
+            try:
+                manifest_data = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+                expected_hash = manifest_data.get("oracle_sha256")
+            except Exception:
+                pass
+        if expected_hash is None:
+            expected_hash = os.environ.get("PYLAT_ORACLE_SHA256")
+
+        if expected_hash and jar_hash != expected_hash:
+            raise RuntimeError(
+                f"Oracle JAR SHA-256 mismatch for {jar}:\n"
+                f"  Expected: {expected_hash}\n"
+                f"  Actual:   {jar_hash}\n"
+                f"Refusing to use unverified LanguageTool oracle."
+            )
 
         # Run minimal Java probe to verify JLanguageTool version and Russian pipeline classes
         java_probe = """
@@ -444,7 +471,8 @@ def generate_tokenization_fixtures(
 ) -> None:
     """Regenerate oracle sentence and word fixtures directly from pinned Java LT."""
     # Refuse fixture generation if oracle cannot be strictly proven
-    oracle.validate_oracle()
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
 
     sent_fixture_path = fixtures_dir / "oracle_russian_sentence_tokenization.json"
     word_fixture_path = fixtures_dir / "oracle_russian_word_tokenization.json"
@@ -454,6 +482,9 @@ def generate_tokenization_fixtures(
 
     sent_data = json.loads(sent_fixture_path.read_text(encoding="utf-8"))
     word_data = json.loads(word_fixture_path.read_text(encoding="utf-8"))
+
+    sent_data["metadata"]["oracle_jar_sha256"] = oracle_sha
+    word_data["metadata"]["oracle_jar_sha256"] = oracle_sha
 
     for case in sent_data["cases"]:
         text = case["text"]
@@ -472,8 +503,8 @@ def generate_tokenization_fixtures(
     word_fixture_path.write_text(
         json.dumps(word_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
-    print(f"Updated sentence fixture from Java Oracle -> {sent_fixture_path}")
-    print(f"Updated word fixture from Java Oracle -> {word_fixture_path}")
+    print(f"Updated sentence fixture from Java Oracle -> {sent_fixture_path} (oracle SHA: {oracle_sha})")
+    print(f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha})")
 
 
 def main() -> int:

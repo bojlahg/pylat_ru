@@ -144,8 +144,9 @@ Measured on standard single-threaded Python runtime:
 - Code-point $\leftrightarrow$ UTF-16 mapper construction: **~1.45 ms**.
 
 ### 6.2 Regex Engine Dependency
-- Declared dependency: `regex>=2024.5.15,<=2026.7.19` (Apache-2.0 / Python Software Foundation License).
+- Declared dependency: `regex>=2024.5.15,<=2026.7.19` (SPDX: `Apache-2.0 AND CNRI-Python`).
 - Required for Java `(?U)` flag support, Unicode properties (`\p{Ll}`, `\p{Lu}`, `\p{L}`, `\p{Pe}`), and lookbehind execution.
+
 
 ---
 

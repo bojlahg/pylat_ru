@@ -20,6 +20,7 @@ All operations execute in native Python with **zero Java/JRE, zero daemon/server
 - **`segment.srx` Hash (SHA-256)**: `746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da` (size: 213,633 bytes). Verified strictly prior to generating artifacts.
 - **SRX Reference Engine**: `net.loomchild.segment` version `2.0.3`.
 - **SRX Cascade Header**: `cascade="yes"`, `segmentsubflows="yes"`.
+- **Java LanguageTool Development Oracle Manifest**: `compat/oracle_manifest.json` (SHA-256: `4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37`).
 
 ---
 
@@ -30,22 +31,24 @@ All operations execute in native Python with **zero Java/JRE, zero daemon/server
    - Strict type-checking on all rule fields (rejecting non-str `group`, non-int/bool `rule_index`, non-str `beforebreak`/`afterbreak`) without unsafe type coercion.
    - Added negative tests `test_strict_srx_metadata_exact_values` and `test_strict_srx_rule_field_types`.
 2. **Verifiably Pinned Java Development Oracle**:
-   - Implemented `validate_oracle()` in `tools/differential_lt.py` that checks Java availability, validates JAR presence, runs a Java probe verifying `org.languagetool.JLanguageTool.VERSION == "6.8"`, and computes JAR SHA-256.
-   - Explicitly refuses fixture generation when oracle identity cannot be proven.
+   - Implemented `validate_oracle()` in `tools/differential_lt.py` that checks Java availability, validates JAR presence, loads trusted manifest `compat/oracle_manifest.json`, verifies JAR SHA-256, and runs a Java probe verifying `org.languagetool.JLanguageTool.VERSION == "6.8"`.
+   - Explicitly refuses fixture generation when oracle identity or hash cannot be proven.
+   - Recorded verified oracle SHA-256 in `oracle_russian_sentence_tokenization.json` and `oracle_russian_word_tokenization.json`.
+   - Added test `test_oracle_manifest_structure_and_sha_mismatch`.
 3. **Exact Loomchild 2.0.3 `SrxTextIterator` Alignment**:
    - Reimplemented `SRXSegmenter` with explicit `_init_matchers()`, `_get_min_matcher()`, `_is_exception()`, `_cut_matchers()`, and `_move_matchers()` methods matching `net.loomchild.segment.srx.SrxTextIterator` line-by-line.
    - Ensured `while matcher.break_pos <= end` loop semantics after every candidate boundary.
    - Added synthetic tests `test_synthetic_overlapping_and_same_boundary_rules` verifying multi-rule and overlapping boundary behavior.
 4. **Byte-Exact Regeneration Pytest**:
    - Updated `test_srx_inventory_and_rules_complete_regeneration` to compare raw serialized string contents (`read_text()`) against committed `compat/russian_srx_inventory.json` and `src/pylat_ru/resources/russian_srx_rules.json`.
-5. **Dynamic `<languagemap>` Resolution**:
+5. **SPDX License Expression for `regex`**:
+   - Corrected `regex` dependency license specification in `docs/russian_tokenization.md` to exact SPDX expression: `Apache-2.0 AND CNRI-Python`.
+6. **Dynamic `<languagemap>` Resolution**:
    - Dynamic evaluation of all `<languagemap>` entries in XML document order against `languagepattern` matching target code (`ru_two`, `ru_one`), respecting `cascade="yes"`.
-6. **Loomchild `segment 2.0.3` Lookbehind Finitization**:
+7. **Loomchild `segment 2.0.3` Lookbehind Finitization**:
    - Implemented `finitize(pattern, max_length=100)` with `remove_block_quotes()`.
-7. **`RussianWordTokenizer.is_email()` Fullmatch Semantics**:
+8. **`RussianWordTokenizer.is_email()` Fullmatch Semantics**:
    - Fixed `is_email()` to use `fullmatch()` matching Java `Matcher.matches()`.
-8. **Tightly Bounded `regex` Dependency**:
-   - Updated `pyproject.toml` to `dependencies = ["regex>=2024.5.15,<=2026.7.19"]`. Documented Apache-2.0 / PSF license in `docs/russian_tokenization.md`.
 
 ---
 
@@ -86,10 +89,10 @@ src/pylat_ru/
 
 ## 6. Verification & Test Suite Summary
 
-The complete pytest suite passes with **93 passed tests in 2.35s**:
+The complete pytest suite passes with **94 passed tests in 2.41s**:
 
 ```text
-tests/unit/test_differential_boundary.py ................ 4 passed
+tests/unit/test_differential_boundary.py ................ 5 passed
 tests/unit/test_foundation.py ........................... 4 passed
 tests/unit/test_inventory.py ............................ 12 passed
 tests/unit/test_license_inventory.py .................... 2 passed
@@ -108,7 +111,7 @@ tests/upstream/test_russian_dictionary_lookup.py ........ 2 passed
 tests/upstream/test_russian_sentence_tokenizer_parity.py  2 passed
 tests/upstream/test_russian_synth_dictionary_lookup.py .. 2 passed
 tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
-======================================================== 93 passed in 2.35s
+======================================================== 94 passed in 2.41s
 ```
 
 ---
@@ -116,7 +119,7 @@ tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
 ## 7. Performance Sanity Measurements
 
 Measured on standard single-threaded Python runtime:
-- **Sentence Tokenizer Initialization**: **0.13 ms** (rules compiled and cached).
+- **Sentence Tokenizer Initialization**: **0.13 ms** (rules compiled and cached in singleton manager).
 - **Word Tokenizer Initialization**: **0.00 ms**.
 - **Sentence Tokenization (37.6 KB / 400 sentences)**: **12.78 ms** (~2.81 MB/s throughput).
 - **Word Tokenization (37.6 KB / 7,775 tokens)**: **3.70 ms** (~9.68 MB/s throughput).

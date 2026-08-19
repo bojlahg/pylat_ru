@@ -1,9 +1,13 @@
 """Unit tests for differential test oracle boundary and comparison schemas."""
 
-import pytest
+import json
 from pathlib import Path
+import pytest
 
 from tools.differential_lt import (
+    DEFAULT_ORACLE_MANIFEST_PATH,
+    PINNED_LT_COMMIT,
+    PINNED_LT_VERSION,
     DifferentialComparisonResult,
     Finding,
     JavaLanguageToolOracle,
@@ -112,3 +116,21 @@ def test_oracle_isolation_and_error_handling(tmp_path: Path):
     # Refuse fixture generation when oracle identity cannot be proven
     with pytest.raises(RuntimeError):
         generate_tokenization_fixtures(oracle, tmp_path)
+
+
+def test_oracle_manifest_structure_and_sha_mismatch(tmp_path: Path):
+    """Verify oracle manifest bindings and SHA-256 mismatch rejection."""
+    assert DEFAULT_ORACLE_MANIFEST_PATH.is_file(), f"Missing {DEFAULT_ORACLE_MANIFEST_PATH}"
+    manifest_data = json.loads(DEFAULT_ORACLE_MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert manifest_data.get("pinned_version") == PINNED_LT_VERSION
+    assert manifest_data.get("pinned_commit") == PINNED_LT_COMMIT
+    assert "oracle_sha256" in manifest_data
+
+    # Fake jar with wrong SHA-256
+    fake_jar = tmp_path / "languagetool-commandline.jar"
+    fake_jar.write_text("fake jar content", encoding="utf-8")
+
+    oracle_fake = JavaLanguageToolOracle(jar_path=fake_jar, manifest_path=DEFAULT_ORACLE_MANIFEST_PATH)
+    if oracle_fake.is_java_available():
+        with pytest.raises(RuntimeError, match="Oracle JAR SHA-256 mismatch"):
+            oracle_fake.validate_oracle()
