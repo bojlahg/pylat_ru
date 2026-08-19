@@ -34,9 +34,11 @@ def test_grammar_advanced_inventory_structure_counts():
     data = json.loads(ADVANCED_INVENTORY_OUTPUT_PATH.read_text(encoding="utf-8"))
 
     assert data["schema_version"] == "1.0.0"
-    assert data["metadata"]["pinned_lt_version"] == "6.8"
-    assert data["metadata"]["pinned_lt_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
-    assert data["metadata"]["baseline_task_0007_commit"] == "b75bc4dfa84c1549d22f83388785dd9b2988f6de"
+    prov = data["provenance"]
+    assert prov["pinned_lt_version"] == "6.8"
+    assert prov["pinned_lt_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
+    assert prov["baseline_0007_commit"] == "b75bc4dfa84c1549d22f83388785dd9b2988f6de"
+    assert prov["generator_path"] == "tools/russian_grammar_advanced_inventory.py"
 
     totals = data["source_totals"]
     assert totals["categories"] == 8

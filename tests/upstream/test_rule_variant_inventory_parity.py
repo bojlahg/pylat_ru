@@ -99,6 +99,9 @@ def test_ordered_variant_signatures_parity():
             global_idx += 1
 
 
+CANONICAL_RAW_INVENTORY_PATH = REPO_ROOT / "compat" / "inventory.json"
+
+
 def test_advanced_inventory_canonical_totals_and_invariants():
     assert ADVANCED_INVENTORY_PATH.exists(), f"Missing canonical inventory at {ADVANCED_INVENTORY_PATH}"
     inv = json.loads(ADVANCED_INVENTORY_PATH.read_text(encoding="utf-8"))
@@ -124,18 +127,145 @@ def test_advanced_inventory_canonical_totals_and_invariants():
     # Examples Summary
     ex_sum = inv["examples_summary"]
     assert ex_sum["runnable_0007_0008_total"] == 1738
+    assert ex_sum["runnable_0007_0008_incorrect"] == 837
+    assert ex_sum["runnable_0007_0008_correct"] == 901
     assert ex_sum["deferred_total"] == 708
+    assert ex_sum["deferred_incorrect"] == 202
+    assert ex_sum["deferred_correct"] == 506
+    assert ex_sum["all_rules_examples_total"] == 2446
+    assert ex_sum["all_rules_examples_incorrect"] == 1039
+    assert ex_sum["all_rules_examples_correct"] == 1407
 
-    # Attribute distribution invariants: sum(distribution.values()) == occurrences_count
+    # Core 0007 examples regression
+    core_ex = ex_sum["by_state"]["CORE_0007_RUNNABLE"]
+    assert core_ex["total"] == 988
+    assert core_ex["incorrect"] == 525
+    assert core_ex["correct"] == 463
+
+    # Whole grammar raw examples
+    raw_ex = ex_sum["raw_xml_whole_grammar"]
+    assert raw_ex["total_examples"] == 2446
+    assert raw_ex["incorrect_examples"] == 1083
+    assert raw_ex["correct_examples"] == 1363
+    assert raw_ex["examples_with_corrections"] == 1026
+
+    # Attribute distribution invariants: sum(raw_value_distribution.values()) == raw_xml_occurrences
     feat_sum = inv["feature_summary"]
     for feat, data in feat_sum.items():
         src_cnt = data["source_rules_count"]
-        occ_cnt = data["occurrences_count"]
-        assert src_cnt <= occ_cnt or occ_cnt == 0, f"Source rules count {src_cnt} > occurrences {occ_cnt} for {feat}"
+        raw_occ = data["raw_xml_occurrences"]
 
-        dist = data.get("value_distribution")
-        if dist is not None:
-            sum_dist = sum(dist.values())
-            assert sum_dist == occ_cnt, (
-                f"Distribution sum {sum_dist} != occurrences_count {occ_cnt} for feature {feat}"
+        raw_dist = data.get("raw_value_distribution")
+        if raw_dist is not None:
+            sum_dist = sum(raw_dist.values())
+            assert sum_dist == raw_occ, (
+                f"Raw distribution sum {sum_dist} != raw_xml_occurrences {raw_occ} for feature {feat}"
             )
+
+        pos_dist = data.get("positive_pattern_value_distribution")
+        if pos_dist is not None:
+            pos_occ = data["positive_pattern_occurrences"]
+            sum_pos = sum(pos_dist.values())
+            assert sum_pos == pos_occ, (
+                f"Positive distribution sum {sum_pos} != positive_pattern_occurrences {pos_occ} for {feat}"
+            )
+
+
+def test_advanced_inventory_raw_xml_reconciliation_against_inventory_json():
+    """Verify exact parity between advanced inventory raw counts and canonical compat/inventory.json."""
+    assert ADVANCED_INVENTORY_PATH.exists()
+    assert CANONICAL_RAW_INVENTORY_PATH.exists()
+
+    inv = json.loads(ADVANCED_INVENTORY_PATH.read_text(encoding="utf-8"))
+    raw_canon = json.loads(CANONICAL_RAW_INVENTORY_PATH.read_text(encoding="utf-8"))
+
+    raw_checks = inv["raw_xml_totals"]["reconciliation_checks"]
+    tag_counts = raw_canon["grammar_xml"]["xml_structure"]["tag_counts"]
+    attr_counts = raw_canon["grammar_xml"]["xml_structure"]["attribute_counts"]
+
+    # 17 mandatory reconciliation points
+    assert raw_checks["match_elements_total"] == 620
+    assert raw_checks["match_elements_total"] == tag_counts["match"]
+
+    assert raw_checks["antipattern_elements_total"] == 146
+    assert raw_checks["antipattern_elements_total"] == tag_counts["antipattern"]
+    assert raw_checks["antipattern_rulegroup_level"] == 20
+    assert raw_checks["antipattern_rule_level"] == 126
+
+    assert raw_checks["token_chunk_occurrences"] == 21
+    assert raw_checks["token_chunk_occurrences"] == attr_counts["token@chunk"]
+
+    assert raw_checks["token_spacebefore_occurrences"] == 33
+    assert raw_checks["token_spacebefore_occurrences"] == attr_counts["token@spacebefore"]
+
+    assert raw_checks["token_skip_occurrences"] == 218
+    assert raw_checks["token_skip_occurrences"] == attr_counts["token@skip"]
+
+    assert raw_checks["token_min_occurrences"] == 30
+    assert raw_checks["token_min_occurrences"] == attr_counts["token@min"]
+
+    assert raw_checks["token_max_occurrences"] == 30
+    assert raw_checks["token_max_occurrences"] == attr_counts["token@max"]
+
+    assert raw_checks["exception_spacebefore_occurrences"] == 1
+    assert raw_checks["exception_spacebefore_occurrences"] == attr_counts["exception@spacebefore"]
+
+    assert raw_checks["exception_scope_explicit_occurrences"] == 370
+    assert raw_checks["exception_scope_explicit_occurrences"] == attr_counts["exception@scope"]
+
+    assert raw_checks["match_case_conversion_occurrences"] == 17
+    assert raw_checks["match_case_conversion_occurrences"] == attr_counts["match@case_conversion"]
+
+    assert raw_checks["match_include_skipped_occurrences"] == 68
+    assert raw_checks["match_include_skipped_occurrences"] == attr_counts["match@include_skipped"]
+
+    assert raw_checks["match_postag_occurrences"] == 136
+    assert raw_checks["match_postag_occurrences"] == attr_counts["match@postag"]
+
+    assert raw_checks["match_postag_regexp_occurrences"] == 136
+    assert raw_checks["match_postag_regexp_occurrences"] == attr_counts["match@postag_regexp"]
+
+    assert raw_checks["match_postag_replace_occurrences"] == 133
+    assert raw_checks["match_postag_replace_occurrences"] == attr_counts["match@postag_replace"]
+
+    assert raw_checks["match_regexp_match_occurrences"] == 61
+    assert raw_checks["match_regexp_match_occurrences"] == attr_counts["match@regexp_match"]
+
+    assert raw_checks["match_regexp_replace_occurrences"] == 61
+    assert raw_checks["match_regexp_replace_occurrences"] == attr_counts["match@regexp_replace"]
+
+    assert raw_checks["match_setpos_occurrences"] == 4
+    assert raw_checks["match_setpos_occurrences"] == attr_counts["match@setpos"]
+
+    assert raw_checks["pattern_raw_pos_occurrences"] == 3
+    assert raw_checks["pattern_raw_pos_occurrences"] == attr_counts["pattern@raw_pos"]
+
+    # Antipattern details
+    ap_details = inv["antipattern_details"]
+    assert ap_details["raw_total_antipattern_elements"] == 146
+    assert ap_details["raw_rule_antipattern_elements"] == 126
+    assert ap_details["raw_rulegroup_antipattern_elements"] == 20
+    assert ap_details["source_rules_with_direct_antipatterns_count"] == 49
+    assert ap_details["source_rules_with_inherited_antipatterns_count"] == 5
+    assert ap_details["source_rules_with_any_antipatterns_count"] == 51
+    assert ap_details["effective_inherited_applications"] == 59
+
+    # Exception scope details
+    exc_details = inv["raw_xml_totals"]["exception_scope_summary"]
+    assert exc_details["raw_total_exceptions"] == 1275
+    assert exc_details["explicit_scope_raw_occurrences"] == 370
+    assert exc_details["implicit_scope_raw_occurrences"] == 905
+    assert exc_details["explicit_scope_distribution"] == {"next": 203, "previous": 167}
+    assert exc_details["effective_scope_distribution"] == {"current": 905, "next": 203, "previous": 167}
+
+
+def test_advanced_inventory_reproducibility_metadata():
+    inv = json.loads(ADVANCED_INVENTORY_PATH.read_text(encoding="utf-8"))
+    prov = inv["provenance"]
+
+    assert prov["generator_path"] == "tools/russian_grammar_advanced_inventory.py"
+    assert len(prov["generator_sha256"]) == 64
+    assert prov["pinned_lt_version"] == "6.8"
+    assert prov["pinned_lt_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
+    assert prov["baseline_0007_commit"] == "b75bc4dfa84c1549d22f83388785dd9b2988f6de"
+

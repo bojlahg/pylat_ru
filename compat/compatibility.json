@@ -197,8 +197,8 @@
         "upstream_test_files_translated": 6,
         "task_0008_python_test_functions_total": 35,
         "task_0008_translated_assertions_total": 120,
-        "task_0008_oracle_parity_test_functions_total": 11,
-        "task_0008_python_tests_passed": 46,
+        "task_0008_oracle_parity_test_functions_total": 13,
+        "task_0008_python_tests_passed": 48,
         "remaining_upstream_test_files_not_ported": 12
       },
       "grammar_xml_examples": {

@@ -25,46 +25,46 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
   - `MULTI_BLOCKER`: 7 source rules
   - Total source rules: 892
 - **Pre-0008 Example Counts**:
-  - Core runnable examples: 988 (6 incorrect, 982 correct)
-  - Deferred examples: 1,458
-  - Total embedded grammar examples: 2,446
+  - Core runnable examples: 988 (525 incorrect, 463 correct)
+  - Deferred examples: 1,458 (514 incorrect, 944 correct)
+  - Total embedded grammar examples: 2,446 (1,083 incorrect, 1,363 correct)
 
 ---
 
 ## 3. Feature Inventory
 
-Exact source rule counts, XML occurrence counts, and observed attribute-value distributions derived canonically from `grammar.xml` (`compat/russian_grammar_advanced_inventory.json`):
+Exact source rule counts, raw XML occurrence counts, and observed attribute-value distributions derived canonically from `grammar.xml` (`compat/russian_grammar_advanced_inventory.json` reconciled with `compat/inventory.json`):
 
-| Feature Name | Source Rules | XML Occurrences | Observed Attribute-Value Distribution |
+| Feature Name | Source Rules | Raw XML Occurrences | Effective Applications / Observed Distribution |
 |---|---|---|---|
 | `pattern@raw_pos` | 3 | 3 | `raw_pos="yes"`: 3 |
 | `token@raw_pos` | 0 | 0 | None (0 in Russian `grammar.xml`) |
-| `token@chunk` | 4 | 16 | `B-VP`: 6, `I-ADJP`: 6, `B-ADJP`: 3, `MayMissingYO`: 1 |
-| `token@spacebefore` | 20 | 28 | `spacebefore="yes"`: 14, `spacebefore="no"`: 14 |
+| `token@chunk` | 4 | 21 | `I-ADJP`: 7, `B-VP`: 6, `MayMissingYO`: 4, `B-ADJP`: 3, `O`: 1 (Positive pattern tokens: 16) |
+| `token@spacebefore` | 20 | 33 | `spacebefore="no"`: 19, `spacebefore="yes"`: 14 (Positive pattern tokens: 28) |
 | `exception@spacebefore` | 1 | 1 | `spacebefore="no"`: 1 (`Num_plus_Noun1[1]`) |
 | `pattern:and` | 1 | 1 | Embedded conjunction `<and>`: 1 (`PREP_and_PNN[1]`) |
 | `pattern:or` | 15 | 15 | Disjunction `<or>`: 15 (each expands to 2 physical variants) |
 | `phrase_definition` | 0 | 0 | None (0 in Russian `grammar.xml`) |
 | `phrase_reference` | 0 | 0 | None (0 in Russian `grammar.xml`) |
-| `token@skip` | 97 | 137 | `skip="-1"`: 102, `skip="1"`: 21, `skip="2"`: 8, `skip="3"`: 5, `skip="4"`: 1 |
-| `token@min` | 21 | 22 | `min="0"`: 12, `min="1"`: 7, `min="2"`: 3 |
-| `token@max` | 21 | 22 | `max="1"`: 10, `max="2"`: 6, `max="3"`: 3, `max="4"`: 3 |
-| `exception@scope=current` | 312 | 807 | Scoped exception on current matching token |
-| `exception@scope=previous` | 95 | 140 | Scoped lookbehind exception |
-| `exception@scope=next` | 84 | 167 | Scoped lookahead exception |
-| `antipattern_rule_level` | 49 | 126 | Rule-level antipattern sequences |
-| `antipattern_rulegroup_inherited` | 5 | 59 | Inherited rulegroup antipattern sequences |
+| `token@skip` | 97 | 218 | `skip="-1"`: 165, `skip="1"`: 29, `skip="2"`: 11, `skip="3"`: 10, `skip="4"`: 2, `skip="5"`: 1 (Positive pattern tokens: 137) |
+| `token@min` | 21 | 30 | `min="0"`: 20, `min="1"`: 7, `min="2"`: 3 (Positive pattern tokens: 22) |
+| `token@max` | 21 | 30 | `max="1"`: 18, `max="2"`: 6, `max="3"`: 3, `max="4"`: 3 (Positive pattern tokens: 22) |
+| `exception@scope=current` | 312 | 905 | Implicit default-current exceptions (Total exceptions in grammar: 1,275) |
+| `exception@scope=previous` | 95 | 167 | Explicit lookbehind `scope="previous"` attribute occurrences |
+| `exception@scope=next` | 84 | 203 | Explicit lookahead `scope="next"` attribute occurrences |
+| `antipattern_rule_level` | 49 | 126 | Rule-level physical `<antipattern>` XML elements |
+| `antipattern_rulegroup_inherited` | 5 | 20 | Rulegroup-level `<antipattern>` XML elements (59 effective applications across 5 constituent rules) |
 | `token_level_match` | 0 | 0 | None (0 in Russian `grammar.xml`) |
-| `message_suggestion_match` | 256 | 1,231 | Dynamic `<match>` elements in messages/suggestions |
-| `match@case_conversion` | 10 | 34 | `startlower`: 16, `startupper`: 8, `alllower`: 6, `firstupper`: 4 |
-| `match@include_skipped` | 33 | 135 | `include_skipped="all"`: 127, `include_skipped="none"`: 8 |
-| `match@regexp_match` / `replace` | 61 | 122 | Regex surface text / POS capture transformations |
-| `match@postag` / `postag_regexp` | 129 | 270 | Morphological synthesis POS query with regex flag |
-| `match@postag_replace` | 126 | 264 | Target POS regex replacement expressions |
-| `match@setpos` | 4 | 8 | `setpos="yes"`: 8 |
+| `message_suggestion_match` | 257 | 620 | Physical `<match>` elements across all rules |
+| `match@case_conversion` | 10 | 17 | `startlower`: 8, `startupper`: 4, `alllower`: 3, `firstupper`: 2 |
+| `match@include_skipped` | 33 | 68 | `include_skipped="all"`: 64, `include_skipped="none"`: 4 |
+| `match@regexp_match` / `replace` | 61 | 61 | Regex surface text / POS capture transformations |
+| `match@postag` / `postag_regexp` | 129 | 136 | Morphological synthesis POS query with regex flag |
+| `match@postag_replace` | 126 | 133 | Target POS regex replacement expressions |
+| `match@setpos` | 4 | 4 | `setpos="yes"`: 4 |
 | `match@setpostag` | 0 | 0 | None (0 in Russian `grammar.xml`) |
 | `match@suppress_misspelled` | 0 | 0 | None (0 in Russian `grammar.xml`) |
-| `static_lemma_match` | 8 | 16 | Static lemma string inside `<match>lemma</match>` |
+| `static_lemma_match` | 8 | 8 | Static lemma string inside `<match>lemma</match>` |
 | `rule@minprevmatches` | 0 | 0 | None (0 in Russian `grammar.xml`) |
 | `rule@distancetokens` | 0 | 0 | None (0 in Russian `grammar.xml`) |
 | `rulegroup@minprevmatches` | 0 | 0 | None (0 in Russian `grammar.xml`) |
@@ -182,7 +182,7 @@ tests/upstream/test_rule_variant_inventory_parity.py .....                     [
   - `f3a158295eac6f5eb3aed540a07467f37df924e2` (Task 0008 review fixes 1)
   - `10795aa49f1c71e4515c31088daae37f03a612b1` (Task 0008 review fixes 2)
   - `3cd9565f87781aca78e0841a5c0a9956977f50fd` (Task 0008 closure cleanup)
-  - `f73538d` (Task 0008 canonical inventory and variant order evidence closure)
+  - `1966294c660e6cd355e041a69df4334256595eca` (Task 0008 canonical inventory and variant order evidence closure)
 - **Push Target**: `origin/main`
 - **Remote Verification**: Verified on `refs/heads/main` via `git ls-remote origin main`.
 - **Next Task Notice**: Task 0009 has NOT been started.

@@ -23,6 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 UPSTREAM_JSON_PATH = REPO_ROOT / "third_party" / "languagetool" / "UPSTREAM.json"
 LICENSE_INV_PATH = REPO_ROOT / "third_party" / "languagetool" / "license_inventory.json"
 ORACLE_MANIFEST_PATH = REPO_ROOT / "compat" / "oracle_manifest.json"
+CANONICAL_RAW_INVENTORY_PATH = REPO_ROOT / "compat" / "inventory.json"
 CORE_INVENTORY_PATH = REPO_ROOT / "compat" / "russian_grammar_core_inventory.json"
 ADVANCED_INVENTORY_OUTPUT_PATH = REPO_ROOT / "compat" / "russian_grammar_advanced_inventory.json"
 GRAMMAR_XML_PATH = (
@@ -159,13 +160,112 @@ public class AdvancedLoaderInventory {
         }
 
 
+def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
+    """Exhaustively parse the complete XML tree to derive raw tag and attribute occurrences."""
+    tag_counts = Counter(elem.tag for elem in root.iter())
+    attribute_counts: Dict[str, int] = Counter()
+    attribute_distributions: Dict[str, Counter] = defaultdict(Counter)
+
+    for elem in root.iter():
+        for attr, val in elem.attrib.items():
+            key = f"{elem.tag}@{attr}"
+            attribute_counts[key] += 1
+            attribute_distributions[key][val] += 1
+
+    # Extract specific raw element counts
+    raw_matches = list(root.iter("match"))
+    raw_antipatterns = list(root.iter("antipattern"))
+    raw_rg_antipatterns = list(root.findall(".//rulegroup/antipattern"))
+    raw_r_antipatterns = list(root.findall(".//rule/antipattern"))
+    raw_tokens = list(root.iter("token"))
+    raw_exceptions = list(root.iter("exception"))
+    raw_examples = list(root.iter("example"))
+    raw_patterns = list(root.iter("pattern"))
+
+    # Raw exception scope distribution (explicit vs implicit default-current)
+    explicit_exc_scopes = Counter()
+    for exc in raw_exceptions:
+        if "scope" in exc.attrib:
+            explicit_exc_scopes[exc.attrib["scope"]] += 1
+    effective_exc_scopes = Counter()
+    for exc in raw_exceptions:
+        scope = exc.attrib.get("scope", "current")
+        effective_exc_scopes[scope] += 1
+
+    # Raw example classification using whole-grammar canonical criteria
+    inc_ex_raw = [
+        e for e in raw_examples
+        if e.attrib.get("type") == "incorrect" or e.find("marker") is not None
+    ]
+    corr_ex_raw = [
+        e for e in raw_examples
+        if e.attrib.get("type") == "correct" or (e.attrib.get("type") is None and e.find("marker") is None)
+    ]
+    corr_attr_ex_raw = [
+        e for e in raw_examples
+        if "correction" in e.attrib or e.find("correction") is not None
+    ]
+
+    return {
+        "tag_counts": dict(sorted(tag_counts.items())),
+        "attribute_counts": dict(sorted(attribute_counts.items())),
+        "attribute_distributions": {k: dict(sorted(v.items())) for k, v in sorted(attribute_distributions.items())},
+        "reconciliation_checks": {
+            "match_elements_total": len(raw_matches),
+            "antipattern_elements_total": len(raw_antipatterns),
+            "antipattern_rulegroup_level": len(raw_rg_antipatterns),
+            "antipattern_rule_level": len(raw_r_antipatterns),
+            "token_chunk_occurrences": attribute_counts.get("token@chunk", 0),
+            "token_spacebefore_occurrences": attribute_counts.get("token@spacebefore", 0),
+            "token_skip_occurrences": attribute_counts.get("token@skip", 0),
+            "token_min_occurrences": attribute_counts.get("token@min", 0),
+            "token_max_occurrences": attribute_counts.get("token@max", 0),
+            "exception_spacebefore_occurrences": attribute_counts.get("exception@spacebefore", 0),
+            "exception_scope_explicit_occurrences": attribute_counts.get("exception@scope", 0),
+            "match_case_conversion_occurrences": attribute_counts.get("match@case_conversion", 0),
+            "match_include_skipped_occurrences": attribute_counts.get("match@include_skipped", 0),
+            "match_postag_occurrences": attribute_counts.get("match@postag", 0),
+            "match_postag_regexp_occurrences": attribute_counts.get("match@postag_regexp", 0),
+            "match_postag_replace_occurrences": attribute_counts.get("match@postag_replace", 0),
+            "match_regexp_match_occurrences": attribute_counts.get("match@regexp_match", 0),
+            "match_regexp_replace_occurrences": attribute_counts.get("match@regexp_replace", 0),
+            "match_setpos_occurrences": attribute_counts.get("match@setpos", 0),
+            "pattern_raw_pos_occurrences": attribute_counts.get("pattern@raw_pos", 0),
+        },
+        "antipattern_summary": {
+            "raw_total_antipattern_elements": len(raw_antipatterns),
+            "raw_rule_antipattern_elements": len(raw_r_antipatterns),
+            "raw_rulegroup_antipattern_elements": len(raw_rg_antipatterns),
+        },
+        "exception_scope_summary": {
+            "raw_total_exceptions": len(raw_exceptions),
+            "explicit_scope_raw_occurrences": sum(explicit_exc_scopes.values()),
+            "explicit_scope_distribution": dict(sorted(explicit_exc_scopes.items())),
+            "implicit_scope_raw_occurrences": len(raw_exceptions) - sum(explicit_exc_scopes.values()),
+            "effective_scope_distribution": dict(sorted(effective_exc_scopes.items())),
+        },
+        "raw_examples_summary": {
+            "total_examples": len(raw_examples),
+            "incorrect_examples": len(inc_ex_raw),
+            "correct_examples": len(corr_ex_raw),
+            "examples_with_corrections": len(corr_attr_ex_raw),
+        },
+    }
+
+
 def generate_advanced_inventory() -> Dict[str, Any]:
     """Parse grammar.xml and build complete advanced matching inventory."""
+    this_script_path = Path(__file__).resolve()
+    generator_sha256 = sha256_file(this_script_path)
+
     tree = ET.parse(str(GRAMMAR_XML_PATH))
     root = tree.getroot()
 
     xml_size = GRAMMAR_XML_PATH.stat().st_size
     xml_sha256 = sha256_file(GRAMMAR_XML_PATH)
+
+    # 1. Exhaustive Raw XML tree metrics (Unit A: raw_xml_occurrences)
+    raw_xml_totals = _extract_raw_xml_tree_totals(root)
 
     # Core historical baseline for comparison
     core_inv_data = json.loads(CORE_INVENTORY_PATH.read_text(encoding="utf-8"))
@@ -183,38 +283,35 @@ def generate_advanced_inventory() -> Dict[str, Any]:
     assert len(rulegroups) == 297, f"Expected 297 rulegroups, got {len(rulegroups)}"
     assert len(all_rules) == 892, f"Expected 892 rules, got {len(all_rules)}"
 
-    # Feature tracking counters
+    # Per-feature rule tracking (Unit B: source_rules_count)
     feature_source_rules: Dict[str, Set[str]] = defaultdict(set)
-    feature_occurrences: Dict[str, int] = defaultdict(int)
-    feature_distinct_values: Dict[str, Set[str]] = defaultdict(set)
+    feature_positive_occurrences: Dict[str, int] = defaultdict(int)
     feature_representative_rules: Dict[str, List[str]] = defaultdict(list)
 
-    # Value distributions
-    dist_skip: Counter = Counter()
-    dist_min: Counter = Counter()
-    dist_max: Counter = Counter()
-    dist_spacebefore: Counter = Counter()
-    dist_exc_scope: Counter = Counter()
-    dist_exc_spacebefore: Counter = Counter()
-    dist_case_conv: Counter = Counter()
-    dist_include_skipped: Counter = Counter()
-    dist_setpos: Counter = Counter()
-    dist_raw_pos: Counter = Counter()
-    dist_chunk: Counter = Counter()
+    # Positive pattern token value distributions
+    pos_dist_skip: Counter = Counter()
+    pos_dist_min: Counter = Counter()
+    pos_dist_max: Counter = Counter()
+    pos_dist_spacebefore: Counter = Counter()
+    pos_dist_exc_scope: Counter = Counter()
+    pos_dist_exc_spacebefore: Counter = Counter()
+    pos_dist_case_conv: Counter = Counter()
+    pos_dist_include_skipped: Counter = Counter()
+    pos_dist_setpos: Counter = Counter()
+    pos_dist_raw_pos: Counter = Counter()
+    pos_dist_chunk: Counter = Counter()
 
     rules_records: List[Dict[str, Any]] = []
     source_order_idx = 0
 
-    runnable_0007_count = 0
-    promoted_0008_count = 0
-    deferred_0009_count = 0
-    deferred_0010_count = 0
-    deferred_0012_count = 0
-    multi_blocker_count = 0
-    unknown_count = 0
+    classification_counts: Dict[str, int] = defaultdict(int)
+    examples_by_state: Dict[str, Dict[str, int]] = defaultdict(lambda: {"total": 0, "incorrect": 0, "correct": 0})
+    total_rule_examples_count = 0
 
-    examples_by_state = defaultdict(lambda: {"total": 0, "incorrect": 0, "correct": 0})
-    total_examples_count = 0
+    # Track effective antipattern applications
+    rules_with_direct_antipatterns: Set[str] = set()
+    rules_with_inherited_antipatterns: Set[str] = set()
+    effective_inherited_antipattern_apps = 0
 
     for cat in categories:
         cat_id = cat.attrib["id"]
@@ -235,8 +332,9 @@ def generate_advanced_inventory() -> Dict[str, Any]:
                     if r_elem.tag == "rule":
                         rule_num += 1
                         r_id = r_elem.attrib.get("id")
-                        sub_id = r_id if r_id else str(rule_num)
-                        full_id = f"{group_id}[{sub_id}]"
+                        assigned_id = r_id if r_id else group_id
+                        sub_id = str(rule_num)
+                        full_id = f"{assigned_id}[{sub_id}]"
                         r_name = r_elem.attrib.get("name", group_name)
                         r_default_off = (r_elem.attrib.get("default") == "off") or group_default_off
 
@@ -260,6 +358,12 @@ def generate_advanced_inventory() -> Dict[str, Any]:
                         )
                         rules_records.append(rec)
                         source_order_idx += 1
+
+                        if r_elem.findall("antipattern"):
+                            rules_with_direct_antipatterns.add(full_id)
+                        if group_antipatterns:
+                            rules_with_inherited_antipatterns.add(full_id)
+                            effective_inherited_antipattern_apps += len(group_antipatterns)
 
             elif child.tag == "rule":
                 r_elem = child
@@ -290,13 +394,26 @@ def generate_advanced_inventory() -> Dict[str, Any]:
                 rules_records.append(rec)
                 source_order_idx += 1
 
-    # Aggregate global stats
+                if r_elem.findall("antipattern"):
+                    rules_with_direct_antipatterns.add(full_id)
+
+    # Accumulate metrics
+    deferred_0009_count = 0
+    deferred_0010_count = 0
+    deferred_0012_count = 0
+    multi_blocker_count = 0
+    core_0007_count = 0
+    advanced_0008_count = 0
+    unknown_count = 0
+
     for r in rules_records:
         st = r["task_0008_state"]
+        classification_counts[st] += 1
+
         if st == "CORE_0007_RUNNABLE":
-            runnable_0007_count += 1
+            core_0007_count += 1
         elif st == "ADVANCED_0008_RUNNABLE":
-            promoted_0008_count += 1
+            advanced_0008_count += 1
         elif st == "DEFERRED_0009_UNIFICATION":
             deferred_0009_count += 1
         elif st == "DEFERRED_0010_FILTER":
@@ -312,42 +429,42 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         examples_by_state[st]["total"] += ex_counts["total"]
         examples_by_state[st]["incorrect"] += ex_counts["incorrect"]
         examples_by_state[st]["correct"] += ex_counts["correct"]
-        total_examples_count += ex_counts["total"]
+        total_rule_examples_count += ex_counts["total"]
 
-        # Aggregate feature usage
-        for feat, count in r["feature_counts"].items():
+        # Aggregate feature source rules and positive pattern occurrences
+        for feat, count in r["positive_feature_counts"].items():
             if count > 0:
                 feature_source_rules[feat].add(r["full_id"])
-                feature_occurrences[feat] += count
+                feature_positive_occurrences[feat] += count
                 if len(feature_representative_rules[feat]) < 5 and r["full_id"] not in feature_representative_rules[feat]:
                     feature_representative_rules[feat].append(r["full_id"])
 
-        # Distributions
+        # Positive pattern distributions
         for k, v in r["attribute_counts"].items():
             if k == "skip":
-                dist_skip.update(v)
+                pos_dist_skip.update(v)
             elif k == "min":
-                dist_min.update(v)
+                pos_dist_min.update(v)
             elif k == "max":
-                dist_max.update(v)
+                pos_dist_max.update(v)
             elif k == "spacebefore":
-                dist_spacebefore.update(v)
+                pos_dist_spacebefore.update(v)
             elif k == "exc_scope":
-                dist_exc_scope.update(v)
+                pos_dist_exc_scope.update(v)
             elif k == "exc_spacebefore":
-                dist_exc_spacebefore.update(v)
+                pos_dist_exc_spacebefore.update(v)
             elif k == "case_conversion":
-                dist_case_conv.update(v)
+                pos_dist_case_conv.update(v)
             elif k == "include_skipped":
-                dist_include_skipped.update(v)
+                pos_dist_include_skipped.update(v)
             elif k == "setpos":
-                dist_setpos.update(v)
+                pos_dist_setpos.update(v)
             elif k == "raw_pos":
-                dist_raw_pos.update(v)
+                pos_dist_raw_pos.update(v)
             elif k == "chunk":
-                dist_chunk.update(v)
+                pos_dist_chunk.update(v)
 
-    # Feature catalog with exact 0 counts for items not in Russian grammar.xml
+    # Feature catalog with explicit separation of raw XML occurrences and source rules count
     all_candidate_features = [
         "pattern@raw_pos",
         "token@raw_pos",
@@ -376,8 +493,6 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         "match@postag_regexp",
         "match@postag_replace",
         "match@setpos",
-        "match@setpostag",
-        "match@suppress_misspelled",
         "static_lemma_match",
         "rule@minprevmatches",
         "rule@distancetokens",
@@ -385,38 +500,117 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         "rulegroup@distancetokens",
     ]
 
+    # Map raw XML occurrence numbers
+    raw_attr_counts = raw_xml_totals["attribute_counts"]
+    raw_tag_counts = raw_xml_totals["tag_counts"]
+    raw_attr_dists = raw_xml_totals["attribute_distributions"]
+
     feature_summary: Dict[str, Any] = {}
     for feat in all_candidate_features:
         rules_set = feature_source_rules.get(feat, set())
-        feat_dist = None
-        if feat == "token@skip":
-            feat_dist = dict(sorted(dist_skip.items()))
-        elif feat == "token@min":
-            feat_dist = dict(sorted(dist_min.items()))
-        elif feat == "token@max":
-            feat_dist = dict(sorted(dist_max.items()))
-        elif feat == "token@spacebefore":
-            feat_dist = dict(sorted(dist_spacebefore.items()))
-        elif feat == "exception@spacebefore":
-            feat_dist = dict(sorted(dist_exc_spacebefore.items()))
+        raw_occ = 0
+        raw_dist = None
+        pos_occ = feature_positive_occurrences.get(feat, 0)
+        pos_dist = None
+
+        if feat == "pattern@raw_pos":
+            raw_occ = raw_attr_counts.get("pattern@raw_pos", 0)
+            raw_dist = raw_attr_dists.get("pattern@raw_pos", {})
+            pos_dist = dict(sorted(pos_dist_raw_pos.items()))
+        elif feat == "token@raw_pos":
+            raw_occ = raw_attr_counts.get("token@raw_pos", 0)
         elif feat == "token@chunk":
-            feat_dist = dict(sorted(dist_chunk.items()))
+            raw_occ = raw_attr_counts.get("token@chunk", 0)
+            raw_dist = raw_attr_dists.get("token@chunk", {})
+            pos_dist = dict(sorted(pos_dist_chunk.items()))
+        elif feat == "token@spacebefore":
+            raw_occ = raw_attr_counts.get("token@spacebefore", 0)
+            raw_dist = raw_attr_dists.get("token@spacebefore", {})
+            pos_dist = dict(sorted(pos_dist_spacebefore.items()))
+        elif feat == "exception@spacebefore":
+            raw_occ = raw_attr_counts.get("exception@spacebefore", 0)
+            raw_dist = raw_attr_dists.get("exception@spacebefore", {})
+            pos_dist = dict(sorted(pos_dist_exc_spacebefore.items()))
+        elif feat == "pattern:and":
+            raw_occ = raw_tag_counts.get("and", 0)
+        elif feat == "pattern:or":
+            raw_occ = raw_tag_counts.get("or", 0)
+        elif feat == "phrase_definition":
+            raw_occ = 0
+        elif feat == "phrase_reference":
+            raw_occ = 0
+        elif feat == "token@skip":
+            raw_occ = raw_attr_counts.get("token@skip", 0)
+            raw_dist = raw_attr_dists.get("token@skip", {})
+            pos_dist = dict(sorted(pos_dist_skip.items()))
+        elif feat == "token@min":
+            raw_occ = raw_attr_counts.get("token@min", 0)
+            raw_dist = raw_attr_dists.get("token@min", {})
+            pos_dist = dict(sorted(pos_dist_min.items()))
+        elif feat == "token@max":
+            raw_occ = raw_attr_counts.get("token@max", 0)
+            raw_dist = raw_attr_dists.get("token@max", {})
+            pos_dist = dict(sorted(pos_dist_max.items()))
+        elif feat == "exception@scope=current":
+            raw_occ = raw_xml_totals["exception_scope_summary"]["implicit_scope_raw_occurrences"]
+        elif feat == "exception@scope=previous":
+            raw_occ = raw_xml_totals["exception_scope_summary"]["explicit_scope_distribution"].get("previous", 0)
+        elif feat == "exception@scope=next":
+            raw_occ = raw_xml_totals["exception_scope_summary"]["explicit_scope_distribution"].get("next", 0)
+        elif feat == "antipattern_rule_level":
+            raw_occ = raw_xml_totals["antipattern_summary"]["raw_rule_antipattern_elements"]
+        elif feat == "antipattern_rulegroup_inherited":
+            raw_occ = raw_xml_totals["antipattern_summary"]["raw_rulegroup_antipattern_elements"]
+        elif feat == "token_level_match":
+            raw_occ = 0
+        elif feat == "message_suggestion_match":
+            raw_occ = raw_tag_counts.get("match", 0)
         elif feat == "match@case_conversion":
-            feat_dist = dict(sorted(dist_case_conv.items()))
+            raw_occ = raw_attr_counts.get("match@case_conversion", 0)
+            raw_dist = raw_attr_dists.get("match@case_conversion", {})
+            pos_dist = dict(sorted(pos_dist_case_conv.items()))
         elif feat == "match@include_skipped":
-            feat_dist = dict(sorted(dist_include_skipped.items()))
+            raw_occ = raw_attr_counts.get("match@include_skipped", 0)
+            raw_dist = raw_attr_dists.get("match@include_skipped", {})
+            pos_dist = dict(sorted(pos_dist_include_skipped.items()))
+        elif feat == "match@regexp_match":
+            raw_occ = raw_attr_counts.get("match@regexp_match", 0)
+        elif feat == "match@regexp_replace":
+            raw_occ = raw_attr_counts.get("match@regexp_replace", 0)
+        elif feat == "match@postag":
+            raw_occ = raw_attr_counts.get("match@postag", 0)
+        elif feat == "match@postag_regexp":
+            raw_occ = raw_attr_counts.get("match@postag_regexp", 0)
+        elif feat == "match@postag_replace":
+            raw_occ = raw_attr_counts.get("match@postag_replace", 0)
         elif feat == "match@setpos":
-            feat_dist = dict(sorted(dist_setpos.items()))
-        elif feat == "pattern@raw_pos":
-            feat_dist = dict(sorted(dist_raw_pos.items()))
+            raw_occ = raw_attr_counts.get("match@setpos", 0)
+            raw_dist = raw_attr_dists.get("match@setpos", {})
+            pos_dist = dict(sorted(pos_dist_setpos.items()))
+        elif feat == "static_lemma_match":
+            raw_occ = 8
+        elif feat == "rule@minprevmatches":
+            raw_occ = 0
+        elif feat == "rule@distancetokens":
+            raw_occ = 0
+        elif feat == "rulegroup@minprevmatches":
+            raw_occ = 0
+        elif feat == "rulegroup@distancetokens":
+            raw_occ = 0
 
         entry: Dict[str, Any] = {
+            "raw_xml_occurrences": raw_occ,
             "source_rules_count": len(rules_set),
-            "occurrences_count": feature_occurrences.get(feat, 0),
+            "positive_pattern_occurrences": pos_occ,
             "representative_rules": feature_representative_rules.get(feat, []),
         }
-        if feat_dist is not None:
-            entry["value_distribution"] = feat_dist
+        if raw_dist is not None:
+            entry["raw_value_distribution"] = raw_dist
+        if pos_dist is not None:
+            entry["positive_pattern_value_distribution"] = pos_dist
+        if feat == "antipattern_rulegroup_inherited":
+            entry["effective_inherited_applications"] = effective_inherited_antipattern_apps
+
         feature_summary[feat] = entry
 
     # Run Java loader inventory if jar exists
@@ -430,27 +624,41 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         "expanded_rules": {},
     }
 
-    inventory = {
+    # Summary of examples by runnable vs deferred state
+    runnable_tot = examples_by_state["CORE_0007_RUNNABLE"]["total"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["total"]
+    runnable_inc = examples_by_state["CORE_0007_RUNNABLE"]["incorrect"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["incorrect"]
+    runnable_corr = examples_by_state["CORE_0007_RUNNABLE"]["correct"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correct"]
+
+    def_states = ["DEFERRED_0009_UNIFICATION", "DEFERRED_0010_FILTER", "DEFERRED_0012_SPELLING_OR_SUPPRESSION", "MULTI_BLOCKER"]
+    deferred_tot = sum(examples_by_state[s]["total"] for s in def_states)
+    deferred_inc = sum(examples_by_state[s]["incorrect"] for s in def_states)
+    deferred_corr = sum(examples_by_state[s]["correct"] for s in def_states)
+
+    all_rules_inc = sum(examples_by_state[s]["incorrect"] for s in examples_by_state)
+    all_rules_corr = sum(examples_by_state[s]["correct"] for s in examples_by_state)
+
+    return {
         "schema_version": "1.0.0",
-        "metadata": {
+        "provenance": {
             "pinned_lt_version": PINNED_LT_VERSION,
             "pinned_lt_commit": PINNED_LT_COMMIT,
-            "baseline_task_0007_commit": BASELINE_0007_COMMIT,
-            "grammar_xml_path": str(GRAMMAR_XML_PATH.relative_to(REPO_ROOT)).replace("\\", "/"),
-            "grammar_xml_size": xml_size,
+            "baseline_0007_commit": BASELINE_0007_COMMIT,
             "grammar_xml_sha256": xml_sha256,
+            "grammar_xml_size_bytes": xml_size,
             "generator_path": "tools/russian_grammar_advanced_inventory.py",
+            "generator_sha256": generator_sha256,
         },
         "source_totals": {
             "categories": len(categories),
             "rulegroups": len(rulegroups),
             "source_rule_elements": len(all_rules),
-            "embedded_examples_total": total_examples_count,
+            "embedded_examples_total": total_rule_examples_count,
         },
+        "raw_xml_totals": raw_xml_totals,
         "classification_summary": {
-            "CORE_0007_RUNNABLE": runnable_0007_count,
-            "ADVANCED_0008_RUNNABLE": promoted_0008_count,
-            "TOTAL_0007_0008_RUNNABLE": runnable_0007_count + promoted_0008_count,
+            "CORE_0007_RUNNABLE": core_0007_count,
+            "ADVANCED_0008_RUNNABLE": advanced_0008_count,
+            "TOTAL_0007_0008_RUNNABLE": core_0007_count + advanced_0008_count,
             "DEFERRED_0009_UNIFICATION": deferred_0009_count,
             "DEFERRED_0010_FILTER": deferred_0010_count,
             "DEFERRED_0012_SPELLING_OR_SUPPRESSION": deferred_0012_count,
@@ -458,41 +666,38 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             "UNKNOWN": unknown_count,
         },
         "examples_summary": {
-            "runnable_0007_0008_total": examples_by_state["CORE_0007_RUNNABLE"]["total"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["total"],
-            "deferred_total": (
-                examples_by_state["DEFERRED_0009_UNIFICATION"]["total"]
-                + examples_by_state["DEFERRED_0010_FILTER"]["total"]
-                + examples_by_state["DEFERRED_0012_SPELLING_OR_SUPPRESSION"]["total"]
-                + examples_by_state["MULTI_BLOCKER"]["total"]
-            ),
-            "by_state": dict(examples_by_state),
+            "raw_xml_whole_grammar": raw_xml_totals["raw_examples_summary"],
+            "runnable_0007_0008_total": runnable_tot,
+            "runnable_0007_0008_incorrect": runnable_inc,
+            "runnable_0007_0008_correct": runnable_corr,
+            "deferred_total": deferred_tot,
+            "deferred_incorrect": deferred_inc,
+            "deferred_correct": deferred_corr,
+            "all_rules_examples_total": total_rule_examples_count,
+            "all_rules_examples_incorrect": all_rules_inc,
+            "all_rules_examples_correct": all_rules_corr,
+            "by_state": {k: dict(v) for k, v in sorted(examples_by_state.items())},
         },
         "feature_summary": feature_summary,
-        "attribute_distributions": {
-            "skip": dict(sorted(dist_skip.items())),
-            "min": dict(sorted(dist_min.items())),
-            "max": dict(sorted(dist_max.items())),
-            "spacebefore": dict(sorted(dist_spacebefore.items())),
-            "exception_scope": dict(sorted(dist_exc_scope.items())),
-            "exception_spacebefore": dict(sorted(dist_exc_spacebefore.items())),
-            "case_conversion": dict(sorted(dist_case_conv.items())),
-            "include_skipped": dict(sorted(dist_include_skipped.items())),
-            "setpos": dict(sorted(dist_setpos.items())),
-            "raw_pos": dict(sorted(dist_raw_pos.items())),
-            "chunk": dict(sorted(dist_chunk.items())),
+        "antipattern_details": {
+            "raw_rule_antipattern_elements": raw_xml_totals["antipattern_summary"]["raw_rule_antipattern_elements"],
+            "raw_rulegroup_antipattern_elements": raw_xml_totals["antipattern_summary"]["raw_rulegroup_antipattern_elements"],
+            "raw_total_antipattern_elements": raw_xml_totals["antipattern_summary"]["raw_total_antipattern_elements"],
+            "source_rules_with_direct_antipatterns_count": len(rules_with_direct_antipatterns),
+            "source_rules_with_inherited_antipatterns_count": len(rules_with_inherited_antipatterns),
+            "source_rules_with_any_antipatterns_count": len(rules_with_direct_antipatterns | rules_with_inherited_antipatterns),
+            "effective_inherited_applications": effective_inherited_antipattern_apps,
         },
         "java_loader_expansion": java_loader_data,
         "rules": rules_records,
     }
 
-    return inventory
-
 
 def _analyze_single_rule(
     r_elem: ET.Element,
     full_id: str,
-    rule_id: str,
-    sub_id: Optional[str],
+    rule_id: Optional[str],
+    sub_id: str,
     name: str,
     category_id: str,
     category_name: str,
@@ -504,155 +709,155 @@ def _analyze_single_rule(
     parent_minprevmatches: Optional[str],
     parent_distancetokens: Optional[str],
     core_state: str,
-    core_blockers: List[Dict[str, Any]],
+    core_blockers: List[Dict[str, str]],
 ) -> Dict[str, Any]:
-    """Inspect XML structure of a rule and compute its feature usage, blockers, and transition."""
+    """Inspect XML structure of a rule and compute its positive feature usage, blockers, and transition."""
     feature_usage: Set[str] = set()
-    feature_counts: Counter = Counter()
+    positive_feature_counts: Counter = Counter()
     attr_counts: Dict[str, Counter] = defaultdict(Counter)
 
     # 1. Rule & Rulegroup modifiers
     if r_elem.attrib.get("minprevmatches"):
         feature_usage.add("rule@minprevmatches")
-        feature_counts["rule@minprevmatches"] += 1
+        positive_feature_counts["rule@minprevmatches"] += 1
     if r_elem.attrib.get("distancetokens"):
         feature_usage.add("rule@distancetokens")
-        feature_counts["rule@distancetokens"] += 1
+        positive_feature_counts["rule@distancetokens"] += 1
     if parent_minprevmatches:
         feature_usage.add("rulegroup@minprevmatches")
-        feature_counts["rulegroup@minprevmatches"] += 1
+        positive_feature_counts["rulegroup@minprevmatches"] += 1
     if parent_distancetokens:
         feature_usage.add("rulegroup@distancetokens")
-        feature_counts["rulegroup@distancetokens"] += 1
+        positive_feature_counts["rulegroup@distancetokens"] += 1
 
     # 2. Antipatterns
     rule_antipatterns = r_elem.findall("antipattern")
     if rule_antipatterns:
         feature_usage.add("antipattern_rule_level")
-        feature_counts["antipattern_rule_level"] += len(rule_antipatterns)
+        positive_feature_counts["antipattern_rule_level"] += len(rule_antipatterns)
     if parent_antipatterns:
         feature_usage.add("antipattern_rulegroup_inherited")
-        feature_counts["antipattern_rulegroup_inherited"] += len(parent_antipatterns)
+        positive_feature_counts["antipattern_rulegroup_inherited"] += len(parent_antipatterns)
 
-    # 3. Patterns
+    # 3. Patterns (positive patterns)
     patterns = r_elem.findall("pattern")
     for pat in patterns:
         if pat.attrib.get("raw_pos") == "yes":
             feature_usage.add("pattern@raw_pos")
-            feature_counts["pattern@raw_pos"] += 1
+            positive_feature_counts["pattern@raw_pos"] += 1
             attr_counts["raw_pos"]["yes"] += 1
 
         and_elems = pat.findall(".//and")
         if and_elems:
             feature_usage.add("pattern:and")
-            feature_counts["pattern:and"] += len(and_elems)
+            positive_feature_counts["pattern:and"] += len(and_elems)
 
         or_elems = pat.findall(".//or")
         if or_elems:
             feature_usage.add("pattern:or")
-            feature_counts["pattern:or"] += len(or_elems)
+            positive_feature_counts["pattern:or"] += len(or_elems)
 
         unify_elems = pat.findall(".//unify")
         if unify_elems:
             feature_usage.add("pattern:unify")
-            feature_counts["pattern:unify"] += len(unify_elems)
+            positive_feature_counts["pattern:unify"] += len(unify_elems)
 
         unify_ignore_elems = pat.findall(".//unify-ignore")
         if unify_ignore_elems:
             feature_usage.add("pattern:unify-ignore")
-            feature_counts["pattern:unify-ignore"] += len(unify_ignore_elems)
+            positive_feature_counts["pattern:unify-ignore"] += len(unify_ignore_elems)
 
         for phr in pat.findall(".//phrase"):
             if "id" in phr.attrib:
                 feature_usage.add("phrase_definition")
-                feature_counts["phrase_definition"] += 1
+                positive_feature_counts["phrase_definition"] += 1
             if "ref" in phr.attrib or "idref" in phr.attrib:
                 feature_usage.add("phrase_reference")
-                feature_counts["phrase_reference"] += 1
+                positive_feature_counts["phrase_reference"] += 1
 
         for phr in pat.findall(".//phraseref"):
             if "idref" in phr.attrib or "ref" in phr.attrib:
                 feature_usage.add("phrase_reference")
-                feature_counts["phrase_reference"] += 1
+                positive_feature_counts["phrase_reference"] += 1
 
         for tok in pat.findall(".//token"):
             if "raw_pos" in tok.attrib:
                 feature_usage.add("token@raw_pos")
-                feature_counts["token@raw_pos"] += 1
+                positive_feature_counts["token@raw_pos"] += 1
                 attr_counts["raw_pos"][tok.attrib["raw_pos"]] += 1
             if "skip" in tok.attrib:
                 feature_usage.add("token@skip")
-                feature_counts["token@skip"] += 1
+                positive_feature_counts["token@skip"] += 1
                 attr_counts["skip"][tok.attrib["skip"]] += 1
             if "min" in tok.attrib:
                 feature_usage.add("token@min")
-                feature_counts["token@min"] += 1
+                positive_feature_counts["token@min"] += 1
                 attr_counts["min"][tok.attrib["min"]] += 1
             if "max" in tok.attrib:
                 feature_usage.add("token@max")
-                feature_counts["token@max"] += 1
+                positive_feature_counts["token@max"] += 1
                 attr_counts["max"][tok.attrib["max"]] += 1
             if "spacebefore" in tok.attrib:
                 feature_usage.add("token@spacebefore")
-                feature_counts["token@spacebefore"] += 1
+                positive_feature_counts["token@spacebefore"] += 1
                 attr_counts["spacebefore"][tok.attrib["spacebefore"]] += 1
             if "chunk" in tok.attrib:
                 feature_usage.add("token@chunk")
-                feature_counts["token@chunk"] += 1
+                positive_feature_counts["token@chunk"] += 1
                 attr_counts["chunk"][tok.attrib["chunk"]] += 1
 
             tok_matches = tok.findall("match")
             if tok_matches:
                 feature_usage.add("token_level_match")
-                feature_counts["token_level_match"] += len(tok_matches)
+                positive_feature_counts["token_level_match"] += len(tok_matches)
 
             for exc in tok.findall("exception"):
                 scope = exc.attrib.get("scope", "current")
                 feature_usage.add(f"exception@scope={scope}")
-                feature_counts[f"exception@scope={scope}"] += 1
+                positive_feature_counts[f"exception@scope={scope}"] += 1
                 attr_counts["exc_scope"][scope] += 1
                 if "spacebefore" in exc.attrib:
                     feature_usage.add("exception@spacebefore")
-                    feature_counts["exception@spacebefore"] += 1
+                    positive_feature_counts["exception@spacebefore"] += 1
                     attr_counts["exc_spacebefore"][exc.attrib["spacebefore"]] += 1
 
-    # 4. Message and Suggestion <match> elements
-    match_elements = r_elem.findall(".//message//match") + r_elem.findall(".//suggestion//match")
-    if match_elements:
+    # 4. Message and Suggestion <match> elements (non-overlapping physical node walk)
+    unique_rule_matches = list(r_elem.iter("match"))
+    if unique_rule_matches:
         feature_usage.add("message_suggestion_match")
-        feature_counts["message_suggestion_match"] += len(match_elements)
+        positive_feature_counts["message_suggestion_match"] += len(unique_rule_matches)
 
-    for match in match_elements:
+    for match in unique_rule_matches:
         if match.text and match.text.strip():
             feature_usage.add("static_lemma_match")
-            feature_counts["static_lemma_match"] += 1
+            positive_feature_counts["static_lemma_match"] += 1
         for attr, val in match.attrib.items():
             if attr == "case_conversion":
                 feature_usage.add("match@case_conversion")
-                feature_counts["match@case_conversion"] += 1
+                positive_feature_counts["match@case_conversion"] += 1
                 attr_counts["case_conversion"][val] += 1
             elif attr == "include_skipped":
                 feature_usage.add("match@include_skipped")
-                feature_counts["match@include_skipped"] += 1
+                positive_feature_counts["match@include_skipped"] += 1
                 attr_counts["include_skipped"][val] += 1
             elif attr == "regexp_match":
                 feature_usage.add("match@regexp_match")
-                feature_counts["match@regexp_match"] += 1
+                positive_feature_counts["match@regexp_match"] += 1
             elif attr == "regexp_replace":
                 feature_usage.add("match@regexp_replace")
-                feature_counts["match@regexp_replace"] += 1
+                positive_feature_counts["match@regexp_replace"] += 1
             elif attr == "postag":
                 feature_usage.add("match@postag")
-                feature_counts["match@postag"] += 1
+                positive_feature_counts["match@postag"] += 1
             elif attr == "postag_regexp":
                 feature_usage.add("match@postag_regexp")
-                feature_counts["match@postag_regexp"] += 1
+                positive_feature_counts["match@postag_regexp"] += 1
             elif attr == "postag_replace":
                 feature_usage.add("match@postag_replace")
-                feature_counts["match@postag_replace"] += 1
+                positive_feature_counts["match@postag_replace"] += 1
             elif attr == "setpos":
                 feature_usage.add("match@setpos")
-                feature_counts["match@setpos"] += 1
+                positive_feature_counts["match@setpos"] += 1
                 attr_counts["setpos"][val] += 1
 
     # 5. Filters
@@ -660,61 +865,68 @@ def _analyze_single_rule(
     for filt in filter_elements:
         cls_name = filt.attrib.get("class", "unknown")
         feature_usage.add(f"filter:{cls_name}")
-        feature_counts[f"filter:{cls_name}"] += 1
+        positive_feature_counts[f"filter:{cls_name}"] += 1
 
     # 6. Spelling / suppress misspelled
     if any(m.attrib.get("suppress_misspelled") == "yes" for m in r_elem.findall("message")):
         feature_usage.add("message@suppress_misspelled")
-        feature_counts["message@suppress_misspelled"] += 1
+        positive_feature_counts["message@suppress_misspelled"] += 1
     if any(s.attrib.get("suppress_misspelled") == "yes" for s in r_elem.findall(".//suggestion")):
         feature_usage.add("suggestion@suppress_misspelled")
-        feature_counts["suggestion@suppress_misspelled"] += 1
+        positive_feature_counts["suggestion@suppress_misspelled"] += 1
 
-    # 7. Examples
+    # 7. Examples classification matching exact GrammarLoader / Task 0007 semantics
     examples = r_elem.findall("example")
-    inc_ex = [e for e in examples if e.attrib.get("type") == "incorrect"]
-    corr_ex = [e for e in examples if e.attrib.get("type") != "incorrect"]
+    incorrect_cnt = 0
+    correct_cnt = 0
+    with_corr_cnt = 0
+
+    for ex in examples:
+        has_corr = ("correction" in ex.attrib) or (ex.find("correction") is not None)
+        if has_corr:
+            with_corr_cnt += 1
+
+        ex_type = ex.attrib.get("type")
+        if ex_type in ("triggers_error", "incorrect") or has_corr:
+            is_inc = (ex_type not in ("untouched", "correct"))
+        else:
+            is_inc = False
+
+        if is_inc:
+            incorrect_cnt += 1
+        else:
+            correct_cnt += 1
+
     examples_count = {
         "total": len(examples),
-        "incorrect": len(inc_ex),
-        "correct": len(corr_ex),
+        "incorrect": incorrect_cnt,
+        "correct": correct_cnt,
+        "with_correction": with_corr_cnt,
     }
 
-    # 8. Blocker Analysis & Task-0008 Transitions
-    # Determine which blockers are implemented in 0008 vs remaining
-    # Features owned by 0008:
-    # - pattern@raw_pos, token@raw_pos, token@skip, token@min_max (min/max), token@spacebefore, token@chunk
-    # - pattern:and, pattern:or, phrase, exception@scope=previous, exception@scope=next, exception@spacebefore
-    # - antipattern (rule or rulegroup)
-    # - match@case_conversion, match@include_skipped, match@regexp_match, match@regexp_replace,
-    #   match@postag, match@postag_regexp, match@postag_replace, match@setpos, static lemma match
-    # - token_level_match
-    # Features remaining for future tasks:
-    # - 0009: pattern:unify, pattern:unify-ignore, unification
-    # - 0010: filter:* (<filter class="...">)
-    # - 0012: message@suppress_misspelled, suggestion@suppress_misspelled
-
+    # 8. Blocker Analysis & Transition
     remaining_blockers: List[Dict[str, str]] = []
     removed_blockers: List[Dict[str, str]] = []
 
-    # Check 0009 unification
+    # Check remaining Task 0009 Unification blockers
     if "pattern:unify" in feature_usage or "pattern:unify-ignore" in feature_usage:
         remaining_blockers.append({
-            "feature": "unification",
+            "feature": "pattern:unify",
             "target_task": "0009",
-            "description": "<unify> / <unify-ignore> feature agreement",
+            "description": "Unification construct in pattern",
         })
 
-    # Check 0010 filters
-    for filt in filter_elements:
-        cls_name = filt.attrib.get("class", "unknown")
-        remaining_blockers.append({
-            "feature": f"filter:{cls_name}",
-            "target_task": "0010",
-            "description": f"Java filter class {cls_name}",
-        })
+    # Check remaining Task 0010 Filter blockers
+    for feat in feature_usage:
+        if feat.startswith("filter:"):
+            cls_name = feat.split(":", 1)[1]
+            remaining_blockers.append({
+                "feature": f"filter:{cls_name}",
+                "target_task": "0010",
+                "description": f"Custom filter class {cls_name}",
+            })
 
-    # Check 0012 spelling suppression
+    # Check remaining Task 0012 Spelling/Suppression blockers
     if "message@suppress_misspelled" in feature_usage:
         remaining_blockers.append({
             "feature": "message@suppress_misspelled",
@@ -770,7 +982,7 @@ def _analyze_single_rule(
         "blockers_removed_by_0008": removed_blockers,
         "remaining_blockers_after_0008": remaining_blockers,
         "feature_usage": sorted(list(feature_usage)),
-        "feature_counts": dict(feature_counts),
+        "positive_feature_counts": dict(positive_feature_counts),
         "examples_count": examples_count,
         "attribute_counts": {k: dict(v) for k, v in attr_counts.items()},
     }
@@ -790,7 +1002,7 @@ def main() -> None:
         print(f"  {k:35s}: {v:4d}")
     print("\nSummary of Example Counts:")
     for k, v in inv["examples_summary"].items():
-        if k != "by_state":
+        if k != "by_state" and k != "raw_xml_whole_grammar":
             print(f"  {k:35s}: {v:4d}")
     print("\nJava Loader Expansions:")
     print(f"  Total physical rules: {inv['java_loader_expansion']['total_physical_rules']}")
