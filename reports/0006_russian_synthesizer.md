@@ -112,3 +112,11 @@ All 210 tests passed with 0 failures, 0 skipped, and zero regressions.
 - Custom overlays (`added_custom.txt`, `removed_custom.txt`) and `do-not-synthesize.txt` are explicitly excluded from `RussianSynthesizer` matching upstream LT 6.8.
 - Higher-level rule engine integration (`AdvancedSynthesizerFilter`, `match` elements with synthesis attributes) is scheduled for subsequent tasks (Task 0007 / Task 0008 / Task 0010).
 - Production runtime has zero Java/JRE and zero external NLP dependencies.
+
+---
+
+## 5. Commit & Push Verification
+
+- **Implementation & Review-Fix Commit**: `6ec0554eadc1f446b6eedf592e03de9524e1ed90`
+- **Remote Push**: Pushed to `origin/main` and verified visible on remote repository.
+- **Verification Status**: `210 passed, 0 failed, 0 skipped` across tasks 0001–0006.
