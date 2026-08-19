@@ -1050,3 +1050,63 @@ def test_phrase_semantics_cartesian_and_markers():
     assert matches_s[0].to_pos == 15
 
 
+def test_unify_ignore_phraseref_structural_preservation_and_fail_closed():
+    """Verify that <unify-ignore> preserves <phraseref> and fails closed on invalid children."""
+    from pylat_ru.grammar.errors import GrammarFormatError
+    from pylat_ru.grammar.model import PatternUnify, PatternUnifyIgnore, PatternPhrase
+    loader = GrammarLoader()
+
+    # 1. Structural preservation of phraseref under unify-ignore
+    xml_valid = """<rules lang="ru">
+      <phrases>
+        <phrase id="ign_phrase">
+          <token>слово</token>
+        </phrase>
+      </phrases>
+      <category id="C" name="C">
+        <rule id="R_UNIFY_IGN" name="Unify Ignore Rule">
+          <pattern>
+            <unify>
+              <feature id="gender"/>
+              <token postag_regexp="yes" postag="ADJ:.*"/>
+              <unify-ignore>
+                <phraseref idref="ign_phrase"/>
+              </unify-ignore>
+              <token postag_regexp="yes" postag="NN:.*"/>
+            </unify>
+          </pattern>
+          <message>M</message>
+        </rule>
+      </category>
+    </rules>"""
+    rules = loader.load_from_string(xml_valid)
+    assert len(rules) == 1
+    u_node = rules[0].pattern.elements[0]
+    assert isinstance(u_node, PatternUnify)
+    ign_node = [el for el in u_node.elements if isinstance(el, PatternUnifyIgnore)][0]
+    assert len(ign_node.elements) == 1
+    ph_node = ign_node.elements[0]
+    assert isinstance(ph_node, PatternPhrase)
+    assert ph_node.ref == "ign_phrase"
+
+    # 2. Defensive fail-closed on unknown child under unify-ignore
+    xml_invalid = """<rules lang="ru">
+      <category id="C" name="C">
+        <rule id="R_BAD_IGN" name="Bad">
+          <pattern>
+            <unify>
+              <feature id="gender"/>
+              <unify-ignore>
+                <unknown_tag/>
+              </unify-ignore>
+            </unify>
+          </pattern>
+          <message>M</message>
+        </rule>
+      </category>
+    </rules>"""
+    with pytest.raises(GrammarFormatError, match="Disallowed child <unknown_tag>"):
+        loader.load_from_string(xml_invalid)
+
+
+

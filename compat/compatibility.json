@@ -16,16 +16,22 @@
       "grammar_core_runnable_source_rules_total": 506,
       "grammar_advanced_runnable_source_rules_total": 229,
       "grammar_total_runnable_source_rules": 735,
-      "grammar_compiled_rule_variants_total": 747,
-      "grammar_deferred_rules_total": 157,
+      "grammar_deferred_source_rules_total": 157,
+      "grammar_java_physical_variants_total": 907,
+      "grammar_python_all_compiled_variants_total": 907,
+      "grammar_python_runnable_compiled_variants_total": 747,
+      "grammar_multi_variant_source_rules_total": 15,
+      "grammar_or_generated_extra_variants_total": 15,
+      "grammar_phrase_generated_extra_variants_total": 0,
+      "grammar_examples_total": 2446,
       "grammar_runnable_examples_total": 1738,
+      "grammar_deferred_examples_total": 708,
       "disambiguation_rules_total": 77,
       "relevant_java_rules_total": 23,
       "language_model_rules_total": 1,
       "all_java_rules_total": 24,
       "xml_filters_total": 7,
       "upstream_test_files_total": 18,
-      "grammar_examples_total": 2446,
       "tagset_unique_tags_total": 1200,
       "tagset_empty_colon_tags_total": 154,
       "tagset_pos_prefixes_total": 19,
@@ -187,22 +193,30 @@
       "upstream_tests": {
         "status": "PARTIALLY_PORTED",
         "upstream_test_files_total": 18,
-        "task_0007_source_test_files_translated": 4,
-        "task_0007_python_tests_passed": 8,
-        "remaining_upstream_test_files_not_ported": 14
+        "upstream_test_files_translated": 6,
+        "task_0008_python_test_functions_total": 35,
+        "task_0008_translated_assertions_total": 120,
+        "task_0008_oracle_parity_test_functions_total": 11,
+        "task_0008_python_tests_passed": 46,
+        "remaining_upstream_test_files_not_ported": 12
       },
       "grammar_xml_examples": {
-        "status": "PARTIALLY_RUNNABLE",
-        "passed": 988,
-        "failed": 0,
-        "not_yet_runnable": 1458,
-        "total": 2446
+        "status": "ADVANCED_0008_RUNNABLE",
+        "runnable_examples_total": 1738,
+        "deferred_examples_total": 708,
+        "total_examples": 2446
       },
       "parity_metrics": {
         "finding_parity": 1.0,
         "span_parity": 1.0,
         "suggestion_parity": 1.0,
-        "evaluation_state": "CORE_EVALUATED"
+        "evaluation_state": "ADVANCED_0008_PARITY_VERIFIED",
+        "synthetic_oracle_cases_tested": 141,
+        "synthetic_oracle_cases_passed": 141,
+        "real_russian_oracle_cases_tested": 750,
+        "real_russian_oracle_cases_passed": 750,
+        "wheel_isolation_status": "PASSED",
+        "wheel_execution_verified": true
       }
     },
     "known_differences": []

@@ -26,6 +26,8 @@ from pylat_ru.grammar.model import (
     PatternPhrase,
     PatternToken,
     PatternTokenException,
+    PatternUnify,
+    PatternUnifyIgnore,
 )
 from pylat_ru.synthesis.synthesizer import RussianSynthesizer
 
@@ -936,6 +938,15 @@ def _expand_single_element(
         branches = []
         for p_tokens, _ in phrase_expansions:
             branches.append((p_tokens, len(p_tokens)))
+        return branches
+
+    elif isinstance(elem, (PatternUnify, PatternUnifyIgnore)):
+        unify_expansions = _expand_pattern_elements(
+            elem.elements, global_phrases, in_marker_override=effective_marker
+        )
+        branches = []
+        for u_tokens, _ in unify_expansions:
+            branches.append((u_tokens, len(u_tokens)))
         return branches
 
     else:

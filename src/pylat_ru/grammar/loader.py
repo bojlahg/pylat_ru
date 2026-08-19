@@ -717,6 +717,8 @@ class GrammarLoader:
                 children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=is_unify))
             elif child.tag == "exception":
                 exceptions.append(self._parse_exception(child, pat_case_sensitive, f"<exception> in {context}"))
+            else:
+                raise GrammarFormatError(f"Unexpected element <{child.tag}> in {context}")
         return PatternAnd(elements=children, exceptions=exceptions, is_in_marker=in_marker)
 
     def _parse_or(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternOr:
@@ -730,6 +732,8 @@ class GrammarLoader:
                 children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=is_unify))
             elif child.tag in ("phrase", "phraseref"):
                 children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=is_unify))
+            else:
+                raise GrammarFormatError(f"Unexpected element <{child.tag}> in {context}")
         return PatternOr(elements=children, is_in_marker=in_marker)
 
     def _parse_unify(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternUnify:
@@ -753,8 +757,10 @@ class GrammarLoader:
                 for m_child in child:
                     m_elem = self._parse_pattern_child(m_child, pat_case_sensitive, in_marker=True, context=f"<{m_child.tag}> in <marker> in {context}", is_unify=True)
                     children.append(m_elem)
-            else:
+            elif child.tag in ("token", "and", "or", "phrase", "phraseref"):
                 children.append(self._parse_pattern_child(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=True))
+            else:
+                raise GrammarFormatError(f"Unexpected element <{child.tag}> in {context}")
 
         return PatternUnify(
             negate=negate_val,
@@ -775,8 +781,10 @@ class GrammarLoader:
                 children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=True))
             elif child.tag == "or":
                 children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}", is_unify=True))
-            elif child.tag == "phrase":
-                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}", is_unify=True))
+            elif child.tag in ("phrase", "phraseref"):
+                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=True))
+            else:
+                raise GrammarFormatError(f"Unexpected element <{child.tag}> in {context}")
         return PatternUnifyIgnore(elements=children, is_in_marker=in_marker)
 
     def _parse_phrase(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternPhrase:
@@ -793,6 +801,8 @@ class GrammarLoader:
                 children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=is_unify))
             elif child.tag == "or":
                 children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}", is_unify=is_unify))
+            else:
+                raise GrammarFormatError(f"Unexpected element <{child.tag}> in {context}")
         return PatternPhrase(id=pid, ref=pref, raw_pos=raw_pos, elements=children, is_in_marker=in_marker)
 
     def _parse_exception(self, exc_elem: ET.Element, tok_cs: bool, context: str) -> PatternTokenException:
