@@ -25,11 +25,11 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
   - `UNRECOGNIZED`: 0 source rules
   - Total source rules: 892
 - **Baseline Example Counts** (Runtime `GrammarLoader._parse_example()` semantics):
-  - Core runnable examples: 988 (525 incorrect, 463 correct, 454 with correction)
-  - Deferred examples: 1,458 (514 incorrect, 944 correct, 417 with correction)
-  - Total embedded grammar examples: 2,446 (1,039 incorrect, 1,407 correct, 871 with correction)
+  - Core runnable examples: 988 (525 incorrect, 463 correct, 519 correction attr present, 454 non-empty, 65 empty)
+  - Deferred examples: 1,458 (514 incorrect, 944 correct, 507 correction attr present, 417 non-empty, 90 empty)
+  - Total embedded grammar examples: 2,446 (1,039 incorrect, 1,407 correct, 1,026 correction attr present, 871 non-empty, 155 empty)
 - **Raw XML Markup Error-Like Statistics** (markers, corrections, `triggers_error`):
-  - Total examples: 2,446 (1,083 markup error-like, 1,363 untouched/correct, 1,026 with corrections)
+  - Total examples: 2,446 (1,083 markup error-like, 1,363 untouched/correct, 1,026 correction attr present, 871 non-empty, 155 empty)
 
 ---
 
@@ -102,16 +102,16 @@ Transitions from the accepted Task 0007 baseline to the completed Task 0008 stat
 - **`MULTI_BLOCKER`**: 7 source rules (0.8%)
 - **Total Deferred Source Rules**: **157 source rules** (**17.6%**)
 
-### Example Totals (Runtime `GrammarLoader` Semantics):
-- **Runnable Examples**: 1,738 (837 incorrect, 901 correct)
-  - `CORE_0007_RUNNABLE`: 988 (525 incorrect, 463 correct, 454 with correction)
-  - `ADVANCED_0008_RUNNABLE`: 750 (312 incorrect, 438 correct, 252 with correction)
-- **Deferred Examples**: 708 (202 incorrect, 506 correct)
-  - `DEFERRED_0009_UNIFICATION`: 216 (41 incorrect, 175 correct, 15 with correction)
-  - `DEFERRED_0010_FILTER`: 88 (22 incorrect, 66 correct, 11 with correction)
-  - `DEFERRED_0012_SPELLING_OR_SUPPRESSION`: 297 (124 incorrect, 173 correct, 124 with correction)
-  - `MULTI_BLOCKER`: 107 (15 incorrect, 92 correct, 15 with correction)
-- **All Rules Examples**: 2,446 (1,039 incorrect, 1,407 correct, 871 with correction)
+### Example Totals (Runtime `GrammarLoader` Semantics & Explicit Correction Accounting):
+- **Runnable Examples**: 1,738 (837 incorrect, 901 correct, 824 correction attr present, 706 non-empty, 118 empty)
+  - `CORE_0007_RUNNABLE`: 988 (525 incorrect, 463 correct, 519 correction attr present, 454 non-empty, 65 empty)
+  - `ADVANCED_0008_RUNNABLE`: 750 (312 incorrect, 438 correct, 305 correction attr present, 252 non-empty, 53 empty)
+- **Deferred Examples**: 708 (202 incorrect, 506 correct, 202 correction attr present, 165 non-empty, 37 empty)
+  - `DEFERRED_0009_UNIFICATION`: 216 (41 incorrect, 175 correct, 41 correction attr present, 15 non-empty, 26 empty)
+  - `DEFERRED_0010_FILTER`: 88 (22 incorrect, 66 correct, 22 correction attr present, 11 non-empty, 11 empty)
+  - `DEFERRED_0012_SPELLING_OR_SUPPRESSION`: 297 (124 incorrect, 173 correct, 124 correction attr present, 124 non-empty, 0 empty)
+  - `MULTI_BLOCKER`: 107 (15 incorrect, 92 correct, 15 correction attr present, 15 non-empty, 0 empty)
+- **All Rules Examples**: 2,446 (1,039 incorrect, 1,407 correct, 1,026 correction attr present, 871 non-empty, 155 empty)
 
 ---
 
@@ -205,7 +205,7 @@ Upstream source files referenced and verified in Task 0008 (source of truth: `th
 
 Execution of the complete test suite across Tasks 0001 through 0008:
 
-- **Total Tests Passed**: **301 passed**
+- **Total Tests Passed**: **302 passed**
 - **Failures**: **0**
 - **Errors**: **0**
 - **Required Skips**: **0**
@@ -222,6 +222,7 @@ Execution of the complete test suite across Tasks 0001 through 0008:
   - `1966294c660e6cd355e041a69df4334256595eca` (Task 0008 canonical inventory and variant order evidence closure)
   - `1d9d776be2f9584af95ae88aff334f8bc542782d` (Task 0008 reconcile canonical advanced inventory with raw xml and task-0007 baselines)
   - `cfb4b95dc689fcbbc3b96f63f5e87610eb9511cf` (Task 0008 final advanced inventory, baseline transitions, and report conformance)
+  - `3d0951862799dc875b7b6318d1ae1d5b26a43b12` (Task 0008 align example runtime accounting, manifest java evidence, and upstream provenance)
 - **Push Target**: `origin/main`
 - **Remote Verification**: Verified on `refs/heads/main` via `git ls-remote origin main`.
 - **Next Task Notice**: Task 0009 has NOT been started.

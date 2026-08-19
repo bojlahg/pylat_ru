@@ -147,7 +147,9 @@ def test_advanced_inventory_canonical_totals_and_invariants():
     assert raw_ex["total_examples"] == 2446
     assert raw_ex["markup_error_like_examples"] == 1083
     assert raw_ex["markup_untouched_or_correct_examples"] == 1363
-    assert raw_ex["markup_with_corrections"] == 1026
+    assert raw_ex["correction_attribute_present"] == 1026
+    assert raw_ex["correction_value_non_empty"] == 871
+    assert raw_ex["correction_value_empty"] == 155
 
     # Attribute distribution invariants: sum(raw_value_distribution.values()) == raw_xml_occurrences
     feat_sum = inv["feature_summary"]

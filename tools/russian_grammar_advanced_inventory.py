@@ -56,58 +56,133 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def load_trusted_java_variant_evidence() -> Dict[str, Any]:
-    """Load canonical manifest-bound Java loader expansion evidence."""
-    variant_inv_path = REPO_ROOT / "compat" / "rule_variant_inventory.json"
+def load_trusted_java_variant_evidence(
+    variant_inv_path: Optional[Path] = None,
+    oracle_manifest_path: Optional[Path] = None,
+) -> Dict[str, Any]:
+    """Load canonical manifest-bound Java loader expansion evidence, validating against oracle_manifest.json."""
+    if variant_inv_path is None:
+        variant_inv_path = REPO_ROOT / "compat" / "rule_variant_inventory.json"
+    if oracle_manifest_path is None:
+        oracle_manifest_path = REPO_ROOT / "compat" / "oracle_manifest.json"
+
     if not variant_inv_path.is_file():
         raise FileNotFoundError(f"Missing canonical variant inventory: {variant_inv_path}")
-    data = json.loads(variant_inv_path.read_text(encoding="utf-8"))
-    prov = data.get("provenance", {})
-    if prov.get("pinned_lt_version") != PINNED_LT_VERSION or prov.get("pinned_lt_commit") != PINNED_LT_COMMIT:
-        raise ValueError(f"Invalid provenance in {variant_inv_path}: {prov}")
+    if not oracle_manifest_path.is_file():
+        raise FileNotFoundError(f"Missing oracle manifest: {oracle_manifest_path}")
 
-    per_full_id = data.get("per_full_id_counts", {})
+    oracle_manifest = json.loads(oracle_manifest_path.read_text(encoding="utf-8"))
+    trusted_builds = {
+        b["build_id"]: b for b in oracle_manifest.get("trusted_oracle_builds", [])
+    }
+
+    data = json.loads(variant_inv_path.read_text(encoding="utf-8"))
+    prov = data.get("provenance")
+    if not isinstance(prov, dict):
+        raise ValueError(f"Missing or malformed provenance in {variant_inv_path}")
+
+    ver = prov.get("pinned_lt_version")
+    commit = prov.get("pinned_lt_commit")
+    build_id = prov.get("oracle_build_id")
+    jar_sha256 = prov.get("oracle_jar_sha256")
+
+    if ver != PINNED_LT_VERSION:
+        raise ValueError(f"Invalid pinned_lt_version in {variant_inv_path}: expected {PINNED_LT_VERSION}, got {ver}")
+    if commit != PINNED_LT_COMMIT:
+        raise ValueError(f"Invalid pinned_lt_commit in {variant_inv_path}: expected {PINNED_LT_COMMIT}, got {commit}")
+    if not build_id or build_id not in trusted_builds:
+        raise ValueError(f"Untrusted or missing oracle_build_id '{build_id}' in {variant_inv_path}")
+
+    trusted_record = trusted_builds[build_id]
+    if trusted_record.get("pinned_version") != ver:
+        raise ValueError(f"Version mismatch between variant provenance ({ver}) and oracle build ({trusted_record.get('pinned_version')})")
+    if trusted_record.get("pinned_commit") != commit:
+        raise ValueError(f"Commit mismatch between variant provenance ({commit}) and oracle build ({trusted_record.get('pinned_commit')})")
+    if trusted_record.get("jar_sha256") != jar_sha256:
+        raise ValueError(f"JAR SHA-256 mismatch for build {build_id}: expected {trusted_record.get('jar_sha256')}, got {jar_sha256}")
+
+    # Validate required fields strictly without fallbacks
+    for req_field in ("java_total_physical_rules", "source_xml_rules_total", "multi_variant_source_rules_count", "per_full_id_counts"):
+        if req_field not in data:
+            raise ValueError(f"Missing required field '{req_field}' in {variant_inv_path}")
+
+    total_physical = data["java_total_physical_rules"]
+    if not isinstance(total_physical, int) or total_physical <= 0:
+        raise ValueError(f"Invalid java_total_physical_rules in {variant_inv_path}: {total_physical}")
+
+    source_rules_tot = data["source_xml_rules_total"]
+    if not isinstance(source_rules_tot, int) or source_rules_tot <= 0:
+        raise ValueError(f"Invalid source_xml_rules_total in {variant_inv_path}: {source_rules_tot}")
+
+    multi_variant_cnt = data["multi_variant_source_rules_count"]
+    if not isinstance(multi_variant_cnt, int) or multi_variant_cnt < 0:
+        raise ValueError(f"Invalid multi_variant_source_rules_count in {variant_inv_path}: {multi_variant_cnt}")
+
+    per_full_id = data["per_full_id_counts"]
+    if not isinstance(per_full_id, dict) or len(per_full_id) != source_rules_tot:
+        raise ValueError(f"Invalid per_full_id_counts in {variant_inv_path}: length {len(per_full_id)} != {source_rules_tot}")
+
     expanded_rules = {k: v for k, v in per_full_id.items() if v > 1}
+    if len(expanded_rules) != multi_variant_cnt:
+        raise ValueError(f"Mismatch in expanded rules count: {len(expanded_rules)} != {multi_variant_cnt}")
+
     max_variants = max(per_full_id.values()) if per_full_id else 1
+
     return {
         "source_manifest": "compat/rule_variant_inventory.json",
         "provenance": {
-            "pinned_lt_version": prov.get("pinned_lt_version"),
-            "pinned_lt_commit": prov.get("pinned_lt_commit"),
-            "oracle_build_id": prov.get("oracle_build_id"),
-            "oracle_jar_sha256": prov.get("oracle_jar_sha256"),
+            "pinned_lt_version": ver,
+            "pinned_lt_commit": commit,
+            "oracle_build_id": build_id,
+            "oracle_jar_sha256": jar_sha256,
         },
-        "total_physical_rules": data.get("java_total_physical_rules", 907),
-        "unique_full_ids": data.get("source_xml_rules_total", 892),
-        "multi_variant_rules_count": data.get("multi_variant_source_rules_count", 15),
+        "total_physical_rules": total_physical,
+        "unique_full_ids": source_rules_tot,
+        "multi_variant_rules_count": multi_variant_cnt,
         "max_variants_per_rule": max_variants,
         "expanded_rules": expanded_rules,
     }
 
 
-def classify_runtime_example(ex_elem: ET.Element) -> Tuple[bool, bool]:
-    """Runtime example classification matching GrammarLoader._parse_example()."""
+def classify_runtime_example(ex_elem: ET.Element) -> Tuple[bool, bool, bool, bool]:
+    """Runtime example classification matching GrammarLoader._parse_example().
+
+    Returns:
+        (is_incorrect, correction_attribute_present, correction_value_non_empty, correction_value_empty)
+    """
     ex_type = ex_elem.attrib.get("type")
-    has_corr = ("correction" in ex_elem.attrib) or (ex_elem.find("correction") is not None)
+    corr_attr = ex_elem.attrib.get("correction")
+    corr_present = (corr_attr is not None)
+    corr_non_empty = bool(corr_attr and corr_attr.strip() != "")
+    corr_empty = corr_present and not corr_non_empty
+
     if ex_type in ("triggers_error", "incorrect") or "correction" in ex_elem.attrib:
         is_inc = (ex_type not in ("untouched", "correct"))
     else:
         is_inc = False
-    return is_inc, has_corr
+    return is_inc, corr_present, corr_non_empty, corr_empty
 
 
-def classify_raw_markup_example(ex_elem: ET.Element) -> Tuple[bool, bool]:
-    """Raw XML markup error-like classification based on markers, corrections, and type tags."""
+def classify_raw_markup_example(ex_elem: ET.Element) -> Tuple[bool, bool, bool, bool]:
+    """Raw XML markup error-like classification based on markers, corrections, and type tags.
+
+    Returns:
+        (is_error_like, correction_attribute_present, correction_value_non_empty, correction_value_empty)
+    """
     ex_type = ex_elem.attrib.get("type")
-    has_corr = ("correction" in ex_elem.attrib) or (ex_elem.find("correction") is not None)
+    corr_attr = ex_elem.attrib.get("correction")
     has_marker = bool(ex_elem.findall("marker"))
+    corr_present = (corr_attr is not None)
+    corr_non_empty = bool(corr_attr and corr_attr.strip() != "")
+    corr_empty = corr_present and not corr_non_empty
+
     if ex_type in ("untouched", "correct"):
         is_inc = False
-    elif ex_type in ("triggers_error", "incorrect") or has_corr or has_marker:
+    elif ex_type in ("triggers_error", "incorrect") or corr_present or has_marker:
         is_inc = True
     else:
         is_inc = False
-    return is_inc, has_corr
+    return is_inc, corr_present, corr_non_empty, corr_empty
 
 
 
@@ -164,28 +239,40 @@ def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
     # Raw markup error-like classification (markers, corrections, triggers_error)
     markup_inc_cnt = 0
     markup_cor_cnt = 0
-    markup_corr_attr_cnt = 0
+    markup_corr_present_cnt = 0
+    markup_corr_nonempty_cnt = 0
+    markup_corr_empty_cnt = 0
     for e in raw_examples:
-        is_inc, has_corr = classify_raw_markup_example(e)
+        is_inc, c_pres, c_nonempty, c_empty = classify_raw_markup_example(e)
         if is_inc:
             markup_inc_cnt += 1
         else:
             markup_cor_cnt += 1
-        if has_corr:
-            markup_corr_attr_cnt += 1
+        if c_pres:
+            markup_corr_present_cnt += 1
+        if c_nonempty:
+            markup_corr_nonempty_cnt += 1
+        if c_empty:
+            markup_corr_empty_cnt += 1
 
     # Runtime example classification across raw examples (GrammarLoader semantics)
     rt_inc_cnt = 0
     rt_cor_cnt = 0
-    rt_corr_attr_cnt = 0
+    rt_corr_present_cnt = 0
+    rt_corr_nonempty_cnt = 0
+    rt_corr_empty_cnt = 0
     for e in raw_examples:
-        is_inc, has_corr = classify_runtime_example(e)
+        is_inc, c_pres, c_nonempty, c_empty = classify_runtime_example(e)
         if is_inc:
             rt_inc_cnt += 1
         else:
             rt_cor_cnt += 1
-        if has_corr:
-            rt_corr_attr_cnt += 1
+        if c_pres:
+            rt_corr_present_cnt += 1
+        if c_nonempty:
+            rt_corr_nonempty_cnt += 1
+        if c_empty:
+            rt_corr_empty_cnt += 1
 
     return {
         "tag_counts": dict(sorted(tag_counts.items())),
@@ -236,10 +323,11 @@ def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
             "total_examples": len(raw_examples),
             "markup_error_like_examples": markup_inc_cnt,
             "markup_untouched_or_correct_examples": markup_cor_cnt,
-            "markup_with_corrections": markup_corr_attr_cnt,
+            "correction_attribute_present": markup_corr_present_cnt,
+            "correction_value_non_empty": markup_corr_nonempty_cnt,
+            "correction_value_empty": markup_corr_empty_cnt,
             "runtime_incorrect_examples": rt_inc_cnt,
             "runtime_correct_examples": rt_cor_cnt,
-            "runtime_with_corrections": rt_corr_attr_cnt,
         },
     }
 
@@ -278,7 +366,16 @@ def generate_advanced_inventory() -> Dict[str, Any]:
     feature_source_rules: Dict[str, Set[str]] = defaultdict(set)
     feature_positive_occurrences: Dict[str, int] = defaultdict(int)
     feature_representative_rules: Dict[str, List[str]] = defaultdict(list)
-    feature_examples_counts: Dict[str, Dict[str, int]] = defaultdict(lambda: {"total": 0, "incorrect": 0, "correct": 0})
+    feature_examples_counts: Dict[str, Dict[str, int]] = defaultdict(
+        lambda: {
+            "total": 0,
+            "incorrect": 0,
+            "correct": 0,
+            "correction_attribute_present": 0,
+            "correction_value_non_empty": 0,
+            "correction_value_empty": 0,
+        }
+    )
 
     # Positive pattern token value distributions
     pos_dist_skip: Counter = Counter()
@@ -297,7 +394,16 @@ def generate_advanced_inventory() -> Dict[str, Any]:
     source_order_idx = 0
 
     classification_counts: Dict[str, int] = defaultdict(int)
-    examples_by_state: Dict[str, Dict[str, int]] = defaultdict(lambda: {"total": 0, "incorrect": 0, "correct": 0, "with_correction": 0})
+    examples_by_state: Dict[str, Dict[str, int]] = defaultdict(
+        lambda: {
+            "total": 0,
+            "incorrect": 0,
+            "correct": 0,
+            "correction_attribute_present": 0,
+            "correction_value_non_empty": 0,
+            "correction_value_empty": 0,
+        }
+    )
     total_rule_examples_count = 0
 
     # Track effective antipattern applications
@@ -417,7 +523,9 @@ def generate_advanced_inventory() -> Dict[str, Any]:
         examples_by_state[st]["total"] += ex_cnt["total"]
         examples_by_state[st]["incorrect"] += ex_cnt["incorrect"]
         examples_by_state[st]["correct"] += ex_cnt["correct"]
-        examples_by_state[st]["with_correction"] += ex_cnt["with_correction"]
+        examples_by_state[st]["correction_attribute_present"] += ex_cnt["correction_attribute_present"]
+        examples_by_state[st]["correction_value_non_empty"] += ex_cnt["correction_value_non_empty"]
+        examples_by_state[st]["correction_value_empty"] += ex_cnt["correction_value_empty"]
         total_rule_examples_count += ex_cnt["total"]
 
         for feat in r["feature_usage"]:
@@ -425,6 +533,9 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             feature_examples_counts[feat]["total"] += ex_cnt["total"]
             feature_examples_counts[feat]["incorrect"] += ex_cnt["incorrect"]
             feature_examples_counts[feat]["correct"] += ex_cnt["correct"]
+            feature_examples_counts[feat]["correction_attribute_present"] += ex_cnt["correction_attribute_present"]
+            feature_examples_counts[feat]["correction_value_non_empty"] += ex_cnt["correction_value_non_empty"]
+            feature_examples_counts[feat]["correction_value_empty"] += ex_cnt["correction_value_empty"]
             if len(feature_representative_rules[feat]) < 5 and fid not in feature_representative_rules[feat]:
                 feature_representative_rules[feat].append(fid)
 
@@ -702,14 +813,23 @@ def generate_advanced_inventory() -> Dict[str, Any]:
     runnable_tot = examples_by_state["CORE_0007_RUNNABLE"]["total"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["total"]
     runnable_inc = examples_by_state["CORE_0007_RUNNABLE"]["incorrect"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["incorrect"]
     runnable_corr = examples_by_state["CORE_0007_RUNNABLE"]["correct"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correct"]
+    runnable_corr_pres = examples_by_state["CORE_0007_RUNNABLE"]["correction_attribute_present"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correction_attribute_present"]
+    runnable_corr_nonempty = examples_by_state["CORE_0007_RUNNABLE"]["correction_value_non_empty"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correction_value_non_empty"]
+    runnable_corr_empty = examples_by_state["CORE_0007_RUNNABLE"]["correction_value_empty"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correction_value_empty"]
 
     def_states = ["DEFERRED_0009_UNIFICATION", "DEFERRED_0010_FILTER", "DEFERRED_0012_SPELLING_OR_SUPPRESSION", "MULTI_BLOCKER"]
     deferred_tot = sum(examples_by_state[s]["total"] for s in def_states)
     deferred_inc = sum(examples_by_state[s]["incorrect"] for s in def_states)
     deferred_corr = sum(examples_by_state[s]["correct"] for s in def_states)
+    deferred_corr_pres = sum(examples_by_state[s]["correction_attribute_present"] for s in def_states)
+    deferred_corr_nonempty = sum(examples_by_state[s]["correction_value_non_empty"] for s in def_states)
+    deferred_corr_empty = sum(examples_by_state[s]["correction_value_empty"] for s in def_states)
 
     all_rules_inc = sum(examples_by_state[s]["incorrect"] for s in examples_by_state)
     all_rules_corr = sum(examples_by_state[s]["correct"] for s in examples_by_state)
+    all_corr_pres = sum(examples_by_state[s]["correction_attribute_present"] for s in examples_by_state)
+    all_corr_nonempty = sum(examples_by_state[s]["correction_value_non_empty"] for s in examples_by_state)
+    all_corr_empty = sum(examples_by_state[s]["correction_value_empty"] for s in examples_by_state)
 
     core_0007_count = classification_counts["CORE_0007_RUNNABLE"]
     advanced_0008_count = classification_counts["ADVANCED_0008_RUNNABLE"]
@@ -765,19 +885,30 @@ def generate_advanced_inventory() -> Dict[str, Any]:
                 "runnable_0007_0008_total": runnable_tot,
                 "runnable_0007_0008_incorrect": runnable_inc,
                 "runnable_0007_0008_correct": runnable_corr,
+                "runnable_correction_attribute_present": runnable_corr_pres,
+                "runnable_correction_value_non_empty": runnable_corr_nonempty,
+                "runnable_correction_value_empty": runnable_corr_empty,
                 "deferred_total": deferred_tot,
                 "deferred_incorrect": deferred_inc,
                 "deferred_correct": deferred_corr,
+                "deferred_correction_attribute_present": deferred_corr_pres,
+                "deferred_correction_value_non_empty": deferred_corr_nonempty,
+                "deferred_correction_value_empty": deferred_corr_empty,
                 "all_rules_examples_total": total_rule_examples_count,
                 "all_rules_examples_incorrect": all_rules_inc,
                 "all_rules_examples_correct": all_rules_corr,
+                "all_rules_correction_attribute_present": all_corr_pres,
+                "all_rules_correction_value_non_empty": all_corr_nonempty,
+                "all_rules_correction_value_empty": all_corr_empty,
                 "by_state": {k: dict(v) for k, v in sorted(examples_by_state.items())},
             },
             "raw_markup_error_like_examples": {
                 "total_examples": raw_xml_totals["raw_examples_summary"]["total_examples"],
                 "markup_error_like_examples": raw_xml_totals["raw_examples_summary"]["markup_error_like_examples"],
                 "markup_untouched_or_correct_examples": raw_xml_totals["raw_examples_summary"]["markup_untouched_or_correct_examples"],
-                "markup_with_corrections": raw_xml_totals["raw_examples_summary"]["markup_with_corrections"],
+                "correction_attribute_present": raw_xml_totals["raw_examples_summary"]["correction_attribute_present"],
+                "correction_value_non_empty": raw_xml_totals["raw_examples_summary"]["correction_value_non_empty"],
+                "correction_value_empty": raw_xml_totals["raw_examples_summary"]["correction_value_empty"],
             },
             "runnable_0007_0008_total": runnable_tot,
             "runnable_0007_0008_incorrect": runnable_inc,
@@ -788,6 +919,9 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             "all_rules_examples_total": total_rule_examples_count,
             "all_rules_examples_incorrect": all_rules_inc,
             "all_rules_examples_correct": all_rules_corr,
+            "correction_attribute_present": all_corr_pres,
+            "correction_value_non_empty": all_corr_nonempty,
+            "correction_value_empty": all_corr_empty,
             "by_state": {k: dict(v) for k, v in sorted(examples_by_state.items())},
         },
         "feature_summary": feature_summary,
@@ -991,22 +1125,30 @@ def _analyze_single_rule(
     examples = r_elem.findall("example")
     incorrect_cnt = 0
     correct_cnt = 0
-    with_corr_cnt = 0
+    corr_pres_cnt = 0
+    corr_nonempty_cnt = 0
+    corr_empty_cnt = 0
 
     for ex in examples:
-        is_inc, has_corr = classify_runtime_example(ex)
+        is_inc, c_pres, c_nonempty, c_empty = classify_runtime_example(ex)
         if is_inc:
             incorrect_cnt += 1
         else:
             correct_cnt += 1
-        if has_corr:
-            with_corr_cnt += 1
+        if c_pres:
+            corr_pres_cnt += 1
+        if c_nonempty:
+            corr_nonempty_cnt += 1
+        if c_empty:
+            corr_empty_cnt += 1
 
     examples_count = {
         "total": len(examples),
         "incorrect": incorrect_cnt,
         "correct": correct_cnt,
-        "with_correction": with_corr_cnt,
+        "correction_attribute_present": corr_pres_cnt,
+        "correction_value_non_empty": corr_nonempty_cnt,
+        "correction_value_empty": corr_empty_cnt,
     }
 
     # 8. Blocker Analysis & Transition

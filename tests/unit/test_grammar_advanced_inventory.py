@@ -6,6 +6,7 @@ schema validation, hash parity, and Task 0008 transition coverage.
 
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 import pytest
@@ -103,16 +104,26 @@ def test_grammar_advanced_inventory_structure_counts():
     assert ex_sum["all_rules_examples_incorrect"] == 1039
     assert ex_sum["all_rules_examples_correct"] == 1407
 
+    # Explicit correction fields in runtime summary
+    assert ex_sum["correction_attribute_present"] == 1026
+    assert ex_sum["correction_value_non_empty"] == 871
+    assert ex_sum["correction_value_empty"] == 155
+
     assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["total"] == 988
     assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["incorrect"] == 525
     assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correct"] == 463
+    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correction_attribute_present"] == 519
+    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correction_value_non_empty"] == 454
+    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correction_value_empty"] == 65
 
     # Raw markup error-like statistics (markers, corrections, triggers_error)
     raw_mk = ex_sum["raw_markup_error_like_examples"]
     assert raw_mk["total_examples"] == 2446
     assert raw_mk["markup_error_like_examples"] == 1083
     assert raw_mk["markup_untouched_or_correct_examples"] == 1363
-    assert raw_mk["markup_with_corrections"] == 1026
+    assert raw_mk["correction_attribute_present"] == 1026
+    assert raw_mk["correction_value_non_empty"] == 871
+    assert raw_mk["correction_value_empty"] == 155
 
     # Exception Scope Invariants
     feat_sum = data["feature_summary"]
@@ -159,3 +170,72 @@ def test_grammar_advanced_inventory_structure_counts():
         seen_ids.add(r["full_id"])
 
     assert len(seen_ids) == 892
+
+
+def test_trusted_java_variant_evidence_fail_closed_validation(tmp_path: Path) -> None:
+    """Validate that load_trusted_java_variant_evidence() is fail-closed and strictly manifest-bound."""
+    from tools.russian_grammar_advanced_inventory import load_trusted_java_variant_evidence
+
+    # Base valid manifests
+    canonical_inv = REPO_ROOT / "compat" / "rule_variant_inventory.json"
+    canonical_oracle = REPO_ROOT / "compat" / "oracle_manifest.json"
+
+    # 1. Canonical loading must succeed
+    res = load_trusted_java_variant_evidence(canonical_inv, canonical_oracle)
+    assert res["total_physical_rules"] == 907
+    assert res["unique_full_ids"] == 892
+    assert res["multi_variant_rules_count"] == 15
+    assert res["provenance"]["oracle_build_id"] == "lt_6.8_source_build_jdk17_stefan"
+    assert res["provenance"]["oracle_jar_sha256"] == "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc"
+
+    # Prepare base data
+    base_inv_data = json.loads(canonical_inv.read_text(encoding="utf-8"))
+
+    # 2. Wrong build_id raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    bad_data["provenance"]["oracle_build_id"] = "nonexistent_untrusted_build"
+    inv_file = tmp_path / "inv_bad_build.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="Untrusted or missing oracle_build_id"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
+    # 3. Wrong JAR SHA raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    bad_data["provenance"]["oracle_jar_sha256"] = "0000000000000000000000000000000000000000000000000000000000000000"
+    inv_file = tmp_path / "inv_bad_sha.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="JAR SHA-256 mismatch"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
+    # 4. Wrong pinned version raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    bad_data["provenance"]["pinned_lt_version"] = "5.9"
+    inv_file = tmp_path / "inv_bad_ver.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="Invalid pinned_lt_version"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
+    # 5. Wrong pinned commit raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    bad_data["provenance"]["pinned_lt_commit"] = "badcommit1234567890"
+    inv_file = tmp_path / "inv_bad_commit.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="Invalid pinned_lt_commit"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
+    # 6. Missing required variant-count field raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    del bad_data["java_total_physical_rules"]
+    inv_file = tmp_path / "inv_missing_field.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="Missing required field 'java_total_physical_rules'"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
+    # 7. Missing required multi_variant_source_rules_count field raises ValueError
+    bad_data = copy.deepcopy(base_inv_data)
+    del bad_data["multi_variant_source_rules_count"]
+    inv_file = tmp_path / "inv_missing_multi_field.json"
+    inv_file.write_text(json.dumps(bad_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="Missing required field 'multi_variant_source_rules_count'"):
+        load_trusted_java_variant_evidence(inv_file, canonical_oracle)
+
