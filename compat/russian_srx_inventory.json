@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "target_pin": {
+    "languagetool_tag": "v6.8",
+    "languagetool_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "loomchild_segment_version": "2.0.3"
+  },
+  "source_file": {
+    "path": "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
+    "size_bytes": 213633,
+    "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+  },
+  "srx_header": {
+    "segmentsubflows": "yes",
+    "cascade": "yes"
+  },
+  "mappings": {
+    "ru_two": {
+      "effective_groups": [
+        "GeneralImportant",
+        "ByTwoLineBreaks",
+        "Russian",
+        "Default"
+      ],
+      "total_rules_count": 45,
+      "break_yes_count": 12,
+      "break_no_count": 33
+    },
+    "ru_one": {
+      "effective_groups": [
+        "GeneralImportant",
+        "ByLineBreak",
+        "Russian",
+        "Default"
+      ],
+      "total_rules_count": 44,
+      "break_yes_count": 11,
+      "break_no_count": 33
+    }
+  },
+  "groups_summary": {
+    "GeneralImportant": {
+      "total_rules": 7,
+      "break_yes": 0,
+      "break_no": 7
+    },
+    "ByTwoLineBreaks": {
+      "total_rules": 2,
+      "break_yes": 2,
+      "break_no": 0
+    },
+    "ByLineBreak": {
+      "total_rules": 1,
+      "break_yes": 1,
+      "break_no": 0
+    },
+    "Russian": {
+      "total_rules": 30,
+      "break_yes": 4,
+      "break_no": 26
+    },
+    "Default": {
+      "total_rules": 6,
+      "break_yes": 6,
+      "break_no": 0
+    }
+  },
+  "regex_feature_inventory": {
+    "unicode_properties_used": [
+      "L",
+      "Ll",
+      "Lu",
+      "Pe"
+    ],
+    "inline_flags_used": [
+      "(?U)",
+      "(?iu)"
+    ],
+    "all_rules_compiled_successfully": true,
+    "unsupported_features_count": 0
+  }
+}

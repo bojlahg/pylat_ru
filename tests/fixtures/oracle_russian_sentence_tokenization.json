@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
+    "loomchild_segment_version": "2.0.3",
+    "source": "LanguageTool-v6.8 SRXSentenceTokenizer (Russian)",
+    "description": "Committed oracle sentence tokenization test corpus with exact strings and UTF-16 / code-point boundaries"
+  },
+  "cases": [
+    {
+      "id": "upstream_abbr_mlrd",
+      "mode": "ru_two",
+      "text": "Отток капитала из России составил 7 млрд. долларов, сообщил министр финансов Алексей Кудрин.",
+      "expected_sentences": [
+        "Отток капитала из России составил 7 млрд. долларов, сообщил министр финансов Алексей Кудрин."
+      ]
+    },
+    {
+      "id": "upstream_abbr_g_comma",
+      "mode": "ru_two",
+      "text": "Журнал издаётся с 1967 г., пользуется большой популярностью в мире.",
+      "expected_sentences": [
+        "Журнал издаётся с 1967 г., пользуется большой популярностью в мире."
+      ]
+    },
+    {
+      "id": "upstream_abbr_g_dash",
+      "mode": "ru_two",
+      "text": "С 2007 г. периодичность выхода газеты – 120 раз в год.",
+      "expected_sentences": [
+        "С 2007 г. периодичность выхода газеты – 120 раз в год."
+      ]
+    },
+    {
+      "id": "upstream_abbr_g_city_d_house",
+      "mode": "ru_two",
+      "text": "Редакция журнала находится в здании по адресу: г. Москва, 110000, улица Мира, д. 1.",
+      "expected_sentences": [
+        "Редакция журнала находится в здании по адресу: г. Москва, 110000, улица Мира, д. 1."
+      ]
+    },
+    {
+      "id": "upstream_abbr_gg_years",
+      "mode": "ru_two",
+      "text": "Все эти вопросы заставляют нас искать ответы в нашей истории 60-80-х гг. прошлого столетия.",
+      "expected_sentences": [
+        "Все эти вопросы заставляют нас искать ответы в нашей истории 60-80-х гг. прошлого столетия."
+      ]
+    },
+    {
+      "id": "upstream_abbr_tys_thousands",
+      "mode": "ru_two",
+      "text": "Более 300 тыс. документов и справочников.",
+      "expected_sentences": [
+        "Более 300 тыс. документов и справочников."
+      ]
+    },
+    {
+      "id": "upstream_abbr_rub_rubles",
+      "mode": "ru_two",
+      "text": "Скидки до 50000 руб. на автомобили.",
+      "expected_sentences": [
+        "Скидки до 50000 руб. на автомобили."
+      ]
+    },
+    {
+      "id": "upstream_abbr_sht_pieces",
+      "mode": "ru_two",
+      "text": "Изготовление визиток любыми тиражами (от 20 шт. до 10 тысяч) в минимальные сроки (от 20 минут).",
+      "expected_sentences": [
+        "Изготовление визиток любыми тиражами (от 20 шт. до 10 тысяч) в минимальные сроки (от 20 минут)."
+      ]
+    },
+    {
+      "id": "upstream_abbr_tk_because",
+      "mode": "ru_two",
+      "text": "Временно не работает, т.к. не поддерживается.",
+      "expected_sentences": [
+        "Временно не работает, т.к. не поддерживается."
+      ]
+    },
+    {
+      "id": "multi_sentence_basic",
+      "mode": "ru_two",
+      "text": "Первое предложение. Второе предложение! И третье? Да.",
+      "expected_sentences": [
+        "Первое предложение. ",
+        "Второе предложение! ",
+        "И третье? ",
+        "Да."
+      ]
+    },
+    {
+      "id": "multi_sentence_dialogue_dash",
+      "mode": "ru_two",
+      "text": "— Вы пойдете туда? — спросил он. — Конечно! — ответила она.",
+      "expected_sentences": [
+        "— Вы пойдете туда? ",
+        "— спросил он. ",
+        "— Конечно! ",
+        "— ответила она."
+      ]
+    },
+    {
+      "id": "multi_sentence_quotes_exclamation",
+      "mode": "ru_two",
+      "text": "«Это великолепно!» — воскликнул он. Она лишь улыбнулась.",
+      "expected_sentences": [
+        "«Это великолепно!» ",
+        "— воскликнул он. ",
+        "Она лишь улыбнулась."
+      ]
+    },
+    {
+      "id": "quotes_after_period",
+      "mode": "ru_two",
+      "text": "Он сказал: \"Я приду позже\". Это было правдой.",
+      "expected_sentences": [
+        "Он сказал: \"Я приду позже\". ",
+        "Это было правдой."
+      ]
+    },
+    {
+      "id": "brackets_after_period",
+      "mode": "ru_two",
+      "text": "Она купила книгу (очень редкую). Книга стоила дорого.",
+      "expected_sentences": [
+        "Она купила книгу (очень редкую). ",
+        "Книга стоила дорого."
+      ]
+    },
+    {
+      "id": "guillemets_closing_quotes",
+      "mode": "ru_two",
+      "text": "«Цитата закончилась». Новое предложение.",
+      "expected_sentences": [
+        "«Цитата закончилась». ",
+        "Новое предложение."
+      ]
+    },
+    {
+      "id": "ellipsis_three_dots",
+      "mode": "ru_two",
+      "text": "Что же делать... Никто не знал.",
+      "expected_sentences": [
+        "Что же делать... ",
+        "Никто не знал."
+      ]
+    },
+    {
+      "id": "ellipsis_unicode_char",
+      "mode": "ru_two",
+      "text": "Что же делать… Никто не знал.",
+      "expected_sentences": [
+        "Что же делать… ",
+        "Никто не знал."
+      ]
+    },
+    {
+      "id": "numbers_score_colon",
+      "mode": "ru_two",
+      "text": "Счет 3:1 в пользу нашей команды. Матч завершился.",
+      "expected_sentences": [
+        "Счет 3:1 в пользу нашей команды. ",
+        "Матч завершился."
+      ]
+    },
+    {
+      "id": "time_format_period",
+      "mode": "ru_two",
+      "text": "Поезд прибывает в 14.30 по местному времени.",
+      "expected_sentences": [
+        "Поезд прибывает в 14.30 по местному времени."
+      ]
+    },
+    {
+      "id": "paragraph_two_line_breaks_ru_two",
+      "mode": "ru_two",
+      "text": "Первый абзац.\n\nВторой абзац.",
+      "expected_sentences": [
+        "Первый абзац.\n",
+        "\nВторой абзац."
+      ]
+    },
+    {
+      "id": "paragraph_two_line_breaks_no_period",
+      "mode": "ru_two",
+      "text": "Первый абзац без точки\n\nВторой абзац.",
+      "expected_sentences": [
+        "Первый абзац без точки\n\n",
+        "Второй абзац."
+      ]
+    },
+    {
+      "id": "single_line_break_ru_two",
+      "mode": "ru_two",
+      "text": "Первая строка.\nВторая строка.",
+      "expected_sentences": [
+        "Первая строка.\n",
+        "Вторая строка."
+      ]
+    },
+    {
+      "id": "single_line_break_ru_one",
+      "mode": "ru_one",
+      "text": "Первая строка.\nВторая строка.",
+      "expected_sentences": [
+        "Первая строка.\n",
+        "Вторая строка."
+      ]
+    },
+    {
+      "id": "crlf_paragraphs",
+      "mode": "ru_two",
+      "text": "Первый абзац.\r\n\r\nВторой абзац.",
+      "expected_sentences": [
+        "Первый абзац.\r",
+        "\n\r\n",
+        "Второй абзац."
+      ]
+    },
+    {
+      "id": "leading_trailing_whitespace",
+      "mode": "ru_two",
+      "text": "  Пробелы в начале. И в конце.  ",
+      "expected_sentences": [
+        "  Пробелы в начале. ",
+        "И в конце. ",
+        " "
+      ]
+    },
+    {
+      "id": "empty_text",
+      "mode": "ru_two",
+      "text": "",
+      "expected_sentences": []
+    },
+    {
+      "id": "non_bmp_emoji_sentences",
+      "mode": "ru_two",
+      "text": "Привет мир! 👍 Это эмодзи. 🎉 Еще одно предложение!",
+      "expected_sentences": [
+        "Привет мир! ",
+        "👍 Это эмодзи. ",
+        "🎉 Еще одно предложение!"
+      ],
+      "utf16_offsets_divergence": true
+    }
+  ]
+}

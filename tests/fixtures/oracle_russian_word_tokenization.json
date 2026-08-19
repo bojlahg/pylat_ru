@@ -1,0 +1,473 @@
+{
+  "metadata": {
+    "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
+    "source": "LanguageTool-v6.8 RussianWordTokenizer / WordTokenizer",
+    "description": "Committed oracle word tokenization test corpus with exact strings and UTF-16 / code-point boundaries"
+  },
+  "cases": [
+    {
+      "id": "russian_abbr_bu",
+      "text": "Товар б/у в отличном состоянии.",
+      "expected_tokens": [
+        "Товар",
+        " ",
+        "б/у",
+        " ",
+        "в",
+        " ",
+        "отличном",
+        " ",
+        "состоянии",
+        "."
+      ]
+    },
+    {
+      "id": "russian_abbr_bn",
+      "text": "Документ б/н от 12.05.",
+      "expected_tokens": [
+        "Документ",
+        " ",
+        "б/н",
+        " ",
+        "от",
+        " ",
+        "12",
+        ".",
+        "05",
+        "."
+      ]
+    },
+    {
+      "id": "russian_dot_sentinels_1",
+      "text": "тест . пробел",
+      "expected_tokens": [
+        "тест",
+        " ",
+        ".",
+        " ",
+        "пробел"
+      ]
+    },
+    {
+      "id": "russian_dot_sentinels_2",
+      "text": "тест .. точка",
+      "expected_tokens": [
+        "тест",
+        " ",
+        ".",
+        ".",
+        " ",
+        "точка"
+      ]
+    },
+    {
+      "id": "russian_dot_sentinels_3",
+      "text": "тест .",
+      "expected_tokens": [
+        "тест",
+        " ",
+        "."
+      ]
+    },
+    {
+      "id": "hyphen_inside_word",
+      "text": "русско-английский словарь",
+      "expected_tokens": [
+        "русско-английский",
+        " ",
+        "словарь"
+      ]
+    },
+    {
+      "id": "dashes_as_delimiters",
+      "text": "слово – другое — третье",
+      "expected_tokens": [
+        "слово",
+        " ",
+        "–",
+        " ",
+        "другое",
+        " ",
+        "—",
+        " ",
+        "третье"
+      ]
+    },
+    {
+      "id": "russian_dialogue_quotes",
+      "text": "«Привет, мир!» — воскликнул он.",
+      "expected_tokens": [
+        "«",
+        "Привет",
+        ",",
+        " ",
+        "мир",
+        "!",
+        "»",
+        " ",
+        "—",
+        " ",
+        "воскликнул",
+        " ",
+        "он",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_nbsp_test",
+      "text": "This is a test",
+      "expected_tokens": [
+        "This",
+        " ",
+        "is",
+        " ",
+        "a",
+        " ",
+        "test"
+      ]
+    },
+    {
+      "id": "upstream_cr_breaks",
+      "text": "This\rbreaks",
+      "expected_tokens": [
+        "This",
+        "\r",
+        "breaks"
+      ]
+    },
+    {
+      "id": "multiple_spaces_and_tabs",
+      "text": "Много    пробелов\tи\nпереносов.",
+      "expected_tokens": [
+        "Много",
+        " ",
+        " ",
+        " ",
+        " ",
+        "пробелов",
+        "\t",
+        "и",
+        "\n",
+        "переносов",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_email_single",
+      "text": "dev.all@languagetool.org",
+      "expected_tokens": [
+        "dev.all@languagetool.org"
+      ]
+    },
+    {
+      "id": "upstream_email_trailing_period",
+      "text": "dev.all@languagetool.org.",
+      "expected_tokens": [
+        "dev.all@languagetool.org",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_email_trailing_colon",
+      "text": "dev.all@languagetool.org:",
+      "expected_tokens": [
+        "dev.all@languagetool.org",
+        ":"
+      ]
+    },
+    {
+      "id": "upstream_email_in_parentheses",
+      "text": "Schreiben Sie Hr. Meier (meier@mail.com).",
+      "expected_tokens": [
+        "Schreiben",
+        " ",
+        "Sie",
+        " ",
+        "Hr",
+        ".",
+        " ",
+        "Meier",
+        " ",
+        "(",
+        "meier@mail.com",
+        ")",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_url_quotes_period",
+      "text": "\"This http://foo.org.\"",
+      "expected_tokens": [
+        "\"",
+        "This",
+        " ",
+        "http://foo.org",
+        ".",
+        "\""
+      ]
+    },
+    {
+      "id": "upstream_url_guillemets",
+      "text": "«This http://foo.org.»",
+      "expected_tokens": [
+        "«",
+        "This",
+        " ",
+        "http://foo.org",
+        ".",
+        "»"
+      ]
+    },
+    {
+      "id": "upstream_url_triple_dot",
+      "text": "This http://foo.org...",
+      "expected_tokens": [
+        "This",
+        " ",
+        "http://foo.org",
+        ".",
+        ".",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_url_single_dot",
+      "text": "This http://foo.org.",
+      "expected_tokens": [
+        "This",
+        " ",
+        "http://foo.org",
+        "."
+      ]
+    },
+    {
+      "id": "upstream_url_space_continuation",
+      "text": "This http://foo.org blah",
+      "expected_tokens": [
+        "This",
+        " ",
+        "http://foo.org",
+        " ",
+        "blah"
+      ]
+    },
+    {
+      "id": "upstream_url_http_and_ftp",
+      "text": "This http://foo.org and ftp://bla.com blah",
+      "expected_tokens": [
+        "This",
+        " ",
+        "http://foo.org",
+        " ",
+        "and",
+        " ",
+        "ftp://bla.com",
+        " ",
+        "blah"
+      ]
+    },
+    {
+      "id": "upstream_url_localhost_port",
+      "text": "foo http://localhost:32000/?ch=1 bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://localhost:32000/?ch=1",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_url_in_parentheses_params",
+      "text": "foo (http://ex.net/p?a=x#i) bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "(",
+        "http://ex.net/p?a=x#i",
+        ")",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_url_trailing_comma",
+      "text": "foo http://ex.net/p?a=x#i, bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://ex.net/p?a=x#i",
+        ",",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_url_trailing_colon",
+      "text": "foo http://ex.net/p?a=x#i: bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://ex.net/p?a=x#i",
+        ":",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_url_trailing_question",
+      "text": "foo http://ex.net/p?a=x#i? bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://ex.net/p?a=x#i",
+        "?",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_url_trailing_exclamation",
+      "text": "foo http://ex.net/p?a=x#i! bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://ex.net/p?a=x#i",
+        "!",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_incomplete_url_1",
+      "text": "http:/",
+      "expected_tokens": [
+        "http",
+        ":",
+        "/"
+      ]
+    },
+    {
+      "id": "upstream_incomplete_url_2",
+      "text": "http://",
+      "expected_tokens": [
+        "http://"
+      ]
+    },
+    {
+      "id": "upstream_incomplete_url_3",
+      "text": "http://a",
+      "expected_tokens": [
+        "http://a"
+      ]
+    },
+    {
+      "id": "upstream_incomplete_url_4",
+      "text": "foo http://a bar",
+      "expected_tokens": [
+        "foo",
+        " ",
+        "http://a",
+        " ",
+        "bar"
+      ]
+    },
+    {
+      "id": "upstream_domain_path_url",
+      "text": "Get more at languagetool.org/foo, and via twitter",
+      "expected_tokens": [
+        "Get",
+        " ",
+        "more",
+        " ",
+        "at",
+        " ",
+        "languagetool.org/foo",
+        ",",
+        " ",
+        "and",
+        " ",
+        "via",
+        " ",
+        "twitter"
+      ]
+    },
+    {
+      "id": "upstream_subdomain_path_url",
+      "text": "Get more at sub.languagetool.org/foo, and via twitter",
+      "expected_tokens": [
+        "Get",
+        " ",
+        "more",
+        " ",
+        "at",
+        " ",
+        "sub.languagetool.org/foo",
+        ",",
+        " ",
+        "and",
+        " ",
+        "via",
+        " ",
+        "twitter"
+      ]
+    },
+    {
+      "id": "russian_with_email",
+      "text": "Пишите нам на dev.all@languagetool.org для связи.",
+      "expected_tokens": [
+        "Пишите",
+        " ",
+        "нам",
+        " ",
+        "на",
+        " ",
+        "dev.all@languagetool.org",
+        " ",
+        "для",
+        " ",
+        "связи",
+        "."
+      ]
+    },
+    {
+      "id": "russian_with_https_url",
+      "text": "Посетите сайт https://languagetool.org/ru/ для подробностей.",
+      "expected_tokens": [
+        "Посетите",
+        " ",
+        "сайт",
+        " ",
+        "https://languagetool.org/ru/",
+        " ",
+        "для",
+        " ",
+        "подробностей",
+        "."
+      ]
+    },
+    {
+      "id": "non_bmp_emoji_and_repeated_tokens",
+      "text": "Слово 👍 слово слово 👍 слово!",
+      "expected_tokens": [
+        "Слово",
+        " ",
+        "👍",
+        " ",
+        "слово",
+        " ",
+        "слово",
+        " ",
+        "👍",
+        " ",
+        "слово",
+        "!"
+      ]
+    },
+    {
+      "id": "empty_input",
+      "text": "",
+      "expected_tokens": []
+    }
+  ]
+}

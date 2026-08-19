@@ -24,7 +24,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Text Processing :: Linguistic",
 ]
-dependencies = []
+dependencies = [
+    "regex>=2023.0.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -36,7 +38,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-pylat_ru = ["py.typed"]
+pylat_ru = ["py.typed", "resources/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

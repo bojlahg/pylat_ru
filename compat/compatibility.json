@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0002_dictionary_formats_lt_russian_tagset",
-    "overall_state": "DICTIONARY_FOUNDATION_ESTABLISHED",
+    "task_milestone": "0003_russian_sentence_word_tokenization_offsets",
+    "overall_state": "TOKENIZATION_LAYER_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -23,7 +23,18 @@
       "tagset_unique_tags_total": 1200,
       "tagset_empty_colon_tags_total": 154,
       "tagset_pos_prefixes_total": 19,
-      "tagset_feature_atoms_total": 62
+      "tagset_feature_atoms_total": 62,
+      "srx_ru_two_rules_total": 45,
+      "srx_ru_one_rules_total": 44
+    },
+    "tokenization_and_offsets": {
+      "russian_srx_inventory": "SUPPORTED",
+      "RussianSentenceTokenizer": "SUPPORTED",
+      "RussianSentenceTokenizer_ru_two": "SUPPORTED",
+      "RussianSentenceTokenizer_ru_one": "SUPPORTED",
+      "RussianWordTokenizer": "SUPPORTED",
+      "token_spans_codepoint_offsets": "SUPPORTED",
+      "token_spans_utf16_offsets": "SUPPORTED"
     },
     "dictionary_and_tagset": {
       "dictionary_metadata": "SUPPORTED",
@@ -35,8 +46,8 @@
       "russian_tag_representation": "SUPPORTED"
     },
     "pipeline_components": {
-      "RussianSentenceTokenizer": "NOT_YET_IMPLEMENTED",
-      "RussianWordTokenizer": "NOT_YET_IMPLEMENTED",
+      "RussianSentenceTokenizer": "SUPPORTED",
+      "RussianWordTokenizer": "SUPPORTED",
       "RussianTagger": "NOT_YET_IMPLEMENTED",
       "RussianDisambiguator": "NOT_YET_IMPLEMENTED",
       "RussianChunker": "NOT_YET_IMPLEMENTED",

@@ -1,0 +1,1212 @@
+{
+  "metadata": {
+    "description": "Deterministic Russian SRX segmentation rules extracted from LanguageTool v6.8 segment.srx",
+    "languagetool_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "languagetool_tag": "v6.8",
+    "loomchild_version": "2.0.3",
+    "source_sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+  },
+  "groups": {
+    "GeneralImportant": [
+      {
+        "rule_index": 1,
+        "break": "no",
+        "beforebreak": "\\bwww\\.",
+        "afterbreak": "\\w",
+        "beforebreak_adapted": "\\bwww\\.",
+        "afterbreak_adapted": "\\w"
+      },
+      {
+        "rule_index": 2,
+        "break": "no",
+        "beforebreak": "[\\.!?]",
+        "afterbreak": "\\S*@",
+        "beforebreak_adapted": "[\\.!?]",
+        "afterbreak_adapted": "\\S*@"
+      },
+      {
+        "rule_index": 3,
+        "break": "no",
+        "beforebreak": "(Yahoo|NAU)![\\s\\u00A0]",
+        "afterbreak": "\\p{Ll}",
+        "beforebreak_adapted": "(Yahoo|NAU)![\\s\\u00A0]",
+        "afterbreak_adapted": "\\p{Ll}"
+      },
+      {
+        "rule_index": 4,
+        "break": "no",
+        "beforebreak": "(?iu)FRITZ!",
+        "afterbreak": "(?iu)Box",
+        "beforebreak_adapted": "(?iu)FRITZ!",
+        "afterbreak_adapted": "(?iu)Box"
+      },
+      {
+        "rule_index": 5,
+        "break": "no",
+        "beforebreak": "(Mission|Magic):[\\s\\u00A0]",
+        "afterbreak": "(Impossible|The)",
+        "beforebreak_adapted": "(Mission|Magic):[\\s\\u00A0]",
+        "afterbreak_adapted": "(Impossible|The)"
+      },
+      {
+        "rule_index": 6,
+        "break": "no",
+        "beforebreak": "(^|[\\s\\u00A0])\\.",
+        "afterbreak": "(NET|Net)\\b",
+        "beforebreak_adapted": "(^|[\\s\\u00A0])\\.",
+        "afterbreak_adapted": "(NET|Net)\\b"
+      },
+      {
+        "rule_index": 7,
+        "break": "no",
+        "beforebreak": "A[eur]\\.[\\s\\u00A0]*",
+        "afterbreak": "(aegypti|aferensis|ramidus)",
+        "beforebreak_adapted": "A[eur]\\.[\\s\\u00A0]*",
+        "afterbreak_adapted": "(aegypti|aferensis|ramidus)"
+      }
+    ],
+    "ByTwoLineBreaks": [
+      {
+        "rule_index": 1,
+        "break": "yes",
+        "beforebreak": "\\r?\\n\\s*\\r?\\n[\\t]*",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\r?\\n\\s*\\r?\\n[\\t]*",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 2,
+        "break": "yes",
+        "beforebreak": "[.!?]\\u00A0\\r?\\n",
+        "afterbreak": "",
+        "beforebreak_adapted": "[.!?]\\u00A0\\r?\\n",
+        "afterbreak_adapted": ""
+      }
+    ],
+    "ByLineBreak": [
+      {
+        "rule_index": 1,
+        "break": "yes",
+        "beforebreak": "\\r?\\n",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\r?\\n",
+        "afterbreak_adapted": ""
+      }
+    ],
+    "Russian": [
+      {
+        "rule_index": 1,
+        "break": "no",
+        "beforebreak": "\\b\\d+\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}|\\p{Lu}{2,}",
+        "beforebreak_adapted": "\\b\\d+\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}|\\p{Lu}{2,}"
+      },
+      {
+        "rule_index": 2,
+        "break": "no",
+        "beforebreak": "(?U)\\b[А-ЯЁ]\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 3,
+        "break": "no",
+        "beforebreak": "(?U)\\b[A-Z]\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b[A-Z]\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 4,
+        "break": "no",
+        "beforebreak": "(?U)\\b[А-ЯЁ]\\.",
+        "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+        "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.",
+        "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+      },
+      {
+        "rule_index": 5,
+        "break": "no",
+        "beforebreak": "(?U)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+        "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+        "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+        "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+      },
+      {
+        "rule_index": 6,
+        "break": "no",
+        "beforebreak": "(?U)\\b\\p{L}\\.",
+        "afterbreak": "(?U)\\p{L}\\.",
+        "beforebreak_adapted": "(?u)\\b\\p{L}\\.",
+        "afterbreak_adapted": "(?u)\\p{L}\\."
+      },
+      {
+        "rule_index": 7,
+        "break": "no",
+        "beforebreak": "(?U)\\b[0-9]+(гг|г)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b[0-9]+(гг|г)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 8,
+        "break": "no",
+        "beforebreak": "(?U)\\b[XVILMC]+(в|вв)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b[XVILMC]+(в|вв)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 9,
+        "break": "no",
+        "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 10,
+        "break": "no",
+        "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 11,
+        "break": "no",
+        "beforebreak": "(?U)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 12,
+        "break": "no",
+        "beforebreak": "(?U)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+        "afterbreak": "\\b[0-9]+",
+        "beforebreak_adapted": "(?u)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+        "afterbreak_adapted": "\\b[0-9]+"
+      },
+      {
+        "rule_index": 13,
+        "break": "no",
+        "beforebreak": "(?U)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 14,
+        "break": "no",
+        "beforebreak": "(?U)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 15,
+        "break": "no",
+        "beforebreak": "(?U)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 16,
+        "break": "no",
+        "beforebreak": "(?U)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 17,
+        "break": "no",
+        "beforebreak": "(?U)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 18,
+        "break": "no",
+        "beforebreak": "(?U)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 19,
+        "break": "no",
+        "beforebreak": "(?U)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 20,
+        "break": "no",
+        "beforebreak": "(?U)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "(?u)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 21,
+        "break": "no",
+        "beforebreak": "(?U)\\b(ч|чел|шт|экз)\\.\\s",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\b(ч|чел|шт|экз)\\.\\s",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 22,
+        "break": "no",
+        "beforebreak": "['\"„“][\\.!?…]['\"”]\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "['\"„“][\\.!?…]['\"”]\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 23,
+        "break": "no",
+        "beforebreak": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 24,
+        "break": "no",
+        "beforebreak": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 25,
+        "break": "no",
+        "beforebreak": "[\\[\\(]*…[\\]\\)]* ",
+        "afterbreak": "(?U)\\p{Ll}",
+        "beforebreak_adapted": "[\\[\\(]*…[\\]\\)]* ",
+        "afterbreak_adapted": "(?u)\\p{Ll}"
+      },
+      {
+        "rule_index": 26,
+        "break": "no",
+        "beforebreak": "[\"”'\\u00BB]\\s*",
+        "afterbreak": "(?U)\\s*\\p{Ll}",
+        "beforebreak_adapted": "[\"”'\\u00BB]\\s*",
+        "afterbreak_adapted": "(?u)\\s*\\p{Ll}"
+      },
+      {
+        "rule_index": 27,
+        "break": "yes",
+        "beforebreak": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 28,
+        "break": "yes",
+        "beforebreak": "\\u005D\\u005D\\s",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\u005D\\u005D\\s",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 29,
+        "break": "yes",
+        "beforebreak": "[\\.!?…]['»\"”\\p{Pe}]*",
+        "afterbreak": "\\p{Lu}[^\\p{Lu}]",
+        "beforebreak_adapted": "[\\.!?…]['»\"”\\p{Pe}]*",
+        "afterbreak_adapted": "\\p{Lu}[^\\p{Lu}]"
+      },
+      {
+        "rule_index": 30,
+        "break": "yes",
+        "beforebreak": "(?U)\\s\\p{L}[\\.!?…]\\s",
+        "afterbreak": "(?U)\\p{Lu}\\p{Ll}",
+        "beforebreak_adapted": "(?u)\\s\\p{L}[\\.!?…]\\s",
+        "afterbreak_adapted": "(?u)\\p{Lu}\\p{Ll}"
+      }
+    ],
+    "Default": [
+      {
+        "rule_index": 1,
+        "break": "yes",
+        "beforebreak": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+        "afterbreak": "\\p{Lu}\\p{Ll}",
+        "beforebreak_adapted": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+        "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+      },
+      {
+        "rule_index": 2,
+        "break": "yes",
+        "beforebreak": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+        "afterbreak": "\\p{Lu}\\p{Ll}",
+        "beforebreak_adapted": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+        "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+      },
+      {
+        "rule_index": 3,
+        "break": "yes",
+        "beforebreak": "\\u2029",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\u2029",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 4,
+        "break": "yes",
+        "beforebreak": "",
+        "afterbreak": "<0\\}",
+        "beforebreak_adapted": "",
+        "afterbreak_adapted": "<0\\}"
+      },
+      {
+        "rule_index": 5,
+        "break": "yes",
+        "beforebreak": "\\{0>",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\{0>",
+        "afterbreak_adapted": ""
+      },
+      {
+        "rule_index": 6,
+        "break": "yes",
+        "beforebreak": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+        "afterbreak": "",
+        "beforebreak_adapted": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+        "afterbreak_adapted": ""
+      }
+    ]
+  },
+  "configurations": {
+    "ru_two": {
+      "groups": [
+        "GeneralImportant",
+        "ByTwoLineBreaks",
+        "Russian",
+        "Default"
+      ],
+      "rules": [
+        {
+          "group": "GeneralImportant",
+          "rule_index": 1,
+          "break": "no",
+          "beforebreak": "\\bwww\\.",
+          "afterbreak": "\\w",
+          "beforebreak_adapted": "\\bwww\\.",
+          "afterbreak_adapted": "\\w"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 2,
+          "break": "no",
+          "beforebreak": "[\\.!?]",
+          "afterbreak": "\\S*@",
+          "beforebreak_adapted": "[\\.!?]",
+          "afterbreak_adapted": "\\S*@"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 3,
+          "break": "no",
+          "beforebreak": "(Yahoo|NAU)![\\s\\u00A0]",
+          "afterbreak": "\\p{Ll}",
+          "beforebreak_adapted": "(Yahoo|NAU)![\\s\\u00A0]",
+          "afterbreak_adapted": "\\p{Ll}"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 4,
+          "break": "no",
+          "beforebreak": "(?iu)FRITZ!",
+          "afterbreak": "(?iu)Box",
+          "beforebreak_adapted": "(?iu)FRITZ!",
+          "afterbreak_adapted": "(?iu)Box"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 5,
+          "break": "no",
+          "beforebreak": "(Mission|Magic):[\\s\\u00A0]",
+          "afterbreak": "(Impossible|The)",
+          "beforebreak_adapted": "(Mission|Magic):[\\s\\u00A0]",
+          "afterbreak_adapted": "(Impossible|The)"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 6,
+          "break": "no",
+          "beforebreak": "(^|[\\s\\u00A0])\\.",
+          "afterbreak": "(NET|Net)\\b",
+          "beforebreak_adapted": "(^|[\\s\\u00A0])\\.",
+          "afterbreak_adapted": "(NET|Net)\\b"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 7,
+          "break": "no",
+          "beforebreak": "A[eur]\\.[\\s\\u00A0]*",
+          "afterbreak": "(aegypti|aferensis|ramidus)",
+          "beforebreak_adapted": "A[eur]\\.[\\s\\u00A0]*",
+          "afterbreak_adapted": "(aegypti|aferensis|ramidus)"
+        },
+        {
+          "group": "ByTwoLineBreaks",
+          "rule_index": 1,
+          "break": "yes",
+          "beforebreak": "\\r?\\n\\s*\\r?\\n[\\t]*",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\r?\\n\\s*\\r?\\n[\\t]*",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "ByTwoLineBreaks",
+          "rule_index": 2,
+          "break": "yes",
+          "beforebreak": "[.!?]\\u00A0\\r?\\n",
+          "afterbreak": "",
+          "beforebreak_adapted": "[.!?]\\u00A0\\r?\\n",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 1,
+          "break": "no",
+          "beforebreak": "\\b\\d+\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}|\\p{Lu}{2,}",
+          "beforebreak_adapted": "\\b\\d+\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}|\\p{Lu}{2,}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 2,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 3,
+          "break": "no",
+          "beforebreak": "(?U)\\b[A-Z]\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[A-Z]\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 4,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.",
+          "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.",
+          "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 5,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+          "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+          "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 6,
+          "break": "no",
+          "beforebreak": "(?U)\\b\\p{L}\\.",
+          "afterbreak": "(?U)\\p{L}\\.",
+          "beforebreak_adapted": "(?u)\\b\\p{L}\\.",
+          "afterbreak_adapted": "(?u)\\p{L}\\."
+        },
+        {
+          "group": "Russian",
+          "rule_index": 7,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(гг|г)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(гг|г)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 8,
+          "break": "no",
+          "beforebreak": "(?U)\\b[XVILMC]+(в|вв)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[XVILMC]+(в|вв)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 9,
+          "break": "no",
+          "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 10,
+          "break": "no",
+          "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 11,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 12,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+          "afterbreak": "\\b[0-9]+",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+          "afterbreak_adapted": "\\b[0-9]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 13,
+          "break": "no",
+          "beforebreak": "(?U)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 14,
+          "break": "no",
+          "beforebreak": "(?U)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 15,
+          "break": "no",
+          "beforebreak": "(?U)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 16,
+          "break": "no",
+          "beforebreak": "(?U)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 17,
+          "break": "no",
+          "beforebreak": "(?U)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 18,
+          "break": "no",
+          "beforebreak": "(?U)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 19,
+          "break": "no",
+          "beforebreak": "(?U)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 20,
+          "break": "no",
+          "beforebreak": "(?U)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 21,
+          "break": "no",
+          "beforebreak": "(?U)\\b(ч|чел|шт|экз)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(ч|чел|шт|экз)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 22,
+          "break": "no",
+          "beforebreak": "['\"„“][\\.!?…]['\"”]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "['\"„“][\\.!?…]['\"”]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 23,
+          "break": "no",
+          "beforebreak": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 24,
+          "break": "no",
+          "beforebreak": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 25,
+          "break": "no",
+          "beforebreak": "[\\[\\(]*…[\\]\\)]* ",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "[\\[\\(]*…[\\]\\)]* ",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 26,
+          "break": "no",
+          "beforebreak": "[\"”'\\u00BB]\\s*",
+          "afterbreak": "(?U)\\s*\\p{Ll}",
+          "beforebreak_adapted": "[\"”'\\u00BB]\\s*",
+          "afterbreak_adapted": "(?u)\\s*\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 27,
+          "break": "yes",
+          "beforebreak": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 28,
+          "break": "yes",
+          "beforebreak": "\\u005D\\u005D\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\u005D\\u005D\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 29,
+          "break": "yes",
+          "beforebreak": "[\\.!?…]['»\"”\\p{Pe}]*",
+          "afterbreak": "\\p{Lu}[^\\p{Lu}]",
+          "beforebreak_adapted": "[\\.!?…]['»\"”\\p{Pe}]*",
+          "afterbreak_adapted": "\\p{Lu}[^\\p{Lu}]"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 30,
+          "break": "yes",
+          "beforebreak": "(?U)\\s\\p{L}[\\.!?…]\\s",
+          "afterbreak": "(?U)\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\s\\p{L}[\\.!?…]\\s",
+          "afterbreak_adapted": "(?u)\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 1,
+          "break": "yes",
+          "beforebreak": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+          "afterbreak": "\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+          "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 2,
+          "break": "yes",
+          "beforebreak": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+          "afterbreak": "\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+          "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 3,
+          "break": "yes",
+          "beforebreak": "\\u2029",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\u2029",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Default",
+          "rule_index": 4,
+          "break": "yes",
+          "beforebreak": "",
+          "afterbreak": "<0\\}",
+          "beforebreak_adapted": "",
+          "afterbreak_adapted": "<0\\}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 5,
+          "break": "yes",
+          "beforebreak": "\\{0>",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\{0>",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Default",
+          "rule_index": 6,
+          "break": "yes",
+          "beforebreak": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+          "afterbreak_adapted": ""
+        }
+      ]
+    },
+    "ru_one": {
+      "groups": [
+        "GeneralImportant",
+        "ByLineBreak",
+        "Russian",
+        "Default"
+      ],
+      "rules": [
+        {
+          "group": "GeneralImportant",
+          "rule_index": 1,
+          "break": "no",
+          "beforebreak": "\\bwww\\.",
+          "afterbreak": "\\w",
+          "beforebreak_adapted": "\\bwww\\.",
+          "afterbreak_adapted": "\\w"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 2,
+          "break": "no",
+          "beforebreak": "[\\.!?]",
+          "afterbreak": "\\S*@",
+          "beforebreak_adapted": "[\\.!?]",
+          "afterbreak_adapted": "\\S*@"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 3,
+          "break": "no",
+          "beforebreak": "(Yahoo|NAU)![\\s\\u00A0]",
+          "afterbreak": "\\p{Ll}",
+          "beforebreak_adapted": "(Yahoo|NAU)![\\s\\u00A0]",
+          "afterbreak_adapted": "\\p{Ll}"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 4,
+          "break": "no",
+          "beforebreak": "(?iu)FRITZ!",
+          "afterbreak": "(?iu)Box",
+          "beforebreak_adapted": "(?iu)FRITZ!",
+          "afterbreak_adapted": "(?iu)Box"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 5,
+          "break": "no",
+          "beforebreak": "(Mission|Magic):[\\s\\u00A0]",
+          "afterbreak": "(Impossible|The)",
+          "beforebreak_adapted": "(Mission|Magic):[\\s\\u00A0]",
+          "afterbreak_adapted": "(Impossible|The)"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 6,
+          "break": "no",
+          "beforebreak": "(^|[\\s\\u00A0])\\.",
+          "afterbreak": "(NET|Net)\\b",
+          "beforebreak_adapted": "(^|[\\s\\u00A0])\\.",
+          "afterbreak_adapted": "(NET|Net)\\b"
+        },
+        {
+          "group": "GeneralImportant",
+          "rule_index": 7,
+          "break": "no",
+          "beforebreak": "A[eur]\\.[\\s\\u00A0]*",
+          "afterbreak": "(aegypti|aferensis|ramidus)",
+          "beforebreak_adapted": "A[eur]\\.[\\s\\u00A0]*",
+          "afterbreak_adapted": "(aegypti|aferensis|ramidus)"
+        },
+        {
+          "group": "ByLineBreak",
+          "rule_index": 1,
+          "break": "yes",
+          "beforebreak": "\\r?\\n",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\r?\\n",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 1,
+          "break": "no",
+          "beforebreak": "\\b\\d+\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}|\\p{Lu}{2,}",
+          "beforebreak_adapted": "\\b\\d+\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}|\\p{Lu}{2,}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 2,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 3,
+          "break": "no",
+          "beforebreak": "(?U)\\b[A-Z]\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[A-Z]\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 4,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.",
+          "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.",
+          "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 5,
+          "break": "no",
+          "beforebreak": "(?U)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+          "afterbreak": "(?U)[А-ЯЁ][а-яё]+",
+          "beforebreak_adapted": "(?u)\\b[А-ЯЁ]\\.[А-ЯЁ]\\.",
+          "afterbreak_adapted": "(?u)[А-ЯЁ][а-яё]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 6,
+          "break": "no",
+          "beforebreak": "(?U)\\b\\p{L}\\.",
+          "afterbreak": "(?U)\\p{L}\\.",
+          "beforebreak_adapted": "(?u)\\b\\p{L}\\.",
+          "afterbreak_adapted": "(?u)\\p{L}\\."
+        },
+        {
+          "group": "Russian",
+          "rule_index": 7,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(гг|г)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(гг|г)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 8,
+          "break": "no",
+          "beforebreak": "(?U)\\b[XVILMC]+(в|вв)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b[XVILMC]+(в|вв)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 9,
+          "break": "no",
+          "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 10,
+          "break": "no",
+          "beforebreak": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\b[0-9]+(\\.|:)[0-9][0-9](\\.|:)[0-9][0-9]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 11,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(м|мм|см|дм|л|км|га|кг|т|г|мг)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 12,
+          "break": "no",
+          "beforebreak": "(?U)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+          "afterbreak": "\\b[0-9]+",
+          "beforebreak_adapted": "(?u)\\b[0-9]+(руб|Руб|тыс|Тыс|трлн|млн|млрд)\\.\\s",
+          "afterbreak_adapted": "\\b[0-9]+"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 13,
+          "break": "no",
+          "beforebreak": "(?U)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(бульв|г|д|доп|др|е|зам|Зам|и|им|инд|исп|Исп)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 14,
+          "break": "no",
+          "beforebreak": "(?U)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(англ|в|вв|га|гг|гл|гос|грн|дм|долл|е|ед)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 15,
+          "break": "no",
+          "beforebreak": "(?U)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(к|кап|кав|кв|кл|кол|комн|куб|л|лиц|лл|м|макс)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 16,
+          "break": "no",
+          "beforebreak": "(?U)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(кг|км|коп|л|лл|м|мг|мин|мл|млн|Млн|млрд|Млрд|мм)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 17,
+          "break": "no",
+          "beforebreak": "(?U)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(н|наб|нач|неуд|нем|ном|о|обл|обр|общ|ок|ост|отл|п|пер|Пер|перераб|пл|пос|пр|пром|просп|Просп|проф|Проф)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 18,
+          "break": "no",
+          "beforebreak": "(?U)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(р|ред|Рис|рус|с|сб|св|См|см|сов|соч|соц|спец|ср|ст|стр|т|тел|Тел|тех|тов|тт|туп)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 19,
+          "break": "no",
+          "beforebreak": "(?U)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(руб|Руб|тыс|Тыс|трлн)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 20,
+          "break": "no",
+          "beforebreak": "(?U)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "(?u)\\b(уд|ул|уч|физ|х|хор|э|Эл|эл)\\.\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 21,
+          "break": "no",
+          "beforebreak": "(?U)\\b(ч|чел|шт|экз)\\.\\s",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\b(ч|чел|шт|экз)\\.\\s",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 22,
+          "break": "no",
+          "beforebreak": "['\"„“][\\.!?…]['\"”]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "['\"„“][\\.!?…]['\"”]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 23,
+          "break": "no",
+          "beforebreak": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "[\\u00AB][\\.!?…][\\u00BB]\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 24,
+          "break": "no",
+          "beforebreak": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "[\\[\\(]*\\.\\.\\.[\\]\\)]* ",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 25,
+          "break": "no",
+          "beforebreak": "[\\[\\(]*…[\\]\\)]* ",
+          "afterbreak": "(?U)\\p{Ll}",
+          "beforebreak_adapted": "[\\[\\(]*…[\\]\\)]* ",
+          "afterbreak_adapted": "(?u)\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 26,
+          "break": "no",
+          "beforebreak": "[\"”'\\u00BB]\\s*",
+          "afterbreak": "(?U)\\s*\\p{Ll}",
+          "beforebreak_adapted": "[\"”'\\u00BB]\\s*",
+          "afterbreak_adapted": "(?u)\\s*\\p{Ll}"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 27,
+          "break": "yes",
+          "beforebreak": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "[\\.!?…]['\"\\u00BB\\u2019\\u201D\\u203A\\u0002¹²³]*\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 28,
+          "break": "yes",
+          "beforebreak": "\\u005D\\u005D\\s",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\u005D\\u005D\\s",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Russian",
+          "rule_index": 29,
+          "break": "yes",
+          "beforebreak": "[\\.!?…]['»\"”\\p{Pe}]*",
+          "afterbreak": "\\p{Lu}[^\\p{Lu}]",
+          "beforebreak_adapted": "[\\.!?…]['»\"”\\p{Pe}]*",
+          "afterbreak_adapted": "\\p{Lu}[^\\p{Lu}]"
+        },
+        {
+          "group": "Russian",
+          "rule_index": 30,
+          "break": "yes",
+          "beforebreak": "(?U)\\s\\p{L}[\\.!?…]\\s",
+          "afterbreak": "(?U)\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "(?u)\\s\\p{L}[\\.!?…]\\s",
+          "afterbreak_adapted": "(?u)\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 1,
+          "break": "yes",
+          "beforebreak": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+          "afterbreak": "\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "\\p{L}[\\.!?…]\\u00A0+\\s+",
+          "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 2,
+          "break": "yes",
+          "beforebreak": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+          "afterbreak": "\\p{Lu}\\p{Ll}",
+          "beforebreak_adapted": "\\p{L}[\\.!?…]\\s+\\u00A0+",
+          "afterbreak_adapted": "\\p{Lu}\\p{Ll}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 3,
+          "break": "yes",
+          "beforebreak": "\\u2029",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\u2029",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Default",
+          "rule_index": 4,
+          "break": "yes",
+          "beforebreak": "",
+          "afterbreak": "<0\\}",
+          "beforebreak_adapted": "",
+          "afterbreak_adapted": "<0\\}"
+        },
+        {
+          "group": "Default",
+          "rule_index": 5,
+          "break": "yes",
+          "beforebreak": "\\{0>",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\{0>",
+          "afterbreak_adapted": ""
+        },
+        {
+          "group": "Default",
+          "rule_index": 6,
+          "break": "yes",
+          "beforebreak": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+          "afterbreak": "",
+          "beforebreak_adapted": "\\d{2}:\\d{2}:\\d{2},\\d{3}\\r?\\n",
+          "afterbreak_adapted": ""
+        }
+      ]
+    }
+  }
+}

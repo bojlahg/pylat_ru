@@ -15,6 +15,13 @@ from pylat_ru.morfologik import (
     MorfologikDictionary,
 )
 from pylat_ru.tagset import RussianTag, parse_tag
+from pylat_ru.tokenization import (
+    RussianSentenceTokenizer,
+    RussianWordTokenizer,
+    SentenceSpan,
+    TextSpan,
+    TokenSpan,
+)
 
 __version__ = "0.1.0a0"
 __all__ = [
@@ -23,7 +30,12 @@ __all__ = [
     "LanguageToolRU",
     "MorfologikDictionary",
     "RuleMatch",
+    "RussianSentenceTokenizer",
     "RussianTag",
+    "RussianWordTokenizer",
+    "SentenceSpan",
+    "TextSpan",
+    "TokenSpan",
     "parse_tag",
 ]
 
