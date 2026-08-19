@@ -4,9 +4,14 @@
 Extracts, inventories, and generates deterministic runtime Russian SRX
 segmentation rules from pinned LanguageTool segment.srx (v6.8).
 
-Generates:
-- compat/russian_srx_inventory.json (machine-readable inventory & metadata)
-- src/pylat_ru/resources/russian_srx_rules.json (pure runtime rule representation)
+Features:
+- Strict source file hash validation (fails on unexpected SHA-256).
+- Dynamic <languagemap> resolution respecting document order and cascade='yes'.
+- Loomchild segment 2.0.3 lookbehind finitization (* -> {0,100}, + -> {1,100}, {n,} -> {n,100}).
+- Strict validation of all rule attributes and regex compilation.
+- Generates:
+  - compat/russian_srx_inventory.json (machine-readable inventory & metadata)
+  - src/pylat_ru/resources/russian_srx_rules.json (pure runtime rule representation)
 """
 
 from __future__ import annotations
@@ -46,8 +51,19 @@ DEFAULT_RULES_PATH = (
 
 PINNED_LT_TAG = "v6.8"
 PINNED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
+EXPECTED_SRX_HASH = (
+    "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+)
 LOOMCHILD_VERSION = "2.0.3"
+DEFAULT_MAX_LOOKBEHIND_LENGTH = 100
 SRX_NS = {"srx": "http://www.lisa.org/srx20"}
+
+# Regexes for lookbehind finitization matching loomchild net.loomchild.segment.util.Util
+STAR_PATTERN = regex.compile(r"(?<=(?<!\\)(?:\\\\)*)\*")
+PLUS_PATTERN = regex.compile(
+    r"(?<=(?<!\\)(?:\\\\)*)(?<![\?\*\+]|\{[0-9],?[0-9]?\}?\})\+"
+)
+RANGE_PATTERN = regex.compile(r"(?<=(?<!\\)(?:\\\\)*)\{\s*([0-9]+)\s*,\s*\}")
 
 
 def sha256_file(path: Path) -> str:
@@ -56,6 +72,47 @@ def sha256_file(path: Path) -> str:
         while chunk := f.read(65536):
             h.update(chunk)
     return h.hexdigest()
+
+
+def remove_block_quotes(pattern: str) -> str:
+    r"""Replace \Q...\E block quotes with escaped individual characters."""
+    result: List[str] = []
+    quote = False
+    prev_char = ""
+    for ch in pattern:
+        if quote:
+            if prev_char == "\\" and ch == "E":
+                quote = False
+                if result and result[-1] == "\\":
+                    result.pop()
+                if result and result[-1] == "\\":
+                    result.pop()
+            else:
+                result.append("\\")
+                result.append(ch)
+        else:
+            if prev_char == "\\" and ch == "Q":
+                quote = True
+                if result and result[-1] == "\\":
+                    result.pop()
+            else:
+                result.append(ch)
+        prev_char = ch
+    return "".join(result)
+
+
+def finitize(pattern: str, max_length: int = DEFAULT_MAX_LOOKBEHIND_LENGTH) -> str:
+    """Finitize unlimited length patterns for lookbehind constructs.
+
+    Matches loomchild segment 2.0.3 Util.finitize() semantics.
+    """
+    if not pattern:
+        return ""
+    finite = remove_block_quotes(pattern)
+    finite = STAR_PATTERN.sub(f"{{0,{max_length}}}", finite)
+    finite = PLUS_PATTERN.sub(f"{{1,{max_length}}}", finite)
+    finite = RANGE_PATTERN.sub(rf"{{\1,{max_length}}}", finite)
+    return finite
 
 
 def adapt_java_regex(pattern: str) -> str:
@@ -74,14 +131,56 @@ def adapt_java_regex(pattern: str) -> str:
     return p
 
 
-def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-    """Parse segment.srx and extract detailed inventory and runtime rules."""
+def resolve_language_rules_for_code(
+    maprules: List[Dict[str, str]],
+    target_code: str,
+    cascade: bool,
+) -> List[str]:
+    """Dynamically resolve effective language rule group names for a language code.
+
+    Follows SrxDocument.getLanguageRuleList() from loomchild segment 2.0.3.
+    """
+    matching_groups: List[str] = []
+    for mapping in maprules:
+        pattern_str = mapping["languagepattern"]
+        rule_name = mapping["languagerulename"]
+        try:
+            pat = regex.compile(pattern_str)
+        except Exception as e:
+            raise ValueError(
+                f"Invalid languagepattern regex in SRX mapping: {pattern_str!r} ({e})"
+            ) from e
+
+        # In Java LanguageMap.java: languagePattern.matcher(languageCode).matches() (fullmatch)
+        if pat.fullmatch(target_code):
+            matching_groups.append(rule_name)
+            if not cascade:
+                break
+    return matching_groups
+
+
+def analyze_srx(
+    srx_path: Path,
+    expected_hash: str = EXPECTED_SRX_HASH,
+) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    """Parse segment.srx and extract detailed inventory and runtime rules.
+
+    Performs strict validation of source file hash and structure.
+    """
     if not srx_path.is_file():
         raise FileNotFoundError(f"SRX file not found: {srx_path}")
 
     srx_bytes = srx_path.read_bytes()
     srx_hash = hashlib.sha256(srx_bytes).hexdigest()
     srx_size = len(srx_bytes)
+
+    if expected_hash and srx_hash != expected_hash:
+        raise ValueError(
+            f"SRX source hash mismatch for {srx_path}:\n"
+            f"  Expected: {expected_hash}\n"
+            f"  Actual:   {srx_hash}\n"
+            f"Refusing to generate artifacts from unverified source."
+        )
 
     tree = ET.parse(srx_path)
     root = tree.getroot()
@@ -91,9 +190,9 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         raise ValueError("Missing <header> in SRX file")
 
     segmentsubflows = header_elem.attrib.get("segmentsubflows", "yes")
-    cascade = header_elem.attrib.get("cascade", "no")
+    cascade_attr = header_elem.attrib.get("cascade", "yes")
+    cascade_bool = cascade_attr.strip().lower() == "yes"
 
-    # Map rules
     body_elem = root.find("srx:body", SRX_NS)
     if body_elem is None:
         raise ValueError("Missing <body> in SRX file")
@@ -104,38 +203,62 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
 
     all_maps: List[Dict[str, str]] = []
     for lm in maprules_elem.findall("srx:languagemap", SRX_NS):
+        lp = lm.attrib.get("languagepattern")
+        lrn = lm.attrib.get("languagerulename")
+        if lp is None or lrn is None:
+            raise ValueError(f"Malformed <languagemap> entry: {lm.attrib}")
         all_maps.append(
             {
-                "languagepattern": lm.attrib.get("languagepattern", ""),
-                "languagerulename": lm.attrib.get("languagerulename", ""),
+                "languagepattern": lp,
+                "languagerulename": lrn,
             }
         )
 
     # Collect all languagerule definitions
     languagerules_dict: Dict[str, ET.Element] = {}
     for lr in body_elem.findall("srx:languagerules/srx:languagerule", SRX_NS):
-        name = lr.attrib.get("languagerulename", "")
+        name = lr.attrib.get("languagerulename")
+        if not name:
+            raise ValueError(f"Malformed <languagerule> missing languagerulename")
         languagerules_dict[name] = lr
 
-    # Effective rule sequences
-    ru_two_groups = ["GeneralImportant", "ByTwoLineBreaks", "Russian", "Default"]
-    ru_one_groups = ["GeneralImportant", "ByLineBreak", "Russian", "Default"]
+    # Dynamically resolve language groups from <maprules>
+    ru_two_groups = resolve_language_rules_for_code(all_maps, "ru_two", cascade_bool)
+    ru_one_groups = resolve_language_rules_for_code(all_maps, "ru_one", cascade_bool)
+
+    if not ru_two_groups:
+        raise ValueError("Dynamic resolution failed: no mapping found for 'ru_two'")
+    if not ru_one_groups:
+        raise ValueError("Dynamic resolution failed: no mapping found for 'ru_one'")
+
+    # Validate that all resolved groups exist in languagerules
+    all_needed_groups = sorted(set(ru_two_groups + ru_one_groups))
+    for gname in all_needed_groups:
+        if gname not in languagerules_dict:
+            raise ValueError(
+                f"Resolved group '{gname}' is not defined under <languagerules>"
+            )
 
     def extract_group_rules(group_name: str) -> List[Dict[str, Any]]:
-        lr_elem = languagerules_dict.get(group_name)
-        if lr_elem is None:
-            raise ValueError(f"Language rule group '{group_name}' not found in SRX")
+        lr_elem = languagerules_dict[group_name]
         rules: List[Dict[str, Any]] = []
         for idx, r in enumerate(lr_elem.findall("srx:rule", SRX_NS), start=1):
-            is_break = r.attrib.get("break", "yes") == "yes"
+            break_val = r.attrib.get("break")
+            if break_val not in ("yes", "no"):
+                raise ValueError(
+                    f"Rule {idx} in group '{group_name}' has invalid break attribute: {break_val!r}"
+                )
+            is_break = break_val == "yes"
+
             bb = r.find("srx:beforebreak", SRX_NS)
             ab = r.find("srx:afterbreak", SRX_NS)
             bb_raw = bb.text if bb is not None and bb.text is not None else ""
             ab_raw = ab.text if ab is not None and ab.text is not None else ""
             bb_adapted = adapt_java_regex(bb_raw)
             ab_adapted = adapt_java_regex(ab_raw)
+            bb_finitized = finitize(bb_adapted)
 
-            # Test compile
+            # Test compile patterns
             if bb_adapted:
                 try:
                     regex.compile(bb_adapted)
@@ -150,6 +273,13 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
                     raise ValueError(
                         f"Failed to compile afterbreak pattern for {group_name} R{idx}: {ab_adapted} ({e})"
                     ) from e
+            if bb_finitized:
+                try:
+                    regex.compile(bb_finitized)
+                except Exception as e:
+                    raise ValueError(
+                        f"Failed to compile finitized beforebreak pattern for {group_name} R{idx}: {bb_finitized} ({e})"
+                    ) from e
 
             rules.append(
                 {
@@ -159,12 +289,13 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
                     "afterbreak": ab_raw,
                     "beforebreak_adapted": bb_adapted,
                     "afterbreak_adapted": ab_adapted,
+                    "beforebreak_finitized": bb_finitized,
                 }
             )
         return rules
 
     groups_data: Dict[str, List[Dict[str, Any]]] = {}
-    for gname in ["GeneralImportant", "ByTwoLineBreaks", "ByLineBreak", "Russian", "Default"]:
+    for gname in all_needed_groups:
         groups_data[gname] = extract_group_rules(gname)
 
     # Build sequence for ru_two and ru_one
@@ -181,6 +312,7 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
                         "afterbreak": r["afterbreak"],
                         "beforebreak_adapted": r["beforebreak_adapted"],
                         "afterbreak_adapted": r["afterbreak_adapted"],
+                        "beforebreak_finitized": r["beforebreak_finitized"],
                     }
                 )
         return seq
@@ -209,7 +341,7 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         },
         "srx_header": {
             "segmentsubflows": segmentsubflows,
-            "cascade": cascade,
+            "cascade": cascade_attr,
         },
         "mappings": {
             "ru_two": {
@@ -236,6 +368,7 @@ def analyze_srx(srx_path: Path) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         "regex_feature_inventory": {
             "unicode_properties_used": sorted(unicode_props),
             "inline_flags_used": ["(?U)", "(?iu)"],
+            "lookbehind_finitization_max_length": DEFAULT_MAX_LOOKBEHIND_LENGTH,
             "all_rules_compiled_successfully": True,
             "unsupported_features_count": 0,
         },

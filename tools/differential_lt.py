@@ -2,7 +2,7 @@
 """tools/differential_lt.py
 
 Development-only differential oracle harness for comparing pylat_ru against
-official pinned Java LanguageTool.
+official pinned Java LanguageTool (v6.8).
 
 IMPORTANT:
 - This tool is strictly DEV/TEST only.
@@ -18,10 +18,10 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
-
 
 PINNED_LT_VERSION = "6.8"
 PINNED_LT_COMMIT = "e807fcde6a6506191e1470744d2345da28c26be6"
@@ -82,7 +82,9 @@ class JavaLanguageToolOracle:
         language: str = "ru-RU",
     ) -> None:
         self.language = language
-        self.cache_dir = cache_dir or (Path(__file__).resolve().parent.parent / ".oracle_cache")
+        self.cache_dir = cache_dir or (
+            Path(__file__).resolve().parent.parent / ".oracle_cache"
+        )
         self.jar_path = jar_path
 
     def is_java_available(self) -> bool:
@@ -90,29 +92,34 @@ class JavaLanguageToolOracle:
         return shutil.which("java") is not None
 
     def is_oracle_configured(self) -> bool:
-        """Check if Java LanguageTool jar/server is available."""
+        """Check if Java LanguageTool jar is available."""
         if not self.is_java_available():
             return False
         if self.jar_path and self.jar_path.is_file():
             return True
-        # Check standard cache location
-        candidate = self.cache_dir / f"LanguageTool-{PINNED_LT_VERSION}" / "languagetool-commandline.jar"
+        candidate = (
+            self.cache_dir
+            / f"LanguageTool-{PINNED_LT_VERSION}"
+            / "languagetool-commandline.jar"
+        )
         return candidate.is_file()
 
     def get_jar_path(self) -> Optional[Path]:
         if self.jar_path and self.jar_path.is_file():
             return self.jar_path
-        candidate = self.cache_dir / f"LanguageTool-{PINNED_LT_VERSION}" / "languagetool-commandline.jar"
+        candidate = (
+            self.cache_dir
+            / f"LanguageTool-{PINNED_LT_VERSION}"
+            / "languagetool-commandline.jar"
+        )
         if candidate.is_file():
             return candidate
         return None
 
-    def check(self, text: str, disabled_rules: Sequence[str] | None = None) -> List[Finding]:
-        """Run text through Java LanguageTool CLI and return structured findings.
-
-        Raises:
-            RuntimeError: If Java or LanguageTool jar is not available.
-        """
+    def check(
+        self, text: str, disabled_rules: Sequence[str] | None = None
+    ) -> List[Finding]:
+        """Run text through Java LanguageTool CLI and return structured findings."""
         if not self.is_java_available():
             raise RuntimeError("Java is not installed or not in PATH.")
 
@@ -153,7 +160,11 @@ class JavaLanguageToolOracle:
                 message = m.get("message", "")
                 offset = m.get("offset", 0)
                 length = m.get("length", 0)
-                replacements = [r.get("value", "") for r in m.get("replacements", []) if isinstance(r, dict)]
+                replacements = [
+                    r.get("value", "")
+                    for r in m.get("replacements", [])
+                    if isinstance(r, dict)
+                ]
 
                 findings.append(
                     Finding(
@@ -170,7 +181,136 @@ class JavaLanguageToolOracle:
         except subprocess.CalledProcessError as e:
             raise RuntimeError(f"Java LanguageTool execution failed: {e.stderr}") from e
         except json.JSONDecodeError as e:
-            raise RuntimeError(f"Failed to parse Java LanguageTool JSON output: {e}") from e
+            raise RuntimeError(
+                f"Failed to parse Java LanguageTool JSON output: {e}"
+            ) from e
+
+    def tokenize_sentences(
+        self, text: str, single_line_breaks: bool = False
+    ) -> List[str]:
+        """Run text through Java LanguageTool Russian SRXSentenceTokenizer."""
+        if not self.is_java_available():
+            raise RuntimeError("Java is not installed or not in PATH.")
+        jar = self.get_jar_path()
+        if not jar:
+            raise RuntimeError(
+                f"LanguageTool standalone jar not found in {self.cache_dir}."
+            )
+
+        java_src = """
+import org.languagetool.language.Russian;
+import org.languagetool.tokenizers.SentenceTokenizer;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class TokenizeSentences {
+    public static void main(String[] args) throws Exception {
+        boolean singleLine = args.length > 0 && args[0].equals("ru_one");
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) {
+            return;
+        }
+        Russian ru = (Russian) Russian.getInstance();
+        SentenceTokenizer tok = ru.getSentenceTokenizer();
+        tok.setSingleLineBreaksMarksParagraph(singleLine);
+        List<String> sents = tok.tokenize(text);
+        for (int i = 0; i < sents.size(); i++) {
+            if (i > 0) System.out.print("\\u0000");
+            System.out.print(sents.get(i));
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "TokenizeSentences.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            # Compile
+            subprocess.run(
+                ["javac", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            mode_arg = "ru_one" if single_line_breaks else "ru_two"
+            proc = subprocess.run(
+                ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "TokenizeSentences", mode_arg],
+                input=text.encode("utf-8"),
+                capture_output=True,
+                check=True,
+            )
+            out_bytes = proc.stdout
+            if not out_bytes:
+                return []
+            return out_bytes.decode("utf-8").split("\u0000")
+
+    def tokenize_words(self, text: str) -> List[str]:
+        """Run text through Java LanguageTool RussianWordTokenizer."""
+        if not self.is_java_available():
+            raise RuntimeError("Java is not installed or not in PATH.")
+        jar = self.get_jar_path()
+        if not jar:
+            raise RuntimeError(
+                f"LanguageTool standalone jar not found in {self.cache_dir}."
+            )
+
+        java_src = """
+import org.languagetool.language.Russian;
+import org.languagetool.tokenizers.Tokenizer;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class TokenizeWords {
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) {
+            return;
+        }
+        Russian ru = (Russian) Russian.getInstance();
+        Tokenizer tok = ru.getWordTokenizer();
+        List<String> words = tok.tokenize(text);
+        for (int i = 0; i < words.size(); i++) {
+            if (i > 0) System.out.print("\\u0000");
+            System.out.print(words.get(i));
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "TokenizeWords.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            # Compile
+            subprocess.run(
+                ["javac", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            proc = subprocess.run(
+                ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "TokenizeWords"],
+                input=text.encode("utf-8"),
+                capture_output=True,
+                check=True,
+            )
+            out_bytes = proc.stdout
+            if not out_bytes:
+                return []
+            return out_bytes.decode("utf-8").split("\u0000")
 
 
 def compare_findings(
@@ -188,7 +328,6 @@ def compare_findings(
 
     count_match = len(java_findings) == len(pylat_findings)
 
-    # Count span and suggestion matches
     span_matches = 0
     suggestion_matches = 0
 
@@ -222,13 +361,54 @@ def compare_findings(
     )
 
 
+def generate_tokenization_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Regenerate oracle sentence and word fixtures directly from pinned Java LT."""
+    sent_fixture_path = fixtures_dir / "oracle_russian_sentence_tokenization.json"
+    word_fixture_path = fixtures_dir / "oracle_russian_word_tokenization.json"
+
+    if not sent_fixture_path.is_file() or not word_fixture_path.is_file():
+        raise FileNotFoundError("Existing fixture files needed for case metadata")
+
+    sent_data = json.loads(sent_fixture_path.read_text(encoding="utf-8"))
+    word_data = json.loads(word_fixture_path.read_text(encoding="utf-8"))
+
+    for case in sent_data["cases"]:
+        text = case["text"]
+        single_line = case.get("mode") == "ru_one"
+        expected = oracle.tokenize_sentences(text, single_line_breaks=single_line)
+        case["expected_sentences"] = expected
+
+    for case in word_data["cases"]:
+        text = case["text"]
+        expected = oracle.tokenize_words(text)
+        case["expected_tokens"] = expected
+
+    sent_fixture_path.write_text(
+        json.dumps(sent_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    word_fixture_path.write_text(
+        json.dumps(word_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(f"Updated sentence fixture from Java Oracle -> {sent_fixture_path}")
+    print(f"Updated word fixture from Java Oracle -> {word_fixture_path}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
     )
-    parser.add_argument("--status", action="store_true", help="Check Java oracle availability")
+    parser.add_argument(
+        "--status", action="store_true", help="Check Java oracle availability"
+    )
     parser.add_argument("--text", type=str, help="Text to check")
     parser.add_argument("--json", action="store_true", help="Output JSON result")
+    parser.add_argument(
+        "--generate-tokenization-fixtures",
+        action="store_true",
+        help="Generate tokenization fixtures from Java LanguageTool oracle",
+    )
 
     args = parser.parse_args()
     oracle = JavaLanguageToolOracle()
@@ -247,6 +427,17 @@ def main() -> int:
             print(f"Java Available: {status_info['java_available']}")
             print(f"Oracle Configured: {status_info['oracle_configured']}")
             print(f"Pinned Version: {PINNED_LT_VERSION} ({PINNED_LT_COMMIT})")
+        return 0
+
+    if args.generate_tokenization_fixtures:
+        if not oracle.is_oracle_configured():
+            print(
+                "Java LanguageTool oracle is not configured. Cannot generate fixtures.",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_tokenization_fixtures(oracle, fixtures_dir)
         return 0
 
     if not args.text:

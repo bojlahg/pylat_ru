@@ -8,7 +8,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 
-from pylat_ru.tokenization.offsets import SentenceSpan, validate_spans_invariants
+from pylat_ru.tokenization.offsets import (
+    SentenceSpan,
+    sentences_to_spans,
+    validate_spans_invariants,
+)
 from pylat_ru.tokenization.srx import (
     SRXSegmenter,
     load_russian_srx_rule_manager,
@@ -59,6 +63,7 @@ class RussianSentenceTokenizer:
         """Split text into SentenceSpans with exact code-point and UTF-16 offsets."""
         if not text:
             return ()
-        spans = self._segmenter.tokenize_spans(text)
+        sentences = self.tokenize(text)
+        spans = sentences_to_spans(sentences)
         validate_spans_invariants(spans, text)
         return spans

@@ -232,8 +232,8 @@ class RussianWordTokenizer:
         return bool(NO_PROTOCOL_URL.match(token))
 
     def is_email(self, token: str) -> bool:
-        """Check if token is recognized as an email address."""
-        return bool(E_MAIL.match(token))
+        """Check if token is recognized as an email address matching Java Matcher.matches()."""
+        return bool(E_MAIL.fullmatch(token))
 
     def tokenize(self, text: str) -> tuple[str, ...]:
         """Tokenize text into words, punctuation, and whitespace strings."""

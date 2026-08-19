@@ -56,6 +56,7 @@ def test_url_and_email_detection_helpers():
     """Verify is_url and is_email helper methods."""
     tokenizer = RussianWordTokenizer()
 
+    # URL positive & negative
     assert tokenizer.is_url("http://languagetool.org")
     assert tokenizer.is_url("https://languagetool.org/ru/")
     assert tokenizer.is_url("ftp://files.example.com")
@@ -63,9 +64,21 @@ def test_url_and_email_detection_helpers():
     assert tokenizer.is_url("sub.languagetool.org/test")
     assert not tokenizer.is_url("plain_word")
 
+    # Email positive (full matches)
     assert tokenizer.is_email("user@example.com")
     assert tokenizer.is_email("dev.all@languagetool.org")
+    assert tokenizer.is_email("first.last+tag@sub.domain.co.uk")
+
+    # Email negative (prefixes with trailing text, malformed, or missing parts)
     assert not tokenizer.is_email("@invalid")
+    assert not tokenizer.is_email("user@")
+    assert not tokenizer.is_email("user@example.com/extra")
+    assert not tokenizer.is_email("user@example.com?param=1")
+    assert not tokenizer.is_email("user@example.com,")
+    assert not tokenizer.is_email("user@example.com:")
+    assert not tokenizer.is_email("text before user@example.com")
+    assert not tokenizer.is_email("@test.de")
+    assert not tokenizer.is_email("f.test@test")
 
 
 def test_russian_word_tokenizer_exact_reconstruction():

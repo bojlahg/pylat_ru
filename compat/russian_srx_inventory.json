@@ -39,30 +39,30 @@
     }
   },
   "groups_summary": {
-    "GeneralImportant": {
-      "total_rules": 7,
-      "break_yes": 0,
-      "break_no": 7
+    "ByLineBreak": {
+      "total_rules": 1,
+      "break_yes": 1,
+      "break_no": 0
     },
     "ByTwoLineBreaks": {
       "total_rules": 2,
       "break_yes": 2,
       "break_no": 0
     },
-    "ByLineBreak": {
-      "total_rules": 1,
-      "break_yes": 1,
+    "Default": {
+      "total_rules": 6,
+      "break_yes": 6,
       "break_no": 0
+    },
+    "GeneralImportant": {
+      "total_rules": 7,
+      "break_yes": 0,
+      "break_no": 7
     },
     "Russian": {
       "total_rules": 30,
       "break_yes": 4,
       "break_no": 26
-    },
-    "Default": {
-      "total_rules": 6,
-      "break_yes": 6,
-      "break_no": 0
     }
   },
   "regex_feature_inventory": {
@@ -76,6 +76,7 @@
       "(?U)",
       "(?iu)"
     ],
+    "lookbehind_finitization_max_length": 100,
     "all_rules_compiled_successfully": true,
     "unsupported_features_count": 0
   }
