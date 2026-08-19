@@ -124,30 +124,30 @@ def test_advanced_inventory_canonical_totals_and_invariants():
     assert cls_sum["MULTI_BLOCKER"] == 7
     assert cls_sum["UNKNOWN"] == 0
 
-    # Examples Summary
+    # Examples Summary (Runtime GrammarLoader semantics)
     ex_sum = inv["examples_summary"]
     assert ex_sum["runnable_0007_0008_total"] == 1738
-    assert ex_sum["runnable_0007_0008_incorrect"] == 871
-    assert ex_sum["runnable_0007_0008_correct"] == 867
+    assert ex_sum["runnable_0007_0008_incorrect"] == 837
+    assert ex_sum["runnable_0007_0008_correct"] == 901
     assert ex_sum["deferred_total"] == 708
-    assert ex_sum["deferred_incorrect"] == 212
-    assert ex_sum["deferred_correct"] == 496
+    assert ex_sum["deferred_incorrect"] == 202
+    assert ex_sum["deferred_correct"] == 506
     assert ex_sum["all_rules_examples_total"] == 2446
-    assert ex_sum["all_rules_examples_incorrect"] == 1083
-    assert ex_sum["all_rules_examples_correct"] == 1363
+    assert ex_sum["all_rules_examples_incorrect"] == 1039
+    assert ex_sum["all_rules_examples_correct"] == 1407
 
     # Core 0007 examples regression
     core_ex = ex_sum["by_state"]["CORE_0007_RUNNABLE"]
     assert core_ex["total"] == 988
-    assert core_ex["incorrect"] == 546
-    assert core_ex["correct"] == 442
+    assert core_ex["incorrect"] == 525
+    assert core_ex["correct"] == 463
 
-    # Whole grammar raw examples
-    raw_ex = ex_sum["raw_xml_whole_grammar"]
+    # Raw markup error-like statistics
+    raw_ex = ex_sum["raw_markup_error_like_examples"]
     assert raw_ex["total_examples"] == 2446
-    assert raw_ex["incorrect_examples"] == 1083
-    assert raw_ex["correct_examples"] == 1363
-    assert raw_ex["examples_with_corrections"] == 1026
+    assert raw_ex["markup_error_like_examples"] == 1083
+    assert raw_ex["markup_untouched_or_correct_examples"] == 1363
+    assert raw_ex["markup_with_corrections"] == 1026
 
     # Attribute distribution invariants: sum(raw_value_distribution.values()) == raw_xml_occurrences
     feat_sum = inv["feature_summary"]

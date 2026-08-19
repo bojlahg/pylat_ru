@@ -91,21 +91,28 @@ def test_grammar_advanced_inventory_structure_counts():
     )
     assert rule_states_sum == 892
 
-    # Examples Invariants
+    # Examples Invariants (Runtime GrammarLoader semantics)
     ex_sum = data["examples_summary"]
     assert ex_sum["runnable_0007_0008_total"] == 1738
-    assert ex_sum["runnable_0007_0008_incorrect"] == 871
-    assert ex_sum["runnable_0007_0008_correct"] == 867
+    assert ex_sum["runnable_0007_0008_incorrect"] == 837
+    assert ex_sum["runnable_0007_0008_correct"] == 901
     assert ex_sum["deferred_total"] == 708
-    assert ex_sum["deferred_incorrect"] == 212
-    assert ex_sum["deferred_correct"] == 496
+    assert ex_sum["deferred_incorrect"] == 202
+    assert ex_sum["deferred_correct"] == 506
     assert ex_sum["all_rules_examples_total"] == 2446
-    assert ex_sum["all_rules_examples_incorrect"] == 1083
-    assert ex_sum["all_rules_examples_correct"] == 1363
+    assert ex_sum["all_rules_examples_incorrect"] == 1039
+    assert ex_sum["all_rules_examples_correct"] == 1407
 
     assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["total"] == 988
-    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["incorrect"] == 546
-    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correct"] == 442
+    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["incorrect"] == 525
+    assert ex_sum["by_state"]["CORE_0007_RUNNABLE"]["correct"] == 463
+
+    # Raw markup error-like statistics (markers, corrections, triggers_error)
+    raw_mk = ex_sum["raw_markup_error_like_examples"]
+    assert raw_mk["total_examples"] == 2446
+    assert raw_mk["markup_error_like_examples"] == 1083
+    assert raw_mk["markup_untouched_or_correct_examples"] == 1363
+    assert raw_mk["markup_with_corrections"] == 1026
 
     # Exception Scope Invariants
     feat_sum = data["feature_summary"]
@@ -115,6 +122,12 @@ def test_grammar_advanced_inventory_structure_counts():
     assert feat_sum["exception@scope=previous"]["effective_occurrences"] == 167
     assert feat_sum["exception@scope=next"]["raw_xml_occurrences"] == 203
     assert feat_sum["exception@scope=next"]["effective_occurrences"] == 203
+
+    # Feature blocker overlap structure check
+    for feat, feat_data in feat_sum.items():
+        assert "remaining_blocker_target_tasks" in feat_data
+        assert "remaining_blocker_features" in feat_data
+        assert "execution_state_distribution" in feat_data
 
     # Java loader expansions
     java_loader = data["java_loader_expansion"]

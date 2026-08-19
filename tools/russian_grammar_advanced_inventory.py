@@ -56,115 +56,51 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def get_oracle_jar_path() -> Optional[Path]:
-    """Resolve Java LT oracle JAR path if present."""
-    candidate = REPO_ROOT / ".oracle_cache" / f"LanguageTool-{PINNED_LT_VERSION}" / "languagetool-commandline.jar"
-    if candidate.is_file():
-        return candidate
-    return None
+def load_trusted_java_variant_evidence() -> Dict[str, Any]:
+    """Load canonical manifest-bound Java loader expansion evidence."""
+    variant_inv_path = REPO_ROOT / "compat" / "rule_variant_inventory.json"
+    if not variant_inv_path.is_file():
+        raise FileNotFoundError(f"Missing canonical variant inventory: {variant_inv_path}")
+    data = json.loads(variant_inv_path.read_text(encoding="utf-8"))
+    prov = data.get("provenance", {})
+    if prov.get("pinned_lt_version") != PINNED_LT_VERSION or prov.get("pinned_lt_commit") != PINNED_LT_COMMIT:
+        raise ValueError(f"Invalid provenance in {variant_inv_path}: {prov}")
 
-
-def run_java_loader_inventory(jar_path: Path) -> Dict[str, Any]:
-    """Execute Java PatternRuleLoader over grammar.xml to extract physical variant expansions."""
-    java_src = """import org.languagetool.rules.patterns.PatternRuleLoader;
-import org.languagetool.rules.patterns.AbstractPatternRule;
-import org.languagetool.rules.patterns.PatternRule;
-import org.languagetool.language.Russian;
-import java.io.InputStream;
-import java.util.*;
-
-public class AdvancedLoaderInventory {
-    public static void main(String[] args) throws Exception {
-        Russian russian = Russian.getInstance();
-        PatternRuleLoader loader = new PatternRuleLoader();
-        InputStream is = Russian.class.getResourceAsStream("/org/languagetool/rules/ru/grammar.xml");
-        List<AbstractPatternRule> rules = loader.getRules(is, "/org/languagetool/rules/ru/grammar.xml", russian);
-        
-        System.out.println("TOTAL_PHYSICAL_RULES=" + rules.size());
-        
-        Map<String, List<AbstractPatternRule>> byFullId = new LinkedHashMap<>();
-        for (AbstractPatternRule r : rules) {
-            byFullId.computeIfAbsent(r.getFullId(), k -> new ArrayList<>()).add(r);
-        }
-        
-        System.out.println("UNIQUE_FULL_IDS=" + byFullId.size());
-        
-        int multiVariantSourceRules = 0;
-        int maxVariants = 1;
-        Map<String, Integer> variantCounts = new LinkedHashMap<>();
-        
-        for (Map.Entry<String, List<AbstractPatternRule>> e : byFullId.entrySet()) {
-            int count = e.getValue().size();
-            variantCounts.put(e.getKey(), count);
-            if (count > 1) {
-                multiVariantSourceRules++;
-                if (count > maxVariants) {
-                    maxVariants = count;
-                }
-                System.out.println("EXPANDED=" + e.getKey() + "=" + count);
-            }
-        }
-        System.out.println("MULTI_VARIANT_RULES=" + multiVariantSourceRules);
-        System.out.println("MAX_VARIANTS_PER_RULE=" + maxVariants);
+    per_full_id = data.get("per_full_id_counts", {})
+    expanded_rules = {k: v for k, v in per_full_id.items() if v > 1}
+    max_variants = max(per_full_id.values()) if per_full_id else 1
+    return {
+        "source_manifest": "compat/rule_variant_inventory.json",
+        "provenance": {
+            "pinned_lt_version": prov.get("pinned_lt_version"),
+            "pinned_lt_commit": prov.get("pinned_lt_commit"),
+            "oracle_build_id": prov.get("oracle_build_id"),
+            "oracle_jar_sha256": prov.get("oracle_jar_sha256"),
+        },
+        "total_physical_rules": data.get("java_total_physical_rules", 907),
+        "unique_full_ids": data.get("source_xml_rules_total", 892),
+        "multi_variant_rules_count": data.get("multi_variant_source_rules_count", 15),
+        "max_variants_per_rule": max_variants,
+        "expanded_rules": expanded_rules,
     }
-}
-"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        src_file = Path(tmpdir) / "AdvancedLoaderInventory.java"
-        src_file.write_text(java_src, encoding="utf-8")
-        subprocess.run(
-            ["javac", "-encoding", "UTF-8", "-cp", str(jar_path), str(src_file)],
-            check=True,
-            capture_output=True,
-        )
-        proc = subprocess.run(
-            [
-                "java",
-                "-Dfile.encoding=UTF-8",
-                "-cp",
-                f"{tmpdir}{os.pathsep}{jar_path}",
-                "AdvancedLoaderInventory",
-            ],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        out = proc.stdout
-        lines = out.strip().splitlines()
-        
-        total_physical_rules = 0
-        unique_full_ids = 0
-        multi_variant_rules = 0
-        max_variants = 1
-        expanded_rules: Dict[str, int] = {}
-
-        for line in lines:
-            if line.startswith("TOTAL_PHYSICAL_RULES="):
-                total_physical_rules = int(line.split("=", 1)[1])
-            elif line.startswith("UNIQUE_FULL_IDS="):
-                unique_full_ids = int(line.split("=", 1)[1])
-            elif line.startswith("MULTI_VARIANT_RULES="):
-                multi_variant_rules = int(line.split("=", 1)[1])
-            elif line.startswith("MAX_VARIANTS_PER_RULE="):
-                max_variants = int(line.split("=", 1)[1])
-            elif line.startswith("EXPANDED="):
-                parts = line.split("=", 2)
-                expanded_rules[parts[1]] = int(parts[2])
-
-        return {
-            "total_physical_rules": total_physical_rules,
-            "unique_full_ids": unique_full_ids,
-            "multi_variant_rules_count": multi_variant_rules,
-            "max_variants_per_rule": max_variants,
-            "expanded_rules": expanded_rules,
-        }
 
 
-def classify_example_element(ex_elem: ET.Element) -> Tuple[bool, bool]:
-    """Classify example as (is_incorrect, has_correction) matching accepted Task-0007 semantics."""
+def classify_runtime_example(ex_elem: ET.Element) -> Tuple[bool, bool]:
+    """Runtime example classification matching GrammarLoader._parse_example()."""
+    ex_type = ex_elem.attrib.get("type")
+    has_corr = ("correction" in ex_elem.attrib) or (ex_elem.find("correction") is not None)
+    if ex_type in ("triggers_error", "incorrect") or "correction" in ex_elem.attrib:
+        is_inc = (ex_type not in ("untouched", "correct"))
+    else:
+        is_inc = False
+    return is_inc, has_corr
+
+
+def classify_raw_markup_example(ex_elem: ET.Element) -> Tuple[bool, bool]:
+    """Raw XML markup error-like classification based on markers, corrections, and type tags."""
+    ex_type = ex_elem.attrib.get("type")
     has_corr = ("correction" in ex_elem.attrib) or (ex_elem.find("correction") is not None)
     has_marker = bool(ex_elem.findall("marker"))
-    ex_type = ex_elem.attrib.get("type")
     if ex_type in ("untouched", "correct"):
         is_inc = False
     elif ex_type in ("triggers_error", "incorrect") or has_corr or has_marker:
@@ -172,6 +108,7 @@ def classify_example_element(ex_elem: ET.Element) -> Tuple[bool, bool]:
     else:
         is_inc = False
     return is_inc, has_corr
+
 
 
 def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
@@ -224,18 +161,31 @@ def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
         scope = exc.attrib.get("scope", "current")
         effective_exc_scopes[scope] += 1
 
-    # Raw example classification using shared canonical helper
-    raw_inc_cnt = 0
-    raw_cor_cnt = 0
-    raw_corr_attr_cnt = 0
+    # Raw markup error-like classification (markers, corrections, triggers_error)
+    markup_inc_cnt = 0
+    markup_cor_cnt = 0
+    markup_corr_attr_cnt = 0
     for e in raw_examples:
-        is_inc, has_corr = classify_example_element(e)
+        is_inc, has_corr = classify_raw_markup_example(e)
         if is_inc:
-            raw_inc_cnt += 1
+            markup_inc_cnt += 1
         else:
-            raw_cor_cnt += 1
+            markup_cor_cnt += 1
         if has_corr:
-            raw_corr_attr_cnt += 1
+            markup_corr_attr_cnt += 1
+
+    # Runtime example classification across raw examples (GrammarLoader semantics)
+    rt_inc_cnt = 0
+    rt_cor_cnt = 0
+    rt_corr_attr_cnt = 0
+    for e in raw_examples:
+        is_inc, has_corr = classify_runtime_example(e)
+        if is_inc:
+            rt_inc_cnt += 1
+        else:
+            rt_cor_cnt += 1
+        if has_corr:
+            rt_corr_attr_cnt += 1
 
     return {
         "tag_counts": dict(sorted(tag_counts.items())),
@@ -284,9 +234,12 @@ def _extract_raw_xml_tree_totals(root: ET.Element) -> Dict[str, Any]:
         },
         "raw_examples_summary": {
             "total_examples": len(raw_examples),
-            "incorrect_examples": raw_inc_cnt,
-            "correct_examples": raw_cor_cnt,
-            "examples_with_corrections": raw_corr_attr_cnt,
+            "markup_error_like_examples": markup_inc_cnt,
+            "markup_untouched_or_correct_examples": markup_cor_cnt,
+            "markup_with_corrections": markup_corr_attr_cnt,
+            "runtime_incorrect_examples": rt_inc_cnt,
+            "runtime_correct_examples": rt_cor_cnt,
+            "runtime_with_corrections": rt_corr_attr_cnt,
         },
     }
 
@@ -704,15 +657,21 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             raw_occ = raw_attr_counts.get("rulegroup@distancetokens", 0)
             eff_occ = raw_occ
 
-        # Overlap with other advanced features and remaining blocker states
+        # Overlap with other advanced features and remaining blocker tasks/features
         overlap_adv: Counter = Counter()
-        overlap_blockers: Counter = Counter()
+        overlap_tasks: Counter = Counter()
+        overlap_blocker_feats: Counter = Counter()
+        state_dist: Counter = Counter()
+
         for r in rules_records:
             if r["full_id"] in rules_set:
-                overlap_blockers[r["task_0008_state"]] += 1
+                state_dist[r["task_0008_state"]] += 1
                 for other_feat in r["feature_usage"]:
                     if other_feat != feat and other_feat in all_candidate_features:
                         overlap_adv[other_feat] += 1
+                for blk in r["remaining_blockers_after_0008"]:
+                    overlap_tasks[blk["target_task"]] += 1
+                    overlap_blocker_feats[blk["feature"]] += 1
 
         entry: Dict[str, Any] = {
             "raw_xml_occurrences": raw_occ,
@@ -723,7 +682,9 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             "representative_rules": feature_representative_rules.get(feat, []),
             "embedded_examples_count": dict(feature_examples_counts[feat]),
             "overlap_with_advanced_features": dict(sorted(overlap_adv.items())),
-            "overlap_with_remaining_blockers": dict(sorted(overlap_blockers.items())),
+            "remaining_blocker_target_tasks": dict(sorted(overlap_tasks.items())),
+            "remaining_blocker_features": dict(sorted(overlap_blocker_feats.items())),
+            "execution_state_distribution": dict(sorted(state_dist.items())),
         }
         if raw_dist is not None:
             entry["raw_value_distribution"] = raw_dist
@@ -734,18 +695,10 @@ def generate_advanced_inventory() -> Dict[str, Any]:
 
         feature_summary[feat] = entry
 
-    # Run Java loader inventory if jar exists
-    jar_path = get_oracle_jar_path()
-    java_loader_data = run_java_loader_inventory(jar_path) if jar_path else {
-        "status": "JAVA_ORACLE_NOT_FOUND",
-        "total_physical_rules": 0,
-        "unique_full_ids": 892,
-        "multi_variant_rules_count": 0,
-        "max_variants_per_rule": 1,
-        "expanded_rules": {},
-    }
+    # Load manifest-bound Java loader expansion evidence
+    java_loader_data = load_trusted_java_variant_evidence()
 
-    # Summary of examples by runnable vs deferred state
+    # Summary of runtime examples by runnable vs deferred state (GrammarLoader semantics)
     runnable_tot = examples_by_state["CORE_0007_RUNNABLE"]["total"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["total"]
     runnable_inc = examples_by_state["CORE_0007_RUNNABLE"]["incorrect"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["incorrect"]
     runnable_corr = examples_by_state["CORE_0007_RUNNABLE"]["correct"] + examples_by_state["ADVANCED_0008_RUNNABLE"]["correct"]
@@ -808,7 +761,24 @@ def generate_advanced_inventory() -> Dict[str, Any]:
             "UNKNOWN": unknown_count,
         },
         "examples_summary": {
-            "raw_xml_whole_grammar": raw_xml_totals["raw_examples_summary"],
+            "runtime_classification": {
+                "runnable_0007_0008_total": runnable_tot,
+                "runnable_0007_0008_incorrect": runnable_inc,
+                "runnable_0007_0008_correct": runnable_corr,
+                "deferred_total": deferred_tot,
+                "deferred_incorrect": deferred_inc,
+                "deferred_correct": deferred_corr,
+                "all_rules_examples_total": total_rule_examples_count,
+                "all_rules_examples_incorrect": all_rules_inc,
+                "all_rules_examples_correct": all_rules_corr,
+                "by_state": {k: dict(v) for k, v in sorted(examples_by_state.items())},
+            },
+            "raw_markup_error_like_examples": {
+                "total_examples": raw_xml_totals["raw_examples_summary"]["total_examples"],
+                "markup_error_like_examples": raw_xml_totals["raw_examples_summary"]["markup_error_like_examples"],
+                "markup_untouched_or_correct_examples": raw_xml_totals["raw_examples_summary"]["markup_untouched_or_correct_examples"],
+                "markup_with_corrections": raw_xml_totals["raw_examples_summary"]["markup_with_corrections"],
+            },
             "runnable_0007_0008_total": runnable_tot,
             "runnable_0007_0008_incorrect": runnable_inc,
             "runnable_0007_0008_correct": runnable_corr,
@@ -1017,14 +987,14 @@ def _analyze_single_rule(
         feature_usage.add("suggestion@suppress_misspelled")
         positive_feature_counts["suggestion@suppress_misspelled"] += 1
 
-    # 7. Examples classification matching shared canonical helper
+    # 7. Examples classification matching runtime GrammarLoader semantics
     examples = r_elem.findall("example")
     incorrect_cnt = 0
     correct_cnt = 0
     with_corr_cnt = 0
 
     for ex in examples:
-        is_inc, has_corr = classify_example_element(ex)
+        is_inc, has_corr = classify_runtime_example(ex)
         if is_inc:
             incorrect_cnt += 1
         else:
@@ -1135,9 +1105,15 @@ def main() -> None:
     print("\nSummary of Task 0008 Rule Classification:")
     for k, v in inv["classification_summary"].items():
         print(f"  {k:35s}: {v:4d}")
-    print("\nSummary of Example Counts:")
-    for k, v in inv["examples_summary"].items():
-        if k != "by_state" and k != "raw_xml_whole_grammar":
+    print("\nSummary of Example Counts (Runtime):")
+    rt = inv["examples_summary"]["runtime_classification"]
+    for k, v in rt.items():
+        if isinstance(v, int):
+            print(f"  {k:35s}: {v:4d}")
+    print("\nSummary of Example Counts (Raw Markup Error-Like):")
+    mk = inv["examples_summary"]["raw_markup_error_like_examples"]
+    for k, v in mk.items():
+        if isinstance(v, int):
             print(f"  {k:35s}: {v:4d}")
     print("\nJava Loader Expansions:")
     print(f"  Total physical rules: {inv['java_loader_expansion']['total_physical_rules']}")

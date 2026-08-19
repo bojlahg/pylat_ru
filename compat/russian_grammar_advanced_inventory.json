@@ -8,7 +8,7 @@
     "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
     "baseline_task_0007_commit": "b75bc4dfa84c1549d22f83388785dd9b2988f6de",
     "generator_path": "tools/russian_grammar_advanced_inventory.py",
-    "generator_sha256": "1c59322ae85c85a21027cd334a4ad2c50de9c571d02f96cc52b1104b1d8f3d84"
+    "generator_sha256": "fe88b1c8102652dff2f15052fa068445120cb26919c33877a1befdfd429abc2d"
   },
   "source_totals": {
     "categories": 8,
@@ -2867,9 +2867,12 @@
     },
     "raw_examples_summary": {
       "total_examples": 2446,
-      "incorrect_examples": 1083,
-      "correct_examples": 1363,
-      "examples_with_corrections": 1026
+      "markup_error_like_examples": 1083,
+      "markup_untouched_or_correct_examples": 1363,
+      "markup_with_corrections": 1026,
+      "runtime_incorrect_examples": 1039,
+      "runtime_correct_examples": 1407,
+      "runtime_with_corrections": 1026
     }
   },
   "classification_summary": {
@@ -2883,32 +2886,81 @@
     "UNKNOWN": 0
   },
   "examples_summary": {
-    "raw_xml_whole_grammar": {
+    "runtime_classification": {
+      "runnable_0007_0008_total": 1738,
+      "runnable_0007_0008_incorrect": 837,
+      "runnable_0007_0008_correct": 901,
+      "deferred_total": 708,
+      "deferred_incorrect": 202,
+      "deferred_correct": 506,
+      "all_rules_examples_total": 2446,
+      "all_rules_examples_incorrect": 1039,
+      "all_rules_examples_correct": 1407,
+      "by_state": {
+        "ADVANCED_0008_RUNNABLE": {
+          "total": 750,
+          "incorrect": 312,
+          "correct": 438,
+          "with_correction": 305
+        },
+        "CORE_0007_RUNNABLE": {
+          "total": 988,
+          "incorrect": 525,
+          "correct": 463,
+          "with_correction": 519
+        },
+        "DEFERRED_0009_UNIFICATION": {
+          "total": 216,
+          "incorrect": 41,
+          "correct": 175,
+          "with_correction": 41
+        },
+        "DEFERRED_0010_FILTER": {
+          "total": 88,
+          "incorrect": 22,
+          "correct": 66,
+          "with_correction": 22
+        },
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": {
+          "total": 297,
+          "incorrect": 124,
+          "correct": 173,
+          "with_correction": 124
+        },
+        "MULTI_BLOCKER": {
+          "total": 107,
+          "incorrect": 15,
+          "correct": 92,
+          "with_correction": 15
+        }
+      }
+    },
+    "raw_markup_error_like_examples": {
       "total_examples": 2446,
-      "incorrect_examples": 1083,
-      "correct_examples": 1363,
-      "examples_with_corrections": 1026
+      "markup_error_like_examples": 1083,
+      "markup_untouched_or_correct_examples": 1363,
+      "markup_with_corrections": 1026
     },
     "runnable_0007_0008_total": 1738,
-    "runnable_0007_0008_incorrect": 871,
-    "runnable_0007_0008_correct": 867,
+    "runnable_0007_0008_incorrect": 837,
+    "runnable_0007_0008_correct": 901,
     "deferred_total": 708,
-    "deferred_incorrect": 212,
-    "deferred_correct": 496,
+    "deferred_incorrect": 202,
+    "deferred_correct": 506,
     "all_rules_examples_total": 2446,
-    "all_rules_examples_incorrect": 1083,
-    "all_rules_examples_correct": 1363,
+    "all_rules_examples_incorrect": 1039,
+    "all_rules_examples_correct": 1407,
     "by_state": {
       "ADVANCED_0008_RUNNABLE": {
         "total": 750,
-        "incorrect": 325,
-        "correct": 425,
+        "incorrect": 312,
+        "correct": 438,
         "with_correction": 305
       },
       "CORE_0007_RUNNABLE": {
         "total": 988,
-        "incorrect": 546,
-        "correct": 442,
+        "incorrect": 525,
+        "correct": 463,
         "with_correction": 519
       },
       "DEFERRED_0009_UNIFICATION": {
@@ -2919,20 +2971,20 @@
       },
       "DEFERRED_0010_FILTER": {
         "total": 88,
-        "incorrect": 26,
-        "correct": 62,
+        "incorrect": 22,
+        "correct": 66,
         "with_correction": 22
       },
       "DEFERRED_0012_SPELLING_OR_SUPPRESSION": {
         "total": 297,
-        "incorrect": 129,
-        "correct": 168,
+        "incorrect": 124,
+        "correct": 173,
         "with_correction": 124
       },
       "MULTI_BLOCKER": {
         "total": 107,
-        "incorrect": 16,
-        "correct": 91,
+        "incorrect": 15,
+        "correct": 92,
         "with_correction": 15
       }
     }
@@ -2963,7 +3015,9 @@
         "message_suggestion_match": 1,
         "token@skip": 3
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 3
       },
       "raw_value_distribution": {
@@ -2986,7 +3040,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "token@chunk": {
       "raw_xml_occurrences": 21,
@@ -3014,7 +3070,9 @@
         "token@max": 3,
         "token@min": 3
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 4
       },
       "raw_value_distribution": {
@@ -3062,7 +3120,9 @@
         "message_suggestion_match": 5,
         "token@skip": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 20
       },
       "raw_value_distribution": {
@@ -3096,7 +3156,9 @@
         "match@postag_replace": 1,
         "message_suggestion_match": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 1
       },
       "raw_value_distribution": {
@@ -3123,7 +3185,9 @@
       "overlap_with_advanced_features": {
         "exception@scope=current": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 1
       }
     },
@@ -3142,8 +3206,8 @@
       ],
       "embedded_examples_count": {
         "total": 59,
-        "incorrect": 27,
-        "correct": 32
+        "incorrect": 24,
+        "correct": 35
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 2,
@@ -3162,7 +3226,17 @@
         "token@min": 4,
         "token@skip": 3
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 1,
+        "0010": 1,
+        "0012": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 1,
+        "message@suppress_misspelled": 1,
+        "pattern:unify": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 12,
         "DEFERRED_0009_UNIFICATION": 1,
         "DEFERRED_0010_FILTER": 1,
@@ -3182,7 +3256,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "phrase_reference": {
       "raw_xml_occurrences": 0,
@@ -3197,7 +3273,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "token@skip": {
       "raw_xml_occurrences": 218,
@@ -3214,8 +3292,8 @@
       ],
       "embedded_examples_count": {
         "total": 428,
-        "incorrect": 150,
-        "correct": 278
+        "incorrect": 144,
+        "correct": 284
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 18,
@@ -3235,7 +3313,19 @@
         "token@min": 1,
         "token@spacebefore": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 9,
+        "0010": 4,
+        "0012": 13
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.FutureDateFilter": 2,
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 1,
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+        "message@suppress_misspelled": 13,
+        "pattern:unify": 9
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 72,
         "DEFERRED_0009_UNIFICATION": 9,
         "DEFERRED_0010_FILTER": 3,
@@ -3273,8 +3363,8 @@
       ],
       "embedded_examples_count": {
         "total": 75,
-        "incorrect": 40,
-        "correct": 35
+        "incorrect": 36,
+        "correct": 39
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 1,
@@ -3292,7 +3382,18 @@
         "token@max": 21,
         "token@skip": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 4,
+        "0010": 3,
+        "0012": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.DateCheckFilter": 2,
+        "filter:org.languagetool.rules.ru.INNNumberFilter": 1,
+        "message@suppress_misspelled": 1,
+        "pattern:unify": 4
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 13,
         "DEFERRED_0009_UNIFICATION": 4,
         "DEFERRED_0010_FILTER": 3,
@@ -3324,8 +3425,8 @@
       ],
       "embedded_examples_count": {
         "total": 75,
-        "incorrect": 40,
-        "correct": 35
+        "incorrect": 36,
+        "correct": 39
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 1,
@@ -3343,7 +3444,18 @@
         "token@min": 21,
         "token@skip": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 4,
+        "0010": 3,
+        "0012": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.DateCheckFilter": 2,
+        "filter:org.languagetool.rules.ru.INNNumberFilter": 1,
+        "message@suppress_misspelled": 1,
+        "pattern:unify": 4
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 13,
         "DEFERRED_0009_UNIFICATION": 4,
         "DEFERRED_0010_FILTER": 3,
@@ -3377,8 +3489,8 @@
       ],
       "embedded_examples_count": {
         "total": 1272,
-        "incorrect": 430,
-        "correct": 842
+        "incorrect": 399,
+        "correct": 873
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 40,
@@ -3403,7 +3515,21 @@
         "token@skip": 59,
         "token@spacebefore": 10
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 25,
+        "0010": 18,
+        "0012": 88
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": 4,
+        "filter:org.languagetool.rules.ru.FutureDateFilter": 2,
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 11,
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+        "message@suppress_misspelled": 87,
+        "pattern:unify": 25,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 97,
         "CORE_0007_RUNNABLE": 91,
         "DEFERRED_0009_UNIFICATION": 21,
@@ -3427,8 +3553,8 @@
       ],
       "embedded_examples_count": {
         "total": 636,
-        "incorrect": 158,
-        "correct": 478
+        "incorrect": 154,
+        "correct": 482
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 24,
@@ -3451,7 +3577,19 @@
         "token@skip": 38,
         "token@spacebefore": 6
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 15,
+        "0010": 6,
+        "0012": 11
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": 4,
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 2,
+        "message@suppress_misspelled": 10,
+        "pattern:unify": 15,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 68,
         "DEFERRED_0009_UNIFICATION": 11,
         "DEFERRED_0010_FILTER": 1,
@@ -3474,8 +3612,8 @@
       ],
       "embedded_examples_count": {
         "total": 442,
-        "incorrect": 125,
-        "correct": 317
+        "incorrect": 119,
+        "correct": 323
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 23,
@@ -3492,7 +3630,19 @@
         "token@skip": 59,
         "token@spacebefore": 3
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 12,
+        "0010": 8,
+        "0012": 13
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": 3,
+        "filter:org.languagetool.rules.ru.FutureDateFilter": 2,
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 3,
+        "message@suppress_misspelled": 13,
+        "pattern:unify": 12
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 56,
         "DEFERRED_0009_UNIFICATION": 9,
         "DEFERRED_0010_FILTER": 3,
@@ -3515,8 +3665,8 @@
       ],
       "embedded_examples_count": {
         "total": 493,
-        "incorrect": 96,
-        "correct": 397
+        "incorrect": 94,
+        "correct": 399
       },
       "overlap_with_advanced_features": {
         "antipattern_rulegroup_inherited": 3,
@@ -3535,7 +3685,18 @@
         "token@skip": 18,
         "token@spacebefore": 2
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 11,
+        "0010": 6,
+        "0012": 4
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": 3,
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 3,
+        "message@suppress_misspelled": 4,
+        "pattern:unify": 11
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 32,
         "DEFERRED_0009_UNIFICATION": 8,
         "DEFERRED_0010_FILTER": 2,
@@ -3569,7 +3730,15 @@
         "message_suggestion_match": 2,
         "token@spacebefore": 2
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 3,
+        "0010": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": 1,
+        "pattern:unify": 3
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 2,
         "DEFERRED_0009_UNIFICATION": 2,
         "MULTI_BLOCKER": 1
@@ -3589,7 +3758,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "message_suggestion_match": {
       "raw_xml_occurrences": 619,
@@ -3606,8 +3777,8 @@
       ],
       "embedded_examples_count": {
         "total": 740,
-        "incorrect": 334,
-        "correct": 406
+        "incorrect": 323,
+        "correct": 417
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 14,
@@ -3633,7 +3804,19 @@
         "token@skip": 44,
         "token@spacebefore": 5
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 5,
+        "0010": 9,
+        "0012": 113
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 8,
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+        "message@suppress_misspelled": 111,
+        "pattern:unify": 5,
+        "suggestion@suppress_misspelled": 2
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 112,
         "CORE_0007_RUNNABLE": 21,
         "DEFERRED_0009_UNIFICATION": 5,
@@ -3657,8 +3840,8 @@
       ],
       "embedded_examples_count": {
         "total": 20,
-        "incorrect": 13,
-        "correct": 7
+        "incorrect": 10,
+        "correct": 10
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 2,
@@ -3666,7 +3849,9 @@
         "message_suggestion_match": 10,
         "token@spacebefore": 2
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 10
       },
       "raw_value_distribution": {
@@ -3717,7 +3902,13 @@
         "token@min": 6,
         "token@skip": 27
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0009": 4
+      },
+      "remaining_blocker_features": {
+        "pattern:unify": 4
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 29,
         "DEFERRED_0009_UNIFICATION": 4
       },
@@ -3745,8 +3936,8 @@
       ],
       "embedded_examples_count": {
         "total": 145,
-        "incorrect": 77,
-        "correct": 68
+        "incorrect": 76,
+        "correct": 69
       },
       "overlap_with_advanced_features": {
         "exception@scope=current": 8,
@@ -3760,7 +3951,16 @@
         "token@min": 1,
         "token@skip": 10
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0010": 6,
+        "0012": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 5,
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 55,
         "DEFERRED_0010_FILTER": 5,
         "MULTI_BLOCKER": 1
@@ -3781,8 +3981,8 @@
       ],
       "embedded_examples_count": {
         "total": 145,
-        "incorrect": 77,
-        "correct": 68
+        "incorrect": 76,
+        "correct": 69
       },
       "overlap_with_advanced_features": {
         "exception@scope=current": 8,
@@ -3796,7 +3996,16 @@
         "token@min": 1,
         "token@skip": 10
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0010": 6,
+        "0012": 1
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 5,
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 55,
         "DEFERRED_0010_FILTER": 5,
         "MULTI_BLOCKER": 1
@@ -3817,8 +4026,8 @@
       ],
       "embedded_examples_count": {
         "total": 355,
-        "incorrect": 161,
-        "correct": 194
+        "incorrect": 154,
+        "correct": 201
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 4,
@@ -3838,7 +4047,16 @@
         "token@skip": 15,
         "token@spacebefore": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0010": 2,
+        "0012": 112
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 2,
+        "message@suppress_misspelled": 111,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 17,
         "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
         "MULTI_BLOCKER": 2
@@ -3859,8 +4077,8 @@
       ],
       "embedded_examples_count": {
         "total": 355,
-        "incorrect": 161,
-        "correct": 194
+        "incorrect": 154,
+        "correct": 201
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 4,
@@ -3880,7 +4098,16 @@
         "token@skip": 15,
         "token@spacebefore": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0010": 2,
+        "0012": 112
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 2,
+        "message@suppress_misspelled": 111,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 17,
         "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
         "MULTI_BLOCKER": 2
@@ -3901,8 +4128,8 @@
       ],
       "embedded_examples_count": {
         "total": 349,
-        "incorrect": 158,
-        "correct": 191
+        "incorrect": 151,
+        "correct": 198
       },
       "overlap_with_advanced_features": {
         "antipattern_rule_level": 4,
@@ -3922,7 +4149,16 @@
         "token@skip": 15,
         "token@spacebefore": 1
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0010": 2,
+        "0012": 112
+      },
+      "remaining_blocker_features": {
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 2,
+        "message@suppress_misspelled": 111,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 14,
         "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
         "MULTI_BLOCKER": 2
@@ -3952,7 +4188,14 @@
         "message_suggestion_match": 4,
         "static_lemma_match": 4
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0012": 4
+      },
+      "remaining_blocker_features": {
+        "message@suppress_misspelled": 3,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 4
       },
       "raw_value_distribution": {
@@ -3987,7 +4230,14 @@
         "match@setpos": 4,
         "message_suggestion_match": 8
       },
-      "overlap_with_remaining_blockers": {
+      "remaining_blocker_target_tasks": {
+        "0012": 4
+      },
+      "remaining_blocker_features": {
+        "message@suppress_misspelled": 3,
+        "suggestion@suppress_misspelled": 1
+      },
+      "execution_state_distribution": {
         "ADVANCED_0008_RUNNABLE": 4,
         "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 4
       }
@@ -4005,7 +4255,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "rule@distancetokens": {
       "raw_xml_occurrences": 0,
@@ -4020,7 +4272,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "rulegroup@minprevmatches": {
       "raw_xml_occurrences": 0,
@@ -4035,7 +4289,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     },
     "rulegroup@distancetokens": {
       "raw_xml_occurrences": 0,
@@ -4050,7 +4306,9 @@
         "correct": 0
       },
       "overlap_with_advanced_features": {},
-      "overlap_with_remaining_blockers": {}
+      "remaining_blocker_target_tasks": {},
+      "remaining_blocker_features": {},
+      "execution_state_distribution": {}
     }
   },
   "antipattern_details": {
@@ -4063,6 +4321,13 @@
     "effective_inherited_applications": 59
   },
   "java_loader_expansion": {
+    "source_manifest": "compat/rule_variant_inventory.json",
+    "provenance": {
+      "pinned_lt_version": "6.8",
+      "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc"
+    },
     "total_physical_rules": 907,
     "unique_full_ids": 892,
     "multi_variant_rules_count": 15,
@@ -4142,8 +4407,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 2,
+        "correct": 1,
         "with_correction": 2
       },
       "attribute_counts": {}
@@ -4168,8 +4433,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -4274,8 +4539,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 6,
-        "correct": 0,
+        "incorrect": 4,
+        "correct": 2,
         "with_correction": 4
       },
       "attribute_counts": {
@@ -4335,8 +4600,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 2,
+        "correct": 1,
         "with_correction": 2
       },
       "attribute_counts": {
@@ -4540,8 +4805,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 2,
+        "correct": 1,
         "with_correction": 2
       },
       "attribute_counts": {
@@ -10538,8 +10803,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -11004,8 +11269,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -11030,8 +11295,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -11056,8 +11321,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -11082,8 +11347,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -13974,8 +14239,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -14008,8 +14273,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -14313,8 +14578,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 2,
-        "correct": 3,
+        "incorrect": 1,
+        "correct": 4,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -14442,8 +14707,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 2,
-        "correct": 2,
+        "incorrect": 1,
+        "correct": 3,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -14498,8 +14763,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 3,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15747,8 +16012,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 2,
-        "correct": 2,
+        "incorrect": 1,
+        "correct": 3,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15781,8 +16046,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -16071,8 +16336,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -16233,8 +16498,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 2,
-        "correct": 3,
+        "incorrect": 1,
+        "correct": 4,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -16671,8 +16936,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -24330,8 +24595,8 @@
       },
       "examples_count": {
         "total": 10,
-        "incorrect": 2,
-        "correct": 8,
+        "incorrect": 1,
+        "correct": 9,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -29291,8 +29556,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 6,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 5,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -29493,8 +29758,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 3,
-        "correct": 2,
+        "incorrect": 1,
+        "correct": 4,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -29576,8 +29841,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -29938,8 +30203,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -33068,8 +33333,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 2,
-        "correct": 4,
+        "incorrect": 1,
+        "correct": 5,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -36017,8 +36282,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 4,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 3,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -36171,8 +36436,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -36251,8 +36516,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -38992,8 +39257,8 @@
       },
       "examples_count": {
         "total": 11,
-        "incorrect": 6,
-        "correct": 5,
+        "incorrect": 5,
+        "correct": 6,
         "with_correction": 5
       },
       "attribute_counts": {
@@ -40408,8 +40673,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -40459,8 +40724,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 2,
-        "correct": 0,
+        "incorrect": 1,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -40510,8 +40775,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 2,
-        "correct": 1,
+        "incorrect": 1,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {

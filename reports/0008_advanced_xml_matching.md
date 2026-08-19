@@ -24,10 +24,12 @@ Task 0008 implements advanced LanguageTool XML pattern matching constructs for `
   - `MULTI_BLOCKER`: 157 source rules
   - `UNRECOGNIZED`: 0 source rules
   - Total source rules: 892
-- **Baseline Example Counts** (using canonical whole-grammar and per-state semantics):
-  - Core runnable examples: 988 (546 incorrect, 442 correct, 519 with correction)
-  - Deferred examples: 1,458 (537 incorrect, 921 correct, 507 with correction)
-  - Total embedded grammar examples: 2,446 (1,083 incorrect, 1,363 correct, 1,026 with correction)
+- **Baseline Example Counts** (Runtime `GrammarLoader._parse_example()` semantics):
+  - Core runnable examples: 988 (525 incorrect, 463 correct, 454 with correction)
+  - Deferred examples: 1,458 (514 incorrect, 944 correct, 417 with correction)
+  - Total embedded grammar examples: 2,446 (1,039 incorrect, 1,407 correct, 871 with correction)
+- **Raw XML Markup Error-Like Statistics** (markers, corrections, `triggers_error`):
+  - Total examples: 2,446 (1,083 markup error-like, 1,363 untouched/correct, 1,026 with corrections)
 
 ---
 
@@ -100,16 +102,16 @@ Transitions from the accepted Task 0007 baseline to the completed Task 0008 stat
 - **`MULTI_BLOCKER`**: 7 source rules (0.8%)
 - **Total Deferred Source Rules**: **157 source rules** (**17.6%**)
 
-### Example Totals after Shared Canonical Example Classifier:
-- **Runnable Examples**: 1,738 (871 incorrect, 867 correct)
-  - `CORE_0007_RUNNABLE`: 988 (546 incorrect, 442 correct, 519 with correction)
-  - `ADVANCED_0008_RUNNABLE`: 750 (325 incorrect, 425 correct, 307 with correction)
-- **Deferred Examples**: 708 (212 incorrect, 496 correct)
-  - `DEFERRED_0009_UNIFICATION`: 216 (41 incorrect, 175 correct, 39 with correction)
-  - `DEFERRED_0010_FILTER`: 88 (26 incorrect, 62 correct, 26 with correction)
-  - `DEFERRED_0012_SPELLING_OR_SUPPRESSION`: 297 (129 incorrect, 168 correct, 120 with correction)
-  - `MULTI_BLOCKER`: 107 (16 incorrect, 91 correct, 15 with correction)
-- **All Rules Examples**: 2,446 (1,083 incorrect, 1,363 correct, 1,026 with correction)
+### Example Totals (Runtime `GrammarLoader` Semantics):
+- **Runnable Examples**: 1,738 (837 incorrect, 901 correct)
+  - `CORE_0007_RUNNABLE`: 988 (525 incorrect, 463 correct, 454 with correction)
+  - `ADVANCED_0008_RUNNABLE`: 750 (312 incorrect, 438 correct, 252 with correction)
+- **Deferred Examples**: 708 (202 incorrect, 506 correct)
+  - `DEFERRED_0009_UNIFICATION`: 216 (41 incorrect, 175 correct, 15 with correction)
+  - `DEFERRED_0010_FILTER`: 88 (22 incorrect, 66 correct, 11 with correction)
+  - `DEFERRED_0012_SPELLING_OR_SUPPRESSION`: 297 (124 incorrect, 173 correct, 124 with correction)
+  - `MULTI_BLOCKER`: 107 (15 incorrect, 92 correct, 15 with correction)
+- **All Rules Examples**: 2,446 (1,039 incorrect, 1,407 correct, 871 with correction)
 
 ---
 
@@ -146,8 +148,13 @@ Upstream source files referenced and verified in Task 0008 (source of truth: `th
 | `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java` | 3,248 | `778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a` | VERIFIED_LGPL (LGPL-2.1-or-later) | Pattern rule XML loader parsing grammar.xml definitions into AbstractPatternRule lists |
 | `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java` | 37,627 | `b9cc4ad871bfd54ec87c7c4bcca6b8fb24f77d42d1191e9f9c8f806069a7120f` | VERIFIED_LGPL (LGPL-2.1-or-later) | SAX handler for XML rules, `<or>` Cartesian expansion, quantifier validation, match templates |
 | `languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java` | 11,395 | `421196a416df471a8f5bca0336191dfd012a43c00b8a6f16d496ae2ba9b34066` | VERIFIED_LGPL (LGPL-2.1-or-later) | Base class for pattern rules defining matching lifecycle and sentence evaluation |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java` | 14,412 | `afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998` | VERIFIED_LGPL (LGPL-2.1-or-later) | Performer executing pattern rule matches and building findings |
 | `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java` | 8,809 | `c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3` | VERIFIED_LGPL (LGPL-2.1-or-later) | Standard pattern rule implementation with suggestions and messages |
 | `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java` | 22,434 | `70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613` | VERIFIED_LGPL (LGPL-2.1-or-later) | Pattern matcher executing token predicates over AnalyzedSentence tokens |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java` | 26,728 | `11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb` | VERIFIED_LGPL (LGPL-2.1-or-later) | Atomic token predicate with text, POS, inflections, exceptions, case sensitivity |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java` | 4,917 | `9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8` | VERIFIED_LGPL (LGPL-2.1-or-later) | Evaluator matching AnalyzedTokenReadings against PatternToken specifications |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java` | 6,610 | `0bee9c39d71af13dc085d65ceda99ede05d66f3d4d660698808bc39d74931629` | VERIFIED_LGPL (LGPL-2.1-or-later) | Match reference descriptor inside suggestions and messages |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java` | 15,219 | `1a4e88fec00ed0b3de5674ef297b5659ca76b69606da7869bfe92509ceaaf829` | VERIFIED_LGPL (LGPL-2.1-or-later) | Matching state tracker during pattern token sequence scanning |
 | `languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java` | 29,812 | `03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d` | VERIFIED_LGPL (LGPL-2.1-or-later) | Rule match finding model containing spans, messages, and suggestions |
 
 ---
@@ -214,9 +221,11 @@ Execution of the complete test suite across Tasks 0001 through 0008:
   - `3cd9565f87781aca78e0841a5c0a9956977f50fd` (Task 0008 closure cleanup)
   - `1966294c660e6cd355e041a69df4334256595eca` (Task 0008 canonical inventory and variant order evidence closure)
   - `1d9d776be2f9584af95ae88aff334f8bc542782d` (Task 0008 reconcile canonical advanced inventory with raw xml and task-0007 baselines)
+  - `cfb4b95dc689fcbbc3b96f63f5e87610eb9511cf` (Task 0008 final advanced inventory, baseline transitions, and report conformance)
 - **Push Target**: `origin/main`
 - **Remote Verification**: Verified on `refs/heads/main` via `git ls-remote origin main`.
 - **Next Task Notice**: Task 0009 has NOT been started.
+
 
 
 
