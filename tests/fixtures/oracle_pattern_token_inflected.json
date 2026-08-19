@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle PatternToken Inflected Semantics Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "cases_count": 6
+  },
+  "cases": [
+    {
+      "id": "pt_inflected_01_surface_matches_lemma_differs",
+      "description": "Surface matches pattern ('бежать') but non-null lemma differs ('побег') -> no match",
+      "pattern": {
+        "text": "бежать",
+        "inflected": true,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": null,
+        "postag_regexp": false,
+        "has_exception": false,
+        "exception": null
+      },
+      "token": {
+        "token": "бежать",
+        "pos_tag": "NN:Inan:Fem",
+        "lemma": "побег"
+      },
+      "oracle_result": {
+        "is_matched": false,
+        "is_exception_matched": false,
+        "final_match": false
+      }
+    },
+    {
+      "id": "pt_inflected_02_lemma_matches_surface_differs",
+      "description": "Lemma matches pattern ('бежать') while surface differs ('бежал') -> match",
+      "pattern": {
+        "text": "бежать",
+        "inflected": true,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": null,
+        "postag_regexp": false,
+        "has_exception": false,
+        "exception": null
+      },
+      "token": {
+        "token": "бежал",
+        "pos_tag": "VB:Past:Masc",
+        "lemma": "бежать"
+      },
+      "oracle_result": {
+        "is_matched": true,
+        "is_exception_matched": false,
+        "final_match": true
+      }
+    },
+    {
+      "id": "pt_inflected_03_lemma_null_surface_fallback_match",
+      "description": "Lemma is null -> fallback to surface token ('неизвестно') matching pattern -> match",
+      "pattern": {
+        "text": "неизвестно",
+        "inflected": true,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": null,
+        "postag_regexp": false,
+        "has_exception": false,
+        "exception": null
+      },
+      "token": {
+        "token": "неизвестно",
+        "pos_tag": "ADV",
+        "lemma": null
+      },
+      "oracle_result": {
+        "is_matched": true,
+        "is_exception_matched": false,
+        "final_match": true
+      }
+    },
+    {
+      "id": "pt_inflected_04_lemma_null_surface_differs_no_match",
+      "description": "Lemma is null -> fallback to surface token ('другое') not matching pattern ('бежать') -> no match",
+      "pattern": {
+        "text": "бежать",
+        "inflected": true,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": null,
+        "postag_regexp": false,
+        "has_exception": false,
+        "exception": null
+      },
+      "token": {
+        "token": "другое",
+        "pos_tag": "ADJ",
+        "lemma": null
+      },
+      "oracle_result": {
+        "is_matched": false,
+        "is_exception_matched": false,
+        "final_match": false
+      }
+    },
+    {
+      "id": "pt_inflected_05_exception_inflected_match_excluded",
+      "description": "Token matches POS (VB:.*), exception has inflected='делать'. Lemma is 'делать', so exception matches -> excluded (finalMatch=false)",
+      "pattern": {
+        "text": null,
+        "inflected": false,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": "VB:.*",
+        "postag_regexp": true,
+        "has_exception": true,
+        "exception": {
+          "text": "делать",
+          "inflected": true,
+          "postag": null,
+          "postag_regexp": false
+        }
+      },
+      "token": {
+        "token": "делал",
+        "pos_tag": "VB:Past:Masc",
+        "lemma": "делать"
+      },
+      "oracle_result": {
+        "is_matched": true,
+        "is_exception_matched": true,
+        "final_match": false
+      }
+    },
+    {
+      "id": "pt_inflected_06_exception_inflected_differs_included",
+      "description": "Token matches POS (VB:.*), exception has inflected='делать'. Lemma is 'дело', exception does not match -> included (finalMatch=true)",
+      "pattern": {
+        "text": null,
+        "inflected": false,
+        "case_sensitive": false,
+        "regexp": false,
+        "postag": "VB:.*",
+        "postag_regexp": true,
+        "has_exception": true,
+        "exception": {
+          "text": "делать",
+          "inflected": true,
+          "postag": null,
+          "postag_regexp": false
+        }
+      },
+      "token": {
+        "token": "делал",
+        "pos_tag": "VB:Past:Masc",
+        "lemma": "дело"
+      },
+      "oracle_result": {
+        "is_matched": true,
+        "is_exception_matched": false,
+        "final_match": true
+      }
+    }
+  ]
+}

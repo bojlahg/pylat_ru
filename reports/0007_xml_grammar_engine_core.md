@@ -1,4 +1,4 @@
-# Completion Report — Task 0007: RussianChunker + XML Grammar Engine Core (Final Conformance Verified)
+# Completion Report — Task 0007: RussianChunker + XML Grammar Engine Core (Final Verification Complete)
 
 ## 1. Task Summary
 
@@ -17,7 +17,6 @@ Task 0007 implements the native Python `RussianChunker` and the core XML Grammar
     - `MULTI_BLOCKER`: 157 rules (17.6%)
     - `UNRECOGNIZED_CONSTRUCT`: 0 rules (0.0%)
   - Generated committed reference inventory `compat/russian_grammar_core_inventory.json` with SHA-256 byte-exact regeneration tests.
-  - Pinned all 20 required upstream Java/XML source files in `UPSTREAM.json` and `license_inventory.json` with recorded size, SHA-256 hash, and verified LGPL license status.
 
 - **Native Russian Chunker (`pylat_ru.chunking`)**:
   - Implemented `TokenExpression` predicate parser, conjunction evaluator, and greedy regex sequence matching.
@@ -41,13 +40,27 @@ Task 0007 implements the native Python `RussianChunker` and the core XML Grammar
 
 - **Differential Parity and Conformance**:
   - 100% field-level parity against Java LT Oracle across 62 curated test cases in `tests/fixtures/oracle_russian_grammar_core.json`, asserting rule IDs, category metadata, descriptions, default states, match counts, UTF-16 spans, codepoint slices, messages, short messages, and suggestions.
+  - 100% exact parity on `tests/fixtures/oracle_pattern_token_inflected.json` (6 synthetic oracle cases independently proving surface match / lemma diff, lemma match / surface diff, lemma null surface fallback, and inflected exception exclusion/inclusion).
   - 100% exact parity across all 988 examples for all 506 core-runnable rules in `grammar.xml`:
     - 525 incorrect examples detected with exact `(from_pos, to_pos)` marker spans (0 span diffs), exact replacement strings and ordering without silent NBSP or whitespace stripping (0 suggestion diffs);
     - 463 correct examples passed with 0 false triggers.
 
 ---
 
-## 2. Important Files Added and Changed
+## 2. Pinned Upstream Files & Hashes
+
+| File | Size (Bytes) | SHA-256 Digest |
+|---|---|---|
+| `grammar.xml` | 1,194,903 | `e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec` |
+| `RussianChunker.java` | 14,544 | `df0035c002e5453cbe970cbef3880ae19cb9aaab24d98d669bf746c2a70b27d1` |
+| `PatternRule.java` | 8,809 | `c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3` |
+| `PatternRuleMatcher.java` | 22,434 | `70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613` |
+| `PatternRuleLoader.java` | 3,248 | `778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a` |
+| `PatternToken.java` | 26,728 | `11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb` |
+
+---
+
+## 3. Important Files Added and Changed
 
 ### Core Implementation
 - `src/pylat_ru/chunking/__init__.py`: Package init exporting `RussianChunker`, `ChunkTaggedToken`, `TokenExpression`.
@@ -68,12 +81,13 @@ Task 0007 implements the native Python `RussianChunker` and the core XML Grammar
 ### Tooling & Compatibility
 - `tools/russian_grammar_core_inventory.py`: Dynamic regex/source-derived chunker parser and deterministic inventory generator.
 - `compat/russian_grammar_core_inventory.json`: Committed grammar core inventory (892 rules).
-- `compat/compatibility.json`: Reconciled oracle counts and upstream test metrics (`upstream_tests.status = "PARTIALLY_PORTED"`, `passed = 8`, `not_yet_ported = 10`).
+- `compat/compatibility.json`: Reconciled oracle counts and upstream test metrics with explicit separate units.
 - `third_party/languagetool/UPSTREAM.json`: Updated with all 105 vendored files and SHA-256 digests.
 - `third_party/languagetool/license_inventory.json`: Updated with all 105 vendored files, 0 blocked license reviews.
-- `tools/differential_lt.py`: Added injected chunk protocol and regenerated chunker oracle fixture.
+- `tools/differential_lt.py`: Added injected chunk protocol, `evaluate_pattern_tokens`, and fixture generators.
 - `tests/fixtures/oracle_russian_chunker.json`: 34 chunker oracle test cases with pre-injected boundary tags.
 - `tests/fixtures/oracle_russian_grammar_core.json`: 62 grammar core oracle test cases.
+- `tests/fixtures/oracle_pattern_token_inflected.json`: 6 pattern token inflected semantics oracle test cases.
 
 ### Tests
 - `tests/unit/test_grammar_inventory.py`: Deterministic inventory regeneration and invariant tests.
@@ -82,17 +96,18 @@ Task 0007 implements the native Python `RussianChunker` and the core XML Grammar
 - `tests/unit/test_real_wheel_grammar.py`: Automated wheel packaging, resource inspection, and isolated subprocess execution test.
 - `tests/upstream/test_russian_chunker_oracle_parity.py`: 100% oracle differential test for chunker (34 cases, 12 token fields unconditionally asserted pre and post chunker).
 - `tests/upstream/test_russian_grammar_oracle_parity.py`: 100% oracle differential test for grammar core (62 cases, 100% field-level parity).
+- `tests/upstream/test_pattern_token_oracle_parity.py`: 100% oracle differential test for PatternToken inflected semantics (6 cases).
 - `tests/upstream/test_russian_grammar_examples.py`: Executable XML examples test suite for all 506 core-runnable rules (988 examples, 100% trigger, exact marker spans, and exact suggestion parity).
 - `tests/upstream/test_upstream_pattern_rules.py`: Ported tests from `PatternRuleLoaderTest`, `PatternRuleMatcherTest`, `PatternRuleTest`, `RussianPatternRuleTest` with inflected exact semantics.
 
 ---
 
-## 3. Test & Verification Results
+## 4. Test & Verification Results
 
-All 245 test cases across the entire project test suite passed cleanly:
+All 247 test cases across the entire project test suite passed cleanly with 0 skips and 0 failures:
 
 ```
-============================ 245 passed in 31.67s =============================
+============================ 247 passed in 35.84s =============================
 ```
 
 Detailed test suite breakdown:
@@ -102,13 +117,21 @@ Detailed test suite breakdown:
 - `tests/unit/test_real_wheel_grammar.py`: 1 passed
 - `tests/upstream/test_russian_chunker_oracle_parity.py`: 4 passed (34 oracle cases)
 - `tests/upstream/test_russian_grammar_oracle_parity.py`: 3 passed (62 oracle cases)
+- `tests/upstream/test_pattern_token_oracle_parity.py`: 2 passed (6 oracle cases)
 - `tests/upstream/test_russian_grammar_examples.py`: 3 passed (988 examples across 506 rules)
 - `tests/upstream/test_upstream_pattern_rules.py`: 8 passed
 - Existing tests (tokenization, tagset, dictionary, tagger, disambiguator, synthesizer, SRX, licenses): 210 passed
 
+### Upstream Test Accounting (Explicit Units)
+- `upstream_test_files_total`: 18
+- `task_0007_source_test_files_translated`: 4 (`PatternRuleLoaderTest`, `PatternRuleMatcherTest`, `PatternRuleTest`, `RussianPatternRuleTest`)
+- `task_0007_python_tests_passed`: 8
+- `remaining_upstream_test_files_not_ported`: 14
+
 ### Oracle Provenance & Environment
 - Oracle Build ID: `lt_6.8_source_build_jdk17_stefan`
 - Oracle JAR SHA-256: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`
+- Total Grammar & Chunker Oracle Cases: 102 cases
 - Python Version: `3.10.11`
 - Target Branch: `main`
 
@@ -117,20 +140,21 @@ Detailed test suite breakdown:
 
 ---
 
-## 4. Compatibility & Upstream Parity Inventory
+## 5. Compatibility & Upstream Parity Inventory
 
 - Pinned Upstream Version: LanguageTool `v6.8` (commit `e807fcde6a6506191e1470744d2345da28c26be6`).
-- Total XML Rules: 892
+- Total XML Rules: 892 across 8 categories and 297 rulegroups
   - Core Runnable (Task 0007): 506 (56.7%)
   - Deferred to Advanced Matching (Task 0008): 157 (17.6%)
   - Deferred to Unification (Task 0009): 8 (0.9%)
   - Deferred to Java Filters (Task 0010): 64 (7.2%)
   - Multi-blocker Deferred: 157 (17.6%)
   - Unrecognized / Silent: 0 (0.0%)
+- Examples: 988 core runnable examples / 1458 deferred examples (2446 total)
 
 ---
 
-## 5. Known Limitations & Blocked Items
+## 6. Known Limitations & Blocked Items
 
 - Advanced matching constructs (`<and>`, `<or>`, `<phrase>`, `skip="..."`, `min/max`, `scope="next"`, `scope="previous"`, `spacebefore`) are cleanly deferred to Task 0008.
 - Feature unification (`<unification>`, `<unify>`, `<feature>`, `<equivalence>`) is cleanly deferred to Task 0009.
@@ -139,7 +163,7 @@ Detailed test suite breakdown:
 
 ---
 
-## 6. License & Provenance Findings
+## 7. License & Provenance Findings
 
 - Pinned upstream `grammar.xml` provenance: `languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml` at commit `e807fcde6a6506191e1470744d2345da28c26be6` (LGPL 2.1+).
 - SHA-256 hash verified: `e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec`.

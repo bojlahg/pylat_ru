@@ -171,11 +171,10 @@
       },
       "upstream_tests": {
         "status": "PARTIALLY_PORTED",
-        "passed": 8,
-        "failed": 0,
-        "skipped": 0,
-        "not_yet_ported": 10,
-        "total": 18
+        "upstream_test_files_total": 18,
+        "task_0007_source_test_files_translated": 4,
+        "task_0007_python_tests_passed": 8,
+        "remaining_upstream_test_files_not_ported": 14
       },
       "grammar_xml_examples": {
         "status": "PARTIALLY_RUNNABLE",

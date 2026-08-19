@@ -222,160 +222,222 @@ class GrammarLoader:
         rules: List[GrammarRule] = []
         source_order_idx = 0
 
-        # Collect global unifications if any
+        # Collect global unifications and validate global phrases
         global_unifications: List[UnificationDef] = []
         for u_elem in root.findall("unification"):
             global_unifications.append(self._parse_unification(u_elem))
 
-        for cat_elem in root.findall("category"):
-            _validate_attrs(cat_elem, ALLOWED_CATEGORY_ATTRS, "<category>")
-            _validate_children(cat_elem, ALLOWED_CATEGORY_CHILDREN, "<category>")
+        for child in root:
+            if child.tag == "unification":
+                continue
+            elif child.tag == "phrase":
+                _validate_attrs(child, ALLOWED_PHRASE_ATTRS, "<phrase> under root")
+                _validate_children(child, ALLOWED_PHRASE_CHILDREN, "<phrase> under root")
+            elif child.tag == "category":
+                cat_elem = child
+                _validate_attrs(cat_elem, ALLOWED_CATEGORY_ATTRS, "<category>")
+                _validate_children(cat_elem, ALLOWED_CATEGORY_CHILDREN, "<category>")
 
-            cat_id = cat_elem.attrib.get("id")
-            if not cat_id:
-                raise GrammarFormatError("<category> missing required 'id' attribute")
-            cat_name = cat_elem.attrib.get("name", cat_id)
-            cat_default = cat_elem.attrib.get("default", "on")
-            if cat_default not in ("on", "off", "temp_off"):
-                raise GrammarFormatError(f"Invalid default value '{cat_default}' on <category id='{cat_id}'>")
+                cat_id = cat_elem.attrib.get("id")
+                if not cat_id:
+                    raise GrammarFormatError("<category> missing required 'id' attribute")
+                cat_name = cat_elem.attrib.get("name", cat_id)
+                cat_default = cat_elem.attrib.get("default", "on")
+                if cat_default not in ("on", "off", "temp_off"):
+                    raise GrammarFormatError(f"Invalid default value '{cat_default}' on <category id='{cat_id}'>")
 
-            cat_tags = [t.strip() for t in cat_elem.attrib.get("tags", "").split() if t.strip()]
+                cat_tags = [t.strip() for t in cat_elem.attrib.get("tags", "").split() if t.strip()]
+                cat_url = cat_elem.findtext("url")
 
-            # Category-level unifications
-            cat_unifications = list(global_unifications)
-            for u_elem in cat_elem.findall("unification"):
-                cat_unifications.append(self._parse_unification(u_elem))
+                cat_unifications = list(global_unifications)
+                for u_elem in cat_elem.findall("unification"):
+                    cat_unifications.append(self._parse_unification(u_elem))
 
-            for child in cat_elem:
-                if child.tag == "rulegroup":
-                    _validate_attrs(child, ALLOWED_RULEGROUP_ATTRS, "<rulegroup>")
-                    _validate_children(child, ALLOWED_RULEGROUP_CHILDREN, "<rulegroup>")
-
-                    group_id = child.attrib.get("id")
-                    if not group_id:
-                        raise GrammarFormatError("<rulegroup> missing required 'id' attribute")
-                    group_name = child.attrib.get("name", group_id)
-                    group_default = child.attrib.get("default", cat_default)
-                    if group_default not in ("on", "off", "temp_off"):
-                        raise GrammarFormatError(f"Invalid default value '{group_default}' on <rulegroup id='{group_id}'>")
-
-                    group_tags_str = child.attrib.get("tags")
-                    group_tags = (
-                        [t.strip() for t in group_tags_str.split() if t.strip()]
-                        if group_tags_str
-                        else cat_tags
-                    )
-                    group_url = child.findtext("url")
-                    group_type = child.attrib.get("type")
-                    group_prio = _parse_int_attr(child, "prio", f"<rulegroup id='{group_id}'>")
-                    group_tone_tags = [t.strip() for t in child.attrib.get("tone_tags", "").split() if t.strip()]
-                    group_goal_specific = (child.attrib.get("is_goal_specific") == "true")
-
-                    # Parse group-level antipatterns
-                    group_antipatterns: List[Pattern] = []
-                    for ap_elem in child.findall("antipattern"):
-                        group_antipatterns.append(self._parse_pattern(ap_elem, f"antipattern in group '{group_id}'"))
-
-                    # Parse group-level examples
-                    group_examples: List[Example] = []
-                    for ex_elem in child.findall("example"):
-                        group_examples.append(self._parse_example(ex_elem, f"example in group '{group_id}'"))
-
-                    rule_num = 0
-                    for r in child.findall("rule"):
-                        _validate_attrs(r, ALLOWED_RULE_ATTRS, f"<rule> inside group '{group_id}'")
-                        _validate_children(r, ALLOWED_RULE_CHILDREN, f"<rule> inside group '{group_id}'")
-
-                        rule_num += 1
-                        r_id = r.attrib.get("id")
-                        sub_id = r_id if r_id else str(rule_num)
-                        full_id = f"{group_id}[{sub_id}]"
-                        r_name = r.attrib.get("name", group_name)
-                        r_default = r.attrib.get("default", group_default)
-                        if r_default not in ("on", "off", "temp_off"):
-                            raise GrammarFormatError(f"Invalid default value '{r_default}' on <rule id='{full_id}'>")
-                        is_default_off = (r_default in ("off", "temp_off"))
-
-                        r_tags_str = r.attrib.get("tags")
-                        r_tags = (
-                            [t.strip() for t in r_tags_str.split() if t.strip()]
-                            if r_tags_str
-                            else group_tags
+                for cat_child in cat_elem:
+                    if cat_child.tag == "rulegroup":
+                        group_rules, source_order_idx = self._parse_rulegroup(
+                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_unifications, source_order_idx
                         )
-
-                        rule_obj = self._parse_rule_elem(
-                            rule_elem=r,
-                            rule_id=r_id or group_id,
-                            sub_id=sub_id,
-                            full_id=full_id,
-                            name=r_name,
-                            category_id=cat_id,
-                            category_name=cat_name,
-                            rulegroup_id=group_id,
-                            rulegroup_name=group_name,
-                            default_off=is_default_off,
-                            tags=r_tags,
-                            source_order_idx=source_order_idx,
-                            inherited_url=group_url,
-                            inherited_type=group_type,
-                            inherited_prio=group_prio,
-                            inherited_tone_tags=group_tone_tags,
-                            inherited_goal_specific=group_goal_specific,
-                            inherited_antipatterns=group_antipatterns,
-                            inherited_examples=group_examples,
-                            unifications=cat_unifications,
+                        rules.extend(group_rules)
+                    elif cat_child.tag == "rule":
+                        rule_obj, source_order_idx = self._parse_standalone_rule(
+                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_unifications, source_order_idx
                         )
                         rules.append(rule_obj)
-                        source_order_idx += 1
-
-                elif child.tag == "rule":
-                    _validate_attrs(child, ALLOWED_RULE_ATTRS, "<rule>")
-                    _validate_children(child, ALLOWED_RULE_CHILDREN, "<rule>")
-
-                    r_id = child.attrib.get("id", "")
-                    if not r_id:
-                        raise GrammarFormatError("Standalone <rule> missing required 'id' attribute")
-                    sub_id = "1"
-                    full_id = f"{r_id}[{sub_id}]"
-                    r_name = child.attrib.get("name", r_id)
-                    r_default = child.attrib.get("default", cat_default)
-                    if r_default not in ("on", "off", "temp_off"):
-                        raise GrammarFormatError(f"Invalid default value '{r_default}' on <rule id='{full_id}'>")
-                    is_default_off = (r_default in ("off", "temp_off"))
-
-                    r_tags_str = child.attrib.get("tags")
-                    r_tags = (
-                        [t.strip() for t in r_tags_str.split() if t.strip()]
-                        if r_tags_str
-                        else cat_tags
-                    )
-
-                    rule_obj = self._parse_rule_elem(
-                        rule_elem=child,
-                        rule_id=r_id,
-                        sub_id=sub_id,
-                        full_id=full_id,
-                        name=r_name,
-                        category_id=cat_id,
-                        category_name=cat_name,
-                        rulegroup_id=None,
-                        rulegroup_name=None,
-                        default_off=is_default_off,
-                        tags=r_tags,
-                        source_order_idx=source_order_idx,
-                        inherited_url=None,
-                        inherited_type=None,
-                        inherited_prio=None,
-                        inherited_tone_tags=[],
-                        inherited_goal_specific=False,
-                        inherited_antipatterns=[],
-                        inherited_examples=[],
-                        unifications=cat_unifications,
-                    )
-                    rules.append(rule_obj)
-                    source_order_idx += 1
+            elif child.tag == "rulegroup":
+                group_rules, source_order_idx = self._parse_rulegroup(
+                    child, "MISC", "Miscellaneous", "on", [], None, global_unifications, source_order_idx
+                )
+                rules.extend(group_rules)
+            elif child.tag == "rule":
+                rule_obj, source_order_idx = self._parse_standalone_rule(
+                    child, "MISC", "Miscellaneous", "on", [], None, global_unifications, source_order_idx
+                )
+                rules.append(rule_obj)
 
         return rules
+
+    def _parse_rulegroup(
+        self,
+        group_elem: ET.Element,
+        cat_id: str,
+        cat_name: str,
+        cat_default: str,
+        cat_tags: List[str],
+        cat_url: Optional[str],
+        cat_unifications: List[UnificationDef],
+        source_order_idx: int,
+    ) -> Tuple[List[GrammarRule], int]:
+        _validate_attrs(group_elem, ALLOWED_RULEGROUP_ATTRS, "<rulegroup>")
+        _validate_children(group_elem, ALLOWED_RULEGROUP_CHILDREN, "<rulegroup>")
+
+        group_id = group_elem.attrib.get("id")
+        if not group_id:
+            raise GrammarFormatError("<rulegroup> missing required 'id' attribute")
+        group_name = group_elem.attrib.get("name", group_id)
+        group_default = group_elem.attrib.get("default", cat_default)
+        if group_default not in ("on", "off", "temp_off"):
+            raise GrammarFormatError(f"Invalid default value '{group_default}' on <rulegroup id='{group_id}'>")
+
+        group_tags_str = group_elem.attrib.get("tags")
+        group_tags = (
+            [t.strip() for t in group_tags_str.split() if t.strip()]
+            if group_tags_str
+            else cat_tags
+        )
+        group_url = group_elem.findtext("url") or cat_url
+        group_type = group_elem.attrib.get("type")
+        group_prio = _parse_int_attr(group_elem, "prio", f"<rulegroup id='{group_id}'>")
+        group_tone_tags = [t.strip() for t in group_elem.attrib.get("tone_tags", "").split() if t.strip()]
+        group_goal_specific = (group_elem.attrib.get("is_goal_specific") == "true")
+
+        # Parse group-level short message if defined
+        group_short_elem = group_elem.find("short")
+        if group_short_elem is not None:
+            _validate_attrs(group_short_elem, set(), f"<short> in group '{group_id}'")
+            _validate_children(group_short_elem, set(), f"<short> in group '{group_id}'")
+            group_short = group_short_elem.text.strip() if group_short_elem.text else None
+        else:
+            group_short = None
+
+        # Parse group-level antipatterns
+        group_antipatterns: List[Pattern] = []
+        for ap_elem in group_elem.findall("antipattern"):
+            group_antipatterns.append(self._parse_pattern(ap_elem, f"antipattern in group '{group_id}'"))
+
+        # Parse group-level examples
+        group_examples: List[Example] = []
+        for ex_elem in group_elem.findall("example"):
+            group_examples.append(self._parse_example(ex_elem, f"example in group '{group_id}'"))
+
+        rules: List[GrammarRule] = []
+        rule_num = 0
+        for r in group_elem.findall("rule"):
+            _validate_attrs(r, ALLOWED_RULE_ATTRS, f"<rule> inside group '{group_id}'")
+            _validate_children(r, ALLOWED_RULE_CHILDREN, f"<rule> inside group '{group_id}'")
+
+            rule_num += 1
+            r_id = r.attrib.get("id")
+            sub_id = r_id if r_id else str(rule_num)
+            full_id = f"{group_id}[{sub_id}]"
+            r_name = r.attrib.get("name", group_name)
+            r_default = r.attrib.get("default", group_default)
+            if r_default not in ("on", "off", "temp_off"):
+                raise GrammarFormatError(f"Invalid default value '{r_default}' on <rule id='{full_id}'>")
+            is_default_off = (r_default in ("off", "temp_off"))
+
+            r_tags_str = r.attrib.get("tags")
+            r_tags = (
+                [t.strip() for t in r_tags_str.split() if t.strip()]
+                if r_tags_str
+                else group_tags
+            )
+
+            rule_obj = self._parse_rule_elem(
+                rule_elem=r,
+                rule_id=r_id or group_id,
+                sub_id=sub_id,
+                full_id=full_id,
+                name=r_name,
+                category_id=cat_id,
+                category_name=cat_name,
+                rulegroup_id=group_id,
+                rulegroup_name=group_name,
+                default_off=is_default_off,
+                tags=r_tags,
+                source_order_idx=source_order_idx,
+                inherited_url=group_url,
+                inherited_type=group_type,
+                inherited_prio=group_prio,
+                inherited_tone_tags=group_tone_tags,
+                inherited_goal_specific=group_goal_specific,
+                inherited_antipatterns=group_antipatterns,
+                inherited_examples=group_examples,
+                inherited_short=group_short,
+                unifications=cat_unifications,
+            )
+            rules.append(rule_obj)
+            source_order_idx += 1
+
+        return rules, source_order_idx
+
+    def _parse_standalone_rule(
+        self,
+        rule_elem: ET.Element,
+        cat_id: str,
+        cat_name: str,
+        cat_default: str,
+        cat_tags: List[str],
+        cat_url: Optional[str],
+        cat_unifications: List[UnificationDef],
+        source_order_idx: int,
+    ) -> Tuple[GrammarRule, int]:
+        _validate_attrs(rule_elem, ALLOWED_RULE_ATTRS, "<rule>")
+        _validate_children(rule_elem, ALLOWED_RULE_CHILDREN, "<rule>")
+
+        r_id = rule_elem.attrib.get("id", "")
+        if not r_id:
+            raise GrammarFormatError("Standalone <rule> missing required 'id' attribute")
+        sub_id = "1"
+        full_id = f"{r_id}[{sub_id}]"
+        r_name = rule_elem.attrib.get("name", r_id)
+        r_default = rule_elem.attrib.get("default", cat_default)
+        if r_default not in ("on", "off", "temp_off"):
+            raise GrammarFormatError(f"Invalid default value '{r_default}' on <rule id='{full_id}'>")
+        is_default_off = (r_default in ("off", "temp_off"))
+
+        r_tags_str = rule_elem.attrib.get("tags")
+        r_tags = (
+            [t.strip() for t in r_tags_str.split() if t.strip()]
+            if r_tags_str
+            else cat_tags
+        )
+
+        rule_obj = self._parse_rule_elem(
+            rule_elem=rule_elem,
+            rule_id=r_id,
+            sub_id=sub_id,
+            full_id=full_id,
+            name=r_name,
+            category_id=cat_id,
+            category_name=cat_name,
+            rulegroup_id=None,
+            rulegroup_name=None,
+            default_off=is_default_off,
+            tags=r_tags,
+            source_order_idx=source_order_idx,
+            inherited_url=cat_url,
+            inherited_type=None,
+            inherited_prio=None,
+            inherited_tone_tags=[],
+            inherited_goal_specific=False,
+            inherited_antipatterns=[],
+            inherited_examples=[],
+            inherited_short=None,
+            unifications=cat_unifications,
+        )
+        source_order_idx += 1
+        return rule_obj, source_order_idx
 
     def _parse_feature(self, f_elem: ET.Element, context: str) -> FeatureDef:
         _validate_attrs(f_elem, ALLOWED_FEATURE_ATTRS, context)
@@ -427,7 +489,8 @@ class GrammarLoader:
         inherited_goal_specific: bool,
         inherited_antipatterns: List[Pattern],
         inherited_examples: List[Example],
-        unifications: List[UnificationDef],
+        inherited_short: Optional[str] = None,
+        unifications: List[UnificationDef] = None,
     ) -> GrammarRule:
         exec_state, blockers = classify_rule_element(rule_elem)
 
@@ -470,7 +533,7 @@ class GrammarLoader:
             _validate_children(short_elem, set(), f"<short> in rule '{full_id}'")
             short_msg = short_elem.text.strip() if short_elem.text else None
         else:
-            short_msg = None
+            short_msg = inherited_short
 
         # Parse direct child suggestions
         for sug_elem in rule_elem.findall("suggestion"):
@@ -594,6 +657,7 @@ class GrammarLoader:
         _validate_attrs(elem, ALLOWED_AND_ATTRS, context)
         _validate_children(elem, ALLOWED_AND_CHILDREN, context)
         children: List[PatternElement] = []
+        exceptions: List[PatternTokenException] = []
         for child in elem:
             if child.tag == "token":
                 children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}"))
@@ -601,7 +665,9 @@ class GrammarLoader:
                 children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}"))
             elif child.tag == "phrase":
                 children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}"))
-        return PatternAnd(elements=children, is_in_marker=in_marker)
+            elif child.tag == "exception":
+                exceptions.append(self._parse_exception(child, pat_case_sensitive, f"<exception> in {context}"))
+        return PatternAnd(elements=children, exceptions=exceptions, is_in_marker=in_marker)
 
     def _parse_or(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternOr:
         _validate_attrs(elem, ALLOWED_OR_ATTRS, context)
@@ -679,6 +745,36 @@ class GrammarLoader:
                 children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}"))
         return PatternPhrase(id=pid, ref=pref, raw_pos=raw_pos, elements=children, is_in_marker=in_marker)
 
+    def _parse_exception(self, exc_elem: ET.Element, tok_cs: bool, context: str) -> PatternTokenException:
+        _validate_attrs(exc_elem, ALLOWED_EXCEPTION_ATTRS, context)
+        _validate_children(exc_elem, ALLOWED_EXCEPTION_CHILDREN, context)
+
+        exc_cs = _parse_bool_attr(exc_elem, "case_sensitive", context, default=tok_cs)
+        exc_text = exc_elem.text.strip() if exc_elem.text else None
+        if exc_text == "":
+            exc_text = None
+
+        scope_val = exc_elem.attrib.get("scope", "current")
+        if scope_val not in ("current", "next", "previous"):
+            raise GrammarFormatError(f"Invalid scope '{scope_val}' in <exception> in {context}")
+
+        match_elem = exc_elem.find("match")
+        match_ref = self._parse_match(match_elem, f"<match> in {context}") if match_elem is not None else None
+
+        return PatternTokenException(
+            text=exc_text,
+            postag=exc_elem.attrib.get("postag"),
+            postag_regexp=_parse_bool_attr(exc_elem, "postag_regexp", context, default=False),
+            regexp=_parse_bool_attr(exc_elem, "regexp", context, default=False),
+            negate=_parse_bool_attr(exc_elem, "negate", context, default=False),
+            negate_pos=_parse_bool_attr(exc_elem, "negate_pos", context, default=False),
+            inflected=_parse_bool_attr(exc_elem, "inflected", context, default=False),
+            case_sensitive=exc_cs,
+            scope=scope_val,
+            spacebefore=exc_elem.attrib.get("spacebefore"),
+            match=match_ref,
+        )
+
     def _parse_token(self, tok_elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternToken:
         _validate_attrs(tok_elem, ALLOWED_TOKEN_ATTRS, context)
         _validate_children(tok_elem, ALLOWED_TOKEN_CHILDREN, context)
@@ -701,34 +797,12 @@ class GrammarLoader:
         chunk_val = tok_elem.attrib.get("chunk")
         spacebefore = tok_elem.attrib.get("spacebefore")
 
+        match_elem = tok_elem.find("match")
+        match_ref = self._parse_match(match_elem, f"<match> in {context}") if match_elem is not None else None
+
         exceptions: List[PatternTokenException] = []
         for exc_elem in tok_elem.findall("exception"):
-            _validate_attrs(exc_elem, ALLOWED_EXCEPTION_ATTRS, f"<exception> in {context}")
-            _validate_children(exc_elem, ALLOWED_EXCEPTION_CHILDREN, f"<exception> in {context}")
-
-            exc_cs = _parse_bool_attr(exc_elem, "case_sensitive", f"<exception> in {context}", default=tok_cs)
-            exc_text = exc_elem.text.strip() if exc_elem.text else None
-            if exc_text == "":
-                exc_text = None
-
-            scope_val = exc_elem.attrib.get("scope", "current")
-            if scope_val not in ("current", "next", "previous"):
-                raise GrammarFormatError(f"Invalid scope '{scope_val}' in <exception> in {context}")
-
-            exceptions.append(
-                PatternTokenException(
-                    text=exc_text,
-                    postag=exc_elem.attrib.get("postag"),
-                    postag_regexp=_parse_bool_attr(exc_elem, "postag_regexp", f"<exception> in {context}", default=False),
-                    regexp=_parse_bool_attr(exc_elem, "regexp", f"<exception> in {context}", default=False),
-                    negate=_parse_bool_attr(exc_elem, "negate", f"<exception> in {context}", default=False),
-                    negate_pos=_parse_bool_attr(exc_elem, "negate_pos", f"<exception> in {context}", default=False),
-                    inflected=_parse_bool_attr(exc_elem, "inflected", f"<exception> in {context}", default=False),
-                    case_sensitive=exc_cs,
-                    scope=scope_val,
-                    spacebefore=exc_elem.attrib.get("spacebefore"),
-                )
-            )
+            exceptions.append(self._parse_exception(exc_elem, tok_cs, f"<exception> in {context}"))
 
         return PatternToken(
             text=text,
@@ -745,6 +819,7 @@ class GrammarLoader:
             chunk=chunk_val,
             spacebefore=spacebefore,
             exceptions=exceptions,
+            match=match_ref,
             is_in_marker=in_marker,
         )
 
@@ -834,8 +909,8 @@ class GrammarLoader:
         _validate_children(match_elem, ALLOWED_MATCH_CHILDREN, context)
 
         no_val = _parse_int_attr(match_elem, "no", context, default=1)
-        if no_val is None or no_val < 1:
-            raise GrammarFormatError(f"Attribute 'no' in <match> must be >= 1 in {context}")
+        if no_val is None or no_val < 0:
+            raise GrammarFormatError(f"Attribute 'no' in <match> must be >= 0 in {context}")
 
         case_conversion = match_elem.attrib.get("case_conversion")
         if case_conversion and case_conversion not in ("alllower", "allupper", "startlower", "startupper", "firstupper", "preserve"):

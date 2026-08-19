@@ -1347,6 +1347,161 @@ public class CheckPatternRules {
                     )
             return results
 
+    def evaluate_pattern_tokens(
+        self, cases: Sequence[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """Evaluate PatternToken matching directly using Java LanguageTool classes."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """package org.languagetool.rules.patterns;
+
+import org.languagetool.rules.patterns.PatternToken;
+import org.languagetool.AnalyzedToken;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class EvaluatePatternTokens {
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) return;
+
+        String[] caseArray = text.split("\\u0000", -1);
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+
+        for (int i = 0; i < caseArray.length; i++) {
+            if (i > 0) out.print("\\u0006");
+            String caseStr = caseArray[i];
+            if (caseStr.isEmpty()) continue;
+
+            String[] parts = caseStr.split("\\u0002", 2);
+            String[] patParts = parts[0].split("\\u0001", -1);
+            String[] tokParts = parts[1].split("\\u0001", -1);
+
+            String patText = patParts[0].equals("\\u0005null") ? null : patParts[0];
+            boolean isInflected = patParts[1].equals("1");
+            boolean isCaseSensitive = patParts[2].equals("1");
+            boolean isRegExp = patParts[3].equals("1");
+            String postag = patParts[4].equals("\\u0005null") ? null : patParts[4];
+            boolean isPosRegExp = patParts[5].equals("1");
+            boolean hasException = patParts[6].equals("1");
+
+            PatternToken pt = new PatternToken(patText, isCaseSensitive, isRegExp, isInflected);
+            if (postag != null) {
+                pt.setPosToken(new PatternToken.PosToken(postag, isPosRegExp, false));
+            }
+
+            if (hasException) {
+                String excText = patParts[7].equals("\\u0005null") ? null : patParts[7];
+                boolean excInflected = patParts[8].equals("1");
+                String excPos = patParts[9].equals("\\u0005null") ? null : patParts[9];
+                boolean excPosReg = patParts[10].equals("1");
+
+                pt.setStringPosException(excText, false, excInflected, false, false, false, excPos, excPosReg, false, isCaseSensitive);
+            }
+
+            String token = tokParts[0];
+            String posTag = tokParts[1].equals("\\u0005null") ? null : tokParts[1];
+            String lemma = tokParts[2].equals("\\u0005null") ? null : tokParts[2];
+
+            AnalyzedToken at = new AnalyzedToken(token, posTag, lemma);
+
+            boolean isMatched = pt.isMatched(at);
+            boolean isExceptionMatched = pt.isExceptionMatched(at);
+            boolean finalMatch = isMatched && !isExceptionMatched;
+
+            out.print((isMatched ? "1" : "0") + "\\u0001" + (isExceptionMatched ? "1" : "0") + "\\u0001" + (finalMatch ? "1" : "0"));
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            pkg_dir = Path(tmpdir) / "org" / "languagetool" / "rules" / "patterns"
+            pkg_dir.mkdir(parents=True, exist_ok=True)
+            java_file = pkg_dir / "EvaluatePatternTokens.java"
+            java_file.write_text(java_src, encoding="utf-8")
+
+            res = subprocess.run(
+                [
+                    "javac",
+                    "-encoding",
+                    "UTF-8",
+                    "-cp",
+                    str(jar),
+                    str(java_file),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            if res.returncode != 0:
+                raise RuntimeError(f"javac failed: {res.stderr}")
+
+            case_strings = []
+            for c in cases:
+                pat = c["pattern"]
+                tok = c["token"]
+                pat_text = pat.get("text") or "\u0005null"
+                inflected = "1" if pat.get("inflected") else "0"
+                cs = "1" if pat.get("case_sensitive") else "0"
+                regexp = "1" if pat.get("regexp") else "0"
+                postag = pat.get("postag") or "\u0005null"
+                pos_reg = "1" if pat.get("postag_regexp") else "0"
+                has_exc = "1" if pat.get("has_exception") else "0"
+                exc = pat.get("exception") or {}
+                exc_text = exc.get("text") or "\u0005null"
+                exc_inf = "1" if exc.get("inflected") else "0"
+                exc_pos = exc.get("postag") or "\u0005null"
+                exc_pos_reg = "1" if exc.get("postag_regexp") else "0"
+
+                pat_str = f"{pat_text}\u0001{inflected}\u0001{cs}\u0001{regexp}\u0001{postag}\u0001{pos_reg}\u0001{has_exc}\u0001{exc_text}\u0001{exc_inf}\u0001{exc_pos}\u0001{exc_pos_reg}"
+
+                token_val = tok.get("token")
+                tok_pos = tok.get("pos_tag") or "\u0005null"
+                tok_lemma = tok.get("lemma") or "\u0005null"
+                tok_str = f"{token_val}\u0001{tok_pos}\u0001{tok_lemma}"
+
+                case_strings.append(f"{pat_str}\u0002{tok_str}")
+
+            input_bytes = "\u0000".join(case_strings).encode("utf-8")
+
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "org.languagetool.rules.patterns.EvaluatePatternTokens",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            results: List[Dict[str, Any]] = []
+            for block in out_str.split("\u0006"):
+                parts = block.split("\u0001")
+                if len(parts) >= 3:
+                    results.append(
+                        {
+                            "is_matched": parts[0] == "1",
+                            "is_exception_matched": parts[1] == "1",
+                            "final_match": parts[2] == "1",
+                        }
+                    )
+            return results
+
 
 
 
@@ -1810,6 +1965,178 @@ def generate_grammar_core_fixtures(
     )
 
 
+PATTERN_TOKEN_INFLECTED_CASES: List[Dict[str, Any]] = [
+    {
+        "id": "pt_inflected_01_surface_matches_lemma_differs",
+        "description": "Surface matches pattern ('бежать') but non-null lemma differs ('побег') -> no match",
+        "pattern": {
+            "text": "бежать",
+            "inflected": True,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": None,
+            "postag_regexp": False,
+            "has_exception": False,
+            "exception": None,
+        },
+        "token": {
+            "token": "бежать",
+            "pos_tag": "NN:Inan:Fem",
+            "lemma": "побег",
+        },
+    },
+    {
+        "id": "pt_inflected_02_lemma_matches_surface_differs",
+        "description": "Lemma matches pattern ('бежать') while surface differs ('бежал') -> match",
+        "pattern": {
+            "text": "бежать",
+            "inflected": True,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": None,
+            "postag_regexp": False,
+            "has_exception": False,
+            "exception": None,
+        },
+        "token": {
+            "token": "бежал",
+            "pos_tag": "VB:Past:Masc",
+            "lemma": "бежать",
+        },
+    },
+    {
+        "id": "pt_inflected_03_lemma_null_surface_fallback_match",
+        "description": "Lemma is null -> fallback to surface token ('неизвестно') matching pattern -> match",
+        "pattern": {
+            "text": "неизвестно",
+            "inflected": True,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": None,
+            "postag_regexp": False,
+            "has_exception": False,
+            "exception": None,
+        },
+        "token": {
+            "token": "неизвестно",
+            "pos_tag": "ADV",
+            "lemma": None,
+        },
+    },
+    {
+        "id": "pt_inflected_04_lemma_null_surface_differs_no_match",
+        "description": "Lemma is null -> fallback to surface token ('другое') not matching pattern ('бежать') -> no match",
+        "pattern": {
+            "text": "бежать",
+            "inflected": True,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": None,
+            "postag_regexp": False,
+            "has_exception": False,
+            "exception": None,
+        },
+        "token": {
+            "token": "другое",
+            "pos_tag": "ADJ",
+            "lemma": None,
+        },
+    },
+    {
+        "id": "pt_inflected_05_exception_inflected_match_excluded",
+        "description": "Token matches POS (VB:.*), exception has inflected='делать'. Lemma is 'делать', so exception matches -> excluded (finalMatch=false)",
+        "pattern": {
+            "text": None,
+            "inflected": False,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": "VB:.*",
+            "postag_regexp": True,
+            "has_exception": True,
+            "exception": {
+                "text": "делать",
+                "inflected": True,
+                "postag": None,
+                "postag_regexp": False,
+            },
+        },
+        "token": {
+            "token": "делал",
+            "pos_tag": "VB:Past:Masc",
+            "lemma": "делать",
+        },
+    },
+    {
+        "id": "pt_inflected_06_exception_inflected_differs_included",
+        "description": "Token matches POS (VB:.*), exception has inflected='делать'. Lemma is 'дело', exception does not match -> included (finalMatch=true)",
+        "pattern": {
+            "text": None,
+            "inflected": False,
+            "case_sensitive": False,
+            "regexp": False,
+            "postag": "VB:.*",
+            "postag_regexp": True,
+            "has_exception": True,
+            "exception": {
+                "text": "делать",
+                "inflected": True,
+                "postag": None,
+                "postag_regexp": False,
+            },
+        },
+        "token": {
+            "token": "делал",
+            "pos_tag": "VB:Past:Masc",
+            "lemma": "дело",
+        },
+    },
+]
+
+
+def generate_pattern_token_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Generate oracle PatternToken inflected semantics fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
+
+    output_path = fixtures_dir / "oracle_pattern_token_inflected.json"
+    results = oracle.evaluate_pattern_tokens(PATTERN_TOKEN_INFLECTED_CASES)
+
+    cases: List[Dict[str, Any]] = []
+    for i, item in enumerate(PATTERN_TOKEN_INFLECTED_CASES):
+        cases.append(
+            {
+                "id": item["id"],
+                "description": item["description"],
+                "pattern": item["pattern"],
+                "token": item["token"],
+                "oracle_result": results[i],
+            }
+        )
+
+    fixture_data = {
+        "schema_version": "1.0.0",
+        "description": "Committed LanguageTool 6.8 Java Oracle PatternToken Inflected Semantics Fixture",
+        "metadata": {
+            "pinned_lt_version": PINNED_LT_VERSION,
+            "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_build_id": oracle_build_id,
+            "oracle_jar_sha256": oracle_sha,
+            "cases_count": len(cases),
+        },
+        "cases": cases,
+    }
+
+    output_path.write_text(
+        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Generated PatternToken inflected fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
@@ -1848,6 +2175,11 @@ def main() -> int:
         "--generate-grammar-core-fixtures",
         action="store_true",
         help="Generate Russian grammar core fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-pattern-token-fixtures",
+        action="store_true",
+        help="Generate PatternToken inflected semantics fixtures from Java LanguageTool oracle",
     )
 
     args = parser.parse_args()
@@ -1964,6 +2296,19 @@ def main() -> int:
             return 1
         fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
         generate_grammar_core_fixtures(oracle, fixtures_dir)
+        return 0
+
+    if args.generate_pattern_token_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_pattern_token_fixtures(oracle, fixtures_dir)
         return 0
 
     if not args.text:

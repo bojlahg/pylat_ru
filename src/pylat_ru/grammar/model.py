@@ -46,6 +46,7 @@ class PatternTokenException:
     case_sensitive: bool = False
     scope: str = "current"  # "current", "previous", "next"
     spacebefore: Optional[str] = None
+    match: Optional[Any] = None  # MatchReference when token contains <match>
 
 
 @dataclass
@@ -66,6 +67,7 @@ class PatternToken:
     chunk: Optional[str] = None
     spacebefore: Optional[str] = None
     exceptions: List[PatternTokenException] = field(default_factory=list)
+    match: Optional[Any] = None  # MatchReference when token contains <match>
     is_in_marker: bool = False
 
 
@@ -74,6 +76,7 @@ class PatternAnd:
     """Logical AND construct inside a pattern."""
 
     elements: List[Any] = field(default_factory=list)
+    exceptions: List[PatternTokenException] = field(default_factory=list)
     is_in_marker: bool = False
 
 

@@ -1628,8 +1628,8 @@ Task 0007 is accepted only if all of the following are true.
 14. Unknown chunk-expression syntax fails explicitly.
 15. Chunker ignores whitespace as pinned Java does.
 16. Chunker handles MayMissingYO exclusion exactly.
-17. Chunker preserves unrelated existing chunks.
-18. Chunker overwrite removes only pinned FILTER_TAGS.
+17. Chunker initial chunk semantics match pinned Java: existing chunks are consulted for MayMissingYO exclusion, all included tokens start from ["O"], and computed chunks replace previous chunk tags upon assignment while excluded MayMissingYO tokens retain their existing chunks.
+18. Chunker overwrite during regex application removes only pinned FILTER_TAGS when assigning matched phrase tags.
 19. Chunker removes `O` when a real tag is added.
 20. Chunk-tag order matches Java oracle.
 21. Post-chunker token/readings metadata is otherwise preserved.
