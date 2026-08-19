@@ -104,16 +104,16 @@ Task 0007 implements the native Python `RussianChunker` and the core XML Grammar
 
 ## 4. Test & Verification Results
 
-All 247 test cases across the entire project test suite passed cleanly with 0 skips and 0 failures:
+All 248 test cases across the entire project test suite passed cleanly with 0 skips and 0 failures:
 
 ```
-============================ 247 passed in 35.84s =============================
+============================ 248 passed in 33.57s =============================
 ```
 
 Detailed test suite breakdown:
 - `tests/unit/test_grammar_inventory.py`: 2 passed
 - `tests/unit/test_russian_chunker.py`: 5 passed
-- `tests/unit/test_grammar_engine_core.py`: 9 passed
+- `tests/unit/test_grammar_engine_core.py`: 10 passed
 - `tests/unit/test_real_wheel_grammar.py`: 1 passed
 - `tests/upstream/test_russian_chunker_oracle_parity.py`: 4 passed (34 oracle cases)
 - `tests/upstream/test_russian_grammar_oracle_parity.py`: 3 passed (62 oracle cases)
@@ -168,3 +168,38 @@ Detailed test suite breakdown:
 - Pinned upstream `grammar.xml` provenance: `languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml` at commit `e807fcde6a6506191e1470744d2345da28c26be6` (LGPL 2.1+).
 - SHA-256 hash verified: `e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec`.
 - All 105 vendored upstream files have verified LGPL licensing in `license_inventory.json` with 0 items in `BLOCKED_LICENSE_REVIEW`.
+
+---
+
+## 8. Detailed Blocker Breakdown & Git Completion
+
+### 8.1 Canonical Inventory Blocker Counts by Feature and Task
+
+From canonical inventory `compat/russian_grammar_core_inventory.json` across all 892 rules:
+
+#### Classification by Primary Target Task
+- `CORE_0007_RUNNABLE`: 506 rules (56.7%)
+- `DEFERRED_0008_ADVANCED_MATCHING`: 157 rules (17.6%)
+- `DEFERRED_0009_UNIFICATION`: 8 rules (0.9%)
+- `DEFERRED_0010_FILTER`: 64 rules (7.2%)
+- `MULTI_BLOCKER`: 157 rules (17.6%)
+- `UNRECOGNIZED_CONSTRUCT`: 0 rules (0.0%)
+- **Total Deferred Rules**: 386 rules (43.3%)
+
+#### Blocker Occurrences by Specific Feature
+- `filter` (Java filter class): 178 rules
+- `skip` (`skip="N"` attribute): 144 rules
+- `unification` (`<unify>`, `<unification>`, `<feature>`): 85 rules
+- `or` (`<or>` construct): 44 rules
+- `and` (`<and>` construct): 40 rules
+- `phrase` (`<phrase>` construct): 30 rules
+- `exception_scope` (`scope="previous|next"`): 28 rules
+- `token_match` (`<token><match .../></token>`): 24 rules
+- `min_max` (`min="N"`, `max="N"` token repetition): 10 rules
+- `spacebefore` (`spacebefore="yes|no"`): 6 rules
+
+### 8.2 Git Completion
+
+- **Implementation/Review-Fix Commit SHA**: `067477885c14ccdad876f0fb9d4ca062ec3597eb`
+- **Push Target Branch**: `origin/main`
+- **Remote Verification**: Commit verified present on `origin/main` (clean remote sync).

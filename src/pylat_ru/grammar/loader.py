@@ -221,8 +221,9 @@ class GrammarLoader:
 
         rules: List[GrammarRule] = []
         source_order_idx = 0
+        self.global_phrases: Dict[str, PatternPhrase] = {}
 
-        # Collect global unifications and validate global phrases
+        # Collect global unifications and phrases
         global_unifications: List[UnificationDef] = []
         for u_elem in root.findall("unification"):
             global_unifications.append(self._parse_unification(u_elem))
@@ -233,6 +234,9 @@ class GrammarLoader:
             elif child.tag == "phrase":
                 _validate_attrs(child, ALLOWED_PHRASE_ATTRS, "<phrase> under root")
                 _validate_children(child, ALLOWED_PHRASE_CHILDREN, "<phrase> under root")
+                phrase_obj = self._parse_phrase(child, False, False, "<phrase> under root")
+                if phrase_obj.id:
+                    self.global_phrases[phrase_obj.id] = phrase_obj
             elif child.tag == "category":
                 cat_elem = child
                 _validate_attrs(cat_elem, ALLOWED_CATEGORY_ATTRS, "<category>")
@@ -248,6 +252,9 @@ class GrammarLoader:
 
                 cat_tags = [t.strip() for t in cat_elem.attrib.get("tags", "").split() if t.strip()]
                 cat_url = cat_elem.findtext("url")
+                cat_tab = cat_elem.attrib.get("tab")
+                cat_tabname = cat_elem.attrib.get("tabname")
+                cat_premium = _parse_bool_attr(cat_elem, "premium", f"<category id='{cat_id}'>", default=False)
 
                 cat_unifications = list(global_unifications)
                 for u_elem in cat_elem.findall("unification"):
@@ -256,22 +263,22 @@ class GrammarLoader:
                 for cat_child in cat_elem:
                     if cat_child.tag == "rulegroup":
                         group_rules, source_order_idx = self._parse_rulegroup(
-                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_unifications, source_order_idx
+                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_tab, cat_tabname, cat_premium, cat_unifications, source_order_idx
                         )
                         rules.extend(group_rules)
                     elif cat_child.tag == "rule":
                         rule_obj, source_order_idx = self._parse_standalone_rule(
-                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_unifications, source_order_idx
+                            cat_child, cat_id, cat_name, cat_default, cat_tags, cat_url, cat_tab, cat_tabname, cat_premium, cat_unifications, source_order_idx
                         )
                         rules.append(rule_obj)
             elif child.tag == "rulegroup":
                 group_rules, source_order_idx = self._parse_rulegroup(
-                    child, "MISC", "Miscellaneous", "on", [], None, global_unifications, source_order_idx
+                    child, "MISC", "Miscellaneous", "on", [], None, None, None, False, global_unifications, source_order_idx
                 )
                 rules.extend(group_rules)
             elif child.tag == "rule":
                 rule_obj, source_order_idx = self._parse_standalone_rule(
-                    child, "MISC", "Miscellaneous", "on", [], None, global_unifications, source_order_idx
+                    child, "MISC", "Miscellaneous", "on", [], None, None, None, False, global_unifications, source_order_idx
                 )
                 rules.append(rule_obj)
 
@@ -285,6 +292,9 @@ class GrammarLoader:
         cat_default: str,
         cat_tags: List[str],
         cat_url: Optional[str],
+        cat_tab: Optional[str],
+        cat_tabname: Optional[str],
+        cat_premium: bool,
         cat_unifications: List[UnificationDef],
         source_order_idx: int,
     ) -> Tuple[List[GrammarRule], int]:
@@ -310,6 +320,11 @@ class GrammarLoader:
         group_prio = _parse_int_attr(group_elem, "prio", f"<rulegroup id='{group_id}'>")
         group_tone_tags = [t.strip() for t in group_elem.attrib.get("tone_tags", "").split() if t.strip()]
         group_goal_specific = (group_elem.attrib.get("is_goal_specific") == "true")
+        group_tab = group_elem.attrib.get("tab") or cat_tab
+        group_tabname = group_elem.attrib.get("tabname") or cat_tabname
+        group_premium = _parse_bool_attr(group_elem, "premium", f"<rulegroup id='{group_id}'>", default=cat_premium)
+        group_minprevmatches = _parse_int_attr(group_elem, "minprevmatches", f"<rulegroup id='{group_id}'>")
+        group_distancetokens = _parse_int_attr(group_elem, "distancetokens", f"<rulegroup id='{group_id}'>")
 
         # Parse group-level short message if defined
         group_short_elem = group_elem.find("short")
@@ -371,6 +386,11 @@ class GrammarLoader:
                 inherited_prio=group_prio,
                 inherited_tone_tags=group_tone_tags,
                 inherited_goal_specific=group_goal_specific,
+                inherited_tab=group_tab,
+                inherited_tabname=group_tabname,
+                inherited_premium=group_premium,
+                inherited_minprevmatches=group_minprevmatches,
+                inherited_distancetokens=group_distancetokens,
                 inherited_antipatterns=group_antipatterns,
                 inherited_examples=group_examples,
                 inherited_short=group_short,
@@ -389,6 +409,9 @@ class GrammarLoader:
         cat_default: str,
         cat_tags: List[str],
         cat_url: Optional[str],
+        cat_tab: Optional[str],
+        cat_tabname: Optional[str],
+        cat_premium: bool,
         cat_unifications: List[UnificationDef],
         source_order_idx: int,
     ) -> Tuple[GrammarRule, int]:
@@ -431,6 +454,11 @@ class GrammarLoader:
             inherited_prio=None,
             inherited_tone_tags=[],
             inherited_goal_specific=False,
+            inherited_tab=cat_tab,
+            inherited_tabname=cat_tabname,
+            inherited_premium=cat_premium,
+            inherited_minprevmatches=None,
+            inherited_distancetokens=None,
             inherited_antipatterns=[],
             inherited_examples=[],
             inherited_short=None,
@@ -487,8 +515,13 @@ class GrammarLoader:
         inherited_prio: Optional[int],
         inherited_tone_tags: List[str],
         inherited_goal_specific: bool,
-        inherited_antipatterns: List[Pattern],
-        inherited_examples: List[Example],
+        inherited_tab: Optional[str] = None,
+        inherited_tabname: Optional[str] = None,
+        inherited_premium: bool = False,
+        inherited_minprevmatches: Optional[int] = None,
+        inherited_distancetokens: Optional[int] = None,
+        inherited_antipatterns: List[Pattern] = None,
+        inherited_examples: List[Example] = None,
         inherited_short: Optional[str] = None,
         unifications: List[UnificationDef] = None,
     ) -> GrammarRule:
@@ -502,7 +535,7 @@ class GrammarLoader:
             pattern = Pattern()
 
         # Parse antipatterns (include inherited group antipatterns)
-        antipatterns = list(inherited_antipatterns)
+        antipatterns = list(inherited_antipatterns or [])
         for ap in rule_elem.findall("antipattern"):
             antipatterns.append(self._parse_pattern(ap, f"antipattern in rule '{full_id}'"))
 
@@ -540,7 +573,7 @@ class GrammarLoader:
             suggestions.append(self._parse_template(sug_elem, SuggestionTemplate, f"<suggestion> in rule '{full_id}'"))
 
         # Parse examples (include inherited group examples)
-        examples = list(inherited_examples)
+        examples = list(inherited_examples or [])
         for ex in rule_elem.findall("example"):
             examples.append(self._parse_example(ex, f"<example> in rule '{full_id}'"))
 
@@ -561,6 +594,11 @@ class GrammarLoader:
             if "is_goal_specific" in rule_elem.attrib
             else inherited_goal_specific
         )
+        rule_tab = rule_elem.attrib.get("tab") or inherited_tab
+        rule_tabname = rule_elem.attrib.get("tabname") or inherited_tabname
+        rule_premium = _parse_bool_attr(rule_elem, "premium", f"rule '{full_id}'", default=inherited_premium)
+        rule_minprevmatches = _parse_int_attr(rule_elem, "minprevmatches", f"rule '{full_id}'", default=inherited_minprevmatches)
+        rule_distancetokens = _parse_int_attr(rule_elem, "distancetokens", f"rule '{full_id}'", default=inherited_distancetokens)
 
         return GrammarRule(
             id=rule_id,
@@ -587,6 +625,11 @@ class GrammarLoader:
             prio=prio,
             tone_tags=rule_tone_tags,
             is_goal_specific=is_goal_specific,
+            tab=rule_tab,
+            tabname=rule_tabname,
+            premium=rule_premium,
+            minprevmatches=rule_minprevmatches,
+            distancetokens=rule_distancetokens,
             execution_state=exec_state,
             blockers=blockers,
         )
@@ -758,6 +801,8 @@ class GrammarLoader:
         if scope_val not in ("current", "next", "previous"):
             raise GrammarFormatError(f"Invalid scope '{scope_val}' in <exception> in {context}")
 
+        raw_pos = _parse_bool_attr(exc_elem, "raw_pos", context, default=False)
+
         match_elem = exc_elem.find("match")
         match_ref = self._parse_match(match_elem, f"<match> in {context}") if match_elem is not None else None
 
@@ -772,6 +817,7 @@ class GrammarLoader:
             case_sensitive=exc_cs,
             scope=scope_val,
             spacebefore=exc_elem.attrib.get("spacebefore"),
+            raw_pos=raw_pos,
             match=match_ref,
         )
 
@@ -796,6 +842,8 @@ class GrammarLoader:
         max_val = _parse_int_attr(tok_elem, "max", context, default=None)
         chunk_val = tok_elem.attrib.get("chunk")
         spacebefore = tok_elem.attrib.get("spacebefore")
+        raw_pos = _parse_bool_attr(tok_elem, "raw_pos", context, default=False)
+        setpostag = tok_elem.attrib.get("setpostag")
 
         match_elem = tok_elem.find("match")
         match_ref = self._parse_match(match_elem, f"<match> in {context}") if match_elem is not None else None
@@ -818,6 +866,8 @@ class GrammarLoader:
             max=max_val,
             chunk=chunk_val,
             spacebefore=spacebefore,
+            raw_pos=raw_pos,
+            setpostag=setpostag,
             exceptions=exceptions,
             match=match_ref,
             is_in_marker=in_marker,

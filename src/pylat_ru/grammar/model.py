@@ -46,6 +46,7 @@ class PatternTokenException:
     case_sensitive: bool = False
     scope: str = "current"  # "current", "previous", "next"
     spacebefore: Optional[str] = None
+    raw_pos: bool = False
     match: Optional[Any] = None  # MatchReference when token contains <match>
 
 
@@ -66,6 +67,8 @@ class PatternToken:
     max: Optional[int] = None
     chunk: Optional[str] = None
     spacebefore: Optional[str] = None
+    raw_pos: bool = False
+    setpostag: Optional[str] = None
     exceptions: List[PatternTokenException] = field(default_factory=list)
     match: Optional[Any] = None  # MatchReference when token contains <match>
     is_in_marker: bool = False
@@ -246,6 +249,11 @@ class GrammarRule:
     prio: Optional[int] = None
     tone_tags: List[str] = field(default_factory=list)
     is_goal_specific: bool = False
+    tab: Optional[str] = None
+    tabname: Optional[str] = None
+    premium: bool = False
+    minprevmatches: Optional[int] = None
+    distancetokens: Optional[int] = None
     execution_state: ExecutionState = ExecutionState.CORE_0007_RUNNABLE
     blockers: List[RuleBlocker] = field(default_factory=list)
 

@@ -19,6 +19,14 @@ from pylat_ru.grammar.model import PatternToken, PatternTokenException
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 FIXTURE_PATH = REPO_ROOT / "tests" / "fixtures" / "oracle_pattern_token_inflected.json"
+MANIFEST_PATH = REPO_ROOT / "compat" / "oracle_manifest.json"
+
+
+def load_oracle_manifest() -> Dict[str, Any]:
+    """Load the trusted oracle manifest."""
+    if not MANIFEST_PATH.is_file():
+        pytest.fail(f"Oracle manifest not found at {MANIFEST_PATH}")
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
 @pytest.fixture(scope="module")
@@ -29,14 +37,21 @@ def pattern_token_oracle_fixture() -> Dict[str, Any]:
 
 
 def test_pattern_token_fixture_integrity(pattern_token_oracle_fixture: Dict[str, Any]):
-    """Assert metadata integrity of committed PatternToken oracle fixture."""
+    """Assert metadata integrity of committed PatternToken oracle fixture against oracle_manifest.json."""
+    manifest = load_oracle_manifest()
     data = pattern_token_oracle_fixture
     assert data["schema_version"] == "1.0.0"
     meta = data["metadata"]
-    assert meta["pinned_lt_version"] == "6.8"
-    assert meta["pinned_lt_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
-    assert meta["oracle_build_id"] == "lt_6.8_source_build_jdk17_stefan"
-    assert meta["oracle_jar_sha256"] == "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc"
+
+    assert meta.get("pinned_lt_version") == manifest.get("pinned_version")
+    assert meta.get("pinned_lt_commit") == manifest.get("pinned_commit")
+
+    oracle_build_id = meta.get("oracle_build_id")
+    trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
+    assert oracle_build_id in trusted_builds, f"Untrusted build_id: {oracle_build_id}"
+
+    expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
+    assert meta.get("oracle_jar_sha256") == expected_sha
     assert meta["cases_count"] == len(data["cases"])
     assert meta["cases_count"] == 6
 

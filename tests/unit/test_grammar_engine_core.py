@@ -292,3 +292,61 @@ def test_grammar_loader_strict_fail_closed_contexts():
     # Disallowed attribute on <antipattern>
     with pytest.raises(GrammarFormatError, match="Unknown attribute 'bad_anti_attr' on <antipattern>"):
         loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><antipattern bad_anti_attr='v'><token>a</token></antipattern><pattern><token>a</token></pattern><message>m</message></rule></category></rules>")
+
+    # Disallowed attribute on <token>
+    with pytest.raises(GrammarFormatError, match="Unknown attribute 'invalid_attr' on <token>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><token invalid_attr='true'>a</token></pattern><message>m</message></rule></category></rules>")
+
+    # Disallowed attribute on <exception>
+    with pytest.raises(GrammarFormatError, match="Unknown attribute 'unknown_exc_attr' on <exception>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><token>a<exception unknown_exc_attr='1'>b</exception></token></pattern><message>m</message></rule></category></rules>")
+
+
+def test_grammar_loader_preserves_root_phrase_and_token_attributes():
+    """Verify GrammarLoader preserves root-level phrases, raw_pos, setpostag, and metadata."""
+    loader = GrammarLoader()
+    xml = """<rules lang="ru">
+      <phrase id="my_phrase" raw_pos="yes">
+        <token postag="VB:.*" postag_regexp="yes"/>
+      </phrase>
+      <category id="TEST_CAT" tab="grammar_tab" tabname="Grammar" premium="yes">
+        <rulegroup id="TEST_GROUP" minprevmatches="2" distancetokens="5">
+          <rule id="R1" name="Rule 1">
+            <pattern>
+              <token raw_pos="yes" setpostag="NN:Inan:Masc">слово<exception raw_pos="yes">искл</exception></token>
+            </pattern>
+            <message>Error</message>
+          </rule>
+        </rulegroup>
+      </category>
+    </rules>"""
+
+    rules = loader.load_from_string(xml)
+    assert len(rules) == 1
+    r = rules[0]
+
+    # Verify global phrases preserved
+    assert "my_phrase" in loader.global_phrases
+    phrase = loader.global_phrases["my_phrase"]
+    assert phrase.id == "my_phrase"
+    assert phrase.raw_pos is True
+    assert len(phrase.elements) == 1
+
+    # Verify rule metadata inherited/preserved
+    assert r.tab == "grammar_tab"
+    assert r.tabname == "Grammar"
+    assert r.premium is True
+    assert r.minprevmatches == 2
+    assert r.distancetokens == 5
+
+    # Verify token attributes preserved
+    assert len(r.pattern.tokens) == 1
+    tok = r.pattern.tokens[0]
+    assert tok.text == "слово"
+    assert tok.raw_pos is True
+    assert tok.setpostag == "NN:Inan:Masc"
+    assert len(tok.exceptions) == 1
+    exc = tok.exceptions[0]
+    assert exc.text == "искл"
+    assert exc.raw_pos is True
+
