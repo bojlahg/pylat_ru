@@ -2,7 +2,7 @@
 
 Differential test suite validating 100% parity between pylat_ru RussianGrammarEngine
 and the pinned Java LanguageTool Oracle across all real Russian advanced rule fixture cases.
-Asserts all rule metadata, match counts, UTF-16 and Python codepoint offsets, messages, and suggestions.
+Asserts all rule metadata, match counts, UTF-16 and Python codepoint offsets, pattern spans, messages, and suggestions.
 """
 
 from __future__ import annotations
@@ -18,6 +18,38 @@ from pylat_ru.grammar.engine import RussianGrammarEngine
 
 FIXTURE_PATH = Path(__file__).resolve().parent.parent / "fixtures" / "oracle_advanced_russian_rules.json"
 MANIFEST_PATH = Path(__file__).resolve().parent.parent.parent / "compat" / "oracle_manifest.json"
+
+REQUIRED_RUSSIAN_FEATURE_FAMILIES = {
+    "pattern@raw_pos",
+    "token@chunk",
+    "token@spacebefore",
+    "exception@spacebefore",
+    "pattern:and",
+    "pattern:or",
+    "token@skip",
+    "token@min",
+    "token@max",
+    "exception@scope=current",
+    "exception@scope=previous",
+    "exception@scope=next",
+}
+
+
+def utf16_offset_to_codepoint_offset(text: str, utf16_offset: int) -> int:
+    """Convert a UTF-16 code unit offset to Unicode codepoint index."""
+    u16_count = 0
+    for cp_idx, char in enumerate(text):
+        if u16_count >= utf16_offset:
+            return cp_idx
+        u16_count += 2 if ord(char) > 0xFFFF else 1
+    return len(text)
+
+
+def text_slice_from_utf16(text: str, from_u16: int, to_u16: int) -> str:
+    """Slice text given UTF-16 code unit offsets."""
+    from_cp = utf16_offset_to_codepoint_offset(text, from_u16)
+    to_cp = utf16_offset_to_codepoint_offset(text, to_u16)
+    return text[from_cp:to_cp]
 
 
 def load_oracle_manifest() -> Dict[str, Any]:
@@ -47,6 +79,18 @@ def test_advanced_russian_rules_fixture_integrity(fixture_data):
 
     expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
     assert meta.get("oracle_jar_sha256") == expected_sha
+
+
+def test_real_russian_feature_coverage(fixture_data):
+    """Assert coverage of all non-zero real Russian advanced grammar feature families."""
+    feat_cov = fixture_data.get("feature_coverage", {})
+    covered_families = set(feat_cov.keys())
+    missing_families = REQUIRED_RUSSIAN_FEATURE_FAMILIES - covered_families
+    assert missing_families == set(), f"Missing Russian feature families: {missing_families}"
+
+    for feat, f_info in feat_cov.items():
+        case_ids = f_info.get("covered_case_ids", [])
+        assert len(case_ids) > 0, f"Russian feature family '{feat}' has no associated oracle case IDs"
 
 
 def test_advanced_russian_rules_oracle_cases_count(fixture_data):
@@ -118,10 +162,44 @@ def test_advanced_russian_rules_oracle_parity_all_cases(fixture_data):
             if act_m.description != oracle_res["description"]:
                 mismatches.append(f"{prefix} finding description mismatch: {act_m.description} != {oracle_res['description']}")
 
-            # Verify offsets
+            # Verify UTF-16 error/marker and full pattern offsets
             if act_m.from_pos_utf16 != exp_m["from_utf16"] or act_m.to_pos_utf16 != exp_m["to_utf16"]:
                 mismatches.append(
-                    f"{prefix} offset mismatch: expected ({exp_m['from_utf16']}, {exp_m['to_utf16']}), got ({act_m.from_pos_utf16}, {act_m.to_pos_utf16})"
+                    f"{prefix} marker UTF-16 offset mismatch: expected ({exp_m['from_utf16']}, {exp_m['to_utf16']}), got ({act_m.from_pos_utf16}, {act_m.to_pos_utf16})"
+                )
+            if act_m.pattern_from_pos_utf16 != exp_m["pattern_from_utf16"] or act_m.pattern_to_pos_utf16 != exp_m["pattern_to_utf16"]:
+                mismatches.append(
+                    f"{prefix} pattern UTF-16 offset mismatch: expected ({exp_m['pattern_from_utf16']}, {exp_m['pattern_to_utf16']}), got ({act_m.pattern_from_pos_utf16}, {act_m.pattern_to_pos_utf16})"
+                )
+
+            # Verify Unicode codepoint offsets
+            exp_from_cp = exp_m["expected_from_codepoint"]
+            exp_to_cp = exp_m["expected_to_codepoint"]
+            exp_pat_from_cp = exp_m["expected_pattern_from_codepoint"]
+            exp_pat_to_cp = exp_m["expected_pattern_to_codepoint"]
+
+            if act_m.from_pos != exp_from_cp or act_m.to_pos != exp_to_cp:
+                mismatches.append(
+                    f"{prefix} marker codepoint offset mismatch: expected ({exp_from_cp}, {exp_to_cp}), got ({act_m.from_pos}, {act_m.to_pos})"
+                )
+            if act_m.pattern_from_pos != exp_pat_from_cp or act_m.pattern_to_pos != exp_pat_to_cp:
+                mismatches.append(
+                    f"{prefix} pattern codepoint offset mismatch: expected ({exp_pat_from_cp}, {exp_pat_to_cp}), got ({act_m.pattern_from_pos}, {act_m.pattern_to_pos})"
+                )
+
+            # Verify exact text slices against Java UTF-16 slices
+            expected_marker_slice = text_slice_from_utf16(text, exp_m["from_utf16"], exp_m["to_utf16"])
+            actual_marker_slice = text[act_m.from_pos:act_m.to_pos]
+            if actual_marker_slice != expected_marker_slice:
+                mismatches.append(
+                    f"{prefix} marker slice mismatch: expected {expected_marker_slice!r}, got {actual_marker_slice!r}"
+                )
+
+            expected_pattern_slice = text_slice_from_utf16(text, exp_m["pattern_from_utf16"], exp_m["pattern_to_utf16"])
+            actual_pattern_slice = text[act_m.pattern_from_pos:act_m.pattern_to_pos]
+            if actual_pattern_slice != expected_pattern_slice:
+                mismatches.append(
+                    f"{prefix} pattern slice mismatch: expected {expected_pattern_slice!r}, got {actual_pattern_slice!r}"
                 )
 
             # Verify message & short message
@@ -137,8 +215,5 @@ def test_advanced_russian_rules_oracle_parity_all_cases(fixture_data):
                     f"{prefix} suggestions mismatch: expected {exp_suggs}, got {act_m.suggestions}"
                 )
 
-            # Verify codepoint slice correctness against original text
-            matched_slice = text[act_m.from_pos:act_m.to_pos]
-            assert matched_slice != "", f"{prefix} empty matched codepoint slice"
-
     assert not mismatches, f"Advanced Russian rules oracle parity failures ({len(mismatches)}):\n" + "\n".join(mismatches)
+

@@ -13,9 +13,10 @@
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
-      "grammar_core_runnable_rules_total": 506,
-      "grammar_advanced_runnable_rules_total": 229,
-      "grammar_total_runnable_rules": 735,
+      "grammar_core_runnable_source_rules_total": 506,
+      "grammar_advanced_runnable_source_rules_total": 229,
+      "grammar_total_runnable_source_rules": 735,
+      "grammar_compiled_rule_variants_total": 747,
       "grammar_deferred_rules_total": 157,
       "grammar_runnable_examples_total": 1738,
       "disambiguation_rules_total": 77,
@@ -39,7 +40,9 @@
       "synthesizer_oracle_queries_total": 52,
       "chunker_oracle_cases_total": 34,
       "grammar_core_oracle_cases_total": 62,
-      "grammar_advanced_oracle_cases_total": 874
+      "grammar_advanced_synthetic_oracle_cases_total": 141,
+      "grammar_advanced_russian_rules_oracle_cases_total": 750,
+      "grammar_advanced_total_oracle_cases": 891
     },
     "russian_grammar_advanced": {
       "and_or_token_groups": "SUPPORTED",

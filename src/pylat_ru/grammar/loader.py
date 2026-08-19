@@ -47,7 +47,7 @@ ALLOWED_ROOT_ATTRS = {
     "{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation",
     "{http://www.w3.org/2001/XMLSchema-instance}schemaLocation",
 }
-ALLOWED_ROOT_CHILDREN = {"category", "rulegroup", "rule", "unification", "phrase"}
+ALLOWED_ROOT_CHILDREN = {"category", "rulegroup", "rule", "unification", "phrases", "phrase"}
 
 ALLOWED_CATEGORY_ATTRS = {
     "id", "name", "type", "default", "tab", "tabname", "tags",
@@ -69,10 +69,10 @@ ALLOWED_RULE_ATTRS = {
 ALLOWED_RULE_CHILDREN = {"pattern", "antipattern", "message", "short", "suggestion", "example", "url", "filter"}
 
 ALLOWED_PATTERN_ATTRS = {"case_sensitive", "raw_pos"}
-ALLOWED_PATTERN_CHILDREN = {"token", "marker", "or", "and", "unify", "unify-ignore", "phrase"}
+ALLOWED_PATTERN_CHILDREN = {"token", "marker", "or", "and", "unify", "unify-ignore", "phrase", "phraseref"}
 
 ALLOWED_MARKER_ATTRS: Set[str] = set()
-ALLOWED_MARKER_CHILDREN = {"token", "or", "and", "unify", "unify-ignore", "phrase"}
+ALLOWED_MARKER_CHILDREN = {"token", "or", "and", "unify", "unify-ignore", "phrase", "phraseref"}
 
 ALLOWED_TOKEN_ATTRS = {
     "postag", "postag_regexp", "regexp", "negate", "negate_pos",
@@ -116,16 +116,16 @@ ALLOWED_EQUIVALENCE_ATTRS = {"type"}
 ALLOWED_EQUIVALENCE_CHILDREN = {"token"}
 
 ALLOWED_AND_ATTRS: Set[str] = set()
-ALLOWED_AND_CHILDREN = {"token", "or", "phrase", "exception"}
+ALLOWED_AND_CHILDREN = {"token", "or", "phrase", "phraseref", "exception"}
 
 ALLOWED_OR_ATTRS: Set[str] = set()
-ALLOWED_OR_CHILDREN = {"token", "and", "phrase"}
+ALLOWED_OR_CHILDREN = {"token", "and", "phrase", "phraseref"}
 
 ALLOWED_UNIFY_ATTRS = {"negate"}
-ALLOWED_UNIFY_CHILDREN = {"feature", "equivalence", "token", "and", "or", "phrase", "unify-ignore", "marker"}
+ALLOWED_UNIFY_CHILDREN = {"feature", "equivalence", "token", "and", "or", "phrase", "phraseref", "unify-ignore", "marker"}
 
 ALLOWED_UNIFY_IGNORE_ATTRS: Set[str] = set()
-ALLOWED_UNIFY_IGNORE_CHILDREN = {"token", "and", "or", "phrase"}
+ALLOWED_UNIFY_IGNORE_CHILDREN = {"token", "and", "or", "phrase", "phraseref"}
 
 ALLOWED_PHRASE_ATTRS = {"id", "idref", "ref", "raw_pos"}
 ALLOWED_PHRASE_CHILDREN = {"token", "or", "and"}
@@ -232,6 +232,14 @@ class GrammarLoader:
         for child in root:
             if child.tag == "unification":
                 continue
+            elif child.tag == "phrases":
+                for ph_child in child:
+                    if ph_child.tag == "phrase":
+                        _validate_attrs(ph_child, ALLOWED_PHRASE_ATTRS, "<phrase> under <phrases>")
+                        _validate_children(ph_child, ALLOWED_PHRASE_CHILDREN, "<phrase> under <phrases>")
+                        phrase_obj = self._parse_phrase(ph_child, False, False, "<phrase> under <phrases>")
+                        if phrase_obj.id:
+                            self.global_phrases[phrase_obj.id] = phrase_obj
             elif child.tag == "phrase":
                 _validate_attrs(child, ALLOWED_PHRASE_ATTRS, "<phrase> under root")
                 _validate_children(child, ALLOWED_PHRASE_CHILDREN, "<phrase> under root")
@@ -531,16 +539,7 @@ class GrammarLoader:
 
         # Parse primary pattern
         pat_elem = rule_elem.find("pattern")
-        if pat_elem is not None:
-            if exec_state in (ExecutionState.CORE_0007_RUNNABLE, ExecutionState.ADVANCED_0008_RUNNABLE):
-                pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'")
-            else:
-                try:
-                    pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'")
-                except GrammarFormatError:
-                    pattern = Pattern()
-        else:
-            pattern = Pattern()
+        pattern = self._parse_pattern(pat_elem, f"pattern in rule '{full_id}'") if pat_elem is not None else Pattern()
 
         # Parse antipatterns (include inherited group antipatterns)
         antipatterns = list(inherited_antipatterns or [])
@@ -688,49 +687,49 @@ class GrammarLoader:
             marker_end_idx=marker_end_idx,
         )
 
-    def _parse_pattern_child(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternElement:
+    def _parse_pattern_child(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternElement:
         if elem.tag == "token":
-            return self._parse_token(elem, pat_case_sensitive, in_marker, context)
+            return self._parse_token(elem, pat_case_sensitive, in_marker, context, is_unify=is_unify)
         elif elem.tag == "and":
-            return self._parse_and(elem, pat_case_sensitive, in_marker, context)
+            return self._parse_and(elem, pat_case_sensitive, in_marker, context, is_unify=is_unify)
         elif elem.tag == "or":
-            return self._parse_or(elem, pat_case_sensitive, in_marker, context)
+            return self._parse_or(elem, pat_case_sensitive, in_marker, context, is_unify=is_unify)
         elif elem.tag == "unify":
             return self._parse_unify(elem, pat_case_sensitive, in_marker, context)
         elif elem.tag == "unify-ignore":
             return self._parse_unify_ignore(elem, pat_case_sensitive, in_marker, context)
-        elif elem.tag == "phrase":
-            return self._parse_phrase(elem, pat_case_sensitive, in_marker, context)
+        elif elem.tag in ("phrase", "phraseref"):
+            return self._parse_phrase(elem, pat_case_sensitive, in_marker, context, is_unify=is_unify)
         else:
             raise GrammarFormatError(f"Unexpected pattern element <{elem.tag}> in {context}")
 
-    def _parse_and(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternAnd:
+    def _parse_and(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternAnd:
         _validate_attrs(elem, ALLOWED_AND_ATTRS, context)
         _validate_children(elem, ALLOWED_AND_CHILDREN, context)
         children: List[PatternElement] = []
         exceptions: List[PatternTokenException] = []
         for child in elem:
             if child.tag == "token":
-                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}"))
+                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}", is_unify=is_unify))
             elif child.tag == "or":
-                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}"))
-            elif child.tag == "phrase":
-                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}"))
+                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}", is_unify=is_unify))
+            elif child.tag in ("phrase", "phraseref"):
+                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=is_unify))
             elif child.tag == "exception":
                 exceptions.append(self._parse_exception(child, pat_case_sensitive, f"<exception> in {context}"))
         return PatternAnd(elements=children, exceptions=exceptions, is_in_marker=in_marker)
 
-    def _parse_or(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternOr:
+    def _parse_or(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternOr:
         _validate_attrs(elem, ALLOWED_OR_ATTRS, context)
         _validate_children(elem, ALLOWED_OR_CHILDREN, context)
         children: List[PatternElement] = []
         for child in elem:
             if child.tag == "token":
-                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}"))
+                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}", is_unify=is_unify))
             elif child.tag == "and":
-                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}"))
-            elif child.tag == "phrase":
-                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}"))
+                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=is_unify))
+            elif child.tag in ("phrase", "phraseref"):
+                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=is_unify))
         return PatternOr(elements=children, is_in_marker=in_marker)
 
     def _parse_unify(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternUnify:
@@ -752,10 +751,10 @@ class GrammarLoader:
                 _validate_attrs(child, ALLOWED_MARKER_ATTRS, f"<marker> in {context}")
                 _validate_children(child, ALLOWED_MARKER_CHILDREN, f"<marker> in {context}")
                 for m_child in child:
-                    m_elem = self._parse_pattern_child(m_child, pat_case_sensitive, in_marker=True, context=f"<{m_child.tag}> in <marker> in {context}")
+                    m_elem = self._parse_pattern_child(m_child, pat_case_sensitive, in_marker=True, context=f"<{m_child.tag}> in <marker> in {context}", is_unify=True)
                     children.append(m_elem)
             else:
-                children.append(self._parse_pattern_child(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}"))
+                children.append(self._parse_pattern_child(child, pat_case_sensitive, in_marker, f"<{child.tag}> in {context}", is_unify=True))
 
         return PatternUnify(
             negate=negate_val,
@@ -771,16 +770,16 @@ class GrammarLoader:
         children: List[PatternElement] = []
         for child in elem:
             if child.tag == "token":
-                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}"))
+                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}", is_unify=True))
             elif child.tag == "and":
-                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}"))
+                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=True))
             elif child.tag == "or":
-                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}"))
+                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}", is_unify=True))
             elif child.tag == "phrase":
-                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}"))
+                children.append(self._parse_phrase(child, pat_case_sensitive, in_marker, f"<phrase> in {context}", is_unify=True))
         return PatternUnifyIgnore(elements=children, is_in_marker=in_marker)
 
-    def _parse_phrase(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternPhrase:
+    def _parse_phrase(self, elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternPhrase:
         _validate_attrs(elem, ALLOWED_PHRASE_ATTRS, context)
         _validate_children(elem, ALLOWED_PHRASE_CHILDREN, context)
         pid = elem.attrib.get("id")
@@ -789,11 +788,11 @@ class GrammarLoader:
         children: List[PatternElement] = []
         for child in elem:
             if child.tag == "token":
-                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}"))
+                children.append(self._parse_token(child, pat_case_sensitive, in_marker, f"<token> in {context}", is_unify=is_unify))
             elif child.tag == "and":
-                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}"))
+                children.append(self._parse_and(child, pat_case_sensitive, in_marker, f"<and> in {context}", is_unify=is_unify))
             elif child.tag == "or":
-                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}"))
+                children.append(self._parse_or(child, pat_case_sensitive, in_marker, f"<or> in {context}", is_unify=is_unify))
         return PatternPhrase(id=pid, ref=pref, raw_pos=raw_pos, elements=children, is_in_marker=in_marker)
 
     def _parse_exception(self, exc_elem: ET.Element, tok_cs: bool, context: str) -> PatternTokenException:
@@ -836,7 +835,7 @@ class GrammarLoader:
             match=match_ref,
         )
 
-    def _parse_token(self, tok_elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str) -> PatternToken:
+    def _parse_token(self, tok_elem: ET.Element, pat_case_sensitive: bool, in_marker: bool, context: str, is_unify: bool = False) -> PatternToken:
         _validate_attrs(tok_elem, ALLOWED_TOKEN_ATTRS, context)
         _validate_children(tok_elem, ALLOWED_TOKEN_CHILDREN, context)
 
@@ -860,8 +859,13 @@ class GrammarLoader:
             raise GrammarFormatError(f"'skip' attribute value must be between -1 and 127: {skip_val} in {context}")
 
         min_val = _parse_int_attr(tok_elem, "min", context, default=None)
-        if min_val is not None and min_val not in (0, 1):
-            raise GrammarFormatError(f"minOccurrences must be 0 or 1: {min_val} in {context}")
+        if min_val is not None:
+            if is_unify:
+                if min_val < 0 or min_val > 127:
+                    raise GrammarFormatError(f"minOccurrences must be between 0 and 127: {min_val} in {context}")
+            else:
+                if min_val not in (0, 1):
+                    raise GrammarFormatError(f"minOccurrences must be 0 or 1: {min_val} in {context}")
 
         max_val = _parse_int_attr(tok_elem, "max", context, default=None)
         if max_val is not None and (max_val == 0 or max_val < -1 or max_val > 127):

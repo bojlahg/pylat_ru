@@ -50,11 +50,13 @@ def _make_reading(
     is_sent_start: bool = False,
     is_sent_end: bool = False,
     chunk_tags: list = None,
+    start_pos: int = 0,
 ) -> AnalyzedTokenReadings:
     at = AnalyzedToken(token=token, lemma=lemma or token, pos_tag=pos_tag)
     atr = AnalyzedTokenReadings(
         readings=[at],
         whitespace_before=ws_before,
+        start_pos=start_pos,
         is_sentence_start=is_sent_start,
         is_sentence_end=is_sent_end,
     )
@@ -912,4 +914,139 @@ def test_max_attribute_validation_boundaries():
     xml_str = '<rules lang="ru"><category id="C" name="C"><rule id="R1" name="N"><pattern><token max="xyz">а</token></pattern><message>M</message></rule></category></rules>'
     with pytest.raises(GrammarFormatError, match="Invalid integer"):
         loader.load_from_string(xml_str)
+
+
+# ==============================================================================
+# Deferred Rules Structural Preservation & Dynamic State Isolation Regressions
+# ==============================================================================
+
+def test_deferred_rules_preserve_complete_pattern_structure():
+    """Verify that all deferred rules in grammar.xml retain full typed pattern nodes."""
+    loader = GrammarLoader()
+    rules = loader.load_default()
+    assert len(rules) == 892
+
+    deferred_0009 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0009_UNIFICATION]
+    deferred_0010 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0010_FILTER]
+
+    assert len(deferred_0009) > 0
+    assert len(deferred_0010) > 0
+
+    for r in deferred_0009:
+        assert r.pattern is not None
+        assert len(r.pattern.elements) > 0 or len(r.pattern.tokens) > 0, f"Rule {r.full_id} has empty pattern"
+
+    for r in deferred_0010:
+        assert r.pattern is not None
+        assert len(r.pattern.elements) > 0 or len(r.pattern.tokens) > 0, f"Rule {r.full_id} has empty pattern"
+
+
+def test_mutable_token_reference_state_isolation():
+    """Verify that dynamic reference state is isolated across match attempts and varying lengths."""
+    # Pattern: [тот|этот] [match no=0]
+    tok1 = PatternToken(text="тот|этот", regexp=True)
+    tok2 = PatternToken(match=MatchReference(no=0))
+    rule = _make_rule("test_state_iso", Pattern(tokens=[tok1, tok2]))
+
+    engine = RussianGrammarEngine(rules=[rule])
+
+    # First attempt matches "тот тот"
+    sent1 = _make_sentence([
+        _make_reading("", pos_tag="SENT_START", is_sent_start=True),
+        _make_reading("тот", start_pos=0),
+        _make_reading("тот", start_pos=4),
+    ], "тот тот")
+    m1 = engine.check_sentence(sent1)
+    assert len(m1) == 1
+
+    # Second attempt on "тот этот" must fail cleanly without stale reference
+    sent2 = _make_sentence([
+        _make_reading("", pos_tag="SENT_START", is_sent_start=True),
+        _make_reading("тот", start_pos=0),
+        _make_reading("этот", start_pos=4),
+    ], "тот этот")
+    m2 = engine.check_sentence(sent2)
+    assert len(m2) == 0
+
+    # Third attempt on "этот этот" must match cleanly
+    sent3 = _make_sentence([
+        _make_reading("", pos_tag="SENT_START", is_sent_start=True),
+        _make_reading("этот", start_pos=0),
+        _make_reading("этот", start_pos=5),
+    ], "этот этот")
+    m3 = engine.check_sentence(sent3)
+    assert len(m3) == 1
+
+
+def test_phrase_semantics_cartesian_and_markers():
+    """Verify phrase expansion, internal OR, marker propagation, and undefined ref fail closed."""
+    from pylat_ru.grammar.errors import GrammarFormatError
+    loader = GrammarLoader()
+
+    # 1. Undefined phrase reference must fail closed at load/expand time
+    xml_undef = """<rules lang="ru">
+      <category id="C" name="C">
+        <rule id="R_UNDEF" name="Undef">
+          <pattern>
+            <phraseref idref="missing_phrase"/>
+          </pattern>
+          <message>M</message>
+        </rule>
+      </category>
+    </rules>"""
+    rules_undef = loader.load_from_string(xml_undef)
+    with pytest.raises(GrammarFormatError, match="Undefined or missing phrase reference"):
+        RussianGrammarEngine(rules=rules_undef, loader=loader)
+
+    # 2. Phrase with internal OR inside marker produces variants with marker preserved
+    xml_valid = """<rules lang="ru">
+      <phrases>
+        <phrase id="colors">
+          <or>
+            <token>красный</token>
+            <token>синий</token>
+          </or>
+          <token>дом</token>
+        </phrase>
+      </phrases>
+      <category id="C" name="C">
+        <rule id="R_PHRASE" name="Phrase rule">
+          <pattern>
+            <token>очень</token>
+            <marker>
+              <phraseref idref="colors"/>
+            </marker>
+          </pattern>
+          <message>M: <suggestion><match no="1"/> <match no="2"/></suggestion></message>
+        </rule>
+      </category>
+    </rules>"""
+    loader_valid = GrammarLoader()
+    rules_valid = loader_valid.load_from_string(xml_valid)
+    engine_valid = RussianGrammarEngine(rules=rules_valid, loader=loader_valid)
+
+    # Test "очень красный дом"
+    sent_k = _make_sentence([
+        _make_reading("", pos_tag="SENT_START", is_sent_start=True),
+        _make_reading("очень", start_pos=0),
+        _make_reading("красный", start_pos=6),
+        _make_reading("дом", start_pos=14),
+    ], "очень красный дом")
+    matches_k = engine_valid.check_sentence(sent_k)
+    assert len(matches_k) == 1
+    assert matches_k[0].from_pos == 6  # starts at 'красный' (marker position)
+    assert matches_k[0].to_pos == 17
+
+    # Test "очень синий дом"
+    sent_s = _make_sentence([
+        _make_reading("", pos_tag="SENT_START", is_sent_start=True),
+        _make_reading("очень", start_pos=0),
+        _make_reading("синий", start_pos=6),
+        _make_reading("дом", start_pos=12),
+    ], "очень синий дом")
+    matches_s = engine_valid.check_sentence(sent_s)
+    assert len(matches_s) == 1
+    assert matches_s[0].from_pos == 6
+    assert matches_s[0].to_pos == 15
+
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Committed LanguageTool 6.8 Java Oracle Advanced Pattern Matching Synthetic Fixture",
-  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <category id=\"SYN_SKIP\" name=\"Synthetic Skip Rules\">\n    <rulegroup id=\"SYN_FINITE_SKIP\" name=\"Finite skip\">\n      <rule>\n        <pattern>\n          <token skip=\"1\">начало</token>\n          <token>конец</token>\n        </pattern>\n        <message>Skip 1 match: <suggestion>\\1 \\2</suggestion></message>\n        <short>Skip 1</short>\n      </rule>\n      <rule>\n        <pattern>\n          <token skip=\"2\">начало</token>\n          <token>конец</token>\n        </pattern>\n        <message>Skip 2 match</message>\n      </rule>\n    </rulegroup>\n    <rule id=\"SYN_INFINITE_SKIP\" name=\"Infinite skip\">\n      <pattern>\n        <token skip=\"-1\">альфа</token>\n        <token>омега</token>\n      </pattern>\n      <message>Infinite skip match</message>\n    </rule>\n    <rule id=\"SYN_SKIP_EXCEPTION\" name=\"Skip with exception\">\n      <pattern>\n        <token skip=\"3\">старт<exception>стоп</exception></token>\n        <token>финиш</token>\n      </pattern>\n      <message>Skip exception match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_OPTIONAL\" name=\"Synthetic Optional Min Rules\">\n    <rule id=\"SYN_MIN_ZERO\" name=\"Single optional token\">\n      <pattern>\n        <token>он</token>\n        <token min=\"0\">очень</token>\n        <token>быстро</token>\n      </pattern>\n      <message>Optional token match</message>\n    </rule>\n    <rule id=\"SYN_ADJACENT_MIN_ZERO\" name=\"Adjacent optional tokens\">\n      <pattern>\n        <token>мы</token>\n        <token min=\"0\">всегда</token>\n        <token min=\"0\">очень</token>\n        <token>рады</token>\n      </pattern>\n      <message>Adjacent optional match</message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_ANY\" name=\"Optional any token\">\n      <pattern>\n        <token>он</token>\n        <token min=\"0\"/>\n        <token>книгу</token>\n      </pattern>\n      <message>Optional any token match</message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_SUGGESTION\" name=\"Optional token with suggestion\">\n      <pattern>\n        <token>а</token>\n        <token min=\"0\">б</token>\n        <token>в</token>\n      </pattern>\n      <message>Suggestion: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_REPEAT\" name=\"Synthetic Repeat Max Rules\">\n    <rule id=\"SYN_MAX_TWO\" name=\"Max 2 occurrences\">\n      <pattern>\n        <token>очень</token>\n        <token max=\"2\">хорошо</token>\n      </pattern>\n      <message>Max 2 match</message>\n    </rule>\n    <rule id=\"SYN_MAX_THREE\" name=\"Max 3 occurrences\">\n      <pattern>\n        <token>да</token>\n        <token max=\"3\">да</token>\n      </pattern>\n      <message>Max 3 match</message>\n    </rule>\n    <rule id=\"SYN_MAX_UNLIMITED\" name=\"Unlimited max -1 occurrences\">\n      <pattern>\n        <token>начало</token>\n        <token max=\"-1\">повтор</token>\n        <token>конец</token>\n      </pattern>\n      <message>Unlimited max match</message>\n    </rule>\n    <rule id=\"SYN_COMBINED_MAX\" name=\"Combined max occurrences\">\n      <pattern>\n        <token max=\"2\">а</token>\n        <token max=\"3\">б</token>\n      </pattern>\n      <message>Combined max match</message>\n    </rule>\n    <rule id=\"SYN_MIN_ZERO_MAX_TWO\" name=\"Min 0 Max 2 occurrences\">\n      <pattern>\n        <token>старт</token>\n        <token min=\"0\" max=\"2\">шаг</token>\n        <token>стоп</token>\n      </pattern>\n      <message>Min 0 Max 2 match</message>\n    </rule>\n    <rule id=\"SYN_ANY_TOKEN_MAX_TWO\" name=\"Any token max 2\">\n      <pattern>\n        <token>первый</token>\n        <token max=\"2\"/>\n        <token>последний</token>\n      </pattern>\n      <message>Any token max 2 match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_SCOPED_EXCEPTIONS\" name=\"Synthetic Scoped Exception Rules\">\n    <rule id=\"SYN_SCOPE_PREVIOUS\" name=\"Scope previous exception\">\n      <pattern>\n        <token>по<exception scope=\"previous\">судя</exception></token>\n        <token>зимнему</token>\n      </pattern>\n      <message>Scope previous match</message>\n    </rule>\n    <rule id=\"SYN_SCOPE_NEXT\" name=\"Scope next exception\">\n      <pattern>\n        <token>слово<exception scope=\"next\">исключение</exception></token>\n        <token>второе</token>\n      </pattern>\n      <message>Scope next match</message>\n    </rule>\n    <rule id=\"SYN_SCOPE_NEXT_SKIP\" name=\"Scope next exception with skip\">\n      <pattern>\n        <token skip=\"2\">пункт<exception scope=\"next\" postag_regexp=\"yes\" postag=\"NN:.*:D\"/></token>\n        <token>итог</token>\n      </pattern>\n      <message>Scope next skip match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_SPACEBEFORE\" name=\"Synthetic Spacebefore Rules\">\n    <rule id=\"SYN_SPACEBEFORE_YES\" name=\"Spacebefore yes\">\n      <pattern>\n        <token>слово</token>\n        <token spacebefore=\"yes\">,</token>\n      </pattern>\n      <message>Space before comma error</message>\n    </rule>\n    <rule id=\"SYN_SPACEBEFORE_NO\" name=\"Spacebefore no\">\n      <pattern>\n        <token>слово</token>\n        <token spacebefore=\"no\">,</token>\n      </pattern>\n      <message>Normal comma</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_CHUNKS\" name=\"Synthetic Chunk Rules\">\n    <rule id=\"SYN_CHUNK_REGEX\" name=\"Chunk regex match\">\n      <pattern>\n        <token chunk=\"NP:.*\">большой</token>\n        <token>дом</token>\n      </pattern>\n      <message>Chunk regex match</message>\n    </rule>\n    <rule id=\"SYN_CHUNK_NEGATE\" name=\"Chunk negation match\">\n      <pattern>\n        <token chunk=\"VP\" negate=\"yes\">книга</token>\n      </pattern>\n      <message>Non-VP chunk match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_LOGICAL_GROUPS\" name=\"Synthetic AND and OR Rules\">\n    <rule id=\"SYN_AND_CONJUNCTION\" name=\"AND conjunction\">\n      <pattern>\n        <and>\n          <token postag_regexp=\"yes\" postag=\"VB:.*\"/>\n          <token regexp=\"yes\">.*ли</token>\n        </and>\n      </pattern>\n      <message>AND conjunction match</message>\n    </rule>\n    <rule id=\"SYN_OR_DISJUNCTION\" name=\"OR disjunction\">\n      <pattern>\n        <token>выбор</token>\n        <or>\n          <token>красный</token>\n          <token>зеленый</token>\n          <token>синий</token>\n        </or>\n      </pattern>\n      <message>OR match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_MATCH_REFERENCES\" name=\"Synthetic Match Reference Rules\">\n    <rule id=\"SYN_TOKEN_MATCH_REF\" name=\"Token level match reference\">\n      <pattern>\n        <token regexp=\"yes\">тот|этот</token>\n        <token><match no=\"0\"/></token>\n      </pattern>\n      <message>Repeated word: <suggestion>\\1</suggestion></message>\n    </rule>\n    <rule id=\"SYN_INCLUDE_SKIPPED_ALL\" name=\"Include skipped all\">\n      <pattern>\n        <token skip=\"2\">до</token>\n        <token>свидания</token>\n      </pattern>\n      <message>Replacement: <suggestion><match no=\"1\" include_skipped=\"all\"/>!</suggestion></message>\n    </rule>\n    <rule id=\"SYN_INCLUDE_SKIPPED_FOLLOWING\" name=\"Include skipped following\">\n      <pattern>\n        <token skip=\"2\">от</token>\n        <token>начала</token>\n      </pattern>\n      <message>Replacement: <suggestion><match no=\"1\" include_skipped=\"following\"/>!</suggestion></message>\n    </rule>\n    <rule id=\"SYN_CASE_CONVERSIONS\" name=\"Case conversions\">\n      <pattern>\n        <token>ТЕСТ</token>\n      </pattern>\n      <message>Lower: <suggestion><match no=\"1\" case_conversion=\"alllower\"/></suggestion>, Upper: <suggestion><match no=\"1\" case_conversion=\"allupper\"/></suggestion>, FirstUpper: <suggestion><match no=\"1\" case_conversion=\"firstupper\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_REGEXP_REPLACE\" name=\"Regex replacement captures\">\n      <pattern>\n        <token regexp=\"yes\">авто([а-я]+)</token>\n      </pattern>\n      <message>Suggestion: <suggestion>само<match no=\"1\" regexp_match=\"авто([а-я]+)\" regexp_replace=\"$1\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_POS_SYNTHESIS\" name=\"POS tag synthesis\">\n      <pattern>\n        <token>бывший</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*:D\">другу</token>\n      </pattern>\n      <message>Suggestion: <suggestion><match no=\"1\" postag=\"NN:.*:D\" postag_regexp=\"yes\" postag_replace=\"ADJ:Posit:Masc:D\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_MATCH_REF\" name=\"Optional match reference\">\n      <pattern>\n        <token>начало</token>\n        <token min=\"0\">середина</token>\n        <token>конец</token>\n      </pattern>\n      <message>Result: <suggestion><match no=\"1\"/>-<match no=\"3\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_INFINITE_SKIP_MATCH_REF\" name=\"Infinite skip with match ref\">\n      <pattern>\n        <token regexp=\"yes\" skip=\"-1\">дом|сад</token>\n        <token><match no=\"0\"/></token>\n      </pattern>\n      <message>Duplicate token: <suggestion>\\1</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_MARKERS_AND_SPANS\" name=\"Synthetic Markers and Spans\">\n    <rule id=\"SYN_MARKER_FIRST\" name=\"Marker on first token only\">\n      <pattern>\n        <marker>\n          <token>ошибка</token>\n        </marker>\n        <token>здесь</token>\n      </pattern>\n      <message>Marker on first token</message>\n    </rule>\n    <rule id=\"SYN_MARKER_MIDDLE\" name=\"Marker on middle token only\">\n      <pattern>\n        <token>слово</token>\n        <marker>\n          <token>внутри</token>\n        </marker>\n        <token>фразы</token>\n      </pattern>\n      <message>Marker in middle</message>\n    </rule>\n    <rule id=\"SYN_MARKER_LAST\" name=\"Marker on last token only\">\n      <pattern>\n        <token>в</token>\n        <token>самом</token>\n        <marker>\n          <token>конце</token>\n        </marker>\n      </pattern>\n      <message>Marker at end</message>\n    </rule>\n    <rule id=\"SYN_MARKER_FULL\" name=\"Marker on entire pattern\">\n      <pattern>\n        <marker>\n          <token>полная</token>\n          <token>фраза</token>\n        </marker>\n      </pattern>\n      <message>Full marker</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_ANTIPATTERNS\" name=\"Synthetic Antipattern Rules\">\n    <rule id=\"SYN_ANTIPATTERN_OVERLAP\" name=\"Antipattern overlap\">\n      <antipattern>\n        <token>белый</token>\n        <token>дом</token>\n      </antipattern>\n      <pattern>\n        <token>белый</token>\n        <token>дом</token>\n      </pattern>\n      <message>Trigger error</message>\n    </rule>\n    <rule id=\"SYN_ANTIPATTERN_NON_OVERLAP\" name=\"Antipattern non overlap\">\n      <antipattern>\n        <token>красный</token>\n        <token>дом</token>\n      </antipattern>\n      <pattern>\n        <token>синий</token>\n        <token>дом</token>\n      </pattern>\n      <message>Trigger error</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_EDGE_CASES\" name=\"Synthetic Edge Cases\">\n    <rule id=\"SYN_NON_BMP_EMOJI\" name=\"Non BMP characters\">\n      <pattern>\n        <marker>\n          <token>текст</token>\n        </marker>\n        <token>после</token>\n      </pattern>\n      <message>Emoji test</message>\n    </rule>\n    <rule id=\"SYN_BACKREF_LITERALS\" name=\"Backreference looking text\">\n      <pattern>\n        <token regexp=\"yes\">:\\d+|\\$\\d+|\\\\\\d+</token>\n        <token>тест</token>\n      </pattern>\n      <message>References: \\1 \\2.</message>\n    </rule>\n    <rule id=\"SYN_RAW_POS\" name=\"Raw pos pre-disambiguation\">\n      <pattern raw_pos=\"yes\">\n        <token postag_regexp=\"yes\" postag=\"ADJ:.*:D\">зимнему</token>\n      </pattern>\n      <message>Raw pos test</message>\n    </rule>\n  </category>\n</rules>\n",
+  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <phrases>\n    <phrase id=\"p_adj_noun\">\n      <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n      <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n    </phrase>\n    <phrase id=\"p_with_or\">\n      <or>\n        <token>красный</token>\n        <token>синий</token>\n      </or>\n      <token>дом</token>\n    </phrase>\n  </phrases>\n\n  <category id=\"SYN_SKIP\" name=\"Synthetic Skip Rules\">\n    <rulegroup id=\"SYN_FINITE_SKIP\" name=\"Finite skip\">\n      <rule>\n        <pattern>\n          <token skip=\"1\">начало</token>\n          <token>конец</token>\n        </pattern>\n        <message>Skip 1 match: <suggestion>\\1 \\2</suggestion></message>\n        <short>Skip 1</short>\n      </rule>\n      <rule>\n        <pattern>\n          <token skip=\"2\">начало</token>\n          <token>конец</token>\n        </pattern>\n        <message>Skip 2 match</message>\n      </rule>\n    </rulegroup>\n    <rule id=\"SYN_INFINITE_SKIP\" name=\"Infinite skip\">\n      <pattern>\n        <token skip=\"-1\">альфа</token>\n        <token>омега</token>\n      </pattern>\n      <message>Infinite skip match</message>\n    </rule>\n    <rule id=\"SYN_SKIP_EXCEPTION\" name=\"Skip with exception\">\n      <pattern>\n        <token skip=\"3\">старт<exception>стоп</exception></token>\n        <token>финиш</token>\n      </pattern>\n      <message>Skip exception match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_OPTIONAL\" name=\"Synthetic Optional Min Rules\">\n    <rule id=\"SYN_MIN_ZERO\" name=\"Single optional token\">\n      <pattern>\n        <token>он</token>\n        <token min=\"0\">очень</token>\n        <token>быстро</token>\n      </pattern>\n      <message>Optional token match</message>\n    </rule>\n    <rule id=\"SYN_MIN_ONE\" name=\"Explicit min 1 token\">\n      <pattern>\n        <token>он</token>\n        <token min=\"1\">точно</token>\n        <token>знает</token>\n      </pattern>\n      <message>Min 1 match</message>\n    </rule>\n    <rule id=\"SYN_ADJACENT_MIN_ZERO\" name=\"Adjacent optional tokens\">\n      <pattern>\n        <token>мы</token>\n        <token min=\"0\">всегда</token>\n        <token min=\"0\">очень</token>\n        <token>рады</token>\n      </pattern>\n      <message>Adjacent optional match</message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_ANY\" name=\"Optional any token\">\n      <pattern>\n        <token>он</token>\n        <token min=\"0\"/>\n        <token>книгу</token>\n      </pattern>\n      <message>Optional any token match</message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_SUGGESTION\" name=\"Optional token with suggestion\">\n      <pattern>\n        <token>а</token>\n        <token min=\"0\">б</token>\n        <token>в</token>\n      </pattern>\n      <message>Suggestion: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_REPEAT\" name=\"Synthetic Repeat Max Rules\">\n    <rule id=\"SYN_MAX_TWO\" name=\"Max 2 occurrences\">\n      <pattern>\n        <token>очень</token>\n        <token max=\"2\">хорошо</token>\n      </pattern>\n      <message>Max 2 match</message>\n    </rule>\n    <rule id=\"SYN_MAX_THREE\" name=\"Max 3 occurrences\">\n      <pattern>\n        <token>да</token>\n        <token max=\"3\">да</token>\n      </pattern>\n      <message>Max 3 match</message>\n    </rule>\n    <rule id=\"SYN_MAX_UNLIMITED\" name=\"Unlimited max -1 occurrences\">\n      <pattern>\n        <token>начало</token>\n        <token max=\"-1\">повтор</token>\n        <token>конец</token>\n      </pattern>\n      <message>Unlimited max match</message>\n    </rule>\n    <rule id=\"SYN_COMBINED_MAX\" name=\"Combined max occurrences\">\n      <pattern>\n        <token max=\"2\">а</token>\n        <token max=\"3\">б</token>\n      </pattern>\n      <message>Combined max match</message>\n    </rule>\n    <rule id=\"SYN_MIN_ZERO_MAX_TWO\" name=\"Min 0 Max 2 occurrences\">\n      <pattern>\n        <token>старт</token>\n        <token min=\"0\" max=\"2\">шаг</token>\n        <token>стоп</token>\n      </pattern>\n      <message>Min 0 Max 2 match</message>\n    </rule>\n    <rule id=\"SYN_ANY_TOKEN_MAX_TWO\" name=\"Any token max 2\">\n      <pattern>\n        <token>первый</token>\n        <token max=\"2\"/>\n        <token>последний</token>\n      </pattern>\n      <message>Any token max 2 match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_SCOPED_EXCEPTIONS\" name=\"Synthetic Scoped Exception Rules\">\n    <rule id=\"SYN_SCOPE_CURRENT\" name=\"Scope current exception\">\n      <pattern>\n        <token>дело<exception>срочное</exception></token>\n        <token>важное</token>\n      </pattern>\n      <message>Scope current match</message>\n    </rule>\n    <rule id=\"SYN_SCOPE_PREVIOUS\" name=\"Scope previous exception\">\n      <pattern>\n        <token>по<exception scope=\"previous\">судя</exception></token>\n        <token>зимнему</token>\n      </pattern>\n      <message>Scope previous match</message>\n    </rule>\n    <rule id=\"SYN_SCOPE_NEXT\" name=\"Scope next exception\">\n      <pattern>\n        <token>слово<exception scope=\"next\">исключение</exception></token>\n        <token>второе</token>\n      </pattern>\n      <message>Scope next match</message>\n    </rule>\n    <rule id=\"SYN_SCOPE_NEXT_SKIP\" name=\"Scope next exception with skip\">\n      <pattern>\n        <token skip=\"2\">пункт<exception scope=\"next\" postag_regexp=\"yes\" postag=\"NN:.*:D\"/></token>\n        <token>итог</token>\n      </pattern>\n      <message>Scope next skip match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_SPACEBEFORE\" name=\"Synthetic Spacebefore Rules\">\n    <rule id=\"SYN_SPACEBEFORE_YES\" name=\"Spacebefore yes\">\n      <pattern>\n        <token>слово</token>\n        <token spacebefore=\"yes\">,</token>\n      </pattern>\n      <message>Space before comma error</message>\n    </rule>\n    <rule id=\"SYN_SPACEBEFORE_NO\" name=\"Spacebefore no\">\n      <pattern>\n        <token>слово</token>\n        <token spacebefore=\"no\">,</token>\n      </pattern>\n      <message>Normal comma</message>\n    </rule>\n    <rule id=\"SYN_EXC_SPACEBEFORE_YES\" name=\"Exception spacebefore yes\">\n      <pattern>\n        <token>проверка<exception spacebefore=\"yes\">тест</exception></token>\n      </pattern>\n      <message>Exception spacebefore yes match</message>\n    </rule>\n    <rule id=\"SYN_EXC_SPACEBEFORE_NO\" name=\"Exception spacebefore no\">\n      <pattern>\n        <token>проверка<exception spacebefore=\"no\">тест</exception></token>\n      </pattern>\n      <message>Exception spacebefore no match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_CHUNKS\" name=\"Synthetic Chunk Rules\">\n    <rule id=\"SYN_LITERAL_CHUNK\" name=\"Literal chunk match\">\n      <pattern>\n        <token chunk=\"NP\">дом</token>\n      </pattern>\n      <message>Literal NP chunk match</message>\n    </rule>\n    <rule id=\"SYN_CHUNK_REGEX\" name=\"Chunk regex match\">\n      <pattern>\n        <token chunk=\"NP:.*\">большой</token>\n        <token>дом</token>\n      </pattern>\n      <message>Chunk regex match</message>\n    </rule>\n    <rule id=\"SYN_MULTIPLE_CHUNKS\" name=\"Multiple chunk tags match\">\n      <pattern>\n        <token chunk=\"VP\">действие</token>\n      </pattern>\n      <message>VP chunk match</message>\n    </rule>\n    <rule id=\"SYN_NO_CHUNKS\" name=\"No chunk tags fail\">\n      <pattern>\n        <token chunk=\"NP\">проверка</token>\n      </pattern>\n      <message>NP on unchunked</message>\n    </rule>\n    <rule id=\"SYN_CHUNK_NEGATE\" name=\"Chunk negation match\">\n      <pattern>\n        <token chunk=\"VP\" negate=\"yes\">книга</token>\n      </pattern>\n      <message>Non-VP chunk match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_LOGICAL_GROUPS\" name=\"Synthetic AND and OR Rules\">\n    <rule id=\"SYN_AND_CONJUNCTION\" name=\"AND conjunction\">\n      <pattern>\n        <and>\n          <token postag_regexp=\"yes\" postag=\"VB:.*\"/>\n          <token regexp=\"yes\">.*ли</token>\n        </and>\n      </pattern>\n      <message>AND conjunction match</message>\n    </rule>\n    <rule id=\"SYN_AND_DIFF_READINGS\" name=\"AND satisfied across readings\">\n      <pattern>\n        <and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"VB:.*\"/>\n        </and>\n      </pattern>\n      <message>Cross-reading AND match</message>\n    </rule>\n    <rule id=\"SYN_AND_NEGATIVE\" name=\"AND negative cross-reading\">\n      <pattern>\n        <and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n        </and>\n      </pattern>\n      <message>Negative AND match</message>\n    </rule>\n    <rule id=\"SYN_OR_DISJUNCTION\" name=\"OR disjunction\">\n      <pattern>\n        <token>выбор</token>\n        <or>\n          <token>красный</token>\n          <token>зеленый</token>\n          <token>синий</token>\n        </or>\n      </pattern>\n      <message>OR match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_PHRASES\" name=\"Synthetic Phrase Rules\">\n    <rule id=\"SYN_PHRASE_EXPANSION\" name=\"Phrase expansion\">\n      <pattern>\n        <token>очень</token>\n        <phraseref idref=\"p_adj_noun\"/>\n        <token>конец</token>\n      </pattern>\n      <message>Phrase expansion match</message>\n    </rule>\n    <rule id=\"SYN_PHRASE_WITH_OR\" name=\"Phrase containing OR\">\n      <pattern>\n        <phraseref idref=\"p_with_or\"/>\n      </pattern>\n      <message>Phrase with OR match</message>\n    </rule>\n    <rule id=\"SYN_PHRASE_MATCH_NUM\" name=\"Phrase match numbering\">\n      <pattern>\n        <token>начало</token>\n        <phraseref idref=\"p_adj_noun\"/>\n        <token>конец</token>\n      </pattern>\n      <message>Phrase match numbering: <suggestion><match no=\"1\"/> <match no=\"2\"/> <match no=\"3\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_PHRASE_MARKER\" name=\"Marker at phrase reference\">\n      <pattern>\n        <token>начало</token>\n        <marker>\n          <phraseref idref=\"p_adj_noun\"/>\n        </marker>\n        <token>конец</token>\n      </pattern>\n      <message>Marker around phrase</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_MATCH_REFERENCES\" name=\"Synthetic Match Reference Rules\">\n    <rule id=\"SYN_TOKEN_MATCH_REF\" name=\"Token level match reference\">\n      <pattern>\n        <token regexp=\"yes\">тот|этот</token>\n        <token><match no=\"0\"/></token>\n      </pattern>\n      <message>Repeated word: <suggestion>\\1</suggestion></message>\n    </rule>\n    <rule id=\"SYN_INCLUDE_SKIPPED_ALL\" name=\"Include skipped all\">\n      <pattern>\n        <token skip=\"2\">до</token>\n        <token>свидания</token>\n      </pattern>\n      <message>Replacement: <suggestion><match no=\"1\" include_skipped=\"all\"/>!</suggestion></message>\n    </rule>\n    <rule id=\"SYN_INCLUDE_SKIPPED_FOLLOWING\" name=\"Include skipped following\">\n      <pattern>\n        <token skip=\"2\">от</token>\n        <token>начала</token>\n      </pattern>\n      <message>Replacement: <suggestion><match no=\"1\" include_skipped=\"following\"/>!</suggestion></message>\n    </rule>\n    <rule id=\"SYN_CASE_CONVERSIONS\" name=\"Case conversions\">\n      <pattern>\n        <token>ТЕСТ</token>\n      </pattern>\n      <message>Lower: <suggestion><match no=\"1\" case_conversion=\"alllower\"/></suggestion>, Upper: <suggestion><match no=\"1\" case_conversion=\"allupper\"/></suggestion>, FirstUpper: <suggestion><match no=\"1\" case_conversion=\"firstupper\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_REGEXP_REPLACE\" name=\"Regex replacement captures\">\n      <pattern>\n        <token regexp=\"yes\">авто([а-я]+)</token>\n      </pattern>\n      <message>Suggestion: <suggestion>само<match no=\"1\" regexp_match=\"авто([а-я]+)\" regexp_replace=\"$1\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_POS_SYNTHESIS\" name=\"POS tag synthesis\">\n      <pattern>\n        <token>бывший</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*:D\">другу</token>\n      </pattern>\n      <message>Suggestion: <suggestion><match no=\"1\" postag=\"NN:.*:D\" postag_regexp=\"yes\" postag_replace=\"ADJ:Posit:Masc:D\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_OPTIONAL_MATCH_REF\" name=\"Optional match reference\">\n      <pattern>\n        <token>начало</token>\n        <token min=\"0\">середина</token>\n        <token>конец</token>\n      </pattern>\n      <message>Result: <suggestion><match no=\"1\"/>-<match no=\"3\"/></suggestion></message>\n    </rule>\n    <rule id=\"SYN_INFINITE_SKIP_MATCH_REF\" name=\"Infinite skip with match ref\">\n      <pattern>\n        <token regexp=\"yes\" skip=\"-1\">дом|сад</token>\n        <token><match no=\"0\"/></token>\n      </pattern>\n      <message>Duplicate token: <suggestion>\\1</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_MARKERS_AND_SPANS\" name=\"Synthetic Markers and Spans\">\n    <rule id=\"SYN_MARKER_FIRST\" name=\"Marker on first token only\">\n      <pattern>\n        <marker>\n          <token>ошибка</token>\n        </marker>\n        <token>здесь</token>\n      </pattern>\n      <message>Marker on first token</message>\n    </rule>\n    <rule id=\"SYN_MARKER_MIDDLE\" name=\"Marker on middle token only\">\n      <pattern>\n        <token>слово</token>\n        <marker>\n          <token>внутри</token>\n        </marker>\n        <token>фразы</token>\n      </pattern>\n      <message>Marker in middle</message>\n    </rule>\n    <rule id=\"SYN_MARKER_LAST\" name=\"Marker on last token only\">\n      <pattern>\n        <token>в</token>\n        <token>самом</token>\n        <marker>\n          <token>конце</token>\n        </marker>\n      </pattern>\n      <message>Marker at end</message>\n    </rule>\n    <rule id=\"SYN_MARKER_FULL\" name=\"Marker on entire pattern\">\n      <pattern>\n        <marker>\n          <token>полная</token>\n          <token>фраза</token>\n        </marker>\n      </pattern>\n      <message>Full marker</message>\n    </rule>\n    <rule id=\"SYN_MARKER_WITH_SKIPPED\" name=\"Skipped tokens inside marker\">\n      <pattern>\n        <token>старт</token>\n        <marker>\n          <token skip=\"3\">начало</token>\n          <token>конец</token>\n        </marker>\n        <token>стоп</token>\n      </pattern>\n      <message>Marker enclosing skipped</message>\n    </rule>\n    <rule id=\"SYN_MARKER_OMITTED_OPTIONAL\" name=\"Omitted optional inside marker\">\n      <pattern>\n        <token>старт</token>\n        <marker>\n          <token>начало</token>\n          <token min=\"0\">середина</token>\n          <token>конец</token>\n        </marker>\n        <token>стоп</token>\n      </pattern>\n      <message>Marker with omitted optional</message>\n    </rule>\n    <rule id=\"SYN_MARKER_REPEATED_TOKENS\" name=\"Repeated token inside marker\">\n      <pattern>\n        <token>старт</token>\n        <marker>\n          <token>начало</token>\n          <token max=\"3\">повтор</token>\n          <token>конец</token>\n        </marker>\n        <token>стоп</token>\n      </pattern>\n      <message>Marker with repeated tokens</message>\n    </rule>\n    <rule id=\"SYN_SKIP_PLUS_MIN_MAX\" name=\"Skip plus min max\">\n      <pattern>\n        <token skip=\"3\">начало</token>\n        <token min=\"0\" max=\"2\">середина</token>\n        <token>конец</token>\n      </pattern>\n      <message>Skip plus min max match</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_ANTIPATTERNS\" name=\"Synthetic Antipattern Rules\">\n    <rule id=\"SYN_ANTIPATTERN_OVERLAP\" name=\"Antipattern overlap\">\n      <antipattern>\n        <token>белый</token>\n        <token>дом</token>\n      </antipattern>\n      <pattern>\n        <token>белый</token>\n        <token>дом</token>\n      </pattern>\n      <message>Trigger error</message>\n    </rule>\n    <rule id=\"SYN_ANTIPATTERN_NON_OVERLAP\" name=\"Antipattern non overlap\">\n      <antipattern>\n        <token>красный</token>\n        <token>дом</token>\n      </antipattern>\n      <pattern>\n        <token>синий</token>\n        <token>дом</token>\n      </pattern>\n      <message>Trigger error</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_EDGE_CASES\" name=\"Synthetic Edge Cases\">\n    <rule id=\"SYN_NON_BMP_EMOJI\" name=\"Non BMP characters\">\n      <pattern>\n        <marker>\n          <token>текст</token>\n        </marker>\n        <token>после</token>\n      </pattern>\n      <message>Emoji test</message>\n    </rule>\n    <rule id=\"SYN_NON_BMP_SKIPPED\" name=\"Non-BMP in skipped region\">\n      <pattern>\n        <token skip=\"3\">начало</token>\n        <token>конец</token>\n      </pattern>\n      <message>Non-BMP in skipped</message>\n    </rule>\n    <rule id=\"SYN_NON_BMP_MARKER\" name=\"Non-BMP in marker region\">\n      <pattern>\n        <token>старт</token>\n        <marker>\n          <token>😀</token>\n          <token max=\"2\">🚀</token>\n          <token>🎉</token>\n        </marker>\n        <token>стоп</token>\n      </pattern>\n      <message>Non-BMP in marker</message>\n    </rule>\n    <rule id=\"SYN_BACKREF_LITERALS\" name=\"Backreference looking text\">\n      <pattern>\n        <token regexp=\"yes\">:\\d+|\\$\\d+|\\\\\\d+</token>\n        <token>тест</token>\n      </pattern>\n      <message>References: \\1 \\2.</message>\n    </rule>\n    <rule id=\"SYN_RAW_POS\" name=\"Raw pos pre-disambiguation\">\n      <pattern raw_pos=\"yes\">\n        <token postag_regexp=\"yes\" postag=\"ADJ:.*:D\">зимнему</token>\n      </pattern>\n      <message>Raw pos test</message>\n    </rule>\n    <rule id=\"SYN_RAW_POS_DIFF\" name=\"Raw pos pre-disambig vs post-disambig diff\">\n      <pattern raw_pos=\"yes\">\n        <token postag=\"RAW_TAG\">тест</token>\n      </pattern>\n      <message>Raw pos pre-disambig matched</message>\n    </rule>\n  </category>\n</rules>\n",
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
@@ -9,7 +9,251 @@
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_advanced_fixtures.py",
     "corpus_version": "1.0.0",
-    "cases_count": 124
+    "cases_count": 141
+  },
+  "feature_coverage": {
+    "spacebefore_no": [
+      "syn_spacebefore_03",
+      "syn_spacebefore_04"
+    ],
+    "skip_finite": [
+      "syn_skip_01",
+      "syn_skip_02",
+      "syn_skip_03",
+      "syn_skip_04",
+      "syn_skip_05",
+      "syn_skip_06",
+      "syn_skip_07",
+      "syn_scope_next_sk_01",
+      "syn_scope_next_sk_02"
+    ],
+    "and_negative": [
+      "syn_and_neg_01"
+    ],
+    "phrase_expansion": [
+      "syn_phrase_exp_01",
+      "syn_phrase_exp_02"
+    ],
+    "non_bmp_in_skipped": [
+      "syn_non_bmp_sk_01"
+    ],
+    "and_cross_reading": [
+      "syn_and_01",
+      "syn_and_02",
+      "syn_and_diff_01"
+    ],
+    "phrase_match_numbering": [
+      "syn_phrase_num_01"
+    ],
+    "case_conversion_allupper": [
+      "syn_case_conv_01"
+    ],
+    "marker_with_omitted_optional": [
+      "syn_mkr_opt_01",
+      "syn_mkr_opt_02"
+    ],
+    "or_branch_expansion": [
+      "syn_or_01",
+      "syn_or_02",
+      "syn_or_03",
+      "syn_or_04"
+    ],
+    "skip_with_exception": [
+      "syn_skip_exc_01",
+      "syn_skip_exc_02",
+      "syn_skip_exc_03",
+      "syn_skip_exc_04",
+      "syn_skip_exc_05",
+      "syn_skip_exc_06"
+    ],
+    "case_conversion_alllower": [
+      "syn_case_conv_01"
+    ],
+    "raw_pos_stream_diff": [
+      "syn_raw_pos_01",
+      "syn_raw_pos_02",
+      "syn_raw_pos_diff_01"
+    ],
+    "max_unbounded": [
+      "syn_max_unlim_01",
+      "syn_max_unlim_02",
+      "syn_max_unlim_03",
+      "syn_max_unlim_04"
+    ],
+    "exception_scope_previous": [
+      "syn_scope_prev_01",
+      "syn_scope_prev_02"
+    ],
+    "repeated_any_token": [
+      "syn_any_max2_01",
+      "syn_any_max2_02",
+      "syn_any_max2_03",
+      "syn_any_max2_04"
+    ],
+    "spacebefore_yes": [
+      "syn_spacebefore_01",
+      "syn_spacebefore_02"
+    ],
+    "marker_with_repeated_tokens": [
+      "syn_mkr_rep_01"
+    ],
+    "exception_spacebefore_yes": [
+      "syn_exc_sb_yes_01",
+      "syn_exc_sb_yes_02"
+    ],
+    "max_two": [
+      "syn_max2_01",
+      "syn_max2_02",
+      "syn_max2_03",
+      "syn_max2_04",
+      "syn_comb_max_01",
+      "syn_comb_max_02",
+      "syn_comb_max_03",
+      "syn_comb_max_04",
+      "syn_comb_max_05"
+    ],
+    "regexp_replace_captures": [
+      "syn_reg_rep_01",
+      "syn_reg_rep_02",
+      "syn_backref_01",
+      "syn_backref_02",
+      "syn_backref_03",
+      "syn_backref_04"
+    ],
+    "max_three": [
+      "syn_max3_01",
+      "syn_max3_02",
+      "syn_max3_03",
+      "syn_max3_04",
+      "syn_max3_05",
+      "syn_comb_max_01",
+      "syn_comb_max_02",
+      "syn_comb_max_03",
+      "syn_comb_max_04",
+      "syn_comb_max_05"
+    ],
+    "exception_scope_next": [
+      "syn_scope_next_01",
+      "syn_scope_next_02",
+      "syn_scope_next_sk_01",
+      "syn_scope_next_sk_02"
+    ],
+    "min_zero": [
+      "syn_min0_01",
+      "syn_min0_02",
+      "syn_min0_03",
+      "syn_min0_04",
+      "syn_adj_min0_01",
+      "syn_adj_min0_02",
+      "syn_adj_min0_03",
+      "syn_adj_min0_04",
+      "syn_adj_min0_05",
+      "syn_opt_any_01",
+      "syn_opt_any_02",
+      "syn_opt_any_03",
+      "syn_opt_any_04",
+      "syn_opt_sug_01",
+      "syn_opt_sug_02",
+      "syn_opt_sug_03",
+      "syn_opt_ref_01",
+      "syn_opt_ref_02"
+    ],
+    "chunk_literal": [
+      "syn_chunk_lit_01",
+      "syn_chunk_lit_02",
+      "syn_chunk_neg_01"
+    ],
+    "skip_unbounded": [
+      "syn_inf_skip_01",
+      "syn_inf_skip_02",
+      "syn_inf_skip_03",
+      "syn_inf_skip_04",
+      "syn_inf_sk_ref_01",
+      "syn_inf_sk_ref_02",
+      "syn_inf_sk_ref_03"
+    ],
+    "rule_with_max_filter": [
+      "syn_inf_skip_04",
+      "syn_anti_over_01",
+      "syn_anti_non_01",
+      "syn_anti_non_02"
+    ],
+    "marker_at_phrase_ref": [
+      "syn_phrase_mkr_01",
+      "syn_mkr_first_01",
+      "syn_mkr_mid_01",
+      "syn_mkr_last_01",
+      "syn_mkr_full_01"
+    ],
+    "chunk_none": [
+      "syn_chunk_none_01"
+    ],
+    "min_one": [
+      "syn_min1_01",
+      "syn_min1_02"
+    ],
+    "include_skipped_all": [
+      "syn_inc_all_01",
+      "syn_inc_all_02"
+    ],
+    "include_skipped_following": [
+      "syn_inc_foll_01",
+      "syn_inc_foll_02"
+    ],
+    "token_match_ref_0_indexed": [
+      "syn_tok_match_01",
+      "syn_tok_match_02",
+      "syn_tok_match_03",
+      "syn_tok_match_04",
+      "syn_inf_sk_ref_01",
+      "syn_inf_sk_ref_02",
+      "syn_inf_sk_ref_03"
+    ],
+    "non_bmp_in_marker": [
+      "syn_non_bmp_mkr_01",
+      "syn_emoji_01",
+      "syn_emoji_02",
+      "syn_emoji_03"
+    ],
+    "chunk_multiple": [
+      "syn_chunk_mult_01"
+    ],
+    "chunk_regex": [
+      "syn_chunk_reg_01",
+      "syn_chunk_reg_02"
+    ],
+    "marker_with_skipped_tokens": [
+      "syn_mkr_skip_01"
+    ],
+    "exception_scope_current": [
+      "syn_scope_curr_01",
+      "syn_scope_curr_02"
+    ],
+    "postag_replace_synthesis": [
+      "syn_pos_synth_01"
+    ],
+    "skip_plus_min_max": [
+      "syn_sk_minmax_01",
+      "syn_sk_minmax_02"
+    ],
+    "phrase_containing_or": [
+      "syn_phrase_or_01",
+      "syn_phrase_or_02",
+      "syn_phrase_or_03"
+    ],
+    "case_conversion_firstupper": [
+      "syn_case_conv_01"
+    ],
+    "min_zero_max_two": [
+      "syn_min0_max2_01",
+      "syn_min0_max2_02",
+      "syn_min0_max2_03",
+      "syn_min0_max2_04"
+    ],
+    "exception_spacebefore_no": [
+      "syn_exc_sb_no_01",
+      "syn_exc_sb_no_02"
+    ]
   },
   "cases": [
     {
@@ -17,6 +261,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[1]",
       "category": "SYN_SKIP",
       "text": "начало конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -30,11 +277,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Skip 1 match: <suggestion>начало конец</suggestion>",
             "short_message": "Skip 1",
             "suggestions": [
               "начало конец"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
@@ -44,6 +297,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[1]",
       "category": "SYN_SKIP",
       "text": "начало шаг конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -57,11 +313,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
             "message": "Skip 1 match: <suggestion>начало конец</suggestion>",
             "short_message": "Skip 1",
             "suggestions": [
               "начало конец"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
           }
         ]
       }
@@ -71,6 +333,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[1]",
       "category": "SYN_SKIP",
       "text": "начало один два конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -88,6 +353,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[2]",
       "category": "SYN_SKIP",
       "text": "начало конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -101,9 +369,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Skip 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
@@ -113,6 +387,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[2]",
       "category": "SYN_SKIP",
       "text": "начало шаг конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -126,9 +403,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
             "message": "Skip 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
           }
         ]
       }
@@ -138,6 +421,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[2]",
       "category": "SYN_SKIP",
       "text": "начало один два конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -151,9 +437,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 21,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 21,
             "message": "Skip 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -163,6 +455,9 @@
       "full_rule_id": "SYN_FINITE_SKIP[2]",
       "category": "SYN_SKIP",
       "text": "начало один два три конец",
+      "features": [
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_FINITE_SKIP",
@@ -180,6 +475,9 @@
       "full_rule_id": "SYN_INFINITE_SKIP",
       "category": "SYN_SKIP",
       "text": "альфа омега",
+      "features": [
+        "skip_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP",
@@ -193,9 +491,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Infinite skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -205,6 +509,9 @@
       "full_rule_id": "SYN_INFINITE_SKIP",
       "category": "SYN_SKIP",
       "text": "альфа бета гамма дельта омега",
+      "features": [
+        "skip_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP",
@@ -218,9 +525,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 29,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 29,
             "message": "Infinite skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 29,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 29
           }
         ]
       }
@@ -230,6 +543,9 @@
       "full_rule_id": "SYN_INFINITE_SKIP",
       "category": "SYN_SKIP",
       "text": "альфа первый второй третий четвертый пятый омега",
+      "features": [
+        "skip_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP",
@@ -243,9 +559,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 48,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 48,
             "message": "Infinite skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 48,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 48
           }
         ]
       }
@@ -255,6 +577,10 @@
       "full_rule_id": "SYN_INFINITE_SKIP",
       "category": "SYN_SKIP",
       "text": "альфа омега и еще альфа тестовое слово омега",
+      "features": [
+        "skip_unbounded",
+        "rule_with_max_filter"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP",
@@ -268,16 +594,28 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Infinite skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           },
           {
             "from_utf16": 18,
             "to_utf16": 44,
+            "pattern_from_utf16": 18,
+            "pattern_to_utf16": 44,
             "message": "Infinite skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 18,
+            "expected_to_codepoint": 44,
+            "expected_pattern_from_codepoint": 18,
+            "expected_pattern_to_codepoint": 44
           }
         ]
       }
@@ -287,6 +625,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -300,9 +641,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Skip exception match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -312,6 +659,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт один финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -325,9 +675,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
             "message": "Skip exception match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
           }
         ]
       }
@@ -337,6 +693,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт один два три финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -350,9 +709,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 24,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 24,
             "message": "Skip exception match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 24,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 24
           }
         ]
       }
@@ -362,6 +727,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт один стоп финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -375,9 +743,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 21,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 21,
             "message": "Skip exception match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -387,6 +761,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт стоп финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -400,9 +777,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
             "message": "Skip exception match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
           }
         ]
       }
@@ -412,6 +795,9 @@
       "full_rule_id": "SYN_SKIP_EXCEPTION",
       "category": "SYN_SKIP",
       "text": "старт один два три четыре финиш",
+      "features": [
+        "skip_with_exception"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SKIP_EXCEPTION",
@@ -429,6 +815,9 @@
       "full_rule_id": "SYN_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "он очень быстро",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO",
@@ -442,9 +831,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
             "message": "Optional token match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 15,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 15
           }
         ]
       }
@@ -454,6 +849,9 @@
       "full_rule_id": "SYN_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "он быстро",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO",
@@ -467,9 +865,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
             "message": "Optional token match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
           }
         ]
       }
@@ -479,6 +883,9 @@
       "full_rule_id": "SYN_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "он медленно",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO",
@@ -496,6 +903,9 @@
       "full_rule_id": "SYN_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "он очень медленно",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO",
@@ -509,10 +919,67 @@
       }
     },
     {
+      "id": "syn_min1_01",
+      "full_rule_id": "SYN_MIN_ONE",
+      "category": "SYN_OPTIONAL",
+      "text": "он точно знает",
+      "features": [
+        "min_one"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MIN_ONE",
+        "full_rule_id": "SYN_MIN_ONE[1]",
+        "category_id": "SYN_OPTIONAL",
+        "category_name": "Synthetic Optional Min Rules",
+        "description": "Explicit min 1 token",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
+            "message": "Min 1 match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_min1_02",
+      "full_rule_id": "SYN_MIN_ONE",
+      "category": "SYN_OPTIONAL",
+      "text": "он знает",
+      "features": [
+        "min_one"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MIN_ONE",
+        "full_rule_id": "SYN_MIN_ONE[1]",
+        "category_id": "SYN_OPTIONAL",
+        "category_name": "Synthetic Optional Min Rules",
+        "description": "Explicit min 1 token",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
       "id": "syn_adj_min0_01",
       "full_rule_id": "SYN_ADJACENT_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "мы рады",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ADJACENT_MIN_ZERO",
@@ -526,9 +993,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "Adjacent optional match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
       }
@@ -538,6 +1011,9 @@
       "full_rule_id": "SYN_ADJACENT_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "мы всегда рады",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ADJACENT_MIN_ZERO",
@@ -551,9 +1027,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
             "message": "Adjacent optional match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
@@ -563,6 +1045,9 @@
       "full_rule_id": "SYN_ADJACENT_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "мы очень рады",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ADJACENT_MIN_ZERO",
@@ -576,9 +1061,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
             "message": "Adjacent optional match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
           }
         ]
       }
@@ -588,6 +1079,9 @@
       "full_rule_id": "SYN_ADJACENT_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "мы всегда очень рады",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ADJACENT_MIN_ZERO",
@@ -601,9 +1095,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 20,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 20,
             "message": "Adjacent optional match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 20
           }
         ]
       }
@@ -613,6 +1113,9 @@
       "full_rule_id": "SYN_ADJACENT_MIN_ZERO",
       "category": "SYN_OPTIONAL",
       "text": "мы грустны",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ADJACENT_MIN_ZERO",
@@ -630,6 +1133,9 @@
       "full_rule_id": "SYN_OPTIONAL_ANY",
       "category": "SYN_OPTIONAL",
       "text": "он книгу",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_ANY",
@@ -643,9 +1149,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 8,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 8,
             "message": "Optional any token match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 8,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 8
           }
         ]
       }
@@ -655,6 +1167,9 @@
       "full_rule_id": "SYN_OPTIONAL_ANY",
       "category": "SYN_OPTIONAL",
       "text": "он читал книгу",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_ANY",
@@ -668,9 +1183,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
             "message": "Optional any token match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
@@ -680,6 +1201,9 @@
       "full_rule_id": "SYN_OPTIONAL_ANY",
       "category": "SYN_OPTIONAL",
       "text": "он интересную книгу",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_ANY",
@@ -693,9 +1217,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
             "message": "Optional any token match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -705,6 +1235,9 @@
       "full_rule_id": "SYN_OPTIONAL_ANY",
       "category": "SYN_OPTIONAL",
       "text": "он журнал",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_ANY",
@@ -722,6 +1255,9 @@
       "full_rule_id": "SYN_OPTIONAL_SUGGESTION",
       "category": "SYN_OPTIONAL",
       "text": "а б в",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_SUGGESTION",
@@ -735,11 +1271,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
             "message": "Suggestion: <suggestion>а б в</suggestion>",
             "short_message": "",
             "suggestions": [
               "а б в"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 5,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 5
           }
         ]
       }
@@ -749,6 +1291,9 @@
       "full_rule_id": "SYN_OPTIONAL_SUGGESTION",
       "category": "SYN_OPTIONAL",
       "text": "а в",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_SUGGESTION",
@@ -762,11 +1307,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 3,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 3,
             "message": "Suggestion: <suggestion>а в</suggestion>",
             "short_message": "",
             "suggestions": [
               "а в"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 3,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 3
           }
         ]
       }
@@ -776,6 +1327,9 @@
       "full_rule_id": "SYN_OPTIONAL_SUGGESTION",
       "category": "SYN_OPTIONAL",
       "text": "а г",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_SUGGESTION",
@@ -793,6 +1347,9 @@
       "full_rule_id": "SYN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "очень хорошо",
+      "features": [
+        "max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_TWO",
@@ -806,9 +1363,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
@@ -818,6 +1381,9 @@
       "full_rule_id": "SYN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "очень хорошо хорошо",
+      "features": [
+        "max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_TWO",
@@ -831,9 +1397,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
             "message": "Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -843,6 +1415,9 @@
       "full_rule_id": "SYN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "очень хорошо хорошо хорошо",
+      "features": [
+        "max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_TWO",
@@ -856,9 +1431,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
             "message": "Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -868,6 +1449,9 @@
       "full_rule_id": "SYN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "очень плохо",
+      "features": [
+        "max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_TWO",
@@ -885,6 +1469,9 @@
       "full_rule_id": "SYN_MAX_THREE",
       "category": "SYN_REPEAT",
       "text": "да да",
+      "features": [
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_THREE",
@@ -898,9 +1485,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
             "message": "Max 3 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 5,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 5
           }
         ]
       }
@@ -910,6 +1503,9 @@
       "full_rule_id": "SYN_MAX_THREE",
       "category": "SYN_REPEAT",
       "text": "да да да",
+      "features": [
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_THREE",
@@ -923,9 +1519,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 8,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 8,
             "message": "Max 3 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 8,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 8
           }
         ]
       }
@@ -935,6 +1537,9 @@
       "full_rule_id": "SYN_MAX_THREE",
       "category": "SYN_REPEAT",
       "text": "да да да да",
+      "features": [
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_THREE",
@@ -948,9 +1553,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Max 3 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -960,6 +1571,9 @@
       "full_rule_id": "SYN_MAX_THREE",
       "category": "SYN_REPEAT",
       "text": "да да да да да",
+      "features": [
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_THREE",
@@ -973,16 +1587,28 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Max 3 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           },
           {
             "from_utf16": 3,
             "to_utf16": 14,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 14,
             "message": "Max 3 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
@@ -992,6 +1618,9 @@
       "full_rule_id": "SYN_MAX_THREE",
       "category": "SYN_REPEAT",
       "text": "да нет",
+      "features": [
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_THREE",
@@ -1009,6 +1638,9 @@
       "full_rule_id": "SYN_MAX_UNLIMITED",
       "category": "SYN_REPEAT",
       "text": "начало повтор конец",
+      "features": [
+        "max_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_UNLIMITED",
@@ -1022,9 +1654,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
             "message": "Unlimited max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -1034,6 +1672,9 @@
       "full_rule_id": "SYN_MAX_UNLIMITED",
       "category": "SYN_REPEAT",
       "text": "начало повтор повтор конец",
+      "features": [
+        "max_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_UNLIMITED",
@@ -1047,9 +1688,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
             "message": "Unlimited max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
           }
         ]
       }
@@ -1059,6 +1706,9 @@
       "full_rule_id": "SYN_MAX_UNLIMITED",
       "category": "SYN_REPEAT",
       "text": "начало повтор повтор повтор повтор повтор конец",
+      "features": [
+        "max_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_UNLIMITED",
@@ -1072,9 +1722,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 47,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 47,
             "message": "Unlimited max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 47,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 47
           }
         ]
       }
@@ -1084,6 +1740,9 @@
       "full_rule_id": "SYN_MAX_UNLIMITED",
       "category": "SYN_REPEAT",
       "text": "начало конец",
+      "features": [
+        "max_unbounded"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MAX_UNLIMITED",
@@ -1101,6 +1760,10 @@
       "full_rule_id": "SYN_COMBINED_MAX",
       "category": "SYN_REPEAT",
       "text": "а б",
+      "features": [
+        "max_two",
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_COMBINED_MAX",
@@ -1114,9 +1777,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 3,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 3,
             "message": "Combined max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 3,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 3
           }
         ]
       }
@@ -1126,6 +1795,10 @@
       "full_rule_id": "SYN_COMBINED_MAX",
       "category": "SYN_REPEAT",
       "text": "а а б",
+      "features": [
+        "max_two",
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_COMBINED_MAX",
@@ -1139,9 +1812,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
             "message": "Combined max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 5,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 5
           }
         ]
       }
@@ -1151,6 +1830,10 @@
       "full_rule_id": "SYN_COMBINED_MAX",
       "category": "SYN_REPEAT",
       "text": "а б б",
+      "features": [
+        "max_two",
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_COMBINED_MAX",
@@ -1164,9 +1847,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
             "message": "Combined max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 5,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 5
           }
         ]
       }
@@ -1176,6 +1865,10 @@
       "full_rule_id": "SYN_COMBINED_MAX",
       "category": "SYN_REPEAT",
       "text": "а а б б б",
+      "features": [
+        "max_two",
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_COMBINED_MAX",
@@ -1189,9 +1882,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
             "message": "Combined max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
           }
         ]
       }
@@ -1201,6 +1900,10 @@
       "full_rule_id": "SYN_COMBINED_MAX",
       "category": "SYN_REPEAT",
       "text": "а а а б б б",
+      "features": [
+        "max_two",
+        "max_three"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_COMBINED_MAX",
@@ -1214,9 +1917,15 @@
           {
             "from_utf16": 2,
             "to_utf16": 11,
+            "pattern_from_utf16": 2,
+            "pattern_to_utf16": 11,
             "message": "Combined max match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 2,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 2,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -1226,6 +1935,9 @@
       "full_rule_id": "SYN_MIN_ZERO_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "старт стоп",
+      "features": [
+        "min_zero_max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO_MAX_TWO",
@@ -1239,9 +1951,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 10,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 10,
             "message": "Min 0 Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 10
           }
         ]
       }
@@ -1251,6 +1969,9 @@
       "full_rule_id": "SYN_MIN_ZERO_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "старт шаг стоп",
+      "features": [
+        "min_zero_max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO_MAX_TWO",
@@ -1264,9 +1985,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
             "message": "Min 0 Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
@@ -1276,6 +2003,9 @@
       "full_rule_id": "SYN_MIN_ZERO_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "старт шаг шаг стоп",
+      "features": [
+        "min_zero_max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO_MAX_TWO",
@@ -1289,9 +2019,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 18,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 18,
             "message": "Min 0 Max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
           }
         ]
       }
@@ -1300,7 +2036,10 @@
       "id": "syn_min0_max2_04",
       "full_rule_id": "SYN_MIN_ZERO_MAX_TWO",
       "category": "SYN_REPEAT",
-      "text": "старт бег стоп",
+      "text": "старт шаг шаг шаг стоп",
+      "features": [
+        "min_zero_max_two"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MIN_ZERO_MAX_TWO",
@@ -1318,6 +2057,9 @@
       "full_rule_id": "SYN_ANY_TOKEN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "первый один последний",
+      "features": [
+        "repeated_any_token"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANY_TOKEN_MAX_TWO",
@@ -1331,9 +2073,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 21,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 21,
             "message": "Any token max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -1343,6 +2091,9 @@
       "full_rule_id": "SYN_ANY_TOKEN_MAX_TWO",
       "category": "SYN_REPEAT",
       "text": "первый один два последний",
+      "features": [
+        "repeated_any_token"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANY_TOKEN_MAX_TWO",
@@ -1356,9 +2107,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 25,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 25,
             "message": "Any token max 2 match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 25,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 25
           }
         ]
       }
@@ -1367,7 +2124,10 @@
       "id": "syn_any_max2_03",
       "full_rule_id": "SYN_ANY_TOKEN_MAX_TWO",
       "category": "SYN_REPEAT",
-      "text": "первый последний",
+      "text": "первый один два три последний",
+      "features": [
+        "repeated_any_token"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANY_TOKEN_MAX_TWO",
@@ -1381,10 +2141,87 @@
       }
     },
     {
-      "id": "syn_sc_prev_01",
+      "id": "syn_any_max2_04",
+      "full_rule_id": "SYN_ANY_TOKEN_MAX_TWO",
+      "category": "SYN_REPEAT",
+      "text": "первый последний",
+      "features": [
+        "repeated_any_token"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ANY_TOKEN_MAX_TWO",
+        "full_rule_id": "SYN_ANY_TOKEN_MAX_TWO[1]",
+        "category_id": "SYN_REPEAT",
+        "category_name": "Synthetic Repeat Max Rules",
+        "description": "Any token max 2",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_scope_curr_01",
+      "full_rule_id": "SYN_SCOPE_CURRENT",
+      "category": "SYN_SCOPED_EXCEPTIONS",
+      "text": "дело важное",
+      "features": [
+        "exception_scope_current"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_SCOPE_CURRENT",
+        "full_rule_id": "SYN_SCOPE_CURRENT[1]",
+        "category_id": "SYN_SCOPED_EXCEPTIONS",
+        "category_name": "Synthetic Scoped Exception Rules",
+        "description": "Scope current exception",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Scope current match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_scope_curr_02",
+      "full_rule_id": "SYN_SCOPE_CURRENT",
+      "category": "SYN_SCOPED_EXCEPTIONS",
+      "text": "дело срочное",
+      "features": [
+        "exception_scope_current"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_SCOPE_CURRENT",
+        "full_rule_id": "SYN_SCOPE_CURRENT[1]",
+        "category_id": "SYN_SCOPED_EXCEPTIONS",
+        "category_name": "Synthetic Scoped Exception Rules",
+        "description": "Scope current exception",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_scope_prev_01",
       "full_rule_id": "SYN_SCOPE_PREVIOUS",
       "category": "SYN_SCOPED_EXCEPTIONS",
-      "text": "мы по зимнему",
+      "text": "по зимнему",
+      "features": [
+        "exception_scope_previous"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SCOPE_PREVIOUS",
@@ -1396,20 +2233,29 @@
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 3,
-            "to_utf16": 13,
+            "from_utf16": 0,
+            "to_utf16": 10,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 10,
             "message": "Scope previous match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 10
           }
         ]
       }
     },
     {
-      "id": "syn_sc_prev_02",
+      "id": "syn_scope_prev_02",
       "full_rule_id": "SYN_SCOPE_PREVIOUS",
       "category": "SYN_SCOPED_EXCEPTIONS",
       "text": "судя по зимнему",
+      "features": [
+        "exception_scope_previous"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SCOPE_PREVIOUS",
@@ -1423,52 +2269,47 @@
       }
     },
     {
-      "id": "syn_sc_prev_03",
-      "full_rule_id": "SYN_SCOPE_PREVIOUS",
+      "id": "syn_scope_next_01",
+      "full_rule_id": "SYN_SCOPE_NEXT",
       "category": "SYN_SCOPED_EXCEPTIONS",
-      "text": "они по зимнему",
+      "text": "слово второе",
+      "features": [
+        "exception_scope_next"
+      ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_SCOPE_PREVIOUS",
-        "full_rule_id": "SYN_SCOPE_PREVIOUS[1]",
+        "rule_id": "SYN_SCOPE_NEXT",
+        "full_rule_id": "SYN_SCOPE_NEXT[1]",
         "category_id": "SYN_SCOPED_EXCEPTIONS",
         "category_name": "Synthetic Scoped Exception Rules",
-        "description": "Scope previous exception",
+        "description": "Scope next exception",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 4,
-            "to_utf16": 14,
-            "message": "Scope previous match",
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Scope next match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_sc_next_01",
-      "full_rule_id": "SYN_SCOPE_NEXT",
-      "category": "SYN_SCOPED_EXCEPTIONS",
-      "text": "слово обычное второе",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_SCOPE_NEXT",
-        "full_rule_id": "SYN_SCOPE_NEXT[1]",
-        "category_id": "SYN_SCOPED_EXCEPTIONS",
-        "category_name": "Synthetic Scoped Exception Rules",
-        "description": "Scope next exception",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_sc_next_02",
+      "id": "syn_scope_next_02",
       "full_rule_id": "SYN_SCOPE_NEXT",
       "category": "SYN_SCOPED_EXCEPTIONS",
       "text": "слово исключение второе",
+      "features": [
+        "exception_scope_next"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SCOPE_NEXT",
@@ -1482,27 +2323,14 @@
       }
     },
     {
-      "id": "syn_sc_next_03",
-      "full_rule_id": "SYN_SCOPE_NEXT",
-      "category": "SYN_SCOPED_EXCEPTIONS",
-      "text": "слово исключение третье",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_SCOPE_NEXT",
-        "full_rule_id": "SYN_SCOPE_NEXT[1]",
-        "category_id": "SYN_SCOPED_EXCEPTIONS",
-        "category_name": "Synthetic Scoped Exception Rules",
-        "description": "Scope next exception",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_sc_next_skip_01",
+      "id": "syn_scope_next_sk_01",
       "full_rule_id": "SYN_SCOPE_NEXT_SKIP",
       "category": "SYN_SCOPED_EXCEPTIONS",
       "text": "пункт один итог",
+      "features": [
+        "exception_scope_next",
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SCOPE_NEXT_SKIP",
@@ -1516,18 +2344,28 @@
           {
             "from_utf16": 0,
             "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
             "message": "Scope next skip match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 15,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 15
           }
         ]
       }
     },
     {
-      "id": "syn_sc_next_skip_02",
+      "id": "syn_scope_next_sk_02",
       "full_rule_id": "SYN_SCOPE_NEXT_SKIP",
       "category": "SYN_SCOPED_EXCEPTIONS",
       "text": "пункт другу итог",
+      "features": [
+        "exception_scope_next",
+        "skip_finite"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SCOPE_NEXT_SKIP",
@@ -1541,35 +2379,13 @@
       }
     },
     {
-      "id": "syn_sc_next_skip_03",
-      "full_rule_id": "SYN_SCOPE_NEXT_SKIP",
-      "category": "SYN_SCOPED_EXCEPTIONS",
-      "text": "пункт один два итог",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_SCOPE_NEXT_SKIP",
-        "full_rule_id": "SYN_SCOPE_NEXT_SKIP[1]",
-        "category_id": "SYN_SCOPED_EXCEPTIONS",
-        "category_name": "Synthetic Scoped Exception Rules",
-        "description": "Scope next exception with skip",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 19,
-            "message": "Scope next skip match",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_spb_yes_01",
+      "id": "syn_spacebefore_01",
       "full_rule_id": "SYN_SPACEBEFORE_YES",
       "category": "SYN_SPACEBEFORE",
       "text": "слово ,",
+      "features": [
+        "spacebefore_yes"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SPACEBEFORE_YES",
@@ -1583,18 +2399,27 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "Space before comma error",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
       }
     },
     {
-      "id": "syn_spb_yes_02",
+      "id": "syn_spacebefore_02",
       "full_rule_id": "SYN_SPACEBEFORE_YES",
       "category": "SYN_SPACEBEFORE",
       "text": "слово,",
+      "features": [
+        "spacebefore_yes"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SPACEBEFORE_YES",
@@ -1608,10 +2433,13 @@
       }
     },
     {
-      "id": "syn_spb_no_01",
+      "id": "syn_spacebefore_03",
       "full_rule_id": "SYN_SPACEBEFORE_NO",
       "category": "SYN_SPACEBEFORE",
       "text": "слово,",
+      "features": [
+        "spacebefore_no"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SPACEBEFORE_NO",
@@ -1625,18 +2453,27 @@
           {
             "from_utf16": 0,
             "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 6,
             "message": "Normal comma",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 6,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 6
           }
         ]
       }
     },
     {
-      "id": "syn_spb_no_02",
+      "id": "syn_spacebefore_04",
       "full_rule_id": "SYN_SPACEBEFORE_NO",
       "category": "SYN_SPACEBEFORE",
       "text": "слово ,",
+      "features": [
+        "spacebefore_no"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_SPACEBEFORE_NO",
@@ -1650,10 +2487,161 @@
       }
     },
     {
-      "id": "syn_chunk_01",
+      "id": "syn_exc_sb_yes_01",
+      "full_rule_id": "SYN_EXC_SPACEBEFORE_YES",
+      "category": "SYN_SPACEBEFORE",
+      "text": "проверка",
+      "features": [
+        "exception_spacebefore_yes"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EXC_SPACEBEFORE_YES",
+        "full_rule_id": "SYN_EXC_SPACEBEFORE_YES[1]",
+        "category_id": "SYN_SPACEBEFORE",
+        "category_name": "Synthetic Spacebefore Rules",
+        "description": "Exception spacebefore yes",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 8,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 8,
+            "message": "Exception spacebefore yes match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 8,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_exc_sb_yes_02",
+      "full_rule_id": "SYN_EXC_SPACEBEFORE_YES",
+      "category": "SYN_SPACEBEFORE",
+      "text": "тест",
+      "features": [
+        "exception_spacebefore_yes"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EXC_SPACEBEFORE_YES",
+        "full_rule_id": "SYN_EXC_SPACEBEFORE_YES[1]",
+        "category_id": "SYN_SPACEBEFORE",
+        "category_name": "Synthetic Spacebefore Rules",
+        "description": "Exception spacebefore yes",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_exc_sb_no_01",
+      "full_rule_id": "SYN_EXC_SPACEBEFORE_NO",
+      "category": "SYN_SPACEBEFORE",
+      "text": "проверка",
+      "features": [
+        "exception_spacebefore_no"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EXC_SPACEBEFORE_NO",
+        "full_rule_id": "SYN_EXC_SPACEBEFORE_NO[1]",
+        "category_id": "SYN_SPACEBEFORE",
+        "category_name": "Synthetic Spacebefore Rules",
+        "description": "Exception spacebefore no",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 8,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 8,
+            "message": "Exception spacebefore no match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 8,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_exc_sb_no_02",
+      "full_rule_id": "SYN_EXC_SPACEBEFORE_NO",
+      "category": "SYN_SPACEBEFORE",
+      "text": "тест",
+      "features": [
+        "exception_spacebefore_no"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EXC_SPACEBEFORE_NO",
+        "full_rule_id": "SYN_EXC_SPACEBEFORE_NO[1]",
+        "category_id": "SYN_SPACEBEFORE",
+        "category_name": "Synthetic Spacebefore Rules",
+        "description": "Exception spacebefore no",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_chunk_lit_01",
+      "full_rule_id": "SYN_LITERAL_CHUNK",
+      "category": "SYN_CHUNKS",
+      "text": "||INJECT_CHUNKS:1=NP||большой дом",
+      "features": [
+        "chunk_literal"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_LITERAL_CHUNK",
+        "full_rule_id": "SYN_LITERAL_CHUNK[1]",
+        "category_id": "SYN_CHUNKS",
+        "category_name": "Synthetic Chunk Rules",
+        "description": "Literal chunk match",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_chunk_lit_02",
+      "full_rule_id": "SYN_LITERAL_CHUNK",
+      "category": "SYN_CHUNKS",
+      "text": "||INJECT_CHUNKS:1=VP||большой дом",
+      "features": [
+        "chunk_literal"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_LITERAL_CHUNK",
+        "full_rule_id": "SYN_LITERAL_CHUNK[1]",
+        "category_id": "SYN_CHUNKS",
+        "category_name": "Synthetic Chunk Rules",
+        "description": "Literal chunk match",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_chunk_reg_01",
       "full_rule_id": "SYN_CHUNK_REGEX",
       "category": "SYN_CHUNKS",
       "text": "большой дом",
+      "features": [
+        "chunk_regex"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_CHUNK_REGEX",
@@ -1667,10 +2655,13 @@
       }
     },
     {
-      "id": "syn_chunk_02",
+      "id": "syn_chunk_reg_02",
       "full_rule_id": "SYN_CHUNK_REGEX",
       "category": "SYN_CHUNKS",
-      "text": "синий дом",
+      "text": "дом",
+      "features": [
+        "chunk_regex"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_CHUNK_REGEX",
@@ -1684,10 +2675,53 @@
       }
     },
     {
-      "id": "syn_chunk_03",
+      "id": "syn_chunk_mult_01",
+      "full_rule_id": "SYN_MULTIPLE_CHUNKS",
+      "category": "SYN_CHUNKS",
+      "text": "||INJECT_CHUNKS:1=NP,VP||важное действие",
+      "features": [
+        "chunk_multiple"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MULTIPLE_CHUNKS",
+        "full_rule_id": "SYN_MULTIPLE_CHUNKS[1]",
+        "category_id": "SYN_CHUNKS",
+        "category_name": "Synthetic Chunk Rules",
+        "description": "Multiple chunk tags match",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_chunk_none_01",
+      "full_rule_id": "SYN_NO_CHUNKS",
+      "category": "SYN_CHUNKS",
+      "text": "||INJECT_CHUNKS:1=||простая проверка",
+      "features": [
+        "chunk_none"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_NO_CHUNKS",
+        "full_rule_id": "SYN_NO_CHUNKS[1]",
+        "category_id": "SYN_CHUNKS",
+        "category_name": "Synthetic Chunk Rules",
+        "description": "No chunk tags fail",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_chunk_neg_01",
       "full_rule_id": "SYN_CHUNK_NEGATE",
       "category": "SYN_CHUNKS",
       "text": "книга",
+      "features": [
+        "chunk_literal"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_CHUNK_NEGATE",
@@ -1704,57 +2738,10 @@
       "id": "syn_and_01",
       "full_rule_id": "SYN_AND_CONJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
-      "text": "они читали",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_AND_CONJUNCTION",
-        "full_rule_id": "SYN_AND_CONJUNCTION[1]",
-        "category_id": "SYN_LOGICAL_GROUPS",
-        "category_name": "Synthetic AND and OR Rules",
-        "description": "AND conjunction",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 4,
-            "to_utf16": 10,
-            "message": "AND conjunction match",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_and_02",
-      "full_rule_id": "SYN_AND_CONJUNCTION",
-      "category": "SYN_LOGICAL_GROUPS",
-      "text": "они писали",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_AND_CONJUNCTION",
-        "full_rule_id": "SYN_AND_CONJUNCTION[1]",
-        "category_id": "SYN_LOGICAL_GROUPS",
-        "category_name": "Synthetic AND and OR Rules",
-        "description": "AND conjunction",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 4,
-            "to_utf16": 10,
-            "message": "AND conjunction match",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_and_03",
-      "full_rule_id": "SYN_AND_CONJUNCTION",
-      "category": "SYN_LOGICAL_GROUPS",
-      "text": "были книги",
+      "text": "были",
+      "features": [
+        "and_cross_reading"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_AND_CONJUNCTION",
@@ -1768,18 +2755,27 @@
           {
             "from_utf16": 0,
             "to_utf16": 4,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 4,
             "message": "AND conjunction match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 4,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 4
           }
         ]
       }
     },
     {
-      "id": "syn_and_04",
+      "id": "syn_and_02",
       "full_rule_id": "SYN_AND_CONJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
-      "text": "он читал",
+      "text": "шел",
+      "features": [
+        "and_cross_reading"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_AND_CONJUNCTION",
@@ -1793,10 +2789,67 @@
       }
     },
     {
+      "id": "syn_and_diff_01",
+      "full_rule_id": "SYN_AND_DIFF_READINGS",
+      "category": "SYN_LOGICAL_GROUPS",
+      "text": "||INJECT_READINGS:1=тест/тест/NN:Masc:Sin:Nom,тест/тест/VB:Pres:3:Sin||мой тест",
+      "features": [
+        "and_cross_reading"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_AND_DIFF_READINGS",
+        "full_rule_id": "SYN_AND_DIFF_READINGS[1]",
+        "category_id": "SYN_LOGICAL_GROUPS",
+        "category_name": "Synthetic AND and OR Rules",
+        "description": "AND satisfied across readings",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 4,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 4,
+            "message": "Cross-reading AND match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 4,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_and_neg_01",
+      "full_rule_id": "SYN_AND_NEGATIVE",
+      "category": "SYN_LOGICAL_GROUPS",
+      "text": "||INJECT_READINGS:1=тест/тест/NN:Masc:Sin:Nom||мой тест",
+      "features": [
+        "and_negative"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_AND_NEGATIVE",
+        "full_rule_id": "SYN_AND_NEGATIVE[1]",
+        "category_id": "SYN_LOGICAL_GROUPS",
+        "category_name": "Synthetic AND and OR Rules",
+        "description": "AND negative cross-reading",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
       "id": "syn_or_01",
       "full_rule_id": "SYN_OR_DISJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
       "text": "выбор красный",
+      "features": [
+        "or_branch_expansion"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OR_DISJUNCTION",
@@ -1810,9 +2863,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
             "message": "OR match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
           }
         ]
       }
@@ -1822,6 +2881,9 @@
       "full_rule_id": "SYN_OR_DISJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
       "text": "выбор зеленый",
+      "features": [
+        "or_branch_expansion"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OR_DISJUNCTION",
@@ -1835,9 +2897,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
             "message": "OR match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
           }
         ]
       }
@@ -1847,6 +2915,9 @@
       "full_rule_id": "SYN_OR_DISJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
       "text": "выбор синий",
+      "features": [
+        "or_branch_expansion"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OR_DISJUNCTION",
@@ -1860,9 +2931,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "OR match",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -1871,7 +2948,10 @@
       "id": "syn_or_04",
       "full_rule_id": "SYN_OR_DISJUNCTION",
       "category": "SYN_LOGICAL_GROUPS",
-      "text": "выбор желтый",
+      "text": "выбор черный",
+      "features": [
+        "or_branch_expansion"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OR_DISJUNCTION",
@@ -1885,10 +2965,225 @@
       }
     },
     {
+      "id": "syn_phrase_exp_01",
+      "full_rule_id": "SYN_PHRASE_EXPANSION",
+      "category": "SYN_PHRASES",
+      "text": "очень красивый дом конец",
+      "features": [
+        "phrase_expansion"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_EXPANSION",
+        "full_rule_id": "SYN_PHRASE_EXPANSION[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase expansion",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 24,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 24,
+            "message": "Phrase expansion match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 24,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_phrase_exp_02",
+      "full_rule_id": "SYN_PHRASE_EXPANSION",
+      "category": "SYN_PHRASES",
+      "text": "очень бежал быстро конец",
+      "features": [
+        "phrase_expansion"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_EXPANSION",
+        "full_rule_id": "SYN_PHRASE_EXPANSION[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase expansion",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_phrase_or_01",
+      "full_rule_id": "SYN_PHRASE_WITH_OR",
+      "category": "SYN_PHRASES",
+      "text": "красный дом",
+      "features": [
+        "phrase_containing_or"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_WITH_OR",
+        "full_rule_id": "SYN_PHRASE_WITH_OR[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase containing OR",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Phrase with OR match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_phrase_or_02",
+      "full_rule_id": "SYN_PHRASE_WITH_OR",
+      "category": "SYN_PHRASES",
+      "text": "синий дом",
+      "features": [
+        "phrase_containing_or"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_WITH_OR",
+        "full_rule_id": "SYN_PHRASE_WITH_OR[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase containing OR",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Phrase with OR match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_phrase_or_03",
+      "full_rule_id": "SYN_PHRASE_WITH_OR",
+      "category": "SYN_PHRASES",
+      "text": "зеленый дом",
+      "features": [
+        "phrase_containing_or"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_WITH_OR",
+        "full_rule_id": "SYN_PHRASE_WITH_OR[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase containing OR",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_phrase_num_01",
+      "full_rule_id": "SYN_PHRASE_MATCH_NUM",
+      "category": "SYN_PHRASES",
+      "text": "начало красивый дом конец",
+      "features": [
+        "phrase_match_numbering"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_MATCH_NUM",
+        "full_rule_id": "SYN_PHRASE_MATCH_NUM[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Phrase match numbering",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 25,
+            "message": "Phrase match numbering: <suggestion>начало красивый дом дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "начало красивый дом дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 25,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_phrase_mkr_01",
+      "full_rule_id": "SYN_PHRASE_MARKER",
+      "category": "SYN_PHRASES",
+      "text": "начало красивый дом конец",
+      "features": [
+        "marker_at_phrase_ref"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PHRASE_MARKER",
+        "full_rule_id": "SYN_PHRASE_MARKER[1]",
+        "category_id": "SYN_PHRASES",
+        "category_name": "Synthetic Phrase Rules",
+        "description": "Marker at phrase reference",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 7,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 25,
+            "message": "Marker around phrase",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 7,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 25
+          }
+        ]
+      }
+    },
+    {
       "id": "syn_tok_match_01",
       "full_rule_id": "SYN_TOKEN_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "тот тот",
+      "features": [
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_TOKEN_MATCH_REF",
@@ -1902,11 +3197,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "Repeated word: <suggestion>тот</suggestion>",
             "short_message": "",
             "suggestions": [
               "тот"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
       }
@@ -1916,6 +3217,9 @@
       "full_rule_id": "SYN_TOKEN_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "этот этот",
+      "features": [
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_TOKEN_MATCH_REF",
@@ -1929,11 +3233,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
             "message": "Repeated word: <suggestion>этот</suggestion>",
             "short_message": "",
             "suggestions": [
               "этот"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
           }
         ]
       }
@@ -1943,6 +3253,9 @@
       "full_rule_id": "SYN_TOKEN_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "тот этот",
+      "features": [
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_TOKEN_MATCH_REF",
@@ -1960,6 +3273,9 @@
       "full_rule_id": "SYN_TOKEN_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "этот тот",
+      "features": [
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_TOKEN_MATCH_REF",
@@ -1973,37 +3289,13 @@
       }
     },
     {
-      "id": "syn_inc_sk_01",
-      "full_rule_id": "SYN_INCLUDE_SKIPPED_ALL",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "до свидания",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_INCLUDE_SKIPPED_ALL",
-        "full_rule_id": "SYN_INCLUDE_SKIPPED_ALL[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "Include skipped all",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 11,
-            "message": "Replacement: <suggestion>до!</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "до!"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_inc_sk_02",
+      "id": "syn_inc_all_01",
       "full_rule_id": "SYN_INCLUDE_SKIPPED_ALL",
       "category": "SYN_MATCH_REFERENCES",
       "text": "до скорого свидания",
+      "features": [
+        "include_skipped_all"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INCLUDE_SKIPPED_ALL",
@@ -2017,20 +3309,29 @@
           {
             "from_utf16": 0,
             "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
             "message": "Replacement: <suggestion>до скорого!</suggestion>",
             "short_message": "",
             "suggestions": [
               "до скорого!"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
     },
     {
-      "id": "syn_inc_sk_03",
+      "id": "syn_inc_all_02",
       "full_rule_id": "SYN_INCLUDE_SKIPPED_ALL",
       "category": "SYN_MATCH_REFERENCES",
-      "text": "до самого скорого свидания",
+      "text": "до свидания",
+      "features": [
+        "include_skipped_all"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INCLUDE_SKIPPED_ALL",
@@ -2043,48 +3344,30 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 26,
-            "message": "Replacement: <suggestion>до самого скорого!</suggestion>",
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Replacement: <suggestion>до!</suggestion>",
             "short_message": "",
             "suggestions": [
-              "до самого скорого!"
-            ]
+              "до!"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
     },
     {
-      "id": "syn_inc_sk_04",
-      "full_rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "от начала",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
-        "full_rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "Include skipped following",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 9,
-            "message": "Replacement: <suggestion>!</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "!"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_inc_sk_05",
+      "id": "syn_inc_foll_01",
       "full_rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
       "category": "SYN_MATCH_REFERENCES",
       "text": "от самого начала",
+      "features": [
+        "include_skipped_following"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
@@ -2098,20 +3381,67 @@
           {
             "from_utf16": 0,
             "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
             "message": "Replacement: <suggestion>самого!</suggestion>",
             "short_message": "",
             "suggestions": [
               "самого!"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
           }
         ]
       }
     },
     {
-      "id": "syn_case_01",
+      "id": "syn_inc_foll_02",
+      "full_rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
+      "category": "SYN_MATCH_REFERENCES",
+      "text": "от начала",
+      "features": [
+        "include_skipped_following"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING",
+        "full_rule_id": "SYN_INCLUDE_SKIPPED_FOLLOWING[1]",
+        "category_id": "SYN_MATCH_REFERENCES",
+        "category_name": "Synthetic Match Reference Rules",
+        "description": "Include skipped following",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Replacement: <suggestion>!</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "!"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_case_conv_01",
       "full_rule_id": "SYN_CASE_CONVERSIONS",
       "category": "SYN_MATCH_REFERENCES",
       "text": "ТЕСТ",
+      "features": [
+        "case_conversion_alllower",
+        "case_conversion_allupper",
+        "case_conversion_firstupper"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_CASE_CONVERSIONS",
@@ -2125,51 +3455,31 @@
           {
             "from_utf16": 0,
             "to_utf16": 4,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 4,
             "message": "Lower: <suggestion>тест</suggestion>, Upper: <suggestion>ТЕСТ</suggestion>, FirstUpper: <suggestion>Тест</suggestion>",
             "short_message": "",
             "suggestions": [
               "тест",
               "ТЕСТ",
               "Тест"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 4,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 4
           }
         ]
       }
     },
     {
-      "id": "syn_case_02",
-      "full_rule_id": "SYN_CASE_CONVERSIONS",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "тест",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_CASE_CONVERSIONS",
-        "full_rule_id": "SYN_CASE_CONVERSIONS[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "Case conversions",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 4,
-            "message": "Lower: <suggestion>тест</suggestion>, Upper: <suggestion>ТЕСТ</suggestion>, FirstUpper: <suggestion>Тест</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "тест",
-              "ТЕСТ",
-              "Тест"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_reg_repl_01",
+      "id": "syn_reg_rep_01",
       "full_rule_id": "SYN_REGEXP_REPLACE",
       "category": "SYN_MATCH_REFERENCES",
       "text": "автомобиль",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_REGEXP_REPLACE",
@@ -2183,20 +3493,29 @@
           {
             "from_utf16": 0,
             "to_utf16": 10,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 10,
             "message": "Suggestion: <suggestion>самомобиль</suggestion>",
             "short_message": "",
             "suggestions": [
               "самомобиль"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 10
           }
         ]
       }
     },
     {
-      "id": "syn_reg_repl_02",
+      "id": "syn_reg_rep_02",
       "full_rule_id": "SYN_REGEXP_REPLACE",
       "category": "SYN_MATCH_REFERENCES",
       "text": "автобус",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_REGEXP_REPLACE",
@@ -2210,30 +3529,19 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "Suggestion: <suggestion>самобус</suggestion>",
             "short_message": "",
             "suggestions": [
               "самобус"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
-      }
-    },
-    {
-      "id": "syn_reg_repl_03",
-      "full_rule_id": "SYN_REGEXP_REPLACE",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "велосипед",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_REGEXP_REPLACE",
-        "full_rule_id": "SYN_REGEXP_REPLACE[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "Regex replacement captures",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
       }
     },
     {
@@ -2241,6 +3549,9 @@
       "full_rule_id": "SYN_POS_SYNTHESIS",
       "category": "SYN_MATCH_REFERENCES",
       "text": "бывший другу",
+      "features": [
+        "postag_replace_synthesis"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_POS_SYNTHESIS",
@@ -2254,47 +3565,19 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Suggestion: <suggestion>бывшему</suggestion>",
             "short_message": "",
             "suggestions": [
               "бывшему"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
-      }
-    },
-    {
-      "id": "syn_pos_synth_02",
-      "full_rule_id": "SYN_POS_SYNTHESIS",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "бывший брату",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_POS_SYNTHESIS",
-        "full_rule_id": "SYN_POS_SYNTHESIS[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "POS tag synthesis",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_pos_synth_03",
-      "full_rule_id": "SYN_POS_SYNTHESIS",
-      "category": "SYN_MATCH_REFERENCES",
-      "text": "бывший враг",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_POS_SYNTHESIS",
-        "full_rule_id": "SYN_POS_SYNTHESIS[1]",
-        "category_id": "SYN_MATCH_REFERENCES",
-        "category_name": "Synthetic Match Reference Rules",
-        "description": "POS tag synthesis",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
       }
     },
     {
@@ -2302,6 +3585,9 @@
       "full_rule_id": "SYN_OPTIONAL_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "начало середина конец",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_MATCH_REF",
@@ -2315,11 +3601,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 21,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 21,
             "message": "Result: <suggestion>начало-конец</suggestion>",
             "short_message": "",
             "suggestions": [
               "начало-конец"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -2329,6 +3621,9 @@
       "full_rule_id": "SYN_OPTIONAL_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
       "text": "начало конец",
+      "features": [
+        "min_zero"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_OPTIONAL_MATCH_REF",
@@ -2342,11 +3637,17 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Result: <suggestion>начало-конец</suggestion>",
             "short_message": "",
             "suggestions": [
               "начало-конец"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
@@ -2355,7 +3656,11 @@
       "id": "syn_inf_sk_ref_01",
       "full_rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
-      "text": "дом посреди улицы дом",
+      "text": "дом сад дом",
+      "features": [
+        "skip_unbounded",
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
@@ -2368,12 +3673,18 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 21,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Duplicate token: <suggestion>дом</suggestion>",
             "short_message": "",
             "suggestions": [
               "дом"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -2382,7 +3693,11 @@
       "id": "syn_inf_sk_ref_02",
       "full_rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
-      "text": "сад посреди улицы сад",
+      "text": "сад трава лес сад",
+      "features": [
+        "skip_unbounded",
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
@@ -2395,12 +3710,18 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 21,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
             "message": "Duplicate token: <suggestion>сад</suggestion>",
             "short_message": "",
             "suggestions": [
               "сад"
-            ]
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 17,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 17
           }
         ]
       }
@@ -2409,7 +3730,11 @@
       "id": "syn_inf_sk_ref_03",
       "full_rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
       "category": "SYN_MATCH_REFERENCES",
-      "text": "дом посреди улицы сад",
+      "text": "дом сад трава",
+      "features": [
+        "skip_unbounded",
+        "token_match_ref_0_indexed"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_INFINITE_SKIP_MATCH_REF",
@@ -2423,10 +3748,13 @@
       }
     },
     {
-      "id": "syn_mark_01",
+      "id": "syn_mkr_first_01",
       "full_rule_id": "SYN_MARKER_FIRST",
       "category": "SYN_MARKERS_AND_SPANS",
       "text": "ошибка здесь",
+      "features": [
+        "marker_at_phrase_ref"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MARKER_FIRST",
@@ -2440,43 +3768,27 @@
           {
             "from_utf16": 0,
             "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Marker on first token",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 6,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_mark_02",
-      "full_rule_id": "SYN_MARKER_FIRST",
-      "category": "SYN_MARKERS_AND_SPANS",
-      "text": "тут ошибка здесь",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_MARKER_FIRST",
-        "full_rule_id": "SYN_MARKER_FIRST[1]",
-        "category_id": "SYN_MARKERS_AND_SPANS",
-        "category_name": "Synthetic Markers and Spans",
-        "description": "Marker on first token only",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 4,
-            "to_utf16": 10,
-            "message": "Marker on first token",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_mark_03",
+      "id": "syn_mkr_mid_01",
       "full_rule_id": "SYN_MARKER_MIDDLE",
       "category": "SYN_MARKERS_AND_SPANS",
       "text": "слово внутри фразы",
+      "features": [
+        "marker_at_phrase_ref"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MARKER_MIDDLE",
@@ -2490,43 +3802,27 @@
           {
             "from_utf16": 6,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 18,
             "message": "Marker in middle",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
           }
         ]
       }
     },
     {
-      "id": "syn_mark_04",
-      "full_rule_id": "SYN_MARKER_MIDDLE",
-      "category": "SYN_MARKERS_AND_SPANS",
-      "text": "наше слово внутри фразы",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_MARKER_MIDDLE",
-        "full_rule_id": "SYN_MARKER_MIDDLE[1]",
-        "category_id": "SYN_MARKERS_AND_SPANS",
-        "category_name": "Synthetic Markers and Spans",
-        "description": "Marker on middle token only",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 11,
-            "to_utf16": 17,
-            "message": "Marker in middle",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_mark_05",
+      "id": "syn_mkr_last_01",
       "full_rule_id": "SYN_MARKER_LAST",
       "category": "SYN_MARKERS_AND_SPANS",
       "text": "в самом конце",
+      "features": [
+        "marker_at_phrase_ref"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MARKER_LAST",
@@ -2540,43 +3836,27 @@
           {
             "from_utf16": 8,
             "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
             "message": "Marker at end",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 8,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
           }
         ]
       }
     },
     {
-      "id": "syn_mark_06",
-      "full_rule_id": "SYN_MARKER_LAST",
-      "category": "SYN_MARKERS_AND_SPANS",
-      "text": "они в самом конце",
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_MARKER_LAST",
-        "full_rule_id": "SYN_MARKER_LAST[1]",
-        "category_id": "SYN_MARKERS_AND_SPANS",
-        "category_name": "Synthetic Markers and Spans",
-        "description": "Marker on last token only",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 12,
-            "to_utf16": 17,
-            "message": "Marker at end",
-            "short_message": "",
-            "suggestions": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_mark_07",
+      "id": "syn_mkr_full_01",
       "full_rule_id": "SYN_MARKER_FULL",
       "category": "SYN_MARKERS_AND_SPANS",
       "text": "полная фраза",
+      "features": [
+        "marker_at_phrase_ref"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_MARKER_FULL",
@@ -2590,43 +3870,231 @@
           {
             "from_utf16": 0,
             "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
             "message": "Full marker",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_mark_08",
-      "full_rule_id": "SYN_MARKER_FULL",
+      "id": "syn_mkr_skip_01",
+      "full_rule_id": "SYN_MARKER_WITH_SKIPPED",
       "category": "SYN_MARKERS_AND_SPANS",
-      "text": "вот полная фраза тут",
+      "text": "старт начало а б конец стоп",
+      "features": [
+        "marker_with_skipped_tokens"
+      ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_MARKER_FULL",
-        "full_rule_id": "SYN_MARKER_FULL[1]",
+        "rule_id": "SYN_MARKER_WITH_SKIPPED",
+        "full_rule_id": "SYN_MARKER_WITH_SKIPPED[1]",
         "category_id": "SYN_MARKERS_AND_SPANS",
         "category_name": "Synthetic Markers and Spans",
-        "description": "Marker on entire pattern",
+        "description": "Skipped tokens inside marker",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 4,
-            "to_utf16": 16,
-            "message": "Full marker",
+            "from_utf16": 6,
+            "to_utf16": 22,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 27,
+            "message": "Marker enclosing skipped",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 22,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 27
           }
         ]
       }
     },
     {
-      "id": "syn_anti_01",
+      "id": "syn_mkr_opt_01",
+      "full_rule_id": "SYN_MARKER_OMITTED_OPTIONAL",
+      "category": "SYN_MARKERS_AND_SPANS",
+      "text": "старт начало конец стоп",
+      "features": [
+        "marker_with_omitted_optional"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MARKER_OMITTED_OPTIONAL",
+        "full_rule_id": "SYN_MARKER_OMITTED_OPTIONAL[1]",
+        "category_id": "SYN_MARKERS_AND_SPANS",
+        "category_name": "Synthetic Markers and Spans",
+        "description": "Omitted optional inside marker",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 6,
+            "to_utf16": 18,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Marker with omitted optional",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 23
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_mkr_opt_02",
+      "full_rule_id": "SYN_MARKER_OMITTED_OPTIONAL",
+      "category": "SYN_MARKERS_AND_SPANS",
+      "text": "старт начало середина конец стоп",
+      "features": [
+        "marker_with_omitted_optional"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MARKER_OMITTED_OPTIONAL",
+        "full_rule_id": "SYN_MARKER_OMITTED_OPTIONAL[1]",
+        "category_id": "SYN_MARKERS_AND_SPANS",
+        "category_name": "Synthetic Markers and Spans",
+        "description": "Omitted optional inside marker",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 6,
+            "to_utf16": 27,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 32,
+            "message": "Marker with omitted optional",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 27,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 32
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_mkr_rep_01",
+      "full_rule_id": "SYN_MARKER_REPEATED_TOKENS",
+      "category": "SYN_MARKERS_AND_SPANS",
+      "text": "старт начало повтор повтор конец стоп",
+      "features": [
+        "marker_with_repeated_tokens"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_MARKER_REPEATED_TOKENS",
+        "full_rule_id": "SYN_MARKER_REPEATED_TOKENS[1]",
+        "category_id": "SYN_MARKERS_AND_SPANS",
+        "category_name": "Synthetic Markers and Spans",
+        "description": "Repeated token inside marker",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 6,
+            "to_utf16": 32,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 37,
+            "message": "Marker with repeated tokens",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 32,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 37
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_sk_minmax_01",
+      "full_rule_id": "SYN_SKIP_PLUS_MIN_MAX",
+      "category": "SYN_MARKERS_AND_SPANS",
+      "text": "начало а б середина конец",
+      "features": [
+        "skip_plus_min_max"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_SKIP_PLUS_MIN_MAX",
+        "full_rule_id": "SYN_SKIP_PLUS_MIN_MAX[1]",
+        "category_id": "SYN_MARKERS_AND_SPANS",
+        "category_name": "Synthetic Markers and Spans",
+        "description": "Skip plus min max",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 25,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 25,
+            "message": "Skip plus min max match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 25,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_sk_minmax_02",
+      "full_rule_id": "SYN_SKIP_PLUS_MIN_MAX",
+      "category": "SYN_MARKERS_AND_SPANS",
+      "text": "начало конец",
+      "features": [
+        "skip_plus_min_max"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_SKIP_PLUS_MIN_MAX",
+        "full_rule_id": "SYN_SKIP_PLUS_MIN_MAX[1]",
+        "category_id": "SYN_MARKERS_AND_SPANS",
+        "category_name": "Synthetic Markers and Spans",
+        "description": "Skip plus min max",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Skip plus min max match",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_anti_over_01",
       "full_rule_id": "SYN_ANTIPATTERN_OVERLAP",
       "category": "SYN_ANTIPATTERNS",
       "text": "белый дом",
+      "features": [
+        "rule_with_max_filter"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANTIPATTERN_OVERLAP",
@@ -2640,10 +4108,13 @@
       }
     },
     {
-      "id": "syn_anti_02",
+      "id": "syn_anti_non_01",
       "full_rule_id": "SYN_ANTIPATTERN_NON_OVERLAP",
       "category": "SYN_ANTIPATTERNS",
       "text": "синий дом",
+      "features": [
+        "rule_with_max_filter"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANTIPATTERN_NON_OVERLAP",
@@ -2657,18 +4128,27 @@
           {
             "from_utf16": 0,
             "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
             "message": "Trigger error",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
           }
         ]
       }
     },
     {
-      "id": "syn_anti_03",
+      "id": "syn_anti_non_02",
       "full_rule_id": "SYN_ANTIPATTERN_NON_OVERLAP",
       "category": "SYN_ANTIPATTERNS",
       "text": "красный дом",
+      "features": [
+        "rule_with_max_filter"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_ANTIPATTERN_NON_OVERLAP",
@@ -2682,10 +4162,81 @@
       }
     },
     {
+      "id": "syn_non_bmp_sk_01",
+      "full_rule_id": "SYN_NON_BMP_SKIPPED",
+      "category": "SYN_EDGE_CASES",
+      "text": "начало 🌟 🚀 ⭐ конец",
+      "features": [
+        "non_bmp_in_skipped"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_NON_BMP_SKIPPED",
+        "full_rule_id": "SYN_NON_BMP_SKIPPED[1]",
+        "category_id": "SYN_EDGE_CASES",
+        "category_name": "Synthetic Edge Cases",
+        "description": "Non-BMP in skipped region",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 20,
+            "message": "Non-BMP in skipped",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_non_bmp_mkr_01",
+      "full_rule_id": "SYN_NON_BMP_MARKER",
+      "category": "SYN_EDGE_CASES",
+      "text": "старт 😀 🚀 🚀 🎉 стоп",
+      "features": [
+        "non_bmp_in_marker"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_NON_BMP_MARKER",
+        "full_rule_id": "SYN_NON_BMP_MARKER[1]",
+        "category_id": "SYN_EDGE_CASES",
+        "category_name": "Synthetic Edge Cases",
+        "description": "Non-BMP in marker region",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 6,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 22,
+            "message": "Non-BMP in marker",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
+          }
+        ]
+      }
+    },
+    {
       "id": "syn_emoji_01",
       "full_rule_id": "SYN_NON_BMP_EMOJI",
       "category": "SYN_EDGE_CASES",
       "text": "🌟 🚀 текст после 👍",
+      "features": [
+        "non_bmp_in_marker"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_NON_BMP_EMOJI",
@@ -2699,9 +4250,15 @@
           {
             "from_utf16": 6,
             "to_utf16": 11,
+            "pattern_from_utf16": 6,
+            "pattern_to_utf16": 17,
             "message": "Emoji test",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 4,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 4,
+            "expected_pattern_to_codepoint": 15
           }
         ]
       }
@@ -2711,6 +4268,9 @@
       "full_rule_id": "SYN_NON_BMP_EMOJI",
       "category": "SYN_EDGE_CASES",
       "text": "текст после",
+      "features": [
+        "non_bmp_in_marker"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_NON_BMP_EMOJI",
@@ -2724,9 +4284,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
             "message": "Emoji test",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 5,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -2736,6 +4302,9 @@
       "full_rule_id": "SYN_NON_BMP_EMOJI",
       "category": "SYN_EDGE_CASES",
       "text": "просто 🚀 текст до",
+      "features": [
+        "non_bmp_in_marker"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_NON_BMP_EMOJI",
@@ -2753,6 +4322,9 @@
       "full_rule_id": "SYN_BACKREF_LITERALS",
       "category": "SYN_EDGE_CASES",
       "text": ":42 тест",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_BACKREF_LITERALS",
@@ -2770,6 +4342,9 @@
       "full_rule_id": "SYN_BACKREF_LITERALS",
       "category": "SYN_EDGE_CASES",
       "text": "\\42 тест",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_BACKREF_LITERALS",
@@ -2787,6 +4362,9 @@
       "full_rule_id": "SYN_BACKREF_LITERALS",
       "category": "SYN_EDGE_CASES",
       "text": "$1 тест",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_BACKREF_LITERALS",
@@ -2800,9 +4378,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "References: $1 тест.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
       }
@@ -2812,6 +4396,9 @@
       "full_rule_id": "SYN_BACKREF_LITERALS",
       "category": "SYN_EDGE_CASES",
       "text": "$2 тест",
+      "features": [
+        "regexp_replace_captures"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_BACKREF_LITERALS",
@@ -2825,9 +4412,15 @@
           {
             "from_utf16": 0,
             "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
             "message": "References: $2 тест.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 7,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 7
           }
         ]
       }
@@ -2837,6 +4430,9 @@
       "full_rule_id": "SYN_RAW_POS",
       "category": "SYN_EDGE_CASES",
       "text": "по зимнему",
+      "features": [
+        "raw_pos_stream_diff"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_RAW_POS",
@@ -2850,9 +4446,15 @@
           {
             "from_utf16": 3,
             "to_utf16": 10,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 10,
             "message": "Raw pos test",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 10
           }
         ]
       }
@@ -2862,6 +4464,9 @@
       "full_rule_id": "SYN_RAW_POS",
       "category": "SYN_EDGE_CASES",
       "text": "по летнему",
+      "features": [
+        "raw_pos_stream_diff"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_RAW_POS",
@@ -2872,6 +4477,40 @@
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
+      }
+    },
+    {
+      "id": "syn_raw_pos_diff_01",
+      "full_rule_id": "SYN_RAW_POS_DIFF",
+      "category": "SYN_EDGE_CASES",
+      "text": "||INJECT_PRE_DISAMBIG:1=тест/тест/RAW_TAG||тест слово",
+      "features": [
+        "raw_pos_stream_diff"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_RAW_POS_DIFF",
+        "full_rule_id": "SYN_RAW_POS_DIFF[1]",
+        "category_id": "SYN_EDGE_CASES",
+        "category_name": "Synthetic Edge Cases",
+        "description": "Raw pos pre-disambig vs post-disambig diff",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 4,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 4,
+            "message": "Raw pos pre-disambig matched",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 4,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 4
+          }
+        ]
       }
     }
   ]

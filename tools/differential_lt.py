@@ -1278,6 +1278,8 @@ public class CheckPatternRules {
                 sb.append("\u0008");
                 sb.append(m.getFromPos()).append("\u0002")
                   .append(m.getToPos()).append("\u0002")
+                  .append(m.getPatternFromPos()).append("\u0002")
+                  .append(m.getPatternToPos()).append("\u0002")
                   .append(m.getMessage()).append("\u0002")
                   .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
                 List<String> repls = m.getSuggestedReplacements();
@@ -1340,16 +1342,20 @@ public class CheckPatternRules {
                     matches: List[Dict[str, Any]] = []
                     for m_str in fields[8 : 8 + match_count]:
                         m_parts = m_str.split("\u0002")
-                        if len(m_parts) >= 5:
+                        if len(m_parts) >= 7:
                             from_p = int(m_parts[0])
                             to_p = int(m_parts[1])
-                            msg = m_parts[2]
-                            short_msg = None if m_parts[3] == "\u0005null" else m_parts[3]
-                            suggs = [s for s in m_parts[4].split("\u0003") if s] if m_parts[4] else []
+                            pat_from_p = int(m_parts[2])
+                            pat_to_p = int(m_parts[3])
+                            msg = m_parts[4]
+                            short_msg = None if m_parts[5] == "\u0005null" else m_parts[5]
+                            suggs = [s for s in m_parts[6].split("\u0003") if s] if m_parts[6] else []
                             matches.append(
                                 {
                                     "from_utf16": from_p,
                                     "to_utf16": to_p,
+                                    "pattern_from_utf16": pat_from_p,
+                                    "pattern_to_utf16": pat_to_p,
                                     "message": msg,
                                     "short_message": short_msg,
                                     "suggestions": suggs,
@@ -1384,6 +1390,8 @@ import org.languagetool.rules.RuleMatch;
 import org.languagetool.language.Russian;
 import org.languagetool.JLanguageTool;
 import org.languagetool.AnalyzedSentence;
+import org.languagetool.AnalyzedToken;
+import org.languagetool.AnalyzedTokenReadings;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -1442,7 +1450,106 @@ public class CheckSyntheticPatternRules {
             }
 
             AbstractPatternRule r = rSet.iterator().next();
-            AnalyzedSentence sent = lt.getAnalyzedSentence(inputText);
+            String cleanText = inputText;
+            Map<Integer, List<org.languagetool.chunking.ChunkTag>> injectedChunks = new HashMap<>();
+            Map<Integer, List<org.languagetool.AnalyzedToken>> injectedReadings = new HashMap<>();
+            Map<Integer, List<org.languagetool.AnalyzedToken>> injectedPreDisambig = new HashMap<>();
+
+            while (cleanText.startsWith("||")) {
+                int endIdx = cleanText.indexOf("||", 2);
+                if (endIdx == -1) break;
+                String tag = cleanText.substring(2, endIdx);
+                cleanText = cleanText.substring(endIdx + 2);
+                if (tag.startsWith("INJECT_CHUNKS:")) {
+                    String body = tag.substring("INJECT_CHUNKS:".length());
+                    for (String item : body.split(";")) {
+                        if (item.isEmpty()) continue;
+                        String[] kv = item.split("=", 2);
+                        int tokIdx = Integer.parseInt(kv[0]);
+                        List<org.languagetool.chunking.ChunkTag> cTags = new ArrayList<>();
+                        for (String ct : kv[1].split(",")) {
+                            if (!ct.isEmpty()) cTags.add(new org.languagetool.chunking.ChunkTag(ct));
+                        }
+                        injectedChunks.put(tokIdx, cTags);
+                    }
+                } else if (tag.startsWith("INJECT_READINGS:")) {
+                    String body = tag.substring("INJECT_READINGS:".length());
+                    for (String item : body.split(";")) {
+                        if (item.isEmpty()) continue;
+                        String[] kv = item.split("=", 2);
+                        int tokIdx = Integer.parseInt(kv[0]);
+                        List<org.languagetool.AnalyzedToken> rList = new ArrayList<>();
+                        for (String rd : kv[1].split(",")) {
+                            if (rd.isEmpty()) continue;
+                            String[] parts = rd.split("/", 3);
+                            String tStr = parts[0];
+                            String lStr = parts[1].equals("null") ? null : parts[1];
+                            String pStr = parts[2].equals("null") ? null : parts[2];
+                            rList.add(new org.languagetool.AnalyzedToken(tStr, pStr, lStr));
+                        }
+                        injectedReadings.put(tokIdx, rList);
+                    }
+                } else if (tag.startsWith("INJECT_PRE_DISAMBIG:")) {
+                    String body = tag.substring("INJECT_PRE_DISAMBIG:".length());
+                    for (String item : body.split(";")) {
+                        if (item.isEmpty()) continue;
+                        String[] kv = item.split("=", 2);
+                        int tokIdx = Integer.parseInt(kv[0]);
+                        List<org.languagetool.AnalyzedToken> rList = new ArrayList<>();
+                        for (String rd : kv[1].split(",")) {
+                            if (rd.isEmpty()) continue;
+                            String[] parts = rd.split("/", 3);
+                            String tStr = parts[0];
+                            String lStr = parts[1].equals("null") ? null : parts[1];
+                            String pStr = parts[2].equals("null") ? null : parts[2];
+                            rList.add(new org.languagetool.AnalyzedToken(tStr, pStr, lStr));
+                        }
+                        injectedPreDisambig.put(tokIdx, rList);
+                    }
+                }
+            }
+
+            AnalyzedSentence sent = lt.getAnalyzedSentence(cleanText);
+            if (!injectedChunks.isEmpty()) {
+                AnalyzedTokenReadings[] tokens = sent.getTokens();
+                for (Map.Entry<Integer, List<org.languagetool.chunking.ChunkTag>> entry : injectedChunks.entrySet()) {
+                    int idx = entry.getKey();
+                    if (idx >= 0 && idx < tokens.length) {
+                        tokens[idx].setChunkTags(entry.getValue());
+                    }
+                }
+            }
+            if (!injectedReadings.isEmpty()) {
+                AnalyzedTokenReadings[] origTokens = sent.getTokens();
+                AnalyzedTokenReadings[] newTokens = new AnalyzedTokenReadings[origTokens.length];
+                for (int ti = 0; ti < origTokens.length; ti++) {
+                    if (injectedReadings.containsKey(ti)) {
+                        List<org.languagetool.AnalyzedToken> rList = injectedReadings.get(ti);
+                        newTokens[ti] = new AnalyzedTokenReadings(rList, origTokens[ti].getStartPos());
+                        newTokens[ti].setWhitespaceBefore(origTokens[ti].getWhitespaceBefore());
+                        newTokens[ti].setChunkTags(origTokens[ti].getChunkTags());
+                    } else {
+                        newTokens[ti] = origTokens[ti];
+                    }
+                }
+                sent = new AnalyzedSentence(newTokens, sent.getPreDisambigTokens());
+            }
+            if (!injectedPreDisambig.isEmpty()) {
+                AnalyzedTokenReadings[] tokens = sent.getTokens();
+                AnalyzedTokenReadings[] preTokens = new AnalyzedTokenReadings[tokens.length];
+                for (int ti = 0; ti < tokens.length; ti++) {
+                    if (injectedPreDisambig.containsKey(ti)) {
+                        List<org.languagetool.AnalyzedToken> rList = injectedPreDisambig.get(ti);
+                        preTokens[ti] = new AnalyzedTokenReadings(rList, tokens[ti].getStartPos());
+                        preTokens[ti].setWhitespaceBefore(tokens[ti].getWhitespaceBefore());
+                        preTokens[ti].setChunkTags(tokens[ti].getChunkTags());
+                    } else {
+                        preTokens[ti] = tokens[ti];
+                    }
+                }
+                sent = new AnalyzedSentence(tokens, preTokens);
+            }
+
             List<RuleMatch> allMatches = new ArrayList<>();
             for (AbstractPatternRule variant : rSet) {
                 RuleMatch[] matches = variant.match(sent);
@@ -1466,6 +1573,8 @@ public class CheckSyntheticPatternRules {
                 sb.append("\u0008");
                 sb.append(m.getFromPos()).append("\u0002")
                   .append(m.getToPos()).append("\u0002")
+                  .append(m.getPatternFromPos()).append("\u0002")
+                  .append(m.getPatternToPos()).append("\u0002")
                   .append(m.getMessage()).append("\u0002")
                   .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
                 List<String> repls = m.getSuggestedReplacements();
@@ -1505,8 +1614,10 @@ public class CheckSyntheticPatternRules {
                 ],
                 input=input_bytes,
                 capture_output=True,
-                check=True,
             )
+            if proc.returncode != 0:
+                print("JAVA STDERR:", proc.stderr.decode("utf-8"))
+                raise RuntimeError(f"Java CheckSyntheticPatternRules failed: {proc.stderr.decode('utf-8')}")
 
             out_str = proc.stdout.decode("utf-8")
             if not out_str:
@@ -1530,16 +1641,20 @@ public class CheckSyntheticPatternRules {
                     matches: List[Dict[str, Any]] = []
                     for m_str in fields[8 : 8 + match_count]:
                         m_parts = m_str.split("\u0002")
-                        if len(m_parts) >= 5:
+                        if len(m_parts) >= 7:
                             from_p = int(m_parts[0])
                             to_p = int(m_parts[1])
-                            msg = m_parts[2]
-                            short_msg = None if m_parts[3] == "\u0005null" else m_parts[3]
-                            suggs = [s for s in m_parts[4].split("\u0003") if s] if m_parts[4] else []
+                            pat_from_p = int(m_parts[2])
+                            pat_to_p = int(m_parts[3])
+                            msg = m_parts[4]
+                            short_msg = None if m_parts[5] == "\u0005null" else m_parts[5]
+                            suggs = [s for s in m_parts[6].split("\u0003") if s] if m_parts[6] else []
                             matches.append(
                                 {
                                     "from_utf16": from_p,
                                     "to_utf16": to_p,
+                                    "pattern_from_utf16": pat_from_p,
+                                    "pattern_to_utf16": pat_to_p,
                                     "message": msg,
                                     "short_message": short_msg,
                                     "suggestions": suggs,

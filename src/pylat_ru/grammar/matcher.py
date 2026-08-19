@@ -230,11 +230,12 @@ class CompiledPatternToken:
         synthesizer: Optional[RussianSynthesizer] = None,
     ) -> None:
         """Dynamically resolve token-level <match> references if present."""
+        self.dynamic_text = None
+        self.dynamic_postag = None
+        self.dynamic_text_regex = None
+        self.dynamic_postag_regex = None
+
         if self.match_ref is None or first_match_token == -1:
-            self.dynamic_text = None
-            self.dynamic_postag = None
-            self.dynamic_text_regex = None
-            self.dynamic_postag_regex = None
             return
 
         ref_no = self.match_ref.no
@@ -375,8 +376,16 @@ class CompiledPatternToken:
                     return True
         return False
 
-    def matches_scope_next(self, next_at: AnalyzedToken, next_atr: AnalyzedTokenReadings) -> bool:
+    def matches_next_exception(self, next_atr: AnalyzedTokenReadings) -> bool:
         """Check if any next-scope exception matches next token."""
+        for exc in self.exceptions_next:
+            for reading in next_atr.readings:
+                if exc.matches_reading(reading, next_atr):
+                    return True
+        return False
+
+    def matches_scope_next(self, next_at: AnalyzedToken, next_atr: AnalyzedTokenReadings) -> bool:
+        """Check if any next-scope exception matches next token reading."""
         for exc in self.exceptions_next:
             if exc.matches_reading(next_at, next_atr):
                 return True
@@ -500,6 +509,14 @@ class CompiledRuleVariant:
 
         return results
 
+    def reset_dynamic_state(self) -> None:
+        """Reset all dynamic token reference states across compiled tokens."""
+        for tok in self.tokens:
+            tok.dynamic_text = None
+            tok.dynamic_postag = None
+            tok.dynamic_text_regex = None
+            tok.dynamic_postag_regex = None
+
     def _match_from(
         self,
         tokens: Sequence[AnalyzedTokenReadings],
@@ -508,6 +525,7 @@ class CompiledRuleVariant:
         immunized_tokens: Set[int],
     ) -> Optional[MatchStateResult]:
         """Attempt matching from start_idx using the LT state machine."""
+        self.reset_dynamic_state()
         pattern_size = len(self.tokens)
         token_positions = [0] * pattern_size
         skip_shift_total = 0

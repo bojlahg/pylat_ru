@@ -112,14 +112,41 @@ def resolve_match_reference_forms(
     synthesizer: Optional[RussianSynthesizer] = None,
 ) -> List[str]:
     """Resolve a single MatchReference into a list of candidate replacement strings."""
-    elem_no = ref.no - 1  # 0-indexed XML element
-    if elem_no < 0:
+    token_k = ref.no - 1  # 0-indexed token position matching Java LT PatternRuleMatcher
+    if token_k < 0:
         return [""]
 
-    if element_lengths is not None and elem_no < len(element_lengths):
-        token_k = sum(element_lengths[:elem_no])
-    else:
-        token_k = elem_no
+    if element_lengths is not None:
+        token_lens: Dict[int, int] = {}
+        cur_t = 0
+        for el_len in element_lengths:
+            token_lens[cur_t] = el_len
+            for offset in range(1, el_len):
+                token_lens[cur_t + offset] = 1
+            cur_t += el_len
+        elem_len = token_lens.get(token_k, 1)
+        if elem_len > 1:
+            # Multi-token phrase element - concatenate phrase tokens matching Java LT
+            phrase_word_lists: List[List[str]] = []
+            for p_i in range(elem_len):
+                cur_tok_k = token_k + p_i
+                if cur_tok_k < len(token_positions):
+                    rep_pos = sum(token_positions[: cur_tok_k + 1]) - 1
+                    act_idx = first_match_token + rep_pos
+                    if 0 <= act_idx < len(tokens):
+                        p_atr = tokens[act_idx]
+                        p_raw = p_atr.token or ""
+                        p_word = convert_case(ref.case_conversion, p_raw, sample=p_raw)
+                        phrase_word_lists.append([p_word])
+            if phrase_word_lists:
+                combos = [""]
+                for w_list in phrase_word_lists:
+                    combos = [
+                        (prefix + " " + w if prefix else w)
+                        for prefix in combos
+                        for w in w_list
+                    ]
+                return combos
 
     if token_k >= len(token_positions):
         return [f"\\{ref.no}"]
