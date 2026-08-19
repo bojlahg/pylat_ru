@@ -200,11 +200,25 @@ class RussianGrammarEngine:
             matched_tokens = non_blank_tokens[match_start:match_end]
             error_tokens = non_blank_tokens[error_start:error_end]
 
+            # Format message and suggestions
+            message = TemplateFormatter.format_message(rule.message_template, matched_tokens)
+            suggestions = [
+                TemplateFormatter.format_suggestion(sug_tmpl, matched_tokens, error_tokens)
+                for sug_tmpl in rule.suggestions
+            ]
+
             # Error / Marker span offsets
             from_tok = non_blank_tokens[error_start]
             to_tok = non_blank_tokens[error_end - 1]
             from_utf16 = from_tok.start_pos
             to_utf16 = to_tok.start_pos + _utf16_len(to_tok.token)
+
+            # Match Java LT PatternRuleMatcher comma-prepended whitespace semantics
+            if error_start >= 1:
+                has_comma_sugg = any(s.startswith(",") for s in suggestions) or ("<suggestion>," in message)
+                if has_comma_sugg:
+                    prev_tok = non_blank_tokens[error_start - 1]
+                    from_utf16 = prev_tok.start_pos + _utf16_len(prev_tok.token)
 
             if text_full:
                 from_pos = _utf16_to_codepoint_offset(text_full, from_utf16)
@@ -225,13 +239,6 @@ class RussianGrammarEngine:
             else:
                 pat_from_pos = pat_from_utf16
                 pat_to_pos = pat_to_utf16
-
-            # Format message and suggestions
-            message = TemplateFormatter.format_message(rule.message_template, matched_tokens)
-            suggestions = [
-                TemplateFormatter.format_suggestion(sug_tmpl, matched_tokens, error_tokens)
-                for sug_tmpl in rule.suggestions
-            ]
 
             match_res = RuleMatchResult(
                 rule_id=rule.id,

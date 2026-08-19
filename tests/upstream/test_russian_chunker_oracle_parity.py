@@ -115,8 +115,14 @@ def test_chunker_oracle_parity_all_cases():
         text = item["text"]
         expected_stages = item["stages"]
 
-        # Stage 1: Pre-chunker (post-disambiguation)
+        # Stage 1: Pre-chunker (post-disambiguation, with optional injected pre-existing chunk tags)
         sentence = disambiguator.disambiguate_text(text)
+        if "inject_chunks" in item:
+            for tok_str, tags in item["inject_chunks"].items():
+                for tr in sentence.tokens:
+                    if tr.token == tok_str:
+                        tr.chunk_tags = list(tags)
+
         _assert_sentence_tokens_match_oracle_stage(
             actual_sentence=sentence,
             expected_stage_tokens=expected_stages["pre_chunker"],
@@ -135,27 +141,29 @@ def test_chunker_oracle_parity_all_cases():
 
 
 def test_synthetic_chunker_boundary_cases():
-    """Direct assertions on synthetic boundary cases."""
+    """Direct assertions on synthetic boundary cases matching pinned Java LT semantics."""
     chunker = RussianChunker()
     disambiguator = RussianHybridDisambiguator.get_instance()
 
-    # 1. Pre-existing unrelated chunk tag preservation
+    # 1. Unrelated pre-existing chunk tag on included token is replaced by newly computed chunk list
     sent = disambiguator.disambiguate_text("Студент шел в университет.")
-    # Assign custom tag to token 1
-    tok1 = sent.tokens[1]
-    tok1.chunk_tags.append("PRE_EXISTING_TAG")
+    tok_student = sent.tokens[1]
+    tok_student.chunk_tags = ["CUSTOM_PRE_TAG"]
     chunker.chunk(sent)
-    assert "PRE_EXISTING_TAG" in tok1.chunk_tags
+    assert tok_student.chunk_tags == ["O"]
+    assert "CUSTOM_PRE_TAG" not in tok_student.chunk_tags
 
-    # 2. Overwrite conflict: name sequence has overwrite=True removing FILTER_TAGS
+    # 2. FILTER_TAG pre-existing chunk overwritten by rule
     sent2 = disambiguator.disambiguate_text("Иванов Иван Иванович встретил Петра.")
-    tok_ivan = sent2.tokens[1]
-    tok_ivan.chunk_tags.append("VP")
+    tok_ivanov = sent2.tokens[1]
+    tok_ivanov.chunk_tags = ["PP"]
     chunker.chunk(sent2)
-    assert "VP" not in tok_ivan.chunk_tags
-    assert "B-NP" in tok_ivan.chunk_tags
+    assert tok_ivanov.chunk_tags == ["B-NP"]
+    assert "PP" not in tok_ivanov.chunk_tags
 
-    # 3. Explicit MayMissingYO exclusion readings preservation
-    sent3 = disambiguator.disambiguate_text("Все пошло не так.")
+    # 3. MayMissingYO exclusion: token with MayMissingYO is excluded from basic chunks and preserved
+    sent3 = disambiguator.disambiguate_text("Все студенты сдали экзамен.")
+    tok_vse = sent3.tokens[1]
+    tok_vse.chunk_tags = ["MayMissingYO"]
     chunker.chunk(sent3)
-    assert len(sent3.tokens[1].readings) >= 1
+    assert tok_vse.chunk_tags == ["MayMissingYO"]

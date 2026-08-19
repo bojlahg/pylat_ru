@@ -70,9 +70,67 @@ class PatternToken:
 
 
 @dataclass
+class PatternAnd:
+    """Logical AND construct inside a pattern."""
+
+    elements: List[Any] = field(default_factory=list)
+    is_in_marker: bool = False
+
+
+@dataclass
+class PatternOr:
+    """Logical OR construct inside a pattern."""
+
+    elements: List[Any] = field(default_factory=list)
+    is_in_marker: bool = False
+
+
+@dataclass
+class PatternUnify:
+    """Unification construct inside a pattern."""
+
+    negate: bool = False
+    feature: Optional[str] = None
+    features: List[FeatureDef] = field(default_factory=list)
+    equivalences: List[EquivalenceDef] = field(default_factory=list)
+    elements: List[Any] = field(default_factory=list)
+    is_in_marker: bool = False
+
+
+@dataclass
+class PatternUnifyIgnore:
+    """Unification ignore construct inside a pattern."""
+
+    elements: List[Any] = field(default_factory=list)
+    is_in_marker: bool = False
+
+
+@dataclass
+class PatternPhrase:
+    """Phrase reference or inline phrase definition inside a pattern."""
+
+    id: Optional[str] = None
+    ref: Optional[str] = None
+    raw_pos: bool = False
+    elements: List[Any] = field(default_factory=list)
+    is_in_marker: bool = False
+
+
+PatternElement = Union[
+    PatternToken,
+    PatternAnd,
+    PatternOr,
+    PatternUnify,
+    PatternUnifyIgnore,
+    PatternPhrase,
+]
+
+
+@dataclass
 class Pattern:
     """Complete token sequence pattern for a grammar rule or antipattern."""
 
+    elements: List[PatternElement] = field(default_factory=list)
     tokens: List[PatternToken] = field(default_factory=list)
     case_sensitive: bool = False
     raw_pos: bool = False

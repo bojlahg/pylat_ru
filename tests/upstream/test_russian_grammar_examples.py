@@ -98,27 +98,24 @@ def test_grammar_core_full_example_parity(engine, disambiguator, chunker):
             m = matches[0]
             is_perfect = True
 
-            # Check marker span if present
+            # Check marker span if present - strict exact offset equality
             if ex.marker_spans:
                 exp_span = ex.marker_spans[0]
-                exp_text = text[exp_span[0]:exp_span[1]].strip()
-                act_text = text[m.from_pos:m.to_pos].strip()
-                if (m.from_pos, m.to_pos) != exp_span and exp_text != act_text:
+                if (m.from_pos, m.to_pos) != exp_span:
                     is_perfect = False
+                    exp_text = text[exp_span[0]:exp_span[1]]
+                    act_text = text[m.from_pos:m.to_pos]
                     span_failures.append(
-                        f"[{rule.full_id}] Span mismatch: exp {exp_span} ({exp_text!r}), got ({m.from_pos}, {m.to_pos}) ({act_text!r})"
+                        f"[{rule.full_id}] Exact span mismatch: exp {exp_span} ({exp_text!r}), got ({m.from_pos}, {m.to_pos}) ({act_text!r})"
                     )
 
-            # Check suggested replacements if present
+            # Check suggested replacements if present - strict exact string & order equality
             if ex.correction:
                 exp_suggs = ex.correction.split("|")
-                # Normalize non-breaking spaces for comparison
-                norm_exp = [s.replace("\u00a0", " ").strip() for s in exp_suggs]
-                norm_act = [s.replace("\u00a0", " ").strip() for s in m.suggestions]
-                if norm_exp != norm_act:
+                if m.suggestions != exp_suggs:
                     is_perfect = False
                     suggestion_failures.append(
-                        f"[{rule.full_id}] Suggestions mismatch: exp {exp_suggs}, got {m.suggestions}"
+                        f"[{rule.full_id}] Exact suggestions mismatch: exp {exp_suggs}, got {m.suggestions}"
                     )
 
             if is_perfect:

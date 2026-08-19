@@ -73,39 +73,26 @@ class CompiledPatternToken:
             text_matched = False
             token_str = at.token if at.token is not None else atr.token
 
+            # Pinned PatternToken.getTestToken: use lemma if non-null when inflected, else surface token
             if self.inflected:
-                # Inflected: compare target with reading's lemma or token
-                target = self.text if self.case_sensitive else self.text.lower()
-                lemmas = []
-                if at.lemma:
-                    lemmas.append(at.lemma)
-                if token_str:
-                    lemmas.append(token_str)
+                test_str = at.lemma if at.lemma is not None else token_str
+            else:
+                test_str = token_str
 
-                for lem in lemmas:
-                    lem_cmp = lem if self.case_sensitive else lem.lower()
-                    if self._text_regex is not None:
-                        if self._text_regex.search(lem) is not None:
-                            text_matched = True
-                            break
-                    else:
-                        if lem_cmp == target:
-                            text_matched = True
-                            break
-            elif self._text_regex is not None:
+            if self._text_regex is not None:
                 # Check regex text match
-                text_matched = self._text_regex.search(token_str) is not None
-                if not text_matched and self.case_sensitive and is_sentence_start and token_str and token_str[0].isupper():
-                    lowered_start = token_str[0].lower() + token_str[1:]
+                text_matched = self._text_regex.search(test_str) is not None
+                if not text_matched and self.case_sensitive and is_sentence_start and test_str and test_str[0].isupper():
+                    lowered_start = test_str[0].lower() + test_str[1:]
                     text_matched = self._text_regex.search(lowered_start) is not None
             else:
                 if not self.case_sensitive:
-                    text_matched = (token_str.lower() == self.text.lower())
+                    text_matched = (test_str.lower() == self.text.lower())
                 else:
-                    if token_str == self.text:
+                    if test_str == self.text:
                         text_matched = True
-                    elif is_sentence_start and token_str and token_str[0].isupper():
-                        lowered_start = token_str[0].lower() + token_str[1:]
+                    elif is_sentence_start and test_str and test_str[0].isupper():
+                        lowered_start = test_str[0].lower() + test_str[1:]
                         text_matched = (lowered_start == self.text)
                     else:
                         text_matched = False
@@ -120,7 +107,6 @@ class CompiledPatternToken:
         if self.postag is not None:
             pos_matched = False
             at_pos = at.pos_tag
-
             if at_pos is not None:
                 if self._postag_regex is not None:
                     pos_matched = self._postag_regex.search(at_pos) is not None
@@ -167,31 +153,19 @@ class CompiledTokenException:
             token_str = at.token if at.token is not None else atr.token
             text_matched = False
 
+            # Pinned PatternToken.getTestToken: use lemma if non-null when inflected, else surface token
             if self.inflected:
-                target = self.text if self.case_sensitive else self.text.lower()
-                lemmas = []
-                if at.lemma:
-                    lemmas.append(at.lemma)
-                if token_str:
-                    lemmas.append(token_str)
+                test_str = at.lemma if at.lemma is not None else token_str
+            else:
+                test_str = token_str
 
-                for lem in lemmas:
-                    lem_cmp = lem if self.case_sensitive else lem.lower()
-                    if self._text_regex is not None:
-                        if self._text_regex.search(lem) is not None:
-                            text_matched = True
-                            break
-                    else:
-                        if lem_cmp == target:
-                            text_matched = True
-                            break
-            elif self._text_regex is not None:
-                text_matched = self._text_regex.search(token_str) is not None
+            if self._text_regex is not None:
+                text_matched = self._text_regex.search(test_str) is not None
             else:
                 if self.case_sensitive:
-                    text_matched = (token_str == self.text)
+                    text_matched = (test_str == self.text)
                 else:
-                    text_matched = (token_str.lower() == self.text.lower())
+                    text_matched = (test_str.lower() == self.text.lower())
 
             if self.negate:
                 text_matched = not text_matched

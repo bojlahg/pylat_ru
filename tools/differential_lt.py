@@ -993,6 +993,7 @@ import org.languagetool.AnalyzedToken;
 import org.languagetool.language.Russian;
 import org.languagetool.tagging.disambiguation.ru.RussianHybridDisambiguator;
 import org.languagetool.chunking.RussianChunker;
+import org.languagetool.chunking.ChunkTag;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -1002,18 +1003,18 @@ public class ChunkSentences {
         StringBuilder sb = new StringBuilder();
         AnalyzedTokenReadings[] tokens = s.getTokens();
         for (int i = 0; i < tokens.length; i++) {
-            if (i > 0) sb.append("\\u0001");
+            if (i > 0) sb.append("\u0001");
             AnalyzedTokenReadings atr = tokens[i];
-            sb.append(atr.getToken()).append("\\u0002");
-            sb.append(atr.getStartPos()).append("\\u0002");
-            sb.append(atr.getPosFix()).append("\\u0002");
-            sb.append(atr.isWhitespace() ? "1" : "0").append("\\u0002");
-            sb.append(atr.isSentenceStart() ? "1" : "0").append("\\u0002");
-            sb.append(atr.isSentenceEnd() ? "1" : "0").append("\\u0002");
-            sb.append(atr.isParagraphEnd() ? "1" : "0").append("\\u0002");
-            sb.append(atr.isIgnoredBySpeller() ? "1" : "0").append("\\u0002");
-            sb.append(atr.getCleanToken() != null ? atr.getCleanToken() : "\\u0005null").append("\\u0002");
-            sb.append(atr.getWhitespaceBefore() != null ? atr.getWhitespaceBefore() : "\\u0005null").append("\\u0002");
+            sb.append(atr.getToken()).append("\u0002");
+            sb.append(atr.getStartPos()).append("\u0002");
+            sb.append(atr.getPosFix()).append("\u0002");
+            sb.append(atr.isWhitespace() ? "1" : "0").append("\u0002");
+            sb.append(atr.isSentenceStart() ? "1" : "0").append("\u0002");
+            sb.append(atr.isSentenceEnd() ? "1" : "0").append("\u0002");
+            sb.append(atr.isParagraphEnd() ? "1" : "0").append("\u0002");
+            sb.append(atr.isIgnoredBySpeller() ? "1" : "0").append("\u0002");
+            sb.append(atr.getCleanToken() != null ? atr.getCleanToken() : "\u0005null").append("\u0002");
+            sb.append(atr.getWhitespaceBefore() != null ? atr.getWhitespaceBefore() : "\u0005null").append("\u0002");
 
             if (atr.getChunkTags() != null) {
                 for (int c = 0; c < atr.getChunkTags().size(); c++) {
@@ -1021,15 +1022,15 @@ public class ChunkSentences {
                     sb.append(atr.getChunkTags().get(c).getChunkTag());
                 }
             }
-            sb.append("\\u0002");
+            sb.append("\u0002");
 
             List<AnalyzedToken> readings = atr.getReadings();
             for (int r = 0; r < readings.size(); r++) {
-                if (r > 0) sb.append("\\u0003");
+                if (r > 0) sb.append("\u0003");
                 AnalyzedToken at = readings.get(r);
-                sb.append(at.getToken()).append("\\u0004");
-                sb.append(at.getLemma() != null ? at.getLemma() : "\\u0005null").append("\\u0004");
-                sb.append(at.getPOSTag() != null ? at.getPOSTag() : "\\u0005null");
+                sb.append(at.getToken()).append("\u0004");
+                sb.append(at.getLemma() != null ? at.getLemma() : "\u0005null").append("\u0004");
+                sb.append(at.getPOSTag() != null ? at.getPOSTag() : "\u0005null");
             }
         }
         return sb.toString();
@@ -1045,7 +1046,7 @@ public class ChunkSentences {
         String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
         if (text.isEmpty()) return;
 
-        String[] sentenceArray = text.split("\\u0000", -1);
+        String[] sentenceArray = text.split("\u0000", -1);
         Russian russian = Russian.getInstance();
         JLanguageTool lt = new JLanguageTool(russian);
         RussianHybridDisambiguator hybrid = RussianHybridDisambiguator.getInstance();
@@ -1053,19 +1054,47 @@ public class ChunkSentences {
 
         PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         for (int s = 0; s < sentenceArray.length; s++) {
-            if (s > 0) out.print("\\u0006");
-            String sentence = sentenceArray[s];
+            if (s > 0) out.print("\u0006");
+            String item = sentenceArray[s];
+            String sentence = item;
+            Map<String, List<ChunkTag>> injectedChunks = new HashMap<>();
+            if (item.contains("\u0008")) {
+                String[] parts = item.split("\u0008", 2);
+                sentence = parts[0];
+                for (String spec : parts[1].split(";")) {
+                    if (!spec.isEmpty()) {
+                        String[] specParts = spec.split(":", 2);
+                        if (specParts.length == 2) {
+                            List<ChunkTag> cTags = new ArrayList<>();
+                            for (String ct : specParts[1].split(",")) {
+                                if (!ct.isEmpty()) cTags.add(new ChunkTag(ct));
+                            }
+                            injectedChunks.put(specParts[0], cTags);
+                        }
+                    }
+                }
+            }
 
             // 1. Post-hybrid
             AnalyzedSentence raw = lt.getRawAnalyzedSentence(sentence);
             AnalyzedSentence postHybrid = hybrid.disambiguate(raw);
+
+            // Inject explicit pre-existing chunk tags if requested
+            if (!injectedChunks.isEmpty()) {
+                for (AnalyzedTokenReadings atr : postHybrid.getTokens()) {
+                    if (injectedChunks.containsKey(atr.getToken())) {
+                        atr.setChunkTags(injectedChunks.get(atr.getToken()));
+                    }
+                }
+            }
+
             String preChunkerStr = serializeSentence(postHybrid);
 
             // 2. Post-chunker
             chunker.addChunkTags(Arrays.asList(postHybrid.getTokens()));
             String postChunkerStr = serializeSentence(postHybrid);
 
-            out.print(preChunkerStr + "\\u0007" + postChunkerStr);
+            out.print(preChunkerStr + "\u0007" + postChunkerStr);
         }
     }
 }
@@ -1579,11 +1608,30 @@ CHUNKER_TEST_CASES: List[Dict[str, Any]] = [
     {"id": "chunk_29_ne_verb_chain", "category": "ne_vp", "text": "Мы не можем продолжать молчать."},
     # 12. MayMissingYO exclusion & Non-BMP emoji
     {"id": "chunk_30_yo_and_emoji", "category": "yo_and_emoji", "text": "🚀 Иван Иванович пошел в лес за грибами."},
-    # 13. Synthetic boundary cases
-    {"id": "chunk_31_preexisting_tag", "category": "preexisting_tag", "text": "Студент шел в университет."},
-    {"id": "chunk_32_overwrite_conflict", "category": "overwrite_conflict", "text": "Иванов Иван Иванович встретил Петра."},
-    {"id": "chunk_33_may_missing_yo_exclusion", "category": "may_missing_yo", "text": "Все пошло не так, как ожидалось."},
-    {"id": "chunk_34_ambiguous_readings", "category": "ambiguous_readings", "text": "Печь пироги было весело."},
+    # 13. Synthetic boundary cases with explicit pre-existing chunk tags
+    {
+        "id": "chunk_31_unrelated_preexisting_tag",
+        "category": "unrelated_preexisting_tag",
+        "text": "Студент шел в университет.",
+        "inject_chunks": {"Студент": ["CUSTOM_PRE_TAG"]},
+    },
+    {
+        "id": "chunk_32_filter_tag_preexisting",
+        "category": "filter_tag_preexisting",
+        "text": "Иванов Иван Иванович встретил Петра.",
+        "inject_chunks": {"Иванов": ["PP"]},
+    },
+    {
+        "id": "chunk_33_may_missing_yo_exclusion",
+        "category": "may_missing_yo_exclusion",
+        "text": "Все студенты сдали экзамен.",
+        "inject_chunks": {"Все": ["MayMissingYO"]},
+    },
+    {
+        "id": "chunk_34_ambiguous_readings",
+        "category": "ambiguous_readings",
+        "text": "Печь пироги было весело.",
+    },
 ]
 
 
@@ -1596,19 +1644,29 @@ def generate_chunker_fixtures(
     oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
 
     output_path = fixtures_dir / "oracle_russian_chunker.json"
-    sentences = [c["text"] for c in CHUNKER_TEST_CASES]
-    stages_results = oracle.chunk_sentences(sentences)
+    payload = []
+    for c in CHUNKER_TEST_CASES:
+        txt = c["text"]
+        injected = c.get("inject_chunks")
+        if injected:
+            spec_str = ";".join(f"{tok}:{','.join(tags)}" for tok, tags in injected.items())
+            payload.append(f"{txt}\u0008{spec_str}")
+        else:
+            payload.append(txt)
+
+    stages_results = oracle.chunk_sentences(payload)
 
     cases: List[Dict[str, Any]] = []
     for i, item in enumerate(CHUNKER_TEST_CASES):
-        cases.append(
-            {
-                "id": item["id"],
-                "category": item["category"],
-                "text": item["text"],
-                "stages": stages_results[i],
-            }
-        )
+        case_obj: Dict[str, Any] = {
+            "id": item["id"],
+            "category": item["category"],
+            "text": item["text"],
+        }
+        if "inject_chunks" in item:
+            case_obj["inject_chunks"] = item["inject_chunks"]
+        case_obj["stages"] = stages_results[i]
+        cases.append(case_obj)
 
     fixture_data = {
         "schema_version": "1.0.0",

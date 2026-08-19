@@ -170,11 +170,11 @@
         }
       },
       "upstream_tests": {
-        "status": "INVENTORIED_NOT_PORTED",
-        "passed": 0,
+        "status": "PARTIALLY_PORTED",
+        "passed": 8,
         "failed": 0,
         "skipped": 0,
-        "not_yet_ported": 18,
+        "not_yet_ported": 10,
         "total": 18
       },
       "grammar_xml_examples": {

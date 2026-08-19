@@ -201,6 +201,42 @@ def test_pattern_rule_matcher_regex_and_negation():
     assert compiled.match_at([tok_verb], 0) is None
 
 
+def test_pattern_rule_matcher_inflected_exact_semantics():
+    """Verify exact PatternToken.getTestToken semantics for inflected attribute."""
+    # Pattern requiring inflected="yes" text="бежать"
+    pat = Pattern(tokens=[
+        PatternToken(text="бежать", inflected=True),
+    ])
+    compiled = CompiledPattern(pat)
+
+    # 1. Surface matches, but lemma differs: MUST NOT MATCH
+    tok_surface_match_lemma_differ = _make_reading("бежать", lemma="бег")
+    assert compiled.match_at([tok_surface_match_lemma_differ], 0) is None
+
+    # 2. Lemma matches, surface differs: MUST MATCH
+    tok_lemma_match_surface_differ = _make_reading("бежал", lemma="бежать")
+    assert compiled.match_at([tok_lemma_match_surface_differ], 0) is not None
+
+    # 3. Lemma is null: falls back to surface token: MUST MATCH
+    tok_lemma_null = _make_reading("бежать", lemma=None)
+    assert compiled.match_at([tok_lemma_null], 0) is not None
+
+    # 4. Exception with inflected:
+    exc = PatternTokenException(text="делать", inflected=True)
+    pat_with_exc = Pattern(tokens=[
+        PatternToken(postag="VB:.*", postag_regexp=True, exceptions=[exc])
+    ])
+    comp_exc = CompiledPattern(pat_with_exc)
+
+    # Surface "делал", lemma "делать" triggers exception -> rejected
+    tok_delal = _make_reading("делал", pos_tag="VB:Past", lemma="делать")
+    assert comp_exc.match_at([tok_delal], 0) is None
+
+    # Surface "делал", lemma "дело" does NOT trigger exception -> accepted
+    tok_delo = _make_reading("делал", pos_tag="VB:Past", lemma="дело")
+    assert comp_exc.match_at([tok_delo], 0) is not None
+
+
 # =========================================================================
 # 3. Ported from PatternRuleTest.java & RussianPatternRuleTest.java
 # =========================================================================
