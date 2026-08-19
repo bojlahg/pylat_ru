@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0004_russian_tagger",
-    "overall_state": "TAGGER_LAYER_ESTABLISHED",
+    "task_milestone": "0005_russian_hybrid_disambiguator",
+    "overall_state": "DISAMBIGUATOR_LAYER_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -28,7 +28,21 @@
       "srx_ru_one_rules_total": 44,
       "tagger_added_entries_total": 1282,
       "tagger_removed_entries_total": 60,
-      "tagger_normalization_replacements_total": 19
+      "tagger_normalization_replacements_total": 19,
+      "multiwords_entries_total": 217,
+      "disambiguation_rules_loaded": 77
+    },
+    "russian_disambiguator": {
+      "multiword_chunker": "SUPPORTED",
+      "xml_rule_disambiguator": "SUPPORTED",
+      "russian_hybrid_disambiguator": "SUPPORTED",
+      "partial_pos_tag_filter": "SUPPORTED",
+      "pattern_token_matching": "SUPPORTED",
+      "marker_span_extraction": "SUPPORTED",
+      "antipattern_rejection": "SUPPORTED",
+      "disambiguation_actions": "SUPPORTED",
+      "runtime_resource_packaging": "SUPPORTED",
+      "xml_examples_parity": "SUPPORTED"
     },
     "russian_tagger": {
       "morfologik_tagger_lookup": "SUPPORTED",
@@ -64,17 +78,17 @@
       "RussianSentenceTokenizer": "SUPPORTED",
       "RussianWordTokenizer": "SUPPORTED",
       "RussianTagger": "SUPPORTED",
-      "RussianDisambiguator": "NOT_YET_IMPLEMENTED",
+      "RussianDisambiguator": "SUPPORTED",
       "RussianChunker": "NOT_YET_IMPLEMENTED",
       "RussianSynthesizer": "NOT_YET_IMPLEMENTED",
       "XMLRuleEngine": "NOT_YET_IMPLEMENTED"
     },
     "implementation_progress": {
       "xml_constructs": {
-        "status": "NOT_YET_IMPLEMENTED",
-        "supported_count": 0,
+        "status": "PARTIALLY_IMPLEMENTED",
+        "supported_count": 14,
         "partial_count": 0,
-        "unsupported_count": 23,
+        "unsupported_count": 9,
         "known_tags": [
           "and", "antipattern", "category", "equivalence", "example",
           "exception", "feature", "filter", "marker", "match", "message",
@@ -83,8 +97,8 @@
         ]
       },
       "xml_filters": {
-        "status": "NOT_YET_IMPLEMENTED",
-        "implemented": 0,
+        "status": "PARTIALLY_IMPLEMENTED",
+        "implemented": 1,
         "total": 7,
         "filter_classes": [
           "org.languagetool.rules.ru.AdvancedSynthesizerFilter",

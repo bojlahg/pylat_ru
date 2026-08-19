@@ -95,6 +95,15 @@ class RussianTagger:
       5. AnalyzedTokenReadings output with exact raw POS tags and UTF-16 positions
     """
 
+    _instance: Optional[RussianTagger] = None
+
+    @classmethod
+    def get_instance(cls) -> RussianTagger:
+        """Get or create singleton RussianTagger instance."""
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
     def __init__(
         self,
         dict_path: Optional[Union[str, Path]] = None,

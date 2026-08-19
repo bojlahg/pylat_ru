@@ -11,9 +11,11 @@ from dataclasses import dataclass
 from typing import List, Sequence
 
 from pylat_ru.analysis import (
+    AnalyzedSentence,
     AnalyzedToken,
     AnalyzedTokenReadings,
 )
+from pylat_ru.disambiguation import RussianHybridDisambiguator
 from pylat_ru.morfologik import (
     DictionaryEntry,
     MorfologikDictionary,
@@ -31,12 +33,14 @@ from pylat_ru.tokenization import (
 __version__ = "0.1.0a0"
 __all__ = [
     "__version__",
+    "AnalyzedSentence",
     "AnalyzedToken",
     "AnalyzedTokenReadings",
     "DictionaryEntry",
     "LanguageToolRU",
     "MorfologikDictionary",
     "RuleMatch",
+    "RussianHybridDisambiguator",
     "RussianSentenceTokenizer",
     "RussianTag",
     "RussianTagger",
