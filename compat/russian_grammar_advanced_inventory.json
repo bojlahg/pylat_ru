@@ -3,17 +3,52 @@
   "provenance": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-    "baseline_0007_commit": "b75bc4dfa84c1549d22f83388785dd9b2988f6de",
-    "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
+    "grammar_xml_path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml",
     "grammar_xml_size_bytes": 1194903,
+    "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
+    "baseline_task_0007_commit": "b75bc4dfa84c1549d22f83388785dd9b2988f6de",
     "generator_path": "tools/russian_grammar_advanced_inventory.py",
-    "generator_sha256": "94a5b3b96299115cd15c5097c3237338d235c17776930d9cb9d60a780089da63"
+    "generator_sha256": "1c59322ae85c85a21027cd334a4ad2c50de9c571d02f96cc52b1104b1d8f3d84"
   },
   "source_totals": {
     "categories": 8,
     "rulegroups": 297,
     "source_rule_elements": 892,
     "embedded_examples_total": 2446
+  },
+  "baseline_task_0007": {
+    "CORE_0007_RUNNABLE": 506,
+    "DEFERRED_0008_ADVANCED_MATCHING": 157,
+    "DEFERRED_0009_UNIFICATION": 8,
+    "DEFERRED_0010_FILTER": 64,
+    "MULTI_BLOCKER": 157,
+    "UNRECOGNIZED": 0
+  },
+  "task_0007_to_0008_transitions": {
+    "CORE_0007_RUNNABLE -> CORE_0007_RUNNABLE": 506,
+    "DEFERRED_0008_ADVANCED_MATCHING -> ADVANCED_0008_RUNNABLE": 157,
+    "DEFERRED_0009_UNIFICATION -> DEFERRED_0009_UNIFICATION": 8,
+    "DEFERRED_0010_FILTER -> ADVANCED_0008_RUNNABLE": 57,
+    "DEFERRED_0010_FILTER -> DEFERRED_0010_FILTER": 7,
+    "MULTI_BLOCKER -> ADVANCED_0008_RUNNABLE": 15,
+    "MULTI_BLOCKER -> DEFERRED_0009_UNIFICATION": 16,
+    "MULTI_BLOCKER -> DEFERRED_0010_FILTER": 9,
+    "MULTI_BLOCKER -> DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
+    "MULTI_BLOCKER -> MULTI_BLOCKER": 7
+  },
+  "blocker_combinations": {
+    "NONE": 735,
+    "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter+pattern:unify": 4,
+    "filter:org.languagetool.rules.ru.DateCheckFilter": 2,
+    "filter:org.languagetool.rules.ru.FutureDateFilter": 2,
+    "filter:org.languagetool.rules.ru.INNNumberFilter": 1,
+    "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": 10,
+    "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter+message@suppress_misspelled": 2,
+    "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter+suggestion@suppress_misspelled": 1,
+    "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+    "message@suppress_misspelled": 109,
+    "pattern:unify": 24,
+    "suggestion@suppress_misspelled": 1
   },
   "raw_xml_totals": {
     "tag_counts": {
@@ -2782,6 +2817,13 @@
         "yes": 19
       }
     },
+    "match_context_summary": {
+      "total_match_elements": 620,
+      "token_level_matches": 1,
+      "message_suggestion_matches": 619,
+      "other_context_matches": 0,
+      "static_lemma_matches": 8
+    },
     "reconciliation_checks": {
       "match_elements_total": 620,
       "antipattern_elements_total": 146,
@@ -2848,57 +2890,82 @@
       "examples_with_corrections": 1026
     },
     "runnable_0007_0008_total": 1738,
-    "runnable_0007_0008_incorrect": 837,
-    "runnable_0007_0008_correct": 901,
+    "runnable_0007_0008_incorrect": 871,
+    "runnable_0007_0008_correct": 867,
     "deferred_total": 708,
-    "deferred_incorrect": 202,
-    "deferred_correct": 506,
+    "deferred_incorrect": 212,
+    "deferred_correct": 496,
     "all_rules_examples_total": 2446,
-    "all_rules_examples_incorrect": 1039,
-    "all_rules_examples_correct": 1407,
+    "all_rules_examples_incorrect": 1083,
+    "all_rules_examples_correct": 1363,
     "by_state": {
       "ADVANCED_0008_RUNNABLE": {
         "total": 750,
-        "incorrect": 312,
-        "correct": 438
+        "incorrect": 325,
+        "correct": 425,
+        "with_correction": 305
       },
       "CORE_0007_RUNNABLE": {
         "total": 988,
-        "incorrect": 525,
-        "correct": 463
+        "incorrect": 546,
+        "correct": 442,
+        "with_correction": 519
       },
       "DEFERRED_0009_UNIFICATION": {
         "total": 216,
         "incorrect": 41,
-        "correct": 175
+        "correct": 175,
+        "with_correction": 41
       },
       "DEFERRED_0010_FILTER": {
         "total": 88,
-        "incorrect": 22,
-        "correct": 66
+        "incorrect": 26,
+        "correct": 62,
+        "with_correction": 22
       },
       "DEFERRED_0012_SPELLING_OR_SUPPRESSION": {
         "total": 297,
-        "incorrect": 124,
-        "correct": 173
+        "incorrect": 129,
+        "correct": 168,
+        "with_correction": 124
       },
       "MULTI_BLOCKER": {
         "total": 107,
-        "incorrect": 15,
-        "correct": 92
+        "incorrect": 16,
+        "correct": 91,
+        "with_correction": 15
       }
     }
   },
   "feature_summary": {
     "pattern@raw_pos": {
       "raw_xml_occurrences": 3,
+      "effective_occurrences": 3,
       "source_rules_count": 3,
       "positive_pattern_occurrences": 3,
+      "representative_descriptor": "<pattern raw_pos=\"yes\">",
       "representative_rules": [
         "Pravopisanie_po-prezhnemu[1]",
         "Pravopisanie_po-prezhnemu[3]",
         "Pravopisanie_po-prezhnemu[5]"
       ],
+      "embedded_examples_count": {
+        "total": 15,
+        "incorrect": 10,
+        "correct": 5
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 3,
+        "exception@scope=next": 2,
+        "exception@scope=previous": 2,
+        "match@regexp_match": 1,
+        "match@regexp_replace": 1,
+        "message_suggestion_match": 1,
+        "token@skip": 3
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 3
+      },
       "raw_value_distribution": {
         "yes": 3
       },
@@ -2908,20 +2975,48 @@
     },
     "token@raw_pos": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<token raw_pos=\"yes\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "token@chunk": {
       "raw_xml_occurrences": 21,
+      "effective_occurrences": 21,
       "source_rules_count": 4,
       "positive_pattern_occurrences": 16,
+      "representative_descriptor": "<token chunk=\"...\">",
       "representative_rules": [
         "Punct_PT_oborot[1]",
         "Punct_PT_oborot_2[1]",
         "Punct_PT_oborot_2[2]",
         "MissingYO[1]"
       ],
+      "embedded_examples_count": {
+        "total": 11,
+        "incorrect": 7,
+        "correct": 4
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 3,
+        "exception@scope=previous": 1,
+        "match@include_skipped": 3,
+        "message_suggestion_match": 3,
+        "pattern:or": 3,
+        "token@max": 3,
+        "token@min": 3
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 4
+      },
       "raw_value_distribution": {
         "B-ADJP": 3,
         "B-VP": 6,
@@ -2938,8 +3033,10 @@
     },
     "token@spacebefore": {
       "raw_xml_occurrences": 33,
+      "effective_occurrences": 33,
       "source_rules_count": 20,
       "positive_pattern_occurrences": 28,
+      "representative_descriptor": "<token spacebefore=\"no|yes\">",
       "representative_rules": [
         "DOUBLE_PUNCTUATION[1]",
         "DOUBLE_PUNCTUATION[2]",
@@ -2947,6 +3044,27 @@
         "COMMA_DEFIS[1]",
         "Hyphen_and_spaces[1]"
       ],
+      "embedded_examples_count": {
+        "total": 54,
+        "incorrect": 20,
+        "correct": 34
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 2,
+        "antipattern_rulegroup_inherited": 2,
+        "exception@scope=current": 10,
+        "exception@scope=next": 3,
+        "exception@scope=previous": 6,
+        "match@case_conversion": 2,
+        "match@postag": 1,
+        "match@postag_regexp": 1,
+        "match@postag_replace": 1,
+        "message_suggestion_match": 5,
+        "token@skip": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 20
+      },
       "raw_value_distribution": {
         "no": 19,
         "yes": 14
@@ -2958,11 +3076,29 @@
     },
     "exception@spacebefore": {
       "raw_xml_occurrences": 1,
+      "effective_occurrences": 1,
       "source_rules_count": 1,
       "positive_pattern_occurrences": 1,
+      "representative_descriptor": "<exception spacebefore=\"no\">",
       "representative_rules": [
         "Num_plus_Noun1[1]"
       ],
+      "embedded_examples_count": {
+        "total": 3,
+        "incorrect": 1,
+        "correct": 2
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 1,
+        "exception@scope=previous": 1,
+        "match@postag": 1,
+        "match@postag_regexp": 1,
+        "match@postag_replace": 1,
+        "message_suggestion_match": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 1
+      },
       "raw_value_distribution": {
         "no": 1
       },
@@ -2972,40 +3108,103 @@
     },
     "pattern:and": {
       "raw_xml_occurrences": 1,
+      "effective_occurrences": 1,
       "source_rules_count": 1,
       "positive_pattern_occurrences": 1,
+      "representative_descriptor": "<and><token .../><token .../></and>",
       "representative_rules": [
         "PREP_and_PNN[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 3,
+        "incorrect": 1,
+        "correct": 2
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 1
+      }
     },
     "pattern:or": {
       "raw_xml_occurrences": 15,
+      "effective_occurrences": 15,
       "source_rules_count": 15,
       "positive_pattern_occurrences": 15,
+      "representative_descriptor": "<or><token .../><token .../></or>",
       "representative_rules": [
         "Slovosoch_v_proshlom[1]",
         "Punct_PT_oborot[1]",
         "Punct_PT_oborot_2[1]",
         "Punct_PT_oborot_2[2]",
         "PNN_Kak_Noun[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 59,
+        "incorrect": 27,
+        "correct": 32
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 2,
+        "exception@scope=current": 10,
+        "exception@scope=next": 2,
+        "exception@scope=previous": 2,
+        "match@include_skipped": 3,
+        "match@postag": 1,
+        "match@postag_regexp": 1,
+        "match@postag_replace": 1,
+        "match@regexp_match": 1,
+        "match@regexp_replace": 1,
+        "message_suggestion_match": 6,
+        "token@chunk": 3,
+        "token@max": 4,
+        "token@min": 4,
+        "token@skip": 3
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 12,
+        "DEFERRED_0009_UNIFICATION": 1,
+        "DEFERRED_0010_FILTER": 1,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 1
+      }
     },
     "phrase_definition": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<phrase id=\"...\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "phrase_reference": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<phraseref idref=\"...\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "token@skip": {
       "raw_xml_occurrences": 218,
+      "effective_occurrences": 218,
       "source_rules_count": 97,
       "positive_pattern_occurrences": 137,
+      "representative_descriptor": "<token skip=\"N\">",
       "representative_rules": [
         "INVALID_TENSE_DATE[1]",
         "INVALID_TENSE_DATE[2]",
@@ -3013,6 +3212,36 @@
         "V_sortimente[1]",
         "uroven_uvelichilsja[1]"
       ],
+      "embedded_examples_count": {
+        "total": 428,
+        "incorrect": 150,
+        "correct": 278
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 18,
+        "exception@scope=current": 59,
+        "exception@scope=next": 59,
+        "exception@scope=previous": 38,
+        "match@include_skipped": 27,
+        "match@postag": 15,
+        "match@postag_regexp": 15,
+        "match@postag_replace": 15,
+        "match@regexp_match": 10,
+        "match@regexp_replace": 10,
+        "message_suggestion_match": 44,
+        "pattern:or": 3,
+        "pattern@raw_pos": 3,
+        "token@max": 1,
+        "token@min": 1,
+        "token@spacebefore": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 72,
+        "DEFERRED_0009_UNIFICATION": 9,
+        "DEFERRED_0010_FILTER": 3,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 12,
+        "MULTI_BLOCKER": 1
+      },
       "raw_value_distribution": {
         "-1": 165,
         "1": 29,
@@ -3031,8 +3260,10 @@
     },
     "token@min": {
       "raw_xml_occurrences": 30,
+      "effective_occurrences": 30,
       "source_rules_count": 21,
       "positive_pattern_occurrences": 22,
+      "representative_descriptor": "<token min=\"0|1|2\">",
       "representative_rules": [
         "DATE_WEEKDAY1[1]",
         "DATE_WEEKDAY1[2]",
@@ -3040,6 +3271,33 @@
         "Punct_PT_oborot[1]",
         "Punct_PT_oborot_2[1]"
       ],
+      "embedded_examples_count": {
+        "total": 75,
+        "incorrect": 40,
+        "correct": 35
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 1,
+        "exception@scope=current": 11,
+        "exception@scope=previous": 6,
+        "match@include_skipped": 6,
+        "match@postag": 1,
+        "match@postag_regexp": 1,
+        "match@postag_replace": 1,
+        "match@regexp_match": 1,
+        "match@regexp_replace": 1,
+        "message_suggestion_match": 10,
+        "pattern:or": 4,
+        "token@chunk": 3,
+        "token@max": 21,
+        "token@skip": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 13,
+        "DEFERRED_0009_UNIFICATION": 4,
+        "DEFERRED_0010_FILTER": 3,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 1
+      },
       "raw_value_distribution": {
         "0": 20,
         "1": 7,
@@ -3053,8 +3311,10 @@
     },
     "token@max": {
       "raw_xml_occurrences": 30,
+      "effective_occurrences": 30,
       "source_rules_count": 21,
       "positive_pattern_occurrences": 22,
+      "representative_descriptor": "<token max=\"1|2|3|4\">",
       "representative_rules": [
         "DATE_WEEKDAY1[1]",
         "DATE_WEEKDAY1[2]",
@@ -3062,6 +3322,33 @@
         "Punct_PT_oborot[1]",
         "Punct_PT_oborot_2[1]"
       ],
+      "embedded_examples_count": {
+        "total": 75,
+        "incorrect": 40,
+        "correct": 35
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 1,
+        "exception@scope=current": 11,
+        "exception@scope=previous": 6,
+        "match@include_skipped": 6,
+        "match@postag": 1,
+        "match@postag_regexp": 1,
+        "match@postag_replace": 1,
+        "match@regexp_match": 1,
+        "match@regexp_replace": 1,
+        "message_suggestion_match": 10,
+        "pattern:or": 4,
+        "token@chunk": 3,
+        "token@min": 21,
+        "token@skip": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 13,
+        "DEFERRED_0009_UNIFICATION": 4,
+        "DEFERRED_0010_FILTER": 3,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 1
+      },
       "raw_value_distribution": {
         "1": 18,
         "2": 6,
@@ -3076,57 +3363,192 @@
       }
     },
     "exception@scope=current": {
-      "raw_xml_occurrences": 905,
+      "raw_xml_occurrences": 0,
+      "effective_occurrences": 905,
       "source_rules_count": 312,
       "positive_pattern_occurrences": 807,
+      "representative_descriptor": "<exception>...</exception> (implicit default scope)",
       "representative_rules": [
         "INVALID_TENSE_DATE[1]",
         "INVALID_TENSE_DATE[2]",
         "ne_proronila_ni[1]",
         "Logical_odel_nadel[6]",
         "ROST[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 1272,
+        "incorrect": 430,
+        "correct": 842
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 40,
+        "antipattern_rulegroup_inherited": 5,
+        "exception@scope=next": 58,
+        "exception@scope=previous": 65,
+        "exception@spacebefore": 1,
+        "match@case_conversion": 10,
+        "match@include_skipped": 16,
+        "match@postag": 99,
+        "match@postag_regexp": 99,
+        "match@postag_replace": 96,
+        "match@regexp_match": 8,
+        "match@regexp_replace": 8,
+        "message_suggestion_match": 142,
+        "pattern:and": 1,
+        "pattern:or": 10,
+        "pattern@raw_pos": 3,
+        "token@chunk": 3,
+        "token@max": 11,
+        "token@min": 11,
+        "token@skip": 59,
+        "token@spacebefore": 10
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 97,
+        "CORE_0007_RUNNABLE": 91,
+        "DEFERRED_0009_UNIFICATION": 21,
+        "DEFERRED_0010_FILTER": 11,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 85,
+        "MULTI_BLOCKER": 7
+      }
     },
     "exception@scope=previous": {
       "raw_xml_occurrences": 167,
+      "effective_occurrences": 167,
       "source_rules_count": 95,
       "positive_pattern_occurrences": 140,
+      "representative_descriptor": "<exception scope=\"previous\">...</exception>",
       "representative_rules": [
         "v_ruchnuju[2]",
         "Logical_odel_nadel[1]",
         "ROST[1]",
         "ROST[2]",
         "PUNCT_DPT_2[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 636,
+        "incorrect": 158,
+        "correct": 478
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 24,
+        "antipattern_rulegroup_inherited": 3,
+        "exception@scope=current": 65,
+        "exception@scope=next": 44,
+        "exception@spacebefore": 1,
+        "match@include_skipped": 15,
+        "match@postag": 11,
+        "match@postag_regexp": 11,
+        "match@postag_replace": 11,
+        "match@regexp_match": 3,
+        "match@regexp_replace": 3,
+        "message_suggestion_match": 32,
+        "pattern:or": 2,
+        "pattern@raw_pos": 2,
+        "token@chunk": 1,
+        "token@max": 6,
+        "token@min": 6,
+        "token@skip": 38,
+        "token@spacebefore": 6
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 68,
+        "DEFERRED_0009_UNIFICATION": 11,
+        "DEFERRED_0010_FILTER": 1,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 10,
+        "MULTI_BLOCKER": 5
+      }
     },
     "exception@scope=next": {
       "raw_xml_occurrences": 203,
+      "effective_occurrences": 203,
       "source_rules_count": 84,
       "positive_pattern_occurrences": 167,
+      "representative_descriptor": "<exception scope=\"next\">...</exception>",
       "representative_rules": [
         "INVALID_TENSE_DATE[1]",
         "INVALID_TENSE_DATE[2]",
         "v_ruchnuju[2]",
         "ROST[1]",
         "ROST[2]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 442,
+        "incorrect": 125,
+        "correct": 317
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 23,
+        "antipattern_rulegroup_inherited": 2,
+        "exception@scope=current": 58,
+        "exception@scope=previous": 44,
+        "match@include_skipped": 12,
+        "match@postag": 14,
+        "match@postag_regexp": 14,
+        "match@postag_replace": 14,
+        "message_suggestion_match": 31,
+        "pattern:or": 2,
+        "pattern@raw_pos": 2,
+        "token@skip": 59,
+        "token@spacebefore": 3
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 56,
+        "DEFERRED_0009_UNIFICATION": 9,
+        "DEFERRED_0010_FILTER": 3,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 11,
+        "MULTI_BLOCKER": 5
+      }
     },
     "antipattern_rule_level": {
       "raw_xml_occurrences": 126,
+      "effective_occurrences": 126,
       "source_rules_count": 49,
       "positive_pattern_occurrences": 126,
+      "representative_descriptor": "<rule><antipattern>...</antipattern>...</rule>",
       "representative_rules": [
         "ROST[3]",
         "PUNCT_DPT_2[1]",
         "Multiple_missing_commas_VB[1]",
         "PUNCT_VB_INF_OBOROT[1]",
         "takim_obrazom[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 493,
+        "incorrect": 96,
+        "correct": 397
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rulegroup_inherited": 3,
+        "exception@scope=current": 40,
+        "exception@scope=next": 23,
+        "exception@scope=previous": 24,
+        "match@case_conversion": 2,
+        "match@include_skipped": 4,
+        "match@postag": 4,
+        "match@postag_regexp": 4,
+        "match@postag_replace": 4,
+        "message_suggestion_match": 14,
+        "pattern:or": 2,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 18,
+        "token@spacebefore": 2
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 32,
+        "DEFERRED_0009_UNIFICATION": 8,
+        "DEFERRED_0010_FILTER": 2,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 3,
+        "MULTI_BLOCKER": 4
+      }
     },
     "antipattern_rulegroup_inherited": {
       "raw_xml_occurrences": 20,
+      "effective_occurrences": 59,
       "source_rules_count": 5,
       "positive_pattern_occurrences": 59,
+      "representative_descriptor": "<rulegroup><antipattern>...</antipattern><rule>...</rule></rulegroup>",
       "representative_rules": [
         "DOUBLE_PUNCTUATION[1]",
         "DOUBLE_PUNCTUATION[2]",
@@ -3134,30 +3556,98 @@
         "Unify_Adj_NN_gender[2]",
         "Unify_Adj_NN_case[3]"
       ],
+      "embedded_examples_count": {
+        "total": 163,
+        "incorrect": 22,
+        "correct": 141
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 3,
+        "exception@scope=current": 5,
+        "exception@scope=next": 2,
+        "exception@scope=previous": 3,
+        "message_suggestion_match": 2,
+        "token@spacebefore": 2
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 2,
+        "DEFERRED_0009_UNIFICATION": 2,
+        "MULTI_BLOCKER": 1
+      },
       "effective_inherited_applications": 59
     },
     "token_level_match": {
-      "raw_xml_occurrences": 0,
+      "raw_xml_occurrences": 1,
+      "effective_occurrences": 1,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<token><match no=\"0\"/></token>",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "message_suggestion_match": {
-      "raw_xml_occurrences": 620,
+      "raw_xml_occurrences": 619,
+      "effective_occurrences": 619,
       "source_rules_count": 257,
       "positive_pattern_occurrences": 620,
+      "representative_descriptor": "<message>...<match no=\"1\"/>...</message>",
       "representative_rules": [
         "INVALID_DATE[1]",
         "YEAR_20001[1]",
         "razvevatsja_razvivatsja[1]",
         "ne_proronila_ni[1]",
         "zakonchit_shkolu[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 740,
+        "incorrect": 334,
+        "correct": 406
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 14,
+        "antipattern_rulegroup_inherited": 2,
+        "exception@scope=current": 142,
+        "exception@scope=next": 31,
+        "exception@scope=previous": 32,
+        "exception@spacebefore": 1,
+        "match@case_conversion": 10,
+        "match@include_skipped": 33,
+        "match@postag": 129,
+        "match@postag_regexp": 129,
+        "match@postag_replace": 126,
+        "match@regexp_match": 61,
+        "match@regexp_replace": 61,
+        "match@setpos": 4,
+        "pattern:or": 6,
+        "pattern@raw_pos": 1,
+        "static_lemma_match": 8,
+        "token@chunk": 3,
+        "token@max": 10,
+        "token@min": 10,
+        "token@skip": 44,
+        "token@spacebefore": 5
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 112,
+        "CORE_0007_RUNNABLE": 21,
+        "DEFERRED_0009_UNIFICATION": 5,
+        "DEFERRED_0010_FILTER": 6,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
+        "MULTI_BLOCKER": 3
+      }
     },
     "match@case_conversion": {
       "raw_xml_occurrences": 17,
+      "effective_occurrences": 17,
       "source_rules_count": 10,
       "positive_pattern_occurrences": 17,
+      "representative_descriptor": "<match no=\"1\" case_conversion=\"startlower|startupper|alllower|firstupper\"/>",
       "representative_rules": [
         "LC_AFTER_PERIOD_RU[1]",
         "O_P_padeg[3]",
@@ -3165,6 +3655,20 @@
         "Cap_Letters_SName[1]",
         "Cap_Letters_Fam[1]"
       ],
+      "embedded_examples_count": {
+        "total": 20,
+        "incorrect": 13,
+        "correct": 7
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 2,
+        "exception@scope=current": 10,
+        "message_suggestion_match": 10,
+        "token@spacebefore": 2
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 10
+      },
       "raw_value_distribution": {
         "alllower": 3,
         "firstupper": 2,
@@ -3180,8 +3684,10 @@
     },
     "match@include_skipped": {
       "raw_xml_occurrences": 68,
+      "effective_occurrences": 68,
       "source_rules_count": 33,
       "positive_pattern_occurrences": 68,
+      "representative_descriptor": "<match no=\"1\" include_skipped=\"all|none\"/>",
       "representative_rules": [
         "razvevatsja_razvivatsja[1]",
         "V_sortimente[1]",
@@ -3189,6 +3695,32 @@
         "ISKLUCHIT_ISKLUCHENIE[1]",
         "POTREBOVAT_TREBOVANIE[1]"
       ],
+      "embedded_examples_count": {
+        "total": 144,
+        "incorrect": 64,
+        "correct": 80
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 4,
+        "exception@scope=current": 16,
+        "exception@scope=next": 12,
+        "exception@scope=previous": 15,
+        "match@postag": 2,
+        "match@postag_regexp": 2,
+        "match@postag_replace": 2,
+        "match@regexp_match": 7,
+        "match@regexp_replace": 7,
+        "message_suggestion_match": 33,
+        "pattern:or": 3,
+        "token@chunk": 3,
+        "token@max": 6,
+        "token@min": 6,
+        "token@skip": 27
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 29,
+        "DEFERRED_0009_UNIFICATION": 4
+      },
       "raw_value_distribution": {
         "all": 64,
         "none": 4
@@ -3200,74 +3732,229 @@
     },
     "match@regexp_match": {
       "raw_xml_occurrences": 61,
+      "effective_occurrences": 61,
       "source_rules_count": 61,
       "positive_pattern_occurrences": 61,
+      "representative_descriptor": "<match no=\"1\" regexp_match=\"regex\"/>",
       "representative_rules": [
         "YEAR_20001[1]",
         "razvevatsja_razvivatsja[1]",
         "zakonchit_shkolu[1]",
         "dlitelnij_dlinnij[1]",
         "dlitelnij_dlinnij[2]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 145,
+        "incorrect": 77,
+        "correct": 68
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 8,
+        "exception@scope=previous": 3,
+        "match@include_skipped": 7,
+        "match@regexp_replace": 61,
+        "message_suggestion_match": 61,
+        "pattern:or": 1,
+        "pattern@raw_pos": 1,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 10
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 55,
+        "DEFERRED_0010_FILTER": 5,
+        "MULTI_BLOCKER": 1
+      }
     },
     "match@regexp_replace": {
       "raw_xml_occurrences": 61,
+      "effective_occurrences": 61,
       "source_rules_count": 61,
       "positive_pattern_occurrences": 61,
+      "representative_descriptor": "<match no=\"1\" regexp_replace=\"repl\"/>",
       "representative_rules": [
         "YEAR_20001[1]",
         "razvevatsja_razvivatsja[1]",
         "zakonchit_shkolu[1]",
         "dlitelnij_dlinnij[1]",
         "dlitelnij_dlinnij[2]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 145,
+        "incorrect": 77,
+        "correct": 68
+      },
+      "overlap_with_advanced_features": {
+        "exception@scope=current": 8,
+        "exception@scope=previous": 3,
+        "match@include_skipped": 7,
+        "match@regexp_match": 61,
+        "message_suggestion_match": 61,
+        "pattern:or": 1,
+        "pattern@raw_pos": 1,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 10
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 55,
+        "DEFERRED_0010_FILTER": 5,
+        "MULTI_BLOCKER": 1
+      }
     },
     "match@postag": {
       "raw_xml_occurrences": 136,
+      "effective_occurrences": 136,
       "source_rules_count": 129,
       "positive_pattern_occurrences": 136,
+      "representative_descriptor": "<match no=\"1\" postag=\"POS\"/>",
       "representative_rules": [
         "INVALID_DATE[1]",
         "ne_proronila_ni[1]",
         "VODJANOJ_VODNIJ[1]",
         "giloj_gilichnij[2]",
         "economichesky_ekonomichniy[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 355,
+        "incorrect": 161,
+        "correct": 194
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 4,
+        "exception@scope=current": 99,
+        "exception@scope=next": 14,
+        "exception@scope=previous": 11,
+        "exception@spacebefore": 1,
+        "match@include_skipped": 2,
+        "match@postag_regexp": 129,
+        "match@postag_replace": 126,
+        "match@setpos": 4,
+        "message_suggestion_match": 129,
+        "pattern:or": 1,
+        "static_lemma_match": 8,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 15,
+        "token@spacebefore": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 17,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
+        "MULTI_BLOCKER": 2
+      }
     },
     "match@postag_regexp": {
       "raw_xml_occurrences": 136,
+      "effective_occurrences": 136,
       "source_rules_count": 129,
       "positive_pattern_occurrences": 136,
+      "representative_descriptor": "<match no=\"1\" postag_regexp=\"yes\"/>",
       "representative_rules": [
         "INVALID_DATE[1]",
         "ne_proronila_ni[1]",
         "VODJANOJ_VODNIJ[1]",
         "giloj_gilichnij[2]",
         "economichesky_ekonomichniy[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 355,
+        "incorrect": 161,
+        "correct": 194
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 4,
+        "exception@scope=current": 99,
+        "exception@scope=next": 14,
+        "exception@scope=previous": 11,
+        "exception@spacebefore": 1,
+        "match@include_skipped": 2,
+        "match@postag": 129,
+        "match@postag_replace": 126,
+        "match@setpos": 4,
+        "message_suggestion_match": 129,
+        "pattern:or": 1,
+        "static_lemma_match": 8,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 15,
+        "token@spacebefore": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 17,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
+        "MULTI_BLOCKER": 2
+      }
     },
     "match@postag_replace": {
       "raw_xml_occurrences": 133,
+      "effective_occurrences": 133,
       "source_rules_count": 126,
       "positive_pattern_occurrences": 133,
+      "representative_descriptor": "<match no=\"1\" postag_replace=\"REPL\"/>",
       "representative_rules": [
         "INVALID_DATE[1]",
         "ne_proronila_ni[1]",
         "VODJANOJ_VODNIJ[1]",
         "giloj_gilichnij[2]",
         "economichesky_ekonomichniy[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 349,
+        "incorrect": 158,
+        "correct": 191
+      },
+      "overlap_with_advanced_features": {
+        "antipattern_rule_level": 4,
+        "exception@scope=current": 96,
+        "exception@scope=next": 14,
+        "exception@scope=previous": 11,
+        "exception@spacebefore": 1,
+        "match@include_skipped": 2,
+        "match@postag": 126,
+        "match@postag_regexp": 126,
+        "match@setpos": 4,
+        "message_suggestion_match": 126,
+        "pattern:or": 1,
+        "static_lemma_match": 8,
+        "token@max": 1,
+        "token@min": 1,
+        "token@skip": 15,
+        "token@spacebefore": 1
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 14,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 110,
+        "MULTI_BLOCKER": 2
+      }
     },
     "match@setpos": {
       "raw_xml_occurrences": 4,
+      "effective_occurrences": 4,
       "source_rules_count": 4,
       "positive_pattern_occurrences": 4,
+      "representative_descriptor": "<match no=\"1\" setpos=\"yes\"/>",
       "representative_rules": [
         "VODJANOJ_VODNIJ[1]",
         "giloj_gilichnij[2]",
         "economichesky_ekonomichniy[1]",
         "economichesky_ekonomichniy[2]"
       ],
+      "embedded_examples_count": {
+        "total": 7,
+        "incorrect": 4,
+        "correct": 3
+      },
+      "overlap_with_advanced_features": {
+        "match@postag": 4,
+        "match@postag_regexp": 4,
+        "match@postag_replace": 4,
+        "message_suggestion_match": 4,
+        "static_lemma_match": 4
+      },
+      "overlap_with_remaining_blockers": {
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 4
+      },
       "raw_value_distribution": {
         "yes": 4
       },
@@ -3277,39 +3964,93 @@
     },
     "static_lemma_match": {
       "raw_xml_occurrences": 8,
+      "effective_occurrences": 8,
       "source_rules_count": 8,
       "positive_pattern_occurrences": 8,
+      "representative_descriptor": "<match no=\"1\">lemma</match>",
       "representative_rules": [
         "VODJANOJ_VODNIJ[1]",
         "giloj_gilichnij[2]",
         "economichesky_ekonomichniy[1]",
         "economichesky_ekonomichniy[2]",
         "bivshij_biloj[1]"
-      ]
+      ],
+      "embedded_examples_count": {
+        "total": 15,
+        "incorrect": 12,
+        "correct": 3
+      },
+      "overlap_with_advanced_features": {
+        "match@postag": 8,
+        "match@postag_regexp": 8,
+        "match@postag_replace": 8,
+        "match@setpos": 4,
+        "message_suggestion_match": 8
+      },
+      "overlap_with_remaining_blockers": {
+        "ADVANCED_0008_RUNNABLE": 4,
+        "DEFERRED_0012_SPELLING_OR_SUPPRESSION": 4
+      }
     },
     "rule@minprevmatches": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<rule minprevmatches=\"N\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "rule@distancetokens": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<rule distancetokens=\"N\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "rulegroup@minprevmatches": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<rulegroup minprevmatches=\"N\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     },
     "rulegroup@distancetokens": {
       "raw_xml_occurrences": 0,
+      "effective_occurrences": 0,
       "source_rules_count": 0,
       "positive_pattern_occurrences": 0,
-      "representative_rules": []
+      "representative_descriptor": "<rulegroup distancetokens=\"N\">",
+      "representative_rules": [],
+      "embedded_examples_count": {
+        "total": 0,
+        "incorrect": 0,
+        "correct": 0
+      },
+      "overlap_with_advanced_features": {},
+      "overlap_with_remaining_blockers": {}
     }
   },
   "antipattern_details": {
@@ -3401,8 +4142,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 2,
-        "correct": 1,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 2
       },
       "attribute_counts": {}
@@ -3427,8 +4168,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -3533,8 +4274,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 4,
-        "correct": 2,
+        "incorrect": 6,
+        "correct": 0,
         "with_correction": 4
       },
       "attribute_counts": {
@@ -3594,8 +4335,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 2,
-        "correct": 1,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 2
       },
       "attribute_counts": {
@@ -3799,8 +4540,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 2,
-        "correct": 1,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 2
       },
       "attribute_counts": {
@@ -9700,10 +10441,28 @@
       "rulegroup_id": "Logical_skritij_skritnij",
       "rulegroup_name": "Логические ошибки: «скрытый» или «скрытный»",
       "default_off": false,
-      "task_0007_state": "UNKNOWN",
+      "task_0007_state": "DEFERRED_0010_FILTER",
       "task_0008_state": "ADVANCED_0008_RUNNABLE",
-      "task_0007_blockers": [],
-      "blockers_removed_by_0008": [],
+      "task_0007_blockers": [
+        {
+          "feature": "match@regexp_match",
+          "target_task": "0010"
+        },
+        {
+          "feature": "match@regexp_replace",
+          "target_task": "0010"
+        }
+      ],
+      "blockers_removed_by_0008": [
+        {
+          "feature": "match@regexp_match",
+          "target_task": "0010"
+        },
+        {
+          "feature": "match@regexp_replace",
+          "target_task": "0010"
+        }
+      ],
       "remaining_blockers_after_0008": [],
       "feature_usage": [
         "match@regexp_match",
@@ -9779,8 +10538,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -10245,8 +11004,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -10271,8 +11030,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -10297,8 +11056,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -10323,8 +11082,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -13215,8 +13974,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 1,
-        "correct": 2,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -13249,8 +14008,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 1,
-        "correct": 2,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -13554,8 +14313,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 1,
-        "correct": 4,
+        "incorrect": 2,
+        "correct": 3,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -13683,8 +14442,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 1,
-        "correct": 3,
+        "incorrect": 2,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -13739,8 +14498,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 1,
-        "correct": 2,
+        "incorrect": 3,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -14988,8 +15747,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 1,
-        "correct": 3,
+        "incorrect": 2,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15022,8 +15781,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15312,8 +16071,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15474,8 +16233,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 1,
-        "correct": 4,
+        "incorrect": 2,
+        "correct": 3,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -15912,8 +16671,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -23571,8 +24330,8 @@
       },
       "examples_count": {
         "total": 10,
-        "incorrect": 1,
-        "correct": 9,
+        "incorrect": 2,
+        "correct": 8,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -23594,10 +24353,32 @@
       "rulegroup_id": "Soglasovanie_ADJ_NN",
       "rulegroup_name": "Согласование прилагательного с существительным",
       "default_off": false,
-      "task_0007_state": "UNKNOWN",
+      "task_0007_state": "MULTI_BLOCKER",
       "task_0008_state": "DEFERRED_0009_UNIFICATION",
-      "task_0007_blockers": [],
-      "blockers_removed_by_0008": [],
+      "task_0007_blockers": [
+        {
+          "feature": "pattern:unify",
+          "target_task": "0009"
+        },
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        }
+      ],
+      "blockers_removed_by_0008": [
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        }
+      ],
       "remaining_blockers_after_0008": [
         {
           "feature": "pattern:unify",
@@ -23643,10 +24424,32 @@
       "rulegroup_id": "Soglasovanie_ADJ_NN",
       "rulegroup_name": "Согласование прилагательного с существительным",
       "default_off": false,
-      "task_0007_state": "UNKNOWN",
+      "task_0007_state": "MULTI_BLOCKER",
       "task_0008_state": "DEFERRED_0009_UNIFICATION",
-      "task_0007_blockers": [],
-      "blockers_removed_by_0008": [],
+      "task_0007_blockers": [
+        {
+          "feature": "pattern:unify",
+          "target_task": "0009"
+        },
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        }
+      ],
+      "blockers_removed_by_0008": [
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        }
+      ],
       "remaining_blockers_after_0008": [
         {
           "feature": "pattern:unify",
@@ -23692,10 +24495,36 @@
       "rulegroup_id": "Soglasovanie_ADJ_NN",
       "rulegroup_name": "Согласование прилагательного с существительным",
       "default_off": false,
-      "task_0007_state": "UNKNOWN",
+      "task_0007_state": "MULTI_BLOCKER",
       "task_0008_state": "MULTI_BLOCKER",
-      "task_0007_blockers": [],
-      "blockers_removed_by_0008": [],
+      "task_0007_blockers": [
+        {
+          "feature": "pattern:unify",
+          "target_task": "0009"
+        },
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        },
+        {
+          "feature": "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+          "target_task": "0010"
+        }
+      ],
+      "blockers_removed_by_0008": [
+        {
+          "feature": "exception@scope=previous",
+          "target_task": "0008"
+        },
+        {
+          "feature": "antipattern",
+          "target_task": "0008"
+        }
+      ],
       "remaining_blockers_after_0008": [
         {
           "feature": "pattern:unify",
@@ -28462,8 +29291,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 1,
-        "correct": 5,
+        "incorrect": 6,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -28664,8 +29493,8 @@
       },
       "examples_count": {
         "total": 5,
-        "incorrect": 1,
-        "correct": 4,
+        "incorrect": 3,
+        "correct": 2,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -28747,8 +29576,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -29109,8 +29938,8 @@
       "positive_feature_counts": {},
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {}
@@ -32239,8 +33068,8 @@
       },
       "examples_count": {
         "total": 6,
-        "incorrect": 1,
-        "correct": 5,
+        "incorrect": 2,
+        "correct": 4,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -35188,8 +36017,8 @@
       },
       "examples_count": {
         "total": 4,
-        "incorrect": 1,
-        "correct": 3,
+        "incorrect": 4,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -35342,8 +36171,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -35422,8 +36251,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -38163,8 +38992,8 @@
       },
       "examples_count": {
         "total": 11,
-        "incorrect": 5,
-        "correct": 6,
+        "incorrect": 6,
+        "correct": 5,
         "with_correction": 5
       },
       "attribute_counts": {
@@ -39579,8 +40408,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -39630,8 +40459,8 @@
       },
       "examples_count": {
         "total": 2,
-        "incorrect": 1,
-        "correct": 1,
+        "incorrect": 2,
+        "correct": 0,
         "with_correction": 1
       },
       "attribute_counts": {
@@ -39681,8 +40510,8 @@
       },
       "examples_count": {
         "total": 3,
-        "incorrect": 1,
-        "correct": 2,
+        "incorrect": 2,
+        "correct": 1,
         "with_correction": 1
       },
       "attribute_counts": {

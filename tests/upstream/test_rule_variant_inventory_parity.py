@@ -127,20 +127,20 @@ def test_advanced_inventory_canonical_totals_and_invariants():
     # Examples Summary
     ex_sum = inv["examples_summary"]
     assert ex_sum["runnable_0007_0008_total"] == 1738
-    assert ex_sum["runnable_0007_0008_incorrect"] == 837
-    assert ex_sum["runnable_0007_0008_correct"] == 901
+    assert ex_sum["runnable_0007_0008_incorrect"] == 871
+    assert ex_sum["runnable_0007_0008_correct"] == 867
     assert ex_sum["deferred_total"] == 708
-    assert ex_sum["deferred_incorrect"] == 202
-    assert ex_sum["deferred_correct"] == 506
+    assert ex_sum["deferred_incorrect"] == 212
+    assert ex_sum["deferred_correct"] == 496
     assert ex_sum["all_rules_examples_total"] == 2446
-    assert ex_sum["all_rules_examples_incorrect"] == 1039
-    assert ex_sum["all_rules_examples_correct"] == 1407
+    assert ex_sum["all_rules_examples_incorrect"] == 1083
+    assert ex_sum["all_rules_examples_correct"] == 1363
 
     # Core 0007 examples regression
     core_ex = ex_sum["by_state"]["CORE_0007_RUNNABLE"]
     assert core_ex["total"] == 988
-    assert core_ex["incorrect"] == 525
-    assert core_ex["correct"] == 463
+    assert core_ex["incorrect"] == 546
+    assert core_ex["correct"] == 442
 
     # Whole grammar raw examples
     raw_ex = ex_sum["raw_xml_whole_grammar"]
@@ -267,5 +267,10 @@ def test_advanced_inventory_reproducibility_metadata():
     assert len(prov["generator_sha256"]) == 64
     assert prov["pinned_lt_version"] == "6.8"
     assert prov["pinned_lt_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
-    assert prov["baseline_0007_commit"] == "b75bc4dfa84c1549d22f83388785dd9b2988f6de"
+    assert prov["baseline_task_0007_commit"] == "b75bc4dfa84c1549d22f83388785dd9b2988f6de"
+    assert prov["grammar_xml_path"] == "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml"
+    assert prov["grammar_xml_sha256"] == "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec"
+    assert prov["grammar_xml_size_bytes"] == 1194903
+
+
 
