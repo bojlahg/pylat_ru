@@ -10,6 +10,7 @@ from typing import Callable, List, Optional, Sequence, Set, Union
 
 from pylat_ru.analysis import AnalyzedToken
 from pylat_ru.morfologik.dictionary import MorfologikDictionary
+from pylat_ru.synthesis.errors import SynthesisError, SynthesisResourceError
 from pylat_ru.synthesis.manual import ManualSynthesizer
 from pylat_ru.synthesis.roman import get_roman_number
 
@@ -81,20 +82,34 @@ class BaseSynthesizer(Synthesizer):
         self.tag_file_path = Path(tag_file_path)
 
         if not self.resource_path.is_file():
-            raise FileNotFoundError(f"Synthesis dictionary not found: {self.resource_path}")
-        self.dictionary = MorfologikDictionary.open(self.resource_path)
+            raise SynthesisResourceError(f"Synthesis dictionary not found: {self.resource_path}")
+        try:
+            self.dictionary = MorfologikDictionary.open(self.resource_path)
+        except Exception as e:
+            raise SynthesisResourceError(
+                f"Failed to open synthesis dictionary '{self.resource_path}': {e}"
+            ) from e
 
         self.manual_synthesizer: Optional[ManualSynthesizer] = None
-        if added_path is not None and Path(added_path).is_file():
-            self.manual_synthesizer = ManualSynthesizer(added_path)
+        if added_path is not None:
+            add_p = Path(added_path)
+            if not add_p.is_file():
+                raise SynthesisResourceError(f"Manual additions resource not found: {add_p}")
+            self.manual_synthesizer = ManualSynthesizer(add_p)
 
         self.removal_synthesizer: Optional[ManualSynthesizer] = None
-        if removed_path is not None and Path(removed_path).is_file():
-            self.removal_synthesizer = ManualSynthesizer(removed_path)
+        if removed_path is not None:
+            rem_p = Path(removed_path)
+            if not rem_p.is_file():
+                raise SynthesisResourceError(f"Manual removals resource not found: {rem_p}")
+            self.removal_synthesizer = ManualSynthesizer(rem_p)
 
         self.removal_synthesizer2: Optional[ManualSynthesizer] = None
-        if do_not_synth_path is not None and Path(do_not_synth_path).is_file():
-            self.removal_synthesizer2 = ManualSynthesizer(do_not_synth_path)
+        if do_not_synth_path is not None:
+            dns_p = Path(do_not_synth_path)
+            if not dns_p.is_file():
+                raise SynthesisResourceError(f"Do-not-synthesize resource not found: {dns_p}")
+            self.removal_synthesizer2 = ManualSynthesizer(dns_p)
 
         self._possible_tags: Optional[List[str]] = None
         self._lock = threading.Lock()
@@ -106,14 +121,23 @@ class BaseSynthesizer(Synthesizer):
         with self._lock:
             if self._possible_tags is not None:
                 return
+            if not self.tag_file_path.is_file():
+                raise SynthesisResourceError(
+                    f"Possible tags resource file not found: '{self.tag_file_path}'"
+                )
+
             tags: List[str] = []
-            if self.tag_file_path.is_file():
+            try:
                 with open(self.tag_file_path, "r", encoding="utf-8") as f:
                     for line in f:
                         line = line.strip()
                         if not line or line.startswith("#"):
                             continue
                         tags.append(line)
+            except Exception as e:
+                raise SynthesisResourceError(
+                    f"Failed to read possible tags resource file '{self.tag_file_path}': {e}"
+                ) from e
 
             if self.manual_synthesizer is not None:
                 tag_set = set(tags)
@@ -134,6 +158,9 @@ class BaseSynthesizer(Synthesizer):
 
     def lookup(self, lemma: str, pos_tag: str) -> List[str]:
         """Lookup word forms combining Morfologik FSA with manual additions and removals."""
+        if lemma is None:
+            return []
+
         results = list(self.dictionary.synthesize(lemma, pos_tag))
 
         if self.manual_synthesizer is not None:
@@ -165,9 +192,13 @@ class BaseSynthesizer(Synthesizer):
         if isinstance(token, str):
             tok_str = token
             lemma = token
-        else:
+        elif isinstance(token, AnalyzedToken):
             tok_str = token.token
-            lemma = token.lemma if token.lemma is not None else token.token
+            lemma = token.lemma
+            if lemma is None:
+                return []
+        else:
+            return []
 
         if pos_tag == self.SPELLNUMBER_TAG:
             return [self.get_spelled_number(tok_str)]
@@ -197,6 +228,9 @@ class BaseSynthesizer(Synthesizer):
         self, lemma: str, tag_predicate: Callable[[str], bool]
     ) -> List[str]:
         """Synthesize word forms for all possible POS tags matching predicate."""
+        if lemma is None:
+            return []
+
         self._init_possible_tags()
         results: List[str] = []
         if self._possible_tags is not None:
@@ -221,31 +255,9 @@ class BaseSynthesizer(Synthesizer):
         return get_roman_number(num_str)
 
 
-def _resolve_resource(filename: str) -> Path:
-    """Resolve resource path from package resources or third_party directory."""
-    pkg_path = Path(__file__).resolve().parent.parent / "resources" / "ru" / filename
-    if pkg_path.is_file():
-        return pkg_path
-
-    third_party_path = (
-        Path(__file__).resolve().parent.parent.parent.parent
-        / "third_party"
-        / "languagetool"
-        / "languagetool-language-modules"
-        / "ru"
-        / "src"
-        / "main"
-        / "resources"
-        / "org"
-        / "languagetool"
-        / "resource"
-        / "ru"
-        / filename
-    )
-    if third_party_path.is_file():
-        return third_party_path
-
-    return pkg_path
+def _get_packaged_resource(filename: str) -> Path:
+    """Resolve resource path strictly from packaged runtime resources."""
+    return Path(__file__).resolve().parent.parent / "resources" / "ru" / filename
 
 
 class RussianSynthesizer(BaseSynthesizer):
@@ -261,10 +273,10 @@ class RussianSynthesizer(BaseSynthesizer):
         added_path: Optional[Union[str, Path]] = None,
         removed_path: Optional[Union[str, Path]] = None,
     ) -> None:
-        dict_p = resource_path if resource_path is not None else _resolve_resource("russian_synth.dict")
-        tags_p = tag_file_path if tag_file_path is not None else _resolve_resource("tags_russian.txt")
-        add_p = added_path if added_path is not None else _resolve_resource("added.txt")
-        rem_p = removed_path if removed_path is not None else _resolve_resource("removed.txt")
+        dict_p = resource_path if resource_path is not None else _get_packaged_resource("russian_synth.dict")
+        tags_p = tag_file_path if tag_file_path is not None else _get_packaged_resource("tags_russian.txt")
+        add_p = added_path if added_path is not None else _get_packaged_resource("added.txt")
+        rem_p = removed_path if removed_path is not None else _get_packaged_resource("removed.txt")
 
         super().__init__(
             resource_path=dict_p,

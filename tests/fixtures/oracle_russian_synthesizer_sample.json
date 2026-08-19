@@ -6,7 +6,7 @@
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
-    "queries_count": 34
+    "queries_count": 43
   },
   "queries": [
     {
@@ -171,6 +171,17 @@
     },
     {
       "id": "synth_016",
+      "category": "trailing_empty_tag",
+      "token": "блукать",
+      "lemma": "блукать",
+      "pos_tag": "VB:INF:",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "блукать"
+      ]
+    },
+    {
+      "id": "synth_017",
       "category": "regex_noun",
       "token": "семья",
       "lemma": "семья",
@@ -193,7 +204,7 @@
       ]
     },
     {
-      "id": "synth_017",
+      "id": "synth_018",
       "category": "regex_noun",
       "token": "дом",
       "lemma": "дом",
@@ -220,7 +231,7 @@
       ]
     },
     {
-      "id": "synth_018",
+      "id": "synth_019",
       "category": "regex_verb",
       "token": "бежать",
       "lemma": "бежать",
@@ -249,7 +260,7 @@
       ]
     },
     {
-      "id": "synth_019",
+      "id": "synth_020",
       "category": "regex_verb",
       "token": "говорить",
       "lemma": "говорить",
@@ -258,7 +269,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_020",
+      "id": "synth_021",
       "category": "regex_adj",
       "token": "красивый",
       "lemma": "красивый",
@@ -272,7 +283,7 @@
       ]
     },
     {
-      "id": "synth_021",
+      "id": "synth_022",
       "category": "manual_added",
       "token": "мадам",
       "lemma": "мадам",
@@ -283,7 +294,7 @@
       ]
     },
     {
-      "id": "synth_022",
+      "id": "synth_023",
       "category": "manual_added",
       "token": "шлифмашина",
       "lemma": "шлифмашина",
@@ -294,7 +305,7 @@
       ]
     },
     {
-      "id": "synth_023",
+      "id": "synth_024",
       "category": "manual_added",
       "token": "трассерный",
       "lemma": "трассерный",
@@ -305,7 +316,7 @@
       ]
     },
     {
-      "id": "synth_024",
+      "id": "synth_025",
       "category": "manual_removed",
       "token": "дерево",
       "lemma": "дерево",
@@ -316,7 +327,7 @@
       ]
     },
     {
-      "id": "synth_025",
+      "id": "synth_026",
       "category": "manual_removed",
       "token": "втэк",
       "lemma": "втэк",
@@ -325,7 +336,34 @@
       "expected_forms": []
     },
     {
-      "id": "synth_026",
+      "id": "synth_027",
+      "category": "manual_removed",
+      "token": "может",
+      "lemma": "может",
+      "pos_tag": "PARENTHESIS",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_028",
+      "category": "manual_removed",
+      "token": "кпсс",
+      "lemma": "кпсс",
+      "pos_tag": "ABR:Neut",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_029",
+      "category": "manual_removed",
+      "token": "ао",
+      "lemma": "ао",
+      "pos_tag": "NN:Inanim:Masc",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_030",
       "category": "special_number",
       "token": "123",
       "lemma": "123",
@@ -336,7 +374,7 @@
       ]
     },
     {
-      "id": "synth_027",
+      "id": "synth_031",
       "category": "special_number",
       "token": "123",
       "lemma": "123",
@@ -347,7 +385,7 @@
       ]
     },
     {
-      "id": "synth_028",
+      "id": "synth_032",
       "category": "special_number",
       "token": "1",
       "lemma": "1",
@@ -358,7 +396,7 @@
       ]
     },
     {
-      "id": "synth_029",
+      "id": "synth_033",
       "category": "special_number",
       "token": "4",
       "lemma": "4",
@@ -369,7 +407,7 @@
       ]
     },
     {
-      "id": "synth_030",
+      "id": "synth_034",
       "category": "special_number",
       "token": "9",
       "lemma": "9",
@@ -380,7 +418,7 @@
       ]
     },
     {
-      "id": "synth_031",
+      "id": "synth_035",
       "category": "special_number",
       "token": "123",
       "lemma": "123",
@@ -391,7 +429,7 @@
       ]
     },
     {
-      "id": "synth_032",
+      "id": "synth_036",
       "category": "special_number",
       "token": "2024",
       "lemma": "2024",
@@ -402,7 +440,54 @@
       ]
     },
     {
-      "id": "synth_033",
+      "id": "synth_037",
+      "category": "case_sensitive",
+      "token": "Семья",
+      "lemma": "Семья",
+      "pos_tag": "NN:Inanim:Fem:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_038",
+      "category": "case_sensitive",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": [
+        "семья"
+      ]
+    },
+    {
+      "id": "synth_039",
+      "category": "null_lemma",
+      "token": "семья",
+      "lemma": null,
+      "pos_tag": "NN:Inanim:Fem:Sin:Nom",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_040",
+      "category": "null_lemma",
+      "token": "семья",
+      "lemma": null,
+      "pos_tag": "NN:Inanim:Fem:.*",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_041",
+      "category": "unknown_tag",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "UNKNOWN_POS_TAG",
+      "pos_tag_is_regex": false,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_042",
       "category": "unknown_word",
       "token": "квазимодулятор",
       "lemma": "квазимодулятор",
@@ -411,7 +496,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_034",
+      "id": "synth_043",
       "category": "unknown_word",
       "token": "blablabla",
       "lemma": "blablabla",

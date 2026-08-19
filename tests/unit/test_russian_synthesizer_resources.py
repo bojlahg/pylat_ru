@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 import pytest
 
-from pylat_ru.synthesis import RussianSynthesizer
+from pylat_ru.synthesis import RussianSynthesizer, SynthesisResourceError
 from tools.russian_synthesizer_inventory import generate_russian_synthesizer_inventory
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -26,6 +26,8 @@ def test_packaged_synthesis_resources_hash_parity():
         "russian_synth.dict",
         "russian_synth.info",
         "tags_russian.txt",
+        "added.txt",
+        "removed.txt",
     ]
 
     for fname in files_to_check:
@@ -53,11 +55,11 @@ def test_russian_synthesizer_inventory_byte_exact_regeneration():
 
 
 def test_missing_synth_dictionary_raises_error(tmp_path: Path):
-    """Verify missing synthesis dictionary raises explicit FileNotFoundError."""
+    """Verify missing synthesis dictionary raises explicit SynthesisResourceError."""
     fake_dict = tmp_path / "missing_synth.dict"
     fake_tags = tmp_path / "missing_tags.txt"
 
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(SynthesisResourceError):
         RussianSynthesizer(resource_path=fake_dict, tag_file_path=fake_tags)
 
 
@@ -89,6 +91,8 @@ def test_real_installed_distribution_package_synthesis(tmp_path: Path):
         "pylat_ru/resources/ru/russian_synth.dict",
         "pylat_ru/resources/ru/russian_synth.info",
         "pylat_ru/resources/ru/tags_russian.txt",
+        "pylat_ru/resources/ru/added.txt",
+        "pylat_ru/resources/ru/removed.txt",
     ]
 
     for req_res in required_packaged_resources:
@@ -137,9 +141,16 @@ assert res_nom == ['семья']
 res_r = synth.synthesize('семья', 'NN:Inanim:Fem:Sin:R')
 assert res_r == ['семьи']
 
+# Manual additions test
 res_madam = synth.synthesize('мадам', 'NN:Name:Fem:PL')
 assert res_madam == ['мадам']
 
+# Manual removals test
+res_derevo = synth.synthesize('дерево', 'NN:Inanim:Neut:PL:R')
+assert res_derevo == ['деревьев']
+assert 'дерев' not in res_derevo
+
+# Special number tag test
 res_roman = synth.synthesize('123', '_spell_number_:Roman')
 assert res_roman == ['CXXIII']
 

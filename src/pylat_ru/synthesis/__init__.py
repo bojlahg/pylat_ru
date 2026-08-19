@@ -2,6 +2,11 @@
 
 from __future__ import annotations
 
+from pylat_ru.synthesis.errors import (
+    ManualSynthesizerFormatError,
+    SynthesisError,
+    SynthesisResourceError,
+)
 from pylat_ru.synthesis.manual import ManualSynthesizer
 from pylat_ru.synthesis.roman import get_roman_number, int_to_roman
 from pylat_ru.synthesis.synthesizer import (
@@ -15,6 +20,9 @@ __all__ = [
     "BaseSynthesizer",
     "RussianSynthesizer",
     "ManualSynthesizer",
+    "SynthesisError",
+    "ManualSynthesizerFormatError",
+    "SynthesisResourceError",
     "int_to_roman",
     "get_roman_number",
 ]

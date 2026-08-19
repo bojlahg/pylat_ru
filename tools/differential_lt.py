@@ -1195,37 +1195,42 @@ def generate_disambiguation_fixtures(
 
 SYNTHESIS_TEST_QUERIES: List[Dict[str, Any]] = [
     # 1. Noun exact synthesis
-    {"category": "noun_exact", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:R", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:PL:Nom", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "человек", "pos_tag": "NN:Anim:Masc:Sin:Nom", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "окно", "pos_tag": "NN:Inanim:Neut:Sin:Nom", "pos_tag_is_regex": False},
-    {"category": "noun_exact", "lemma": "рука", "pos_tag": "NN:Inanim:Fem:PL:T", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "семья", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "семья", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:R", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "дом", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:PL:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "дом", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "человек", "lemma": "человек", "pos_tag": "NN:Anim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "окно", "lemma": "окно", "pos_tag": "NN:Inanim:Neut:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "noun_exact", "token": "рука", "lemma": "рука", "pos_tag": "NN:Inanim:Fem:PL:T", "pos_tag_is_regex": False},
     # 2. Verb exact synthesis
-    {"category": "verb_exact", "lemma": "бежать", "pos_tag": "VB:INF:INTR:IMPFV", "pos_tag_is_regex": False},
-    {"category": "verb_exact", "lemma": "говорить", "pos_tag": "VB:Past:Masc:Imperactive", "pos_tag_is_regex": False},
-    {"category": "verb_exact", "lemma": "идти", "pos_tag": "VB:Pres:1p:Sin:Imperactive", "pos_tag_is_regex": False},
-    {"category": "verb_exact", "lemma": "делать", "pos_tag": "VB:Pres:3p:PL:Imperactive", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "token": "бежать", "lemma": "бежать", "pos_tag": "VB:INF:INTR:IMPFV", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "token": "говорить", "lemma": "говорить", "pos_tag": "VB:Past:Masc:Imperactive", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "token": "идти", "lemma": "идти", "pos_tag": "VB:Pres:1p:Sin:Imperactive", "pos_tag_is_regex": False},
+    {"category": "verb_exact", "token": "делать", "lemma": "делать", "pos_tag": "VB:Pres:3p:PL:Imperactive", "pos_tag_is_regex": False},
     # 3. Adjective exact synthesis
-    {"category": "adj_exact", "lemma": "красивый", "pos_tag": "ADJ:Posit:Fem:Nom", "pos_tag_is_regex": False},
-    {"category": "adj_exact", "lemma": "красивый", "pos_tag": "ADJ:Short:Fem", "pos_tag_is_regex": False},
-    {"category": "adj_exact", "lemma": "новый", "pos_tag": "ADJ:Posit:PL:Nom", "pos_tag_is_regex": False},
-    {"category": "adj_exact", "lemma": "хороший", "pos_tag": "ADJ:Comp", "pos_tag_is_regex": False},
-    # 4. Regex synthesis
-    {"category": "regex_noun", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:.*", "pos_tag_is_regex": True},
-    {"category": "regex_noun", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:.*", "pos_tag_is_regex": True},
-    {"category": "regex_verb", "lemma": "бежать", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
-    {"category": "regex_verb", "lemma": "говорить", "pos_tag": "VB:.*:3p:.*", "pos_tag_is_regex": True},
-    {"category": "regex_adj", "lemma": "красивый", "pos_tag": "ADJ:Short:.*", "pos_tag_is_regex": True},
-    # 5. Manual additions overlay (added.txt)
-    {"category": "manual_added", "lemma": "мадам", "pos_tag": "NN:Name:Fem:PL", "pos_tag_is_regex": False},
-    {"category": "manual_added", "lemma": "шлифмашина", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
-    {"category": "manual_added", "lemma": "трассерный", "pos_tag": "ADJ:Posit:Masc:Nom", "pos_tag_is_regex": False},
-    # 6. Manual removals overlay (removed.txt)
-    {"category": "manual_removed", "lemma": "дерево", "pos_tag": "NN:Inanim:Neut:PL:R", "pos_tag_is_regex": False},
-    {"category": "manual_removed", "lemma": "втэк", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
-    # 7. Special number tags
+    {"category": "adj_exact", "token": "красивый", "lemma": "красивый", "pos_tag": "ADJ:Posit:Fem:Nom", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "token": "красивый", "lemma": "красивый", "pos_tag": "ADJ:Short:Fem", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "token": "новый", "lemma": "новый", "pos_tag": "ADJ:Posit:PL:Nom", "pos_tag_is_regex": False},
+    {"category": "adj_exact", "token": "хороший", "lemma": "хороший", "pos_tag": "ADJ:Comp", "pos_tag_is_regex": False},
+    # 4. Trailing-empty POS tag
+    {"category": "trailing_empty_tag", "token": "блукать", "lemma": "блукать", "pos_tag": "VB:INF:", "pos_tag_is_regex": False},
+    # 5. Regex synthesis
+    {"category": "regex_noun", "token": "семья", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:.*", "pos_tag_is_regex": True},
+    {"category": "regex_noun", "token": "дом", "lemma": "дом", "pos_tag": "NN:Inanim:Masc:.*", "pos_tag_is_regex": True},
+    {"category": "regex_verb", "token": "бежать", "lemma": "бежать", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
+    {"category": "regex_verb", "token": "говорить", "lemma": "говорить", "pos_tag": "VB:.*:3p:.*", "pos_tag_is_regex": True},
+    {"category": "regex_adj", "token": "красивый", "lemma": "красивый", "pos_tag": "ADJ:Short:.*", "pos_tag_is_regex": True},
+    # 6. Manual additions overlay (added.txt)
+    {"category": "manual_added", "token": "мадам", "lemma": "мадам", "pos_tag": "NN:Name:Fem:PL", "pos_tag_is_regex": False},
+    {"category": "manual_added", "token": "шлифмашина", "lemma": "шлифмашина", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "manual_added", "token": "трассерный", "lemma": "трассерный", "pos_tag": "ADJ:Posit:Masc:Nom", "pos_tag_is_regex": False},
+    # 7. Manual removals overlay (removed.txt material cases)
+    {"category": "manual_removed", "token": "дерево", "lemma": "дерево", "pos_tag": "NN:Inanim:Neut:PL:R", "pos_tag_is_regex": False},
+    {"category": "manual_removed", "token": "втэк", "lemma": "втэк", "pos_tag": "NN:Inanim:Masc:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "manual_removed", "token": "может", "lemma": "может", "pos_tag": "PARENTHESIS", "pos_tag_is_regex": False},
+    {"category": "manual_removed", "token": "кпсс", "lemma": "кпсс", "pos_tag": "ABR:Neut", "pos_tag_is_regex": False},
+    {"category": "manual_removed", "token": "ао", "lemma": "ао", "pos_tag": "NN:Inanim:Masc", "pos_tag_is_regex": False},
+    # 8. Special number tags
     {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:feminine", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "1", "lemma": "1", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
@@ -1233,9 +1238,16 @@ SYNTHESIS_TEST_QUERIES: List[Dict[str, Any]] = [
     {"category": "special_number", "token": "9", "lemma": "9", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "2024", "lemma": "2024", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
-    # 8. Unknown words
-    {"category": "unknown_word", "lemma": "квазимодулятор", "pos_tag": "NN:.*", "pos_tag_is_regex": True},
-    {"category": "unknown_word", "lemma": "blablabla", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
+    # 9. Case sensitivity
+    {"category": "case_sensitive", "token": "Семья", "lemma": "Семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "case_sensitive", "token": "семья", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
+    # 10. Null lemma edge cases
+    {"category": "null_lemma", "token": "семья", "lemma": None, "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
+    {"category": "null_lemma", "token": "семья", "lemma": None, "pos_tag": "NN:Inanim:Fem:.*", "pos_tag_is_regex": True},
+    # 11. Unknown POS tag & unknown words
+    {"category": "unknown_tag", "token": "семья", "lemma": "семья", "pos_tag": "UNKNOWN_POS_TAG", "pos_tag_is_regex": False},
+    {"category": "unknown_word", "token": "квазимодулятор", "lemma": "квазимодулятор", "pos_tag": "NN:.*", "pos_tag_is_regex": True},
+    {"category": "unknown_word", "token": "blablabla", "lemma": "blablabla", "pos_tag": "VB:.*", "pos_tag_is_regex": True},
 ]
 
 

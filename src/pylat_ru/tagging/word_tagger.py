@@ -51,24 +51,9 @@ class MorfologikTagger:
         return tuple(TaggedWord(lemma=e.stem, pos_tag=e.tag) for e in entries)
 
 
-def _java_regex_split(pattern: re.Pattern[str], text: str) -> list[str]:
-    """Split text by regular expression matching Java Pattern.split(text, 0) semantics.
+from pylat_ru.utils import java_regex_split
 
-    Java Pattern.split(text) characteristics preserved:
-      1. Capturing groups in pattern are not returned as extra items in the split array.
-      2. Trailing empty strings at the end of the split array are discarded.
-    """
-    result: list[str] = []
-    last_end = 0
-    for match in pattern.finditer(text):
-        result.append(text[last_end : match.start()])
-        last_end = match.end()
-    result.append(text[last_end:])
-
-    while len(result) > 1 and result[-1] == "":
-        result.pop()
-
-    return result
+_java_regex_split = java_regex_split
 
 
 class ManualTagger:

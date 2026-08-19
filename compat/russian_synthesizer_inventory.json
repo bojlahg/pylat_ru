@@ -7,48 +7,166 @@
     "commit_date": "2026-05-05T15:03:23Z",
     "morfologik_version": "2.1.9"
   },
-  "resources": {
-    "russian_synth_dict": {
+  "java_sources": {
+    "russian_synthesizer_java": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/java/org/languagetool/synthesis/ru/RussianSynthesizer.java",
+      "size": 1538,
+      "sha256": "08cff9e72d3ec8d69b2a6072cae973f447a4cf89bfa64ac2bb9bbb10e7ed9e83"
+    },
+    "russian_synthesizer_test_java": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java",
+      "size": 1725,
+      "sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d",
+      "junit_test_methods": [
+        "testSynthesizeString"
+      ]
+    }
+  },
+  "synthesis_dictionary": {
+    "dictionary_file": {
       "path": "src/pylat_ru/resources/ru/russian_synth.dict",
       "size": 1481255,
-      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311"
+      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311",
+      "format": "CFSA2",
+      "flags": "0x0007",
+      "supported_flags": [
+        "FLEXIBLE",
+        "STOPBIT",
+        "NEXTBIT"
+      ],
+      "label_mapping_size": 32,
+      "total_arcs_bytes": 1481215
     },
-    "russian_synth_info": {
+    "info_file": {
       "path": "src/pylat_ru/resources/ru/russian_synth.info",
       "size": 431,
-      "sha256": "916c0ff9a6101c5f36e33c109b15e9cd37da0e75b772f97bca1df8f5fcdcca3b"
-    },
-    "tags_russian_txt": {
-      "path": "src/pylat_ru/resources/ru/tags_russian.txt",
-      "size": 27195,
-      "sha256": "1efed64cfc852bb4619da092034dcb208acde303baeb55109718afe9cf56729a",
-      "total_tags_count": 1201
-    },
+      "sha256": "916c0ff9a6101c5f36e33c109b15e9cd37da0e75b772f97bca1df8f5fcdcca3b",
+      "parsed_attributes": {
+        "fsa.dict.encoder": "SUFFIX",
+        "fsa.dict.encoding": "koi8-r",
+        "fsa.dict.separator": "+"
+      }
+    }
+  },
+  "possible_tags_file": {
+    "path": "src/pylat_ru/resources/ru/tags_russian.txt",
+    "size": 27195,
+    "sha256": "1efed64cfc852bb4619da092034dcb208acde303baeb55109718afe9cf56729a",
+    "total_tags_count": 1201,
+    "unique_tags_count": 1200,
+    "duplicate_tags_count": 1,
+    "first_5_tags": [
+      "ABR",
+      "ABR:Fem",
+      "ABR:Masc",
+      "ABR:Neut",
+      "ABR:PL"
+    ],
+    "last_5_tags": [
+      "VB:Real:TRANS:IMPFV:Sin:P1",
+      "VB:Real:TRANS:IMPFV:Sin:P2",
+      "VB:Real:TRANS:IMPFV:Sin:P3",
+      "VB:Real:bezl:IMPFV",
+      "VB:Real:bezl:TRANS:IMPFV"
+    ],
+    "trailing_empty_colon_tags_count": 6,
+    "trailing_empty_colon_tags_sample": [
+      "DPT:Past:",
+      "DPT:Real:",
+      "VB:Fut:bezl:",
+      "VB:INF:",
+      "VB:INF:bezl:"
+    ]
+  },
+  "manual_overlays": {
     "added_txt": {
       "path": "src/pylat_ru/resources/ru/added.txt",
       "size": 92745,
       "sha256": "4748f15da5cf97095e4d96dda3a3431028c660ff2456c30f143162616d0d8b40",
       "parsed_data_lines_count": 1282,
-      "distinct_keys_count": 1282,
+      "distinct_keys_count": 1179,
       "total_forms_count": 1282,
-      "possible_tags_count": 247
+      "duplicate_forms_per_key_count": 103,
+      "possible_tags_count": 247,
+      "separator_directive": null,
+      "manual_only_tags_count": 1,
+      "manual_only_tags": [
+        "NN:Name:Fem:PL"
+      ]
     },
     "removed_txt": {
       "path": "src/pylat_ru/resources/ru/removed.txt",
       "size": 3205,
       "sha256": "193c3174a137a5343b1dd7ad5a0314716c3e4023f75f57e161d6f99e2c7baff5",
       "parsed_data_lines_count": 60,
-      "distinct_keys_count": 60,
+      "distinct_keys_count": 56,
       "total_forms_count": 60,
-      "possible_tags_count": 50
+      "duplicate_forms_per_key_count": 4,
+      "possible_tags_count": 50,
+      "separator_directive": null,
+      "material_removals": {
+        "total_material_removals_count": 50,
+        "material_removals_sample": [
+          {
+            "form": "б",
+            "lemma": "б",
+            "pos_tag": "NN:Inanim:Masc",
+            "original_dict_forms": [
+              "б"
+            ]
+          },
+          {
+            "form": "ао",
+            "lemma": "ао",
+            "pos_tag": "NN:Inanim:Masc",
+            "original_dict_forms": [
+              "ао"
+            ]
+          },
+          {
+            "form": "втэк",
+            "lemma": "втэк",
+            "pos_tag": "NN:Inanim:Masc:Sin:Nom",
+            "original_dict_forms": [
+              "втэк"
+            ]
+          },
+          {
+            "form": "втэк",
+            "lemma": "втэк",
+            "pos_tag": "NN:Inanim:Masc:Sin:V",
+            "original_dict_forms": [
+              "втэк"
+            ]
+          },
+          {
+            "form": "га",
+            "lemma": "га",
+            "pos_tag": "NN:Inanim:Neut",
+            "original_dict_forms": [
+              "га"
+            ]
+          }
+        ]
+      }
+    },
+    "do_not_synthesize_txt": {
+      "path": "src/pylat_ru/resources/ru/do-not-synthesize.txt",
+      "exists": false
     }
   },
   "custom_overlay_exclusion": {
     "added_custom.txt": {
+      "exists": true,
+      "size": 260,
+      "sha256": "30c7602fe9a69730e194dbe5f5b332fba6adf00f49af85d8c5358055c17d339b",
       "status": "EXCLUDED",
       "rationale": "RussianSynthesizer in LT 6.8 only loads /ru/added.txt and /ru/removed.txt, not custom overlays"
     },
     "removed_custom.txt": {
+      "exists": true,
+      "size": 223,
+      "sha256": "b840a31465a40eaf6401e4262db9d9980cd81246e7ef23357cbc54bb6e8da31c",
       "status": "EXCLUDED",
       "rationale": "RussianSynthesizer in LT 6.8 only loads /ru/added.txt and /ru/removed.txt, not custom overlays"
     }
@@ -77,5 +195,77 @@
       "NN:Name:Fem:PL"
     ],
     "total_possible_tags_count": 1202
-  }
+  },
+  "representative_synthesis_corpus": [
+    {
+      "category": "noun_exact",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:Sin:Nom",
+      "expected": [
+        "семья"
+      ]
+    },
+    {
+      "category": "verb_exact",
+      "token": "бежать",
+      "lemma": "бежать",
+      "pos_tag": "VB:INF:INTR:IMPFV",
+      "expected": [
+        "бежать"
+      ]
+    },
+    {
+      "category": "adj_exact",
+      "token": "красивый",
+      "lemma": "красивый",
+      "pos_tag": "ADJ:Posit:Fem:Nom",
+      "expected": [
+        "красивая"
+      ]
+    },
+    {
+      "category": "trailing_empty_tag",
+      "token": "блукать",
+      "lemma": "блукать",
+      "pos_tag": "VB:INF:",
+      "expected": [
+        "блукать"
+      ]
+    },
+    {
+      "category": "manual_added",
+      "token": "мадам",
+      "lemma": "мадам",
+      "pos_tag": "NN:Name:Fem:PL",
+      "expected": [
+        "мадам"
+      ]
+    },
+    {
+      "category": "manual_removed",
+      "token": "дерево",
+      "lemma": "дерево",
+      "pos_tag": "NN:Inanim:Neut:PL:R",
+      "expected": [
+        "деревьев"
+      ]
+    },
+    {
+      "category": "regex_noun",
+      "token": "семья",
+      "lemma": "семья",
+      "pos_tag": "NN:Inanim:Fem:.*",
+      "expected_count": 13
+    },
+    {
+      "category": "special_roman",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_:Roman",
+      "expected": [
+        "CXXIII"
+      ]
+    }
+  ]
 }

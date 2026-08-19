@@ -1,18 +1,20 @@
 """tests/test_synthesizer_subsystem.py
 
 Comprehensive tests for RussianSynthesizer, BaseSynthesizer, Roman number formatting,
-manual overlays, regex synthesis, and error handling.
+manual overlays, regex synthesis, null-lemma handling, case sensitivity, and error handling.
 """
 
 from __future__ import annotations
 
 import concurrent.futures
+from pathlib import Path
 import pytest
 
 from pylat_ru.analysis import AnalyzedToken
 from pylat_ru.synthesis import (
     BaseSynthesizer,
     RussianSynthesizer,
+    SynthesisResourceError,
     Synthesizer,
     get_roman_number,
     int_to_roman,
@@ -65,6 +67,24 @@ def test_exact_synthesis():
     forms_adj = synth.synthesize("красивый", "ADJ:Posit:Fem:Nom")
     assert "красивая" in forms_adj
 
+    # Trailing empty colon tag
+    forms_blukat = synth.synthesize("блукать", "VB:INF:")
+    assert forms_blukat == ["блукать"]
+
+
+def test_null_lemma_and_case_sensitivity():
+    """Verify AnalyzedToken with lemma=None returns empty array, and case-sensitive lemma matching."""
+    synth = RussianSynthesizer.get_instance()
+
+    # AnalyzedToken with lemma=None
+    tok_null = AnalyzedToken("семья", lemma=None, pos_tag="NN:Inanim:Fem:Sin:Nom")
+    assert synth.synthesize(tok_null, "NN:Inanim:Fem:Sin:Nom") == []
+    assert synth.synthesize(tok_null, "NN:Inanim:Fem:.*", pos_tag_is_regex=True) == []
+
+    # Case sensitivity: uppercase "Семья" has no entry in dictionary
+    assert synth.synthesize("Семья", "NN:Inanim:Fem:Sin:Nom") == []
+    assert synth.synthesize("семья", "NN:Inanim:Fem:Sin:Nom") == ["семья"]
+
 
 def test_regex_synthesis():
     """Verify regex-based synthesis across tags_russian.txt in deterministic order."""
@@ -113,16 +133,22 @@ def test_manual_removals():
     synth = RussianSynthesizer.get_instance()
 
     # дерево (PL R) binary dict contains "деревьев" (and originally "дерев" which is in removed.txt)
-    forms = synth.synthesize("дерево", "NN:Inanim:Neut:PL:R")
-    assert "деревьев" in forms
-    assert "дерев" not in forms
+    forms_derevo = synth.synthesize("дерево", "NN:Inanim:Neut:PL:R")
+    assert "деревьев" in forms_derevo
+    assert "дерев" not in forms_derevo
+
+    # втэк (Masc Sin Nom) binary dict contains "втэк", removed.txt removes it
+    assert synth.synthesize("втэк", "NN:Inanim:Masc:Sin:Nom") == []
+
+    # может (PARENTHESIS) binary dict contains "может", removed.txt removes it
+    assert synth.synthesize("может", "PARENTHESIS") == []
 
 
 def test_special_number_tags():
     """Verify _spell_number_ tags."""
     synth = RussianSynthesizer.get_instance()
 
-    tok = AnalyzedToken("123", "NUM", "123")
+    tok = AnalyzedToken("123", lemma="123", pos_tag="NUM")
     assert synth.synthesize(tok, "_spell_number_") == ["123"]
     assert synth.synthesize(tok, "_spell_number_:feminine") == ["feminine 123"]
     assert synth.synthesize(tok, "_spell_number_:Roman") == ["CXXIII"]
@@ -131,7 +157,7 @@ def test_special_number_tags():
 def test_invalid_regex_error_message():
     """Verify exact LanguageTool error message on invalid regex pattern."""
     synth = RussianSynthesizer.get_instance()
-    tok = AnalyzedToken("слово", "TAG", "слово")
+    tok = AnalyzedToken("слово", lemma="слово", pos_tag="TAG")
 
     with pytest.raises(RuntimeError) as exc_info:
         synth.synthesize(tok, "[invalid_regex(", pos_tag_is_regex=True)
@@ -147,6 +173,15 @@ def test_utility_methods():
     assert synth.get_pos_tag_correction("TAG:123") == "TAG:123"
     assert synth.get_target_pos_tag(["TAG1", "TAG2", "TAG3"], "DEFAULT") == "TAG3"
     assert synth.get_target_pos_tag([], "DEFAULT") == "DEFAULT"
+
+
+def test_missing_resource_fail_closed(tmp_path: Path):
+    """Verify missing dictionary or tags file raises SynthesisResourceError."""
+    fake_dict = tmp_path / "missing.dict"
+    fake_tags = tmp_path / "missing_tags.txt"
+
+    with pytest.raises(SynthesisResourceError):
+        RussianSynthesizer(resource_path=fake_dict, tag_file_path=fake_tags)
 
 
 def test_thread_safety():
