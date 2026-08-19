@@ -8,11 +8,14 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0006_russian_synthesizer",
-    "overall_state": "SYNTHESIZER_LAYER_ESTABLISHED",
+    "task_milestone": "0007_xml_grammar_engine_core",
+    "overall_state": "GRAMMAR_CORE_AND_CHUNKER_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
+      "grammar_core_runnable_rules_total": 506,
+      "grammar_core_deferred_rules_total": 386,
+      "grammar_core_examples_runnable": 988,
       "disambiguation_rules_total": 77,
       "relevant_java_rules_total": 23,
       "language_model_rules_total": 1,
@@ -31,7 +34,31 @@
       "tagger_normalization_replacements_total": 19,
       "multiwords_entries_total": 217,
       "disambiguation_rules_loaded": 77,
-      "synthesizer_oracle_queries_total": 34
+      "synthesizer_oracle_queries_total": 34,
+      "chunker_oracle_cases_total": 30,
+      "grammar_core_oracle_cases_total": 62
+    },
+    "russian_chunker": {
+      "token_expression_evaluation": "SUPPORTED",
+      "regexes1_phrase_rules": "SUPPORTED",
+      "regexes2_phrase_rules": "SUPPORTED",
+      "filter_tags": "SUPPORTED",
+      "syntax_expansion": "SUPPORTED",
+      "may_missing_yo_handling": "SUPPORTED",
+      "java_chunker_oracle_parity": "SUPPORTED"
+    },
+    "russian_grammar_core": {
+      "structural_rule_classifier": "SUPPORTED",
+      "xml_rule_loader": "SUPPORTED",
+      "pattern_matcher": "SUPPORTED",
+      "token_exceptions": "SUPPORTED",
+      "marker_spans": "SUPPORTED",
+      "message_template_formatter": "SUPPORTED",
+      "suggestion_template_formatter": "SUPPORTED",
+      "capitalization_adjustment": "SUPPORTED",
+      "grammar_engine_rule_checking": "SUPPORTED",
+      "grammar_core_examples_parity": "SUPPORTED",
+      "java_grammar_core_oracle_parity": "SUPPORTED"
     },
     "russian_synthesizer": {
       "morfologik_synthesis_lookup": "SUPPORTED",
@@ -94,9 +121,9 @@
       "RussianSentenceAnalyzer": "SUPPORTED",
       "RussianTagger": "SUPPORTED",
       "RussianDisambiguator": "SUPPORTED",
-      "RussianChunker": "NOT_YET_IMPLEMENTED",
+      "RussianChunker": "SUPPORTED",
       "RussianSynthesizer": "SUPPORTED",
-      "XMLRuleEngine": "NOT_YET_IMPLEMENTED"
+      "XMLRuleEngine": "PARTIALLY_IMPLEMENTED"
     },
     "implementation_progress": {
       "xml_constructs": {
@@ -151,17 +178,17 @@
         "total": 18
       },
       "grammar_xml_examples": {
-        "status": "EXTRACTED_NOT_RUNNABLE",
-        "passed": 0,
+        "status": "PARTIALLY_RUNNABLE",
+        "passed": 988,
         "failed": 0,
-        "not_yet_runnable": 2446,
+        "not_yet_runnable": 1458,
         "total": 2446
       },
       "parity_metrics": {
-        "finding_parity": null,
-        "span_parity": null,
-        "suggestion_parity": null,
-        "evaluation_state": "NOT_EVALUATED"
+        "finding_parity": 1.0,
+        "span_parity": 1.0,
+        "suggestion_parity": 1.0,
+        "evaluation_state": "CORE_EVALUATED"
       }
     },
     "known_differences": []

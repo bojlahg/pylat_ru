@@ -1,0 +1,1255 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Russian Grammar Core Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "cases_count": 62
+  },
+  "cases": [
+    {
+      "id": "gc_01_zadat_test_match",
+      "category": "LOGIC",
+      "full_rule_id": "zadat_test",
+      "text": "Ученик решил задать тест учителю.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "zadat_test",
+        "full_rule_id": "zadat_test[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «задать тест»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 24,
+            "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "предложить тест"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_02_zadat_test_correct",
+      "category": "LOGIC",
+      "full_rule_id": "zadat_test",
+      "text": "Ученик решил предложить тест учителю.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "zadat_test",
+        "full_rule_id": "zadat_test[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «задать тест»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_03_perehodny_match",
+      "category": "LOGIC",
+      "full_rule_id": "perehodny_peshehod",
+      "text": "Здесь опасный переходный пешеход.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "perehodny_peshehod",
+        "full_rule_id": "perehodny_peshehod[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «пешеходный переход»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 14,
+            "to_utf16": 32,
+            "message": "Опечатка: <suggestion>пешеходный переход</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "пешеходный переход"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_04_perehodny_correct",
+      "category": "LOGIC",
+      "full_rule_id": "perehodny_peshehod",
+      "text": "Здесь безопасный пешеходный переход.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "perehodny_peshehod",
+        "full_rule_id": "perehodny_peshehod[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «пешеходный переход»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_05_plohoj_den_match",
+      "category": "LOGIC",
+      "full_rule_id": "plohoj_den",
+      "text": "Сегодня был плахой день.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "plohoj_den",
+        "full_rule_id": "plohoj_den[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «плохой день»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 12,
+            "to_utf16": 23,
+            "message": "Опечатка: <suggestion>плохой день</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "плохой день"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_06_plohoj_den_correct",
+      "category": "LOGIC",
+      "full_rule_id": "plohoj_den",
+      "text": "Сегодня был хороший день.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "plohoj_den",
+        "full_rule_id": "plohoj_den[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «плохой день»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_07_odin_za_odnim_match",
+      "category": "LOGIC",
+      "full_rule_id": "odin_za_odnim",
+      "text": "Они шли один за одним по тропинке.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "odin_za_odnim",
+        "full_rule_id": "odin_za_odnim[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «один за одним» или «один за другим»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 8,
+            "to_utf16": 21,
+            "message": "Опечатка: <suggestion>один за другим</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "один за другим"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_08_odin_za_odnim_correct",
+      "category": "LOGIC",
+      "full_rule_id": "odin_za_odnim",
+      "text": "Они шли один за другим по тропинке.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "odin_za_odnim",
+        "full_rule_id": "odin_za_odnim[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «один за одним» или «один за другим»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_09_vazhno_1_match",
+      "category": "LOGIC",
+      "full_rule_id": "Vazhno_chto_etogo[1]",
+      "text": "Важно, что этого не произошло.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Vazhno_chto_etogo",
+        "full_rule_id": "Vazhno_chto_etogo[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «что этого» или «что это»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_10_vazhno_2_match",
+      "category": "LOGIC",
+      "full_rule_id": "Vazhno_chto_etogo[2]",
+      "text": "Важно то, что этого не произошло.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Vazhno_chto_etogo",
+        "full_rule_id": "Vazhno_chto_etogo[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «что этого» или «что это»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_11_interesnaja_kniga_match",
+      "category": "LOGIC",
+      "full_rule_id": "Slovosoch_interesnaja_kniga",
+      "text": "Это была очень интересная книга.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Slovosoch_interesnaja_kniga",
+        "full_rule_id": "Slovosoch_interesnaja_kniga[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «интересная» или «интересую»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_12_interesnaja_kniga_correct",
+      "category": "LOGIC",
+      "full_rule_id": "Slovosoch_interesnaja_kniga",
+      "text": "Это была очень увлекательная книга.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Slovosoch_interesnaja_kniga",
+        "full_rule_id": "Slovosoch_interesnaja_kniga[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Опечатка: «интересная» или «интересую»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_13_dumu_dumat_1_match",
+      "category": "LOGIC",
+      "full_rule_id": "DUMU_DUMAT[1]",
+      "text": "Он сидел и думу думал.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DUMU_DUMAT",
+        "full_rule_id": "DUMU_DUMAT[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «думу думать»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 11,
+            "to_utf16": 21,
+            "message": "Языковая избыточность (плеоназм): <suggestion>думал</suggestion>?",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "думал"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_14_dumu_dumat_2_match",
+      "category": "LOGIC",
+      "full_rule_id": "DUMU_DUMAT[2]",
+      "text": "Они сидели и думали думу.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DUMU_DUMAT",
+        "full_rule_id": "DUMU_DUMAT[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «думу думать»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_15_dumu_dumat_correct",
+      "category": "LOGIC",
+      "full_rule_id": "DUMU_DUMAT[1]",
+      "text": "Он сидел и глубоко думал.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DUMU_DUMAT",
+        "full_rule_id": "DUMU_DUMAT[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «думу думать»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_16_tavtology_aborigen_match",
+      "category": "LOGIC",
+      "full_rule_id": "Tavtology_mestnij_aborigen",
+      "text": "Нас окружили местные аборигены.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Tavtology_mestnij_aborigen",
+        "full_rule_id": "Tavtology_mestnij_aborigen[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «местный абориген»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 30,
+            "message": "Языковая избыточность: <suggestion>аборигены</suggestion>.",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "аборигены"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_17_tavtology_aborigen_correct",
+      "category": "LOGIC",
+      "full_rule_id": "Tavtology_mestnij_aborigen",
+      "text": "Нас окружили аборигены.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Tavtology_mestnij_aborigen",
+        "full_rule_id": "Tavtology_mestnij_aborigen[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «местный абориген»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_18_tavtology_gorstka_match",
+      "category": "LOGIC",
+      "full_rule_id": "Tavtology_nebolshaja_gorstka",
+      "text": "Была небольшая горстка людей.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Tavtology_nebolshaja_gorstka",
+        "full_rule_id": "Tavtology_nebolshaja_gorstka[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «небольшая горстка»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 5,
+            "to_utf16": 22,
+            "message": "<suggestion>горстка</suggestion>?",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "горстка"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_19_pozhalujsta_1_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "POZHALUJSTA[1]",
+      "text": "Скажи пожалуйста где выход.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POZHALUJSTA",
+        "full_rule_id": "POZHALUJSTA[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "«Пожалуйста» выделяется запятыми",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_20_pozhalujsta_1_correct",
+      "category": "PUNCTUATION",
+      "full_rule_id": "POZHALUJSTA[1]",
+      "text": "Скажи, пожалуйста, где выход.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POZHALUJSTA",
+        "full_rule_id": "POZHALUJSTA[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "«Пожалуйста» выделяется запятыми",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_21_pozhalujsta_2_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "POZHALUJSTA[2]",
+      "text": "Пожалуйста помогите мне.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POZHALUJSTA",
+        "full_rule_id": "POZHALUJSTA[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "«Пожалуйста» выделяется запятыми",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_22_pozhalujsta_2_correct",
+      "category": "PUNCTUATION",
+      "full_rule_id": "POZHALUJSTA[2]",
+      "text": "Пожалуйста, помогите мне.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "POZHALUJSTA",
+        "full_rule_id": "POZHALUJSTA[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "«Пожалуйста» выделяется запятыми",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_23_privet_druzja_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Privet_druzja[1]",
+      "text": "Привет друзья!",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Privet_druzja",
+        "full_rule_id": "Privet_druzja[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация: «привет, друзья!»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Пропущена запятая: <suggestion>Привет, друзья</suggestion>",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "Привет, друзья"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_24_privet_druzja_correct",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Privet_druzja[1]",
+      "text": "Привет, друзья!",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Privet_druzja",
+        "full_rule_id": "Privet_druzja[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация: «привет, друзья!»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_25_kak_bi_to_ni_bilo_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Kak_bi_to_ni_bilo[1]",
+      "text": "Как бы то ни было мы продолжим.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Kak_bi_to_ni_bilo",
+        "full_rule_id": "Kak_bi_to_ni_bilo[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Устойчивое выражение: «как бы то ни было», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_26_kak_bi_to_ni_bilo_correct",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Kak_bi_to_ni_bilo[1]",
+      "text": "Как бы то ни было, мы продолжим.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Kak_bi_to_ni_bilo",
+        "full_rule_id": "Kak_bi_to_ni_bilo[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Устойчивое выражение: «как бы то ни было», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_27_comma_and_to_jest_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "comma_and_to_jest",
+      "text": "Он пришел и то есть помог.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "comma_and_to_jest",
+        "full_rule_id": "comma_and_to_jest[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятая перед «то есть»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 19,
+            "message": "Пропущена запятая: <suggestion>и, то есть</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "и, то есть"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_28_comma_and_to_jest_correct",
+      "category": "PUNCTUATION",
+      "full_rule_id": "comma_and_to_jest",
+      "text": "Он пришел, то есть помог.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "comma_and_to_jest",
+        "full_rule_id": "comma_and_to_jest[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятая перед «то есть»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_29_pravopisanie_slitno1_3_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[3]",
+      "text": "Они спустились в низ по лестнице.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_30_pravopisanie_slitno1_3_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[3]",
+      "text": "Они спустились вниз по лестнице.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_31_pravopisanie_slitno1_4_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[4]",
+      "text": "В дали показался корабль.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_32_pravopisanie_slitno1_4_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[4]",
+      "text": "Вдали показался корабль.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_33_pravopisanie_slitno1_5_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[5]",
+      "text": "Они посмотрели в даль моря.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[5]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_34_pravopisanie_slitno1_5_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "Pravopisanie_slitno1[5]",
+      "text": "Они посмотрели вдаль моря.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Pravopisanie_slitno1",
+        "full_rule_id": "Pravopisanie_slitno1[5]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание слов: «наверху», «внизу» ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_35_prosit_proshenija_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "prosit_proshenija",
+      "text": "Он пришел просить прощения у всех.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "prosit_proshenija",
+        "full_rule_id": "prosit_proshenija[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Выражение «просить прощения»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_36_prosit_proshenija_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "prosit_proshenija",
+      "text": "Он пришел просить прощение у всех.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "prosit_proshenija",
+        "full_rule_id": "prosit_proshenija[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Выражение «просить прощения»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 26,
+            "message": "Правильно: <suggestion>просить прощения</suggestion>.",
+            "short_message": "Правильно: «просить прощения»",
+            "suggestions": [
+              "просить прощения"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_37_skuchat_za_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "skuchat_za",
+      "text": "Она стала скучать за ним в разлуке.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "skuchat_za",
+        "full_rule_id": "skuchat_za[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Грамматические ошибки: «скучать за ... »",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 20,
+            "message": "Скорей всего требуется предлог «о» или «по».",
+            "short_message": "Нужен предлог «о» или «по»",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_38_skuchat_za_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "skuchat_za",
+      "text": "Она стала скучать по нему в разлуке.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "skuchat_za",
+        "full_rule_id": "skuchat_za[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Грамматические ошибки: «скучать за ... »",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_39_kak_ni_stranno_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "kak_ni_stranno",
+      "text": "Как не странно, все получилось.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "kak_ni_stranno",
+        "full_rule_id": "kak_ni_stranno[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Опечатка: «как ни странно» или «как не странно»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Опечатка: <suggestion>Как ни странно</suggestion>",
+            "short_message": "Опечатка",
+            "suggestions": [
+              "Как ни странно"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_40_kak_ni_stranno_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "kak_ni_stranno",
+      "text": "Как ни странно, все получилось.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "kak_ni_stranno",
+        "full_rule_id": "kak_ni_stranno[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Опечатка: «как ни странно» или «как не странно»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_41_dlya_togo_chtob_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "dlya_togo_chtoby_2",
+      "text": "Для того чтоб это сделать.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "dlya_togo_chtoby_2",
+        "full_rule_id": "dlya_togo_chtoby_2[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация в предложении с союзом «для того чтобы» (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_42_takim_obrazom_chto_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "takim_obrazom_chto",
+      "text": "Сделано таким образом что работает.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "takim_obrazom_chto",
+        "full_rule_id": "takim_obrazom_chto[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятая в обороте «таким образом, что»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 8,
+            "to_utf16": 25,
+            "message": "Пропущена запятая: <suggestion>таким образом, что</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "таким образом, что"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_43_ugasno_krasivij_match",
+      "category": "STYLE",
+      "full_rule_id": "ugasno_krasivij[1]",
+      "text": "Это было ужасно красиво и ярко.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ugasno_krasivij",
+        "full_rule_id": "ugasno_krasivij[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Словосочетание: «ужасно красивый»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_44_ugasno_krasivij_correct",
+      "category": "STYLE",
+      "full_rule_id": "ugasno_krasivij[1]",
+      "text": "Это было очень красиво и ярко.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ugasno_krasivij",
+        "full_rule_id": "ugasno_krasivij[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Словосочетание: «ужасно красивый»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_45_nagnat_strahu_match",
+      "category": "STYLE",
+      "full_rule_id": "nagnat_strahu[1]",
+      "text": "Он решил нагнать страху на врагов.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "nagnat_strahu",
+        "full_rule_id": "nagnat_strahu[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Устойчивые выражения: «нагнать страху», «натерпеться страху»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_46_nagnat_strahu_correct",
+      "category": "STYLE",
+      "full_rule_id": "nagnat_strahu[1]",
+      "text": "Он решил нагнать страх на врагов.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "nagnat_strahu",
+        "full_rule_id": "nagnat_strahu[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Устойчивые выражения: «нагнать страху», «натерпеться страху»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_47_ni_v_koem_match",
+      "category": "STYLE",
+      "full_rule_id": "ni_v_koem_sluchae[1]",
+      "text": "Ни в коем случае нельзя это делать.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "ni_v_koem_sluchae",
+        "full_rule_id": "ni_v_koem_sluchae[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Устойчивые выражения: «ни в коем случае»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_48_bolee_menee_match",
+      "category": "STYLE",
+      "full_rule_id": "Logical_bolee_menee[1]",
+      "text": "Это более или менее понятно.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Logical_bolee_menee",
+        "full_rule_id": "Logical_bolee_menee[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Устойчивое выражение: «более или менее»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_49_use_prep_o_match",
+      "category": "STYLE",
+      "full_rule_id": "Use_prep_O[1]",
+      "text": "Мы говорили о брате.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Use_prep_O",
+        "full_rule_id": "Use_prep_O[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Предлог «о»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_50_use_prep_o_correct",
+      "category": "STYLE",
+      "full_rule_id": "Use_prep_O[1]",
+      "text": "Мы говорили про брата.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Use_prep_O",
+        "full_rule_id": "Use_prep_O[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Предлог «о»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_51_v_techenii_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "V_TECHENII",
+      "text": "В течении реки есть пороги.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_TECHENII",
+        "full_rule_id": "V_TECHENII[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Словосочетание: «в течении реки»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_52_v_techenii_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "V_TECHENII",
+      "text": "В течение реки есть пороги.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_TECHENII",
+        "full_rule_id": "V_TECHENII[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Словосочетание: «в течении реки»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "message": "Должно быть: <suggestion>В течении реки</suggestion>",
+            "short_message": "В течении (воды, реки, ...)",
+            "suggestions": [
+              "В течении реки"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_53_v_prodolzhenie_match",
+      "category": "GRAMMAR",
+      "full_rule_id": "V_PRODOLJENIЕ[1]",
+      "text": "В продолжении недели мы работали.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_PRODOLJENIЕ",
+        "full_rule_id": "V_PRODOLJENIЕ[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Словосочетание: «в продолжение (отрезка времени)»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "message": "Должно быть: <suggestion>В продолжение недели</suggestion> (время).",
+            "short_message": "В продолжение (времени, часа, ...)",
+            "suggestions": [
+              "В продолжение недели"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_54_v_prodolzhenie_correct",
+      "category": "GRAMMAR",
+      "full_rule_id": "V_PRODOLJENIЕ[1]",
+      "text": "В продолжение недели мы работали.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "V_PRODOLJENIЕ",
+        "full_rule_id": "V_PRODOLJENIЕ[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Словосочетание: «в продолжение (отрезка времени)»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_55_v_zakluchenie_match",
+      "category": "EXTEND",
+      "full_rule_id": "Predlog_v_zakluchenije[1]",
+      "text": "В заключении хочу сказать спасибо.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Predlog_v_zakluchenije",
+        "full_rule_id": "Predlog_v_zakluchenije[1]",
+        "category_id": "EXTEND",
+        "category_name": "Дополнительные правила",
+        "description": "Предлог «в заключение»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_56_v_zakluchenie_correct",
+      "category": "EXTEND",
+      "full_rule_id": "Predlog_v_zakluchenije[1]",
+      "text": "В заключение хочу сказать спасибо.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Predlog_v_zakluchenije",
+        "full_rule_id": "Predlog_v_zakluchenije[1]",
+        "category_id": "EXTEND",
+        "category_name": "Дополнительные правила",
+        "description": "Предлог «в заключение»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_57_adv_vposledstvii_match",
+      "category": "EXTEND",
+      "full_rule_id": "Adv_vposledstvii[1]",
+      "text": "В последствии все наладилось.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Adv_vposledstvii",
+        "full_rule_id": "Adv_vposledstvii[1]",
+        "category_id": "EXTEND",
+        "category_name": "Дополнительные правила",
+        "description": "Наречие «впоследствии»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Наречие «впоследствии» образовано сочетанием предлога «в» с существительным «последствие» в предложном падеже. Пишется слитно. Вы имели в виду <suggestion>впоследствии</suggestion>?",
+            "short_message": "Правильно «впоследствии»",
+            "suggestions": [
+              "Впоследствии"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_58_adv_vposledstvii_correct",
+      "category": "EXTEND",
+      "full_rule_id": "Adv_vposledstvii[1]",
+      "text": "Впоследствии все наладилось.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Adv_vposledstvii",
+        "full_rule_id": "Adv_vposledstvii[1]",
+        "category_id": "EXTEND",
+        "category_name": "Дополнительные правила",
+        "description": "Наречие «впоследствии»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_59_adv_vposledstvii_2_match",
+      "category": "EXTEND",
+      "full_rule_id": "Adv_vposledstvii[2]",
+      "text": "В последствие все наладилось.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Adv_vposledstvii",
+        "full_rule_id": "Adv_vposledstvii[2]",
+        "category_id": "EXTEND",
+        "category_name": "Дополнительные правила",
+        "description": "Наречие «впоследствии»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "message": "Наречие «впоследствии» образовано сочетанием предлога «в» с существительным «последствие» в предложном падеже. Пишется слитно. Вы имели в виду <suggestion>впоследствии</suggestion>?",
+            "short_message": "Правильно «впоследствии»",
+            "suggestions": [
+              "Впоследствии"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_60_neujto_match",
+      "category": "PUNCTUATION",
+      "full_rule_id": "NEUJTO",
+      "text": "Неужтоли это правда?",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "NEUJTO",
+        "full_rule_id": "NEUJTO[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Наречие «неужто»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "gc_61_capitalization_match",
+      "category": "LOGIC",
+      "full_rule_id": "Tavtology_mestnij_aborigen",
+      "text": "Местные аборигены нас окружили.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Tavtology_mestnij_aborigen",
+        "full_rule_id": "Tavtology_mestnij_aborigen[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «местный абориген»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "message": "Языковая избыточность: <suggestion>аборигены</suggestion>.",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "Аборигены"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gc_62_emoji_offset_match",
+      "category": "LOGIC",
+      "full_rule_id": "Tavtology_mestnij_aborigen",
+      "text": "🚀 Нас окружили местные аборигены.",
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Tavtology_mestnij_aborigen",
+        "full_rule_id": "Tavtology_mestnij_aborigen[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Тавтология: «местный абориген»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 33,
+            "message": "Языковая избыточность: <suggestion>аборигены</suggestion>.",
+            "short_message": "Тавтология",
+            "suggestions": [
+              "аборигены"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

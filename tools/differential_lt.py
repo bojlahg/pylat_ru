@@ -978,6 +978,347 @@ public class SynthesizeQueries {
                     results.append(line.split("\u0001"))
             return results
 
+    def chunk_sentences(
+        self, sentences: Sequence[str]
+    ) -> List[Dict[str, Any]]:
+        """Run sentences through Java LanguageTool post-hybrid and post-chunker stages."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """
+import org.languagetool.JLanguageTool;
+import org.languagetool.AnalyzedSentence;
+import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.AnalyzedToken;
+import org.languagetool.language.Russian;
+import org.languagetool.tagging.disambiguation.ru.RussianHybridDisambiguator;
+import org.languagetool.chunking.RussianChunker;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class ChunkSentences {
+    static String serializeSentence(AnalyzedSentence s) {
+        StringBuilder sb = new StringBuilder();
+        AnalyzedTokenReadings[] tokens = s.getTokens();
+        for (int i = 0; i < tokens.length; i++) {
+            if (i > 0) sb.append("\\u0001");
+            AnalyzedTokenReadings atr = tokens[i];
+            sb.append(atr.getToken()).append("\\u0002");
+            sb.append(atr.getStartPos()).append("\\u0002");
+            sb.append(atr.getPosFix()).append("\\u0002");
+            sb.append(atr.isWhitespace() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isSentenceStart() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isSentenceEnd() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isParagraphEnd() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isIgnoredBySpeller() ? "1" : "0").append("\\u0002");
+            sb.append(atr.getCleanToken() != null ? atr.getCleanToken() : "\\u0005null").append("\\u0002");
+            sb.append(atr.getWhitespaceBefore() != null ? atr.getWhitespaceBefore() : "\\u0005null").append("\\u0002");
+
+            if (atr.getChunkTags() != null) {
+                for (int c = 0; c < atr.getChunkTags().size(); c++) {
+                    if (c > 0) sb.append(",");
+                    sb.append(atr.getChunkTags().get(c).getChunkTag());
+                }
+            }
+            sb.append("\\u0002");
+
+            List<AnalyzedToken> readings = atr.getReadings();
+            for (int r = 0; r < readings.size(); r++) {
+                if (r > 0) sb.append("\\u0003");
+                AnalyzedToken at = readings.get(r);
+                sb.append(at.getToken()).append("\\u0004");
+                sb.append(at.getLemma() != null ? at.getLemma() : "\\u0005null").append("\\u0004");
+                sb.append(at.getPOSTag() != null ? at.getPOSTag() : "\\u0005null");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) return;
+
+        String[] sentenceArray = text.split("\\u0000", -1);
+        Russian russian = Russian.getInstance();
+        JLanguageTool lt = new JLanguageTool(russian);
+        RussianHybridDisambiguator hybrid = RussianHybridDisambiguator.getInstance();
+        RussianChunker chunker = new RussianChunker();
+
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+        for (int s = 0; s < sentenceArray.length; s++) {
+            if (s > 0) out.print("\\u0006");
+            String sentence = sentenceArray[s];
+
+            // 1. Post-hybrid
+            AnalyzedSentence raw = lt.getRawAnalyzedSentence(sentence);
+            AnalyzedSentence postHybrid = hybrid.disambiguate(raw);
+            String preChunkerStr = serializeSentence(postHybrid);
+
+            // 2. Post-chunker
+            chunker.addChunkTags(Arrays.asList(postHybrid.getTokens()));
+            String postChunkerStr = serializeSentence(postHybrid);
+
+            out.print(preChunkerStr + "\\u0007" + postChunkerStr);
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "ChunkSentences.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            subprocess.run(
+                ["javac", "-encoding", "UTF-8", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            input_bytes = "\u0000".join(sentences).encode("utf-8")
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "ChunkSentences",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            def parse_sentence_str(s_str: str) -> List[Dict[str, Any]]:
+                tokens_res: List[Dict[str, Any]] = []
+                for b in s_str.split("\u0001"):
+                    parts = b.split("\u0002")
+                    if len(parts) < 12:
+                        continue
+                    tok = parts[0]
+                    sp = int(parts[1])
+                    pf = int(parts[2])
+                    is_ws = parts[3] == "1"
+                    is_ss = parts[4] == "1"
+                    is_se = parts[5] == "1"
+                    is_pe = parts[6] == "1"
+                    is_ign = parts[7] == "1"
+                    ct = None if parts[8] == "\u0005null" else parts[8]
+                    wb = None if parts[9] == "\u0005null" else parts[9]
+                    chunks = [c for c in parts[10].split(",") if c] if parts[10] else []
+
+                    readings: List[Dict[str, Optional[str]]] = []
+                    if parts[11]:
+                        for rb in parts[11].split("\u0003"):
+                            r_parts = rb.split("\u0004")
+                            if len(r_parts) >= 3:
+                                t = r_parts[0]
+                                l = None if r_parts[1] == "\u0005null" else r_parts[1]
+                                p = None if r_parts[2] == "\u0005null" else r_parts[2]
+                                readings.append({"token": t, "lemma": l, "pos_tag": p})
+
+                    tokens_res.append(
+                        {
+                            "token": tok,
+                            "start_pos_utf16": sp,
+                            "pos_fix": pf,
+                            "is_whitespace": is_ws,
+                            "is_sentence_start": is_ss,
+                            "is_sentence_end": is_se,
+                            "is_paragraph_end": is_pe,
+                            "is_ignore_spelling": is_ign,
+                            "clean_token": ct,
+                            "whitespace_before": wb,
+                            "chunk_tags": chunks,
+                            "readings": readings,
+                        }
+                    )
+                return tokens_res
+
+            results: List[Dict[str, Any]] = []
+            sent_blocks = out_str.split("\u0006")
+            for sb in sent_blocks:
+                stage_parts = sb.split("\u0007")
+                if len(stage_parts) == 2:
+                    results.append(
+                        {
+                            "pre_chunker": parse_sentence_str(stage_parts[0]),
+                            "post_chunker": parse_sentence_str(stage_parts[1]),
+                        }
+                    )
+            return results
+
+    def check_pattern_rules(
+        self, cases: Sequence[Dict[str, str]]
+    ) -> List[Dict[str, Any]]:
+        """Run specific Russian pattern rules against texts in Java LanguageTool oracle."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """
+import org.languagetool.rules.patterns.PatternRuleLoader;
+import org.languagetool.rules.patterns.AbstractPatternRule;
+import org.languagetool.rules.RuleMatch;
+import org.languagetool.language.Russian;
+import org.languagetool.JLanguageTool;
+import org.languagetool.AnalyzedSentence;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class CheckPatternRules {
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) return;
+
+        String[] caseArray = text.split("\\u0000", -1);
+        Russian russian = Russian.getInstance();
+        JLanguageTool lt = new JLanguageTool(russian);
+        PatternRuleLoader loader = new PatternRuleLoader();
+        InputStream is = Russian.class.getResourceAsStream("/org/languagetool/rules/ru/grammar.xml");
+        List<AbstractPatternRule> rules = loader.getRules(is, "/org/languagetool/rules/ru/grammar.xml", russian);
+        Map<String, AbstractPatternRule> ruleMap = new HashMap<>();
+        for (AbstractPatternRule r : rules) {
+            ruleMap.put(r.getFullId(), r);
+            ruleMap.putIfAbsent(r.getId(), r);
+        }
+
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+        for (int i = 0; i < caseArray.length; i++) {
+            if (i > 0) out.print("\\u0006");
+            String[] pair = caseArray[i].split("\\u0007", 2);
+            String targetId = pair[0];
+            String inputText = pair.length > 1 ? pair[1] : "";
+
+            AbstractPatternRule r = ruleMap.get(targetId);
+            if (r == null) {
+                out.print("NOT_FOUND\\u0008" + targetId);
+                continue;
+            }
+
+            AnalyzedSentence sent = lt.getAnalyzedSentence(inputText);
+            RuleMatch[] matches = r.match(sent);
+            StringBuilder sb = new StringBuilder();
+            sb.append("FOUND\\u0008").append(r.getId()).append("\\u0008").append(r.getFullId()).append("\\u0008")
+              .append(r.getCategory().getId().toString()).append("\\u0008")
+              .append(r.getCategory().getName()).append("\\u0008")
+              .append(r.getDescription()).append("\\u0008")
+              .append(r.isDefaultOff() ? "1" : "0").append("\\u0008")
+              .append(matches.length);
+
+            for (RuleMatch m : matches) {
+                sb.append("\\u0008");
+                sb.append(m.getFromPos()).append("\\u0002")
+                  .append(m.getToPos()).append("\\u0002")
+                  .append(m.getMessage()).append("\\u0002")
+                  .append(m.getShortMessage() != null ? m.getShortMessage() : "\\u0005null").append("\\u0002");
+                List<String> repls = m.getSuggestedReplacements();
+                for (int repIdx = 0; repIdx < repls.size(); repIdx++) {
+                    if (repIdx > 0) sb.append("\\u0003");
+                    sb.append(repls.get(repIdx));
+                }
+            }
+            out.print(sb.toString());
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "CheckPatternRules.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            subprocess.run(
+                ["javac", "-encoding", "UTF-8", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            case_strings = [f"{c['full_rule_id']}\u0007{c['text']}" for c in cases]
+            input_bytes = "\u0000".join(case_strings).encode("utf-8")
+
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "CheckPatternRules",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            results: List[Dict[str, Any]] = []
+            for block in out_str.split("\u0006"):
+                fields = block.split("\u0008")
+                status = fields[0]
+                if status == "NOT_FOUND":
+                    results.append({"status": "NOT_FOUND", "target_rule_id": fields[1], "matches": []})
+                elif status == "FOUND":
+                    rule_id = fields[1]
+                    full_rule_id = fields[2]
+                    category_id = fields[3]
+                    category_name = fields[4]
+                    description = fields[5]
+                    is_default_off = fields[6] == "1"
+                    match_count = int(fields[7])
+
+                    matches: List[Dict[str, Any]] = []
+                    for m_str in fields[8 : 8 + match_count]:
+                        m_parts = m_str.split("\u0002")
+                        if len(m_parts) >= 5:
+                            from_p = int(m_parts[0])
+                            to_p = int(m_parts[1])
+                            msg = m_parts[2]
+                            short_msg = None if m_parts[3] == "\u0005null" else m_parts[3]
+                            suggs = [s for s in m_parts[4].split("\u0003") if s] if m_parts[4] else []
+                            matches.append(
+                                {
+                                    "from_utf16": from_p,
+                                    "to_utf16": to_p,
+                                    "message": msg,
+                                    "short_message": short_msg,
+                                    "suggestions": suggs,
+                                }
+                            )
+
+                    results.append(
+                        {
+                            "status": "FOUND",
+                            "rule_id": rule_id,
+                            "full_rule_id": full_rule_id,
+                            "category_id": category_id,
+                            "category_name": category_name,
+                            "description": description,
+                            "is_default_off": is_default_off,
+                            "matches_count": match_count,
+                            "matches": matches,
+                        }
+                    )
+            return results
+
+
 
 
 def compare_findings(
@@ -1072,129 +1413,6 @@ def generate_tokenization_fixtures(
     )
     print(
         f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha}, build: {oracle_build_id})"
-    )
-
-
-def generate_tagger_fixtures(
-    oracle: JavaLanguageToolOracle, fixtures_dir: Path
-) -> None:
-    """Regenerate oracle Russian tagger fixture directly from pinned Java LT."""
-    val = oracle.validate_oracle()
-    oracle_sha = val.get("jar_sha256", "UNKNOWN")
-    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
-
-    tagger_fixture_path = fixtures_dir / "oracle_russian_tagger.json"
-    if not tagger_fixture_path.is_file():
-        raise FileNotFoundError(f"Fixture template not found: {tagger_fixture_path}")
-
-    tagger_data = json.loads(tagger_fixture_path.read_text(encoding="utf-8"))
-    tagger_data["metadata"]["oracle_build_id"] = oracle_build_id
-    tagger_data["metadata"]["oracle_jar_sha256"] = oracle_sha
-
-    for case in tagger_data["cases"]:
-        input_tokens = case["input_tokens"]
-        expected = oracle.tag_tokens(input_tokens)
-        case["expected_tokens"] = expected
-
-    tagger_fixture_path.write_text(
-        json.dumps(tagger_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
-    print(
-        f"Updated tagger fixture from Java Oracle -> {tagger_fixture_path} (oracle SHA: {oracle_sha}, build: {oracle_build_id})"
-    )
-
-
-DISAMBIGUATION_TEST_CASES = [
-    # 1. XML official examples
-    {"category": "xml_example", "text": "А на самом деле это так."},
-    {"category": "xml_example", "text": "Это просто не так."},
-    {"category": "xml_example", "text": "Но это не так."},
-    {"category": "xml_example", "text": "Они сидели тихо, затаив дыхание."},
-    {"category": "xml_example", "text": "Мы всё сделали как надо."},
-    {"category": "xml_example", "text": "Это было сделано как положено."},
-    {"category": "xml_example", "text": "Они шли рука об руку."},
-    {"category": "xml_example", "text": "Он стоял бок о бок."},
-    # 2. Multiword chunker cases
-    {"category": "multiword", "text": "В будущем мы увидим результат."},
-    {"category": "multiword", "text": "До свидания, дорогие друзья!"},
-    {"category": "multiword", "text": "Во что бы то ни стало мы победим."},
-    {"category": "multiword", "text": "Откуда ни возьмись появился волк."},
-    {"category": "multiword", "text": "Затаив дыхание они слушали."},
-    {"category": "multiword", "text": "По меньшей мере это очень странно."},
-    {"category": "multiword", "text": "Друг друга они понимали с полуслова."},
-    {"category": "multiword", "text": "Один за другим они уходили в ночь."},
-    # 3. Actions: ADD, REMOVE, REPLACE (default), REPLACE with match, IGNORE_SPELLING
-    {"category": "action_add", "text": "С праздником 8 Марта!"},
-    {"category": "action_remove", "text": "Село солнце за горизонт."},
-    {"category": "action_replace_default", "text": "Ввиду задержки рейса мы опоздали."},
-    {"category": "action_replace_match", "text": "Мы пришли как раз вовремя."},
-    {"category": "action_ignore_spelling", "text": "Вице-президент выступил на собрании."},
-    # 4. Filters (-ка, -то, пол-, экс-, обер-)
-    {"category": "filter", "text": "Дай-ка мне эту книгу."},
-    {"category": "filter", "text": "Кто-то постучал в дверь."},
-    {"category": "filter", "text": "Пол-яблока лежало на тарелке."},
-    {"category": "filter", "text": "Экс-президент прибыл на встречу."},
-    {"category": "filter", "text": "Обер-лейтенант отдал приказ."},
-    # 5. Pattern constructs: <and>, scope="next", skip=1, skip=-1, inflected, case_sensitive, antipattern
-    {"category": "pattern_and", "text": "Стали известны новые подробности."},
-    {"category": "pattern_scope_next", "text": "В том числе и наши коллеги пришли."},
-    {"category": "pattern_skip", "text": "Не только взрослые, но и дети радовались."},
-    {"category": "pattern_inflected", "text": "С каждым новым днем все меняется."},
-    {"category": "pattern_case_sensitive", "text": "Москва и Санкт-Петербург встретили гостей."},
-    {"category": "pattern_antipattern", "text": "Не так ли это устроено?"},
-    {"category": "pattern_antipattern", "text": "Все устроено не так просто."},
-    # 6. Accents, soft-hyphen, emojis, whitespace
-    {"category": "accent_acute", "text": "Краси́вый за́мок стоял на горе́."},
-    {"category": "accent_grave", "text": "Перѐд домом росло дерево."},
-    {"category": "soft_hyphen", "text": "Быстро едет авто\u00adмобиль по дороге."},
-    {"category": "emoji_surrogates", "text": "🌟 Привет мир! 🚀 Как дела?"},
-    {"category": "whitespace_tabs_newlines", "text": "Слово \t еще   слово.\nНовая строка."},
-    {"category": "trailing_whitespace", "text": "Тест завершен успешно.   "},
-    {"category": "unknown_words", "text": "Квазимодульный глобулятор фырчит."},
-]
-
-
-def generate_disambiguation_fixtures(
-    oracle: JavaLanguageToolOracle, fixtures_dir: Path
-) -> None:
-    """Generate oracle Russian disambiguation fixture directly from pinned Java LT."""
-    val = oracle.validate_oracle()
-    oracle_sha = val.get("jar_sha256", "UNKNOWN")
-    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
-
-    output_path = fixtures_dir / "oracle_russian_disambiguation.json"
-    sentences = [c["text"] for c in DISAMBIGUATION_TEST_CASES]
-    stages_results = oracle.disambiguate_sentences(sentences)
-
-    cases: List[Dict[str, Any]] = []
-    for i, item in enumerate(DISAMBIGUATION_TEST_CASES):
-        cases.append(
-            {
-                "id": f"case_{i + 1:03d}",
-                "category": item["category"],
-                "text": item["text"],
-                "stages": stages_results[i],
-            }
-        )
-
-    fixture_data = {
-        "schema_version": "1.0.0",
-        "description": "Committed LanguageTool 6.8 Java Oracle Russian Disambiguation Fixture",
-        "metadata": {
-            "pinned_lt_version": PINNED_LT_VERSION,
-            "pinned_lt_commit": PINNED_LT_COMMIT,
-            "oracle_build_id": oracle_build_id,
-            "oracle_jar_sha256": oracle_sha,
-            "cases_count": len(cases),
-        },
-        "cases": cases,
-    }
-
-    output_path.write_text(
-        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
-    print(
-        f"Generated Russian disambiguation fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
     )
 
 
@@ -1316,6 +1534,219 @@ def generate_synthesizer_fixtures(
     )
 
 
+
+
+CHUNKER_TEST_CASES: List[Dict[str, Any]] = [
+    # 1. Names and full name patterns (REGEXES1[0])
+    {"id": "chunk_01_full_name", "category": "name_np", "text": "Иванов Иван Иванович пришел на встречу."},
+    {"id": "chunk_02_two_names", "category": "name_np", "text": "Петров Петр ждет у входа."},
+    {"id": "chunk_03_patronymic_name", "category": "name_np", "text": "Сидоров Сидор Сидорович уехал в отпуск."},
+    # 2. Initials + surname / Surname + initials (REGEXES1[1], REGEXES1[2])
+    {"id": "chunk_04_surname_initials", "category": "surname_initials", "text": "Иванов И. И. подписал приказ."},
+    {"id": "chunk_05_surname_initials_nospace", "category": "surname_initials", "text": "Петров П.П. сдал отчет."},
+    {"id": "chunk_06_initials_surname", "category": "initials_surname", "text": "И. И. Иванов подписал документ."},
+    {"id": "chunk_07_initials_surname_nospace", "category": "initials_surname", "text": "С.С. Сидоров прибыл в город."},
+    # 3. Verb phrases (REGEXES1[3])
+    {"id": "chunk_08_verb_chain", "category": "vp_chain", "text": "Он начал читать новую книгу."},
+    {"id": "chunk_09_verb_single", "category": "vp_single", "text": "Птицы поют в саду."},
+    # 4. SBAR literals (REGEXES1[4], REGEXES1[5])
+    {"id": "chunk_10_sbar_esli", "category": "sbar", "text": "Если пойдет дождь, мы останемся дома."},
+    {"id": "chunk_11_sbar_poetomu", "category": "sbar", "text": "Поэтому решение было принято единогласно."},
+    # 5. Adjective + Noun NP (REGEXES1[6], REGEXES1[7])
+    {"id": "chunk_12_adj_noun", "category": "adj_noun_np", "text": "Красный флаг развевался на ветру."},
+    {"id": "chunk_13_adj_noun_noun", "category": "adj_noun_np", "text": "Большой красивый дом стоял у реки."},
+    # 6. Adj -> participle phrase (REGEXES1[8])
+    {"id": "chunk_14_adj_participle", "category": "adjp_phrase", "text": "Уставший человек вернулся домой вечером."},
+    # 7. Adverbial participle DPT (REGEXES1[9], REGEXES1[10], REGEXES1[11])
+    {"id": "chunk_15_dpt_single", "category": "dpt", "text": "Улыбнувшись, он пожал руку гостю."},
+    {"id": "chunk_16_dpt_noun", "category": "dpt", "text": "Прочитав книгу, студент закрыл ее."},
+    {"id": "chunk_17_dpt_prep_noun", "category": "dpt", "text": "Подъезжая к станции, пассажиры готовились к выходу."},
+    # 8. Participle ADJP (REGEXES1[12]..[19])
+    {"id": "chunk_18_pt_single", "category": "adjp", "text": "Открытая дверь скрипнула."},
+    {"id": "chunk_19_pt_adv", "category": "adjp", "text": "Быстро бегущий спортсмен финишировал первым."},
+    {"id": "chunk_20_pt_noun", "category": "adjp", "text": "Человек, написавший письмо, ушел."},
+    {"id": "chunk_21_pt_prep_noun", "category": "adjp", "text": "Поезд, прибывший на вокзал, остановился."},
+    {"id": "chunk_22_pt_prep_adj_noun", "category": "adjp", "text": "Книга, найденная в старом шкафу, оказалась редкой."},
+    {"id": "chunk_23_pt_pnn_noun", "category": "adjp", "text": "Студент, сдавший свой экзамен, вздохнул с облегчением."},
+    {"id": "chunk_24_pt_adj", "category": "adjp", "text": "Освещенный яркий зал был полон гостей."},
+    # 9. Title NP (REGEXES1[20])
+    {"id": "chunk_25_tov", "category": "tov_np", "text": "Тов. Сидоров выступил перед коллективом."},
+    # 10. Plural noun phrases with REGEXES2[0], REGEXES2[1]
+    {"id": "chunk_26_plural_names_i", "category": "plural_np", "text": "Маша и Миша гуляли в парке."},
+    {"id": "chunk_27_plural_names_ili", "category": "plural_np", "text": "Анна или Ольга помогут решить задачу."},
+    # 11. Не + VB with REGEXES2[2]
+    {"id": "chunk_28_ne_verb", "category": "ne_vp", "text": "Я не знаю ответа на этот вопрос."},
+    {"id": "chunk_29_ne_verb_chain", "category": "ne_vp", "text": "Мы не можем продолжать молчать."},
+    # 12. MayMissingYO exclusion & Non-BMP emoji
+    {"id": "chunk_30_yo_and_emoji", "category": "yo_and_emoji", "text": "🚀 Иван Иванович пошел в лес за грибами."},
+]
+
+
+def generate_chunker_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Generate oracle Russian chunker fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
+
+    output_path = fixtures_dir / "oracle_russian_chunker.json"
+    sentences = [c["text"] for c in CHUNKER_TEST_CASES]
+    stages_results = oracle.chunk_sentences(sentences)
+
+    cases: List[Dict[str, Any]] = []
+    for i, item in enumerate(CHUNKER_TEST_CASES):
+        cases.append(
+            {
+                "id": item["id"],
+                "category": item["category"],
+                "text": item["text"],
+                "stages": stages_results[i],
+            }
+        )
+
+    fixture_data = {
+        "schema_version": "1.0.0",
+        "description": "Committed LanguageTool 6.8 Java Oracle Russian Chunker Fixture",
+        "metadata": {
+            "pinned_lt_version": PINNED_LT_VERSION,
+            "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_build_id": oracle_build_id,
+            "oracle_jar_sha256": oracle_sha,
+            "cases_count": len(cases),
+        },
+        "cases": cases,
+    }
+
+    output_path.write_text(
+        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Generated Russian chunker fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
+    )
+
+
+GRAMMAR_CORE_TEST_CASES: List[Dict[str, Any]] = [
+    # 1. LOGIC (18 cases)
+    {"id": "gc_01_zadat_test_match", "category": "LOGIC", "full_rule_id": "zadat_test", "text": "Ученик решил задать тест учителю."},
+    {"id": "gc_02_zadat_test_correct", "category": "LOGIC", "full_rule_id": "zadat_test", "text": "Ученик решил предложить тест учителю."},
+    {"id": "gc_03_perehodny_match", "category": "LOGIC", "full_rule_id": "perehodny_peshehod", "text": "Здесь опасный переходный пешеход."},
+    {"id": "gc_04_perehodny_correct", "category": "LOGIC", "full_rule_id": "perehodny_peshehod", "text": "Здесь безопасный пешеходный переход."},
+    {"id": "gc_05_plohoj_den_match", "category": "LOGIC", "full_rule_id": "plohoj_den", "text": "Сегодня был плахой день."},
+    {"id": "gc_06_plohoj_den_correct", "category": "LOGIC", "full_rule_id": "plohoj_den", "text": "Сегодня был хороший день."},
+    {"id": "gc_07_odin_za_odnim_match", "category": "LOGIC", "full_rule_id": "odin_za_odnim", "text": "Они шли один за одним по тропинке."},
+    {"id": "gc_08_odin_za_odnim_correct", "category": "LOGIC", "full_rule_id": "odin_za_odnim", "text": "Они шли один за другим по тропинке."},
+    {"id": "gc_09_vazhno_1_match", "category": "LOGIC", "full_rule_id": "Vazhno_chto_etogo[1]", "text": "Важно, что этого не произошло."},
+    {"id": "gc_10_vazhno_2_match", "category": "LOGIC", "full_rule_id": "Vazhno_chto_etogo[2]", "text": "Важно то, что этого не произошло."},
+    {"id": "gc_11_interesnaja_kniga_match", "category": "LOGIC", "full_rule_id": "Slovosoch_interesnaja_kniga", "text": "Это была очень интересная книга."},
+    {"id": "gc_12_interesnaja_kniga_correct", "category": "LOGIC", "full_rule_id": "Slovosoch_interesnaja_kniga", "text": "Это была очень увлекательная книга."},
+    {"id": "gc_13_dumu_dumat_1_match", "category": "LOGIC", "full_rule_id": "DUMU_DUMAT[1]", "text": "Он сидел и думу думал."},
+    {"id": "gc_14_dumu_dumat_2_match", "category": "LOGIC", "full_rule_id": "DUMU_DUMAT[2]", "text": "Они сидели и думали думу."},
+    {"id": "gc_15_dumu_dumat_correct", "category": "LOGIC", "full_rule_id": "DUMU_DUMAT[1]", "text": "Он сидел и глубоко думал."},
+    {"id": "gc_16_tavtology_aborigen_match", "category": "LOGIC", "full_rule_id": "Tavtology_mestnij_aborigen", "text": "Нас окружили местные аборигены."},
+    {"id": "gc_17_tavtology_aborigen_correct", "category": "LOGIC", "full_rule_id": "Tavtology_mestnij_aborigen", "text": "Нас окружили аборигены."},
+    {"id": "gc_18_tavtology_gorstka_match", "category": "LOGIC", "full_rule_id": "Tavtology_nebolshaja_gorstka", "text": "Была небольшая горстка людей."},
+
+    # 2. PUNCTUATION (10 cases)
+    {"id": "gc_19_pozhalujsta_1_match", "category": "PUNCTUATION", "full_rule_id": "POZHALUJSTA[1]", "text": "Скажи пожалуйста где выход."},
+    {"id": "gc_20_pozhalujsta_1_correct", "category": "PUNCTUATION", "full_rule_id": "POZHALUJSTA[1]", "text": "Скажи, пожалуйста, где выход."},
+    {"id": "gc_21_pozhalujsta_2_match", "category": "PUNCTUATION", "full_rule_id": "POZHALUJSTA[2]", "text": "Пожалуйста помогите мне."},
+    {"id": "gc_22_pozhalujsta_2_correct", "category": "PUNCTUATION", "full_rule_id": "POZHALUJSTA[2]", "text": "Пожалуйста, помогите мне."},
+    {"id": "gc_23_privet_druzja_match", "category": "PUNCTUATION", "full_rule_id": "Privet_druzja[1]", "text": "Привет друзья!"},
+    {"id": "gc_24_privet_druzja_correct", "category": "PUNCTUATION", "full_rule_id": "Privet_druzja[1]", "text": "Привет, друзья!"},
+    {"id": "gc_25_kak_bi_to_ni_bilo_match", "category": "PUNCTUATION", "full_rule_id": "Kak_bi_to_ni_bilo[1]", "text": "Как бы то ни было мы продолжим."},
+    {"id": "gc_26_kak_bi_to_ni_bilo_correct", "category": "PUNCTUATION", "full_rule_id": "Kak_bi_to_ni_bilo[1]", "text": "Как бы то ни было, мы продолжим."},
+    {"id": "gc_27_comma_and_to_jest_match", "category": "PUNCTUATION", "full_rule_id": "comma_and_to_jest", "text": "Он пришел и то есть помог."},
+    {"id": "gc_28_comma_and_to_jest_correct", "category": "PUNCTUATION", "full_rule_id": "comma_and_to_jest", "text": "Он пришел, то есть помог."},
+
+    # 3. GRAMMAR (14 cases)
+    {"id": "gc_29_pravopisanie_slitno1_3_match", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[3]", "text": "Они спустились в низ по лестнице."},
+    {"id": "gc_30_pravopisanie_slitno1_3_correct", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[3]", "text": "Они спустились вниз по лестнице."},
+    {"id": "gc_31_pravopisanie_slitno1_4_match", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[4]", "text": "В дали показался корабль."},
+    {"id": "gc_32_pravopisanie_slitno1_4_correct", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[4]", "text": "Вдали показался корабль."},
+    {"id": "gc_33_pravopisanie_slitno1_5_match", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[5]", "text": "Они посмотрели в даль моря."},
+    {"id": "gc_34_pravopisanie_slitno1_5_correct", "category": "GRAMMAR", "full_rule_id": "Pravopisanie_slitno1[5]", "text": "Они посмотрели вдаль моря."},
+    {"id": "gc_35_prosit_proshenija_match", "category": "GRAMMAR", "full_rule_id": "prosit_proshenija", "text": "Он пришел просить прощения у всех."},
+    {"id": "gc_36_prosit_proshenija_correct", "category": "GRAMMAR", "full_rule_id": "prosit_proshenija", "text": "Он пришел просить прощение у всех."},
+    {"id": "gc_37_skuchat_za_match", "category": "GRAMMAR", "full_rule_id": "skuchat_za", "text": "Она стала скучать за ним в разлуке."},
+    {"id": "gc_38_skuchat_za_correct", "category": "GRAMMAR", "full_rule_id": "skuchat_za", "text": "Она стала скучать по нему в разлуке."},
+    {"id": "gc_39_kak_ni_stranno_match", "category": "GRAMMAR", "full_rule_id": "kak_ni_stranno", "text": "Как не странно, все получилось."},
+    {"id": "gc_40_kak_ni_stranno_correct", "category": "GRAMMAR", "full_rule_id": "kak_ni_stranno", "text": "Как ни странно, все получилось."},
+    {"id": "gc_41_dlya_togo_chtob_match", "category": "GRAMMAR", "full_rule_id": "dlya_togo_chtoby_2", "text": "Для того чтоб это сделать."},
+    {"id": "gc_42_takim_obrazom_chto_match", "category": "GRAMMAR", "full_rule_id": "takim_obrazom_chto", "text": "Сделано таким образом что работает."},
+
+    # 4. STYLE (8 cases)
+    {"id": "gc_43_ugasno_krasivij_match", "category": "STYLE", "full_rule_id": "ugasno_krasivij[1]", "text": "Это было ужасно красиво и ярко."},
+    {"id": "gc_44_ugasno_krasivij_correct", "category": "STYLE", "full_rule_id": "ugasno_krasivij[1]", "text": "Это было очень красиво и ярко."},
+    {"id": "gc_45_nagnat_strahu_match", "category": "STYLE", "full_rule_id": "nagnat_strahu[1]", "text": "Он решил нагнать страху на врагов."},
+    {"id": "gc_46_nagnat_strahu_correct", "category": "STYLE", "full_rule_id": "nagnat_strahu[1]", "text": "Он решил нагнать страх на врагов."},
+    {"id": "gc_47_ni_v_koem_match", "category": "STYLE", "full_rule_id": "ni_v_koem_sluchae[1]", "text": "Ни в коем случае нельзя это делать."},
+    {"id": "gc_48_bolee_menee_match", "category": "STYLE", "full_rule_id": "Logical_bolee_menee[1]", "text": "Это более или менее понятно."},
+    {"id": "gc_49_use_prep_o_match", "category": "STYLE", "full_rule_id": "Use_prep_O[1]", "text": "Мы говорили о брате."},
+    {"id": "gc_50_use_prep_o_correct", "category": "STYLE", "full_rule_id": "Use_prep_O[1]", "text": "Мы говорили про брата."},
+
+    # 5. TYPOS & EXTEND & Special Cases (12 cases)
+    {"id": "gc_51_v_techenii_match", "category": "GRAMMAR", "full_rule_id": "V_TECHENII", "text": "В течении реки есть пороги."},
+    {"id": "gc_52_v_techenii_correct", "category": "GRAMMAR", "full_rule_id": "V_TECHENII", "text": "В течение реки есть пороги."},
+    {"id": "gc_53_v_prodolzhenie_match", "category": "GRAMMAR", "full_rule_id": "V_PRODOLJENI\u0415[1]", "text": "В продолжении недели мы работали."},
+    {"id": "gc_54_v_prodolzhenie_correct", "category": "GRAMMAR", "full_rule_id": "V_PRODOLJENI\u0415[1]", "text": "В продолжение недели мы работали."},
+    {"id": "gc_55_v_zakluchenie_match", "category": "EXTEND", "full_rule_id": "Predlog_v_zakluchenije[1]", "text": "В заключении хочу сказать спасибо."},
+    {"id": "gc_56_v_zakluchenie_correct", "category": "EXTEND", "full_rule_id": "Predlog_v_zakluchenije[1]", "text": "В заключение хочу сказать спасибо."},
+    {"id": "gc_57_adv_vposledstvii_match", "category": "EXTEND", "full_rule_id": "Adv_vposledstvii[1]", "text": "В последствии все наладилось."},
+    {"id": "gc_58_adv_vposledstvii_correct", "category": "EXTEND", "full_rule_id": "Adv_vposledstvii[1]", "text": "Впоследствии все наладилось."},
+    {"id": "gc_59_adv_vposledstvii_2_match", "category": "EXTEND", "full_rule_id": "Adv_vposledstvii[2]", "text": "В последствие все наладилось."},
+    {"id": "gc_60_neujto_match", "category": "PUNCTUATION", "full_rule_id": "NEUJTO", "text": "Неужтоли это правда?"},
+    {"id": "gc_61_capitalization_match", "category": "LOGIC", "full_rule_id": "Tavtology_mestnij_aborigen", "text": "Местные аборигены нас окружили."},
+    {"id": "gc_62_emoji_offset_match", "category": "LOGIC", "full_rule_id": "Tavtology_mestnij_aborigen", "text": "🚀 Нас окружили местные аборигены."},
+]
+
+
+def generate_grammar_core_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Generate oracle Russian grammar core fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
+
+    output_path = fixtures_dir / "oracle_russian_grammar_core.json"
+    cases_input = [{"full_rule_id": c["full_rule_id"], "text": c["text"]} for c in GRAMMAR_CORE_TEST_CASES]
+    results = oracle.check_pattern_rules(cases_input)
+
+    cases: List[Dict[str, Any]] = []
+    for i, item in enumerate(GRAMMAR_CORE_TEST_CASES):
+        res = results[i]
+        cases.append(
+            {
+                "id": item["id"],
+                "category": item["category"],
+                "full_rule_id": item["full_rule_id"],
+                "text": item["text"],
+                "oracle_result": res,
+            }
+        )
+
+    fixture_data = {
+        "schema_version": "1.0.0",
+        "description": "Committed LanguageTool 6.8 Java Oracle Russian Grammar Core Fixture",
+        "metadata": {
+            "pinned_lt_version": PINNED_LT_VERSION,
+            "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_build_id": oracle_build_id,
+            "oracle_jar_sha256": oracle_sha,
+            "cases_count": len(cases),
+        },
+        "cases": cases,
+    }
+
+    output_path.write_text(
+        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Generated Russian grammar core fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
@@ -1344,6 +1775,16 @@ def main() -> int:
         "--generate-synthesizer-fixtures",
         action="store_true",
         help="Generate Russian synthesizer fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-chunker-fixtures",
+        action="store_true",
+        help="Generate Russian chunker fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-grammar-core-fixtures",
+        action="store_true",
+        help="Generate Russian grammar core fixtures from Java LanguageTool oracle",
     )
 
     args = parser.parse_args()
@@ -1436,6 +1877,32 @@ def main() -> int:
         generate_synthesizer_fixtures(oracle, fixtures_dir)
         return 0
 
+    if args.generate_chunker_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_chunker_fixtures(oracle, fixtures_dir)
+        return 0
+
+    if args.generate_grammar_core_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_grammar_core_fixtures(oracle, fixtures_dir)
+        return 0
+
     if not args.text:
         parser.print_help()
         return 1
@@ -1462,4 +1929,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
 
