@@ -160,6 +160,26 @@ def test_special_number_tags():
     assert synth.synthesize(tok, "_spell_number_:Roman") == ["CXXIII"]
 
 
+def test_special_number_exact_vs_regex_mode():
+    """Verify exact special tag mode (pos_tag_is_regex=False) vs regexp mode (pos_tag_is_regex=True)."""
+    synth = RussianSynthesizer.get_instance()
+
+    # In exact mode (pos_tag_is_regex=False), special tags format the number
+    assert synth.synthesize("123", "_spell_number_", pos_tag_is_regex=False) == ["123"]
+    assert synth.synthesize("123", "_spell_number_:feminine", pos_tag_is_regex=False) == ["feminine 123"]
+    assert synth.synthesize("123", "_spell_number_:Roman", pos_tag_is_regex=False) == ["CXXIII"]
+
+    # In regex mode (pos_tag_is_regex=True), special tags are treated as POS regexes and return []
+    assert synth.synthesize("123", "_spell_number_", pos_tag_is_regex=True) == []
+    assert synth.synthesize("123", "_spell_number_:feminine", pos_tag_is_regex=True) == []
+    assert synth.synthesize("123", "_spell_number_:Roman", pos_tag_is_regex=True) == []
+
+    # AnalyzedToken with lemma=None:
+    tok_null = AnalyzedToken("123", lemma=None, pos_tag="NUM")
+    assert synth.synthesize(tok_null, "_spell_number_:Roman", pos_tag_is_regex=False) == ["CXXIII"]
+    assert synth.synthesize(tok_null, "_spell_number_:Roman", pos_tag_is_regex=True) == []
+
+
 def test_invalid_regex_error_message():
     """Verify exact LanguageTool error message on invalid regex pattern."""
     synth = RussianSynthesizer.get_instance()

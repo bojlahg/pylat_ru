@@ -1243,6 +1243,13 @@ SYNTHESIS_TEST_QUERIES: List[Dict[str, Any]] = [
     {"category": "special_number", "token": "9", "lemma": "9", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
     {"category": "special_number", "token": "2024", "lemma": "2024", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": False},
+    # 8b. Special number tags with pos_tag_is_regex=True
+    {"category": "special_number_regex", "token": "123", "lemma": "123", "pos_tag": "_spell_number_", "pos_tag_is_regex": True},
+    {"category": "special_number_regex", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:feminine", "pos_tag_is_regex": True},
+    {"category": "special_number_regex", "token": "123", "lemma": "123", "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": True},
+    {"category": "special_number_regex", "token": "123", "lemma": None, "pos_tag": "_spell_number_", "pos_tag_is_regex": True},
+    {"category": "special_number_regex", "token": "123", "lemma": None, "pos_tag": "_spell_number_:feminine", "pos_tag_is_regex": True},
+    {"category": "special_number_regex", "token": "123", "lemma": None, "pos_tag": "_spell_number_:Roman", "pos_tag_is_regex": True},
     # 9. Case sensitivity
     {"category": "case_sensitive", "token": "Семья", "lemma": "Семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},
     {"category": "case_sensitive", "token": "семья", "lemma": "семья", "pos_tag": "NN:Inanim:Fem:Sin:Nom", "pos_tag_is_regex": False},

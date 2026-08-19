@@ -53,7 +53,7 @@ class TestRussianSynthesizerOracleParity:
         assert meta["pinned_lt_commit"] == manifest_data["pinned_commit"] == build["pinned_commit"]
         assert meta["oracle_jar_sha256"] == build["jar_sha256"]
         queries = fixture_data["queries"]
-        assert len(queries) == 46
+        assert len(queries) == 52
 
     def test_oracle_cases_parity(self, fixture_data: Dict[str, Any]) -> None:
         """Assert 100% exact parity on all queries in oracle_russian_synthesizer_sample.json."""

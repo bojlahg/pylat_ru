@@ -198,15 +198,6 @@ class BaseSynthesizer(Synthesizer):
         else:
             return []
 
-        if pos_tag == self.SPELLNUMBER_TAG:
-            return [self.get_spelled_number(tok_str)]
-
-        if pos_tag == self.SPELLNUMBER_FEMININE_TAG:
-            return [self.get_spelled_number(f"feminine {tok_str}")]
-
-        if pos_tag == self.SPELLNUMBER_ROMAN_TAG:
-            return [self.get_roman_number(tok_str)]
-
         if pos_tag_is_regex:
             try:
                 pattern = re.compile(pos_tag)
@@ -221,6 +212,15 @@ class BaseSynthesizer(Synthesizer):
             return self.synthesize_for_pos_tags(
                 lemma, lambda t: pattern.fullmatch(t) is not None
             )
+
+        if pos_tag == self.SPELLNUMBER_TAG:
+            return [self.get_spelled_number(tok_str)]
+
+        if pos_tag == self.SPELLNUMBER_FEMININE_TAG:
+            return [self.get_spelled_number(f"feminine {tok_str}")]
+
+        if pos_tag == self.SPELLNUMBER_ROMAN_TAG:
+            return [self.get_roman_number(tok_str)]
 
         if lemma is None:
             return []

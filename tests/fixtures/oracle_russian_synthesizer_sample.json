@@ -6,7 +6,7 @@
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
-    "queries_count": 46
+    "queries_count": 52
   },
   "queries": [
     {
@@ -441,6 +441,60 @@
     },
     {
       "id": "synth_037",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_038",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_:feminine",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_039",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": "123",
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_040",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": null,
+      "pos_tag": "_spell_number_",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_041",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": null,
+      "pos_tag": "_spell_number_:feminine",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_042",
+      "category": "special_number_regex",
+      "token": "123",
+      "lemma": null,
+      "pos_tag": "_spell_number_:Roman",
+      "pos_tag_is_regex": true,
+      "expected_forms": []
+    },
+    {
+      "id": "synth_043",
       "category": "case_sensitive",
       "token": "Семья",
       "lemma": "Семья",
@@ -449,7 +503,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_038",
+      "id": "synth_044",
       "category": "case_sensitive",
       "token": "семья",
       "lemma": "семья",
@@ -460,7 +514,7 @@
       ]
     },
     {
-      "id": "synth_039",
+      "id": "synth_045",
       "category": "null_lemma",
       "token": "семья",
       "lemma": null,
@@ -469,7 +523,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_040",
+      "id": "synth_046",
       "category": "null_lemma",
       "token": "семья",
       "lemma": null,
@@ -478,7 +532,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_041",
+      "id": "synth_047",
       "category": "null_lemma_special_number",
       "token": "123",
       "lemma": null,
@@ -489,7 +543,7 @@
       ]
     },
     {
-      "id": "synth_042",
+      "id": "synth_048",
       "category": "null_lemma_special_number",
       "token": "123",
       "lemma": null,
@@ -500,7 +554,7 @@
       ]
     },
     {
-      "id": "synth_043",
+      "id": "synth_049",
       "category": "null_lemma_special_number",
       "token": "123",
       "lemma": null,
@@ -511,7 +565,7 @@
       ]
     },
     {
-      "id": "synth_044",
+      "id": "synth_050",
       "category": "unknown_tag",
       "token": "семья",
       "lemma": "семья",
@@ -520,7 +574,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_045",
+      "id": "synth_051",
       "category": "unknown_word",
       "token": "квазимодулятор",
       "lemma": "квазимодулятор",
@@ -529,7 +583,7 @@
       "expected_forms": []
     },
     {
-      "id": "synth_046",
+      "id": "synth_052",
       "category": "unknown_word",
       "token": "blablabla",
       "lemma": "blablabla",
