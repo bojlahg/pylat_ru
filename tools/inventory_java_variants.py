@@ -10,9 +10,13 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from pylat_ru.grammar.engine import RussianGrammarEngine
 from pylat_ru.grammar.loader import GrammarLoader

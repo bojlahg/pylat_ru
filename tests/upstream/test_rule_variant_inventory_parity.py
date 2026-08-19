@@ -36,8 +36,8 @@ def test_variant_inventory_fixture_and_provenance():
     assert data["source_xml_rules_total"] == 892
     assert data["java_total_physical_rules"] == 907
     assert data["python_all_compiled_variants_total"] == 907
-    assert data["python_runnable_source_rules_total"] == 735
-    assert data["python_runnable_compiled_variants_total"] == 747
+    assert data["python_runnable_source_rules_total"] == 759
+    assert data["python_runnable_compiled_variants_total"] == 772
     assert data["multi_variant_source_rules_count"] == 15
     assert data["or_generated_extra_variants"] == 15
     assert data["phrase_generated_extra_variants"] == 0
@@ -73,10 +73,10 @@ def test_runnable_engine_variant_counts():
     engine = RussianGrammarEngine(rules=rules, loader=loader)
 
     runnable_rules = engine.get_runnable_rules()
-    assert len(runnable_rules) == 735
+    assert len(runnable_rules) == 759
 
     total_runnable_variants = sum(len(engine._compiled_variants.get(r.full_id, [])) for r in runnable_rules)
-    assert total_runnable_variants == 747
+    assert total_runnable_variants == 772
 
 
 def test_ordered_variant_signatures_parity():

@@ -14,6 +14,7 @@ import xml.etree.ElementTree as ET
 
 from pylat_ru.grammar.classifier import classify_rule_element
 from pylat_ru.grammar.errors import GrammarFormatError, GrammarResourceError
+from pylat_ru.grammar.unification import UnifierConfiguration
 from pylat_ru.grammar.model import (
     EquivalenceDef,
     Example,
@@ -110,7 +111,10 @@ ALLOWED_UNIFICATION_ATTRS = {"feature"}
 ALLOWED_UNIFICATION_CHILDREN = {"equivalence", "feature"}
 
 ALLOWED_FEATURE_ATTRS = {"name", "id"}
-ALLOWED_FEATURE_CHILDREN = {"token"}
+ALLOWED_FEATURE_CHILDREN = {"token", "type"}
+
+ALLOWED_TYPE_ATTRS = {"id"}
+ALLOWED_TYPE_CHILDREN: Set[str] = set()
 
 ALLOWED_EQUIVALENCE_ATTRS = {"type"}
 ALLOWED_EQUIVALENCE_CHILDREN = {"token"}
@@ -182,6 +186,7 @@ class GrammarLoader:
 
     def __init__(self) -> None:
         self.global_phrases: Dict[str, PatternPhrase] = {}
+        self.unifier_config = UnifierConfiguration()
 
     def load_default(self) -> List[GrammarRule]:
         """Load and parse default packaged Russian grammar.xml."""
@@ -226,8 +231,17 @@ class GrammarLoader:
 
         # Collect global unifications and phrases
         global_unifications: List[UnificationDef] = []
+        self.unifier_config = UnifierConfiguration()
         for u_elem in root.findall("unification"):
-            global_unifications.append(self._parse_unification(u_elem))
+            u_def = self._parse_unification(u_elem)
+            global_unifications.append(u_def)
+            feat = u_def.feature or ""
+            for eq in u_def.equivalences:
+                eq_type = eq.type or ""
+                for tok in eq.tokens:
+                    from pylat_ru.grammar.matcher import CompiledPatternToken
+                    tok_matcher = CompiledPatternToken(tok)
+                    self.unifier_config.set_equivalence(feat, eq_type, tok_matcher)
 
         for child in root:
             if child.tag == "unification":
@@ -482,7 +496,14 @@ class GrammarLoader:
         _validate_children(f_elem, ALLOWED_FEATURE_CHILDREN, context)
         f_name = f_elem.attrib.get("name") or f_elem.attrib.get("id") or ""
         f_tokens = [self._parse_token(t, False, False, f"<token> in {context}") for t in f_elem.findall("token")]
-        return FeatureDef(name=f_name, tokens=f_tokens)
+        types: List[str] = []
+        for t_elem in f_elem.findall("type"):
+            _validate_attrs(t_elem, ALLOWED_TYPE_ATTRS, f"<type> in {context}")
+            _validate_children(t_elem, ALLOWED_TYPE_CHILDREN, f"<type> in {context}")
+            t_id = t_elem.attrib.get("id", "")
+            if t_id:
+                types.append(t_id)
+        return FeatureDef(name=f_name, types=types, tokens=f_tokens)
 
     def _parse_equivalence(self, eq_elem: ET.Element, context: str) -> EquivalenceDef:
         _validate_attrs(eq_elem, ALLOWED_EQUIVALENCE_ATTRS, context)

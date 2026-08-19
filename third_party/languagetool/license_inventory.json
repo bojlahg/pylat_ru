@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "upstream_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-  "total_vendored_files": 105,
+  "total_vendored_files": 110,
   "status_summary": {
-    "VERIFIED_LGPL": 105,
+    "VERIFIED_LGPL": 110,
     "BLOCKED_LICENSE_REVIEW": 0
   },
   "items": [
@@ -70,6 +70,17 @@
       "vendored": true,
       "size_bytes": 14412,
       "sha256": "afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Marcin Milkowski / Stefan Lotties",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 1571,
+      "sha256": "1c5ec50c7956a09c1d41a3df22b8728fa59662c32c59cfbf2ae0bd04ba3614e1",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
@@ -162,6 +173,39 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Marcin Milkowski / Stefan Lotties",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 16108,
+      "sha256": "33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Stefan Lotties",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3198,
+      "sha256": "4d8557a0d54225cd9596c6c97cfa26a74b152ffc0566625abf7eee9e8060fe03",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/XMLRuleHandler.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/XMLRuleHandler.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Marcin Milkowski / Stefan Lotties",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 27473,
+      "sha256": "bd68584d2673330a75147fbe2f4682da007fadbdecf99a4b02c192cdd335d185",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "copyright_source": "LanguageTool Community / Yakov Reztsov / Alexey Sokirko (AOT.ru)",
@@ -202,6 +246,17 @@
       "vendored": true,
       "size_bytes": 42337,
       "sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Marcin Milkowski / Stefan Lotties",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 25704,
+      "sha256": "095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
     },

@@ -35,13 +35,15 @@ def chunker():
 
 
 def test_grammar_core_runnable_rules_count(engine):
-    """Verify that exactly 506 rules are classified as CORE_0007_RUNNABLE and 735 total runnable."""
+    """Verify that 506 CORE, 229 ADVANCED, 24 UNIFICATION rules are classified (759 total runnable)."""
     all_rules = engine.get_runnable_rules()
-    assert len(all_rules) == 735, f"Expected 735 total runnable rules, got {len(all_rules)}"
+    assert len(all_rules) == 759, f"Expected 759 total runnable rules, got {len(all_rules)}"
     core_rules = [r for r in all_rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
     advanced_rules = [r for r in all_rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
+    unification_rules = [r for r in all_rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
     assert len(core_rules) == 506, f"Expected 506 core runnable rules, got {len(core_rules)}"
     assert len(advanced_rules) == 229, f"Expected 229 advanced runnable rules, got {len(advanced_rules)}"
+    assert len(unification_rules) == 24, f"Expected 24 unification runnable rules, got {len(unification_rules)}"
 
 
 def test_grammar_core_trigger_parity(engine, disambiguator, chunker):
@@ -133,8 +135,40 @@ def test_grammar_core_full_example_parity(engine, disambiguator, chunker):
     assert full_parity_matches == total_examples, f"Full parity: {full_parity_matches}/{total_examples}"
 
 
-def test_grammar_advanced_0008_trigger_parity(engine, disambiguator, chunker):
-    """Execute all examples for all 735 (0007+0008) runnable rules and assert 100% trigger accuracy."""
+def test_grammar_unification_0009_trigger_parity(engine, disambiguator, chunker):
+    """Execute all examples for all 24 newly runnable unification rules and assert 100% trigger accuracy."""
+    uni_rules = [r for r in engine.get_runnable_rules() if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
+    assert len(uni_rules) == 24
+    total_examples = 0
+    failures = []
+
+    for rule in uni_rules:
+        for ex_idx, ex in enumerate(rule.examples):
+            total_examples += 1
+            text = ex.text
+
+            sent = disambiguator.disambiguate_text(text)
+            sent.text = text
+            chunker.chunk(sent)
+
+            matches = engine.check_rule(sent, rule.full_id)
+            has_match = (len(matches) > 0)
+
+            if ex.is_incorrect and not has_match:
+                failures.append(
+                    f"[{rule.full_id}] Incorrect example #{ex_idx} failed to trigger rule: {text!r}"
+                )
+            elif not ex.is_incorrect and has_match:
+                failures.append(
+                    f"[{rule.full_id}] Correct example #{ex_idx} falsely triggered rule: {text!r}"
+                )
+
+    assert total_examples == 216, f"Expected 216 unification examples, got {total_examples}"
+    assert not failures, f"Unification 0009 grammar examples trigger failures ({len(failures)}):\n" + "\n".join(failures)
+
+
+def test_grammar_all_runnable_0009_trigger_parity(engine, disambiguator, chunker):
+    """Execute all examples for all 759 (0007+0008+0009) runnable rules and assert 100% trigger accuracy."""
     all_rules = engine.get_runnable_rules()
     total_examples = 0
     failures = []
@@ -160,6 +194,6 @@ def test_grammar_advanced_0008_trigger_parity(engine, disambiguator, chunker):
                     f"[{rule.full_id}] Correct example #{ex_idx} falsely triggered rule: {text!r}"
                 )
 
-    assert total_examples == 1738, f"Expected 1738 total examples, got {total_examples}"
-    assert not failures, f"Advanced 0008 grammar examples trigger failures ({len(failures)}):\n" + "\n".join(failures)
+    assert total_examples == 1954, f"Expected 1954 total examples, got {total_examples}"
+    assert not failures, f"All 0009 runnable grammar examples trigger failures ({len(failures)}):\n" + "\n".join(failures)
 

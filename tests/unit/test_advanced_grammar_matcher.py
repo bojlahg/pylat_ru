@@ -926,13 +926,13 @@ def test_deferred_rules_preserve_complete_pattern_structure():
     rules = loader.load_default()
     assert len(rules) == 892
 
-    deferred_0009 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0009_UNIFICATION]
+    unification_0009 = [r for r in rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
     deferred_0010 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0010_FILTER]
 
-    assert len(deferred_0009) > 0
-    assert len(deferred_0010) > 0
+    assert len(unification_0009) == 24
+    assert len(deferred_0010) == 20
 
-    for r in deferred_0009:
+    for r in unification_0009:
         assert r.pattern is not None
         assert len(r.pattern.elements) > 0 or len(r.pattern.tokens) > 0, f"Rule {r.full_id} has empty pattern"
 

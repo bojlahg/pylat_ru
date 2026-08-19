@@ -96,8 +96,9 @@ class RussianGrammarEngine:
             if r.execution_state in (
                 ExecutionState.CORE_0007_RUNNABLE,
                 ExecutionState.ADVANCED_0008_RUNNABLE,
+                ExecutionState.UNIFICATION_0009_RUNNABLE,
             ):
-                variants = expand_rule_into_variants(r, self._loader.global_phrases)
+                variants = expand_rule_into_variants(r, self._loader.global_phrases, self._loader.unifier_config)
                 self._compiled_variants[r.full_id] = variants
 
     @classmethod
@@ -112,13 +113,14 @@ class RussianGrammarEngine:
         return list(self._all_rules)
 
     def get_runnable_rules(self) -> List[GrammarRule]:
-        """Return all rules eligible for execution in 0007 core + 0008 advanced engine."""
+        """Return all rules eligible for execution in 0007 core + 0008 advanced + 0009 unification engine."""
         return [
             r
             for r in self._all_rules
             if r.execution_state in (
                 ExecutionState.CORE_0007_RUNNABLE,
                 ExecutionState.ADVANCED_0008_RUNNABLE,
+                ExecutionState.UNIFICATION_0009_RUNNABLE,
             )
         ]
 
@@ -169,6 +171,7 @@ class RussianGrammarEngine:
         if rule.execution_state not in (
             ExecutionState.CORE_0007_RUNNABLE,
             ExecutionState.ADVANCED_0008_RUNNABLE,
+            ExecutionState.UNIFICATION_0009_RUNNABLE,
         ):
             blocker_desc = ", ".join(f"{b.feature} (task {b.target_task})" for b in rule.blockers)
             raise UnsupportedGrammarFeatureError(
@@ -179,7 +182,7 @@ class RussianGrammarEngine:
 
         variants = self._compiled_variants.get(rule.full_id)
         if variants is None:
-            variants = expand_rule_into_variants(rule, self._loader.global_phrases)
+            variants = expand_rule_into_variants(rule, self._loader.global_phrases, self._loader.unifier_config)
             self._compiled_variants[rule.full_id] = variants
 
         return self._execute_rule(sentence, rule, variants)
@@ -247,10 +250,20 @@ class RussianGrammarEngine:
                 matched_tokens = non_blank_tokens[match_res.match_start_idx : match_res.match_end_idx]
                 error_tokens = non_blank_tokens[match_res.error_start_idx : match_res.error_end_idx]
 
+                # Match-local filtered reading overlay
+                if match_res.filtered_tokens is not None:
+                    formatting_tokens = list(non_blank_tokens)
+                    for f_idx, filt_atr in enumerate(match_res.filtered_tokens):
+                        target_pos = match_res.first_match_token + f_idx
+                        if target_pos < len(formatting_tokens):
+                            formatting_tokens[target_pos] = filt_atr
+                else:
+                    formatting_tokens = non_blank_tokens
+
                 # Format message
                 message = TemplateFormatter.format_message(
                     template=rule.message_template,
-                    tokens=non_blank_tokens,
+                    tokens=formatting_tokens,
                     token_positions=match_res.token_positions,
                     first_match_token=match_res.first_match_token,
                     element_lengths=variant.element_lengths,
@@ -285,7 +298,7 @@ class RussianGrammarEngine:
                     for sug_tmpl in rule.suggestions:
                         sug_list = TemplateFormatter.format_suggestions_list(
                             template=sug_tmpl,
-                            tokens=non_blank_tokens,
+                            tokens=formatting_tokens,
                             token_positions=match_res.token_positions,
                             first_match_token=match_res.first_match_token,
                             error_tokens=error_tokens,

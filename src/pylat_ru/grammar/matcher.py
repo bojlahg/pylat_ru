@@ -29,6 +29,7 @@ from pylat_ru.grammar.model import (
     PatternUnify,
     PatternUnifyIgnore,
 )
+from pylat_ru.grammar.unification import Unifier, UnifierConfiguration
 from pylat_ru.synthesis.synthesizer import RussianSynthesizer
 
 
@@ -146,6 +147,13 @@ class CompiledPatternToken:
         self.is_in_marker = token.is_in_marker
         self.match_ref = token.match
 
+        # Unification metadata
+        self.uni_features: Dict[str, List[str]] = dict(getattr(token, "uni_features", {}))
+        self.is_unify: bool = bool(getattr(token, "is_unify", False))
+        self.is_unify_negated: bool = bool(getattr(token, "is_unify_negated", False))
+        self.is_unify_neutral: bool = bool(getattr(token, "is_unify_neutral", False))
+        self.is_last_in_unify: bool = bool(getattr(token, "is_last_in_unify", False))
+
         # Dynamic match reference state (resolved per match attempt)
         self.dynamic_text: Optional[str] = None
         self.dynamic_postag: Optional[str] = None
@@ -197,6 +205,10 @@ class CompiledPatternToken:
         else:
             self.and_members = []
             self.and_group_checks = []
+
+    @property
+    def is_unified(self) -> bool:
+        return self.is_unify or self.is_unify_neutral
 
     def has_and_group(self) -> bool:
         return len(self.and_members) > 0
@@ -431,6 +443,7 @@ class MatchStateResult:
     match_end_idx: int      # 0-indexed exclusive
     error_start_idx: int    # 0-indexed
     error_end_idx: int      # 0-indexed exclusive
+    filtered_tokens: Optional[List[AnalyzedTokenReadings]] = None
 
 
 class CompiledRuleVariant:
@@ -449,18 +462,22 @@ class CompiledRuleVariant:
         antipatterns: Optional[List[CompiledRuleVariant]] = None,
         minprevmatches: Optional[int] = None,
         distancetokens: Optional[int] = None,
+        unifier_config: Optional[UnifierConfiguration] = None,
     ) -> None:
         self.source_rule = source_rule
         self.variant_idx = variant_idx
         self.tokens = tokens
         self.element_lengths = element_lengths
-        self.has_marker = has_marker
+        self.has_marker = has_marker or any(t.is_in_marker for t in self.tokens)
         self.marker_start_idx = marker_start_idx
         self.marker_end_idx = marker_end_idx
         self.raw_pos = raw_pos
         self.antipatterns = antipatterns or []
         self.minprevmatches = minprevmatches
         self.distancetokens = distancetokens
+        self.unifier_config = unifier_config
+        self.unifier: Optional[Unifier] = unifier_config.create_unifier() if unifier_config is not None else None
+        self.has_unification = any(t.is_unified for t in self.tokens)
         self.min_occur_correction = sum(1 for t in self.tokens if t.min == 0)
         self.is_sent_start = (
             len(self.tokens) > 0
@@ -541,6 +558,9 @@ class CompiledRuleVariant:
         all_elements_match = False
         matching_tokens = 0
 
+        to_unify: Dict[CompiledPatternToken, List[List[AnalyzedToken]]] = {}
+        neutral_readings: Dict[CompiledPatternToken, List[AnalyzedTokenReadings]] = {}
+
         prev_token_matcher: Optional[CompiledPatternToken] = None
         p_token_matcher: Optional[CompiledPatternToken] = None
 
@@ -562,7 +582,7 @@ class CompiledRuleVariant:
             )
 
             for m in range(next_pos, max_tok + 1):
-                all_elements_match, prev_matched = self._test_all_readings(
+                all_elements_match, prev_matched, readings_to_unify = self._test_all_readings(
                     tokens=tokens,
                     matcher=p_token_matcher,
                     prev_element=prev_token_matcher,
@@ -578,7 +598,7 @@ class CompiledRuleVariant:
                     found_next = False
                     for k2 in range(k + 1, pattern_size):
                         next_elem = self.tokens[k2]
-                        next_elem_match, _ = self._test_all_readings(
+                        next_elem_match, _, _ = self._test_all_readings(
                             tokens=tokens,
                             matcher=next_elem,
                             prev_element=p_token_matcher,
@@ -604,6 +624,11 @@ class CompiledRuleVariant:
                     break
 
                 if all_elements_match:
+                    if p_token_matcher.is_unify_neutral:
+                        neutral_readings.setdefault(p_token_matcher, []).append(tokens[m])
+                    if p_token_matcher.is_unify and readings_to_unify:
+                        to_unify.setdefault(p_token_matcher, []).append(readings_to_unify)
+
                     skip_for_max = self._skip_max_tokens(
                         tokens=tokens,
                         matcher=p_token_matcher,
@@ -613,6 +638,8 @@ class CompiledRuleVariant:
                         prev_skip_next=prev_skip_next,
                         remaining_elems=pattern_size - k - 1,
                         immunized_tokens=immunized_tokens,
+                        to_unify=to_unify,
+                        neutral_readings=neutral_readings,
                     )
                     last_match_token = m + skip_for_max
                     skip_shift = last_match_token - next_pos
@@ -633,6 +660,12 @@ class CompiledRuleVariant:
                 break
 
         if all_elements_match and matching_tokens == pattern_size:
+            filtered_tokens: Optional[List[AnalyzedTokenReadings]] = None
+            if self.has_unification:
+                uni_ok, filtered_tokens = self._test_unification(to_unify, neutral_readings)
+                if not uni_ok:
+                    return None
+
             # Compute match and error spans
             match_start = first_match_token
             match_end = last_match_token + 1
@@ -654,6 +687,7 @@ class CompiledRuleVariant:
                 match_end_idx=match_end,
                 error_start_idx=error_start,
                 error_end_idx=error_end,
+                filtered_tokens=filtered_tokens,
             )
 
         return None
@@ -668,15 +702,15 @@ class CompiledRuleVariant:
         prev_skip_next: int,
         prev_matched: bool,
         immunized_tokens: Set[int],
-    ) -> Tuple[bool, bool]:
+    ) -> Tuple[bool, bool, List[AnalyzedToken]]:
         """Evaluate token matching across readings, scopes, chunks, and AND groups."""
         if token_no in immunized_tokens:
-            return False, prev_matched
+            return False, prev_matched, []
 
         atr = tokens[token_no]
         readings = atr.readings
         if not readings:
-            return False, prev_matched
+            return False, prev_matched, []
 
         # Prepare AND group
         if matcher.has_and_group():
@@ -696,38 +730,41 @@ class CompiledRuleVariant:
                         prev_matched = True
 
             if prev_matched:
-                return False, True
+                return False, True, []
 
         any_matched = False
+        readings_to_unify: List[AnalyzedToken] = []
         for match_token in readings:
             reading_matches = matcher.matches_reading(match_token, atr)
             if reading_matches:
                 any_matched = True
+                if matcher.is_unify and not matcher.is_unify_neutral:
+                    readings_to_unify.append(match_token)
             if matcher.has_and_group():
                 matcher.add_member_and_group(match_token, atr)
 
         if matcher.has_and_group():
             if not matcher.check_and_group(any_matched):
-                return False, prev_matched
+                return False, prev_matched, []
         elif not any_matched:
-            return False, prev_matched
+            return False, prev_matched, []
 
         # Current-scope exceptions
         for match_token in readings:
             if matcher.matches_current_exception(match_token, atr):
-                return False, prev_matched
+                return False, prev_matched, []
 
         # Previous-scope exceptions
         if token_no > 0 and matcher.exceptions_previous:
             prev_atr = tokens[token_no - 1]
             if matcher.matches_previous_exception(prev_atr):
-                return False, prev_matched
+                return False, prev_matched, []
 
         # Chunk matching
         if not matcher.matches_chunk(atr):
-            return False, prev_matched
+            return False, prev_matched, []
 
-        return True, prev_matched
+        return True, prev_matched, readings_to_unify
 
     def _skip_max_tokens(
         self,
@@ -739,6 +776,8 @@ class CompiledRuleVariant:
         prev_skip_next: int,
         remaining_elems: int,
         immunized_tokens: Set[int],
+        to_unify: Optional[Dict[CompiledPatternToken, List[List[AnalyzedToken]]]] = None,
+        neutral_readings: Optional[Dict[CompiledPatternToken, List[AnalyzedTokenReadings]]] = None,
     ) -> int:
         """Skip repeated matches up to maxOccurrences matching Java LT AbstractPatternRulePerformer."""
         max_skip = 0
@@ -747,7 +786,7 @@ class CompiledRuleVariant:
         for j in range(1, max_occurrences):
             if m + j >= len(tokens) - remaining_elems:
                 break
-            next_match, _ = self._test_all_readings(
+            next_match, _, rep_readings = self._test_all_readings(
                 tokens=tokens,
                 matcher=matcher,
                 prev_element=prev_element,
@@ -758,17 +797,61 @@ class CompiledRuleVariant:
                 immunized_tokens=immunized_tokens,
             )
             if next_match:
+                if to_unify is not None and matcher.is_unify and rep_readings:
+                    to_unify.setdefault(matcher, []).append(rep_readings)
+                if neutral_readings is not None and matcher.is_unify_neutral:
+                    neutral_readings.setdefault(matcher, []).append(tokens[m + j])
                 max_skip += 1
             else:
                 break
 
         return max_skip
 
+    def _test_unification(
+        self,
+        to_unify: Dict[CompiledPatternToken, List[List[AnalyzedToken]]],
+        neutral_readings: Dict[CompiledPatternToken, List[AnalyzedTokenReadings]],
+    ) -> Tuple[bool, Optional[List[AnalyzedTokenReadings]]]:
+        """Perform feature unification agreement check across matched candidate tokens."""
+        if self.unifier is None:
+            return True, None
 
+        self.unifier.reset()
+        final_unified: Optional[List[AnalyzedTokenReadings]] = None
+
+        for matcher in self.tokens:
+            neutral = neutral_readings.get(matcher)
+            if neutral is not None:
+                for atr in neutral:
+                    self.unifier.add_neutral_element(atr)
+                continue
+
+            reading_sets = to_unify.get(matcher)
+            if reading_sets is None:
+                continue
+
+            for readings in reading_sets:
+                any_matched = False
+                for i, match_token in enumerate(readings):
+                    is_last_reading = (i == len(readings) - 1)
+                    res = self.unifier.is_unified(match_token, matcher.uni_features, is_last_reading, True)
+                    any_matched = any_matched or res
+
+                if matcher.is_unify_negated and any_matched:
+                    return False, None
+
+                if matcher.is_last_in_unify and readings == reading_sets[-1]:
+                    if not any_matched and not matcher.is_unify_negated:
+                        return False, None
+                    final_unified = self.unifier.get_final_unified()
+                    self.unifier.reset()
+
+        return True, final_unified
 
 def expand_rule_into_variants(
     rule: GrammarRule,
     global_phrases: Dict[str, PatternPhrase],
+    unifier_config: Optional[UnifierConfiguration] = None,
 ) -> List[CompiledRuleVariant]:
     """Recursively expand <or> and <phrase> into physical rule variants matching Java LT."""
     # 1. Expand pattern elements into Cartesian product of token sequences
@@ -792,6 +875,7 @@ def expand_rule_into_variants(
                     marker_start_idx=ap.marker_start_idx,
                     marker_end_idx=ap.marker_end_idx,
                     raw_pos=ap.raw_pos,
+                    unifier_config=unifier_config,
                 )
             )
 
@@ -812,6 +896,7 @@ def expand_rule_into_variants(
                 antipatterns=compiled_antipatterns,
                 minprevmatches=rule.minprevmatches,
                 distancetokens=rule.distancetokens,
+                unifier_config=unifier_config,
             )
         )
 
@@ -835,47 +920,50 @@ def _expand_pattern_elements(
         first, global_phrases, in_marker_override=in_marker_override
     )
 
-    result: List[Tuple[List[PatternToken], List[int]]] = []
-    for branch_tokens, branch_len in first_branches:
-        for rest_tokens, rest_lens in rest_variants:
-            result.append((branch_tokens + rest_tokens, [branch_len] + rest_lens))
+    combined: List[Tuple[List[PatternToken], List[int]]] = []
+    for f_tokens, f_len in first_branches:
+        for r_tokens, r_lens in rest_variants:
+            combined.append((f_tokens + r_tokens, [f_len] + r_lens))
 
-    return result
+    return combined
 
 
 def _flatten_and_to_tokens(and_elem: PatternAnd) -> List[PatternToken]:
-    """Convert PatternAnd into a primary token with embedded AND members."""
-    if not and_elem.elements:
-        return [PatternToken(is_in_marker=and_elem.is_in_marker)]
+    """Flatten PatternAnd into tokens preserving member predicates and exceptions."""
+    primary_token: Optional[PatternToken] = None
+    and_tokens: List[PatternToken] = []
 
-    primary = and_elem.elements[0]
-    and_members: List[PatternToken] = []
-    for m in and_elem.elements[1:]:
-        if isinstance(m, PatternToken):
-            and_members.append(m)
+    for child in and_elem.elements:
+        if isinstance(child, PatternToken):
+            if primary_token is None:
+                primary_token = child
+            else:
+                and_tokens.append(child)
 
-    if isinstance(primary, PatternToken):
-        main_token = PatternToken(
-            text=primary.text,
-            postag=primary.postag,
-            postag_regexp=primary.postag_regexp,
-            regexp=primary.regexp,
-            negate=primary.negate,
-            negate_pos=primary.negate_pos,
-            inflected=primary.inflected,
-            case_sensitive=primary.case_sensitive,
-            skip=primary.skip,
-            min=primary.min,
-            max=primary.max,
-            chunk=primary.chunk,
-            spacebefore=primary.spacebefore,
-            raw_pos=primary.raw_pos,
-            exceptions=list(primary.exceptions) + list(and_elem.exceptions),
-            match=primary.match,
-            is_in_marker=and_elem.is_in_marker or primary.is_in_marker,
-            and_elements=and_members,
-        )
-        return [main_token]
+    if primary_token is not None:
+        merged_exceptions = list(primary_token.exceptions) + list(and_elem.exceptions)
+        return [
+            PatternToken(
+                text=primary_token.text,
+                postag=primary_token.postag,
+                postag_regexp=primary_token.postag_regexp,
+                regexp=primary_token.regexp,
+                negate=primary_token.negate,
+                negate_pos=primary_token.negate_pos,
+                inflected=primary_token.inflected,
+                case_sensitive=primary_token.case_sensitive,
+                skip=primary_token.skip,
+                min=primary_token.min,
+                max=primary_token.max,
+                chunk=primary_token.chunk,
+                spacebefore=primary_token.spacebefore,
+                raw_pos=primary_token.raw_pos,
+                is_in_marker=and_elem.is_in_marker,
+                match=primary_token.match,
+                exceptions=merged_exceptions,
+                and_elements=and_tokens,
+            )
+        ]
 
     return [PatternToken(is_in_marker=and_elem.is_in_marker)]
 
@@ -910,6 +998,11 @@ def _expand_single_element(
                 match=tok.match,
                 exceptions=tok.exceptions,
                 and_elements=tok.and_elements,
+                uni_features=tok.uni_features,
+                is_unify=tok.is_unify,
+                is_unify_negated=tok.is_unify_negated,
+                is_unify_neutral=tok.is_unify_neutral,
+                is_last_in_unify=tok.is_last_in_unify,
             )
         return [([tok], 1)]
 
@@ -941,7 +1034,8 @@ def _expand_single_element(
             branches.append((p_tokens, len(p_tokens)))
         return branches
 
-    elif isinstance(elem, (PatternUnify, PatternUnifyIgnore)):
+    elif isinstance(elem, PatternUnify):
+        uni_features = {f.name: list(f.types) for f in elem.features}
         unify_expansions = _expand_pattern_elements(
             elem.elements, global_phrases, in_marker_override=effective_marker
         )
@@ -971,10 +1065,76 @@ def _expand_single_element(
                                 match=tok.match,
                                 exceptions=tok.exceptions,
                                 and_elements=tok.and_elements,
+                                uni_features=dict(uni_features) if not tok.is_unify_neutral else {},
+                                is_unify=True if not tok.is_unify_neutral else False,
+                                is_unify_neutral=tok.is_unify_neutral,
                             )
                         )
                 else:
-                    expanded_tokens.append(tok)
+                    expanded_tokens.append(
+                        PatternToken(
+                            text=tok.text,
+                            postag=tok.postag,
+                            postag_regexp=tok.postag_regexp,
+                            regexp=tok.regexp,
+                            negate=tok.negate,
+                            negate_pos=tok.negate_pos,
+                            inflected=tok.inflected,
+                            case_sensitive=tok.case_sensitive,
+                            skip=tok.skip,
+                            min=tok.min,
+                            max=tok.max,
+                            chunk=tok.chunk,
+                            spacebefore=tok.spacebefore,
+                            raw_pos=tok.raw_pos,
+                            is_in_marker=tok.is_in_marker,
+                            match=tok.match,
+                            exceptions=tok.exceptions,
+                            and_elements=tok.and_elements,
+                            uni_features=dict(uni_features) if not tok.is_unify_neutral else {},
+                            is_unify=True if not tok.is_unify_neutral else False,
+                            is_unify_neutral=tok.is_unify_neutral,
+                        )
+                    )
+            if expanded_tokens:
+                last_tok = expanded_tokens[-1]
+                last_tok.is_last_in_unify = True
+                if elem.negate:
+                    last_tok.is_unify_negated = True
+            branches.append((expanded_tokens, len(expanded_tokens)))
+        return branches
+
+    elif isinstance(elem, PatternUnifyIgnore):
+        ignore_expansions = _expand_pattern_elements(
+            elem.elements, global_phrases, in_marker_override=effective_marker
+        )
+        branches = []
+        for i_tokens, _ in ignore_expansions:
+            expanded_tokens = []
+            for tok in i_tokens:
+                expanded_tokens.append(
+                    PatternToken(
+                        text=tok.text,
+                        postag=tok.postag,
+                        postag_regexp=tok.postag_regexp,
+                        regexp=tok.regexp,
+                        negate=tok.negate,
+                        negate_pos=tok.negate_pos,
+                        inflected=tok.inflected,
+                        case_sensitive=tok.case_sensitive,
+                        skip=tok.skip,
+                        min=tok.min,
+                        max=tok.max,
+                        chunk=tok.chunk,
+                        spacebefore=tok.spacebefore,
+                        raw_pos=tok.raw_pos,
+                        is_in_marker=tok.is_in_marker,
+                        match=tok.match,
+                        exceptions=tok.exceptions,
+                        and_elements=tok.and_elements,
+                        is_unify_neutral=True,
+                    )
+                )
             branches.append((expanded_tokens, len(expanded_tokens)))
         return branches
 

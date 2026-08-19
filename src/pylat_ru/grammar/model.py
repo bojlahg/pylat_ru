@@ -16,6 +16,7 @@ class ExecutionState(str, Enum):
 
     CORE_0007_RUNNABLE = "CORE_0007_RUNNABLE"
     ADVANCED_0008_RUNNABLE = "ADVANCED_0008_RUNNABLE"
+    UNIFICATION_0009_RUNNABLE = "UNIFICATION_0009_RUNNABLE"
     DEFERRED_0008_ADVANCED_MATCHING = "DEFERRED_0008_ADVANCED_MATCHING"
     DEFERRED_0009_UNIFICATION = "DEFERRED_0009_UNIFICATION"
     DEFERRED_0010_FILTER = "DEFERRED_0010_FILTER"
@@ -74,6 +75,11 @@ class PatternToken:
     match: Optional[Any] = None  # MatchReference when token contains <match>
     is_in_marker: bool = False
     and_elements: List[Any] = field(default_factory=list)
+    uni_features: Dict[str, List[str]] = field(default_factory=dict)
+    is_unify: bool = False
+    is_unify_negated: bool = False
+    is_unify_neutral: bool = False
+    is_last_in_unify: bool = False
 
 
 @dataclass
@@ -174,9 +180,10 @@ class FilterConfig:
 
 @dataclass
 class FeatureDef:
-    """Feature definition inside XML unification."""
+    """Feature definition inside XML unification or local selection inside <unify>."""
 
     name: str
+    types: List[str] = field(default_factory=list)
     tokens: List[PatternToken] = field(default_factory=list)
 
 

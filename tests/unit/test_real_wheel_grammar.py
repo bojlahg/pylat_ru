@@ -113,6 +113,19 @@ assert adv_m.from_pos == 0
 assert adv_m.to_pos == 19
 assert adv_m.suggestions == ["Вопреки утверждению", "Вопреки утвержденью"]
 
+# 6. Check unification 0009 rule (Unify_Mult_Adj) with feature unification agreement
+uni_text = "Крыловский государственной научный центр"
+uni_sentence = disambiguator.disambiguate_text(uni_text)
+uni_sentence.text = uni_text
+chunker.chunk(uni_sentence)
+uni_matches = engine.check_rule(uni_sentence, "Unify_Mult_Adj")
+assert len(uni_matches) == 1, f"Expected 1 match for Unify_Mult_Adj, got {{len(uni_matches)}}"
+uni_m = uni_matches[0]
+assert uni_m.rule_id == "Unify_Mult_Adj"
+assert uni_m.from_pos == 0
+assert uni_m.to_pos == 40
+assert uni_text[uni_m.from_pos:uni_m.to_pos] == "Крыловский государственной научный центр"
+
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """
         run_env = dict(os.environ)

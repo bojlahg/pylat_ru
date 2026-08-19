@@ -5,15 +5,99 @@
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
-  "vendored_files_count": 105,
+  "vendored_files_count": 109,
   "files": {
     "COPYING.txt": {
       "size": 26432,
       "sha256": "95a62130965bddc821631fcec03abe97246f9130f11a8be6f47579f8bc016fc8"
     },
+    "languagetool-core/src/main/java/org/languagetool/chunking/TokenExpressionFactory.java": {
+      "size": 1878,
+      "sha256": "060270f2d9c4a62dce12999e8c578cbb0244a08f3a2b3ab7203b812a93fb5eb0"
+    },
+    "languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java": {
+      "size": 3793,
+      "sha256": "3f6c4280d73e5ebf7fd27b95e484b473bb0f480e4d6679af62ac8a0990896f7d"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java": {
+      "size": 29812,
+      "sha256": "03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java": {
+      "size": 11395,
+      "sha256": "421196a416df471a8f5bca0336191dfd012a43c00b8a6f16d496ae2ba9b34066"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java": {
+      "size": 14412,
+      "sha256": "afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java": {
+      "size": 1571,
+      "sha256": "1c5ec50c7956a09c1d41a3df22b8728fa59662c32c59cfbf2ae0bd04ba3614e1"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java": {
+      "size": 6610,
+      "sha256": "0bee9c39d71af13dc085d65ceda99ede05d66f3d4d660698808bc39d74931629"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java": {
+      "size": 15219,
+      "sha256": "1a4e88fec00ed0b3de5674ef297b5659ca76b69606da7869bfe92509ceaaf829"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java": {
+      "size": 8809,
+      "sha256": "c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java": {
+      "size": 37627,
+      "sha256": "b9cc4ad871bfd54ec87c7c4bcca6b8fb24f77d42d1191e9f9c8f806069a7120f"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java": {
+      "size": 3248,
+      "sha256": "778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java": {
+      "size": 22434,
+      "sha256": "70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java": {
+      "size": 26728,
+      "sha256": "11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java": {
+      "size": 4917,
+      "sha256": "9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java": {
+      "size": 16108,
+      "sha256": "33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java": {
+      "size": 3198,
+      "sha256": "4d8557a0d54225cd9596c6c97cfa26a74b152ffc0566625abf7eee9e8060fe03"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/XMLRuleHandler.java": {
+      "size": 27473,
+      "sha256": "bd68584d2673330a75147fbe2f4682da007fadbdecf99a4b02c192cdd335d185"
+    },
     "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
       "size": 213633,
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java": {
+      "size": 16047,
+      "sha256": "9b4adb24e4e92715ccfaf76a527001b9c01abf6b9f721b98efac1ffd3f3212ca"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java": {
+      "size": 22044,
+      "sha256": "83790f315b5f86e3f1dab2109c4d0b0d7b1bbd40f5404eae2092c03ff4d11542"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java": {
+      "size": 42337,
+      "sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java": {
+      "size": 25704,
+      "sha256": "095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b"
     },
     "languagetool-language-modules/ru/pom.xml": {
       "size": 2752,
@@ -359,73 +443,9 @@
       "size": 2800,
       "sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c"
     },
-    "languagetool-core/src/main/java/org/languagetool/chunking/TokenExpressionFactory.java": {
-      "size": 1878,
-      "sha256": "060270f2d9c4a62dce12999e8c578cbb0244a08f3a2b3ab7203b812a93fb5eb0"
-    },
-    "languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java": {
-      "size": 3793,
-      "sha256": "3f6c4280d73e5ebf7fd27b95e484b473bb0f480e4d6679af62ac8a0990896f7d"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java": {
-      "size": 11395,
-      "sha256": "421196a416df471a8f5bca0336191dfd012a43c00b8a6f16d496ae2ba9b34066"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java": {
-      "size": 14412,
-      "sha256": "afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java": {
-      "size": 6610,
-      "sha256": "0bee9c39d71af13dc085d65ceda99ede05d66f3d4d660698808bc39d74931629"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java": {
-      "size": 15219,
-      "sha256": "1a4e88fec00ed0b3de5674ef297b5659ca76b69606da7869bfe92509ceaaf829"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java": {
-      "size": 8809,
-      "sha256": "c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java": {
-      "size": 37627,
-      "sha256": "b9cc4ad871bfd54ec87c7c4bcca6b8fb24f77d42d1191e9f9c8f806069a7120f"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java": {
-      "size": 3248,
-      "sha256": "778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java": {
-      "size": 22434,
-      "sha256": "70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java": {
-      "size": 26728,
-      "sha256": "11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java": {
-      "size": 4917,
-      "sha256": "9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8"
-    },
-    "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java": {
-      "size": 29812,
-      "sha256": "03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d"
-    },
-    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java": {
-      "size": 16047,
-      "sha256": "9b4adb24e4e92715ccfaf76a527001b9c01abf6b9f721b98efac1ffd3f3212ca"
-    },
-    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java": {
-      "size": 22044,
-      "sha256": "83790f315b5f86e3f1dab2109c4d0b0d7b1bbd40f5404eae2092c03ff4d11542"
-    },
-    "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java": {
-      "size": 42337,
-      "sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
-    },
     "license_inventory.json": {
-      "size": 77823,
-      "sha256": "821844b1a0d4312c486d5af252c228ca4e8e19b83d65a1534267e3342c082a61"
+      "size": 81333,
+      "sha256": "a106e3cba84c32ef99a6384faa62893764f25df9c7e6fcc019799d8b179e72bf"
     }
   }
 }

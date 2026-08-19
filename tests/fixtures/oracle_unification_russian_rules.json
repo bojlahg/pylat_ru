@@ -1,0 +1,4620 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Russian Unification Rules Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "generator_operation": "tools/generate_oracle_unification_fixtures.py",
+    "corpus_version": "1.0.0",
+    "cases_count": 216
+  },
+  "feature_coverage": {
+    "feature:gender": {
+      "source_count": 11,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:number": {
+      "source_count": 12,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:tense": {
+      "source_count": 5,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:aspect": {
+      "source_count": 2,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:transitivity": {
+      "source_count": 1,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:person": {
+      "source_count": 1,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    },
+    "feature:case": {
+      "source_count": 6,
+      "covered_case_ids": [
+        "uni_ru_001_Punct_PT_oborot_0",
+        "uni_ru_002_Punct_PT_oborot_1",
+        "uni_ru_003_Punct_PT_oborot_2",
+        "uni_ru_004_Punct_PT_oborot_3",
+        "uni_ru_005_Multiple_missing_commas_VB_0",
+        "uni_ru_006_Multiple_missing_commas_VB_1",
+        "uni_ru_007_Multiple_missing_commas_VB_2",
+        "uni_ru_008_Multiple_missing_commas_VB_3",
+        "uni_ru_009_Multiple_missing_commas_VB_4",
+        "uni_ru_010_Multiple_missing_commas_VB_5"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "uni_ru_001_Punct_PT_oborot_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Punct_PT_oborot[2]",
+      "text": "Он увидел собаку хромавшую на задние лапы.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Punct_PT_oborot",
+        "full_rule_id": "Punct_PT_oborot[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при причастном обороте",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 26,
+            "pattern_from_utf16": 10,
+            "pattern_to_utf16": 29,
+            "message": "Пропущена запятая перед причастием или причастным оборотом: <suggestion>собаку, хромавшую</suggestion>",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "собаку, хромавшую"
+            ],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 10,
+            "expected_pattern_to_codepoint": 29
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_002_Punct_PT_oborot_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Punct_PT_oborot[2]",
+      "text": "Он отправил в Москву заверенную телеграмму.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Punct_PT_oborot",
+        "full_rule_id": "Punct_PT_oborot[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при причастном обороте",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_003_Punct_PT_oborot_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Punct_PT_oborot[2]",
+      "text": "Он изображается в виде мужчины, держащего за шею выпрямленную змею.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Punct_PT_oborot",
+        "full_rule_id": "Punct_PT_oborot[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при причастном обороте",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_004_Punct_PT_oborot_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Punct_PT_oborot[2]",
+      "text": "Он увидел собаку, хромавшую на задние лапы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Punct_PT_oborot",
+        "full_rule_id": "Punct_PT_oborot[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Запятые при причастном обороте",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_005_Multiple_missing_commas_VB_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Я ни курю ни пью.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_006_Multiple_missing_commas_VB_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Дал другу в долг -- потерял друга.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_007_Multiple_missing_commas_VB_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Он приводит черт знает к чему.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_008_Multiple_missing_commas_VB_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "На подарок разумеется не претендую.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_009_Multiple_missing_commas_VB_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Никогда не переставайте расти и развиваться.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_010_Multiple_missing_commas_VB_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Когда Кинули увидела, что Пери увели, она стала рычать, старалась выскочить из клетки.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_011_Multiple_missing_commas_VB_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Думай не думай - ничего не изменишь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_012_Multiple_missing_commas_VB_7",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Свиньи все подохли остался один баран.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 11,
+            "to_utf16": 26,
+            "pattern_from_utf16": 11,
+            "pattern_to_utf16": 26,
+            "message": "Пропущена запятая или иной знак между глаголами, или глагол стоит в неправильной форме.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [],
+            "expected_from_codepoint": 11,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 11,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_013_Multiple_missing_commas_VB_8",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Multiple_missing_commas_VB[1]",
+      "text": "Свиньи все подохли, остался один баран.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Multiple_missing_commas_VB",
+        "full_rule_id": "Multiple_missing_commas_VB[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущенные запятые между глаголами",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_014_Verb_PT_short_Unification_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_PT_short_Unification[1]",
+      "text": "Шкатулка была открыта.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_PT_short_Unification",
+        "full_rule_id": "Verb_PT_short_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Согласование глагола с кратким причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_015_Verb_PT_short_Unification_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_PT_short_Unification[1]",
+      "text": "Шкатулки были открыты.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_PT_short_Unification",
+        "full_rule_id": "Verb_PT_short_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Согласование глагола с кратким причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_016_Verb_PT_short_Unification_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_PT_short_Unification[1]",
+      "text": "Шкатулки были открыта.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_PT_short_Unification",
+        "full_rule_id": "Verb_PT_short_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Согласование глагола с кратким причастием",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 9,
+            "to_utf16": 21,
+            "pattern_from_utf16": 9,
+            "pattern_to_utf16": 21,
+            "message": "Глагол не согласуется с кратким причастием",
+            "short_message": "Не согласуются по роду",
+            "suggestions": [],
+            "expected_from_codepoint": 9,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 9,
+            "expected_pattern_to_codepoint": 21
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_017_Verb_PT_short_Unification_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_PT_short_Unification[1]",
+      "text": "Шкатулка была открыт.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_PT_short_Unification",
+        "full_rule_id": "Verb_PT_short_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Согласование глагола с кратким причастием",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 9,
+            "to_utf16": 20,
+            "pattern_from_utf16": 9,
+            "pattern_to_utf16": 20,
+            "message": "Глагол не согласуется с кратким причастием",
+            "short_message": "Не согласуются по роду",
+            "suggestions": [],
+            "expected_from_codepoint": 9,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 9,
+            "expected_pattern_to_codepoint": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_018_DPT_Unification_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DPT_Unification[1]",
+      "text": "Проверяя тетради и выписывая оценки в журнал, учитель контролирует учеников.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DPT_Unification",
+        "full_rule_id": "DPT_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Деепричастия в одном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_019_DPT_Unification_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DPT_Unification[1]",
+      "text": "Выпив чашку чая, она почувствовала себя лучше.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DPT_Unification",
+        "full_rule_id": "DPT_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Деепричастия в одном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_020_DPT_Unification_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DPT_Unification[1]",
+      "text": "Проверяя тетради и выписывая оценки в журнал, учитель контролирует учеников.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DPT_Unification",
+        "full_rule_id": "DPT_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Деепричастия в одном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_021_DPT_Unification_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "DPT_Unification[1]",
+      "text": "Проверив тетради и выписывая оценки в журнал, учитель контролирует учеников.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DPT_Unification",
+        "full_rule_id": "DPT_Unification[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Деепричастия в одном предложении",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Деепричастия в одном предложении должны быть одинакового вида и стоять в одинаковом времени",
+            "short_message": "Не согласуются по виду/времени",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 28,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 28
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_022_Verb_comma_Verb_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он смеялся и радовался жизни.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_023_Verb_comma_Verb_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Задело стало быть за живое.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_024_Verb_comma_Verb_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он приводит черт знает к чему.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_025_Verb_comma_Verb_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он шёл по улице, говорил по телефону.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_026_Verb_comma_Verb_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он идёт по улице, говорит по телефону.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_027_Verb_comma_Verb_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он смеялся радовался жизни.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 20,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 26,
+            "message": "Глаголы – однородные члены предложения: <suggestion>смеялся, радовался</suggestion> или <suggestion>смеялся и радовался</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "смеялся, радовался",
+              "смеялся и радовался"
+            ],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_028_Verb_comma_Verb_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Она смеялась радовалась жизни.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 23,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 29,
+            "message": "Глаголы – однородные члены предложения: <suggestion>смеялась, радовалась</suggestion> или <suggestion>смеялась и радовалась</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "смеялась, радовалась",
+              "смеялась и радовалась"
+            ],
+            "expected_from_codepoint": 4,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 4,
+            "expected_pattern_to_codepoint": 29
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_029_Verb_comma_Verb_7",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Они смеялись радовались жизни.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 23,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 29,
+            "message": "Глаголы – однородные члены предложения: <suggestion>смеялись, радовались</suggestion> или <suggestion>смеялись и радовались</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "смеялись, радовались",
+              "смеялись и радовались"
+            ],
+            "expected_from_codepoint": 4,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 4,
+            "expected_pattern_to_codepoint": 29
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_030_Verb_comma_Verb_8",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Солнце взошло освещало местность.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 7,
+            "to_utf16": 22,
+            "pattern_from_utf16": 7,
+            "pattern_to_utf16": 32,
+            "message": "Глаголы – однородные члены предложения: <suggestion>взошло, освещало</suggestion> или <suggestion>взошло и освещало</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "взошло, освещало",
+              "взошло и освещало"
+            ],
+            "expected_from_codepoint": 7,
+            "expected_to_codepoint": 22,
+            "expected_pattern_from_codepoint": 7,
+            "expected_pattern_to_codepoint": 32
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_031_Verb_comma_Verb_9",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[1]",
+      "text": "Он шёл по улице говорил по телефону.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 23,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 26,
+            "message": "Глаголы – однородные члены предложения: <suggestion>шёл по улице, говорил</suggestion> или <suggestion>шёл по улице и говорил</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "шёл по улице, говорил",
+              "шёл по улице и говорил"
+            ],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_032_Verb_comma_Verb_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Ты можешь выбрать чего хочешь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_033_Verb_comma_Verb_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Пока живу — надеюсь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_034_Verb_comma_Verb_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Ты можешь сожалеть сколько хочешь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_035_Verb_comma_Verb_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Покрась и побели забор.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_036_Verb_comma_Verb_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Задело стало быть за живое.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_037_Verb_comma_Verb_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Он приводит черт знает к чему.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_038_Verb_comma_Verb_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Я, может, скоро сдамся и вместо этого пойду вздремну.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_039_Verb_comma_Verb_7",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Я сделаю всё что могу.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_040_Verb_comma_Verb_8",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Надеюсь однажды я перестану торчать здесь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_041_Verb_comma_Verb_9",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Он подробно описывает что происходит в данный момент.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_042_Verb_comma_Verb_10",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Выживаю как могу.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_043_Verb_comma_Verb_11",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Иди помоги мыть посуду.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_044_Verb_comma_Verb_12",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Verb_comma_Verb[2]",
+      "text": "Он смеётся радуется жизни.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Verb_comma_Verb",
+        "full_rule_id": "Verb_comma_Verb[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Глаголы как однородные члены предложения",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 19,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 19,
+            "message": "Глаголы – однородные члены предложения: <suggestion>смеётся, радуется</suggestion> или <suggestion>смеётся и радуется</suggestion>.",
+            "short_message": "Однородные члены предложения",
+            "suggestions": [
+              "смеётся, радуется",
+              "смеётся и радуется"
+            ],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 19
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_045_Prep_i_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Пролетели года, и настало время.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_046_Prep_i_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "На пристани стоит человек и продаёт билеты.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_047_Prep_i_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Вызовите команду ng add, которая установит зависимости и обновит приложение с помощью скрипта установки.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_048_Prep_i_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Могу ли я уточнить время и место нашей встречи?",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_049_Prep_i_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Они сделали предложение и бросили вызов нам.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_050_Prep_i_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Нам пришлось уменьшить шаг сканирования и увеличить размер в настройках.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_051_Prep_i_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Исполнитель оставляет за собой право досрочно завершить работы по настоящему Договору и сдать результат работ.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_052_Prep_i_7",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Мой отец и мой брат.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_053_Prep_i_8",
+      "category": "PUNCTUATION",
+      "full_rule_id": "Prep_i[1]",
+      "text": "Пролетели года и настало время.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Prep_i",
+        "full_rule_id": "Prep_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пропущена запятая перед «и», «как» в сложном предложении",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 30,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 31,
+            "message": "Пропущена запятая: <suggestion>Пролетели года, и настало время</suggestion>",
+            "short_message": "Пропущена запятая в сложном предложении",
+            "suggestions": [
+              "Пролетели года, и настало время"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 30,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 31
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_054_i_and_i_and_i_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "i_and_i_and_i[1]",
+      "text": "Было грустно и в воздухе, и на небе, и в вагоне.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "i_and_i_and_i",
+        "full_rule_id": "i_and_i_and_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Союзы: «и» + «и» + «и»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_055_i_and_i_and_i_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "i_and_i_and_i[1]",
+      "text": "Было грустно и в воздухе и на небе и в вагоне.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "i_and_i_and_i",
+        "full_rule_id": "i_and_i_and_i[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Союзы: «и» + «и» + «и»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 45,
+            "pattern_from_utf16": 13,
+            "pattern_to_utf16": 45,
+            "message": "Пропущена запятая: <suggestion>и в воздухе, и на небе, и в вагоне</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "и в воздухе, и на небе, и в вагоне"
+            ],
+            "expected_from_codepoint": 13,
+            "expected_to_codepoint": 45,
+            "expected_pattern_from_codepoint": 13,
+            "expected_pattern_to_codepoint": 45
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_056_i_and_i_and_i_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "i_and_i_and_i[2]",
+      "text": "Он и бегал, и прыгал, и скакал в вагоне.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "i_and_i_and_i",
+        "full_rule_id": "i_and_i_and_i[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Союзы: «и» + «и» + «и»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_057_i_and_i_and_i_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "i_and_i_and_i[2]",
+      "text": "Он и бегал и прыгал и скакал  в вагоне.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "i_and_i_and_i",
+        "full_rule_id": "i_and_i_and_i[2]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Союзы: «и» + «и» + «и»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 3,
+            "to_utf16": 28,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 28,
+            "message": "Пропущена запятая: <suggestion>и бегал, и прыгал, и скакал</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "и бегал, и прыгал, и скакал"
+            ],
+            "expected_from_codepoint": 3,
+            "expected_to_codepoint": 28,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 28
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_058_PUNKT_KOTORIJ1_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Это тот город, в котором прошло детство.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_059_PUNKT_KOTORIJ1_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Канада сотрудничает с США на разных уровнях и для которых является важнейшим торговым партнером.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_060_PUNKT_KOTORIJ1_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Который час?",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_061_PUNKT_KOTORIJ1_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Поиск турбазы, отдых в которой запомнится надолго.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_062_PUNKT_KOTORIJ1_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Парламент состоит из 577 депутатов, 555 из которых представляют метрополию.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_063_PUNKT_KOTORIJ1_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Трудовой договор — соглашение между работодателем и работником, в соответствии с которым работодатель обязуется предоставить работнику работу по обусловленной трудовой функции.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_064_PUNKT_KOTORIJ1_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ1[1]",
+      "text": "Это тот город в котором прошло детство.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ1",
+        "full_rule_id": "PUNKT_KOTORIJ1[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ... (2)",
+        "is_default_off": true,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 8,
+            "to_utf16": 23,
+            "pattern_from_utf16": 8,
+            "pattern_to_utf16": 30,
+            "message": "Пропущена запятая: <suggestion>город, в котором</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "город, в котором"
+            ],
+            "expected_from_codepoint": 8,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 8,
+            "expected_pattern_to_codepoint": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_065_PUNKT_KOTORIJ_0",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Это тот город, в котором прошло детство.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_066_PUNKT_KOTORIJ_1",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Это те же ребята, которые играли в футбол.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_067_PUNKT_KOTORIJ_2",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Ребёнок, родители которого играли в футбол, будет футболистом.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_068_PUNKT_KOTORIJ_3",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Они совершили экскурсию в королевскую резиденцию — Букингемский дворец, часть помещений которого открыта для посетителей обычно один месяц в году.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_069_PUNKT_KOTORIJ_4",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Который час?",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_070_PUNKT_KOTORIJ_5",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "На территории распространения которого расположен город.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_071_PUNKT_KOTORIJ_6",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Бухта Золотой Рог, на обоих берегах которой располагается Владивосток, является удобным местом.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_072_PUNKT_KOTORIJ_7",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Это те же ребята которые играли в хоккей.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 24,
+            "pattern_from_utf16": 7,
+            "pattern_to_utf16": 31,
+            "message": "Пропущена запятая: <suggestion>ребята, которые</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "ребята, которые"
+            ],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 24,
+            "expected_pattern_from_codepoint": 7,
+            "expected_pattern_to_codepoint": 31
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_073_PUNKT_KOTORIJ_8",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Это те же ребята которые не играли в хоккей.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 24,
+            "pattern_from_utf16": 7,
+            "pattern_to_utf16": 34,
+            "message": "Пропущена запятая: <suggestion>ребята, которые</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "ребята, которые"
+            ],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 24,
+            "expected_pattern_from_codepoint": 7,
+            "expected_pattern_to_codepoint": 34
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_074_PUNKT_KOTORIJ_9",
+      "category": "PUNCTUATION",
+      "full_rule_id": "PUNKT_KOTORIJ[1]",
+      "text": "Chess — это программа которая играла в шахматы.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "PUNKT_KOTORIJ",
+        "full_rule_id": "PUNKT_KOTORIJ[1]",
+        "category_id": "PUNCTUATION",
+        "category_name": "Пунктуация",
+        "description": "Пунктуация перед союзами «который», ...",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 12,
+            "to_utf16": 29,
+            "pattern_from_utf16": 8,
+            "pattern_to_utf16": 36,
+            "message": "Пропущена запятая: <suggestion>программа, которая</suggestion>.",
+            "short_message": "Пропущена запятая",
+            "suggestions": [
+              "программа, которая"
+            ],
+            "expected_from_codepoint": 12,
+            "expected_to_codepoint": 29,
+            "expected_pattern_from_codepoint": 8,
+            "expected_pattern_to_codepoint": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_075_Unify_Adj_NN_number_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Крепкие столы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_076_Unify_Adj_NN_number_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Серый зол.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_077_Unify_Adj_NN_number_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Всё необходимое накопитель получает от шины USB.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_078_Unify_Adj_NN_number_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Эти добрые полчаса.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_079_Unify_Adj_NN_number_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Контактный тел.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_080_Unify_Adj_NN_number_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Суеверие — это религия слабых духом.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_081_Unify_Adj_NN_number_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Счастливые часов не наблюдают.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_082_Unify_Adj_NN_number_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Смелого пуля боится.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_083_Unify_Adj_NN_number_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "За два своих предыдущих боя заработал больше.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_084_Unify_Adj_NN_number_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Как на среднем, так и на высшем уровнях.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_085_Unify_Adj_NN_number_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Сегодня откроются 3 дополнительных офиса.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_086_Unify_Adj_NN_number_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Проверь, что у них одинаковые род/число/падеж.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_087_Unify_Adj_NN_number_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "на месте нынешних Манитобы, Дакоты и Миннесоты.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_088_Unify_Adj_NN_number_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "К середине XIX века были открыты 63 химических элемента, и попытки найти закономерности в этом наборе предпринимались неоднократно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_089_Unify_Adj_NN_number_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Быть умным Николаю мешала лень.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_090_Unify_Adj_NN_number_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Делала политически невозможной отмену единожды данных им законом прав.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_091_Unify_Adj_NN_number_16",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Этот экспорт, полностью подконтрольный правительствам стран мира, стремительно рос.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_092_Unify_Adj_NN_number_17",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Нам объявят необходимым запрет на спиртное.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_093_Unify_Adj_NN_number_18",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Нам объявят необходимыми игры на свежем воздухе.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_094_Unify_Adj_NN_number_19",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Для оставшихся неготовыми лодок соорудили бокс.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_095_Unify_Adj_NN_number_20",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Для оставшейся неготовой лодки соорудили бокс.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_096_Unify_Adj_NN_number_21",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Умные уже тут.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_097_Unify_Adj_NN_number_22",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Мы чужие друг другу.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_098_Unify_Adj_NN_number_23",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Белый стул.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_099_Unify_Adj_NN_number_24",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Вы должны помочь мне!",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_100_Unify_Adj_NN_number_25",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Больных гриппом просим не входить.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_101_Unify_Adj_NN_number_26",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Если загорелся зелёный машинам, то можно ехать.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_102_Unify_Adj_NN_number_27",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Преподавать русский инострацам сложно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_103_Unify_Adj_NN_number_28",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Корзина была полная ягод.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_104_Unify_Adj_NN_number_29",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Воспользуемся средним чисел а и б.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_105_Unify_Adj_NN_number_30",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "После выходных работник смотрелся не важно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_106_Unify_Adj_NN_number_31",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Железные кровать.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Прилагательное не согласуется с существительным по числу.",
+            "short_message": "Грамматическая ошибка в согласовании числа",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_107_Unify_Adj_NN_number_32",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Вдали виднелись красивые сосны.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_108_Unify_Adj_NN_number_33",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "У молодоженов был замечательный ретро автомобиль — белый запорожец.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_109_Unify_Adj_NN_number_34",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Вдали виднелись красивые ёлка.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 29,
+            "pattern_from_utf16": 16,
+            "pattern_to_utf16": 30,
+            "message": "Прилагательное не согласуется с существительным по числу.",
+            "short_message": "Грамматическая ошибка в согласовании числа",
+            "suggestions": [],
+            "expected_from_codepoint": 16,
+            "expected_to_codepoint": 29,
+            "expected_pattern_from_codepoint": 16,
+            "expected_pattern_to_codepoint": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_110_Unify_Adj_NN_number_35",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Мебель сделана из красивой сосны.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_111_Unify_Adj_NN_number_36",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Невежливо показывать на других пальцем.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_112_Unify_Adj_NN_number_37",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Незначительный объём перевозок выполняется маршрутными такси.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_113_Unify_Adj_NN_number_38",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Он каждые полчаса бежит в лабораторию.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_114_Unify_Adj_NN_number_39",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_number[1]",
+      "text": "Столы сделаны из красивой сосен.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_number",
+        "full_rule_id": "Unify_Adj_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 17,
+            "to_utf16": 31,
+            "pattern_from_utf16": 17,
+            "pattern_to_utf16": 32,
+            "message": "Прилагательное не согласуется с существительным по числу.",
+            "short_message": "Грамматическая ошибка в согласовании числа",
+            "suggestions": [],
+            "expected_from_codepoint": 17,
+            "expected_to_codepoint": 31,
+            "expected_pattern_from_codepoint": 17,
+            "expected_pattern_to_codepoint": 32
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_115_Unify_Adj_NN_gender_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Крепкие столы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_116_Unify_Adj_NN_gender_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Серый дарит.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_117_Unify_Adj_NN_gender_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Всё необходимое накопитель получает от шины USB.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_118_Unify_Adj_NN_gender_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Контактный тел.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_119_Unify_Adj_NN_gender_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Эти добрые полчаса.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_120_Unify_Adj_NN_gender_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Суеверие — это религия слабых духом.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_121_Unify_Adj_NN_gender_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Счастливые часов не наблюдают.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_122_Unify_Adj_NN_gender_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Смелого пуля боится.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_123_Unify_Adj_NN_gender_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Сегодня откроются 3 дополнительных офиса.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_124_Unify_Adj_NN_gender_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Проверь, что у них одинаковые род/число/падеж.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_125_Unify_Adj_NN_gender_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "на месте нынешних Манитобы, Дакоты и Миннесоты.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_126_Unify_Adj_NN_gender_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "К середине XIX века были открыты 63 химических элемента, и попытки найти закономерности в этом наборе предпринимались неоднократно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_127_Unify_Adj_NN_gender_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Быть умным Николаю мешала лень.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_128_Unify_Adj_NN_gender_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Делала политически невозможной отмену единожды данных им законом прав.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_129_Unify_Adj_NN_gender_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Этот экспорт, полностью подконтрольный правительствам стран мира, стремительно рос.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_130_Unify_Adj_NN_gender_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Нам объявят необходимым запрет на спиртное.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_131_Unify_Adj_NN_gender_16",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Нам объявят необходимыми игры на свежем воздухе.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_132_Unify_Adj_NN_gender_17",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Для оставшихся неготовыми лодок соорудили бокс.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_133_Unify_Adj_NN_gender_18",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Для оставшейся неготовой лодки соорудили бокс.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_134_Unify_Adj_NN_gender_19",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Вестминстер — место пребывания короля, а позднее парламента.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_135_Unify_Adj_NN_gender_20",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Крепкий стол.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_136_Unify_Adj_NN_gender_21",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Крепкая ограда.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_137_Unify_Adj_NN_gender_22",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Умные уже тут.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_138_Unify_Adj_NN_gender_23",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Мы чужие друг другу.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_139_Unify_Adj_NN_gender_24",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Белый стул.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_140_Unify_Adj_NN_gender_25",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Ты должен вести себя спокойнее.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_141_Unify_Adj_NN_gender_26",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Больных гриппом просим не входить.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_142_Unify_Adj_NN_gender_27",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Если загорелся зелёный машинам, то можно ехать.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_143_Unify_Adj_NN_gender_28",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Если загорелся зелёный кошке, то ехать нельзя.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_144_Unify_Adj_NN_gender_29",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Преподавать русский инострацам сложно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_145_Unify_Adj_NN_gender_30",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Корзина была полная ягод.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_146_Unify_Adj_NN_gender_31",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Воспользуемся средним чисел а и б.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_147_Unify_Adj_NN_gender_32",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "После выходных работник смотрелся не важно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_148_Unify_Adj_NN_gender_33",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Железный кровать.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_149_Unify_Adj_NN_gender_34",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Вдали виднелись красивые сосны.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_150_Unify_Adj_NN_gender_35",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Вдали виднелись красивый ёлка.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 29,
+            "pattern_from_utf16": 16,
+            "pattern_to_utf16": 30,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 16,
+            "expected_to_codepoint": 29,
+            "expected_pattern_from_codepoint": 16,
+            "expected_pattern_to_codepoint": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_151_Unify_Adj_NN_gender_36",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Мебель сделана из красивой сосны.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_152_Unify_Adj_NN_gender_37",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Столы сделаны из красивая деревьев.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 17,
+            "to_utf16": 34,
+            "pattern_from_utf16": 17,
+            "pattern_to_utf16": 35,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 17,
+            "expected_to_codepoint": 34,
+            "expected_pattern_from_codepoint": 17,
+            "expected_pattern_to_codepoint": 35
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_153_Unify_Adj_NN_gender_38",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Твердолобая тори.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_154_Unify_Adj_NN_gender_39",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Был построен добротный дом.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_155_Unify_Adj_NN_gender_40",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Был построен добротная дом.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 26,
+            "pattern_from_utf16": 13,
+            "pattern_to_utf16": 27,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 13,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 13,
+            "expected_pattern_to_codepoint": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_156_Unify_Adj_NN_gender_41",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Пушистая кошка грелась на солнышке.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_157_Unify_Adj_NN_gender_42",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "У молодоженов был замечательный ретро автомобиль — белый запорожец.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_158_Unify_Adj_NN_gender_43",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Эта пушистое кошка грелась.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 18,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 26,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 4,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 4,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_159_Unify_Adj_NN_gender_44",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Вдали виднелось синее небо.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_160_Unify_Adj_NN_gender_45",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Тогда это проблема другой стороны.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_161_Unify_Adj_NN_gender_46",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Он каждые полчаса бежит в лабораторию.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_162_Unify_Adj_NN_gender_47",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Вдали виднелось синий небо.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 26,
+            "pattern_from_utf16": 16,
+            "pattern_to_utf16": 27,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 16,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 16,
+            "expected_pattern_to_codepoint": 27
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_163_Unify_Adj_NN_gender_48",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Пустой дом был полным пыли.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_164_Unify_Adj_NN_gender_49",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Цена на полную заряд составляет 10$.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 8,
+            "to_utf16": 20,
+            "pattern_from_utf16": 8,
+            "pattern_to_utf16": 31,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 8,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 8,
+            "expected_pattern_to_codepoint": 31
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_165_Unify_Adj_NN_gender_50",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_gender[2]",
+      "text": "Цена на полный заряд составляет 10$.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_gender",
+        "full_rule_id": "Unify_Adj_NN_gender[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_166_Soglasovanie_NN_PT_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[1]",
+      "text": "Он увидел собаку, хромавшего на задние лапы.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 28,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 31,
+            "message": "Ошибка в согласовании причастия по роду!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 28,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 31
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_167_Soglasovanie_NN_PT_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[1]",
+      "text": "Он увидел собаку, хромавшую на задние лапы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_168_Soglasovanie_NN_PT_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[1]",
+      "text": "Когда ты откроешь канистру, находящиеся в ней пары испарятся.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_169_Soglasovanie_NN_PT_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[2]",
+      "text": "Он увидел собаку, хромавших на задние лапы.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 27,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 30,
+            "message": "Ошибка в согласовании причастия по числу!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 27,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_170_Soglasovanie_NN_PT_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[2]",
+      "text": "Он увидел собаку, хромавшую на задние лапы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_171_Soglasovanie_NN_PT_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[3]",
+      "text": "Он увидел собаку, хромавшая на задние лапы.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 27,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 30,
+            "message": "Ошибка в согласовании причастия по падежу!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 10,
+            "expected_to_codepoint": 27,
+            "expected_pattern_from_codepoint": 3,
+            "expected_pattern_to_codepoint": 30
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_172_Soglasovanie_NN_PT_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT[3]",
+      "text": "Он увидел собаку, хромавшую на задние лапы.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT",
+        "full_rule_id": "Soglasovanie_NN_PT[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_173_Soglasovanie_NN_PT_2_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующее новые разработки в этой области.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 63,
+            "to_utf16": 86,
+            "pattern_from_utf16": 57,
+            "pattern_to_utf16": 92,
+            "message": "Ошибка в согласовании причастия по роду!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 63,
+            "expected_to_codepoint": 86,
+            "expected_pattern_from_codepoint": 57,
+            "expected_pattern_to_codepoint": 92
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_174_Soglasovanie_NN_PT_2_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_175_Soglasovanie_NN_PT_2_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+      "text": "К сожалению, находящаяся здесь книга давно истлела в пыль.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_176_Soglasovanie_NN_PT_2_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+      "text": "Когда ты откроешь канистру, находящиеся в ней пары испарятся.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_177_Soglasovanie_NN_PT_2_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[2]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующего новые разработки в этой области.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 63,
+            "to_utf16": 87,
+            "pattern_from_utf16": 57,
+            "pattern_to_utf16": 93,
+            "message": "Ошибка в согласовании причастия по числу!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 63,
+            "expected_to_codepoint": 87,
+            "expected_pattern_from_codepoint": 57,
+            "expected_pattern_to_codepoint": 93
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_178_Soglasovanie_NN_PT_2_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[2]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_179_Soglasovanie_NN_PT_2_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[3]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующих новые разработки в этой области.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 63,
+            "to_utf16": 86,
+            "pattern_from_utf16": 57,
+            "pattern_to_utf16": 92,
+            "message": "Ошибка в согласовании причастия по падежу!",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [],
+            "expected_from_codepoint": 63,
+            "expected_to_codepoint": 86,
+            "expected_pattern_from_codepoint": 57,
+            "expected_pattern_to_codepoint": 92
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_180_Soglasovanie_NN_PT_2_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Soglasovanie_NN_PT_2[3]",
+      "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Soglasovanie_NN_PT_2",
+        "full_rule_id": "Soglasovanie_NN_PT_2[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование существительного с причастием (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_181_SoglasovanieNN_Verb_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Коты грелись на солнышке.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_182_SoglasovanieNN_Verb_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Блюдо готовилось на сковородке.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_183_SoglasovanieNN_Verb_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Семьдесят пять процентов российского продовольствия доставляется в Москву из регионов ЦФО.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_184_SoglasovanieNN_Verb_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Сыр и сливочное масло делаются из молока.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_185_SoglasovanieNN_Verb_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Учащиеся всё время сидели неподвижно.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_186_SoglasovanieNN_Verb_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "С каждого дерева упало по груше.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_187_SoglasovanieNN_Verb_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Эти легенды следует передать нашим потомкам.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_188_SoglasovanieNN_Verb_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Тренер посоветовала мне это.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_189_SoglasovanieNN_Verb_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Вода превращается в лёд.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_190_SoglasovanieNN_Verb_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Воды осталось мало.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_191_SoglasovanieNN_Verb_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Хлеба стало не хватать.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_192_SoglasovanieNN_Verb_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Сайт в последние два года считается достоверным источником.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_193_SoglasovanieNN_Verb_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Для работы программы требуется Java.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_194_SoglasovanieNN_Verb_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "В российском павильоне после открытия Всемирной универсальной выставки побывало более 6,1 миллиона туристов.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_195_SoglasovanieNN_Verb_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Эти письма может напечатать любой секретарь.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_196_SoglasovanieNN_Verb_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "До конца года остаётся 298 дней.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_197_SoglasovanieNN_Verb_16",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "За последнее предложение высказались все.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_198_SoglasovanieNN_Verb_17",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Какие строки можешь выделить?",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_199_SoglasovanieNN_Verb_18",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Матч отменили из-за дождя.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_200_SoglasovanieNN_Verb_19",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Империи удалось многое узнать.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_201_SoglasovanieNN_Verb_20",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "100 лет называются веком.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_202_SoglasovanieNN_Verb_21",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "В 1448 году упоминаются городские волнения против строительства замка.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_203_SoglasovanieNN_Verb_22",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Блюдо готовились на сковородке.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 16,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 16,
+            "message": "Существительное не согласуется с глаголом по числу.",
+            "short_message": "Ошибка в согласовании по числу",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 16,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_204_SoglasovanieNN_Verb_23",
+      "category": "GRAMMAR",
+      "full_rule_id": "SoglasovanieNN_Verb[3]",
+      "text": "Маша гуляют на солнышке.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SoglasovanieNN_Verb",
+        "full_rule_id": "SoglasovanieNN_Verb[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование подлежащего (существительного) со сказуемым",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Существительное не согласуется с глаголом по числу.",
+            "short_message": "Ошибка в согласовании по числу",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_205_Unify_Mult_Adj_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[1]",
+      "text": "Крыловский государственный научный центр",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_206_Unify_Mult_Adj_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[1]",
+      "text": "Крыловский государственной научный центр",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 40,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 40,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "Грамматическая ошибка в согласовании рода",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 40,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_207_Unify_Mult_Adj_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[2]",
+      "text": "Крыловский государственный научный центр",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_208_Unify_Mult_Adj_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[2]",
+      "text": "Крыловский государственные научный центр",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 40,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 40,
+            "message": "Прилагательное не согласуется с существительным по роду.",
+            "short_message": "Грамматическая ошибка в согласовании рода",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 40,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_209_Unify_Mult_Adj_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[3]",
+      "text": "Крыловский государственный научный центр",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_210_Unify_Mult_Adj_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Mult_Adj[3]",
+      "text": "Крыловский государственному научный центр",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Mult_Adj",
+        "full_rule_id": "Unify_Mult_Adj[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование нескольких прилагательных в словосочетании",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 41,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 41,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "Грамматическая ошибка в согласовании рода",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 41,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 41
+          }
+        ]
+      }
+    },
+    {
+      "id": "uni_ru_211_O_KOTORIJ_0",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "Математика есть часть науки, которой можно было бы продолжать заниматься, проснувшись утром и поняв, что вселенной больше нет.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_212_O_KOTORIJ_1",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "В 1979 году в Финском заливе начато строительство дамбы, которая и защищала бы город от наводнений.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_213_O_KOTORIJ_2",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "Из неё забирается более 96 % воды, которая проходит обработку на 5 сооружениях.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_214_O_KOTORIJ_3",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "Нет такой собаки, которая была бы больше этой.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_215_O_KOTORIJ_4",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "Виски, которое стоит попробовать.",
+      "is_incorrect": false,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "uni_ru_216_O_KOTORIJ_5",
+      "category": "STYLE",
+      "full_rule_id": "O_KOTORIJ[1]",
+      "text": "Яркие звёзды, которая сияли.",
+      "is_incorrect": true,
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "O_KOTORIJ",
+        "full_rule_id": "O_KOTORIJ[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Определения «который»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 6,
+            "to_utf16": 21,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 21,
+            "message": "Ошибка в согласовании по числу, возможное исправление: <suggestion>звёзды, которые</suggestion>",
+            "short_message": "Ошибка в согласовании",
+            "suggestions": [
+              "звёзды, которые"
+            ],
+            "expected_from_codepoint": 6,
+            "expected_to_codepoint": 21,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 21
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 """src/pylat_ru/grammar/classifier.py
 
-Deterministic rule classifier identifying runnable rules (Core 0007 & Advanced 0008)
-vs deferred future tasks (0009 Unification, 0010 Java Filters, 0012 Spelling/Suppression).
+Deterministic rule classifier identifying runnable rules (Core 0007, Advanced 0008, Unification 0009)
+vs deferred future tasks (0010 Java Filters, 0012 Spelling/Suppression).
 """
 
 from __future__ import annotations
@@ -16,6 +16,7 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
     """Inspect XML rule element and determine its execution state and remaining blockers."""
     remaining_blockers: List[RuleBlocker] = []
     uses_0008_advanced: bool = False
+    uses_0009_unification: bool = False
 
     # Check patterns
     for pat in rule_elem.findall("pattern"):
@@ -29,10 +30,8 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
         if pat.findall(".//phrase"):
             uses_0008_advanced = True
 
-        if pat.findall(".//unify"):
-            remaining_blockers.append(RuleBlocker("pattern:unify", "0009", "<unify> feature agreement"))
-        if pat.findall(".//unify-ignore"):
-            remaining_blockers.append(RuleBlocker("pattern:unify-ignore", "0009", "<unify-ignore> feature agreement"))
+        if pat.findall(".//unify") or pat.findall(".//unify-ignore"):
+            uses_0009_unification = True
 
         for tok in pat.findall(".//token"):
             if "raw_pos" in tok.attrib:
@@ -102,6 +101,8 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
             unique_blockers.append(b)
 
     if not unique_blockers:
+        if uses_0009_unification:
+            return ExecutionState.UNIFICATION_0009_RUNNABLE, []
         if uses_0008_advanced:
             return ExecutionState.ADVANCED_0008_RUNNABLE, []
         return ExecutionState.CORE_0007_RUNNABLE, []
@@ -117,3 +118,4 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
         return ExecutionState.DEFERRED_0012_SPELLING_OR_SUPPRESSION, unique_blockers
     else:
         return ExecutionState.UNKNOWN, unique_blockers
+
