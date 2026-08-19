@@ -5,12 +5,29 @@
     "tag": "v6.8",
     "commit_date": "2026-05-05T15:03:23Z"
   },
+  "upstream_source_files": {
+    "RussianHybridDisambiguator.java": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/java/org/languagetool/tagging/disambiguation/ru/RussianHybridDisambiguator.java",
+      "size": 2678,
+      "sha256": "ab89fc3b2253bdfeb643f5f432e975933e19d905e4086c996ce9fb6e5db84e4c"
+    },
+    "NoDisambiguationRussianPartialPosTagFilter.java": {
+      "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/NoDisambiguationRussianPartialPosTagFilter.java",
+      "size": 1851,
+      "sha256": "19e2dce954f1241f59e63809a18aff463a7f02adff7f2324ac2cb6d1729f50e0"
+    }
+  },
   "multiwords": {
     "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/multiwords.txt",
     "size": 5289,
     "sha256": "b802c6c9cb5a251348f0b392e4167c5e12543a44b04f3ce616e4253bc8af4e06",
     "total_lines_count": 225,
     "data_lines_count": 217,
+    "distinct_phrases_count": 217,
+    "duplicate_phrases_count": 0,
+    "duplicate_phrases": [],
+    "single_token_entries_count": 0,
+    "single_token_entries": [],
     "unique_tags_count": 4,
     "unique_tags": [
       "ADV",
@@ -23,7 +40,8 @@
       "3_words": 4,
       "5_words": 2,
       "6_words": 2
-    }
+    },
+    "max_phrase_words_count": 6
   },
   "disambiguation_xml": {
     "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/disambiguation.xml",
@@ -32,106 +50,216 @@
     "total_rules_count": 77,
     "top_level_rules_count": 56,
     "rulegroups_count": 11,
+    "used_xml_tags": [
+      "and",
+      "antipattern",
+      "disambig",
+      "example",
+      "exception",
+      "filter",
+      "marker",
+      "match",
+      "pattern",
+      "rule",
+      "rulegroup",
+      "rules",
+      "token",
+      "wd"
+    ],
+    "attributes_by_element": {
+      "and": [],
+      "antipattern": [],
+      "disambig": [
+        "action",
+        "postag"
+      ],
+      "example": [
+        "inputform",
+        "outputform",
+        "type"
+      ],
+      "exception": [
+        "inflected",
+        "postag",
+        "postag_regexp",
+        "regexp",
+        "scope"
+      ],
+      "filter": [
+        "args",
+        "class"
+      ],
+      "marker": [],
+      "match": [
+        "no",
+        "postag"
+      ],
+      "pattern": [
+        "case_sensitive"
+      ],
+      "rule": [
+        "id",
+        "name"
+      ],
+      "rulegroup": [
+        "id",
+        "name"
+      ],
+      "rules": [
+        "lang",
+        "{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation"
+      ],
+      "token": [
+        "case_sensitive",
+        "inflected",
+        "negate",
+        "negate_pos",
+        "postag",
+        "postag_regexp",
+        "regexp",
+        "skip"
+      ],
+      "wd": [
+        "lemma",
+        "pos"
+      ]
+    },
     "actions_distribution": {
       "add": 11,
-      "filter_or_replace": 9,
       "ignore_spelling": 17,
-      "remove": 40
+      "remove": 40,
+      "replace (default)": 9
+    },
+    "default_actions_count": 9,
+    "match_attributes": [
+      "no",
+      "postag"
+    ],
+    "wd_attributes": [
+      "lemma",
+      "pos"
+    ],
+    "skip_values_distribution": {
+      "1": 7
+    },
+    "exception_scopes_distribution": {
+      "current": 27,
+      "next": 7
+    },
+    "construct_counts": {
+      "markers": 53,
+      "antipatterns": 2,
+      "and_conjunctions": 35,
+      "exceptions": 34,
+      "regexp_attributes": 63,
+      "postag_regexp_attributes": 95,
+      "inflected_attributes": 3,
+      "negate_attributes": 4,
+      "negate_pos_attributes": 1,
+      "case_sensitive_attributes": 9
     },
     "filters_count": 19,
+    "filter_classes": [
+      "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter"
+    ],
+    "filter_argument_keys": [
+      "no",
+      "postag_regexp",
+      "regexp"
+    ],
     "filters": [
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:TRANS:PFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:TRANS:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:IMPFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:PFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-ка postag_regexp:VB:IMP:INTR:PFV:Sin:P2"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-то postag_regexp:(NN|ADJ|VB|PT_Short):.*|ADV"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-заде postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-паша postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-беи postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:([А-ЯЁа-яё]+)-оглы postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Пп]ол-([АаЕеЁёИиОоУуЭэЮюЯялЛ][а-яё]+) postag_regexp:NN:.*:R"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Оо]бер-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Уу]нтер-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Лл]ейб-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Шш]таб-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Вв]ице-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Ээ]кс-([а-яё]+) postag_regexp:NN:.*"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "class": "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
         "args": "no:1 regexp:[Пп]о-([а-яё]+) postag_regexp:ADJ:Posit:(.*:D|PL:V) "
       }
@@ -143,59 +271,59 @@
         "type": "ambiguous",
         "inputform": "73[73]",
         "outputform": "73[73/NumD_D]",
-        "text": "73 процента"
+        "raw_xml": "<marker>73</marker> процента"
       },
       {
         "rule_id": "NumD_S_tag",
         "type": "ambiguous",
         "inputform": "71[71]",
         "outputform": "71[71/NumD_S]",
-        "text": "71 процент"
+        "raw_xml": "<marker>71</marker> процент"
       },
       {
         "rule_id": "NumD_P_tag",
         "type": "ambiguous",
         "inputform": "75[75]",
         "outputform": "75[75/NumD_P]",
-        "text": "75 процентов"
+        "raw_xml": "<marker>75</marker> процентов"
       },
       {
         "rule_id": "NumD_P_tag",
         "type": "ambiguous",
         "inputform": "11[11]",
         "outputform": "11[11/NumD_P]",
-        "text": "11 процентов"
+        "raw_xml": "<marker>11</marker> процентов"
       },
       {
         "rule_id": "NumD_P_tag",
         "type": "ambiguous",
         "inputform": "12[12]",
         "outputform": "12[12/NumD_P]",
-        "text": "12 процентов"
+        "raw_xml": "<marker>12</marker> процентов"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "type": "ambiguous",
         "inputform": "дай-ка[дай-ка]",
         "outputform": "дай-ка[дай-ка/VB:IMP:TRANS:PFV:Sin:P2]",
-        "text": "Ваня, дай-ка мне этот молоток."
+        "raw_xml": "Ваня, <marker>дай-ка</marker> мне этот молоток."
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "type": "ambiguous",
         "inputform": "пой-ка[пой-ка]",
         "outputform": "пой-ка[пой-ка/VB:IMP:TRANS:IMPFV:Sin:P2]",
-        "text": "Ваня, пой-ка эту песню!"
+        "raw_xml": "Ваня, <marker>пой-ка</marker> эту песню!"
       },
       {
-        "rule_id": "UNKNOWN",
+        "rule_id": "",
         "type": "ambiguous",
         "inputform": "прыгай-ка[прыгай-ка]",
         "outputform": "прыгай-ка[прыгай-ка/VB:IMP:INTR:IMPFV:Sin:P2]",
-        "text": "Ваня, прыгай-ка сюда быстрее!"
+        "raw_xml": "Ваня, <marker>прыгай-ка</marker> сюда быстрее!"
       }
     ],
-    "rule_ids": [
+    "rule_ids_source_order": [
       "NN_Inanim_Neut",
       "NN_Inanim_Masc",
       "NN_Inanim_Fem",
@@ -248,31 +376,110 @@
       "NumD_D_tag",
       "NumD_S_tag",
       "NumD_P_tag",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
-      "UNKNOWN",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "VERB-KA",
+      "Word-TO",
+      "Word-zade",
+      "Word-zade",
+      "Word-zade",
+      "Word-zade",
+      "pol-Word",
+      "pol1-Word",
+      "pol5-Word",
+      "pol6-Word",
+      "pol2-Word",
+      "pol3-Word",
+      "pol4-Word",
       "VERB_NOUN",
       "ADJ_Fam",
       "NN_or_NN_Fam",
       "NN_or_NN_Fam2",
-      "UNKNOWN"
+      "po-ADJ"
+    ],
+    "full_rule_ids_source_order": [
+      "NN_Inanim_Neut",
+      "NN_Inanim_Masc",
+      "NN_Inanim_Fem",
+      "i_Co",
+      "V_levom",
+      "NOUN_V",
+      "NOUN_V2",
+      "NOUN_V3",
+      "NOUN_V4",
+      "NOUN_V6",
+      "NOUN_V7",
+      "VB_VB_NOUN",
+      "NOUN_R",
+      "NOUN_D",
+      "NOUN_P",
+      "NOUN_Letter",
+      "NOUN_ABR_OS",
+      "NOUN_ABR_VRU",
+      "INTERJECTION_O",
+      "NOUN_NOT_NOM",
+      "NOUN_NOT_NOM1",
+      "ADJ_T",
+      "PT_T",
+      "ADJ_V",
+      "PT_V",
+      "ADJ_V2",
+      "PT_V2",
+      "ADJ_R",
+      "PT_R",
+      "ADJ_D",
+      "PT_D",
+      "ADJ_P",
+      "PT_P",
+      "ADJ_P2_NOUN",
+      "PT_P2_NOUN",
+      "ADV_OB1",
+      "ADV_OB2",
+      "ADV_OB3",
+      "ADV_OB4",
+      "ADV_OB5",
+      "ADV_OB6",
+      "ADV_PARTICLE",
+      "Nee_nejo",
+      "Nee_nejo_V",
+      "PNN_on",
+      "PNN_ona",
+      "PNN_ono",
+      "ABR_with_dot",
+      "ABR_without_dot",
+      "NumD_D_tag",
+      "NumD_S_tag",
+      "NumD_P_tag",
+      "VERB-KA[1]",
+      "VERB-KA[2]",
+      "VERB-KA[3]",
+      "VERB-KA[4]",
+      "VERB-KA[5]",
+      "VERB-KA[6]",
+      "VERB-KA[7]",
+      "VERB-KA[8]",
+      "Word-TO[1]",
+      "Word-zade[1]",
+      "Word-zade[2]",
+      "Word-zade[3]",
+      "Word-zade[4]",
+      "pol-Word[1]",
+      "pol1-Word[1]",
+      "pol5-Word[1]",
+      "pol6-Word[1]",
+      "pol2-Word[1]",
+      "pol3-Word[1]",
+      "pol4-Word[1]",
+      "VERB_NOUN",
+      "ADJ_Fam",
+      "NN_or_NN_Fam",
+      "NN_or_NN_Fam2",
+      "po-ADJ[1]"
     ]
   },
   "packaged_runtime_resources": {
@@ -290,6 +497,7 @@
     }
   },
   "pipeline_status": {
+    "RussianSentenceAnalyzer": "SUPPORTED",
     "MultiWordChunker": "SUPPORTED",
     "XmlRuleDisambiguator": "SUPPORTED",
     "RussianHybridDisambiguator": "SUPPORTED",

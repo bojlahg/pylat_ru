@@ -610,6 +610,190 @@ public class TagTokens {
                 )
             return results
 
+    def disambiguate_sentences(
+        self, sentences: Sequence[str]
+    ) -> List[Dict[str, Any]]:
+        """Run sentences through Java LanguageTool disambiguation stages: raw, multiword, hybrid."""
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        java_src = """
+import org.languagetool.JLanguageTool;
+import org.languagetool.AnalyzedSentence;
+import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.AnalyzedToken;
+import org.languagetool.language.Russian;
+import org.languagetool.tagging.disambiguation.MultiWordChunker;
+import org.languagetool.tagging.disambiguation.ru.RussianHybridDisambiguator;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class DisambiguateSentences {
+    static String serializeSentence(AnalyzedSentence s) {
+        StringBuilder sb = new StringBuilder();
+        AnalyzedTokenReadings[] tokens = s.getTokens();
+        for (int i = 0; i < tokens.length; i++) {
+            if (i > 0) sb.append("\\u0001");
+            AnalyzedTokenReadings atr = tokens[i];
+            sb.append(atr.getToken()).append("\\u0002");
+            sb.append(atr.getStartPos()).append("\\u0002");
+            sb.append(atr.getPosFix()).append("\\u0002");
+            sb.append(atr.isWhitespace() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isSentenceStart() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isSentenceEnd() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isParagraphEnd() ? "1" : "0").append("\\u0002");
+            sb.append(atr.isIgnoredBySpeller() ? "1" : "0").append("\\u0002");
+            sb.append(atr.getCleanToken() != null ? atr.getCleanToken() : "\\u0005null").append("\\u0002");
+            sb.append(atr.getWhitespaceBefore() != null ? atr.getWhitespaceBefore() : "\\u0005null").append("\\u0002");
+
+            if (atr.getChunkTags() != null) {
+                for (int c = 0; c < atr.getChunkTags().size(); c++) {
+                    if (c > 0) sb.append(",");
+                    sb.append(atr.getChunkTags().get(c).getChunkTag());
+                }
+            }
+            sb.append("\\u0002");
+
+            List<AnalyzedToken> readings = atr.getReadings();
+            for (int r = 0; r < readings.size(); r++) {
+                if (r > 0) sb.append("\\u0003");
+                AnalyzedToken at = readings.get(r);
+                sb.append(at.getToken()).append("\\u0004");
+                sb.append(at.getLemma() != null ? at.getLemma() : "\\u0005null").append("\\u0004");
+                sb.append(at.getPOSTag() != null ? at.getPOSTag() : "\\u0005null");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int n;
+        while ((n = System.in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, n);
+        }
+        String text = new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        if (text.isEmpty()) return;
+
+        String[] sentenceArray = text.split("\\u0000", -1);
+        Russian russian = Russian.getInstance();
+        JLanguageTool lt = new JLanguageTool(russian);
+        MultiWordChunker multiwords = MultiWordChunker.getInstance("/ru/multiwords.txt");
+        RussianHybridDisambiguator hybrid = RussianHybridDisambiguator.getInstance();
+
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+        for (int s = 0; s < sentenceArray.length; s++) {
+            if (s > 0) out.print("\\u0006");
+            String sentence = sentenceArray[s];
+
+            // 1. Raw
+            AnalyzedSentence raw = lt.getRawAnalyzedSentence(sentence);
+            String rawStr = serializeSentence(raw);
+
+            // 2. Multiword chunked
+            AnalyzedSentence rawForMw = lt.getRawAnalyzedSentence(sentence);
+            AnalyzedSentence mw = multiwords.disambiguate(rawForMw);
+            String mwStr = serializeSentence(mw);
+
+            // 3. Final Hybrid disambiguated
+            AnalyzedSentence rawForHybrid = lt.getRawAnalyzedSentence(sentence);
+            AnalyzedSentence fin = hybrid.disambiguate(rawForHybrid);
+            String finStr = serializeSentence(fin);
+
+            out.print(rawStr + "\\u0007" + mwStr + "\\u0007" + finStr);
+        }
+    }
+}
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "DisambiguateSentences.java"
+            src_file.write_text(java_src, encoding="utf-8")
+
+            subprocess.run(
+                ["javac", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+
+            input_bytes = "\u0000".join(sentences).encode("utf-8")
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "DisambiguateSentences",
+                ],
+                input=input_bytes,
+                capture_output=True,
+                check=True,
+            )
+            out_str = proc.stdout.decode("utf-8")
+            if not out_str:
+                return []
+
+            def parse_sentence_str(s_str: str) -> List[Dict[str, Any]]:
+                tokens_res: List[Dict[str, Any]] = []
+                for b in s_str.split("\u0001"):
+                    parts = b.split("\u0002")
+                    if len(parts) < 12:
+                        continue
+                    tok = parts[0]
+                    sp = int(parts[1])
+                    pf = int(parts[2])
+                    is_ws = parts[3] == "1"
+                    is_ss = parts[4] == "1"
+                    is_se = parts[5] == "1"
+                    is_pe = parts[6] == "1"
+                    is_ign = parts[7] == "1"
+                    ct = None if parts[8] == "\u0005null" else parts[8]
+                    wb = None if parts[9] == "\u0005null" else parts[9]
+                    chunks = [c for c in parts[10].split(",") if c] if parts[10] else []
+
+                    readings: List[Dict[str, Optional[str]]] = []
+                    if parts[11]:
+                        for rb in parts[11].split("\u0003"):
+                            r_parts = rb.split("\u0004")
+                            if len(r_parts) >= 3:
+                                t = r_parts[0]
+                                l = None if r_parts[1] == "\u0005null" else r_parts[1]
+                                p = None if r_parts[2] == "\u0005null" else r_parts[2]
+                                readings.append({"token": t, "lemma": l, "pos_tag": p})
+
+                    tokens_res.append(
+                        {
+                            "token": tok,
+                            "start_pos_utf16": sp,
+                            "pos_fix": pf,
+                            "is_whitespace": is_ws,
+                            "is_sentence_start": is_ss,
+                            "is_sentence_end": is_se,
+                            "is_paragraph_end": is_pe,
+                            "is_ignore_spelling": is_ign,
+                            "clean_token": ct,
+                            "whitespace_before": wb,
+                            "chunk_tags": chunks,
+                            "readings": readings,
+                        }
+                    )
+                return tokens_res
+
+            results: List[Dict[str, Any]] = []
+            sent_blocks = out_str.split("\u0006")
+            for sb in sent_blocks:
+                stage_parts = sb.split("\u0007")
+                if len(stage_parts) == 3:
+                    results.append(
+                        {
+                            "raw": parse_sentence_str(stage_parts[0]),
+                            "multiword": parse_sentence_str(stage_parts[1]),
+                            "disambiguated": parse_sentence_str(stage_parts[2]),
+                        }
+                    )
+            return results
+
 
 def compare_findings(
     text: str,
@@ -663,7 +847,6 @@ def generate_tokenization_fixtures(
     oracle: JavaLanguageToolOracle, fixtures_dir: Path
 ) -> None:
     """Regenerate oracle sentence and word fixtures directly from pinned Java LT."""
-    # Refuse fixture generation if oracle cannot be strictly proven
     val = oracle.validate_oracle()
     oracle_sha = val.get("jar_sha256", "UNKNOWN")
 
@@ -731,6 +914,98 @@ def generate_tagger_fixtures(
     )
 
 
+DISAMBIGUATION_TEST_CASES = [
+    # 1. XML official examples
+    {"category": "xml_example", "text": "А на самом деле это так."},
+    {"category": "xml_example", "text": "Это просто не так."},
+    {"category": "xml_example", "text": "Но это не так."},
+    {"category": "xml_example", "text": "Они сидели тихо, затаив дыхание."},
+    {"category": "xml_example", "text": "Мы всё сделали как надо."},
+    {"category": "xml_example", "text": "Это было сделано как положено."},
+    {"category": "xml_example", "text": "Они шли рука об руку."},
+    {"category": "xml_example", "text": "Он стоял бок о бок."},
+    # 2. Multiword chunker cases
+    {"category": "multiword", "text": "В будущем мы увидим результат."},
+    {"category": "multiword", "text": "До свидания, дорогие друзья!"},
+    {"category": "multiword", "text": "Во что бы то ни стало мы победим."},
+    {"category": "multiword", "text": "Откуда ни возьмись появился волк."},
+    {"category": "multiword", "text": "Затаив дыхание они слушали."},
+    {"category": "multiword", "text": "По меньшей мере это очень странно."},
+    {"category": "multiword", "text": "Друг друга они понимали с полуслова."},
+    {"category": "multiword", "text": "Один за другим они уходили в ночь."},
+    # 3. Actions: ADD, REMOVE, REPLACE (default), REPLACE with match, IGNORE_SPELLING
+    {"category": "action_add", "text": "С праздником 8 Марта!"},
+    {"category": "action_remove", "text": "Село солнце за горизонт."},
+    {"category": "action_replace_default", "text": "Ввиду задержки рейса мы опоздали."},
+    {"category": "action_replace_match", "text": "Мы пришли как раз вовремя."},
+    {"category": "action_ignore_spelling", "text": "Вице-президент выступил на собрании."},
+    # 4. Filters (-ка, -то, пол-, экс-, обер-)
+    {"category": "filter", "text": "Дай-ка мне эту книгу."},
+    {"category": "filter", "text": "Кто-то постучал в дверь."},
+    {"category": "filter", "text": "Пол-яблока лежало на тарелке."},
+    {"category": "filter", "text": "Экс-президент прибыл на встречу."},
+    {"category": "filter", "text": "Обер-лейтенант отдал приказ."},
+    # 5. Pattern constructs: <and>, scope="next", skip=1, skip=-1, inflected, case_sensitive, antipattern
+    {"category": "pattern_and", "text": "Стали известны новые подробности."},
+    {"category": "pattern_scope_next", "text": "В том числе и наши коллеги пришли."},
+    {"category": "pattern_skip", "text": "Не только взрослые, но и дети радовались."},
+    {"category": "pattern_inflected", "text": "С каждым новым днем все меняется."},
+    {"category": "pattern_case_sensitive", "text": "Москва и Санкт-Петербург встретили гостей."},
+    {"category": "pattern_antipattern", "text": "Не так ли это устроено?"},
+    {"category": "pattern_antipattern", "text": "Все устроено не так просто."},
+    # 6. Accents, soft-hyphen, emojis, whitespace
+    {"category": "accent_acute", "text": "Краси́вый за́мок стоял на горе́."},
+    {"category": "accent_grave", "text": "Перѐд домом росло дерево."},
+    {"category": "soft_hyphen", "text": "Быстро едет авто\u00adмобиль по дороге."},
+    {"category": "emoji_surrogates", "text": "🌟 Привет мир! 🚀 Как дела?"},
+    {"category": "whitespace_tabs_newlines", "text": "Слово \t еще   слово.\nНовая строка."},
+    {"category": "trailing_whitespace", "text": "Тест завершен успешно.   "},
+    {"category": "unknown_words", "text": "Квазимодульный глобулятор фырчит."},
+]
+
+
+def generate_disambiguation_fixtures(
+    oracle: JavaLanguageToolOracle, fixtures_dir: Path
+) -> None:
+    """Generate oracle Russian disambiguation fixture directly from pinned Java LT."""
+    val = oracle.validate_oracle()
+    oracle_sha = val.get("jar_sha256", "UNKNOWN")
+
+    output_path = fixtures_dir / "oracle_russian_disambiguation.json"
+    sentences = [c["text"] for c in DISAMBIGUATION_TEST_CASES]
+    stages_results = oracle.disambiguate_sentences(sentences)
+
+    cases: List[Dict[str, Any]] = []
+    for i, item in enumerate(DISAMBIGUATION_TEST_CASES):
+        cases.append(
+            {
+                "id": f"case_{i + 1:03d}",
+                "category": item["category"],
+                "text": item["text"],
+                "stages": stages_results[i],
+            }
+        )
+
+    fixture_data = {
+        "schema_version": "1.0.0",
+        "description": "Committed LanguageTool 6.8 Java Oracle Russian Disambiguation Fixture",
+        "metadata": {
+            "pinned_lt_version": PINNED_LT_VERSION,
+            "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_jar_sha256": oracle_sha,
+            "cases_count": len(cases),
+        },
+        "cases": cases,
+    }
+
+    output_path.write_text(
+        json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    print(
+        f"Generated Russian disambiguation fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha})"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Differential test oracle for LanguageTool Russian vs pylat_ru."
@@ -749,6 +1024,11 @@ def main() -> int:
         "--generate-tagger-fixtures",
         action="store_true",
         help="Generate Russian tagger fixtures from Java LanguageTool oracle",
+    )
+    parser.add_argument(
+        "--generate-disambiguation-fixtures",
+        action="store_true",
+        help="Generate Russian disambiguation fixtures from Java LanguageTool oracle",
     )
 
     args = parser.parse_args()
@@ -815,6 +1095,19 @@ def main() -> int:
         generate_tagger_fixtures(oracle, fixtures_dir)
         return 0
 
+    if args.generate_disambiguation_fixtures:
+        try:
+            oracle.validate_oracle()
+        except Exception as e:
+            print(
+                f"Refusing fixture generation: Java LanguageTool oracle identity cannot be proven: {e}",
+                file=sys.stderr,
+            )
+            return 1
+        fixtures_dir = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+        generate_disambiguation_fixtures(oracle, fixtures_dir)
+        return 0
+
     if not args.text:
         parser.print_help()
         return 1
@@ -841,3 +1134,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

@@ -4,6 +4,6 @@
   "pinned_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
   "loomchild_version": "2.0.3",
   "jar_name": "languagetool-commandline.jar",
-  "oracle_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+  "oracle_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
   "description": "Trusted Java LanguageTool development oracle specification for differential and fixture generation"
 }

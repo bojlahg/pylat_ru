@@ -7,6 +7,7 @@ from typing import Optional
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
 from pylat_ru.disambiguation.multiwords import MultiWordChunker
 from pylat_ru.disambiguation.xml_loader import XmlRuleDisambiguator
+from pylat_ru.sentence_analyzer import RussianSentenceAnalyzer
 from pylat_ru.tagging.russian import RussianTagger
 from pylat_ru.tokenization.word import RussianWordTokenizer
 
@@ -43,22 +44,9 @@ class RussianHybridDisambiguator:
 
     def create_analyzed_sentence(self, sentence_text: str) -> AnalyzedSentence:
         """Helper to tokenize, tag, and assemble raw AnalyzedSentence ready for disambiguation."""
-        tokens = self.word_tokenizer.tokenize(sentence_text)
-        tagged_readings = self.tagger.tag(tokens)
-
-        # Create SENT_START pseudo-token at index 0
-        sent_start = AnalyzedTokenReadings.create_sentence_start_token(start_pos=0)
-
-        # Set character start positions for each token
-        current_pos = 0
-        positioned_readings: list[AnalyzedTokenReadings] = []
-        for tr in tagged_readings:
-            r = AnalyzedTokenReadings(tr, start_pos=current_pos)
-            positioned_readings.append(r)
-            current_pos += len(r.token)
-
-        all_tokens = [sent_start] + positioned_readings
-        return AnalyzedSentence(tokens=all_tokens)
+        return RussianSentenceAnalyzer(
+            tagger=self.tagger, word_tokenizer=self.word_tokenizer
+        ).analyze_raw(sentence_text)
 
     def disambiguate(self, sentence: AnalyzedSentence) -> AnalyzedSentence:
         """Execute complete Russian disambiguation pipeline: MultiWordChunker -> XmlRuleDisambiguator."""

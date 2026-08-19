@@ -16,6 +16,31 @@ MAX_TOKENS_IN_MULTIWORD = 20
 DEFAULT_SEPARATOR = "\t"
 
 
+def _resolve_resource_path(resource_name: str) -> Path:
+    """Resolve a multiwords resource path from package resources or fallback cleanly without broad catch-all."""
+    p_str = resource_name.lstrip("/\\")
+    res_name = p_str[3:] if p_str.startswith("ru/") else p_str
+
+    try:
+        res = importlib.resources.files("pylat_ru.resources.ru").joinpath(res_name)
+        p = Path(str(res))
+        if p.is_file():
+            return p
+    except (TypeError, ModuleNotFoundError, AttributeError):
+        pass
+
+    candidates = [
+        Path(__file__).resolve().parent.parent / "resources" / "ru" / res_name,
+        Path("src/pylat_ru/resources/ru") / res_name,
+        Path("third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru") / res_name,
+    ]
+    for c in candidates:
+        if c.is_file():
+            return c
+
+    raise DisambiguationResourceError(f"Multiwords resource '{resource_name}' not found.")
+
+
 class MultiWordChunker:
     """Multiword tagger-chunker that identifies multi-token expressions.
 
@@ -89,11 +114,17 @@ class MultiWordChunker:
             line = raw_line.strip()
             if line.startswith("#separatorRegExp="):
                 separator = line.replace("#separatorRegExp=", "", 1)
+                try:
+                    re.compile(separator)
+                except re.error as e:
+                    raise DisambiguationFormatError(
+                        f"Invalid #separatorRegExp on line {line_idx}: '{separator}': {e}"
+                    ) from e
                 continue
             if not line or line.startswith("#"):
                 continue
 
-            # Strip trailing comment
+            # Strip trailing inline comments
             if "#" in line:
                 line = line.split("#", 1)[0].strip()
                 if not line:
@@ -102,15 +133,20 @@ class MultiWordChunker:
             parts = line.split(separator) if separator == "\t" else re.split(separator, line)
             if self.default_tag is None and len(parts) != 2:
                 raise DisambiguationFormatError(
-                    f"Invalid format in multiwords line {line_idx}: '{line}', expected 2 parts"
+                    f"Invalid format in multiwords line {line_idx}: '{line}', expected phrase<TAB>tag"
                 )
             if self.default_tag is not None and len(parts) != 1:
                 raise DisambiguationFormatError(
-                    f"Invalid format in multiwords line {line_idx}: '{line}', expected 1 part"
+                    f"Invalid format in multiwords line {line_idx}: '{line}', expected phrase"
                 )
 
-            original_string = parts[0]
-            tag = self.default_tag if self.default_tag is not None else parts[1]
+            original_string = parts[0].strip()
+            tag = (self.default_tag if self.default_tag is not None else parts[1]).strip()
+
+            if not original_string or not tag:
+                raise DisambiguationFormatError(
+                    f"Empty phrase or tag in multiwords line {line_idx}: '{line}'"
+                )
 
             casing_variants = [original_string]
             contains_space = " " in original_string
@@ -146,38 +182,12 @@ class MultiWordChunker:
         self._initialized = True
 
     def _load_lines(self) -> List[str]:
-        """Read multiword resource text lines."""
+        """Read multiword resource text lines with fail-closed resolution."""
         if isinstance(self.resource_path, Path) and self.resource_path.is_file():
             return self.resource_path.read_text(encoding="utf-8").splitlines()
 
-        p_str = str(self.resource_path).lstrip("/\\")
-        if p_str.startswith("ru/"):
-            res_name = p_str[3:]
-        else:
-            res_name = p_str
-
-        # Try package resources
-        try:
-            res = (
-                importlib.resources.files("pylat_ru")
-                .joinpath("resources", "ru", res_name)
-            )
-            if res.is_file():
-                return res.read_text(encoding="utf-8").splitlines()
-        except Exception:
-            pass
-
-        # Fallback to local paths
-        candidates = [
-            Path(__file__).resolve().parent.parent / "resources" / "ru" / res_name,
-            Path("src/pylat_ru/resources/ru") / res_name,
-            Path("third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru") / res_name,
-        ]
-        for c in candidates:
-            if c.is_file():
-                return c.read_text(encoding="utf-8").splitlines()
-
-        raise DisambiguationResourceError(f"Multiwords resource not found: {self.resource_path}")
+        p = _resolve_resource_path(str(self.resource_path))
+        return p.read_text(encoding="utf-8").splitlines()
 
     def disambiguate(self, input_sentence: AnalyzedSentence) -> AnalyzedSentence:
         """Run multiword chunking across the sentence."""

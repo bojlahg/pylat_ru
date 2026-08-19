@@ -214,5 +214,5 @@ def test_unknown_xml_element_raises_explicit_format_error() -> None:
     """Verify unknown XML elements fail explicitly with DisambiguationFormatError."""
     bad_xml = """<rules lang="ru"><unknown_tag><token>test</token></unknown_tag></rules>"""
     loader = DisambiguationRuleLoader()
-    with pytest.raises(DisambiguationFormatError, match="Unexpected top-level tag"):
+    with pytest.raises(DisambiguationFormatError, match="Unsupported XML element"):
         loader.parse_xml_string(bad_xml)

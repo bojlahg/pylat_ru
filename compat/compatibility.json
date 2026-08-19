@@ -33,6 +33,7 @@
       "disambiguation_rules_loaded": 77
     },
     "russian_disambiguator": {
+      "raw_sentence_assembly": "SUPPORTED",
       "multiword_chunker": "SUPPORTED",
       "xml_rule_disambiguator": "SUPPORTED",
       "russian_hybrid_disambiguator": "SUPPORTED",
@@ -42,7 +43,8 @@
       "antipattern_rejection": "SUPPORTED",
       "disambiguation_actions": "SUPPORTED",
       "runtime_resource_packaging": "SUPPORTED",
-      "xml_examples_parity": "SUPPORTED"
+      "xml_examples_parity": "SUPPORTED",
+      "java_disambiguation_oracle_parity": "SUPPORTED"
     },
     "russian_tagger": {
       "morfologik_tagger_lookup": "SUPPORTED",
@@ -77,6 +79,7 @@
     "pipeline_components": {
       "RussianSentenceTokenizer": "SUPPORTED",
       "RussianWordTokenizer": "SUPPORTED",
+      "RussianSentenceAnalyzer": "SUPPORTED",
       "RussianTagger": "SUPPORTED",
       "RussianDisambiguator": "SUPPORTED",
       "RussianChunker": "NOT_YET_IMPLEMENTED",

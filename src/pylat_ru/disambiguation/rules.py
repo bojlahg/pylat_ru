@@ -201,27 +201,47 @@ class DisambiguationPatternRuleReplacer:
                         orig_idx = sentence.get_original_position(non_wh_idx)
                         tok_str = new_reading.token if new_reading.token else wh_tokens[orig_idx].token
                         lemma_str = new_reading.lemma if new_reading.lemma is not None else tok_str
-                        wh_tokens[orig_idx].readings = [
-                            AnalyzedToken(token=tok_str, pos_tag=new_reading.pos_tag, lemma=lemma_str)
-                        ]
+                        is_se = wh_tokens[orig_idx].is_sentence_end
+                        res_readings = [AnalyzedToken(token=tok_str, pos_tag=new_reading.pos_tag, lemma=lemma_str)]
+                        if is_se:
+                            res_readings.append(AnalyzedToken(token="", lemma=None, pos_tag="SENT_END"))
+                        wh_tokens[orig_idx].readings = res_readings
             elif match_elem is not None:
-                # Use referenced matched token's lemma or token
-                ref_non_wh = match.first_match_token + match_elem.no
-                ref_orig = sentence.get_original_position(ref_non_wh)
-                ref_tok = wh_tokens[ref_orig]
-
                 target_postag = match_elem.postag or match_elem.set_postag or disambiguated_pos
                 for non_wh_idx in range(first_marker, last_marker + 1):
                     orig_idx = sentence.get_original_position(non_wh_idx)
-                    lemma = wh_tokens[orig_idx].readings[0].lemma_or_token if wh_tokens[orig_idx].readings else wh_tokens[orig_idx].token
-                    wh_tokens[orig_idx].readings = [
-                        AnalyzedToken(token=wh_tokens[orig_idx].token, pos_tag=target_postag, lemma=lemma)
-                    ]
+                    tok = wh_tokens[orig_idx]
+                    is_se = tok.is_sentence_end
+
+                    default_lemma = ""
+                    for r in tok.readings:
+                        if r.pos_tag == target_postag and r.lemma:
+                            default_lemma = r.lemma
+                            break
+                    if not default_lemma and tok.readings:
+                        default_lemma = tok.readings[0].lemma or tok.token
+
+                    res_readings: List[AnalyzedToken] = []
+                    for r in tok.readings:
+                        if r.pos_tag is not None and r.pos_tag != "SENT_END":
+                            res_readings.append(
+                                AnalyzedToken(token=tok.token, pos_tag=target_postag, lemma=default_lemma)
+                            )
+                    if not res_readings:
+                        res_readings = [
+                            AnalyzedToken(token=tok.token, pos_tag=target_postag, lemma=default_lemma)
+                        ]
+                    if is_se:
+                        res_readings.append(
+                            AnalyzedToken(token=tok.token, pos_tag="SENT_END", lemma=default_lemma)
+                        )
+                    wh_tokens[orig_idx].readings = res_readings
             elif disambiguated_pos:
                 p = re.compile(disambiguated_pos)
                 for non_wh_idx in range(first_marker, last_marker + 1):
                     orig_idx = sentence.get_original_position(non_wh_idx)
                     tok = wh_tokens[orig_idx]
+                    is_se = tok.is_sentence_end
                     if action == DisambiguatorAction.REPLACE:
                         lemma = None
                         for r in tok.readings:
@@ -230,15 +250,16 @@ class DisambiguationPatternRuleReplacer:
                                 break
                         if not lemma and tok.readings:
                             lemma = tok.readings[0].lemma
-                        if not lemma:
-                            lemma = tok.token
-                        wh_tokens[orig_idx].readings = [
-                            AnalyzedToken(token=tok.token, pos_tag=disambiguated_pos, lemma=lemma)
-                        ]
+                        res_readings = [AnalyzedToken(token=tok.token, pos_tag=disambiguated_pos, lemma=lemma)]
+                        if is_se:
+                            res_readings.append(AnalyzedToken(token="", lemma=None, pos_tag="SENT_END"))
+                        wh_tokens[orig_idx].readings = res_readings
                     else:  # FILTER
                         matching_readings = [
                             r for r in tok.readings
                             if r.pos_tag is not None and p.fullmatch(r.pos_tag) is not None
                         ]
                         if matching_readings:
+                            if is_se and not any(r.pos_tag == "SENT_END" for r in matching_readings):
+                                matching_readings.append(AnalyzedToken(token="", lemma=None, pos_tag="SENT_END"))
                             wh_tokens[orig_idx].readings = matching_readings

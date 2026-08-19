@@ -1,4 +1,4 @@
-"""Pattern token matching engine for XML disambiguation rules."""
+"""Pattern token matching engine for XML disambiguation rules with backtracking."""
 
 from __future__ import annotations
 
@@ -33,7 +33,6 @@ class PatternTokenException:
 
         if self.postag is not None:
             flags = 0 if self.is_case_sensitive else re.IGNORECASE
-            # In LT, postag is treated as regex if postag_regexp="yes" or if it contains regex chars
             if self.is_postag_regex:
                 self._compiled_postag_regex = re.compile(self.postag, flags)
             else:
@@ -151,7 +150,7 @@ class PatternToken:
                 if exc.matches_token(token_readings):
                     return False
 
-        # 2. If <and> conjunction is present, all sub-tokens must be satisfied
+        # 2. If <and> conjunction is present, each child condition must be satisfied by the token's readings
         if self.and_tokens:
             for sub_p in self.and_tokens:
                 if not sub_p.matches_token(token_readings):
@@ -201,7 +200,6 @@ class PatternRuleMatcher:
         if self.pattern_size == 0 or n < self.pattern_size:
             return results
 
-        limit = n - self.pattern_size + 1
         for start_idx in range(n):
             match = self._match_from(start_idx, tokens)
             if match is not None:
@@ -212,24 +210,23 @@ class PatternRuleMatcher:
     def _match_from(
         self, start_idx: int, tokens: Sequence[AnalyzedTokenReadings]
     ) -> Optional[RuleMatchResult]:
-        """Attempt to match the pattern starting from start_idx."""
+        """Attempt to match the pattern starting from start_idx with backtracking."""
         n = len(tokens)
-        current_pos = start_idx
-        token_positions: List[int] = []
-        first_match = start_idx
-        first_marker = -1
-        last_marker = -1
-        prev_skip = 0
 
-        for k, p_token in enumerate(self.pattern_tokens):
-            if current_pos >= n:
-                return None
+        def match_step(
+            p_idx: int,
+            curr_pos: int,
+            prev_skip: int,
+            matched_indices: List[int],
+        ) -> Optional[List[int]]:
+            if p_idx == self.pattern_size:
+                return matched_indices
 
-            max_skip = prev_skip if prev_skip >= 0 else (n - current_pos)
-            matched_pos = -1
+            p_token = self.pattern_tokens[p_idx]
+            max_skip = prev_skip if prev_skip >= 0 else (n - curr_pos)
 
             for skip_offset in range(max_skip + 1):
-                cand_pos = current_pos + skip_offset
+                cand_pos = curr_pos + skip_offset
                 if cand_pos >= n:
                     break
 
@@ -238,21 +235,36 @@ class PatternRuleMatcher:
                     if cand_pos + 1 < n and p_token.matches_scope_next_exception(tokens[cand_pos + 1]):
                         continue
 
-                    matched_pos = cand_pos
-                    token_positions.append(skip_offset + 1)
-                    if p_token.is_inside_marker:
-                        if first_marker == -1:
-                            first_marker = cand_pos
-                        last_marker = cand_pos
-                    current_pos = cand_pos + 1
-                    break
+                    res = match_step(
+                        p_idx + 1,
+                        cand_pos + 1,
+                        p_token.skip,
+                        matched_indices + [cand_pos],
+                    )
+                    if res is not None:
+                        return res
 
-            if matched_pos == -1:
-                return None
+            return None
 
-            prev_skip = p_token.skip
+        matched_pos_list = match_step(0, start_idx, 0, [])
+        if matched_pos_list is None:
+            return None
 
-        last_match = current_pos - 1
+        first_match = matched_pos_list[0]
+        last_match = matched_pos_list[-1]
+        first_marker = -1
+        last_marker = -1
+
+        token_positions: List[int] = []
+        for k, pos in enumerate(matched_pos_list):
+            p_tok = self.pattern_tokens[k]
+            prev_p_pos = matched_pos_list[k - 1] if k > 0 else (start_idx - 1)
+            token_positions.append(pos - prev_p_pos)
+            if p_tok.is_inside_marker:
+                if first_marker == -1:
+                    first_marker = pos
+                last_marker = pos
+
         if first_marker == -1:
             first_marker = first_match
             last_marker = last_match

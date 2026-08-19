@@ -20,6 +20,10 @@ from pylat_ru.morfologik import (
     DictionaryEntry,
     MorfologikDictionary,
 )
+from pylat_ru.sentence_analyzer import (
+    RussianSentenceAnalyzer,
+    create_raw_analyzed_sentence,
+)
 from pylat_ru.tagging import RussianTagger
 from pylat_ru.tagset import RussianTag, parse_tag
 from pylat_ru.tokenization import (
@@ -41,6 +45,7 @@ __all__ = [
     "MorfologikDictionary",
     "RuleMatch",
     "RussianHybridDisambiguator",
+    "RussianSentenceAnalyzer",
     "RussianSentenceTokenizer",
     "RussianTag",
     "RussianTagger",
@@ -48,6 +53,7 @@ __all__ = [
     "SentenceSpan",
     "TextSpan",
     "TokenSpan",
+    "create_raw_analyzed_sentence",
     "parse_tag",
 ]
 
