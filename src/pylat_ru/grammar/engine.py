@@ -25,6 +25,25 @@ from pylat_ru.grammar.model import (
 )
 
 
+def _utf16_len(s: Optional[str]) -> int:
+    """Return length in UTF-16 code units."""
+    if not s:
+        return 0
+    return len(s.encode("utf-16-le")) // 2
+
+
+def _utf16_to_codepoint_offset(text: str, utf16_offset: int) -> int:
+    """Convert Java UTF-16 code unit offset to Python character (codepoint) offset."""
+    if not text or utf16_offset <= 0:
+        return 0
+    encoded = text.encode("utf-16-le")
+    byte_offset = utf16_offset * 2
+    if byte_offset >= len(encoded):
+        return len(text)
+    sub = encoded[:byte_offset]
+    return len(sub.decode("utf-16-le"))
+
+
 def _compute_utf16_offsets(text: str, char_from: int, char_to: int) -> Tuple[int, int]:
     """Compute Java-compatible UTF-16 code unit offsets from Python character offsets."""
     prefix = text[:char_from]
@@ -82,17 +101,29 @@ class RussianGrammarEngine:
             return self._rules_by_full_id[rule_id_or_full_id]
         return self._rules_by_id.get(rule_id_or_full_id)
 
-    def is_rule_enabled(self, full_id: str) -> bool:
-        """Return True if rule is currently enabled."""
-        return full_id not in self._disabled_rules
+    def _resolve_full_ids(self, rule_id_or_full_id: str) -> List[str]:
+        if rule_id_or_full_id in self._rules_by_full_id:
+            return [rule_id_or_full_id]
+        matched = [
+            r.full_id for r in self._all_rules
+            if r.id == rule_id_or_full_id or r.rulegroup_id == rule_id_or_full_id
+        ]
+        return matched if matched else [rule_id_or_full_id]
 
-    def enable_rule(self, full_id: str) -> None:
-        """Enable a rule."""
-        self._disabled_rules.discard(full_id)
+    def is_rule_enabled(self, rule_id_or_full_id: str) -> bool:
+        """Return True if rule (or all rules in group) is currently enabled."""
+        full_ids = self._resolve_full_ids(rule_id_or_full_id)
+        return all(fid not in self._disabled_rules for fid in full_ids)
 
-    def disable_rule(self, full_id: str) -> None:
-        """Disable a rule."""
-        self._disabled_rules.add(full_id)
+    def enable_rule(self, rule_id_or_full_id: str) -> None:
+        """Enable a rule or all rules in a rulegroup."""
+        for fid in self._resolve_full_ids(rule_id_or_full_id):
+            self._disabled_rules.discard(fid)
+
+    def disable_rule(self, rule_id_or_full_id: str) -> None:
+        """Disable a rule or all rules in a rulegroup."""
+        for fid in self._resolve_full_ids(rule_id_or_full_id):
+            self._disabled_rules.add(fid)
 
     def check_rule(
         self,
@@ -169,14 +200,31 @@ class RussianGrammarEngine:
             matched_tokens = non_blank_tokens[match_start:match_end]
             error_tokens = non_blank_tokens[error_start:error_end]
 
-            # Compute character offsets
+            # Error / Marker span offsets
             from_tok = non_blank_tokens[error_start]
             to_tok = non_blank_tokens[error_end - 1]
-            from_pos = from_tok.start_pos
-            to_pos = to_tok.start_pos + len(to_tok.token)
+            from_utf16 = from_tok.start_pos
+            to_utf16 = to_tok.start_pos + _utf16_len(to_tok.token)
 
-            from_utf16 = from_pos
-            to_utf16 = to_pos
+            if text_full:
+                from_pos = _utf16_to_codepoint_offset(text_full, from_utf16)
+                to_pos = _utf16_to_codepoint_offset(text_full, to_utf16)
+            else:
+                from_pos = from_utf16
+                to_pos = to_utf16
+
+            # Full pattern span offsets
+            pat_from_tok = non_blank_tokens[match_start]
+            pat_to_tok = non_blank_tokens[match_end - 1]
+            pat_from_utf16 = pat_from_tok.start_pos
+            pat_to_utf16 = pat_to_tok.start_pos + _utf16_len(pat_to_tok.token)
+
+            if text_full:
+                pat_from_pos = _utf16_to_codepoint_offset(text_full, pat_from_utf16)
+                pat_to_pos = _utf16_to_codepoint_offset(text_full, pat_to_utf16)
+            else:
+                pat_from_pos = pat_from_utf16
+                pat_to_pos = pat_to_utf16
 
             # Format message and suggestions
             message = TemplateFormatter.format_message(rule.message_template, matched_tokens)
@@ -198,6 +246,10 @@ class RussianGrammarEngine:
                 to_pos=to_pos,
                 from_pos_utf16=from_utf16,
                 to_pos_utf16=to_utf16,
+                pattern_from_pos=pat_from_pos,
+                pattern_to_pos=pat_to_pos,
+                pattern_from_pos_utf16=pat_from_utf16,
+                pattern_to_pos_utf16=pat_to_utf16,
                 matched_tokens_indices=list(range(match_start, match_end)),
                 marker_tokens_indices=list(range(error_start, error_end)),
             )

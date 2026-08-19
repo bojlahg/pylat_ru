@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "upstream_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-  "total_vendored_files": 88,
+  "total_vendored_files": 105,
   "status_summary": {
-    "VERIFIED_LGPL": 88,
+    "VERIFIED_LGPL": 105,
     "BLOCKED_LICENSE_REVIEW": 0
   },
   "items": [
@@ -19,6 +19,149 @@
       "notes": "Upstream GNU Lesser General Public License v2.1 text"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/chunking/TokenExpressionFactory.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/chunking/TokenExpressionFactory.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 1878,
+      "sha256": "060270f2d9c4a62dce12999e8c578cbb0244a08f3a2b3ab7203b812a93fb5eb0",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3793,
+      "sha256": "3f6c4280d73e5ebf7fd27b95e484b473bb0f480e4d6679af62ac8a0990896f7d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 29812,
+      "sha256": "03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 11395,
+      "sha256": "421196a416df471a8f5bca0336191dfd012a43c00b8a6f16d496ae2ba9b34066",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 14412,
+      "sha256": "afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 6610,
+      "sha256": "0bee9c39d71af13dc085d65ceda99ede05d66f3d4d660698808bc39d74931629",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 15219,
+      "sha256": "1a4e88fec00ed0b3de5674ef297b5659ca76b69606da7869bfe92509ceaaf829",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 8809,
+      "sha256": "c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 37627,
+      "sha256": "b9cc4ad871bfd54ec87c7c4bcca6b8fb24f77d42d1191e9f9c8f806069a7120f",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3248,
+      "sha256": "778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 22434,
+      "sha256": "70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 26728,
+      "sha256": "11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4917,
+      "sha256": "9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "copyright_source": "LanguageTool Community / Yakov Reztsov / Alexey Sokirko (AOT.ru)",
@@ -28,6 +171,39 @@
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool SRX segmentation rule definition file (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 16047,
+      "sha256": "9b4adb24e4e92715ccfaf76a527001b9c01abf6b9f721b98efac1ffd3f3212ca",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 22044,
+      "sha256": "83790f315b5f86e3f1dab2109c4d0b0d7b1bbd40f5404eae2092c03ff4d11542",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 42337,
+      "sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
       "path": "languagetool-language-modules/ru/pom.xml",
@@ -974,6 +1150,17 @@
       "sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Russian JUnit test fixtures and test cases (LGPL)"
+    },
+    {
+      "path": "license_inventory.json",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/license_inventory.json",
+      "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 65295,
+      "sha256": "1bd56c2444a9b66ea3657fb8404ceae26e4c3734be7b0b07ec303a90e7da09de",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
     }
   ]
 }

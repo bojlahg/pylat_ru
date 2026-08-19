@@ -115,7 +115,7 @@ class RussianChunker:
                 chunk_tagged_tokens.append(
                     ChunkTaggedToken(
                         token=tr.token,
-                        chunk_tags=["O"],
+                        chunk_tags=list(tr.chunk_tags) if tr.chunk_tags else ["O"],
                         readings=tr,
                     )
                 )

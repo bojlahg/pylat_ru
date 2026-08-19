@@ -6,7 +6,7 @@
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
-    "cases_count": 30
+    "cases_count": 34
   },
   "cases": [
     {
@@ -17096,6 +17096,2082 @@
           {
             "token": ".",
             "start_pos_utf16": 39,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chunk_31_preexisting_tag",
+      "category": "preexisting_tag",
+      "text": "Студент шел в университет.",
+      "stages": {
+        "pre_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Студент",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Студент",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Студент",
+                "lemma": "студент",
+                "pos_tag": "NN:Anim:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 7,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "шел",
+            "start_pos_utf16": 8,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "шел",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "MayMissingYO"
+            ],
+            "readings": [
+              {
+                "token": "шел",
+                "lemma": "идти",
+                "pos_tag": "VB:Past:INTR:IMPFV:Masc"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "в",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "в",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "в",
+                "lemma": "в",
+                "pos_tag": "PREP"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 13,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "университет",
+            "start_pos_utf16": 14,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "университет",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "университет",
+                "lemma": "университет",
+                "pos_tag": "NN:Inanim:Masc:Sin:V"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 25,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ],
+        "post_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Студент",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Студент",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "Студент",
+                "lemma": "студент",
+                "pos_tag": "NN:Anim:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 7,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "шел",
+            "start_pos_utf16": 8,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "шел",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "MayMissingYO"
+            ],
+            "readings": [
+              {
+                "token": "шел",
+                "lemma": "идти",
+                "pos_tag": "VB:Past:INTR:IMPFV:Masc"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "в",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "в",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "в",
+                "lemma": "в",
+                "pos_tag": "PREP"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 13,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "университет",
+            "start_pos_utf16": 14,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "университет",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "университет",
+                "lemma": "университет",
+                "pos_tag": "NN:Inanim:Masc:Sin:V"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 25,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chunk_32_overwrite_conflict",
+      "category": "overwrite_conflict",
+      "text": "Иванов Иван Иванович встретил Петра.",
+      "stages": {
+        "pre_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Иванов",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иванов",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "ADJ:Posit:Masc:Nom"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "ADJ:Posit:Masc:V"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "NN:Fam:Masc:Sin:Nom"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:PL:R"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:PL:V"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 6,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Иван",
+            "start_pos_utf16": 7,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иван",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Иван",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Иванович",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иванович",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Иванович",
+                "lemma": "иван",
+                "pos_tag": "NN:Patr:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 20,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "встретил",
+            "start_pos_utf16": 21,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "встретил",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "встретил",
+                "lemma": "встретить",
+                "pos_tag": "VB:Past:TRANS:PFV:Masc"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 29,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Петра",
+            "start_pos_utf16": 30,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Петра",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Петра",
+                "lemma": "петра",
+                "pos_tag": "NN:Name:Fem:Sin:Nom"
+              },
+              {
+                "token": "Петра",
+                "lemma": "пётр",
+                "pos_tag": "NN:Name:Masc:Sin:R"
+              },
+              {
+                "token": "Петра",
+                "lemma": "пётр",
+                "pos_tag": "NN:Name:Masc:Sin:V"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 35,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ],
+        "post_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Иванов",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иванов",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "B-NP"
+            ],
+            "readings": [
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "ADJ:Posit:Masc:Nom"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "ADJ:Posit:Masc:V"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иванов",
+                "pos_tag": "NN:Fam:Masc:Sin:Nom"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:PL:R"
+              },
+              {
+                "token": "Иванов",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:PL:V"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 6,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Иван",
+            "start_pos_utf16": 7,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иван",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "I-NP"
+            ],
+            "readings": [
+              {
+                "token": "Иван",
+                "lemma": "иван",
+                "pos_tag": "NN:Name:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Иванович",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Иванович",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "I-NP"
+            ],
+            "readings": [
+              {
+                "token": "Иванович",
+                "lemma": "иван",
+                "pos_tag": "NN:Patr:Masc:Sin:Nom"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 20,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "встретил",
+            "start_pos_utf16": 21,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "встретил",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "B-VP"
+            ],
+            "readings": [
+              {
+                "token": "встретил",
+                "lemma": "встретить",
+                "pos_tag": "VB:Past:TRANS:PFV:Masc"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 29,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "Петра",
+            "start_pos_utf16": 30,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Петра",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "Петра",
+                "lemma": "петра",
+                "pos_tag": "NN:Name:Fem:Sin:Nom"
+              },
+              {
+                "token": "Петра",
+                "lemma": "пётр",
+                "pos_tag": "NN:Name:Masc:Sin:R"
+              },
+              {
+                "token": "Петра",
+                "lemma": "пётр",
+                "pos_tag": "NN:Name:Masc:Sin:V"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 35,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chunk_33_may_missing_yo_exclusion",
+      "category": "may_missing_yo",
+      "text": "Все пошло не так, как ожидалось.",
+      "stages": {
+        "pre_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Все",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Все",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "MayMissingYO"
+            ],
+            "readings": [
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:PL:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:PL:V"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:Sin:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:Sin:V"
+              },
+              {
+                "token": "Все",
+                "lemma": "весь",
+                "pos_tag": "ADJ:MPR:PL:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "весь",
+                "pos_tag": "ADJ:MPR:PL:V"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 3,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "пошло",
+            "start_pos_utf16": 4,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "пошло",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "пошло",
+                "lemma": "пошло",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "пошло",
+                "lemma": "пошлый",
+                "pos_tag": "ADJ:Short:Neut"
+              },
+              {
+                "token": "пошло",
+                "lemma": "пойти",
+                "pos_tag": "VB:Past:INTR:PFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 9,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "не",
+            "start_pos_utf16": 10,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "не",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "не",
+                "lemma": "не",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "так",
+            "start_pos_utf16": 13,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "так",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "CONJ"
+              },
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": ",",
+            "start_pos_utf16": 16,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ",",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": ",",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 17,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "как",
+            "start_pos_utf16": 18,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "как",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "CONJ"
+              },
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 21,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "ожидалось",
+            "start_pos_utf16": 22,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "ожидалось",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "ожидалось",
+                "lemma": "ожидаться",
+                "pos_tag": "VB:Past:INTR:IMPFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 31,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ],
+        "post_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Все",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Все",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "MayMissingYO"
+            ],
+            "readings": [
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:PL:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:PL:V"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:Sin:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "все",
+                "pos_tag": "PNN:Sin:V"
+              },
+              {
+                "token": "Все",
+                "lemma": "весь",
+                "pos_tag": "ADJ:MPR:PL:Nom"
+              },
+              {
+                "token": "Все",
+                "lemma": "весь",
+                "pos_tag": "ADJ:MPR:PL:V"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 3,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "пошло",
+            "start_pos_utf16": 4,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "пошло",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "B-VP"
+            ],
+            "readings": [
+              {
+                "token": "пошло",
+                "lemma": "пошло",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "пошло",
+                "lemma": "пошлый",
+                "pos_tag": "ADJ:Short:Neut"
+              },
+              {
+                "token": "пошло",
+                "lemma": "пойти",
+                "pos_tag": "VB:Past:INTR:PFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 9,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "не",
+            "start_pos_utf16": 10,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "не",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "B-VP"
+            ],
+            "readings": [
+              {
+                "token": "не",
+                "lemma": "не",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "так",
+            "start_pos_utf16": 13,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "так",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "CONJ"
+              },
+              {
+                "token": "так",
+                "lemma": "так",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": ",",
+            "start_pos_utf16": 16,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ",",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": ",",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 17,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "как",
+            "start_pos_utf16": 18,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "как",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "CONJ"
+              },
+              {
+                "token": "как",
+                "lemma": "как",
+                "pos_tag": "PARTICLE"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 21,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "ожидалось",
+            "start_pos_utf16": 22,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "ожидалось",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "B-VP"
+            ],
+            "readings": [
+              {
+                "token": "ожидалось",
+                "lemma": "ожидаться",
+                "pos_tag": "VB:Past:INTR:IMPFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 31,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chunk_34_ambiguous_readings",
+      "category": "ambiguous_readings",
+      "text": "Печь пироги было весело.",
+      "stages": {
+        "pre_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Печь",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Печь",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+              },
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "NN:Inanim:Fem:Sin:V"
+              },
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "VB:INF:TRANS:IMPFV"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 4,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "пироги",
+            "start_pos_utf16": 5,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "пироги",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "пироги",
+                "lemma": "пирог",
+                "pos_tag": "NN:Inanim:Masc:PL:Nom"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирог",
+                "pos_tag": "NN:Inanim:Masc:PL:V"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:PL:Nom"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:PL:V"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:Sin:R"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "было",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "было",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "было",
+                "lemma": "было",
+                "pos_tag": "PARTICLE"
+              },
+              {
+                "token": "было",
+                "lemma": "быть",
+                "pos_tag": "VB:Past:INTR:IMPFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 16,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "весело",
+            "start_pos_utf16": 17,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "весело",
+            "whitespace_before": " ",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "весело",
+                "lemma": "весело",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "весело",
+                "lemma": "весело",
+                "pos_tag": "PRDC"
+              },
+              {
+                "token": "весело",
+                "lemma": "весёлый",
+                "pos_tag": "ADJ:Short:Neut"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 23,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": true,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": ".",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": ".",
+                "lemma": null,
+                "pos_tag": "SENT_END"
+              }
+            ]
+          }
+        ],
+        "post_chunker": [
+          {
+            "token": "",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": true,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": "",
+                "lemma": null,
+                "pos_tag": "SENT_START"
+              }
+            ]
+          },
+          {
+            "token": "Печь",
+            "start_pos_utf16": 0,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "Печь",
+            "whitespace_before": "",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "NN:Inanim:Fem:Sin:Nom"
+              },
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "NN:Inanim:Fem:Sin:V"
+              },
+              {
+                "token": "Печь",
+                "lemma": "печь",
+                "pos_tag": "VB:INF:TRANS:IMPFV"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 4,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "пироги",
+            "start_pos_utf16": 5,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "пироги",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "пироги",
+                "lemma": "пирог",
+                "pos_tag": "NN:Inanim:Masc:PL:Nom"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирог",
+                "pos_tag": "NN:Inanim:Masc:PL:V"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:PL:Nom"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:PL:V"
+              },
+              {
+                "token": "пироги",
+                "lemma": "пирога",
+                "pos_tag": "NN:Inanim:Fem:Sin:R"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 11,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "было",
+            "start_pos_utf16": 12,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "было",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "B-VP"
+            ],
+            "readings": [
+              {
+                "token": "было",
+                "lemma": "было",
+                "pos_tag": "PARTICLE"
+              },
+              {
+                "token": "было",
+                "lemma": "быть",
+                "pos_tag": "VB:Past:INTR:IMPFV:Neut"
+              }
+            ]
+          },
+          {
+            "token": " ",
+            "start_pos_utf16": 16,
+            "pos_fix": 0,
+            "is_whitespace": true,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": " ",
+            "whitespace_before": "",
+            "chunk_tags": [],
+            "readings": [
+              {
+                "token": " ",
+                "lemma": null,
+                "pos_tag": null
+              }
+            ]
+          },
+          {
+            "token": "весело",
+            "start_pos_utf16": 17,
+            "pos_fix": 0,
+            "is_whitespace": false,
+            "is_sentence_start": false,
+            "is_sentence_end": false,
+            "is_paragraph_end": false,
+            "is_ignore_spelling": false,
+            "clean_token": "весело",
+            "whitespace_before": " ",
+            "chunk_tags": [
+              "O"
+            ],
+            "readings": [
+              {
+                "token": "весело",
+                "lemma": "весело",
+                "pos_tag": "ADV"
+              },
+              {
+                "token": "весело",
+                "lemma": "весело",
+                "pos_tag": "PRDC"
+              },
+              {
+                "token": "весело",
+                "lemma": "весёлый",
+                "pos_tag": "ADJ:Short:Neut"
+              }
+            ]
+          },
+          {
+            "token": ".",
+            "start_pos_utf16": 23,
             "pos_fix": 0,
             "is_whitespace": false,
             "is_sentence_start": false,

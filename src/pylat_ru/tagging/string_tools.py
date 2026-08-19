@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Sequence
+
 
 def is_all_uppercase(text: str) -> bool:
     """Check if all alphabetic characters in text are uppercase (or if text contains no lowercase letters).
@@ -12,6 +14,21 @@ def is_all_uppercase(text: str) -> bool:
         if c.isalpha() and c.islower():
             return False
     return True
+
+
+def is_all_uppercase_tokens(tokens: Sequence[str]) -> bool:
+    """Check if all words in token list are uppercase and contains at least one alphabetic character.
+
+    Matches Java StringTools.isAllUppercase(List<String>).
+    """
+    has_alpha = False
+    for tok in tokens:
+        for c in tok:
+            if c.isalpha():
+                if c.islower():
+                    return False
+                has_alpha = True
+    return has_alpha
 
 
 def is_not_all_lowercase(text: str) -> bool:

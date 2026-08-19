@@ -66,7 +66,7 @@ class CompiledPatternToken:
         return False
 
     def _matches_single_reading(self, at: AnalyzedToken, atr: AnalyzedTokenReadings) -> bool:
-        is_sentence_start = bool(getattr(atr, "is_sentence_start", False) or (atr.start_pos == 0) or atr.has_pos_tag("SENT_START"))
+        is_sentence_start = bool(getattr(atr, "is_sentence_start", False))
 
         # 1. Text / Lemma matching
         if self.text is not None:
@@ -95,7 +95,7 @@ class CompiledPatternToken:
             elif self._text_regex is not None:
                 # Check regex text match
                 text_matched = self._text_regex.search(token_str) is not None
-                if not text_matched and self.case_sensitive and is_sentence_start and token_str:
+                if not text_matched and self.case_sensitive and is_sentence_start and token_str and token_str[0].isupper():
                     lowered_start = token_str[0].lower() + token_str[1:]
                     text_matched = self._text_regex.search(lowered_start) is not None
             else:
@@ -104,8 +104,9 @@ class CompiledPatternToken:
                 else:
                     if token_str == self.text:
                         text_matched = True
-                    elif is_sentence_start and token_str.lower() == self.text.lower():
-                        text_matched = True
+                    elif is_sentence_start and token_str and token_str[0].isupper():
+                        lowered_start = token_str[0].lower() + token_str[1:]
+                        text_matched = (lowered_start == self.text)
                     else:
                         text_matched = False
 

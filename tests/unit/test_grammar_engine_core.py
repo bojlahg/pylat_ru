@@ -175,3 +175,120 @@ def test_grammar_engine_deferred_rule_fail_closed():
     deferred_rule = next(r for r in engine.get_all_rules() if r.execution_state != ExecutionState.CORE_0007_RUNNABLE)
     with pytest.raises(UnsupportedGrammarFeatureError):
         engine.check_rule(sent, deferred_rule)
+
+
+def test_grammar_engine_emoji_and_non_bmp_offsets():
+    """Verify separate Python codepoint and Java UTF-16 offsets with non-BMP emoji."""
+    disambiguator = RussianHybridDisambiguator.get_instance()
+    engine = RussianGrammarEngine.get_instance()
+
+    # Case 1: Non-BMP emoji before match
+    text_before = "🚀 Ученик решил задать тест учителю."
+    sent_before = disambiguator.disambiguate_text(text_before)
+    sent_before.text = text_before
+
+    matches1 = engine.check_rule(sent_before, "zadat_test")
+    assert len(matches1) == 1
+    m1 = matches1[0]
+
+    # Codepoint slice matches exact error substring
+    assert text_before[m1.from_pos:m1.to_pos] == "задать тест"
+    # Codepoint offset is 15..26 (1 emoji + 1 space + 13 chars)
+    assert m1.from_pos == 15
+    assert m1.to_pos == 26
+    # UTF-16 code units offset is 16..27 (2 surrogate units + 1 space + 13 chars)
+    assert m1.from_pos_utf16 == 16
+    assert m1.to_pos_utf16 == 27
+    assert m1.pattern_from_pos == 15
+    assert m1.pattern_to_pos == 26
+
+    # Case 2: Full pattern span vs marker span
+    pat = Pattern(
+        tokens=[
+            PatternToken(text="решил"),
+            PatternToken(text="задать", is_in_marker=True),
+            PatternToken(text="тест", is_in_marker=True),
+        ],
+        has_marker=True,
+        marker_start_idx=1,
+        marker_end_idx=3,
+    )
+    rule = GrammarRule(
+        id="custom_marker_test",
+        sub_id="1",
+        full_id="custom_marker_test[1]",
+        name="Custom Marker Test",
+        category_id="TEST",
+        category_name="Test",
+        rulegroup_id=None,
+        rulegroup_name=None,
+        default_off=False,
+        tags=[],
+        source_order_index=0,
+        pattern=pat,
+        antipatterns=[],
+        filters=[],
+        unifications=[],
+        message_template=MessageTemplate(elements=["Error"]),
+        short_message=None,
+        suggestions=[],
+        examples=[],
+        url=None,
+        rule_type=None,
+        prio=None,
+        tone_tags=[],
+        is_goal_specific=False,
+        execution_state=ExecutionState.CORE_0007_RUNNABLE,
+        blockers=[],
+    )
+    custom_engine = RussianGrammarEngine(rules=[rule])
+    matches2 = custom_engine.check_rule(sent_before, rule)
+    assert len(matches2) == 1
+    m2 = matches2[0]
+    # Marker span: "задать тест"
+    assert text_before[m2.from_pos:m2.to_pos] == "задать тест"
+    assert m2.from_pos == 15
+    assert m2.to_pos == 26
+    # Pattern span: "решил задать тест"
+    assert text_before[m2.pattern_from_pos:m2.pattern_to_pos] == "решил задать тест"
+    assert m2.pattern_from_pos == 9
+    assert m2.pattern_to_pos == 26
+    assert m2.pattern_from_pos_utf16 == 10
+    assert m2.pattern_to_pos_utf16 == 27
+
+
+def test_grammar_loader_strict_fail_closed_contexts():
+    """Verify GrammarLoader fail-closed validation across all element contexts."""
+    loader = GrammarLoader()
+
+    # Disallowed child in <rules>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <bad_tag> inside <rules>"):
+        loader.load_from_string("<rules lang='ru'><bad_tag/></rules>")
+
+    # Disallowed child in <rulegroup>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <token> inside <rulegroup>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rulegroup id='G'><token/></rulegroup></category></rules>")
+
+    # Disallowed child in <pattern>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <message> inside <pattern>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><message/></pattern><message>m</message></rule></category></rules>")
+
+    # Disallowed child in <marker>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <marker> inside <marker>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><marker><marker/></marker></pattern><message>m</message></rule></category></rules>")
+
+    # Disallowed child in <message>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <token> inside <message>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><token>a</token></pattern><message>m <token/></message></rule></category></rules>")
+
+    # Disallowed child in <suggestion>
+    with pytest.raises(GrammarFormatError, match="Disallowed child <pattern> inside <suggestion>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><token>a</token></pattern><message><suggestion><pattern/></suggestion></message></rule></category></rules>")
+
+    # Disallowed attribute on <match>
+    with pytest.raises(GrammarFormatError, match="Unknown attribute 'bad_match_attr' on <match>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><pattern><token>a</token></pattern><message><suggestion><match no='1' bad_match_attr='v'/></suggestion></message></rule></category></rules>")
+
+    # Disallowed attribute on <antipattern>
+    with pytest.raises(GrammarFormatError, match="Unknown attribute 'bad_anti_attr' on <antipattern>"):
+        loader.load_from_string("<rules lang='ru'><category id='C'><rule id='R'><antipattern bad_anti_attr='v'><token>a</token></antipattern><pattern><token>a</token></pattern><message>m</message></rule></category></rules>")

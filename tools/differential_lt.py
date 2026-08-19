@@ -1579,6 +1579,11 @@ CHUNKER_TEST_CASES: List[Dict[str, Any]] = [
     {"id": "chunk_29_ne_verb_chain", "category": "ne_vp", "text": "Мы не можем продолжать молчать."},
     # 12. MayMissingYO exclusion & Non-BMP emoji
     {"id": "chunk_30_yo_and_emoji", "category": "yo_and_emoji", "text": "🚀 Иван Иванович пошел в лес за грибами."},
+    # 13. Synthetic boundary cases
+    {"id": "chunk_31_preexisting_tag", "category": "preexisting_tag", "text": "Студент шел в университет."},
+    {"id": "chunk_32_overwrite_conflict", "category": "overwrite_conflict", "text": "Иванов Иван Иванович встретил Петра."},
+    {"id": "chunk_33_may_missing_yo_exclusion", "category": "may_missing_yo", "text": "Все пошло не так, как ожидалось."},
+    {"id": "chunk_34_ambiguous_readings", "category": "ambiguous_readings", "text": "Печь пироги было весело."},
 ]
 
 

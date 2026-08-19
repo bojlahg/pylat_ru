@@ -76,66 +76,45 @@ def get_file_metadata(path: Path, license_info: Dict[str, Any]) -> Dict[str, Any
 
 
 def analyze_chunker_source(path: Path) -> Dict[str, Any]:
-    """Parse and extract exact structured metadata from RussianChunker.java."""
-    filter_tags = [
-        "ADJP",
-        "DPT",
-        "MayMissingYO",
-        "NPP",
-        "NPS",
-        "PP",
-        "SBAR",
-        "VP",
-    ]
+    """Parse and extract exact structured metadata directly from RussianChunker.java source."""
+    import re
+    text = path.read_text(encoding="utf-8")
 
-    syntax_expansion = {
-        "<ADJP>": "<chunk=B-ADJP> <chunk=I-ADJP>*",
-        "<DPT>": "<chunk=B-DPT> <chunk=I-DPT>*",
-        "<NP>": "<chunk=B-NP> <chunk=I-NP>*",
-        "<VP>": "<chunk=B-VP> <chunk=I-VP>*",
-    }
+    # 1. Filter tags
+    filter_m = re.search(r"FILTER_TAGS\s*=\s*new\s*HashSet<>\(Arrays\.asList\((.*?)\)\);", text, re.DOTALL)
+    if not filter_m:
+        raise ValueError("Could not find FILTER_TAGS in RussianChunker.java")
+    filter_tags = [s.strip().strip('"') for s in filter_m.group(1).split(",") if s.strip()]
 
-    phrase_types = [
-        "NP",
-        "NPS",
-        "NPP",
-        "PP",
-        "MayMissingYO",
-        "VP",
-        "SBAR",
-        "ADJP",
-        "DPT",
-    ]
+    # 2. Syntax expansion
+    syntax_expansion = {}
+    for m in re.finditer(r'SYNTAX_EXPANSION\.put\(\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\);', text):
+        syntax_expansion[m.group(1)] = m.group(2)
 
-    regexes1_defs = [
-        ("<posre='NN:(Name|Fam|Patr):.*'> <posre='NN:(Name|Fam|Patr):.*'>+ ", "NP", True),
-        ("<posre='NN:Fam:.*'> <regexCS=[А-ЯЁ]> <.> <regexCS=[А-ЯЁ]> <.> ", "NP", True),
-        ("<regexCS=[А-ЯЁ]> <.> <regexCS=[А-ЯЁ]> <.> <posre='NN:Fam:.*'> ", "NP", True),
-        ("<posre='VB:.*:.*' & !posre='NN:.*'>* ", "VP", False),
-        ("<если>", "SBAR", False),
-        ("<поэтому>", "SBAR", False),
-        ("<posre='ADJ:Posit:.*:.*'> <posre='NN:(Anim|Inanim):.*' & !posre='NN:(Anim|Inanim):.*:(R|D|T|P)'> ", "NP", True),
-        ("<posre='ADJ:Posit:.*:.*'> <posre='NN:(Anim|Inanim):.*' & !posre='NN:(Anim|Inanim):.*:(R|D|T|P)'> <posre='NN:(Anim|Inanim):.*'> ", "NP", True),
-        ("<posre='ADJ:Posit:.*:.*'> <posre='NN:(Anim|Inanim):.*' & !posre='NN:(Anim|Inanim):.*:(Nom|V)'> <posre='NN:(Anim|Inanim):.*:(Nom|V)' & !posre='NN:(Anim|Inanim):.*:(R|D|T|P)'> ", "ADJP", True),
-        ("<posre='DPT:.*:.*' & !pos='PREP'> ", "DPT", False),
-        ("<posre='DPT:.*:.*' & !pos='PREP'> <posre='NN:.*:.*:(R|D|T|P)' > ", "DPT", True),
-        ("<posre='DPT:.*:.*' & !pos='PREP'> <posre='PREP'> <posre='NN:.*:.*:(R|D|T|P)' > ", "DPT", True),
-        ("<posre='PT:.*:.*'> ", "ADJP", False),
-        ("<posre='PT:.*:.*'> <pos='ADV' > ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='NN:.*:.*:(R|D|T|P)' > ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='PREP'> <posre='NN:.*:.*:(R|D|T|P|V)' > ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='PREP'> <posre='ADJ:.*:.*:(R|D|T|P|V)' > <posre='NN:.*:.*:(R|D|T|P|V)' > ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='NN:(Anim|Inanim):.*' & !posre='NN:(Anim|Inanim):.*:(Nom|V)'> <posre='NN:(Anim|Inanim):.*:(Nom|V)' & !posre='NN:(Anim|Inanim):.*:(R|D|T|P)'> ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='PNN:.*' & !posre='PNN:.*:Nom:.*'> <posre='NN:(Anim|Inanim):.*:(Nom|V)' & !posre='NN:(Anim|Inanim):.*:(R|D|T|P)'> ", "ADJP", True),
-        ("<posre='PT:.*:.*'> <posre='ADJ:.*:.*' > ", "ADJP", False),
-        ("<тов>", "NP", False),
-    ]
+    # 3. Phrase types
+    enum_m = re.search(r"enum\s+PhraseType\s*\{([^}]+)\}", text)
+    if not enum_m:
+        raise ValueError("Could not find PhraseType enum in RussianChunker.java")
+    raw_enum = enum_m.group(1)
+    phrase_types = []
+    for line in raw_enum.splitlines():
+        line = re.sub(r"//.*$", "", line).strip()
+        for item in line.split(","):
+            item = item.strip()
+            if item:
+                phrase_types.append(item)
 
-    regexes2_defs = [
-        ("<posre=NN:Name:.*> <и> <posre=NN:Name:.*>", "NPP", True),
-        ("<posre=NN:Name:.*> <или> <posre=NN:Name:.*>", "NPP", True),
-        ("<не> <posre='VB:.*:.*' & !posre='NN:.*'>* ", "VP", False),
-    ]
+    # 4. REGEXES1 and REGEXES2
+    regex_block_m = re.search(
+        r"REGEXES1\s*=\s*Arrays\.asList\(\s*(.*?)\s*\);\s*(?:/\*.*?\*/\s*)*private\s+static\s+final\s+List<RegularExpressionWithPhraseType>\s+REGEXES2\s*=\s*Arrays\.asList\(\s*(.*?)\s*\);",
+        text,
+        re.DOTALL,
+    )
+    if not regex_block_m:
+        raise ValueError("Could not extract REGEXES1 and REGEXES2 from RussianChunker.java")
+
+    r1_block = regex_block_m.group(1)
+    r2_block = regex_block_m.group(2)
 
     def expand(expr: str) -> str:
         res = expr
@@ -143,27 +122,29 @@ def analyze_chunker_source(path: Path) -> Dict[str, Any]:
             res = res.replace(k, v)
         return res
 
-    regexes1 = []
-    for idx, (raw_expr, ptype, overwrite) in enumerate(regexes1_defs):
-        regexes1.append({
-            "index": idx,
-            "expression_raw": raw_expr,
-            "expression_expanded": expand(raw_expr),
-            "phrase_type": ptype,
-            "overwrite": overwrite,
-        })
+    def parse_regex_entries(block: str) -> List[Dict[str, Any]]:
+        entries: List[Dict[str, Any]] = []
+        for idx, m in enumerate(re.finditer(r'build\(\s*(".*?"|[^,]+)\s*,\s*([A-Za-z0-9_]+)(?:\s*,\s*(true|false))?\s*\)', block, re.DOTALL)):
+            raw_pat = m.group(1).strip()
+            if raw_pat.startswith('"') and raw_pat.endswith('"'):
+                raw_pat = raw_pat[1:-1]
+            phrase = m.group(2).strip()
+            overwrite = (m.group(3) == "true") if m.group(3) else False
+            entries.append({
+                "index": idx,
+                "expression_raw": raw_pat,
+                "expression_expanded": expand(raw_pat),
+                "phrase_type": phrase,
+                "overwrite": overwrite,
+            })
+        return entries
 
-    regexes2 = []
-    for idx, (raw_expr, ptype, overwrite) in enumerate(regexes2_defs):
-        regexes2.append({
-            "index": idx,
-            "expression_raw": raw_expr,
-            "expression_expanded": expand(raw_expr),
-            "phrase_type": ptype,
-            "overwrite": overwrite,
-        })
+    regexes1 = parse_regex_entries(r1_block)
+    regexes2 = parse_regex_entries(r2_block)
 
     return {
+        "source_file": "RussianChunker.java",
+        "sha256": sha256_file(path),
         "filter_tags": sorted(filter_tags),
         "syntax_expansion": dict(sorted(syntax_expansion.items())),
         "phrase_types": sorted(phrase_types),
@@ -254,7 +235,8 @@ def analyze_grammar_xml(path: Path) -> Dict[str, Any]:
 
             elif child.tag == "rule":
                 r_id = child.attrib["id"]
-                full_id = r_id
+                sub_id = "1"
+                full_id = f"{r_id}[{sub_id}]"
                 r_name = child.attrib.get("name", r_id)
                 r_default = child.attrib.get("default", "on")
                 r_tags = child.attrib.get("tags")
@@ -266,7 +248,7 @@ def analyze_grammar_xml(path: Path) -> Dict[str, Any]:
                     rulegroup_id=None,
                     rulegroup_name=None,
                     rule_id=r_id,
-                    sub_id=None,
+                    sub_id=sub_id,
                     full_id=full_id,
                     rule_name=r_name,
                     rule_default=r_default,
@@ -631,10 +613,39 @@ def generate_inventory() -> Dict[str, Any]:
     license_inv = json.loads(LICENSE_INV_PATH.read_text(encoding="utf-8"))
     license_map = {item["path"]: item for item in license_inv.get("items", [])}
 
-    upstream_source_files = {
-        "grammar.xml": get_file_metadata(GRAMMAR_XML_PATH, license_map),
-        "RussianChunker.java": get_file_metadata(CHUNKER_JAVA_PATH, license_map),
+    upstream_root = REPO_ROOT / "third_party" / "languagetool"
+    upstream_file_defs = {
+        "grammar.xml": ("languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml", "Russian XML grammar rules, categories, pattern tokens, examples, and suggestions"),
+        "Russian.java": ("languagetool-language-modules/ru/src/main/java/org/languagetool/language/Russian.java", "Russian language configuration, rule loading entry points, and pipeline setup"),
+        "RussianChunker.java": ("languagetool-language-modules/ru/src/main/java/org/languagetool/chunking/RussianChunker.java", "Russian rule-based phrase chunker with 24 OpenRegex rules"),
+        "TokenExpressionFactory.java": ("languagetool-core/src/main/java/org/languagetool/chunking/TokenExpressionFactory.java", "TokenExpression parser and predicate builder for OpenRegex"),
+        "TokenPredicate.java": ("languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java", "Predicate evaluating tokens against string, POS regex, chunk, case requirements"),
+        "RuleMatch.java": ("languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java", "Rule match finding model containing spans, messages, and suggestions"),
+        "PatternRuleLoader.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java", "Pattern rule XML loader parsing grammar.xml definitions"),
+        "PatternRuleHandler.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java", "SAX handler for XML grammar rules, patterns, exceptions, and match templates"),
+        "AbstractPatternRule.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java", "Base class for pattern rules defining matching lifecycle and sentence evaluation"),
+        "PatternRule.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java", "Standard pattern rule implementation with suggestions and messages"),
+        "PatternRuleMatcher.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java", "Pattern matcher executing token predicates over AnalyzedSentence tokens"),
+        "AbstractPatternRulePerformer.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java", "Performer executing pattern rule matches and building findings"),
+        "PatternToken.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java", "Atomic token predicate with text, POS, inflections, exceptions, case sensitivity"),
+        "PatternTokenMatcher.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java", "Evaluator matching AnalyzedTokenReadings against PatternToken specifications"),
+        "Match.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java", "Match reference descriptor inside suggestions and messages"),
+        "MatchState.java": ("languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java", "Matching state tracker during pattern token sequence scanning"),
+        "RussianPatternRuleTest.java": ("languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianPatternRuleTest.java", "Upstream test verifying Russian grammar.xml examples"),
+        "PatternRuleLoaderTest.java": ("languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java", "Upstream unit tests for pattern rule XML loading and parsing"),
+        "PatternRuleMatcherTest.java": ("languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java", "Upstream unit tests for pattern rule matcher execution"),
+        "PatternRuleTest.java": ("languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java", "Upstream unit tests for pattern rules, match references, and suggestions"),
     }
+
+    upstream_source_files = {}
+    for name, (rel_path, default_purpose) in upstream_file_defs.items():
+        file_path = upstream_root / rel_path
+        if not file_path.is_file():
+            raise FileNotFoundError(f"Missing upstream source file: {file_path}")
+        meta = get_file_metadata(file_path, license_map)
+        if not meta["purpose"]:
+            meta["purpose"] = default_purpose
+        upstream_source_files[name] = meta
 
     chunker_data = analyze_chunker_source(CHUNKER_JAVA_PATH)
     grammar_data = analyze_grammar_xml(GRAMMAR_XML_PATH)

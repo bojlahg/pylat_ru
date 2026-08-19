@@ -91,7 +91,43 @@ class MatchReference:
     postag: Optional[str] = None
     postag_regexp: Optional[str] = None
     postag_replace: Optional[str] = None
-    set_postag: Optional[str] = None
+    setpos: Optional[str] = None
+    regexp_match: Optional[str] = None
+    regexp_replace: Optional[str] = None
+    sub_type: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class FilterConfig:
+    """Java filter class and arguments configured on a rule."""
+
+    class_name: str
+    args: Optional[str] = None
+
+
+@dataclass
+class FeatureDef:
+    """Feature definition inside XML unification."""
+
+    name: str
+    tokens: List[PatternToken] = field(default_factory=list)
+
+
+@dataclass
+class EquivalenceDef:
+    """Equivalence definition inside XML unification."""
+
+    type: Optional[str] = None
+    tokens: List[PatternToken] = field(default_factory=list)
+
+
+@dataclass
+class UnificationDef:
+    """Unification container definition from XML."""
+
+    feature: Optional[str] = None
+    features: List[FeatureDef] = field(default_factory=list)
+    equivalences: List[EquivalenceDef] = field(default_factory=list)
 
 
 @dataclass
@@ -118,6 +154,7 @@ class Example:
     is_incorrect: bool
     correction: Optional[str] = None
     marker_spans: List[Tuple[int, int]] = field(default_factory=list)
+    reason: Optional[str] = None
 
 
 @dataclass
@@ -137,11 +174,17 @@ class GrammarRule:
     source_order_index: int
     pattern: Pattern
     antipatterns: List[Pattern] = field(default_factory=list)
+    filters: List[FilterConfig] = field(default_factory=list)
+    unifications: List[UnificationDef] = field(default_factory=list)
     message_template: MessageTemplate = field(default_factory=MessageTemplate)
     short_message: Optional[str] = None
     suggestions: List[SuggestionTemplate] = field(default_factory=list)
     examples: List[Example] = field(default_factory=list)
     url: Optional[str] = None
+    rule_type: Optional[str] = None
+    prio: Optional[int] = None
+    tone_tags: List[str] = field(default_factory=list)
+    is_goal_specific: bool = False
     execution_state: ExecutionState = ExecutionState.CORE_0007_RUNNABLE
     blockers: List[RuleBlocker] = field(default_factory=list)
 
@@ -158,9 +201,13 @@ class RuleMatchResult:
     message: str
     short_message: Optional[str]
     suggestions: List[str]
-    from_pos: int          # Python Unicode character start offset
-    to_pos: int            # Python Unicode character end offset
-    from_pos_utf16: int    # Java UTF-16 code unit start offset
-    to_pos_utf16: int      # Java UTF-16 code unit end offset
+    from_pos: int                  # Python Unicode character start offset (marker span)
+    to_pos: int                    # Python Unicode character end offset (marker span)
+    from_pos_utf16: int            # Java UTF-16 code unit start offset (marker span)
+    to_pos_utf16: int              # Java UTF-16 code unit end offset (marker span)
+    pattern_from_pos: int          # Python Unicode character start offset (full pattern span)
+    pattern_to_pos: int            # Python Unicode character end offset (full pattern span)
+    pattern_from_pos_utf16: int    # Java UTF-16 code unit start offset (full pattern span)
+    pattern_to_pos_utf16: int      # Java UTF-16 code unit end offset (full pattern span)
     matched_tokens_indices: List[int]
     marker_tokens_indices: List[int]

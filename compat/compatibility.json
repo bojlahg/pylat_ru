@@ -34,8 +34,8 @@
       "tagger_normalization_replacements_total": 19,
       "multiwords_entries_total": 217,
       "disambiguation_rules_loaded": 77,
-      "synthesizer_oracle_queries_total": 34,
-      "chunker_oracle_cases_total": 30,
+      "synthesizer_oracle_queries_total": 52,
+      "chunker_oracle_cases_total": 34,
       "grammar_core_oracle_cases_total": 62
     },
     "russian_chunker": {
