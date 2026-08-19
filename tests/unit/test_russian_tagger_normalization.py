@@ -112,3 +112,47 @@ def test_utf16_raw_tagger_start_position_accumulation():
 
     assert atrs[2].start_pos == 8  # 5 + 3 ('дом') = 8
     assert atrs[2].token == "человек"
+
+
+def test_python_tagger_constants_match_vendored_java_source():
+    """Verify that Python runtime normalization constants match RussianTagger.java byte-for-byte."""
+    from pathlib import Path
+    from pylat_ru.tagging.russian import ACUTE_VOWELS, NORMALIZATION_REPLACEMENTS
+    from tools.russian_tagger_inventory import (
+        extract_acute_vowels_from_java,
+        extract_normalization_replacements_from_java,
+    )
+
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    ru_src = (
+        repo_root
+        / "third_party"
+        / "languagetool"
+        / "languagetool-language-modules"
+        / "ru"
+        / "src"
+        / "main"
+        / "java"
+        / "org"
+        / "languagetool"
+        / "tagging"
+        / "ru"
+        / "RussianTagger.java"
+    )
+    java_text = ru_src.read_text(encoding="utf-8")
+
+    java_replacements = extract_normalization_replacements_from_java(java_text)
+    java_acute_vowels = extract_acute_vowels_from_java(java_text)
+
+    # 1. Exact 19 replacements in exact sequence
+    assert list(NORMALIZATION_REPLACEMENTS) == java_replacements, (
+        f"Python NORMALIZATION_REPLACEMENTS differs from RussianTagger.java: "
+        f"{NORMALIZATION_REPLACEMENTS} != {java_replacements}"
+    )
+
+    # 2. Exact 9 acute vowel sequences in exact sequence
+    assert list(ACUTE_VOWELS) == java_acute_vowels, (
+        f"Python ACUTE_VOWELS differs from RussianTagger.java: "
+        f"{ACUTE_VOWELS} != {java_acute_vowels}"
+    )
+

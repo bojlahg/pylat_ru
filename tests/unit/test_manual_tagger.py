@@ -107,3 +107,41 @@ def test_manual_tagger_missing_file_raises_resource_error(tmp_path: Path):
     missing = tmp_path / "non_existent.txt"
     with pytest.raises(TaggerResourceError):
         ManualTagger(missing)
+
+
+def test_manual_tagger_malformed_separator_regexp():
+    """Verify malformed regex in #separatorRegExp= raises ManualTaggerFormatError with context."""
+    data = (
+        "#separatorRegExp=[(\n"
+        "слово;слово;TAG\n"
+    )
+    with pytest.raises(ManualTaggerFormatError) as exc_info:
+        ManualTagger(data)
+    assert "Invalid regular expression" in str(exc_info.value)
+    assert "Line 1" in str(exc_info.value)
+
+
+def test_manual_tagger_empty_separator_regexp():
+    """Verify empty regex in #separatorRegExp= raises ManualTaggerFormatError with context."""
+    data = (
+        "#separatorRegExp=\n"
+        "слово\tслово\tTAG\n"
+    )
+    with pytest.raises(ManualTaggerFormatError) as exc_info:
+        ManualTagger(data)
+    assert "Empty regular expression" in str(exc_info.value)
+    assert "Line 1" in str(exc_info.value)
+
+
+def test_manual_tagger_capturing_group_separator():
+    """Verify regex with capturing group (;|\t) does not insert delimiters as extra fields."""
+    data = (
+        "#separatorRegExp=(;|\t)\n"
+        "форма1;база1\tTAG1\n"
+        "форма2\tбаза2;TAG2\n"
+    )
+    tagger = ManualTagger(data)
+    assert tagger.entry_count == 2
+    assert tagger.tag("форма1") == (TaggedWord(lemma="база1", pos_tag="TAG1"),)
+    assert tagger.tag("форма2") == (TaggedWord(lemma="база2", pos_tag="TAG2"),)
+

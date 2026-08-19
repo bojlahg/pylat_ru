@@ -110,3 +110,56 @@ def test_basetagger_case_fallback_order():
     assert readings_unknown.readings[0] == AnalyzedToken(
         token="несуществующеесловоxyz", lemma=None, pos_tag=None
     )
+
+
+def test_basetagger_isolated_lowercase_to_uppercase_first_fallback():
+    """Verify BaseTagger lowercase -> uppercase-first fallback with isolated synthetic entries."""
+    from pylat_ru.tagging.word_tagger import TaggedWord
+
+    class MockWordTagger:
+        def __init__(self, table: dict[str, list[TaggedWord]]) -> None:
+            self.table = table
+
+        def tag(self, word: str) -> tuple[TaggedWord, ...]:
+            return tuple(self.table.get(word, ()))
+
+    # Only capitalized 'Синтетическое' exists; lowercase 'синтетическое' is absent
+    mock_tagger = MockWordTagger({
+        "Синтетическое": [
+            TaggedWord(lemma="синтетический", pos_tag="ADJ:Posit:Neut:Nom")
+        ]
+    })
+
+    tagger = RussianTagger()
+    tagger.word_tagger = mock_tagger
+
+    # 1. With tag_lowercase_with_uppercase = True:
+    # Lowercase lookup 'синтетическое' succeeds via uppercase-first fallback
+    tokens = tagger.get_analyzed_tokens("синтетическое")
+    assert len(tokens) == 1
+    assert tokens[0] == AnalyzedToken(
+        token="синтетическое",
+        lemma="синтетический",
+        pos_tag="ADJ:Posit:Neut:Nom",
+    )
+
+    # 2. Capitalized lookup 'Синтетическое' returns exact reading
+    tokens_cap = tagger.get_analyzed_tokens("Синтетическое")
+    assert len(tokens_cap) == 1
+    assert tokens_cap[0] == AnalyzedToken(
+        token="Синтетическое",
+        lemma="синтетический",
+        pos_tag="ADJ:Posit:Neut:Nom",
+    )
+
+    # 3. With tag_lowercase_with_uppercase = False:
+    # Lowercase lookup does not fallback and returns unknown
+    tagger.tag_lowercase_with_uppercase = False
+    tokens_no_fallback = tagger.get_analyzed_tokens("синтетическое")
+    assert len(tokens_no_fallback) == 1
+    assert tokens_no_fallback[0] == AnalyzedToken(
+        token="синтетическое",
+        lemma=None,
+        pos_tag=None,
+    )
+

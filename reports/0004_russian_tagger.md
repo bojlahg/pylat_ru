@@ -7,9 +7,10 @@ Task 0004 has implemented the native Python Russian morphological tagger subsyst
 - **Morphology Data Model**: Immutable `AnalyzedToken` and `AnalyzedTokenReadings` classes capturing surface tokens, base forms / lemmas, exact lossless LanguageTool POS tag strings (including trailing/empty colon components such as `VB:INF:`), deterministic reading order, raw UTF-16 direct-tagger positions, and chunk tags.
 - **Literal Normalization**: Replicates LanguageTool's exact 19 literal replacements for acute vowels (`о́, а́, е́, у́, и́, ы́, э́, ю́, я́`), grave vowels (`о̀, а̀, ѐ, у̀, ѝ, ы̀, э̀, ю̀, я̀`), and modifier apostrophe (`ʼ → ъ`) on tokens with length > 1, preserving exact upstream quirks without generic Unicode stripping.
 - **`MayMissingYO` Semantics**: Faithful candidate evaluation (`len > 1`, no `ё`/`Ё`, contains `е`/`Е`, no acute vowels) and combined word tagger lookup for the all-`е`→`ё` lowercase variant, emitting `ChunkTag("MayMissingYO")` at the readings container level.
-- **BaseTagger Case Fallback**: Complete port of Java `BaseTagger` case lookup logic (exact -> lower -> uppercase-first -> null reading fallback) and exact `StringTools` case detection (`isAllUppercase`, `isCapitalizedWord`, `isNotAllLowercase`, `isMixedCase`, `changeFirstCharCase`, `uppercaseFirstChar`).
-- **Combining & Manual Overlays**: Faithful `ManualTagger` parser for `added.txt`, `added_custom.txt`, `removed.txt`, `removed_custom.txt` with `#separatorRegExp=` support, inline comment stripping, ASCII-only trimming, and `\u00a0` rejection. `CombiningTagger` preserves additions-first precedence, Morfologik second, and exact `(lemma, pos_tag)` removals with zero silent deduplication.
-- **Package-Safe Runtime Strategy**: Paged and verified byte-identical upstream Russian linguistic assets packaged under `src/pylat_ru/resources/ru/` with automated hash verification against `UPSTREAM.json` and isolated environment execution.
+- **BaseTagger Case Fallback**: Complete port of Java `BaseTagger` case lookup logic (exact -> lower -> uppercase-first -> null reading fallback) and exact `StringTools` case detection (`isAllUppercase`, `isCapitalizedWord`, `isNotAllLowercase`, `isMixedCase`, `changeFirstCharCase`, `uppercaseFirstChar`). An isolated regression verifies lowercase → uppercase-first fallback independently of dictionary contents.
+- **Combining & Manual Overlays**: Faithful `ManualTagger` parser for `added.txt`, `added_custom.txt`, `removed.txt`, `removed_custom.txt` with robust `#separatorRegExp=` support (regex validation, line context reporting, Java `Pattern.split` semantics ignoring capturing groups), inline comment stripping, ASCII-only trimming, and `\u00a0` rejection. `CombiningTagger` preserves additions-first precedence, Morfologik second, and exact `(lemma, pos_tag)` removals with zero silent deduplication.
+- **Package-Safe Runtime Strategy & Real Installed Distribution Testing**: Packaged byte-identical upstream Russian linguistic assets under `src/pylat_ru/resources/ru/`. A dedicated test builds a real wheel distribution, verifies that all 6 Russian runtime assets are present in the archive, installs into an isolated directory, and executes morphology lookups with no repository `src/` or `third_party/` on `sys.path`.
+- **Independent Inventory Verification**: `tools/russian_tagger_inventory.py` extracts normalization replacements and `MayMissingYO` conditions directly from vendored `RussianTagger.java` source text, and automated cross-validation tests fail if Python implementation constants deviate from Java source.
 
 All operations execute in native Python with **zero Java/JRE, zero daemon/server, and zero third-party NLP runtimes** (no Natasha, pymorphy, or spaCy).
 
@@ -68,12 +69,12 @@ src/pylat_ru/
     __init__.py               # Public tagging exports
     errors.py                 # TaggerError, TaggerResourceError, ManualTaggerFormatError, etc.
     string_tools.py           # LanguageTool StringTools case detection port
-    word_tagger.py            # TaggedWord, MorfologikTagger, ManualTagger, CombiningTagger
+    word_tagger.py            # TaggedWord, MorfologikTagger, ManualTagger, CombiningTagger, _java_regex_split
     russian.py                # RussianTagger implementation
 compat/
   russian_tagger_inventory.json # Deterministic compatibility inventory
 tools/
-  russian_tagger_inventory.py   # Inventory generation and validation tool
+  russian_tagger_inventory.py   # Independent AST/regex extraction from RussianTagger.java
   differential_lt.py            # Extended with --generate-tagger-fixtures and tag_tokens
 tests/
   fixtures/
@@ -92,7 +93,7 @@ tests/
 
 ## 5. Verification & Test Suite Summary
 
-The complete pytest suite passes with **128 passed tests in 2.67s**:
+The complete pytest suite passes with **133 passed tests in 7.37s**:
 
 ```text
 tests/unit/test_combining_tagger.py ..................... 4 passed
@@ -100,15 +101,15 @@ tests/unit/test_differential_boundary.py ................ 9 passed
 tests/unit/test_foundation.py ........................... 4 passed
 tests/unit/test_inventory.py ............................ 12 passed
 tests/unit/test_license_inventory.py .................... 2 passed
-tests/unit/test_manual_tagger.py ........................ 8 passed
+tests/unit/test_manual_tagger.py ........................ 11 passed
 tests/unit/test_morfologik_dictionary.py ................ 4 passed
 tests/unit/test_morfologik_fsa.py ....................... 8 passed
 tests/unit/test_morfologik_metadata.py .................. 7 passed
 tests/unit/test_morfologik_sequence_encoder.py .......... 4 passed
 tests/unit/test_offsets.py .............................. 5 passed
 tests/unit/test_russian_sentence_tokenizer.py ........... 4 passed
-tests/unit/test_russian_tagger_case.py .................. 6 passed
-tests/unit/test_russian_tagger_normalization.py ......... 5 passed
+tests/unit/test_russian_tagger_case.py .................. 7 passed
+tests/unit/test_russian_tagger_normalization.py ......... 6 passed
 tests/unit/test_russian_tagger_resources.py ............. 4 passed
 tests/unit/test_russian_tagset.py ....................... 5 passed
 tests/unit/test_russian_word_tokenizer.py ............... 5 passed
@@ -120,7 +121,7 @@ tests/upstream/test_russian_sentence_tokenizer_parity.py  2 passed
 tests/upstream/test_russian_synth_dictionary_lookup.py .. 2 passed
 tests/upstream/test_russian_tagger_parity.py ............ 3 passed
 tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
-======================================================== 128 passed in 2.67s
+======================================================== 133 passed in 7.37s
 ```
 
 ### Key Parity Verification Results:
@@ -129,7 +130,10 @@ tests/upstream/test_russian_word_tokenizer_parity.py .... 1 passed
 3. **Manual Additions**: Real `added.txt` overlay words (`Абдуллаевы`, `обозревателей`, `трассерные`) verified.
 4. **Manual Removals**: Real `removed.txt` entries (`неуверена`, `второй`) verified with removed readings suppressed.
 5. **Exact POS String Fidelity**: Trailing colons (`VB:INF:`) and empty colon elements remain byte-exact.
-6. **Isolated Package Execution**: Subprocess running `RussianTagger` with zero access to `third_party/` succeeds.
+6. **Real Installed Distribution Testing**: Built `.whl` archive checked for all 6 Russian assets and executed in isolated subprocess with zero `src/` or `third_party/` on `sys.path`.
+7. **Separator Regex Error Handling & Semantics**: Validated explicit `ManualTaggerFormatError` on malformed/empty `#separatorRegExp=` and verified Java `Pattern.split` non-capturing behavior.
+8. **Independent Upstream Extraction**: Verified `RussianTagger.java` extraction in `tools/russian_tagger_inventory.py` and runtime constant cross-validation.
+9. **Isolated BaseTagger Fallback**: Verified lowercase → uppercase-first fallback with synthetic words.
 
 ---
 

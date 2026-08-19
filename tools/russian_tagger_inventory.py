@@ -3,17 +3,17 @@
 Deterministic generator for compat/russian_tagger_inventory.json.
 Extracts metadata, hashes, line counts, distinct fullforms, readings count,
 normalization tables, MayMissingYO conditions, and case fallback rules
-from pinned upstream LanguageTool Russian tagger resources.
+directly from pinned upstream LanguageTool Russian tagger resources and source files.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from pylat_ru.tagging.russian import ACUTE_VOWELS, NORMALIZATION_REPLACEMENTS
 from pylat_ru.tagging.word_tagger import ManualTagger
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -36,10 +36,10 @@ def analyze_manual_file(path: Path) -> Dict[str, Any]:
     data = path.read_text(encoding="utf-8")
     data_lines_count = 0
     for line in data.splitlines():
-        s = line.strip()
+        s = line.strip(" \t\r\n")
         if not s or s.startswith("#"):
             continue
-        clean = s.split("#", 1)[0].strip()
+        clean = s.split("#", 1)[0].strip(" \t\r\n")
         if clean:
             data_lines_count += 1
 
@@ -53,8 +53,31 @@ def analyze_manual_file(path: Path) -> Dict[str, Any]:
     }
 
 
+def extract_normalization_replacements_from_java(java_text: str) -> List[Tuple[str, str]]:
+    """Extract literal string replacements directly from RussianTagger.java source text."""
+    pattern = re.compile(r'word\s*=\s*word\.replace\(\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\);')
+    matches = pattern.findall(java_text)
+    if not matches:
+        raise ValueError("Could not extract word.replace() statements from RussianTagger.java")
+    return [(src, dst) for src, dst in matches]
+
+
+def extract_acute_vowels_from_java(java_text: str) -> List[str]:
+    """Extract acute vowel sequences checked in RussianTagger.java source text."""
+    pattern = re.compile(r'!\(word\.contains\("([^"]+)"\)\)')
+    matches = pattern.findall(java_text)
+    # The first two matches in the if condition are "ё" and "Ё", followed by 9 acute vowels:
+    # е́, о́, а́, у́, и́, ю́, ы́, э́, я́
+    acute_vowels = [m for m in matches if m not in ("ё", "Ё")]
+    if len(acute_vowels) != 9:
+        raise ValueError(
+            f"Expected 9 acute vowel sequences from RussianTagger.java, found {len(acute_vowels)}: {acute_vowels}"
+        )
+    return acute_vowels
+
+
 def generate_russian_tagger_inventory() -> Dict[str, Any]:
-    """Generate deterministic compatibility inventory for RussianTagger."""
+    """Generate deterministic compatibility inventory for RussianTagger from upstream source/resources."""
     upstream = json.loads(UPSTREAM_JSON_PATH.read_text(encoding="utf-8"))
     ru_res_dir = (
         REPO_ROOT
@@ -93,8 +116,12 @@ def generate_russian_tagger_inventory() -> Dict[str, Any]:
     removed_path = ru_res_dir / "removed.txt"
     removed_custom_path = ru_res_dir / "removed_custom.txt"
 
+    java_source_text = ru_src.read_text(encoding="utf-8")
+    extracted_replacements = extract_normalization_replacements_from_java(java_source_text)
+    extracted_acute_vowels = extract_acute_vowels_from_java(java_source_text)
+
     replacements_list = []
-    for src, dst in NORMALIZATION_REPLACEMENTS:
+    for src, dst in extracted_replacements:
         src_cps = [f"U+{ord(c):04X}" for c in src]
         dst_cps = [f"U+{ord(c):04X}" for c in dst]
         replacements_list.append(
@@ -107,7 +134,7 @@ def generate_russian_tagger_inventory() -> Dict[str, Any]:
         )
 
     acute_vowels_list = []
-    for av in ACUTE_VOWELS:
+    for av in extracted_acute_vowels:
         cps = [f"U+{ord(c):04X}" for c in av]
         acute_vowels_list.append(
             {

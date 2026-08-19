@@ -67,32 +67,116 @@ def test_missing_dictionary_raises_resource_error(tmp_path: Path):
         RussianTagger(dict_path=fake_dict, info_path=fake_info)
 
 
-def test_isolated_package_tagging_without_third_party(tmp_path: Path):
-    """Verify RussianTagger can instantiate and tag text in an isolated subprocess with no third_party access."""
-    # Run a subprocess with PYTHONPATH pointing only to src
-    code = """
+def test_real_installed_distribution_package_tagging(tmp_path: Path):
+    """Verify building a real wheel distribution, verify all 6 Russian resources in wheel, and test isolated install."""
+    import zipfile
+
+    dist_dir = tmp_path / "dist"
+    dist_dir.mkdir()
+    isolated_site = tmp_path / "site-packages"
+    isolated_site.mkdir()
+
+    # 1. Build a wheel distribution from repo root
+    subprocess.run(
+        [sys.executable, "-m", "pip", "wheel", "--no-deps", "-w", str(dist_dir), str(REPO_ROOT)],
+        check=True,
+        capture_output=True,
+    )
+
+    wheels = list(dist_dir.glob("*.whl"))
+    assert len(wheels) == 1, f"Expected 1 built wheel, found {len(wheels)}"
+    whl_path = wheels[0]
+
+    # 2. Inspect wheel zip contents and explicitly verify all 6 Russian runtime assets are packaged
+    with zipfile.ZipFile(whl_path) as zf:
+        wheel_entries = set(zf.namelist())
+
+    required_packaged_resources = [
+        "pylat_ru/resources/ru/russian.dict",
+        "pylat_ru/resources/ru/russian.info",
+        "pylat_ru/resources/ru/added.txt",
+        "pylat_ru/resources/ru/added_custom.txt",
+        "pylat_ru/resources/ru/removed.txt",
+        "pylat_ru/resources/ru/removed_custom.txt",
+    ]
+
+    for req_res in required_packaged_resources:
+        assert req_res in wheel_entries, (
+            f"Required resource '{req_res}' is missing from built wheel distribution {whl_path.name}!"
+        )
+
+    # 3. Install wheel into isolated target directory
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--no-deps",
+            "--target",
+            str(isolated_site),
+            str(whl_path),
+        ],
+        check=True,
+        capture_output=True,
+    )
+
+    # 4. Execute real morphology lookups in a subprocess isolated from repo src/ and third_party/
+    smoke_script = tmp_path / "smoke_test.py"
+    smoke_script.write_text(
+        f"""
 import sys
+from pathlib import Path
+
+# Strip any globally registered editable repo paths from sys.path
+sys.path = [p for p in sys.path if not p.replace('\\\\', '/').lower().endswith('/src') and 'third_party' not in p.replace('\\\\', '/').lower()]
+
+import pylat_ru
 from pylat_ru import RussianTagger
+
+# Confirm that pylat_ru is imported strictly from the isolated site-packages
+assert str(Path({repr(str(isolated_site))})).lower() in pylat_ru.__file__.lower(), (
+    f"pylat_ru imported from wrong path: {{pylat_ru.__file__}}"
+)
+
 tagger = RussianTagger()
-atrs = tagger.tag(['Все', 'смешалось', 'в', 'доме', 'Облонских'])
-assert len(atrs) == 5
+atrs = tagger.tag(['Все', 'смешалось', 'в', 'доме', 'Облонских', 'блукать', 'Абдуллаевы'])
+assert len(atrs) == 7
+
+# Verify normal word and MayMissingYO
 assert atrs[0].token == 'Все'
 assert atrs[0].has_lemma('все')
 assert 'MayMissingYO' in atrs[0].chunk_tags
+
+# Verify unknown word
 assert atrs[4].token == 'Облонских'
 assert atrs[4].is_pos_tag_unknown is True
-print('ISOLATED_TAGGER_SUCCESS')
-"""
-    src_dir = str(REPO_ROOT / "src")
-    env = os.environ.copy()
-    env["PYTHONPATH"] = src_dir
+
+# Verify dictionary word with trailing colon
+assert atrs[5].token == 'блукать'
+assert atrs[5].has_pos_tag('VB:INF:')
+
+# Verify manual overlay addition
+assert atrs[6].token == 'Абдуллаевы'
+assert atrs[6].has_lemma('абдуллаев')
+
+print('REAL_INSTALLED_DISTRIBUTION_SUCCESS')
+""",
+        encoding="utf-8",
+    )
+
+    env = {
+        "PYTHONPATH": str(isolated_site),
+        "SYSTEMROOT": os.environ.get("SYSTEMROOT", ""),
+        "PATH": os.environ.get("PATH", ""),
+    }
 
     proc = subprocess.run(
-        [sys.executable, "-c", code],
+        [sys.executable, str(smoke_script)],
         cwd=str(tmp_path),
         env=env,
         capture_output=True,
         text=True,
         check=True,
     )
-    assert "ISOLATED_TAGGER_SUCCESS" in proc.stdout
+    assert "REAL_INSTALLED_DISTRIBUTION_SUCCESS" in proc.stdout

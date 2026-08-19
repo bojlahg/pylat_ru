@@ -51,10 +51,38 @@ class MorfologikTagger:
         return tuple(TaggedWord(lemma=e.stem, pos_tag=e.tag) for e in entries)
 
 
-class ManualTagger:
-    """Word tagger loaded from plain-text tab-separated manual dictionaries (added.txt, removed.txt).
+def _java_regex_split(pattern: re.Pattern[str], text: str) -> list[str]:
+    """Split text by regular expression matching Java Pattern.split(text, 0) semantics.
 
-    Matches LanguageTool org.languagetool.tagging.ManualTagger parsing and lookup semantics.
+    Java Pattern.split(text) characteristics preserved:
+      1. Capturing groups in pattern are not returned as extra items in the split array.
+      2. Trailing empty strings at the end of the split array are discarded.
+    """
+    result: list[str] = []
+    last_end = 0
+    for match in pattern.finditer(text):
+        result.append(text[last_end : match.start()])
+        last_end = match.end()
+    result.append(text[last_end:])
+
+    while len(result) > 1 and result[-1] == "":
+        result.pop()
+
+    return result
+
+
+class ManualTagger:
+    """Word tagger parsing plain-text dictionary files (added.txt, removed.txt).
+
+    Matches LanguageTool org.languagetool.tagging.ManualTagger exact semantics:
+      - UTF-8 encoded plain text with 3 columns: fullform, baseform, postag.
+      - Default separator is tab character (\t).
+      - Can be altered via '#separatorRegExp=<regex>' directive.
+      - Empty lines and lines starting with '#' are ignored.
+      - Trailing inline comments starting with '#' are stripped.
+      - POS tags have whitespace trimmed.
+      - Non-breaking spaces (\u00A0) raise ManualTaggerFormatError.
+      - Invalid field counts or malformed regex directives raise ManualTaggerFormatError.
     """
 
     DEFAULT_SEPARATOR = "\t"
@@ -66,17 +94,15 @@ class ManualTagger:
             Path,
             TextIO,
             bytes,
-            Sequence[Union[str, Path, TextIO, bytes]],
+            Iterable[Union[str, Path, TextIO, bytes]],
         ],
     ) -> None:
         self._map: Dict[str, List[TaggedWord]] = {}
         if isinstance(sources, (str, Path, bytes)) or hasattr(sources, "read"):
-            source_list = [sources]
+            self._load_source(sources)  # type: ignore[arg-type]
         else:
-            source_list = list(sources)
-
-        for src in source_list:
-            self._load_source(src)
+            for s in sources:
+                self._load_source(s)
 
     def _load_source(self, source: Union[str, Path, TextIO, bytes]) -> None:
         """Parse a single manual dictionary stream, path, or bytes."""
@@ -111,7 +137,7 @@ class ManualTagger:
 
     def _parse_text(self, text: str, source_name: str) -> None:
         """Parse manual tagger text following exact LanguageTool rules."""
-        separator = self.DEFAULT_SEPARATOR
+        sep_pattern: Optional[re.Pattern[str]] = None
         lines = text.splitlines()
 
         for line_idx, raw_line in enumerate(lines, start=1):
@@ -120,7 +146,17 @@ class ManualTagger:
                 continue
 
             if line.startswith("#separatorRegExp="):
-                separator = line.replace("#separatorRegExp=", "")
+                raw_sep = line[len("#separatorRegExp=") :]
+                if not raw_sep:
+                    raise ManualTaggerFormatError(
+                        f"Empty regular expression in '#separatorRegExp=' directive at Line {line_idx} in '{source_name}'"
+                    )
+                try:
+                    sep_pattern = re.compile(raw_sep)
+                except re.error as e:
+                    raise ManualTaggerFormatError(
+                        f"Invalid regular expression '{raw_sep}' in '#separatorRegExp=' directive at Line {line_idx} in '{source_name}': {e}"
+                    ) from e
                 continue
 
             if line.startswith("#"):
@@ -138,10 +174,15 @@ class ManualTagger:
                 continue
 
             # Split fields by separator
-            if separator == "\t":
+            if sep_pattern is None:
                 parts = clean_line.split("\t")
             else:
-                parts = re.split(separator, clean_line)
+                try:
+                    parts = _java_regex_split(sep_pattern, clean_line)
+                except Exception as e:
+                    raise ManualTaggerFormatError(
+                        f"Error splitting line with regular expression '{sep_pattern.pattern}' at Line {line_idx} in '{source_name}': {e}"
+                    ) from e
 
             if len(parts) != 3:
                 raise ManualTaggerFormatError(
