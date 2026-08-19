@@ -38,6 +38,17 @@ def test_oracle_sentence_tokenization_corpus(fixtures_dir: Path):
     data = json.loads(fixture_path.read_text(encoding="utf-8"))
     assert data["metadata"]["target_pin"].startswith("v6.8")
 
+    manifest_path = fixtures_dir.parent.parent / "compat" / "oracle_manifest.json"
+    assert manifest_path.is_file(), f"Missing manifest: {manifest_path}"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    meta = data["metadata"]
+    build_id = meta.get("oracle_build_id")
+    assert build_id is not None, "Missing oracle_build_id in fixture metadata"
+    build_map = {b["build_id"]: b for b in manifest["trusted_oracle_builds"]}
+    assert build_id in build_map, f"Build ID '{build_id}' not found in trusted manifest builds"
+    build = build_map[build_id]
+    assert meta["oracle_jar_sha256"] == build["jar_sha256"]
+
     tokenizer_ru_two = RussianSentenceTokenizer(single_line_breaks_marks_paragraph=False)
     tokenizer_ru_one = RussianSentenceTokenizer(single_line_breaks_marks_paragraph=True)
 

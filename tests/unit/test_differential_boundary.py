@@ -129,7 +129,8 @@ def test_oracle_manifest_structure_and_sha_mismatch(tmp_path: Path):
     assert manifest_data.get("pinned_commit") == PINNED_LT_COMMIT
     assert manifest_data.get("loomchild_version") == LOOMCHILD_VERSION
     assert manifest_data.get("jar_name") == "languagetool-commandline.jar"
-    assert "oracle_sha256" in manifest_data
+    assert "trusted_oracle_builds" in manifest_data
+    assert len(manifest_data["trusted_oracle_builds"]) >= 1
 
     # Fake jar with wrong SHA-256
     fake_jar = tmp_path / "languagetool-commandline.jar"
@@ -137,7 +138,7 @@ def test_oracle_manifest_structure_and_sha_mismatch(tmp_path: Path):
 
     oracle_fake = JavaLanguageToolOracle(jar_path=fake_jar, manifest_path=DEFAULT_ORACLE_MANIFEST_PATH)
     if oracle_fake.is_java_available():
-        with pytest.raises(RuntimeError, match="Oracle JAR SHA-256 mismatch"):
+        with pytest.raises(RuntimeError, match="does not match any trusted build record|mismatch"):
             oracle_fake.validate_oracle()
 
 
@@ -163,14 +164,27 @@ def test_oracle_manifest_malformed_json(tmp_path: Path):
 
 
 def test_oracle_manifest_validation_negative_cases(tmp_path: Path):
-    """Verify validate_oracle_manifest validates required fields, versions, and hex SHA-256."""
+    """Verify validate_oracle_manifest validates required fields, versions, build records, and hex SHA-256."""
     valid_data = {
         "schema_version": "1.0.0",
         "pinned_version": PINNED_LT_VERSION,
         "pinned_commit": PINNED_LT_COMMIT,
         "loomchild_version": LOOMCHILD_VERSION,
         "jar_name": "languagetool-commandline.jar",
-        "oracle_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+        "default_build_id": "test_build",
+        "trusted_oracle_builds": [
+            {
+                "build_id": "test_build",
+                "pinned_version": PINNED_LT_VERSION,
+                "pinned_commit": PINNED_LT_COMMIT,
+                "build_type": "source_build",
+                "build_command": "mvn clean package -DskipTests",
+                "java_version": "OpenJDK 17",
+                "artifact_path": "target/languagetool-commandline.jar",
+                "jar_name": "languagetool-commandline.jar",
+                "jar_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+            }
+        ],
     }
 
     def write_manifest(data: dict) -> Path:
@@ -180,7 +194,7 @@ def test_oracle_manifest_validation_negative_cases(tmp_path: Path):
 
     # Missing key
     with pytest.raises(RuntimeError, match="missing required keys"):
-        bad_data = {k: v for k, v in valid_data.items() if k != "oracle_sha256"}
+        bad_data = {k: v for k, v in valid_data.items() if k != "trusted_oracle_builds"}
         validate_oracle_manifest(write_manifest(bad_data))
 
     # Wrong version
@@ -191,9 +205,17 @@ def test_oracle_manifest_validation_negative_cases(tmp_path: Path):
     with pytest.raises(RuntimeError, match="pinned_commit mismatch"):
         validate_oracle_manifest(write_manifest({**valid_data, "pinned_commit": "wrong_commit"}))
 
-    # Invalid SHA format (not 64 hex chars)
+    # Invalid SHA format in build record
     with pytest.raises(RuntimeError, match="valid 64-char hex SHA-256 string"):
-        validate_oracle_manifest(write_manifest({**valid_data, "oracle_sha256": "short_hash"}))
+        bad_builds = [dict(valid_data["trusted_oracle_builds"][0], jar_sha256="short_hash")]
+        validate_oracle_manifest(write_manifest({**valid_data, "trusted_oracle_builds": bad_builds}))
+
+    # Missing required provenance field for source_build
+    with pytest.raises(RuntimeError, match="missing required provenance field"):
+        bad_builds2 = [
+            {k: v for k, v in valid_data["trusted_oracle_builds"][0].items() if k != "build_command"}
+        ]
+        validate_oracle_manifest(write_manifest({**valid_data, "trusted_oracle_builds": bad_builds2}))
 
 
 def test_oracle_sha_env_and_argument_override(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
@@ -211,3 +233,4 @@ def test_oracle_sha_env_and_argument_override(tmp_path: Path, monkeypatch: pytes
         monkeypatch.setenv("PYLAT_ORACLE_SHA256", "invalid_env_sha")
         with pytest.raises(RuntimeError, match="Invalid PYLAT_ORACLE_SHA256"):
             oracle.validate_oracle()
+

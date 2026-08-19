@@ -1,11 +1,11 @@
 {
   "metadata": {
     "target_pin": "v6.8 (commit e807fcde6a6506191e1470744d2345da28c26be6)",
-    "oracle_jar_sha256": "4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "source": "LanguageTool-v6.8 RussianWordTokenizer / WordTokenizer",
-    "description": "Committed oracle word tokenization test corpus with exact strings and UTF-16 / code-point boundaries"
+    "description": "Committed oracle word tokenization test corpus with exact strings and UTF-16 / code-point boundaries",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan"
   },
-
   "cases": [
     {
       "id": "russian_abbr_bu",

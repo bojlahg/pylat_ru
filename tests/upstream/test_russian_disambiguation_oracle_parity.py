@@ -157,12 +157,19 @@ class TestRussianDisambiguationOracleParity:
     def test_fixture_integrity(
         self, fixture_data: Dict[str, Any], manifest_data: Dict[str, Any]
     ) -> None:
-        """Verify oracle fixture metadata and bind to trusted manifest provenance."""
+        """Verify oracle fixture metadata and bind to exact trusted build record in manifest."""
         assert fixture_data["schema_version"] == "1.0.0"
-        assert fixture_data["metadata"]["pinned_lt_version"] == manifest_data["pinned_version"]
-        assert fixture_data["metadata"]["pinned_lt_commit"] == manifest_data["pinned_commit"]
-        trusted_shas = set(manifest_data.get("trusted_sha256_set", [manifest_data["oracle_sha256"]]))
-        assert fixture_data["metadata"]["oracle_jar_sha256"] in trusted_shas
+        meta = fixture_data["metadata"]
+        build_id = meta.get("oracle_build_id")
+        assert build_id is not None, "Missing oracle_build_id in fixture metadata"
+
+        build_map = {b["build_id"]: b for b in manifest_data["trusted_oracle_builds"]}
+        assert build_id in build_map, f"Build ID '{build_id}' not found in trusted manifest builds"
+        build = build_map[build_id]
+
+        assert meta["pinned_lt_version"] == manifest_data["pinned_version"] == build["pinned_version"]
+        assert meta["pinned_lt_commit"] == manifest_data["pinned_commit"] == build["pinned_commit"]
+        assert meta["oracle_jar_sha256"] == build["jar_sha256"]
         cases = fixture_data["cases"]
         assert len(cases) == 40
 

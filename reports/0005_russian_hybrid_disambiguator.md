@@ -43,11 +43,13 @@ Task 0005 establishes a native Python reimplementation of the complete LanguageT
 5. **NoDisambiguationRussianPartialPosTagFilter**:
    - Native implementation of `NoDisambiguationRussianPartialPosTagFilter` querying `RussianTagger` directly without recursive disambiguation loops.
 
-6. **Java LanguageTool 6.8 Differential Oracle & Committed Fixtures**:
-   - Extended `tools/differential_lt.py` with `--generate-disambiguation-fixtures`, observing `getRawAnalyzedSentence()`, `MultiWordChunker.disambiguate()`, and `RussianHybridDisambiguator.disambiguate()`.
-   - Manifest `compat/oracle_manifest.json` tracks trusted oracle builds and provenance records (`b88f2358...` Maven Central standalone release and `4b63897b...` source build).
-   - Generated committed deterministic fixture: `tests/fixtures/oracle_russian_disambiguation.json` covering 40 test cases across XML examples, multiword lengths/overlaps, action families, filters, complex pattern constructs, and accents/emojis/whitespace.
-   - Parity assertions verify all 12 observable fields: `token`, `start_pos_utf16`, `pos_fix`, `is_whitespace`, `is_sentence_start`, `is_sentence_end`, `is_paragraph_end`, `is_ignore_spelling`, `clean_token`, `whitespace_before`, `chunk_tags`, and every reading in exact sequence across all 40 cases and all 3 stages.
+6. **Java LanguageTool 6.8 Differential Oracle & Immutable Build Provenance**:
+   - Manifest `compat/oracle_manifest.json` tracks immutable `trusted_oracle_builds` with exact build provenance:
+     - `lt_6.8_source_build_jdk17_stefan` (SHA-256: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`): LanguageTool 6.8 standalone build compiled from pinned upstream commit `e807fcde6a6506191e1470744d2345da28c26be6` with OpenJDK 17.0.18 and Maven 3.9.12.
+     - `lt_6.8_source_build_jdk17_ci` (SHA-256: `4b63897b7b15d03bb639912752174dc0e090df4a78465d648cebcad5a4e3fa37`): LanguageTool 6.8 standalone build compiled from pinned upstream commit `e807fcde6a6506191e1470744d2345da28c26be6` with OpenJDK 17.
+   - All committed oracle fixtures (`oracle_russian_disambiguation.json`, `oracle_russian_sentence_tokenization.json`, `oracle_russian_word_tokenization.json`, `oracle_russian_tagger.json`) bind to `oracle_build_id: "lt_6.8_source_build_jdk17_stefan"`.
+   - `validate_oracle_manifest()` validates the complete manifest schema, required provenance fields, and build hashes.
+   - Parity tests verify exact build record resolution and match all 12 observable fields: `token`, `start_pos_utf16`, `pos_fix`, `is_whitespace`, `is_sentence_start`, `is_sentence_end`, `is_paragraph_end`, `is_ignore_spelling`, `clean_token`, `whitespace_before`, `chunk_tags`, and every reading in exact sequence across all 40 cases and all 3 stages.
 
 ---
 
@@ -65,9 +67,9 @@ Task 0005 establishes a native Python reimplementation of the complete LanguageT
 - `src/pylat_ru/__init__.py`: Exported `RussianSentenceAnalyzer`, `RussianHybridDisambiguator`, and `create_raw_analyzed_sentence`.
 
 ### Tooling & Compatibility Files
-- `tools/differential_lt.py`: Extended Java LanguageTool oracle interface with `disambiguate_sentences()` and `--generate-disambiguation-fixtures`.
+- `tools/differential_lt.py`: Extended Java LanguageTool oracle interface with `validate_oracle_manifest()`, `validate_oracle(expected_build_id=...)`, UTF-8 child subprocesses, and fixture generators.
 - `tools/russian_disambiguator_inventory.py`: Phase 0 inventory extraction script with fully-resolved rule IDs for filters and examples.
-- `compat/oracle_manifest.json`: Verified LanguageTool 6.8 standalone jar SHA-256 (`b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`) and source build (`4b63897b...`).
+- `compat/oracle_manifest.json`: Verified reproducible build records with immutable `build_id`s, exact build commands, JDK/Maven versions, and SHA-256 hashes.
 - `compat/russian_disambiguator_inventory.json`: Generated disambiguator inventory.
 - `compat/compatibility.json`: Updated compatibility matrix.
 
@@ -76,7 +78,11 @@ Task 0005 establishes a native Python reimplementation of the complete LanguageT
 - `src/pylat_ru/resources/ru/disambiguation.xml`: SHA-256 `088da5e49938e7f4b1251e4de29de059822ab7e9fc299b07fbeca970b73d0f18` (77 rules).
 
 ### Test Files
-- `tests/fixtures/oracle_russian_disambiguation.json`: Committed 40-case Java oracle fixture.
+- `tests/fixtures/oracle_russian_disambiguation.json`: Committed 40-case Java oracle fixture bound to `lt_6.8_source_build_jdk17_stefan`.
+- `tests/fixtures/oracle_russian_sentence_tokenization.json`: Committed sentence tokenization fixture bound to `lt_6.8_source_build_jdk17_stefan`.
+- `tests/fixtures/oracle_russian_word_tokenization.json`: Committed word tokenization fixture bound to `lt_6.8_source_build_jdk17_stefan`.
+- `tests/fixtures/oracle_russian_tagger.json`: Committed tagger fixture bound to `lt_6.8_source_build_jdk17_stefan`.
+- `tests/unit/test_differential_boundary.py`: Unit tests for oracle boundary, schema validation of build records, and override handling.
 - `tests/unit/test_raw_sentence_analyzer.py`: Unit tests for `RussianSentenceAnalyzer` including whitespace patterns.
 - `tests/unit/test_analyzed_token_readings_mutations.py`: Unit tests for `AnalyzedTokenReadings` mutation semantics including `SENT_END` removal restoration.
 - `tests/unit/test_matcher_backtracking.py`: Unit tests for backtracking, `<and>` conjunctions, and `scope="next"` exceptions.
@@ -107,7 +113,8 @@ Task 0005 establishes a native Python reimplementation of the complete LanguageT
   - Resource Packaging & Wheel Smoke Tests: 4 tests passed
   - Upstream XML Examples Parity: 2 tests passed
   - Java Oracle Disambiguation 3-Stage Parity: 2 tests (covering 40 complex cases) passed
-  - Existing Tasks 0001–0004 Regression Tests: 127 tests passed
+  - Differential Oracle Boundary & Manifest Validation: 9 tests passed
+  - Existing Tasks 0001–0004 Regression Tests: 118 tests passed
 
 ---
 

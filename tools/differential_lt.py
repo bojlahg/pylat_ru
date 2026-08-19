@@ -45,7 +45,7 @@ def sha256_file(path: Path) -> str:
 
 
 def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
-    """Validate schema, required keys, pinned versions, and SHA-256 in oracle manifest."""
+    """Validate schema, required keys, pinned versions, build records, and SHA-256 in oracle manifest."""
     if not manifest_path.is_file():
         raise RuntimeError(f"Oracle manifest file not found: {manifest_path}")
 
@@ -63,7 +63,7 @@ def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
         "pinned_commit",
         "loomchild_version",
         "jar_name",
-        "oracle_sha256",
+        "trusted_oracle_builds",
     }
     missing = required_keys - set(data.keys())
     if missing:
@@ -96,11 +96,71 @@ def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
             f"Oracle manifest jar_name mismatch: expected 'languagetool-commandline.jar', got {data.get('jar_name')!r}"
         )
 
-    sha = data.get("oracle_sha256")
-    if not isinstance(sha, str) or not HEX_SHA256_PATTERN.match(sha):
+    builds = data.get("trusted_oracle_builds")
+    if not isinstance(builds, list) or len(builds) == 0:
         raise RuntimeError(
-            f"Oracle manifest oracle_sha256 must be a valid 64-char hex SHA-256 string, got {sha!r}"
+            f"Oracle manifest at {manifest_path} must contain a non-empty 'trusted_oracle_builds' list"
         )
+
+    build_ids = set()
+    for idx, b in enumerate(builds):
+        if not isinstance(b, dict):
+            raise RuntimeError(f"trusted_oracle_builds[{idx}] must be an object")
+
+        b_id = b.get("build_id")
+        if not isinstance(b_id, str) or not b_id.strip():
+            raise RuntimeError(f"trusted_oracle_builds[{idx}] missing valid 'build_id'")
+        if b_id in build_ids:
+            raise RuntimeError(f"Duplicate build_id '{b_id}' in trusted_oracle_builds")
+        build_ids.add(b_id)
+
+        if b.get("pinned_version") != PINNED_LT_VERSION:
+            raise RuntimeError(
+                f"Build '{b_id}' pinned_version mismatch: expected {PINNED_LT_VERSION!r}, got {b.get('pinned_version')!r}"
+            )
+        if b.get("pinned_commit") != PINNED_LT_COMMIT:
+            raise RuntimeError(
+                f"Build '{b_id}' pinned_commit mismatch: expected {PINNED_LT_COMMIT!r}, got {b.get('pinned_commit')!r}"
+            )
+
+        b_type = b.get("build_type")
+        if b_type not in ("source_build", "published_artifact"):
+            raise RuntimeError(
+                f"Build '{b_id}' invalid build_type: expected 'source_build' or 'published_artifact', got {b_type!r}"
+            )
+
+        if b.get("jar_name") != "languagetool-commandline.jar":
+            raise RuntimeError(
+                f"Build '{b_id}' jar_name mismatch: expected 'languagetool-commandline.jar', got {b.get('jar_name')!r}"
+            )
+
+        sha = b.get("jar_sha256")
+        if not isinstance(sha, str) or not HEX_SHA256_PATTERN.match(sha):
+            raise RuntimeError(
+                f"Build '{b_id}' jar_sha256 must be a valid 64-char hex SHA-256 string, got {sha!r}"
+            )
+
+        if b_type == "source_build":
+            for req in ("build_command", "java_version", "artifact_path"):
+                if not b.get(req):
+                    raise RuntimeError(f"Source build '{b_id}' missing required provenance field '{req}'")
+        elif b_type == "published_artifact":
+            for req in ("artifact_source", "artifact_hash"):
+                if not b.get(req):
+                    raise RuntimeError(f"Published artifact build '{b_id}' missing required provenance field '{req}'")
+
+    if "default_build_id" in data:
+        def_id = data["default_build_id"]
+        if def_id not in build_ids:
+            raise RuntimeError(f"default_build_id '{def_id}' not found in trusted_oracle_builds")
+        if "oracle_sha256" not in data:
+            data["oracle_sha256"] = next(b["jar_sha256"] for b in builds if b["build_id"] == def_id)
+    elif "oracle_sha256" in data:
+        sha = data["oracle_sha256"]
+        if not isinstance(sha, str) or not HEX_SHA256_PATTERN.match(sha):
+            raise RuntimeError(
+                f"Oracle manifest oracle_sha256 must be a valid 64-char hex SHA-256 string, got {sha!r}"
+            )
 
     return data
 
@@ -187,6 +247,7 @@ class JavaLanguageToolOracle:
     def validate_oracle(
         self,
         expected_sha256: Optional[str] = None,
+        expected_build_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Strictly validate the configured Java LanguageTool oracle identity, provenance, and SHA-256.
 
@@ -205,39 +266,65 @@ class JavaLanguageToolOracle:
 
         jar_hash = sha256_file(jar)
 
-        # Fail closed on trusted SHA-256 resolution
-        expected_hash: Optional[str] = None
-        if expected_sha256 is not None:
+        matched_build: Optional[Dict[str, Any]] = None
+        manifest_data: Optional[Dict[str, Any]] = None
+
+        if expected_build_id is not None:
+            manifest_data = validate_oracle_manifest(self.manifest_path)
+            builds = manifest_data.get("trusted_oracle_builds", [])
+            build_map = {b["build_id"]: b for b in builds}
+            if expected_build_id not in build_map:
+                raise RuntimeError(
+                    f"Unknown expected_build_id '{expected_build_id}'. Known builds: {list(build_map.keys())}"
+                )
+            target_build = build_map[expected_build_id]
+            if jar_hash.lower() != target_build["jar_sha256"].lower():
+                raise RuntimeError(
+                    f"Oracle JAR SHA-256 mismatch for build '{expected_build_id}': expected {target_build['jar_sha256']}, got {jar_hash}"
+                )
+            matched_build = target_build
+        elif expected_sha256 is not None:
             if not isinstance(expected_sha256, str) or not HEX_SHA256_PATTERN.match(
                 expected_sha256
             ):
                 raise RuntimeError(
                     f"Invalid expected_sha256 format: {expected_sha256!r}"
                 )
-            expected_hash = expected_sha256.lower()
+            if jar_hash.lower() != expected_sha256.lower():
+                raise RuntimeError(
+                    f"Oracle JAR SHA-256 mismatch: expected {expected_sha256}, got {jar_hash}"
+                )
+            if self.manifest_path and self.manifest_path.is_file():
+                manifest_data = validate_oracle_manifest(self.manifest_path)
+                sha_to_build = {b["jar_sha256"].lower(): b for b in manifest_data.get("trusted_oracle_builds", [])}
+                matched_build = sha_to_build.get(jar_hash.lower())
         elif "PYLAT_ORACLE_SHA256" in os.environ:
             env_val = os.environ["PYLAT_ORACLE_SHA256"].strip()
             if not HEX_SHA256_PATTERN.match(env_val):
                 raise RuntimeError(
                     f"Invalid PYLAT_ORACLE_SHA256 environment variable format: {env_val!r}"
                 )
-            expected_hash = env_val.lower()
+            if jar_hash.lower() != env_val.lower():
+                raise RuntimeError(
+                    f"Oracle JAR SHA-256 mismatch against PYLAT_ORACLE_SHA256: expected {env_val}, got {jar_hash}"
+                )
+            if self.manifest_path and self.manifest_path.is_file():
+                manifest_data = validate_oracle_manifest(self.manifest_path)
+                sha_to_build = {b["jar_sha256"].lower(): b for b in manifest_data.get("trusted_oracle_builds", [])}
+                matched_build = sha_to_build.get(jar_hash.lower())
         else:
             manifest_data = validate_oracle_manifest(self.manifest_path)
-            expected_hash = manifest_data["oracle_sha256"].lower()
+            builds = manifest_data.get("trusted_oracle_builds", [])
+            sha_to_build = {b["jar_sha256"].lower(): b for b in builds}
+            if jar_hash.lower() not in sha_to_build:
+                trusted_shas = [b["jar_sha256"] for b in builds]
+                raise RuntimeError(
+                    f"Oracle JAR SHA-256 {jar_hash} at {jar} does not match any trusted build record in {self.manifest_path}.\n"
+                    f"  Trusted SHAs: {trusted_shas}"
+                )
+            matched_build = sha_to_build[jar_hash.lower()]
 
-        if not expected_hash:
-            raise RuntimeError(
-                "Oracle SHA-256 verification failed: no trusted expected SHA-256 could be obtained."
-            )
-
-        if jar_hash != expected_hash:
-            raise RuntimeError(
-                f"Oracle JAR SHA-256 mismatch for {jar}:\n"
-                f"  Expected: {expected_hash}\n"
-                f"  Actual:   {jar_hash}\n"
-                f"Refusing to use unverified LanguageTool oracle."
-            )
+        oracle_build_id = matched_build["build_id"] if matched_build else None
 
         # Run minimal Java probe to verify JLanguageTool version and Russian pipeline classes
         java_probe = """
@@ -265,7 +352,7 @@ public class OracleProbe {
                     timeout=30,
                 )
                 proc = subprocess.run(
-                    ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "OracleProbe"],
+                    ["java", "-Dfile.encoding=UTF-8", "-cp", f"{tmpdir}{os.pathsep}{jar}", "OracleProbe"],
                     check=True,
                     capture_output=True,
                     text=True,
@@ -291,6 +378,8 @@ public class OracleProbe {
                     "language_code": lang_code,
                     "jar_path": str(jar),
                     "jar_sha256": jar_hash,
+                    "oracle_build_id": oracle_build_id,
+                    "build_record": matched_build,
                     "pinned_version": PINNED_LT_VERSION,
                     "pinned_commit": PINNED_LT_COMMIT,
                 }
@@ -324,6 +413,7 @@ public class OracleProbe {
 
         cmd = [
             "java",
+            "-Dfile.encoding=UTF-8",
             "-jar",
             str(jar),
             "-l",
@@ -380,7 +470,7 @@ public class OracleProbe {
     def tokenize_sentences(
         self, text: str, single_line_breaks: bool = False
     ) -> List[str]:
-        """Run text through Java LanguageTool Russian SRXSentenceTokenizer."""
+        """Run text through Java LanguageTool SRXSentenceTokenizer."""
         self.validate_oracle()
         jar = self.get_jar_path()
 
@@ -393,7 +483,7 @@ import java.util.*;
 
 public class TokenizeSentences {
     public static void main(String[] args) throws Exception {
-        boolean singleLine = args.length > 0 && args[0].equals("ru_one");
+        boolean singleLine = "ru_one".equals(args.length > 0 ? args[0] : "");
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         byte[] data = new byte[1024];
         int n;
@@ -408,9 +498,10 @@ public class TokenizeSentences {
         SentenceTokenizer tok = ru.getSentenceTokenizer();
         tok.setSingleLineBreaksMarksParagraph(singleLine);
         List<String> sents = tok.tokenize(text);
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         for (int i = 0; i < sents.size(); i++) {
-            if (i > 0) System.out.print("\\u0000");
-            System.out.print(sents.get(i));
+            if (i > 0) out.print("\\u0000");
+            out.print(sents.get(i));
         }
     }
 }
@@ -430,6 +521,7 @@ public class TokenizeSentences {
             proc = subprocess.run(
                 [
                     "java",
+                    "-Dfile.encoding=UTF-8",
                     "-cp",
                     f"{tmpdir}{os.pathsep}{jar}",
                     "TokenizeSentences",
@@ -471,9 +563,10 @@ public class TokenizeWords {
         Russian ru = (Russian) Russian.getInstance();
         Tokenizer tok = ru.getWordTokenizer();
         List<String> words = tok.tokenize(text);
+        PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         for (int i = 0; i < words.size(); i++) {
-            if (i > 0) System.out.print("\\u0000");
-            System.out.print(words.get(i));
+            if (i > 0) out.print("\\u0000");
+            out.print(words.get(i));
         }
     }
 }
@@ -490,7 +583,7 @@ public class TokenizeWords {
             )
 
             proc = subprocess.run(
-                ["java", "-cp", f"{tmpdir}{os.pathsep}{jar}", "TokenizeWords"],
+                ["java", "-Dfile.encoding=UTF-8", "-cp", f"{tmpdir}{os.pathsep}{jar}", "TokenizeWords"],
                 input=text.encode("utf-8"),
                 capture_output=True,
                 check=True,
@@ -849,6 +942,7 @@ def generate_tokenization_fixtures(
     """Regenerate oracle sentence and word fixtures directly from pinned Java LT."""
     val = oracle.validate_oracle()
     oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
 
     sent_fixture_path = fixtures_dir / "oracle_russian_sentence_tokenization.json"
     word_fixture_path = fixtures_dir / "oracle_russian_word_tokenization.json"
@@ -859,7 +953,9 @@ def generate_tokenization_fixtures(
     sent_data = json.loads(sent_fixture_path.read_text(encoding="utf-8"))
     word_data = json.loads(word_fixture_path.read_text(encoding="utf-8"))
 
+    sent_data["metadata"]["oracle_build_id"] = oracle_build_id
     sent_data["metadata"]["oracle_jar_sha256"] = oracle_sha
+    word_data["metadata"]["oracle_build_id"] = oracle_build_id
     word_data["metadata"]["oracle_jar_sha256"] = oracle_sha
 
     for case in sent_data["cases"]:
@@ -880,10 +976,10 @@ def generate_tokenization_fixtures(
         json.dumps(word_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     print(
-        f"Updated sentence fixture from Java Oracle -> {sent_fixture_path} (oracle SHA: {oracle_sha})"
+        f"Updated sentence fixture from Java Oracle -> {sent_fixture_path} (oracle SHA: {oracle_sha}, build: {oracle_build_id})"
     )
     print(
-        f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha})"
+        f"Updated word fixture from Java Oracle -> {word_fixture_path} (oracle SHA: {oracle_sha}, build: {oracle_build_id})"
     )
 
 
@@ -893,12 +989,14 @@ def generate_tagger_fixtures(
     """Regenerate oracle Russian tagger fixture directly from pinned Java LT."""
     val = oracle.validate_oracle()
     oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
 
     tagger_fixture_path = fixtures_dir / "oracle_russian_tagger.json"
     if not tagger_fixture_path.is_file():
         raise FileNotFoundError(f"Fixture template not found: {tagger_fixture_path}")
 
     tagger_data = json.loads(tagger_fixture_path.read_text(encoding="utf-8"))
+    tagger_data["metadata"]["oracle_build_id"] = oracle_build_id
     tagger_data["metadata"]["oracle_jar_sha256"] = oracle_sha
 
     for case in tagger_data["cases"]:
@@ -910,7 +1008,7 @@ def generate_tagger_fixtures(
         json.dumps(tagger_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     print(
-        f"Updated tagger fixture from Java Oracle -> {tagger_fixture_path} (oracle SHA: {oracle_sha})"
+        f"Updated tagger fixture from Java Oracle -> {tagger_fixture_path} (oracle SHA: {oracle_sha}, build: {oracle_build_id})"
     )
 
 
@@ -970,6 +1068,7 @@ def generate_disambiguation_fixtures(
     """Generate oracle Russian disambiguation fixture directly from pinned Java LT."""
     val = oracle.validate_oracle()
     oracle_sha = val.get("jar_sha256", "UNKNOWN")
+    oracle_build_id = val.get("oracle_build_id", "UNKNOWN")
 
     output_path = fixtures_dir / "oracle_russian_disambiguation.json"
     sentences = [c["text"] for c in DISAMBIGUATION_TEST_CASES]
@@ -992,6 +1091,7 @@ def generate_disambiguation_fixtures(
         "metadata": {
             "pinned_lt_version": PINNED_LT_VERSION,
             "pinned_lt_commit": PINNED_LT_COMMIT,
+            "oracle_build_id": oracle_build_id,
             "oracle_jar_sha256": oracle_sha,
             "cases_count": len(cases),
         },
@@ -1002,7 +1102,7 @@ def generate_disambiguation_fixtures(
         json.dumps(fixture_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     print(
-        f"Generated Russian disambiguation fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha})"
+        f"Generated Russian disambiguation fixture -> {output_path} ({len(cases)} cases, oracle SHA: {oracle_sha}, build: {oracle_build_id})"
     )
 
 
