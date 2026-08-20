@@ -79,6 +79,15 @@ def test_task_0011_oracle_case_semantics_and_coverage() -> None:
     assert all(signature == case["semantic_signature"] for signature, case in zip(signatures, cases))
     assert len(signatures) == len(set(signatures)), "duplicate semantic oracle queries must not be disguised by case IDs"
     single_cases = [case for case in cases if case["execution_mode"] == "single_rule"]
+    for case in single_cases:
+        coverage = set(case["coverage"])
+        assert not {"positive", "negative"} <= coverage, f"{case['id']}: contradictory result labels"
+        if "positive" in coverage:
+            assert case["finding_count"] > 0, f"{case['id']}: positive case has no Java finding"
+        if "negative" in coverage:
+            assert case["finding_count"] == 0, f"{case['id']}: negative case has Java findings"
+        if coverage.intersection({"multi_finding", "multiple_findings"}):
+            assert case["finding_count"] > 1, f"{case['id']}: multiple-finding label is false"
     classes = {case["rule_class"] for case in single_cases}
     assert len(classes) == 15
     for rule_class in classes:

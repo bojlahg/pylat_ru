@@ -2,7 +2,8 @@
 
 ## Baseline and status
 
-- Current overlap review-fix baseline: `main` at `86ad892fb1bc3c8c895cf5282ff20cd5a47494e7`.
+- Current evidence-integrity review-fix baseline: `main` at `f133bc575f3f0084dd40b5ab093ddf0b5ba75685`.
+- Overlap review-fix baseline: `86ad892fb1bc3c8c895cf5282ff20cd5a47494e7`.
 - Earlier broad review-fix baseline: `ce6f145bdb52d1d462bab0d400515ca87aa04bbe`.
 - Original Task-0011 implementation parent: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
 - LanguageTool target: `v6.8`, commit `e807fcde6a6506191e1470744d2345da28c26be6`.
@@ -21,6 +22,12 @@ The prior report incorrectly claimed `416 passed / 0 skipped`; GitHub run `32366
 ### Semantic-signature duplicate hole
 
 The semantic signature excludes testcase ID, stored signature, coverage bookkeeping, finding counts, and expected Java output. It includes execution mode, target rule/class, input text, explicit enablement/disablement, rule configuration, and any additional raw-rule oracle queries. Integrity tests assert `len(signatures) == len(set(signatures))` across all three fixtures. Result: 137/137 unique semantic signatures.
+
+### Coverage metadata integrity
+
+A corpus-wide audit found four labels that contradicted trusted Java results: `comma_ellipsis` falsely claimed `multi_finding`; `long_paragraph_above_final` falsely claimed a positive exact-span finding inside the pinned `maxWords + 5` guard band; `uppercase_enumeration` was labeled negative despite one Java match; and `filler_quote_adjacent` was labeled negative despite the pinned `minPercent=0` behavior producing one match. Generator definitions now describe all four honestly; the two misleading IDs were renamed to `long_paragraph_guard_band_final_without_separator` and `filler_zero_quote_adjacent`. The independent true positive `long_paragraph_final_no_separator` remains and has one Java finding.
+
+Both generator and committed-fixture tests now fail closed when positive and negative coexist, a positive has no findings, a negative has findings, or `multi_finding`/`multiple_findings` has fewer than two findings. Regeneration proved that all 137 semantic-signature values are unchanged because only IDs/coverage bookkeeping changed, not oracle inputs/configuration or Java expected results.
 
 ### Inherited and configurable behavior
 
@@ -43,7 +50,7 @@ Fixtures were regenerated only by `python -m tools.generate_java_rules_fixtures_
 
 | Fixture | Cases | Bytes | SHA-256 |
 | --- | ---: | ---: | --- |
-| `oracle_java_rules_0011_synthetic.json` | 114 | 141,458 | `9f809b17d94044cdb62647eb5b015bf9ca6464912fc147dd7b482ebc8647c826` |
+| `oracle_java_rules_0011_synthetic.json` | 114 | 141,499 | `8d6202657139a1538cfd7c6c0efcc1675e3a0a021a5f0e7e24f64f7ad0bb4a42` |
 | `oracle_java_rules_0011_russian.json` | 12 | 11,396 | `b7d216d5a06b32f72b826647d75705adc31e465877f998c4a63663dde7ba6531` |
 | `oracle_java_rules_0011_combined.json` | 11 | 40,398 | `edf539f4e1d4c30f72239c76e2df4a1f20555e427e48ec3ed4e85a1178fc4680` |
 
@@ -66,11 +73,11 @@ Full pre-report regression:
 
 ```text
 python -m pytest -q
-513 passed in 85.71s
+513 passed in 87.08s
 failed=0; errors=0; skipped=0
 ```
 
-The expanded focused oracle/integrity/config/combined/filter set passed 148/148; the narrower final integrity/combined/filter proof passed 19/19. The real-wheel proof was rerun in the full suite and passed. It builds and installs the wheel into an isolated directory, removes repository source paths and `JAVA_HOME`, and blocks sockets/subprocess use in production execution. It executes representative Task-0011 generic whitespace, explicit default-off paragraph whitespace, dash-resource, morphology-sensitive verb, XML grammar, and filter findings.
+The required focused oracle/integrity/config/combined/filter set plus wheel isolation passed 153/153 with zero skips. The real-wheel proof was rerun in the full suite and passed. It builds and installs the wheel into an isolated directory, removes repository source paths and `JAVA_HOME`, and blocks sockets/subprocess use in production execution. It executes representative Task-0011 generic whitespace, explicit default-off paragraph whitespace, dash-resource, morphology-sensitive verb, XML grammar, and filter findings.
 
 CI now verifies `git rev-parse HEAD == GITHUB_SHA` and parses the generated JUnit XML after pytest. Each matrix job prints and enforces `failures=0`, `errors=0`, and `skipped=0`; a green job can no longer hide a skip as run `32366269081` did.
 

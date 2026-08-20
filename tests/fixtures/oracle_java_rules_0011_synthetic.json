@@ -266,8 +266,7 @@
       "config": {},
       "coverage": [
         "positive",
-        "ellipsis",
-        "multi_finding"
+        "ellipsis"
       ],
       "expected": [
         {
@@ -730,7 +729,7 @@
       "explicitly_disabled_rules": [],
       "config": {},
       "coverage": [
-        "negative",
+        "positive",
         "upstream_assertion",
         "enumeration"
       ],
@@ -1583,7 +1582,7 @@
       "semantic_signature": "3476efebbb6a6b817cace16699228666456e89fdf7ff38ef321c4fbe7b19fb96"
     },
     {
-      "id": "long_paragraph_above_final",
+      "id": "long_paragraph_guard_band_final_without_separator",
       "rule_class": "LongParagraphRule",
       "rule_id": "TOO_LONG_PARAGRAPH",
       "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово",
@@ -1593,9 +1592,9 @@
       "explicitly_disabled_rules": [],
       "config": {},
       "coverage": [
-        "positive",
+        "negative",
         "final_without_separator",
-        "exact_span",
+        "paragraph_end_guard_band",
         "default_off"
       ],
       "expected": [],
@@ -2153,7 +2152,7 @@
       "semantic_signature": "9f7102cd0028b74ea830948151bb9e65e843f6b235026d7e8dfe6ced79c88d4c"
     },
     {
-      "id": "filler_quote_adjacent",
+      "id": "filler_zero_quote_adjacent",
       "rule_class": "RussianFillerWordsRule",
       "rule_id": "FILLER_WORDS_RU",
       "text": "«ах слово»",
@@ -2166,9 +2165,10 @@
         "excludeDirectSpeech": true
       },
       "coverage": [
-        "negative",
+        "positive",
         "direct_speech",
-        "quote_adjacent"
+        "quote_adjacent",
+        "zero_percent"
       ],
       "expected": [
         {

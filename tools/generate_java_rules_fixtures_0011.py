@@ -57,7 +57,7 @@ SYNTHETIC_CASES = [
     _case("comma_decimal", "CommaWhitespaceRule", "Число 12,34 корректно.", "negative", "decimal"),
     _case("comma_thousands", "CommaWhitespaceRule", "Значение 1,000 условных единиц.", "negative", "thousands"),
     _case("comma_nbsp", "CommaWhitespaceRule", "Это ошибка,\u00a0в тексте.", "negative", "nbsp"),
-    _case("comma_ellipsis", "CommaWhitespaceRule", "Пауза . . . продолжается.", "positive", "ellipsis", "multi_finding"),
+    _case("comma_ellipsis", "CommaWhitespaceRule", "Пауза . . . продолжается.", "positive", "ellipsis"),
     _case("comma_extensions", "CommaWhitespaceRule", "Файлы .DOC .mp3 .org и .exe допустимы.", "negative", "file_extensions"),
     _case("comma_quote_left", "CommaWhitespaceRule", "A sentence ' with' one example.", "positive", "quote_spacing", "upstream_assertion"),
     _case("comma_quote_right", "CommaWhitespaceRule", "A sentence 'with ' one example.", "positive", "quote_spacing", "upstream_assertion"),
@@ -70,7 +70,7 @@ SYNTHETIC_CASES = [
     ("uppercase_negative", "UppercaseSentenceStartRule", "Закончилось лето. Дети снова сели.", ["negative", "sentence_boundary"]),
     _case("uppercase_text_start", "UppercaseSentenceStartRule", "строчная буква начинает предложение.", "positive", "upstream_assertion", "text_start", "exact_span"),
     _case("uppercase_single_word", "UppercaseSentenceStartRule", "строчная", "negative", "upstream_assertion", "single_word"),
-    _case("uppercase_enumeration", "UppercaseSentenceStartRule", "а) Правильный пункт.", "negative", "upstream_assertion", "enumeration"),
+    _case("uppercase_enumeration", "UppercaseSentenceStartRule", "а) Правильный пункт.", "positive", "upstream_assertion", "enumeration"),
     _case("uppercase_quoted", "UppercaseSentenceStartRule", "«строчная буква в кавычках.", "positive", "upstream_assertion", "quote"),
     ("multiple_ws_positive", "MultipleWhitespaceRule", "Это  тест.", ["positive", "whitespace"]),
     ("multiple_ws_negative", "MultipleWhitespaceRule", "Это тест.", ["negative", "whitespace"]),
@@ -101,7 +101,7 @@ SYNTHETIC_CASES = [
     _case("long_sentence_config_equal", "LongSentenceRule", _words(6), "negative", "config", "equal", config={"maxWords": 6}),
     _case("long_sentence_config_above", "LongSentenceRule", _words(7), "positive", "config", "above", config={"maxWords": 6}),
     _case("long_paragraph_equal", "LongParagraphRule", _words(220), "negative", "threshold_equal", "default_off"),
-    _case("long_paragraph_above_final", "LongParagraphRule", _words(221, ""), "positive", "final_without_separator", "exact_span", "default_off"),
+    _case("long_paragraph_guard_band_final_without_separator", "LongParagraphRule", _words(221, ""), "negative", "final_without_separator", "paragraph_end_guard_band", "default_off"),
     _case("long_paragraph_guard_band", "LongParagraphRule", _words(225), "negative", "paragraph_end_guard_band", "default_off"),
     _case("long_paragraph_above_guard", "LongParagraphRule", _words(226), "positive", "paragraph_end_guard_band", "exact_span", "default_off"),
     _case("long_paragraph_final_no_separator", "LongParagraphRule", _words(226, ""), "positive", "final_without_separator", "exact_span", "default_off"),
@@ -121,7 +121,7 @@ SYNTHETIC_CASES = [
     _case("filler_eight_equal", "RussianFillerWordsRule", "ах " + " ".join("слово" for _ in range(11)) + " слово", "negative", "config", "eight_percent_equal", config={"minPercent": 8, "excludeDirectSpeech": True}),
     _case("filler_custom_above", "RussianFillerWordsRule", "ах слово слово", "positive", "config", "custom_percent", config={"minPercent": 20, "excludeDirectSpeech": True}),
     _case("filler_custom_below", "RussianFillerWordsRule", "ах слово слово", "negative", "config", "custom_percent", config={"minPercent": 40, "excludeDirectSpeech": True}),
-    _case("filler_quote_adjacent", "RussianFillerWordsRule", "«ах слово»", "negative", "direct_speech", "quote_adjacent", config={"minPercent": 0, "excludeDirectSpeech": True}),
+    _case("filler_zero_quote_adjacent", "RussianFillerWordsRule", "«ах слово»", "positive", "direct_speech", "quote_adjacent", "zero_percent", config={"minPercent": 0, "excludeDirectSpeech": True}),
     _case("filler_quote_spaced", "RussianFillerWordsRule", "« ах слово»", "positive", "direct_speech", "quote_spacing", config={"minPercent": 0, "excludeDirectSpeech": True}),
     _case("filler_include_direct", "RussianFillerWordsRule", "«ах слово»", "positive", "direct_speech", "include", config={"minPercent": 0, "excludeDirectSpeech": False}),
     _case("long_sentence_config_ui_below", "LongSentenceRule", _words(5), "positive", "config", "outside_ui_bounds", config={"maxWords": 4}),
@@ -262,6 +262,19 @@ def _signature(case: dict[str, Any]) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def _validate_coverage(case: dict[str, Any]) -> None:
+    coverage = set(case["coverage"])
+    count = case["finding_count"]
+    if "positive" in coverage and "negative" in coverage:
+        raise ValueError(f"{case['id']}: coverage cannot be both positive and negative")
+    if "positive" in coverage and count == 0:
+        raise ValueError(f"{case['id']}: positive coverage requires at least one Java finding")
+    if "negative" in coverage and count != 0:
+        raise ValueError(f"{case['id']}: negative coverage requires zero Java findings, got {count}")
+    if coverage.intersection({"multi_finding", "multiple_findings"}) and count <= 1:
+        raise ValueError(f"{case['id']}: multiple-finding coverage requires more than one Java finding")
+
+
 def generate(cases: list[Any], path: Path, jar: Path, build_id: str) -> None:
     compiled = []
     for raw_case in cases:
@@ -284,6 +297,7 @@ def generate(cases: list[Any], path: Path, jar: Path, build_id: str) -> None:
             "expected": _probe("java", jar, rule_id, text, raw_case.get("config")),
         }
         case["finding_count"] = len(case["expected"])
+        _validate_coverage(case)
         case["semantic_signature"] = _signature(case)
         compiled.append(case)
     data = {
@@ -320,6 +334,7 @@ def generate_combined(path: Path, jar: Path, build_id: str) -> None:
         }
         case["expected"] = _probe("java", jar, "", case["text"], case["config"], mode="combined", enabled=case["explicitly_enabled_rules"])
         case["finding_count"] = len(case["expected"])
+        _validate_coverage(case)
         case["semantic_signature"] = _signature(case)
         compiled.append(case)
     data = {"metadata": {"schema_version": "1.0.0", "task": "0011", "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6", "oracle_build_id": build_id, "oracle_generated": True, "case_count": len(compiled)}, "cases": compiled}

@@ -53,8 +53,8 @@
     },
     {
       "path": "tests/fixtures/oracle_java_rules_0011_synthetic.json",
-      "size_bytes": 141458,
-      "sha256": "9f809b17d94044cdb62647eb5b015bf9ca6464912fc147dd7b482ebc8647c826",
+      "size_bytes": 141499,
+      "sha256": "8d6202657139a1538cfd7c6c0efcc1675e3a0a021a5f0e7e24f64f7ad0bb4a42",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 114
     },
