@@ -4,7 +4,7 @@
 
 - Accepted baseline: `main` at `e1d6288996b7deff355016d8b5a70bbd9b4a3240`.
 - LanguageTool target: `v6.8`, commit `e807fcde6a6506191e1470744d2345da28c26be6`.
-- Implementation commit: pending the Task-0011 commit at report creation; recorded after commit below.
+- Implementation commit: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
 - Production remains Python-native: no Java/JRE, LT server, Java subprocess, localhost oracle, or runtime download.
 - State: 15 of 23 ordinary relevant Java rules implemented; eight remain explicitly Task-0012-deferred; the one language-model rule remains deferred.
 
@@ -170,10 +170,11 @@ The accepted grammar counts remain unchanged: 778 runnable / 114 deferred source
 
 ## Git and CI verification
 
-- Implementation commit: pending.
+- Implementation commit: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
 - Push target: `origin/main` without force or history rewrite.
-- Exact remote SHA: pending.
-- GitHub Actions Python 3.10: pending.
-- GitHub Actions Python 3.12: pending.
+- Exact remote implementation SHA: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5` (verified with `git ls-remote origin refs/heads/main`).
+- Exact-SHA CI run: [CI #32366269081](https://github.com/bojlahg/pylat_ru/actions/runs/32366269081).
+- GitHub Actions Python 3.10: `success`, job `96416331112`, completed `2026-08-20T11:57:52Z`.
+- GitHub Actions Python 3.12: `success`, job `96416331386`, completed `2026-08-20T11:57:34Z`.
 
-`FINAL = LOCAL_COMPLETE_CI_PENDING`
+`FINAL = COMPLETE`
