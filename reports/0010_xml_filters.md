@@ -165,7 +165,8 @@ The full run used CPython 3.10.11 on Windows and included the isolated real-whee
 ## Git and CI completion
 
 - Initial Task-0010 implementation commit: `d14be5f` on `main`.
-- Conformance review-fix commit: recorded after commit creation.
+- Conformance review-fix implementation commit: `85a3451da293d8c58ecb0fd5436cd7af71a0708c`.
 - Push target: `origin/main`, without force or history rewrite.
-- Remote SHA and automatic GitHub CI checks for Python 3.10/3.12: recorded after push/verification.
+- Remote verification after implementation push: `origin/main = 85a3451da293d8c58ecb0fd5436cd7af71a0708c`.
+- Automatic GitHub Actions CI: run `32354828005`, `success`; jobs `Python 3.10` and `Python 3.12` both `success` for the exact implementation SHA.
 - Manual Oracle Conformance workflow: not invoked; live local trusted-oracle generation completed successfully as documented above.
