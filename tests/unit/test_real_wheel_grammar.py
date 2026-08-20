@@ -4,6 +4,8 @@ Automated real-wheel distribution test for LanguageTool Russian grammar engine.
 Builds the wheel package, inspects packaged grammar.xml resource, installs into an isolated directory,
 and executes the complete end-to-end pipeline (raw -> tag -> disambiguate -> chunk -> grammar check)
 in a clean isolated Python subprocess without the repository root in sys.path.
+Asserts exact metadata, offsets (codepoint and UTF-16), pattern spans, message, suggestions,
+and proves production execution operates without Java, network, or server subprocess calls.
 """
 
 from __future__ import annotations
@@ -57,7 +59,21 @@ def test_real_wheel_build_and_grammar_execution() -> None:
         # 4. Run end-to-end pipeline in isolated subprocess without repository root in sys.path
         isolated_script = f"""
 import sys
+import socket
+import subprocess
+import urllib.request
 from pathlib import Path
+
+# Guard against network or external process invocation in production execution
+def _block_network(*args, **kwargs):
+    raise RuntimeError("Forbidden network socket access during production execution")
+
+def _block_subprocess(*args, **kwargs):
+    raise RuntimeError("Forbidden subprocess execution during production execution")
+
+socket.socket = _block_network
+subprocess.Popen = _block_subprocess
+subprocess.run = _block_subprocess
 
 # Remove any repo source paths from sys.path
 sys.path = [p for p in sys.path if "src" not in p]
@@ -91,10 +107,18 @@ assert len(matches) == 1, f"Expected 1 match, got {{len(matches)}}"
 m = matches[0]
 assert m.rule_id == "zadat_test"
 assert m.full_rule_id == "zadat_test[1]"
+assert m.category_id == "LOGIC"
 assert m.from_pos == 13
 assert m.to_pos == 24
+assert m.from_pos_utf16 == 13
+assert m.to_pos_utf16 == 24
+assert m.pattern_from_pos == 13
+assert m.pattern_to_pos == 24
+assert m.pattern_from_pos_utf16 == 13
+assert m.pattern_to_pos_utf16 == 24
 assert m.suggestions == ["предложить тест"]
 assert text[m.from_pos:m.to_pos] == "задать тест"
+assert "<suggestion>предложить тест</suggestion>" in m.message
 
 # 4. Check whole sentence with all runnable rules
 all_matches = engine.check_sentence(sentence)
@@ -109,8 +133,11 @@ adv_matches = engine.check_rule(adv_sentence, "vopreki_NN")
 assert len(adv_matches) == 1, f"Expected 1 match for vopreki_NN, got {{len(adv_matches)}}"
 adv_m = adv_matches[0]
 assert adv_m.rule_id == "vopreki_NN"
+assert adv_m.full_rule_id == "vopreki_NN[1]"
 assert adv_m.from_pos == 0
 assert adv_m.to_pos == 19
+assert adv_m.from_pos_utf16 == 0
+assert adv_m.to_pos_utf16 == 19
 assert adv_m.suggestions == ["Вопреки утверждению", "Вопреки утвержденью"]
 
 # 6. Check unification 0009 rule (Unify_Mult_Adj) with feature unification agreement
@@ -122,9 +149,18 @@ uni_matches = engine.check_rule(uni_sentence, "Unify_Mult_Adj")
 assert len(uni_matches) == 1, f"Expected 1 match for Unify_Mult_Adj, got {{len(uni_matches)}}"
 uni_m = uni_matches[0]
 assert uni_m.rule_id == "Unify_Mult_Adj"
+assert uni_m.full_rule_id == "Unify_Mult_Adj[1]"
+assert uni_m.category_id == "GRAMMAR"
 assert uni_m.from_pos == 0
 assert uni_m.to_pos == 40
-assert uni_text[uni_m.from_pos:uni_m.to_pos] == "Крыловский государственной научный центр"
+assert uni_m.from_pos_utf16 == 0
+assert uni_m.to_pos_utf16 == 40
+assert uni_m.pattern_from_pos == 0
+assert uni_m.pattern_to_pos == 40
+assert uni_m.pattern_from_pos_utf16 == 0
+assert uni_m.pattern_to_pos_utf16 == 40
+assert len(uni_m.message) > 20
+assert uni_m.suggestions == []
 
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """

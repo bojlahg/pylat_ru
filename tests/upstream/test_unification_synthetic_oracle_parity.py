@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Set, Tuple
 import pytest
 
-from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
 from pylat_ru.chunking.russian import RussianChunker
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
@@ -26,13 +25,31 @@ REQUIRED_SYNTHETIC_UNIFICATION_FEATURES = {
     "uni_feature_gender",
     "uni_feature_case",
     "uni_feature_animacy",
-    "uni_multi_features",
-    "uni_three_tokens",
+    "uni_multi_feature",
     "uni_explicit_types",
-    "uni_negated_match",
+    "uni_negation",
     "uni_neutral_elements",
-    "uni_in_marker",
-    "uni_with_skip",
+    "multiple_unify_scopes",
+    "success_then_fail_candidate",
+    "fail_then_success_candidate",
+    "repeated_calls_isolation",
+    "finite_skip_unify",
+    "infinite_skip_unify",
+    "min_zero_unify",
+    "max_quantifiers_unify",
+    "and_group_unify",
+    "or_group_unify",
+    "previous_next_exceptions_unify",
+    "spacebefore_unify",
+    "chunk_unify",
+    "raw_pos_unify",
+    "antipattern_unify",
+    "marker_spans_unify",
+    "match_references_unify",
+    "controlled_multi_reading_filtering",
+    "controlled_rejected_reading_isolation",
+    "controlled_equivalence_intersection",
+    "controlled_missing_equivalence_value",
     "uni_positive_match",
     "uni_no_match",
 }
@@ -46,13 +63,6 @@ def utf16_offset_to_codepoint_offset(text: str, utf16_offset: int) -> int:
             return cp_idx
         u16_count += 2 if ord(char) > 0xFFFF else 1
     return len(text)
-
-
-def text_slice_from_utf16(text: str, from_u16: int, to_u16: int) -> str:
-    """Slice text given UTF-16 code unit offsets."""
-    from_cp = utf16_offset_to_codepoint_offset(text, from_u16)
-    to_cp = utf16_offset_to_codepoint_offset(text, to_u16)
-    return text[from_cp:to_cp]
 
 
 def load_oracle_manifest() -> Dict[str, Any]:
@@ -78,11 +88,14 @@ def synthetic_engine(fixture_data):
 
 def test_unification_synthetic_fixture_integrity(fixture_data):
     """Verify oracle synthetic unification fixture metadata against oracle_manifest.json."""
+    assert fixture_data.get("schema_version") == "1.0.0"
     manifest = load_oracle_manifest()
     meta = fixture_data.get("metadata", {})
 
     assert meta.get("pinned_lt_version") == manifest.get("pinned_version")
     assert meta.get("pinned_lt_commit") == manifest.get("pinned_commit")
+    assert meta.get("corpus_version") == "1.0.0"
+    assert meta.get("generator_operation") == "tools/generate_oracle_unification_fixtures.py"
 
     oracle_build_id = meta.get("oracle_build_id")
     trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
@@ -90,6 +103,13 @@ def test_unification_synthetic_fixture_integrity(fixture_data):
 
     expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
     assert meta.get("oracle_jar_sha256") == expected_sha
+
+    cases = fixture_data.get("cases", [])
+    assert meta.get("cases_count") == len(cases)
+
+    # Assert distinct case IDs
+    case_ids = [c["id"] for c in cases]
+    assert len(set(case_ids)) == len(case_ids), "Duplicate synthetic case IDs found"
 
 
 def test_synthetic_unification_feature_coverage(fixture_data):
@@ -104,19 +124,19 @@ def test_synthetic_unification_feature_coverage(fixture_data):
 
 
 def test_synthetic_unification_cases_count(fixture_data):
-    """Verify minimum required test cases in synthetic unification fixture (>= 100 cases)."""
+    """Verify minimum required test cases in synthetic unification fixture (>= 150 cases)."""
     cases = fixture_data.get("cases", [])
-    assert len(cases) >= 100, f"Expected at least 100 test cases, found {len(cases)}"
+    assert len(cases) >= 150, f"Expected at least 150 test cases, found {len(cases)}"
 
 
 def test_synthetic_unification_oracle_parity_all_cases(fixture_data, synthetic_engine):
-    """Verify exact parity for all synthetic unification rule cases between Java LT oracle and pylat_ru."""
+    """Verify exact full parity (count, order, offsets, pattern spans, message, suggestions) for all synthetic unification cases."""
     disambiguator = RussianHybridDisambiguator.get_instance()
     chunker = RussianChunker()
     engine = synthetic_engine
 
     cases = fixture_data.get("cases", [])
-    mismatches = []
+    mismatches: List[str] = []
 
     for case in cases:
         case_id = case["id"]
@@ -145,22 +165,46 @@ def test_synthetic_unification_oracle_parity_all_cases(fixture_data, synthetic_e
         for i, (act_m, exp_m) in enumerate(zip(act_matches, exp_matches)):
             prefix = f"[{case_id}] ({target_rule_id}) Match {i}"
 
-            # Verify UTF-16 error/marker offsets
+            # 1. Full rule ID
+            if act_m.full_rule_id != target_rule_id:
+                mismatches.append(f"{prefix} Full rule ID mismatch: expected {target_rule_id}, got {act_m.full_rule_id}")
+
+            # 2. UTF-16 error/marker offsets
             if act_m.from_pos_utf16 != exp_m["from_utf16"] or act_m.to_pos_utf16 != exp_m["to_utf16"]:
                 mismatches.append(
                     f"{prefix} marker UTF-16 offset mismatch: expected ({exp_m['from_utf16']}, {exp_m['to_utf16']}), got ({act_m.from_pos_utf16}, {act_m.to_pos_utf16})"
                 )
 
-            # Verify pattern UTF-16 offsets
+            # 3. UTF-16 pattern offsets
             if act_m.pattern_from_pos_utf16 != exp_m["pattern_from_utf16"] or act_m.pattern_to_pos_utf16 != exp_m["pattern_to_utf16"]:
                 mismatches.append(
                     f"{prefix} pattern UTF-16 offset mismatch: expected ({exp_m['pattern_from_utf16']}, {exp_m['pattern_to_utf16']}), got ({act_m.pattern_from_pos_utf16}, {act_m.pattern_to_pos_utf16})"
                 )
 
-            # Verify Unicode codepoint offsets
+            # 4. Unicode codepoint marker offsets
             if act_m.from_pos != exp_m["expected_from_codepoint"] or act_m.to_pos != exp_m["expected_to_codepoint"]:
                 mismatches.append(
                     f"{prefix} marker codepoint offset mismatch: expected ({exp_m['expected_from_codepoint']}, {exp_m['expected_to_codepoint']}), got ({act_m.from_pos}, {act_m.to_pos})"
                 )
+
+            # 5. Unicode codepoint pattern offsets
+            if act_m.pattern_from_pos != exp_m["expected_pattern_from_codepoint"] or act_m.pattern_to_pos != exp_m["expected_pattern_to_codepoint"]:
+                mismatches.append(
+                    f"{prefix} pattern codepoint offset mismatch: expected ({exp_m['expected_pattern_from_codepoint']}, {exp_m['expected_pattern_to_codepoint']}), got ({act_m.pattern_from_pos}, {act_m.pattern_to_pos})"
+                )
+
+            # 6. Exact message
+            if act_m.message != exp_m["message"]:
+                mismatches.append(f"{prefix} Message mismatch: expected {exp_m['message']!r}, got {act_m.message!r}")
+
+            # 7. Exact short message
+            exp_short = exp_m.get("short_message") or None
+            act_short = act_m.short_message or None
+            if exp_short and act_short != exp_short:
+                mismatches.append(f"{prefix} Short message mismatch: expected {exp_short!r}, got {act_short!r}")
+
+            # 8. Exact suggestions including order and duplicates
+            if act_m.suggestions != exp_m["suggestions"]:
+                mismatches.append(f"{prefix} Suggestions mismatch: expected {exp_m['suggestions']!r}, got {act_m.suggestions!r}")
 
     assert not mismatches, f"Synthetic unification oracle parity failures ({len(mismatches)}):\n" + "\n".join(mismatches[:25])

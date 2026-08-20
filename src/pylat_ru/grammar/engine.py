@@ -249,16 +249,7 @@ class RussianGrammarEngine:
             for match_res in match_results:
                 matched_tokens = non_blank_tokens[match_res.match_start_idx : match_res.match_end_idx]
                 error_tokens = non_blank_tokens[match_res.error_start_idx : match_res.error_end_idx]
-
-                # Match-local filtered reading overlay
-                if match_res.filtered_tokens is not None:
-                    formatting_tokens = list(non_blank_tokens)
-                    for f_idx, filt_atr in enumerate(match_res.filtered_tokens):
-                        target_pos = match_res.first_match_token + f_idx
-                        if target_pos < len(formatting_tokens):
-                            formatting_tokens[target_pos] = filt_atr
-                else:
-                    formatting_tokens = non_blank_tokens
+                formatting_tokens = non_blank_tokens
 
                 # Format message
                 message = TemplateFormatter.format_message(

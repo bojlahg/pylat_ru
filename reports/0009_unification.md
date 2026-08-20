@@ -1,107 +1,175 @@
-# Completion Report: Task 0009 — Unification Engine Implementation
+# Task 0009 Completion Report: Russian Unification Engine and XML Rule Promotion
 
-## 1. Task Summary
-
-Task 0009 implemented the full native Python LanguageTool Russian Unification engine, matching the exact semantics of upstream Java LanguageTool `Unifier.java`, `UnifierConfiguration.java`, and `AbstractPatternRulePerformer.java`.
-
-The unification engine allows pattern rules in `grammar.xml` to specify morphological agreement constraints across multiple pattern tokens (such as gender, number, case, or tense agreement) without combinatorial explosion of individual pattern rules.
-
-### Key Milestones Achieved:
-- **XML Parsing & Tagset Equivalence Types**: Parsed `<unification>`, `<equivalence>`, `<feature>`, and `<type>` blocks from `grammar.xml`. Built `EquivalenceTypeLocator` lookup tables and feature maps.
-- **Unifier Core Lifecycle**: Implemented `UnifierConfiguration` and `Unifier` with exact state management: `reset()`, `add_neutral_element()`, `is_satisfied()`, `_check_next()`, `start_next_token()`, `get_final_unification_value()`, and `get_final_unified()`.
-- **Pattern Matcher Integration**: Integrated `<unify>` and `<unify-ignore>` constructs into `CompiledRuleVariant` and `_test_unification`. Handled `negate="yes"`, multi-token quantifier expansions (`min`/`max`), and marker spans.
-- **Rule Promotion**: Promoted 24 Russian grammar rules from `DEFERRED_UNIFICATION` to `UNIFICATION_0009_RUNNABLE`, bringing total runnable Russian grammar rules from 735 to 759 (772 compiled variants).
-- **Differential Oracle Parity**: Generated committed Java LT 6.8 oracle test fixtures (366 total cases) and verified 100% match, offset, and message parity across both synthetic and real Russian rule test suites.
-- **Clean Package Packaging**: Verified isolated wheel distribution execution in clean subprocesses without source tree access.
+**Task ID**: `0009_unification`  
+**Milestone**: Task 0009 — Grammar Rule Unification Engine  
+**Pinned Upstream**: LanguageTool `v6.8` (`e807fcde6a6506191e1470744d2345da28c26be6`)  
+**Baseline Commit**: `5a2f4c032609ee2ce371ca5bb886883a186a3d83` (Task 0008 completion)  
+**Date**: 2026-08-20  
 
 ---
 
-## 2. Important Files Added and Modified
+## 1. Executive Summary
 
-### Source Code
-- [`src/pylat_ru/grammar/unification.py`](file:///d:/Projects/bojlahg/pylat_ru/src/pylat_ru/grammar/unification.py): Full `Unifier`, `UnifierConfiguration`, and `EquivalenceTypeLocator` implementation.
-- [`src/pylat_ru/grammar/model.py`](file:///d:/Projects/bojlahg/pylat_ru/src/pylat_ru/grammar/model.py): Added AST models `PatternUnify`, `PatternUnifyIgnore`, `UnificationFeature`, `UnificationEquivalence`, and execution state `UNIFICATION_0009_RUNNABLE`.
-- [`src/pylat_ru/grammar/loader.py`](file:///d:/Projects/bojlahg/pylat_ru/src/pylat_ru/grammar/loader.py): XML parsing for `<unification>` definitions and `<unify>`/`<unify-ignore>` pattern elements, with fail-closed validation.
-- [`src/pylat_ru/grammar/matcher.py`](file:///d:/Projects/bojlahg/pylat_ru/src/pylat_ru/grammar/matcher.py): Unification variant compilation, marker span preservation, and `_test_unification` multi-reading execution.
-- [`src/pylat_ru/grammar/engine.py`](file:///d:/Projects/bojlahg/pylat_ru/src/pylat_ru/grammar/engine.py): Integrated default unifier configuration for Russian grammar checking.
+Task 0009 delivers a native Python reimplementation of the LanguageTool Russian unification rule engine, porting the semantics of `org.languagetool.rules.patterns.Unifier`, `org.languagetool.rules.patterns.Equivalence`, and `org.languagetool.rules.patterns.Unification`.
 
-### Test Fixtures and Tooling
-- [`tools/generate_oracle_unification_fixtures.py`](file:///d:/Projects/bojlahg/pylat_ru/tools/generate_oracle_unification_fixtures.py): Differential fixture generator producing synthetic and real Russian unification rule test cases using pinned Java LT 6.8 oracle.
-- [`tools/inventory_java_variants.py`](file:///d:/Projects/bojlahg/pylat_ru/tools/inventory_java_variants.py): Regenerated physical variant inventory.
-- [`tests/fixtures/oracle_unification_synthetic.json`](file:///d:/Projects/bojlahg/pylat_ru/tests/fixtures/oracle_unification_synthetic.json): 150 synthetic discriminating test cases covering all unification features, types, negations, and neutral tokens.
-- [`tests/fixtures/oracle_unification_russian_rules.json`](file:///d:/Projects/bojlahg/pylat_ru/tests/fixtures/oracle_unification_russian_rules.json): 216 real Russian test cases spanning all 24 promoted unification rules.
+The engine establishes feature agreement checking across grammatical categories (`number`, `gender`, `case`, `animacy`, `person`, `tense`, `transitivity`, `aspect`), supporting:
+- Root-level `<unification>` equivalence definitions;
+- Rule-local `<unify>` blocks with single or multi-feature agreement constraints;
+- `<type id="...">` sub-typing selections;
+- Negated unification (`negate="yes"`) detecting feature disagreements;
+- Neutral elements and `<unify-ignore>` elements;
+- Ordinary `PatternRule` non-unified formatting semantics (`getUnified=false`).
 
-### Test Suites
-- [`tests/unit/test_unification.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/unit/test_unification.py): Unit tests for `Unifier`, `EquivalenceTypeLocator`, XML loading, and fail-closed validation.
-- [`tests/upstream/test_unifier_oracle_parity.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/upstream/test_unifier_oracle_parity.py): Port of upstream Java `UnifierTest.java` (7 test functions).
-- [`tests/upstream/test_unification_synthetic_oracle_parity.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/upstream/test_unification_synthetic_oracle_parity.py): Differential oracle test suite for synthetic unification patterns (150/150 passing).
-- [`tests/upstream/test_unification_russian_rule_oracle_parity.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/upstream/test_unification_russian_rule_oracle_parity.py): Differential oracle test suite for real Russian rules (216/216 passing).
-- [`tests/upstream/test_russian_grammar_examples.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/upstream/test_russian_grammar_examples.py): Extended with unification trigger tests.
-- [`tests/upstream/test_rule_variant_inventory_parity.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/upstream/test_rule_variant_inventory_parity.py): Updated with new runnable rule totals (759 rules, 772 variants).
-- [`tests/unit/test_real_wheel_grammar.py`](file:///d:/Projects/bojlahg/pylat_ru/tests/unit/test_real_wheel_grammar.py): Added step testing `Unify_Mult_Adj` execution in isolated wheel distribution.
-
-### Inventory & Compatibility
-- [`compat/compatibility.json`](file:///d:/Projects/bojlahg/pylat_ru/compat/compatibility.json): Updated compatibility milestone to `0009_unification` and `UNIFICATION_ENGINE_ESTABLISHED`.
-- [`compat/rule_variant_inventory.json`](file:///d:/Projects/bojlahg/pylat_ru/compat/rule_variant_inventory.json): Updated with 759 runnable source rules and 772 runnable variants.
+All 24 Russian XML grammar rules using pure unification without external Java filters were successfully promoted to `UNIFICATION_0009_RUNNABLE`. Total runnable rules increased from 735 to 759 (772 physical variants). Parity against pinned Java LanguageTool 6.8 is 100% across all 216 real Russian rule examples and 166 discriminating synthetic test cases across all match dimensions.
 
 ---
 
-## 3. Tests and Verification Results
+## 2. Upstream Architecture and Semantic Alignment
 
-### Test Suite Execution Summary
-- Total tests executed across entire repository: **325 passed in 55.40s** (0 failed, 0 errors, 100% pass rate).
-- **Oracle Parity Breakdown:**
-  - Synthetic Unification Oracle Cases: 150/150 passed (100% parity).
-  - Real Russian Unification Rule Oracle Cases: 216/216 passed (100% parity).
-  - Upstream `UnifierTest.java` direct parity: 7/7 test methods passed (100% parity).
-  - Grammar XML Examples Parity: 1,954 runnable examples verified.
-  - Real Wheel Isolated Packaging: Passed.
+### 2.1 Ordinary PatternRule Formatting Semantics (`getUnified = false`)
 
----
+In Java LanguageTool:
+- `org.languagetool.rules.patterns.PatternRule` is constructed with `getUnified = false`.
+- In `AbstractPatternRulePerformer.java`, `unifiedTokens` are recorded only when `rule.isGetUnified()` is `true` (used by disambiguation rules, not grammar pattern rules).
+- `PatternRuleMatcher` formats messages and suggestions using original sentence token readings.
+- `pylat_ru` strictly mirrors this upstream invariant: feature unification acts as a candidate acceptance filter without mutating or overlaying formatting token readings.
 
-## 4. Promoted Unification Rules (24 Total)
+### 2.2 Unifier Agreement Lifecycle
 
-The following 24 Russian grammar rules were promoted to `UNIFICATION_0009_RUNNABLE`:
+In `org.languagetool.rules.patterns.Unifier`:
+1. `reset()` initializes active feature maps.
+2. `isUnified(AnalyzedToken, Map<String, List<String>>, isLastReading, isLastToken)` evaluates token readings against configured equivalences.
+3. If an explicit `<type>` is requested, only matching equivalences participate.
+4. If multiple readings exist, only readings matching base `PatternToken` predicates enter unification; non-matching readings cannot rescue agreement.
+5. Equivalence intersections are computed across all participating tokens.
+6. Neutral elements added via `addNeutralElement()` do not participate in equivalence intersections and pass through transparently.
 
-| Rule ID | Full Rule ID | Name / Description |
-| :--- | :--- | :--- |
-| `Punct_PT_oborot` | `Punct_PT_oborot[2]` | Пунктуация при причастном обороте |
-| `Multiple_missing_commas_VB` | `Multiple_missing_commas_VB[1]` | Пропущенная запятая перед глаголом |
-| `Verb_PT_short_Unification` | `Verb_PT_short_Unification[1]` | Согласование краткого причастия и глагола |
-| `DPT_Unification` | `DPT_Unification[1]` | Согласование деепричастия |
-| `Verb_comma_Verb` | `Verb_comma_Verb[1]` | Согласование однородных глаголов |
-| `Verb_comma_Verb` | `Verb_comma_Verb[2]` | Согласование однородных глаголов через запятую |
-| `Prep_i` | `Prep_i[1]` | Предлог и союз 'и' |
-| `i_and_i_and_i` | `i_and_i_and_i[1]` | Повторяющийся союз 'и' |
-| `i_and_i_and_i` | `i_and_i_and_i[2]` | Повторяющийся союз 'и' с согласованием |
-| `PUNKT_KOTORIJ1` | `PUNKT_KOTORIJ1[1]` | Пунктуация перед словом 'который' |
-| `PUNKT_KOTORIJ` | `PUNKT_KOTORIJ[1]` | Пунктуация с 'который' |
-| `Unify_Adj_NN_number` | `Unify_Adj_NN_number[1]` | Согласование прилагательного и существительного по числу |
-| `Unify_Adj_NN_gender` | `Unify_Adj_NN_gender[2]` | Согласование прилагательного и существительного по роду |
-| `Soglasovanie_NN_PT` | `Soglasovanie_NN_PT[1]` | Согласование существительного и причастия |
-| `Soglasovanie_NN_PT` | `Soglasovanie_NN_PT[2]` | Согласование существительного и причастия (2) |
-| `Soglasovanie_NN_PT` | `Soglasovanie_NN_PT[3]` | Согласование существительного и причастия (3) |
-| `Soglasovanie_NN_PT_2` | `Soglasovanie_NN_PT_2[1]` | Согласование существительного и причастия в обороте |
-| `Soglasovanie_NN_PT_2` | `Soglasovanie_NN_PT_2[2]` | Согласование существительного и причастия в обороте (2) |
-| `Soglasovanie_NN_PT_2` | `Soglasovanie_NN_PT_2[3]` | Согласование существительного и причастия в обороте (3) |
-| `SoglasovanieNN_Verb` | `SoglasovanieNN_Verb[3]` | Согласование существительного и глагола |
-| `Unify_Mult_Adj` | `Unify_Mult_Adj[1]` | Согласование нескольких прилагательных по роду |
-| `Unify_Mult_Adj` | `Unify_Mult_Adj[2]` | Согласование нескольких прилагательных по числу |
-| `Unify_Mult_Adj` | `Unify_Mult_Adj[3]` | Согласование нескольких прилагательных по падежу |
-| `O_KOTORIJ` | `O_KOTORIJ[1]` | Пунктуация 'о котором/о которой' |
+### 2.3 Element Length and Reference Propagation
+
+In Java LanguageTool pattern matching, `<unify>` is an agreement scope container, not a single composite pattern element. Each token inside `<unify>` retains its individual element indexing in pattern spans and message match references (`\1`, `\2`, ...). `pylat_ru` Cartesian expansion correctly propagates element length lists (`u_lens` and `i_lens`) across unify scopes.
 
 ---
 
-## 5. Known Limitations & Deferred Items
+## 3. Russian Grammar XML Context Split & Unification Inventory
 
-The remaining 133 deferred grammar rules belong to upcoming milestones:
-- **Task 0010 (XML Filters & Extended Suggestion Logic)**: Rules requiring Java filter classes (e.g. `RussianPartialPosTagFilter`, `AdvancedSynthesizerFilter`, `DateCheckFilter`, `INNNumberFilter`).
-- **Task 0011 (Java-Based Rule Classes)**: Rules implemented purely in Java code (e.g. `RussianCompoundRule`, `MorfologikRussianSpellerRule`).
+A comprehensive deterministic analysis of `third_party/languagetool/.../rules/ru/grammar.xml` (SHA-256: `629d8a5ca7f457ff58276f571b7b752402120dc95ea52109bc2ae125916327b7`) yields:
+
+### 3.1 Context Split Summary
+
+| Scope Level | Element Type | Count | Notes |
+|:---|:---|:---:|:---|
+| **Root-level** | `<unification>` | 8 | `number` (2 eq), `gender` (4 eq), `case` (6 eq), `animacy` (2 eq), `person` (3 eq), `tense` (3 eq), `transitivity` (2 eq), `aspect` (4 eq) = 26 `<equivalence>` definitions |
+| **Category-level** | `<unification>` | 0 | Explicitly 0 in Russian `grammar.xml` |
+| **Rulegroup-level** | `<unification>` | 0 | Explicitly 0 in Russian `grammar.xml` |
+| **Rule-local** | `<unification>` | 0 | Explicitly 0 in Russian `grammar.xml` |
+| **Rule-local** | `<unify>` scopes | 28 | 24 in runnable rules, 4 in filter-blocked rules |
+| **Rule-local** | `<unify-ignore>` scopes | 12 | 10 in runnable rules, 2 in filter-blocked rules |
+
+### 3.2 Exact Task 0008 -> Task 0009 Transition Matrix (All 892 Rules)
+
+Every source rule from `compat/russian_grammar_advanced_inventory.json` was joined by exact ordered identity to `GrammarLoader` parsed rules:
+
+| Task 0008 State | Task 0009 State | Count | Description |
+|:---|:---|:---:|:---|
+| `CORE_0007_RUNNABLE` | `CORE_0007_RUNNABLE` | 506 | Core rules unchanged |
+| `ADVANCED_0008_RUNNABLE` | `ADVANCED_0008_RUNNABLE` | 229 | Advanced rules unchanged |
+| `DEFERRED_0009_UNIFICATION` | `UNIFICATION_0009_RUNNABLE` | 24 | Promoted to runnable in Task 0009 |
+| `MULTI_BLOCKER` | `DEFERRED_0010_FILTER` | 4 | Filter-only blockers remain (`AdvancedSynthesizerFilter`) |
+| `DEFERRED_0010_FILTER` | `DEFERRED_0010_FILTER` | 16 | Filter-only rules unchanged |
+| `DEFERRED_0012_SPELLING_OR_SUPPRESSION` | `DEFERRED_0012_SPELLING_OR_SUPPRESSION` | 110 | Spelling/suppression rules unchanged |
+| `MULTI_BLOCKER` | `MULTI_BLOCKER` | 3 | Filter + spelling multi-blocker rules unchanged |
+| **Total** | | **892** | **Zero UNKNOWN states** |
+
+Total runnable rules in Task 0009: **759** source rules (772 compiled variants).
 
 ---
 
-## 6. License and Upstream Provenance
+## 4. Native Python Architecture and Implementation
 
-- Pinned Upstream: LanguageTool `v6.8` (`e807fcde6a6506191e1470744d2345da28c26be6`).
-- Test oracle: Official Java LT 6.8 build artifact with verified SHA-256 hash (`b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`).
-- Production runtime: 100% native Python without Java, external NLP runtimes, or network dependencies.
+### Key Implementation Files
+
+1. `src/pylat_ru/grammar/unification.py`:
+   - `EquivalenceTypeLocator`: Deterministic token-to-equivalence resolver matching base POS tags and regex predicates.
+   - `UnifierConfiguration`: XML root unification configuration container.
+   - `RussianUnifier`: Complete agreement state tracker implementing upstream `isUnified` lifecycle, neutral elements, type filtering, and multi-feature intersections.
+
+2. `src/pylat_ru/grammar/matcher.py`:
+   - `_test_unification()`: Evaluates agreement across token reading candidates, resets state cleanly on completion.
+   - `_expand_single_element()`: Propagates logical element length sequences across `<unify>` and `<unify-ignore>` blocks for exact match reference resolution.
+
+3. `src/pylat_ru/grammar/engine.py`:
+   - Enforces `getUnified=false` semantics for `GrammarRule` evaluation.
+
+4. `tools/russian_grammar_unification_inventory.py`:
+   - Deterministic generator producing `compat/russian_grammar_unification_inventory.json` with exact transition mapping and context split metrics.
+
+5. `tools/generate_oracle_unification_fixtures.py`:
+   - Generates differential oracle fixtures with full match metadata (rule ID, count, order, UTF-16 and codepoint offsets, pattern spans, messages, suggestions).
+
+---
+
+## 5. Upstream and Differential Testing Evidence
+
+### 5.1 Test Suite Summary (100% Pass Rate, 0 Skips)
+
+```
+tests/unit/test_grammar_unification_inventory.py: 3 passed
+tests/upstream/test_unifier_conformance.py: 18 passed
+tests/upstream/test_unification_synthetic_oracle_parity.py: 4 passed (166 cases)
+tests/upstream/test_unification_russian_rule_oracle_parity.py: 3 passed (216 cases)
+tests/upstream/test_russian_grammar_examples.py: 6 passed (1,954 examples)
+tests/unit/test_real_wheel_grammar.py: 1 passed
+```
+
+### 5.2 Parity Metrics
+
+| Test Suite / Scope | Cases / Rules | Finding Parity | Offset Parity (CP & UTF-16) | Message Parity | Suggestion Parity (Exact Order) |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| **Synthetic Unification Suite** | 166 cases | 100% (166/166) | 100% (166/166) | 100% (166/166) | 100% (166/166) |
+| **Real Russian Unification Rules** | 216 examples | 100% (216/216) | 100% (216/216) | 100% (216/216) | 100% (216/216) |
+| **Total Runnable Grammar Examples** | 1,954 examples | 100% (1954/1954) | 100% (1954/1954) | 100% (1954/1954) | 100% (1954/1954) |
+
+### 5.3 Synthetic Feature Coverage (100% across 31 Dimensions)
+
+All 31 required synthetic feature families are covered by multiple discriminating cases:
+- Single feature agreement: `number`, `gender`, `case`, `animacy`
+- Multi-feature nominal agreement & 3-token unification
+- Explicit `<type>` restrictions (feminine only, nom/acc only)
+- Negated unification (`negate="yes"`)
+- Neutral elements & punctuation ignore (`<unify-ignore>`)
+- Sequence of multiple separate `<unify>` scopes
+- Candidate transition sequences (success -> fail, fail -> success)
+- Repeated calls and state isolation
+- Finite skip (`skip="1"`), infinite skip (`skip="-1"`), `min="0"`, `max="3"` quantifiers
+- Combined `<and>` groups, `<or>` groups, exception scopes, `spacebefore`, `chunk`, `raw_pos`, `<antipattern>`, marker spans, and match references (`\1`, `\2`, ...)
+- Controlled multi-reading filtering, rejected reading isolation, and equivalence intersection verification
+
+---
+
+## 6. Production Boundary and Real Wheel Verification
+
+`tests/unit/test_real_wheel_grammar.py` builds `pylat_ru-0.1.0-py3-none-any.whl`, installs it to an isolated directory, and executes an end-to-end pipeline in a clean subprocess with:
+- `socket.socket` monkeypatched to raise `RuntimeError` on attempt;
+- `subprocess.Popen` / `subprocess.run` monkeypatched to raise `RuntimeError` on attempt;
+- No repository source path in `sys.path`.
+
+The verification confirms that core rules (`zadat_test`), advanced synthesis rules (`vopreki_NN`), and unification rules (`Unify_Mult_Adj`) execute natively in Python without Java, local daemons, or network access.
+
+---
+
+## 7. License and Provenance Status
+
+All vendored Russian grammar resources originate from LanguageTool `v6.8` under LGPL 2.1 / Apache 2.0 dual licensing. Provenance details, file sizes, and SHA-256 digests are recorded in `third_party/languagetool/license_inventory.json` and `compat/oracle_manifest.json`.
+
+---
+
+## 8. Compatibility Inventory and Next Milestones
+
+Task 0009 status is recorded in `compat/compatibility.json` and `compat/russian_grammar_unification_inventory.json`.
+
+### Disposition of Remaining 133 Deferred Rules:
+- **Task 0010 (XML Java Filters)**: 20 rules (including 4 unification rules requiring `AdvancedSynthesizerFilter`).
+- **Task 0012 (Spelling / Suppression / Java Rules)**: 110 rules.
+- **Multi-Blocker (Filters + Spelling)**: 3 rules (`RussianPartialPosTagFilter` + spelling suppression).
+
+Task 0009 is complete. Execution stops here. Task 0010 will not be started automatically.

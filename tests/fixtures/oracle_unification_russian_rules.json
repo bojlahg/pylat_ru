@@ -8,112 +8,418 @@
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_unification_fixtures.py",
     "corpus_version": "1.0.0",
-    "cases_count": 216
+    "cases_count": 216,
+    "promoted_rules_count": 24,
+    "promoted_full_rule_ids": [
+      "Punct_PT_oborot[2]",
+      "Multiple_missing_commas_VB[1]",
+      "Verb_PT_short_Unification[1]",
+      "DPT_Unification[1]",
+      "Verb_comma_Verb[1]",
+      "Verb_comma_Verb[2]",
+      "Prep_i[1]",
+      "i_and_i_and_i[1]",
+      "i_and_i_and_i[2]",
+      "PUNKT_KOTORIJ1[1]",
+      "PUNKT_KOTORIJ[1]",
+      "Unify_Adj_NN_number[1]",
+      "Unify_Adj_NN_gender[2]",
+      "Soglasovanie_NN_PT[1]",
+      "Soglasovanie_NN_PT[2]",
+      "Soglasovanie_NN_PT[3]",
+      "Soglasovanie_NN_PT_2[1]",
+      "Soglasovanie_NN_PT_2[2]",
+      "Soglasovanie_NN_PT_2[3]",
+      "SoglasovanieNN_Verb[3]",
+      "Unify_Mult_Adj[1]",
+      "Unify_Mult_Adj[2]",
+      "Unify_Mult_Adj[3]",
+      "O_KOTORIJ[1]"
+    ]
   },
   "feature_coverage": {
     "feature:gender": {
-      "source_count": 11,
+      "feature_name": "gender",
+      "covered_rule_ids": [
+        "Punct_PT_oborot[2]",
+        "Verb_PT_short_Unification[1]",
+        "Verb_comma_Verb[1]",
+        "PUNKT_KOTORIJ1[1]",
+        "PUNKT_KOTORIJ[1]",
+        "Unify_Adj_NN_gender[2]",
+        "Soglasovanie_NN_PT[1]",
+        "Soglasovanie_NN_PT_2[1]",
+        "Unify_Mult_Adj[1]",
+        "O_KOTORIJ[1]"
+      ],
       "covered_case_ids": [
         "uni_ru_001_Punct_PT_oborot_0",
         "uni_ru_002_Punct_PT_oborot_1",
         "uni_ru_003_Punct_PT_oborot_2",
         "uni_ru_004_Punct_PT_oborot_3",
-        "uni_ru_005_Multiple_missing_commas_VB_0",
-        "uni_ru_006_Multiple_missing_commas_VB_1",
-        "uni_ru_007_Multiple_missing_commas_VB_2",
-        "uni_ru_008_Multiple_missing_commas_VB_3",
-        "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_014_Verb_PT_short_Unification_0",
+        "uni_ru_015_Verb_PT_short_Unification_1",
+        "uni_ru_016_Verb_PT_short_Unification_2",
+        "uni_ru_017_Verb_PT_short_Unification_3",
+        "uni_ru_022_Verb_comma_Verb_0",
+        "uni_ru_023_Verb_comma_Verb_1",
+        "uni_ru_024_Verb_comma_Verb_2",
+        "uni_ru_025_Verb_comma_Verb_3",
+        "uni_ru_026_Verb_comma_Verb_4",
+        "uni_ru_027_Verb_comma_Verb_5",
+        "uni_ru_028_Verb_comma_Verb_6",
+        "uni_ru_029_Verb_comma_Verb_7",
+        "uni_ru_030_Verb_comma_Verb_8",
+        "uni_ru_031_Verb_comma_Verb_9",
+        "uni_ru_058_PUNKT_KOTORIJ1_0",
+        "uni_ru_059_PUNKT_KOTORIJ1_1",
+        "uni_ru_060_PUNKT_KOTORIJ1_2",
+        "uni_ru_061_PUNKT_KOTORIJ1_3",
+        "uni_ru_062_PUNKT_KOTORIJ1_4",
+        "uni_ru_063_PUNKT_KOTORIJ1_5",
+        "uni_ru_064_PUNKT_KOTORIJ1_6",
+        "uni_ru_065_PUNKT_KOTORIJ_0",
+        "uni_ru_066_PUNKT_KOTORIJ_1",
+        "uni_ru_067_PUNKT_KOTORIJ_2",
+        "uni_ru_068_PUNKT_KOTORIJ_3",
+        "uni_ru_069_PUNKT_KOTORIJ_4",
+        "uni_ru_070_PUNKT_KOTORIJ_5",
+        "uni_ru_071_PUNKT_KOTORIJ_6",
+        "uni_ru_072_PUNKT_KOTORIJ_7",
+        "uni_ru_073_PUNKT_KOTORIJ_8",
+        "uni_ru_074_PUNKT_KOTORIJ_9",
+        "uni_ru_115_Unify_Adj_NN_gender_0",
+        "uni_ru_116_Unify_Adj_NN_gender_1",
+        "uni_ru_117_Unify_Adj_NN_gender_2",
+        "uni_ru_118_Unify_Adj_NN_gender_3",
+        "uni_ru_119_Unify_Adj_NN_gender_4",
+        "uni_ru_120_Unify_Adj_NN_gender_5",
+        "uni_ru_121_Unify_Adj_NN_gender_6",
+        "uni_ru_122_Unify_Adj_NN_gender_7",
+        "uni_ru_123_Unify_Adj_NN_gender_8",
+        "uni_ru_124_Unify_Adj_NN_gender_9",
+        "uni_ru_125_Unify_Adj_NN_gender_10",
+        "uni_ru_126_Unify_Adj_NN_gender_11",
+        "uni_ru_127_Unify_Adj_NN_gender_12",
+        "uni_ru_128_Unify_Adj_NN_gender_13",
+        "uni_ru_129_Unify_Adj_NN_gender_14",
+        "uni_ru_130_Unify_Adj_NN_gender_15",
+        "uni_ru_131_Unify_Adj_NN_gender_16",
+        "uni_ru_132_Unify_Adj_NN_gender_17",
+        "uni_ru_133_Unify_Adj_NN_gender_18",
+        "uni_ru_134_Unify_Adj_NN_gender_19",
+        "uni_ru_135_Unify_Adj_NN_gender_20",
+        "uni_ru_136_Unify_Adj_NN_gender_21",
+        "uni_ru_137_Unify_Adj_NN_gender_22",
+        "uni_ru_138_Unify_Adj_NN_gender_23",
+        "uni_ru_139_Unify_Adj_NN_gender_24",
+        "uni_ru_140_Unify_Adj_NN_gender_25",
+        "uni_ru_141_Unify_Adj_NN_gender_26",
+        "uni_ru_142_Unify_Adj_NN_gender_27",
+        "uni_ru_143_Unify_Adj_NN_gender_28",
+        "uni_ru_144_Unify_Adj_NN_gender_29",
+        "uni_ru_145_Unify_Adj_NN_gender_30",
+        "uni_ru_146_Unify_Adj_NN_gender_31",
+        "uni_ru_147_Unify_Adj_NN_gender_32",
+        "uni_ru_148_Unify_Adj_NN_gender_33",
+        "uni_ru_149_Unify_Adj_NN_gender_34",
+        "uni_ru_150_Unify_Adj_NN_gender_35",
+        "uni_ru_151_Unify_Adj_NN_gender_36",
+        "uni_ru_152_Unify_Adj_NN_gender_37",
+        "uni_ru_153_Unify_Adj_NN_gender_38",
+        "uni_ru_154_Unify_Adj_NN_gender_39",
+        "uni_ru_155_Unify_Adj_NN_gender_40",
+        "uni_ru_156_Unify_Adj_NN_gender_41",
+        "uni_ru_157_Unify_Adj_NN_gender_42",
+        "uni_ru_158_Unify_Adj_NN_gender_43",
+        "uni_ru_159_Unify_Adj_NN_gender_44",
+        "uni_ru_160_Unify_Adj_NN_gender_45",
+        "uni_ru_161_Unify_Adj_NN_gender_46",
+        "uni_ru_162_Unify_Adj_NN_gender_47",
+        "uni_ru_163_Unify_Adj_NN_gender_48",
+        "uni_ru_164_Unify_Adj_NN_gender_49",
+        "uni_ru_165_Unify_Adj_NN_gender_50",
+        "uni_ru_166_Soglasovanie_NN_PT_0",
+        "uni_ru_167_Soglasovanie_NN_PT_1",
+        "uni_ru_168_Soglasovanie_NN_PT_2",
+        "uni_ru_173_Soglasovanie_NN_PT_2_0",
+        "uni_ru_174_Soglasovanie_NN_PT_2_1",
+        "uni_ru_175_Soglasovanie_NN_PT_2_2",
+        "uni_ru_176_Soglasovanie_NN_PT_2_3",
+        "uni_ru_205_Unify_Mult_Adj_0",
+        "uni_ru_206_Unify_Mult_Adj_1",
+        "uni_ru_211_O_KOTORIJ_0",
+        "uni_ru_212_O_KOTORIJ_1",
+        "uni_ru_213_O_KOTORIJ_2",
+        "uni_ru_214_O_KOTORIJ_3",
+        "uni_ru_215_O_KOTORIJ_4",
+        "uni_ru_216_O_KOTORIJ_5"
       ]
     },
     "feature:number": {
-      "source_count": 12,
+      "feature_name": "number",
+      "covered_rule_ids": [
+        "Punct_PT_oborot[2]",
+        "Verb_comma_Verb[2]",
+        "Prep_i[1]",
+        "PUNKT_KOTORIJ1[1]",
+        "PUNKT_KOTORIJ[1]",
+        "Unify_Adj_NN_number[1]",
+        "Soglasovanie_NN_PT[2]",
+        "Soglasovanie_NN_PT_2[2]",
+        "SoglasovanieNN_Verb[3]",
+        "Unify_Mult_Adj[2]",
+        "O_KOTORIJ[1]"
+      ],
       "covered_case_ids": [
         "uni_ru_001_Punct_PT_oborot_0",
         "uni_ru_002_Punct_PT_oborot_1",
         "uni_ru_003_Punct_PT_oborot_2",
         "uni_ru_004_Punct_PT_oborot_3",
-        "uni_ru_005_Multiple_missing_commas_VB_0",
-        "uni_ru_006_Multiple_missing_commas_VB_1",
-        "uni_ru_007_Multiple_missing_commas_VB_2",
-        "uni_ru_008_Multiple_missing_commas_VB_3",
-        "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_032_Verb_comma_Verb_0",
+        "uni_ru_033_Verb_comma_Verb_1",
+        "uni_ru_034_Verb_comma_Verb_2",
+        "uni_ru_035_Verb_comma_Verb_3",
+        "uni_ru_036_Verb_comma_Verb_4",
+        "uni_ru_037_Verb_comma_Verb_5",
+        "uni_ru_038_Verb_comma_Verb_6",
+        "uni_ru_039_Verb_comma_Verb_7",
+        "uni_ru_040_Verb_comma_Verb_8",
+        "uni_ru_041_Verb_comma_Verb_9",
+        "uni_ru_042_Verb_comma_Verb_10",
+        "uni_ru_043_Verb_comma_Verb_11",
+        "uni_ru_044_Verb_comma_Verb_12",
+        "uni_ru_045_Prep_i_0",
+        "uni_ru_046_Prep_i_1",
+        "uni_ru_047_Prep_i_2",
+        "uni_ru_048_Prep_i_3",
+        "uni_ru_049_Prep_i_4",
+        "uni_ru_050_Prep_i_5",
+        "uni_ru_051_Prep_i_6",
+        "uni_ru_052_Prep_i_7",
+        "uni_ru_053_Prep_i_8",
+        "uni_ru_058_PUNKT_KOTORIJ1_0",
+        "uni_ru_059_PUNKT_KOTORIJ1_1",
+        "uni_ru_060_PUNKT_KOTORIJ1_2",
+        "uni_ru_061_PUNKT_KOTORIJ1_3",
+        "uni_ru_062_PUNKT_KOTORIJ1_4",
+        "uni_ru_063_PUNKT_KOTORIJ1_5",
+        "uni_ru_064_PUNKT_KOTORIJ1_6",
+        "uni_ru_065_PUNKT_KOTORIJ_0",
+        "uni_ru_066_PUNKT_KOTORIJ_1",
+        "uni_ru_067_PUNKT_KOTORIJ_2",
+        "uni_ru_068_PUNKT_KOTORIJ_3",
+        "uni_ru_069_PUNKT_KOTORIJ_4",
+        "uni_ru_070_PUNKT_KOTORIJ_5",
+        "uni_ru_071_PUNKT_KOTORIJ_6",
+        "uni_ru_072_PUNKT_KOTORIJ_7",
+        "uni_ru_073_PUNKT_KOTORIJ_8",
+        "uni_ru_074_PUNKT_KOTORIJ_9",
+        "uni_ru_075_Unify_Adj_NN_number_0",
+        "uni_ru_076_Unify_Adj_NN_number_1",
+        "uni_ru_077_Unify_Adj_NN_number_2",
+        "uni_ru_078_Unify_Adj_NN_number_3",
+        "uni_ru_079_Unify_Adj_NN_number_4",
+        "uni_ru_080_Unify_Adj_NN_number_5",
+        "uni_ru_081_Unify_Adj_NN_number_6",
+        "uni_ru_082_Unify_Adj_NN_number_7",
+        "uni_ru_083_Unify_Adj_NN_number_8",
+        "uni_ru_084_Unify_Adj_NN_number_9",
+        "uni_ru_085_Unify_Adj_NN_number_10",
+        "uni_ru_086_Unify_Adj_NN_number_11",
+        "uni_ru_087_Unify_Adj_NN_number_12",
+        "uni_ru_088_Unify_Adj_NN_number_13",
+        "uni_ru_089_Unify_Adj_NN_number_14",
+        "uni_ru_090_Unify_Adj_NN_number_15",
+        "uni_ru_091_Unify_Adj_NN_number_16",
+        "uni_ru_092_Unify_Adj_NN_number_17",
+        "uni_ru_093_Unify_Adj_NN_number_18",
+        "uni_ru_094_Unify_Adj_NN_number_19",
+        "uni_ru_095_Unify_Adj_NN_number_20",
+        "uni_ru_096_Unify_Adj_NN_number_21",
+        "uni_ru_097_Unify_Adj_NN_number_22",
+        "uni_ru_098_Unify_Adj_NN_number_23",
+        "uni_ru_099_Unify_Adj_NN_number_24",
+        "uni_ru_100_Unify_Adj_NN_number_25",
+        "uni_ru_101_Unify_Adj_NN_number_26",
+        "uni_ru_102_Unify_Adj_NN_number_27",
+        "uni_ru_103_Unify_Adj_NN_number_28",
+        "uni_ru_104_Unify_Adj_NN_number_29",
+        "uni_ru_105_Unify_Adj_NN_number_30",
+        "uni_ru_106_Unify_Adj_NN_number_31",
+        "uni_ru_107_Unify_Adj_NN_number_32",
+        "uni_ru_108_Unify_Adj_NN_number_33",
+        "uni_ru_109_Unify_Adj_NN_number_34",
+        "uni_ru_110_Unify_Adj_NN_number_35",
+        "uni_ru_111_Unify_Adj_NN_number_36",
+        "uni_ru_112_Unify_Adj_NN_number_37",
+        "uni_ru_113_Unify_Adj_NN_number_38",
+        "uni_ru_114_Unify_Adj_NN_number_39",
+        "uni_ru_169_Soglasovanie_NN_PT_0",
+        "uni_ru_170_Soglasovanie_NN_PT_1",
+        "uni_ru_177_Soglasovanie_NN_PT_2_0",
+        "uni_ru_178_Soglasovanie_NN_PT_2_1",
+        "uni_ru_181_SoglasovanieNN_Verb_0",
+        "uni_ru_182_SoglasovanieNN_Verb_1",
+        "uni_ru_183_SoglasovanieNN_Verb_2",
+        "uni_ru_184_SoglasovanieNN_Verb_3",
+        "uni_ru_185_SoglasovanieNN_Verb_4",
+        "uni_ru_186_SoglasovanieNN_Verb_5",
+        "uni_ru_187_SoglasovanieNN_Verb_6",
+        "uni_ru_188_SoglasovanieNN_Verb_7",
+        "uni_ru_189_SoglasovanieNN_Verb_8",
+        "uni_ru_190_SoglasovanieNN_Verb_9",
+        "uni_ru_191_SoglasovanieNN_Verb_10",
+        "uni_ru_192_SoglasovanieNN_Verb_11",
+        "uni_ru_193_SoglasovanieNN_Verb_12",
+        "uni_ru_194_SoglasovanieNN_Verb_13",
+        "uni_ru_195_SoglasovanieNN_Verb_14",
+        "uni_ru_196_SoglasovanieNN_Verb_15",
+        "uni_ru_197_SoglasovanieNN_Verb_16",
+        "uni_ru_198_SoglasovanieNN_Verb_17",
+        "uni_ru_199_SoglasovanieNN_Verb_18",
+        "uni_ru_200_SoglasovanieNN_Verb_19",
+        "uni_ru_201_SoglasovanieNN_Verb_20",
+        "uni_ru_202_SoglasovanieNN_Verb_21",
+        "uni_ru_203_SoglasovanieNN_Verb_22",
+        "uni_ru_204_SoglasovanieNN_Verb_23",
+        "uni_ru_207_Unify_Mult_Adj_0",
+        "uni_ru_208_Unify_Mult_Adj_1",
+        "uni_ru_211_O_KOTORIJ_0",
+        "uni_ru_212_O_KOTORIJ_1",
+        "uni_ru_213_O_KOTORIJ_2",
+        "uni_ru_214_O_KOTORIJ_3",
+        "uni_ru_215_O_KOTORIJ_4",
+        "uni_ru_216_O_KOTORIJ_5"
       ]
     },
     "feature:tense": {
-      "source_count": 5,
+      "feature_name": "tense",
+      "covered_rule_ids": [
+        "Multiple_missing_commas_VB[1]",
+        "DPT_Unification[1]",
+        "Verb_comma_Verb[1]",
+        "Verb_comma_Verb[2]",
+        "i_and_i_and_i[2]"
+      ],
       "covered_case_ids": [
-        "uni_ru_001_Punct_PT_oborot_0",
-        "uni_ru_002_Punct_PT_oborot_1",
-        "uni_ru_003_Punct_PT_oborot_2",
-        "uni_ru_004_Punct_PT_oborot_3",
         "uni_ru_005_Multiple_missing_commas_VB_0",
         "uni_ru_006_Multiple_missing_commas_VB_1",
         "uni_ru_007_Multiple_missing_commas_VB_2",
         "uni_ru_008_Multiple_missing_commas_VB_3",
         "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_010_Multiple_missing_commas_VB_5",
+        "uni_ru_011_Multiple_missing_commas_VB_6",
+        "uni_ru_012_Multiple_missing_commas_VB_7",
+        "uni_ru_013_Multiple_missing_commas_VB_8",
+        "uni_ru_018_DPT_Unification_0",
+        "uni_ru_019_DPT_Unification_1",
+        "uni_ru_020_DPT_Unification_2",
+        "uni_ru_021_DPT_Unification_3",
+        "uni_ru_022_Verb_comma_Verb_0",
+        "uni_ru_023_Verb_comma_Verb_1",
+        "uni_ru_024_Verb_comma_Verb_2",
+        "uni_ru_025_Verb_comma_Verb_3",
+        "uni_ru_026_Verb_comma_Verb_4",
+        "uni_ru_027_Verb_comma_Verb_5",
+        "uni_ru_028_Verb_comma_Verb_6",
+        "uni_ru_029_Verb_comma_Verb_7",
+        "uni_ru_030_Verb_comma_Verb_8",
+        "uni_ru_031_Verb_comma_Verb_9",
+        "uni_ru_032_Verb_comma_Verb_0",
+        "uni_ru_033_Verb_comma_Verb_1",
+        "uni_ru_034_Verb_comma_Verb_2",
+        "uni_ru_035_Verb_comma_Verb_3",
+        "uni_ru_036_Verb_comma_Verb_4",
+        "uni_ru_037_Verb_comma_Verb_5",
+        "uni_ru_038_Verb_comma_Verb_6",
+        "uni_ru_039_Verb_comma_Verb_7",
+        "uni_ru_040_Verb_comma_Verb_8",
+        "uni_ru_041_Verb_comma_Verb_9",
+        "uni_ru_042_Verb_comma_Verb_10",
+        "uni_ru_043_Verb_comma_Verb_11",
+        "uni_ru_044_Verb_comma_Verb_12",
+        "uni_ru_056_i_and_i_and_i_0",
+        "uni_ru_057_i_and_i_and_i_1"
       ]
     },
     "feature:aspect": {
-      "source_count": 2,
+      "feature_name": "aspect",
+      "covered_rule_ids": [
+        "Multiple_missing_commas_VB[1]",
+        "DPT_Unification[1]"
+      ],
       "covered_case_ids": [
-        "uni_ru_001_Punct_PT_oborot_0",
-        "uni_ru_002_Punct_PT_oborot_1",
-        "uni_ru_003_Punct_PT_oborot_2",
-        "uni_ru_004_Punct_PT_oborot_3",
         "uni_ru_005_Multiple_missing_commas_VB_0",
         "uni_ru_006_Multiple_missing_commas_VB_1",
         "uni_ru_007_Multiple_missing_commas_VB_2",
         "uni_ru_008_Multiple_missing_commas_VB_3",
         "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_010_Multiple_missing_commas_VB_5",
+        "uni_ru_011_Multiple_missing_commas_VB_6",
+        "uni_ru_012_Multiple_missing_commas_VB_7",
+        "uni_ru_013_Multiple_missing_commas_VB_8",
+        "uni_ru_018_DPT_Unification_0",
+        "uni_ru_019_DPT_Unification_1",
+        "uni_ru_020_DPT_Unification_2",
+        "uni_ru_021_DPT_Unification_3"
       ]
     },
     "feature:transitivity": {
-      "source_count": 1,
+      "feature_name": "transitivity",
+      "covered_rule_ids": [
+        "Multiple_missing_commas_VB[1]"
+      ],
       "covered_case_ids": [
-        "uni_ru_001_Punct_PT_oborot_0",
-        "uni_ru_002_Punct_PT_oborot_1",
-        "uni_ru_003_Punct_PT_oborot_2",
-        "uni_ru_004_Punct_PT_oborot_3",
         "uni_ru_005_Multiple_missing_commas_VB_0",
         "uni_ru_006_Multiple_missing_commas_VB_1",
         "uni_ru_007_Multiple_missing_commas_VB_2",
         "uni_ru_008_Multiple_missing_commas_VB_3",
         "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_010_Multiple_missing_commas_VB_5",
+        "uni_ru_011_Multiple_missing_commas_VB_6",
+        "uni_ru_012_Multiple_missing_commas_VB_7",
+        "uni_ru_013_Multiple_missing_commas_VB_8"
       ]
     },
     "feature:person": {
-      "source_count": 1,
+      "feature_name": "person",
+      "covered_rule_ids": [
+        "Verb_comma_Verb[2]"
+      ],
       "covered_case_ids": [
-        "uni_ru_001_Punct_PT_oborot_0",
-        "uni_ru_002_Punct_PT_oborot_1",
-        "uni_ru_003_Punct_PT_oborot_2",
-        "uni_ru_004_Punct_PT_oborot_3",
-        "uni_ru_005_Multiple_missing_commas_VB_0",
-        "uni_ru_006_Multiple_missing_commas_VB_1",
-        "uni_ru_007_Multiple_missing_commas_VB_2",
-        "uni_ru_008_Multiple_missing_commas_VB_3",
-        "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_032_Verb_comma_Verb_0",
+        "uni_ru_033_Verb_comma_Verb_1",
+        "uni_ru_034_Verb_comma_Verb_2",
+        "uni_ru_035_Verb_comma_Verb_3",
+        "uni_ru_036_Verb_comma_Verb_4",
+        "uni_ru_037_Verb_comma_Verb_5",
+        "uni_ru_038_Verb_comma_Verb_6",
+        "uni_ru_039_Verb_comma_Verb_7",
+        "uni_ru_040_Verb_comma_Verb_8",
+        "uni_ru_041_Verb_comma_Verb_9",
+        "uni_ru_042_Verb_comma_Verb_10",
+        "uni_ru_043_Verb_comma_Verb_11",
+        "uni_ru_044_Verb_comma_Verb_12"
       ]
     },
     "feature:case": {
-      "source_count": 6,
+      "feature_name": "case",
+      "covered_rule_ids": [
+        "i_and_i_and_i[1]",
+        "Soglasovanie_NN_PT[3]",
+        "Soglasovanie_NN_PT_2[3]",
+        "Unify_Mult_Adj[3]"
+      ],
       "covered_case_ids": [
-        "uni_ru_001_Punct_PT_oborot_0",
-        "uni_ru_002_Punct_PT_oborot_1",
-        "uni_ru_003_Punct_PT_oborot_2",
-        "uni_ru_004_Punct_PT_oborot_3",
-        "uni_ru_005_Multiple_missing_commas_VB_0",
-        "uni_ru_006_Multiple_missing_commas_VB_1",
-        "uni_ru_007_Multiple_missing_commas_VB_2",
-        "uni_ru_008_Multiple_missing_commas_VB_3",
-        "uni_ru_009_Multiple_missing_commas_VB_4",
-        "uni_ru_010_Multiple_missing_commas_VB_5"
+        "uni_ru_054_i_and_i_and_i_0",
+        "uni_ru_055_i_and_i_and_i_1",
+        "uni_ru_171_Soglasovanie_NN_PT_0",
+        "uni_ru_172_Soglasovanie_NN_PT_1",
+        "uni_ru_179_Soglasovanie_NN_PT_2_0",
+        "uni_ru_180_Soglasovanie_NN_PT_2_1",
+        "uni_ru_209_Unify_Mult_Adj_0",
+        "uni_ru_210_Unify_Mult_Adj_1"
       ]
     }
   },
@@ -124,6 +430,10 @@
       "full_rule_id": "Punct_PT_oborot[2]",
       "text": "Он увидел собаку хромавшую на задние лапы.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Punct_PT_oborot",
@@ -158,6 +468,10 @@
       "full_rule_id": "Punct_PT_oborot[2]",
       "text": "Он отправил в Москву заверенную телеграмму.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Punct_PT_oborot",
@@ -176,6 +490,10 @@
       "full_rule_id": "Punct_PT_oborot[2]",
       "text": "Он изображается в виде мужчины, держащего за шею выпрямленную змею.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Punct_PT_oborot",
@@ -194,6 +512,10 @@
       "full_rule_id": "Punct_PT_oborot[2]",
       "text": "Он увидел собаку, хромавшую на задние лапы.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Punct_PT_oborot",
@@ -212,6 +534,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Я ни курю ни пью.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -230,6 +557,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Дал другу в долг -- потерял друга.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -248,6 +580,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Он приводит черт знает к чему.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -266,6 +603,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "На подарок разумеется не претендую.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -284,6 +626,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Никогда не переставайте расти и развиваться.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -302,6 +649,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Когда Кинули увидела, что Пери увели, она стала рычать, старалась выскочить из клетки.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -320,6 +672,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Думай не думай - ничего не изменишь.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -338,6 +695,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Свиньи все подохли остался один баран.",
       "is_incorrect": true,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -370,6 +732,11 @@
       "full_rule_id": "Multiple_missing_commas_VB[1]",
       "text": "Свиньи все подохли, остался один баран.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense",
+        "aspect",
+        "transitivity"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Multiple_missing_commas_VB",
@@ -388,6 +755,9 @@
       "full_rule_id": "Verb_PT_short_Unification[1]",
       "text": "Шкатулка была открыта.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_PT_short_Unification",
@@ -406,6 +776,9 @@
       "full_rule_id": "Verb_PT_short_Unification[1]",
       "text": "Шкатулки были открыты.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_PT_short_Unification",
@@ -424,6 +797,9 @@
       "full_rule_id": "Verb_PT_short_Unification[1]",
       "text": "Шкатулки были открыта.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_PT_short_Unification",
@@ -456,6 +832,9 @@
       "full_rule_id": "Verb_PT_short_Unification[1]",
       "text": "Шкатулка была открыт.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_PT_short_Unification",
@@ -488,6 +867,10 @@
       "full_rule_id": "DPT_Unification[1]",
       "text": "Проверяя тетради и выписывая оценки в журнал, учитель контролирует учеников.",
       "is_incorrect": false,
+      "rule_features": [
+        "aspect",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "DPT_Unification",
@@ -506,6 +889,10 @@
       "full_rule_id": "DPT_Unification[1]",
       "text": "Выпив чашку чая, она почувствовала себя лучше.",
       "is_incorrect": false,
+      "rule_features": [
+        "aspect",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "DPT_Unification",
@@ -524,6 +911,10 @@
       "full_rule_id": "DPT_Unification[1]",
       "text": "Проверяя тетради и выписывая оценки в журнал, учитель контролирует учеников.",
       "is_incorrect": false,
+      "rule_features": [
+        "aspect",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "DPT_Unification",
@@ -542,6 +933,10 @@
       "full_rule_id": "DPT_Unification[1]",
       "text": "Проверив тетради и выписывая оценки в журнал, учитель контролирует учеников.",
       "is_incorrect": true,
+      "rule_features": [
+        "aspect",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "DPT_Unification",
@@ -574,6 +969,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он смеялся и радовался жизни.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -592,6 +991,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Задело стало быть за живое.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -610,6 +1013,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он приводит черт знает к чему.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -628,6 +1035,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он шёл по улице, говорил по телефону.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -646,6 +1057,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он идёт по улице, говорит по телефону.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -664,6 +1079,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он смеялся радовался жизни.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -699,6 +1118,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Она смеялась радовалась жизни.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -734,6 +1157,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Они смеялись радовались жизни.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -769,6 +1196,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Солнце взошло освещало местность.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -804,6 +1235,10 @@
       "full_rule_id": "Verb_comma_Verb[1]",
       "text": "Он шёл по улице говорил по телефону.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -839,6 +1274,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Ты можешь выбрать чего хочешь.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -857,6 +1297,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Пока живу — надеюсь.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -875,6 +1320,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Ты можешь сожалеть сколько хочешь.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -893,6 +1343,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Покрась и побели забор.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -911,6 +1366,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Задело стало быть за живое.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -929,6 +1389,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Он приводит черт знает к чему.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -947,6 +1412,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Я, может, скоро сдамся и вместо этого пойду вздремну.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -965,6 +1435,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Я сделаю всё что могу.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -983,6 +1458,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Надеюсь однажды я перестану торчать здесь.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -1001,6 +1481,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Он подробно описывает что происходит в данный момент.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -1019,6 +1504,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Выживаю как могу.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -1037,6 +1527,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Иди помоги мыть посуду.",
       "is_incorrect": false,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -1055,6 +1550,11 @@
       "full_rule_id": "Verb_comma_Verb[2]",
       "text": "Он смеётся радуется жизни.",
       "is_incorrect": true,
+      "rule_features": [
+        "person",
+        "number",
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Verb_comma_Verb",
@@ -1090,6 +1590,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Пролетели года, и настало время.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1108,6 +1611,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "На пристани стоит человек и продаёт билеты.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1126,6 +1632,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Вызовите команду ng add, которая установит зависимости и обновит приложение с помощью скрипта установки.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1144,6 +1653,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Могу ли я уточнить время и место нашей встречи?",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1162,6 +1674,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Они сделали предложение и бросили вызов нам.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1180,6 +1695,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Нам пришлось уменьшить шаг сканирования и увеличить размер в настройках.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1198,6 +1716,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Исполнитель оставляет за собой право досрочно завершить работы по настоящему Договору и сдать результат работ.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1216,6 +1737,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Мой отец и мой брат.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1234,6 +1758,9 @@
       "full_rule_id": "Prep_i[1]",
       "text": "Пролетели года и настало время.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Prep_i",
@@ -1268,6 +1795,9 @@
       "full_rule_id": "i_and_i_and_i[1]",
       "text": "Было грустно и в воздухе, и на небе, и в вагоне.",
       "is_incorrect": false,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "i_and_i_and_i",
@@ -1286,6 +1816,9 @@
       "full_rule_id": "i_and_i_and_i[1]",
       "text": "Было грустно и в воздухе и на небе и в вагоне.",
       "is_incorrect": true,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "i_and_i_and_i",
@@ -1320,6 +1853,9 @@
       "full_rule_id": "i_and_i_and_i[2]",
       "text": "Он и бегал, и прыгал, и скакал в вагоне.",
       "is_incorrect": false,
+      "rule_features": [
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "i_and_i_and_i",
@@ -1338,6 +1874,9 @@
       "full_rule_id": "i_and_i_and_i[2]",
       "text": "Он и бегал и прыгал и скакал  в вагоне.",
       "is_incorrect": true,
+      "rule_features": [
+        "tense"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "i_and_i_and_i",
@@ -1372,6 +1911,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Это тот город, в котором прошло детство.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1390,6 +1933,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Канада сотрудничает с США на разных уровнях и для которых является важнейшим торговым партнером.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1408,6 +1955,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Который час?",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1426,6 +1977,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Поиск турбазы, отдых в которой запомнится надолго.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1444,6 +1999,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Парламент состоит из 577 депутатов, 555 из которых представляют метрополию.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1462,6 +2021,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Трудовой договор — соглашение между работодателем и работником, в соответствии с которым работодатель обязуется предоставить работнику работу по обусловленной трудовой функции.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1480,6 +2043,10 @@
       "full_rule_id": "PUNKT_KOTORIJ1[1]",
       "text": "Это тот город в котором прошло детство.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ1",
@@ -1514,6 +2081,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Это тот город, в котором прошло детство.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1532,6 +2103,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Это те же ребята, которые играли в футбол.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1550,6 +2125,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Ребёнок, родители которого играли в футбол, будет футболистом.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1568,6 +2147,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Они совершили экскурсию в королевскую резиденцию — Букингемский дворец, часть помещений которого открыта для посетителей обычно один месяц в году.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1586,6 +2169,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Который час?",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1604,6 +2191,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "На территории распространения которого расположен город.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1622,6 +2213,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Бухта Золотой Рог, на обоих берегах которой располагается Владивосток, является удобным местом.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1640,6 +2235,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Это те же ребята которые играли в хоккей.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1674,6 +2273,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Это те же ребята которые не играли в хоккей.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1708,6 +2311,10 @@
       "full_rule_id": "PUNKT_KOTORIJ[1]",
       "text": "Chess — это программа которая играла в шахматы.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "PUNKT_KOTORIJ",
@@ -1742,6 +2349,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Крепкие столы.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1760,6 +2370,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Серый зол.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1778,6 +2391,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Всё необходимое накопитель получает от шины USB.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1796,6 +2412,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Эти добрые полчаса.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1814,6 +2433,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Контактный тел.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1832,6 +2454,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Суеверие — это религия слабых духом.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1850,6 +2475,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Счастливые часов не наблюдают.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1868,6 +2496,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Смелого пуля боится.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1886,6 +2517,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "За два своих предыдущих боя заработал больше.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1904,6 +2538,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Как на среднем, так и на высшем уровнях.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1922,6 +2559,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Сегодня откроются 3 дополнительных офиса.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1940,6 +2580,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Проверь, что у них одинаковые род/число/падеж.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1958,6 +2601,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "на месте нынешних Манитобы, Дакоты и Миннесоты.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1976,6 +2622,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "К середине XIX века были открыты 63 химических элемента, и попытки найти закономерности в этом наборе предпринимались неоднократно.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -1994,6 +2643,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Быть умным Николаю мешала лень.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2012,6 +2664,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Делала политически невозможной отмену единожды данных им законом прав.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2030,6 +2685,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Этот экспорт, полностью подконтрольный правительствам стран мира, стремительно рос.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2048,6 +2706,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Нам объявят необходимым запрет на спиртное.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2066,6 +2727,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Нам объявят необходимыми игры на свежем воздухе.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2084,6 +2748,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Для оставшихся неготовыми лодок соорудили бокс.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2102,6 +2769,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Для оставшейся неготовой лодки соорудили бокс.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2120,6 +2790,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Умные уже тут.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2138,6 +2811,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Мы чужие друг другу.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2156,6 +2832,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Белый стул.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2174,6 +2853,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Вы должны помочь мне!",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2192,6 +2874,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Больных гриппом просим не входить.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2210,6 +2895,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Если загорелся зелёный машинам, то можно ехать.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2228,6 +2916,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Преподавать русский инострацам сложно.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2246,6 +2937,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Корзина была полная ягод.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2264,6 +2958,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Воспользуемся средним чисел а и б.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2282,6 +2979,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "После выходных работник смотрелся не важно.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2300,6 +3000,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Железные кровать.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2332,6 +3035,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Вдали виднелись красивые сосны.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2350,6 +3056,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "У молодоженов был замечательный ретро автомобиль — белый запорожец.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2368,6 +3077,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Вдали виднелись красивые ёлка.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2400,6 +3112,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Мебель сделана из красивой сосны.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2418,6 +3133,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Невежливо показывать на других пальцем.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2436,6 +3154,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Незначительный объём перевозок выполняется маршрутными такси.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2454,6 +3175,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Он каждые полчаса бежит в лабораторию.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2472,6 +3196,9 @@
       "full_rule_id": "Unify_Adj_NN_number[1]",
       "text": "Столы сделаны из красивой сосен.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_number",
@@ -2504,6 +3231,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Крепкие столы.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2522,6 +3252,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Серый дарит.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2540,6 +3273,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Всё необходимое накопитель получает от шины USB.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2558,6 +3294,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Контактный тел.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2576,6 +3315,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Эти добрые полчаса.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2594,6 +3336,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Суеверие — это религия слабых духом.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2612,6 +3357,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Счастливые часов не наблюдают.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2630,6 +3378,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Смелого пуля боится.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2648,6 +3399,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Сегодня откроются 3 дополнительных офиса.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2666,6 +3420,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Проверь, что у них одинаковые род/число/падеж.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2684,6 +3441,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "на месте нынешних Манитобы, Дакоты и Миннесоты.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2702,6 +3462,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "К середине XIX века были открыты 63 химических элемента, и попытки найти закономерности в этом наборе предпринимались неоднократно.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2720,6 +3483,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Быть умным Николаю мешала лень.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2738,6 +3504,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Делала политически невозможной отмену единожды данных им законом прав.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2756,6 +3525,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Этот экспорт, полностью подконтрольный правительствам стран мира, стремительно рос.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2774,6 +3546,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Нам объявят необходимым запрет на спиртное.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2792,6 +3567,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Нам объявят необходимыми игры на свежем воздухе.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2810,6 +3588,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Для оставшихся неготовыми лодок соорудили бокс.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2828,6 +3609,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Для оставшейся неготовой лодки соорудили бокс.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2846,6 +3630,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Вестминстер — место пребывания короля, а позднее парламента.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2864,6 +3651,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Крепкий стол.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2882,6 +3672,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Крепкая ограда.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2900,6 +3693,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Умные уже тут.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2918,6 +3714,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Мы чужие друг другу.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2936,6 +3735,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Белый стул.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2954,6 +3756,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Ты должен вести себя спокойнее.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2972,6 +3777,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Больных гриппом просим не входить.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -2990,6 +3798,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Если загорелся зелёный машинам, то можно ехать.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3008,6 +3819,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Если загорелся зелёный кошке, то ехать нельзя.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3026,6 +3840,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Преподавать русский инострацам сложно.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3044,6 +3861,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Корзина была полная ягод.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3062,6 +3882,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Воспользуемся средним чисел а и б.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3080,6 +3903,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "После выходных работник смотрелся не важно.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3098,6 +3924,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Железный кровать.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3130,6 +3959,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Вдали виднелись красивые сосны.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3148,6 +3980,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Вдали виднелись красивый ёлка.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3180,6 +4015,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Мебель сделана из красивой сосны.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3198,6 +4036,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Столы сделаны из красивая деревьев.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3230,6 +4071,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Твердолобая тори.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3262,6 +4106,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Был построен добротный дом.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3280,6 +4127,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Был построен добротная дом.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3312,6 +4162,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Пушистая кошка грелась на солнышке.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3330,6 +4183,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "У молодоженов был замечательный ретро автомобиль — белый запорожец.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3348,6 +4204,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Эта пушистое кошка грелась.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3380,6 +4239,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Вдали виднелось синее небо.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3398,6 +4260,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Тогда это проблема другой стороны.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3416,6 +4281,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Он каждые полчаса бежит в лабораторию.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3434,6 +4302,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Вдали виднелось синий небо.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3466,6 +4337,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Пустой дом был полным пыли.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3484,6 +4358,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Цена на полную заряд составляет 10$.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3516,6 +4393,9 @@
       "full_rule_id": "Unify_Adj_NN_gender[2]",
       "text": "Цена на полный заряд составляет 10$.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Adj_NN_gender",
@@ -3534,6 +4414,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[1]",
       "text": "Он увидел собаку, хромавшего на задние лапы.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3566,6 +4449,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[1]",
       "text": "Он увидел собаку, хромавшую на задние лапы.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3584,6 +4470,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[1]",
       "text": "Когда ты откроешь канистру, находящиеся в ней пары испарятся.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3602,6 +4491,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[2]",
       "text": "Он увидел собаку, хромавших на задние лапы.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3634,6 +4526,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[2]",
       "text": "Он увидел собаку, хромавшую на задние лапы.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3652,6 +4547,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[3]",
       "text": "Он увидел собаку, хромавшая на задние лапы.",
       "is_incorrect": true,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3684,6 +4582,9 @@
       "full_rule_id": "Soglasovanie_NN_PT[3]",
       "text": "Он увидел собаку, хромавшую на задние лапы.",
       "is_incorrect": false,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT",
@@ -3702,6 +4603,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[1]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующее новые разработки в этой области.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3734,6 +4638,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[1]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3752,6 +4659,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[1]",
       "text": "К сожалению, находящаяся здесь книга давно истлела в пыль.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3770,6 +4680,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[1]",
       "text": "Когда ты откроешь канистру, находящиеся в ней пары испарятся.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3788,6 +4701,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[2]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующего новые разработки в этой области.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3820,6 +4736,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[2]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3838,6 +4757,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[3]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующих новые разработки в этой области.",
       "is_incorrect": true,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3870,6 +4792,9 @@
       "full_rule_id": "Soglasovanie_NN_PT_2[3]",
       "text": "Довольно часто авторы таких работ предоставляют доступ к своим программам, реализующим новые разработки в этой области.",
       "is_incorrect": false,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Soglasovanie_NN_PT_2",
@@ -3888,6 +4813,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Коты грелись на солнышке.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3906,6 +4834,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Блюдо готовилось на сковородке.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3924,6 +4855,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Семьдесят пять процентов российского продовольствия доставляется в Москву из регионов ЦФО.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3942,6 +4876,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Сыр и сливочное масло делаются из молока.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3960,6 +4897,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Учащиеся всё время сидели неподвижно.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3978,6 +4918,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "С каждого дерева упало по груше.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -3996,6 +4939,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Эти легенды следует передать нашим потомкам.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4014,6 +4960,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Тренер посоветовала мне это.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4032,6 +4981,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Вода превращается в лёд.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4050,6 +5002,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Воды осталось мало.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4068,6 +5023,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Хлеба стало не хватать.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4086,6 +5044,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Сайт в последние два года считается достоверным источником.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4104,6 +5065,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Для работы программы требуется Java.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4122,6 +5086,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "В российском павильоне после открытия Всемирной универсальной выставки побывало более 6,1 миллиона туристов.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4140,6 +5107,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Эти письма может напечатать любой секретарь.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4158,6 +5128,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "До конца года остаётся 298 дней.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4176,6 +5149,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "За последнее предложение высказались все.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4194,6 +5170,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Какие строки можешь выделить?",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4212,6 +5191,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Матч отменили из-за дождя.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4230,6 +5212,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Империи удалось многое узнать.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4248,6 +5233,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "100 лет называются веком.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4266,6 +5254,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "В 1448 году упоминаются городские волнения против строительства замка.",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4284,6 +5275,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Блюдо готовились на сковородке.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4316,6 +5310,9 @@
       "full_rule_id": "SoglasovanieNN_Verb[3]",
       "text": "Маша гуляют на солнышке.",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SoglasovanieNN_Verb",
@@ -4348,6 +5345,9 @@
       "full_rule_id": "Unify_Mult_Adj[1]",
       "text": "Крыловский государственный научный центр",
       "is_incorrect": false,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4366,6 +5366,9 @@
       "full_rule_id": "Unify_Mult_Adj[1]",
       "text": "Крыловский государственной научный центр",
       "is_incorrect": true,
+      "rule_features": [
+        "gender"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4398,6 +5401,9 @@
       "full_rule_id": "Unify_Mult_Adj[2]",
       "text": "Крыловский государственный научный центр",
       "is_incorrect": false,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4416,6 +5422,9 @@
       "full_rule_id": "Unify_Mult_Adj[2]",
       "text": "Крыловский государственные научный центр",
       "is_incorrect": true,
+      "rule_features": [
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4448,6 +5457,9 @@
       "full_rule_id": "Unify_Mult_Adj[3]",
       "text": "Крыловский государственный научный центр",
       "is_incorrect": false,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4466,6 +5478,9 @@
       "full_rule_id": "Unify_Mult_Adj[3]",
       "text": "Крыловский государственному научный центр",
       "is_incorrect": true,
+      "rule_features": [
+        "case"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "Unify_Mult_Adj",
@@ -4498,6 +5513,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "Математика есть часть науки, которой можно было бы продолжать заниматься, проснувшись утром и поняв, что вселенной больше нет.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",
@@ -4516,6 +5535,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "В 1979 году в Финском заливе начато строительство дамбы, которая и защищала бы город от наводнений.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",
@@ -4534,6 +5557,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "Из неё забирается более 96 % воды, которая проходит обработку на 5 сооружениях.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",
@@ -4552,6 +5579,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "Нет такой собаки, которая была бы больше этой.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",
@@ -4570,6 +5601,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "Виски, которое стоит попробовать.",
       "is_incorrect": false,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",
@@ -4588,6 +5623,10 @@
       "full_rule_id": "O_KOTORIJ[1]",
       "text": "Яркие звёзды, которая сияли.",
       "is_incorrect": true,
+      "rule_features": [
+        "gender",
+        "number"
+      ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "O_KOTORIJ",

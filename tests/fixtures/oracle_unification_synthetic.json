@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Committed LanguageTool 6.8 Java Oracle Unification Pattern Matching Synthetic Fixture",
-  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag_regexp=\"yes\" postag=\"ADV:.*\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_COMPLEX\" name=\"Synthetic Complex Combinations\">\n    <rule id=\"SYN_UNI_WITH_MARKER\" name=\"Unification inside marker\">\n      <pattern>\n        <token>тест</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n      </pattern>\n      <message>Unify in marker: <suggestion>\\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_WITH_SKIP\" name=\"Unification with skip token\">\n      <pattern>\n        <token skip=\"1\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Unify with skip</message>\n    </rule>\n  </category>\n</rules>\n",
+  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag_regexp=\"yes\" postag=\"ADV:.*\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_COMPLEX\" name=\"Synthetic Complex Combinations\">\n    <rule id=\"SYN_UNI_WITH_MARKER\" name=\"Unification inside marker\">\n      <pattern>\n        <token>тест</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n      </pattern>\n      <message>Unify in marker: <suggestion>\\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_WITH_SKIP\" name=\"Unification with skip token\">\n      <pattern>\n        <token skip=\"1\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Unify with skip</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_INFINITE_SKIP\" name=\"Unification with infinite skip\">\n      <pattern>\n        <token skip=\"-1\">начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Infinite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MULTI_SCOPES\" name=\"Multiple unify scopes in sequence\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>и</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Multiple unify scopes</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_AND_GROUP\" name=\"Unification with AND group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <and>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token regexp=\"yes\">.*ый|.*ая|.*ое|.*ие|.*ой</token>\n          </and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>AND group unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_OR_GROUP\" name=\"Unification with OR group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <or>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"PT:.*\"/>\n          </or>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>OR group unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXCEPTIONS\" name=\"Unification with next exception\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"next\">исключение</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_SPACEBEFORE\" name=\"Unification with spacebefore\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token spacebefore=\"yes\" postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Spacebefore unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CHUNK\" name=\"Unification with chunk\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token chunk=\"NP\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Chunk unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_RAW_POS\" name=\"Unification with raw_pos\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token raw_pos=\"yes\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Raw pos unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANTIPATTERN\" name=\"Unification with antipattern\">\n      <antipattern>\n        <token>стоп</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n      </antipattern>\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Antipattern unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MIN_ZERO\" name=\"Unification with min=0\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"0\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Min zero unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX_QUANT\" name=\"Unification with max quantifier\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"3\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max quant unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MATCH_REFS\" name=\"Unification with surrounding match references\">\n      <pattern>\n        <token>префикс</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>суффикс</token>\n      </pattern>\n      <message>Match ref: <suggestion>\\1 \\2 \\3 \\4</suggestion></message>\n    </rule>\n  </category>\n</rules>\n",
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
@@ -9,106 +9,78 @@
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_unification_fixtures.py",
     "corpus_version": "1.0.0",
-    "cases_count": 150
+    "cases_count": 166
   },
   "feature_coverage": {
-    "uni_no_match": [
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_09",
+    "chunk_unify": [
+      "syn_uni_chk_01"
+    ],
+    "repeated_calls_isolation": [
+      "syn_uni_cand_succ_fail",
+      "syn_uni_cand_fail_succ"
+    ],
+    "uni_explicit_types": [
+      "syn_uni_fem_01",
+      "syn_uni_fem_02",
+      "syn_uni_fem_03",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_06",
+      "syn_uni_fem_07",
+      "syn_uni_fem_08",
+      "syn_uni_fem_09",
+      "syn_uni_fem_10",
+      "syn_uni_nomacc_01",
+      "syn_uni_nomacc_02",
+      "syn_uni_nomacc_03",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_07",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_09",
+      "syn_uni_nomacc_10"
+    ],
+    "controlled_rejected_reading_isolation": [
+      "syn_uni_ctrl_rej_iso"
+    ],
+    "uni_feature_gender": [
+      "syn_uni_gen_01",
+      "syn_uni_gen_02",
+      "syn_uni_gen_03",
       "syn_uni_gen_04",
       "syn_uni_gen_05",
       "syn_uni_gen_06",
-      "syn_uni_gen_10",
-      "syn_uni_case_06",
-      "syn_uni_case_10",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_gn_10",
-      "syn_uni_cgn_07",
-      "syn_uni_cgn_08",
-      "syn_uni_3tok_05",
-      "syn_uni_3tok_06",
-      "syn_uni_3tok_10",
-      "syn_uni_fem_03",
-      "syn_uni_fem_04",
-      "syn_uni_fem_06",
-      "syn_uni_fem_08",
-      "syn_uni_fem_10",
-      "syn_uni_nomacc_03",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_10",
+      "syn_uni_gen_07",
+      "syn_uni_gen_08",
+      "syn_uni_gen_09",
+      "syn_uni_gen_10"
+    ],
+    "uni_negation": [
+      "syn_uni_neg_num_01",
+      "syn_uni_neg_num_02",
       "syn_uni_neg_num_03",
       "syn_uni_neg_num_04",
+      "syn_uni_neg_num_05",
+      "syn_uni_neg_num_06",
       "syn_uni_neg_num_07",
+      "syn_uni_neg_num_08",
+      "syn_uni_neg_num_09",
       "syn_uni_neg_num_10",
+      "syn_uni_neg_gn_01",
+      "syn_uni_neg_gn_02",
+      "syn_uni_neg_gn_03",
       "syn_uni_neg_gn_04",
       "syn_uni_neg_gn_05",
       "syn_uni_neg_gn_06",
-      "syn_uni_neg_gn_10",
-      "syn_uni_ign_com_05",
-      "syn_uni_ign_com_06",
-      "syn_uni_ign_com_10",
-      "syn_uni_ign_adv_05",
-      "syn_uni_ign_adv_06",
-      "syn_uni_ign_adv_10",
-      "syn_uni_mkr_03",
-      "syn_uni_mkr_10",
-      "syn_uni_sk_03",
-      "syn_uni_sk_10"
+      "syn_uni_neg_gn_07",
+      "syn_uni_neg_gn_08",
+      "syn_uni_neg_gn_09",
+      "syn_uni_neg_gn_10"
     ],
-    "uni_feature_number": [
-      "syn_uni_num_01",
-      "syn_uni_num_02",
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_05",
-      "syn_uni_num_06",
-      "syn_uni_num_07",
-      "syn_uni_num_08",
-      "syn_uni_num_09",
-      "syn_uni_num_10",
-      "syn_uni_gn_01",
-      "syn_uni_gn_02",
-      "syn_uni_gn_03",
-      "syn_uni_gn_04",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_gn_08",
-      "syn_uni_gn_09",
-      "syn_uni_gn_10",
-      "syn_uni_cgn_01",
-      "syn_uni_cgn_02",
-      "syn_uni_cgn_03",
-      "syn_uni_cgn_04",
-      "syn_uni_cgn_05",
-      "syn_uni_cgn_06",
-      "syn_uni_cgn_07",
-      "syn_uni_cgn_08",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10",
-      "syn_uni_neg_num_01",
-      "syn_uni_neg_num_02",
-      "syn_uni_neg_num_05",
-      "syn_uni_neg_num_06",
-      "syn_uni_neg_num_08",
-      "syn_uni_neg_num_09"
-    ],
-    "uni_three_tokens": [
-      "syn_uni_3tok_01",
-      "syn_uni_3tok_02",
-      "syn_uni_3tok_03",
-      "syn_uni_3tok_04",
-      "syn_uni_3tok_05",
-      "syn_uni_3tok_06",
-      "syn_uni_3tok_07",
-      "syn_uni_3tok_08",
-      "syn_uni_3tok_09",
-      "syn_uni_3tok_10"
+    "or_group_unify": [
+      "syn_uni_or_01",
+      "syn_uni_or_02"
     ],
     "uni_positive_match": [
       "syn_uni_num_01",
@@ -148,14 +120,15 @@
       "syn_uni_gn_04",
       "syn_uni_gn_08",
       "syn_uni_gn_09",
+      "syn_uni_gn_10",
       "syn_uni_cgn_01",
       "syn_uni_cgn_02",
       "syn_uni_cgn_03",
       "syn_uni_cgn_04",
       "syn_uni_cgn_05",
       "syn_uni_cgn_06",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10",
+      "syn_uni_cgn_07",
+      "syn_uni_cgn_08",
       "syn_uni_3tok_01",
       "syn_uni_3tok_02",
       "syn_uni_3tok_03",
@@ -165,14 +138,26 @@
       "syn_uni_3tok_09",
       "syn_uni_fem_01",
       "syn_uni_fem_02",
-      "syn_uni_fem_05",
+      "syn_uni_fem_03",
+      "syn_uni_fem_06",
       "syn_uni_fem_07",
       "syn_uni_fem_09",
       "syn_uni_nomacc_01",
       "syn_uni_nomacc_02",
-      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_03",
       "syn_uni_nomacc_07",
       "syn_uni_nomacc_09",
+      "syn_uni_neg_num_01",
+      "syn_uni_neg_num_02",
+      "syn_uni_neg_num_05",
+      "syn_uni_neg_num_06",
+      "syn_uni_neg_num_08",
+      "syn_uni_neg_num_09",
+      "syn_uni_neg_gn_01",
+      "syn_uni_neg_gn_02",
+      "syn_uni_neg_gn_03",
+      "syn_uni_neg_gn_07",
+      "syn_uni_neg_gn_08",
       "syn_uni_ign_com_01",
       "syn_uni_ign_com_02",
       "syn_uni_ign_com_03",
@@ -187,100 +172,29 @@
       "syn_uni_ign_adv_07",
       "syn_uni_ign_adv_08",
       "syn_uni_ign_adv_09",
-      "syn_uni_mkr_01",
-      "syn_uni_mkr_02",
-      "syn_uni_mkr_04",
-      "syn_uni_mkr_05",
-      "syn_uni_mkr_06",
-      "syn_uni_mkr_07",
-      "syn_uni_mkr_08",
-      "syn_uni_mkr_09",
-      "syn_uni_sk_01",
-      "syn_uni_sk_02",
-      "syn_uni_sk_04",
-      "syn_uni_sk_05",
-      "syn_uni_sk_06",
-      "syn_uni_sk_07",
-      "syn_uni_sk_08",
-      "syn_uni_sk_09"
-    ],
-    "uni_feature_case": [
-      "syn_uni_case_01",
-      "syn_uni_case_02",
-      "syn_uni_case_03",
-      "syn_uni_case_04",
-      "syn_uni_case_05",
-      "syn_uni_case_06",
-      "syn_uni_case_07",
-      "syn_uni_case_08",
-      "syn_uni_case_09",
-      "syn_uni_case_10",
-      "syn_uni_cgn_01",
-      "syn_uni_cgn_02",
-      "syn_uni_cgn_03",
-      "syn_uni_cgn_04",
-      "syn_uni_cgn_05",
-      "syn_uni_cgn_06",
-      "syn_uni_cgn_07",
-      "syn_uni_cgn_08",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10"
-    ],
-    "uni_feature_animacy": [
-      "syn_uni_anim_01",
-      "syn_uni_anim_02",
-      "syn_uni_anim_03",
-      "syn_uni_anim_04",
-      "syn_uni_anim_05",
-      "syn_uni_anim_06",
-      "syn_uni_anim_07",
-      "syn_uni_anim_08",
-      "syn_uni_anim_09",
-      "syn_uni_anim_10"
-    ],
-    "uni_feature_gender": [
-      "syn_uni_gen_01",
-      "syn_uni_gen_02",
-      "syn_uni_gen_03",
-      "syn_uni_gen_04",
-      "syn_uni_gen_05",
-      "syn_uni_gen_06",
-      "syn_uni_gen_07",
-      "syn_uni_gen_08",
-      "syn_uni_gen_09",
-      "syn_uni_gen_10",
-      "syn_uni_gn_01",
-      "syn_uni_gn_02",
-      "syn_uni_gn_03",
-      "syn_uni_gn_04",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_gn_08",
-      "syn_uni_gn_09",
-      "syn_uni_gn_10",
-      "syn_uni_cgn_01",
-      "syn_uni_cgn_02",
-      "syn_uni_cgn_03",
-      "syn_uni_cgn_04",
-      "syn_uni_cgn_05",
-      "syn_uni_cgn_06",
-      "syn_uni_cgn_07",
-      "syn_uni_cgn_08",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10"
-    ],
-    "uni_in_marker": [
-      "syn_uni_mkr_01",
-      "syn_uni_mkr_02",
-      "syn_uni_mkr_03",
-      "syn_uni_mkr_04",
-      "syn_uni_mkr_05",
-      "syn_uni_mkr_06",
-      "syn_uni_mkr_07",
-      "syn_uni_mkr_08",
-      "syn_uni_mkr_09",
-      "syn_uni_mkr_10"
+      "syn_uni_mark_01",
+      "syn_uni_mark_02",
+      "syn_uni_mark_04",
+      "syn_uni_mark_05",
+      "syn_uni_skip_01",
+      "syn_uni_skip_02",
+      "syn_uni_skip_05",
+      "syn_uni_inf_skip_01",
+      "syn_uni_mult_scopes_01",
+      "syn_uni_and_01",
+      "syn_uni_or_01",
+      "syn_uni_exc_01",
+      "syn_uni_sp_01",
+      "syn_uni_chk_01",
+      "syn_uni_raw_01",
+      "syn_uni_ap_01",
+      "syn_uni_min0_01",
+      "syn_uni_min0_02",
+      "syn_uni_maxq_01",
+      "syn_uni_mref_01",
+      "syn_uni_cand_succ_fail",
+      "syn_uni_cand_fail_succ",
+      "syn_uni_ctrl_eq_inter"
     ],
     "uni_neutral_elements": [
       "syn_uni_ign_com_01",
@@ -304,29 +218,91 @@
       "syn_uni_ign_adv_09",
       "syn_uni_ign_adv_10"
     ],
-    "uni_explicit_types": [
-      "syn_uni_fem_01",
-      "syn_uni_fem_02",
-      "syn_uni_fem_03",
-      "syn_uni_fem_04",
-      "syn_uni_fem_05",
-      "syn_uni_fem_06",
-      "syn_uni_fem_07",
-      "syn_uni_fem_08",
-      "syn_uni_fem_09",
-      "syn_uni_fem_10",
-      "syn_uni_nomacc_01",
-      "syn_uni_nomacc_02",
-      "syn_uni_nomacc_03",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_05",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_07",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_09",
-      "syn_uni_nomacc_10"
+    "previous_next_exceptions_unify": [
+      "syn_uni_exc_01",
+      "syn_uni_exc_02"
     ],
-    "uni_multi_features": [
+    "controlled_multi_reading_filtering": [
+      "syn_uni_3tok_05",
+      "syn_uni_ign_com_05"
+    ],
+    "controlled_missing_equivalence_value": [
+      "syn_uni_ctrl_miss_val"
+    ],
+    "antipattern_unify": [
+      "syn_uni_ap_01",
+      "syn_uni_ap_02"
+    ],
+    "spacebefore_unify": [
+      "syn_uni_sp_01"
+    ],
+    "fail_then_success_candidate": [
+      "syn_uni_cand_fail_succ"
+    ],
+    "max_quantifiers_unify": [
+      "syn_uni_maxq_01",
+      "syn_uni_maxq_02"
+    ],
+    "min_zero_unify": [
+      "syn_uni_min0_01",
+      "syn_uni_min0_02"
+    ],
+    "success_then_fail_candidate": [
+      "syn_uni_cand_succ_fail"
+    ],
+    "uni_feature_animacy": [
+      "syn_uni_anim_01",
+      "syn_uni_anim_02",
+      "syn_uni_anim_03",
+      "syn_uni_anim_04",
+      "syn_uni_anim_05",
+      "syn_uni_anim_06",
+      "syn_uni_anim_07",
+      "syn_uni_anim_08",
+      "syn_uni_anim_09",
+      "syn_uni_anim_10"
+    ],
+    "finite_skip_unify": [
+      "syn_uni_skip_01",
+      "syn_uni_skip_02",
+      "syn_uni_skip_03",
+      "syn_uni_skip_04",
+      "syn_uni_skip_05"
+    ],
+    "and_group_unify": [
+      "syn_uni_and_01",
+      "syn_uni_and_02"
+    ],
+    "controlled_equivalence_intersection": [
+      "syn_uni_ctrl_eq_inter"
+    ],
+    "marker_spans_unify": [
+      "syn_uni_mark_01",
+      "syn_uni_mark_02",
+      "syn_uni_mark_03",
+      "syn_uni_mark_04",
+      "syn_uni_mark_05"
+    ],
+    "infinite_skip_unify": [
+      "syn_uni_inf_skip_01",
+      "syn_uni_inf_skip_02"
+    ],
+    "raw_pos_unify": [
+      "syn_uni_raw_01"
+    ],
+    "uni_feature_case": [
+      "syn_uni_case_01",
+      "syn_uni_case_02",
+      "syn_uni_case_03",
+      "syn_uni_case_04",
+      "syn_uni_case_05",
+      "syn_uni_case_06",
+      "syn_uni_case_07",
+      "syn_uni_case_08",
+      "syn_uni_case_09",
+      "syn_uni_case_10"
+    ],
+    "uni_multi_feature": [
       "syn_uni_gn_01",
       "syn_uni_gn_02",
       "syn_uni_gn_03",
@@ -356,47 +332,83 @@
       "syn_uni_3tok_07",
       "syn_uni_3tok_08",
       "syn_uni_3tok_09",
+      "syn_uni_3tok_10"
+    ],
+    "multiple_unify_scopes": [
+      "syn_uni_mult_scopes_01",
+      "syn_uni_mult_scopes_02"
+    ],
+    "uni_feature_number": [
+      "syn_uni_num_01",
+      "syn_uni_num_02",
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_05",
+      "syn_uni_num_06",
+      "syn_uni_num_07",
+      "syn_uni_num_08",
+      "syn_uni_num_09",
+      "syn_uni_num_10"
+    ],
+    "uni_no_match": [
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_09",
+      "syn_uni_gen_04",
+      "syn_uni_gen_05",
+      "syn_uni_gen_06",
+      "syn_uni_gen_10",
+      "syn_uni_case_06",
+      "syn_uni_case_10",
+      "syn_uni_gn_05",
+      "syn_uni_gn_06",
+      "syn_uni_gn_07",
+      "syn_uni_cgn_09",
+      "syn_uni_cgn_10",
+      "syn_uni_3tok_05",
+      "syn_uni_3tok_06",
       "syn_uni_3tok_10",
-      "syn_uni_neg_gn_01",
-      "syn_uni_neg_gn_02",
-      "syn_uni_neg_gn_03",
-      "syn_uni_neg_gn_07",
-      "syn_uni_neg_gn_08",
-      "syn_uni_neg_gn_09"
-    ],
-    "uni_with_skip": [
-      "syn_uni_sk_01",
-      "syn_uni_sk_02",
-      "syn_uni_sk_03",
-      "syn_uni_sk_04",
-      "syn_uni_sk_05",
-      "syn_uni_sk_06",
-      "syn_uni_sk_07",
-      "syn_uni_sk_08",
-      "syn_uni_sk_09",
-      "syn_uni_sk_10"
-    ],
-    "uni_negated_match": [
-      "syn_uni_neg_num_01",
-      "syn_uni_neg_num_02",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_08",
+      "syn_uni_fem_10",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_10",
       "syn_uni_neg_num_03",
       "syn_uni_neg_num_04",
-      "syn_uni_neg_num_05",
-      "syn_uni_neg_num_06",
       "syn_uni_neg_num_07",
-      "syn_uni_neg_num_08",
-      "syn_uni_neg_num_09",
       "syn_uni_neg_num_10",
-      "syn_uni_neg_gn_01",
-      "syn_uni_neg_gn_02",
-      "syn_uni_neg_gn_03",
       "syn_uni_neg_gn_04",
       "syn_uni_neg_gn_05",
       "syn_uni_neg_gn_06",
-      "syn_uni_neg_gn_07",
-      "syn_uni_neg_gn_08",
       "syn_uni_neg_gn_09",
-      "syn_uni_neg_gn_10"
+      "syn_uni_neg_gn_10",
+      "syn_uni_ign_com_05",
+      "syn_uni_ign_com_06",
+      "syn_uni_ign_com_10",
+      "syn_uni_ign_adv_05",
+      "syn_uni_ign_adv_06",
+      "syn_uni_ign_adv_10",
+      "syn_uni_mark_03",
+      "syn_uni_skip_03",
+      "syn_uni_skip_04",
+      "syn_uni_inf_skip_02",
+      "syn_uni_mult_scopes_02",
+      "syn_uni_and_02",
+      "syn_uni_or_02",
+      "syn_uni_exc_02",
+      "syn_uni_ap_02",
+      "syn_uni_maxq_02",
+      "syn_uni_mref_02",
+      "syn_uni_ctrl_rej_iso",
+      "syn_uni_ctrl_miss_val"
+    ],
+    "match_references_unify": [
+      "syn_uni_mref_01",
+      "syn_uni_mref_02"
     ]
   },
   "cases": [
@@ -1544,7 +1556,7 @@
       "id": "syn_uni_anim_07",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "высокая башня",
+      "text": "железная дверь",
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1565,7 +1577,7 @@
       "id": "syn_uni_anim_08",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "добрый мальчик",
+      "text": "сильный медведь",
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1586,7 +1598,7 @@
       "id": "syn_uni_anim_09",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "железный замок",
+      "text": "чистая вода",
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1607,7 +1619,7 @@
       "id": "syn_uni_anim_10",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "старый друг",
+      "text": "добрый учитель",
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1630,9 +1642,7 @@
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый дом",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1665,11 +1675,44 @@
       "id": "syn_uni_gn_02",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивая изба",
+      "text": "красивая книга",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Gender and Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
+            "message": "Gender+Number agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_gn_03",
+      "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивое окно",
+      "features": [
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1699,51 +1742,12 @@
       }
     },
     {
-      "id": "syn_uni_gn_03",
-      "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивое зеркало",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Gender and Number agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 16,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 16,
-            "message": "Gender+Number agree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 16,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 16
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_gn_04",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивые дома",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1776,11 +1780,9 @@
       "id": "syn_uni_gn_05",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивый изба",
+      "text": "красивый книга",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -1799,11 +1801,9 @@
       "id": "syn_uni_gn_06",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивая дом",
+      "text": "красивая дома",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -1824,9 +1824,7 @@
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивые дом",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -1845,11 +1843,9 @@
       "id": "syn_uni_gn_08",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новое окно",
+      "text": "большой город",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1864,16 +1860,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 10,
+            "to_utf16": 13,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
+            "pattern_to_utf16": 13,
             "message": "Gender+Number agree",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
+            "expected_to_codepoint": 13,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
+            "expected_pattern_to_codepoint": 13
           }
         ]
       }
@@ -1882,11 +1878,9 @@
       "id": "syn_uni_gn_09",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новые окна",
+      "text": "большая река",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1901,16 +1895,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 10,
+            "to_utf16": 12,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
+            "pattern_to_utf16": 12,
             "message": "Gender+Number agree",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
+            "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
@@ -1919,12 +1913,10 @@
       "id": "syn_uni_gn_10",
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новый окно",
+      "text": "большие реки",
       "features": [
-        "uni_multi_features",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_no_match"
+        "uni_multi_feature",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -1934,8 +1926,22 @@
         "category_name": "Synthetic Multi-Feature Agreement",
         "description": "Gender and Number agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Gender+Number agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
       }
     },
     {
@@ -1944,10 +1950,7 @@
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый дом",
       "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -1984,10 +1987,7 @@
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивого дома",
       "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2022,12 +2022,9 @@
       "id": "syn_uni_cgn_03",
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивая книга",
+      "text": "красивой книги",
       "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2045,10 +2042,10 @@
             "to_utf16": 14,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 14,
-            "message": "Full nominal agree: <suggestion>красивая книга</suggestion>",
+            "message": "Full nominal agree: <suggestion>красивой книги</suggestion>",
             "short_message": "",
             "suggestions": [
-              "красивая книга"
+              "красивой книги"
             ],
             "expected_from_codepoint": 0,
             "expected_to_codepoint": 14,
@@ -2062,180 +2059,9 @@
       "id": "syn_uni_cgn_04",
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивую книгу",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 14,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 14,
-            "message": "Full nominal agree: <suggestion>красивую книгу</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивую книгу"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 14,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 14
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_cgn_05",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивое окно",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Full nominal agree: <suggestion>красивое окно</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивое окно"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_cgn_06",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивые дома",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Full nominal agree: <suggestion>красивые дома</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивые дома"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_cgn_07",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивый дома",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_cgn_08",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "красивая книгу",
-      "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_cgn_09",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивому дому",
       "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2267,15 +2093,12 @@
       }
     },
     {
-      "id": "syn_uni_cgn_10",
+      "id": "syn_uni_cgn_05",
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивой книге",
       "features": [
-        "uni_multi_features",
-        "uni_feature_case",
-        "uni_feature_gender",
-        "uni_feature_number",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2307,13 +2130,202 @@
       }
     },
     {
+      "id": "syn_uni_cgn_06",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивым домом",
+      "features": [
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
+            "message": "Full nominal agree: <suggestion>красивым домом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивым домом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_cgn_07",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивой книгой",
+      "features": [
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
+            "message": "Full nominal agree: <suggestion>красивой книгой</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивой книгой"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 15,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_cgn_08",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивом доме",
+      "features": [
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Full nominal agree: <suggestion>красивом доме</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивом доме"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_cgn_09",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивый дома",
+      "features": [
+        "uni_multi_feature",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_cgn_10",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "красивая дому",
+      "features": [
+        "uni_multi_feature",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
       "id": "syn_uni_3tok_01",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "большой красивый дом",
+      "text": "новый красивый дом",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_THREE_TOKENS",
+        "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Three token unification",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 18,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 18,
+            "message": "Three tokens agree: <suggestion>новый красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "новый красивый дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_3tok_02",
+      "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "новая красивая книга",
+      "features": [
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2331,10 +2343,10 @@
             "to_utf16": 20,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 20,
-            "message": "Three tokens agree: <suggestion>большой красивый дом</suggestion>",
+            "message": "Three tokens agree: <suggestion>новая красивая книга</suggestion>",
             "short_message": "",
             "suggestions": [
-              "большой красивый дом"
+              "новая красивая книга"
             ],
             "expected_from_codepoint": 0,
             "expected_to_codepoint": 20,
@@ -2345,51 +2357,12 @@
       }
     },
     {
-      "id": "syn_uni_3tok_02",
-      "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "большая красивая изба",
-      "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_THREE_TOKENS",
-        "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Three token unification",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 21,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 21,
-            "message": "Three tokens agree: <suggestion>большая красивая изба</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "большая красивая изба"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 21,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 21
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_3tok_03",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "большое красивое окно",
+      "text": "новое красивое окно",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2404,18 +2377,18 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 21,
+            "to_utf16": 19,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 21,
-            "message": "Three tokens agree: <suggestion>большое красивое окно</suggestion>",
+            "pattern_to_utf16": 19,
+            "message": "Three tokens agree: <suggestion>новое красивое окно</suggestion>",
             "short_message": "",
             "suggestions": [
-              "большое красивое окно"
+              "новое красивое окно"
             ],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 21,
+            "expected_to_codepoint": 19,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 21
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -2424,10 +2397,9 @@
       "id": "syn_uni_3tok_04",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "большие красивые дома",
+      "text": "новые красивые дома",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2442,18 +2414,18 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 21,
+            "to_utf16": 19,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 21,
-            "message": "Three tokens agree: <suggestion>большие красивые дома</suggestion>",
+            "pattern_to_utf16": 19,
+            "message": "Three tokens agree: <suggestion>новые красивые дома</suggestion>",
             "short_message": "",
             "suggestions": [
-              "большие красивые дома"
+              "новые красивые дома"
             ],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 21,
+            "expected_to_codepoint": 19,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 21
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
@@ -2464,9 +2436,9 @@
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "большой красивая дом",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
-        "uni_no_match"
+        "uni_multi_feature",
+        "uni_no_match",
+        "controlled_multi_reading_filtering"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -2484,10 +2456,9 @@
       "id": "syn_uni_3tok_06",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "большая красивый изба",
+      "text": "новый красивая книга",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -2506,10 +2477,46 @@
       "id": "syn_uni_3tok_07",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новый деревянный стол",
+      "text": "старый добрый друг",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_THREE_TOKENS",
+        "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Three token unification",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 18,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 18,
+            "message": "Three tokens agree: <suggestion>старый добрый друг</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "старый добрый друг"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_3tok_08",
+      "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "старая добрая подруга",
+      "features": [
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2527,10 +2534,10 @@
             "to_utf16": 21,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 21,
-            "message": "Three tokens agree: <suggestion>новый деревянный стол</suggestion>",
+            "message": "Three tokens agree: <suggestion>старая добрая подруга</suggestion>",
             "short_message": "",
             "suggestions": [
-              "новый деревянный стол"
+              "старая добрая подруга"
             ],
             "expected_from_codepoint": 0,
             "expected_to_codepoint": 21,
@@ -2541,13 +2548,12 @@
       }
     },
     {
-      "id": "syn_uni_3tok_08",
+      "id": "syn_uni_3tok_09",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новая каменная башня",
+      "text": "старые добрые друзья",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -2565,10 +2571,10 @@
             "to_utf16": 20,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 20,
-            "message": "Three tokens agree: <suggestion>новая каменная башня</suggestion>",
+            "message": "Three tokens agree: <suggestion>старые добрые друзья</suggestion>",
             "short_message": "",
             "suggestions": [
-              "новая каменная башня"
+              "старые добрые друзья"
             ],
             "expected_from_codepoint": 0,
             "expected_to_codepoint": 20,
@@ -2579,51 +2585,12 @@
       }
     },
     {
-      "id": "syn_uni_3tok_09",
-      "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новое синее море",
-      "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_THREE_TOKENS",
-        "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Three token unification",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 16,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 16,
-            "message": "Three tokens agree: <suggestion>новое синее море</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "новое синее море"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 16,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 16
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_3tok_10",
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
-      "text": "новый новая стол",
+      "text": "старый добрая друг",
       "features": [
-        "uni_three_tokens",
-        "uni_multi_features",
+        "uni_multi_feature",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -2642,7 +2609,7 @@
       "id": "syn_uni_fem_01",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "красивая изба",
+      "text": "красивая книга",
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2659,99 +2626,22 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 13,
+            "to_utf16": 14,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
+            "pattern_to_utf16": 14,
             "message": "Feminine only",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
+            "expected_to_codepoint": 14,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
     },
     {
       "id": "syn_uni_fem_02",
-      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-      "category": "SYN_UNI_TYPES",
-      "text": "большая книга",
-      "features": [
-        "uni_explicit_types",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
-        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-        "category_id": "SYN_UNI_TYPES",
-        "category_name": "Synthetic Explicit Types",
-        "description": "Only feminine agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Feminine only",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_fem_03",
-      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-      "category": "SYN_UNI_TYPES",
-      "text": "красивый дом",
-      "features": [
-        "uni_explicit_types",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
-        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-        "category_id": "SYN_UNI_TYPES",
-        "category_name": "Synthetic Explicit Types",
-        "description": "Only feminine agreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_fem_04",
-      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-      "category": "SYN_UNI_TYPES",
-      "text": "красивое окно",
-      "features": [
-        "uni_explicit_types",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
-        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-        "category_id": "SYN_UNI_TYPES",
-        "category_name": "Synthetic Explicit Types",
-        "description": "Only feminine agreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_fem_05",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "синяя река",
@@ -2786,31 +2676,10 @@
       }
     },
     {
-      "id": "syn_uni_fem_06",
+      "id": "syn_uni_fem_03",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "синий шар",
-      "features": [
-        "uni_explicit_types",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
-        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-        "category_id": "SYN_UNI_TYPES",
-        "category_name": "Synthetic Explicit Types",
-        "description": "Only feminine agreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_fem_07",
-      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
-      "category": "SYN_UNI_TYPES",
-      "text": "новая машина",
+      "text": "большая река",
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2842,10 +2711,10 @@
       }
     },
     {
-      "id": "syn_uni_fem_08",
+      "id": "syn_uni_fem_04",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "новое колесо",
+      "text": "красивый дом",
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2863,7 +2732,63 @@
       }
     },
     {
-      "id": "syn_uni_fem_09",
+      "id": "syn_uni_fem_05",
+      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+      "category": "SYN_UNI_TYPES",
+      "text": "красивое окно",
+      "features": [
+        "uni_explicit_types",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
+        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+        "category_id": "SYN_UNI_TYPES",
+        "category_name": "Synthetic Explicit Types",
+        "description": "Only feminine agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_fem_06",
+      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+      "category": "SYN_UNI_TYPES",
+      "text": "старая машина",
+      "features": [
+        "uni_explicit_types",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
+        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+        "category_id": "SYN_UNI_TYPES",
+        "category_name": "Synthetic Explicit Types",
+        "description": "Only feminine agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Feminine only",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_fem_07",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "чистая вода",
@@ -2898,10 +2823,66 @@
       }
     },
     {
+      "id": "syn_uni_fem_08",
+      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+      "category": "SYN_UNI_TYPES",
+      "text": "новый стол",
+      "features": [
+        "uni_explicit_types",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
+        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+        "category_id": "SYN_UNI_TYPES",
+        "category_name": "Synthetic Explicit Types",
+        "description": "Only feminine agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_fem_09",
+      "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+      "category": "SYN_UNI_TYPES",
+      "text": "зеленая трава",
+      "features": [
+        "uni_explicit_types",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXPLICIT_FEMININE",
+        "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
+        "category_id": "SYN_UNI_TYPES",
+        "category_name": "Synthetic Explicit Types",
+        "description": "Only feminine agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Feminine only",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          }
+        ]
+      }
+    },
+    {
       "id": "syn_uni_fem_10",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "чистый воздух",
+      "text": "зеленое поле",
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2957,7 +2938,7 @@
       "id": "syn_uni_nomacc_02",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "красивую книгу",
+      "text": "красивая книга",
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2992,6 +2973,41 @@
       "id": "syn_uni_nomacc_03",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
+      "text": "красивую книгу",
+      "features": [
+        "uni_explicit_types",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXPLICIT_NOM_ACC",
+        "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
+        "category_id": "SYN_UNI_TYPES",
+        "category_name": "Synthetic Explicit Types",
+        "description": "Only nom or acc agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
+            "message": "Nom or Acc only",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_nomacc_04",
+      "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
+      "category": "SYN_UNI_TYPES",
       "text": "красивого дома",
       "features": [
         "uni_explicit_types",
@@ -3024,7 +3040,7 @@
       }
     },
     {
-      "id": "syn_uni_nomacc_04",
+      "id": "syn_uni_nomacc_05",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивому дому",
@@ -3042,41 +3058,6 @@
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_nomacc_05",
-      "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
-      "category": "SYN_UNI_TYPES",
-      "text": "красивая книга",
-      "features": [
-        "uni_explicit_types",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXPLICIT_NOM_ACC",
-        "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
-        "category_id": "SYN_UNI_TYPES",
-        "category_name": "Synthetic Explicit Types",
-        "description": "Only nom or acc agreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 14,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 14,
-            "message": "Nom or Acc only",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 14,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 14
-          }
-        ]
       }
     },
     {
@@ -3139,7 +3120,7 @@
       "id": "syn_uni_nomacc_08",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "новом окне",
+      "text": "новому окну",
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3160,7 +3141,7 @@
       "id": "syn_uni_nomacc_09",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "синий шар",
+      "text": "чистый лист",
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -3177,16 +3158,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 9,
+            "to_utf16": 11,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 9,
+            "pattern_to_utf16": 11,
             "message": "Nom or Acc only",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 9,
+            "expected_to_codepoint": 11,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 9
+            "expected_pattern_to_codepoint": 11
           }
         ]
       }
@@ -3195,7 +3176,7 @@
       "id": "syn_uni_nomacc_10",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "синем шаре",
+      "text": "чистым листом",
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3218,8 +3199,8 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивый дома",
       "features": [
-        "uni_negated_match",
-        "uni_feature_number"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3239,8 +3220,8 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивые дом",
       "features": [
-        "uni_negated_match",
-        "uni_feature_number"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3274,7 +3255,7 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивый дом",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3295,7 +3276,7 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивые дома",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3314,10 +3295,10 @@
       "id": "syn_uni_neg_num_05",
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "большая книги",
+      "text": "новое окна",
       "features": [
-        "uni_negated_match",
-        "uni_feature_number"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3335,87 +3316,10 @@
       "id": "syn_uni_neg_num_06",
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "большие книга",
-      "features": [
-        "uni_negated_match",
-        "uni_feature_number"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Number disagree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_07",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "большая книга",
-      "features": [
-        "uni_negated_match",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_08",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "новое окна",
-      "features": [
-        "uni_negated_match",
-        "uni_feature_number"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_09",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
       "text": "новые окно",
       "features": [
-        "uni_negated_match",
-        "uni_feature_number"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3444,12 +3348,89 @@
       }
     },
     {
-      "id": "syn_uni_neg_num_10",
+      "id": "syn_uni_neg_num_07",
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "новое окно",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_08",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "большая книги",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_09",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "большие книга",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_10",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "большая книга",
+      "features": [
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3468,10 +3449,10 @@
       "id": "syn_uni_neg_gn_01",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "красивый изба",
+      "text": "красивый книга",
       "features": [
-        "uni_negated_match",
-        "uni_multi_features"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3485,16 +3466,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 13,
+            "to_utf16": 14,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
+            "pattern_to_utf16": 14,
             "message": "Gender/Number disagree",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
+            "expected_to_codepoint": 14,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
@@ -3505,8 +3486,8 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивая дом",
       "features": [
-        "uni_negated_match",
-        "uni_multi_features"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3540,8 +3521,8 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивое дом",
       "features": [
-        "uni_negated_match",
-        "uni_multi_features"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3575,7 +3556,7 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивый дом",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3594,9 +3575,9 @@
       "id": "syn_uni_neg_gn_05",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "красивая изба",
+      "text": "красивая книга",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3617,7 +3598,7 @@
       "category": "SYN_UNI_NEGATION",
       "text": "красивое окно",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3636,10 +3617,45 @@
       "id": "syn_uni_neg_gn_07",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
+      "text": "синий река",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Gender/Number disagreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 10,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 10,
+            "message": "Gender/Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_gn_08",
+      "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
       "text": "синяя шар",
       "features": [
-        "uni_negated_match",
-        "uni_multi_features"
+        "uni_negation",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3668,48 +3684,13 @@
       }
     },
     {
-      "id": "syn_uni_neg_gn_08",
-      "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "синее река",
-      "features": [
-        "uni_negated_match",
-        "uni_multi_features"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Gender/Number disagreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 10,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
-            "message": "Gender/Number disagree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_neg_gn_09",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "новый окно",
+      "text": "синее море",
       "features": [
-        "uni_negated_match",
-        "uni_multi_features"
+        "uni_negation",
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3719,31 +3700,17 @@
         "category_name": "Synthetic Negated Unification",
         "description": "Gender/Number disagreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 10,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
-            "message": "Gender/Number disagree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
       "id": "syn_uni_neg_gn_10",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "новое окно",
+      "text": "синий шар",
       "features": [
-        "uni_negated_match",
+        "uni_negation",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -3762,7 +3729,42 @@
       "id": "syn_uni_ign_com_01",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "большой , красивый дом",
+      "text": "новый , красивый дом",
+      "features": [
+        "uni_neutral_elements",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_IGNORE_COMMA",
+        "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+        "category_id": "SYN_UNI_IGNORE",
+        "category_name": "Synthetic Unify Ignore (Neutral Elements)",
+        "description": "Unification with neutral punctuation",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 20,
+            "message": "Ignore comma agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_ign_com_02",
+      "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+      "category": "SYN_UNI_IGNORE",
+      "text": "новая , красивая книга",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3794,45 +3796,10 @@
       }
     },
     {
-      "id": "syn_uni_ign_com_02",
-      "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
-      "category": "SYN_UNI_IGNORE",
-      "text": "большая , красивая изба",
-      "features": [
-        "uni_neutral_elements",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_IGNORE_COMMA",
-        "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
-        "category_id": "SYN_UNI_IGNORE",
-        "category_name": "Synthetic Unify Ignore (Neutral Elements)",
-        "description": "Unification with neutral punctuation",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 23,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 23,
-            "message": "Ignore comma agree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 23,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 23
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_ign_com_03",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "большое , красивое окно",
+      "text": "новое , красивое окно",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3849,16 +3816,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 23,
+            "to_utf16": 21,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 23,
+            "pattern_to_utf16": 21,
             "message": "Ignore comma agree",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 23,
+            "expected_to_codepoint": 21,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 23
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -3867,7 +3834,7 @@
       "id": "syn_uni_ign_com_04",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "большие , красивые дома",
+      "text": "новые , красивые дома",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3884,16 +3851,16 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 23,
+            "to_utf16": 21,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 23,
+            "pattern_to_utf16": 21,
             "message": "Ignore comma agree",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 23,
+            "expected_to_codepoint": 21,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 23
+            "expected_pattern_to_codepoint": 21
           }
         ]
       }
@@ -3905,7 +3872,8 @@
       "text": "большой , красивая дом",
       "features": [
         "uni_neutral_elements",
-        "uni_no_match"
+        "uni_no_match",
+        "controlled_multi_reading_filtering"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -3923,7 +3891,7 @@
       "id": "syn_uni_ign_com_06",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "большая , красивый изба",
+      "text": "новый , красивая книга",
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -3944,7 +3912,42 @@
       "id": "syn_uni_ign_com_07",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новый , деревянный стол",
+      "text": "старый , добрый друг",
+      "features": [
+        "uni_neutral_elements",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_IGNORE_COMMA",
+        "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+        "category_id": "SYN_UNI_IGNORE",
+        "category_name": "Synthetic Unify Ignore (Neutral Elements)",
+        "description": "Unification with neutral punctuation",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 20,
+            "message": "Ignore comma agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_ign_com_08",
+      "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+      "category": "SYN_UNI_IGNORE",
+      "text": "старая , добрая подруга",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3976,10 +3979,10 @@
       }
     },
     {
-      "id": "syn_uni_ign_com_08",
+      "id": "syn_uni_ign_com_09",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новая , каменная башня",
+      "text": "старые , добрые друзья",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4011,45 +4014,10 @@
       }
     },
     {
-      "id": "syn_uni_ign_com_09",
-      "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
-      "category": "SYN_UNI_IGNORE",
-      "text": "новое , синее море",
-      "features": [
-        "uni_neutral_elements",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_IGNORE_COMMA",
-        "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
-        "category_id": "SYN_UNI_IGNORE",
-        "category_name": "Synthetic Unify Ignore (Neutral Elements)",
-        "description": "Unification with neutral punctuation",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 18,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 18,
-            "message": "Ignore comma agree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 18,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 18
-          }
-        ]
-      }
-    },
-    {
       "id": "syn_uni_ign_com_10",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новый , новая стол",
+      "text": "старый , добрая друг",
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4070,7 +4038,7 @@
       "id": "syn_uni_ign_adv_01",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивый очень дом",
+      "text": "очень красивый дом",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4091,7 +4059,7 @@
       "id": "syn_uni_ign_adv_02",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивая очень изба",
+      "text": "очень красивая книга",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4112,7 +4080,7 @@
       "id": "syn_uni_ign_adv_03",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивое очень окно",
+      "text": "очень красивое окно",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4133,7 +4101,7 @@
       "id": "syn_uni_ign_adv_04",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивые очень дома",
+      "text": "очень красивые дома",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4154,7 +4122,7 @@
       "id": "syn_uni_ign_adv_05",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивый очень изба",
+      "text": "очень красивый книга",
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4175,7 +4143,7 @@
       "id": "syn_uni_ign_adv_06",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "красивая очень дом",
+      "text": "очень красивая дом",
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4196,7 +4164,7 @@
       "id": "syn_uni_ign_adv_07",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новый совсем стол",
+      "text": "весьма интересный факт",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4217,7 +4185,7 @@
       "id": "syn_uni_ign_adv_08",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новая совсем изба",
+      "text": "весьма интересная мысль",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4238,7 +4206,7 @@
       "id": "syn_uni_ign_adv_09",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новое совсем окно",
+      "text": "весьма интересное дело",
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4259,7 +4227,7 @@
       "id": "syn_uni_ign_adv_10",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "новый совсем изба",
+      "text": "весьма интересный мысль",
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4277,12 +4245,12 @@
       }
     },
     {
-      "id": "syn_uni_mkr_01",
+      "id": "syn_uni_mark_01",
       "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
       "category": "SYN_UNI_COMPLEX",
       "text": "тест красивый дом",
       "features": [
-        "uni_in_marker",
+        "marker_spans_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4314,12 +4282,12 @@
       }
     },
     {
-      "id": "syn_uni_mkr_02",
+      "id": "syn_uni_mark_02",
       "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "тест красивые дома",
+      "text": "тест красивая книга",
       "features": [
-        "uni_in_marker",
+        "marker_spans_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4334,29 +4302,29 @@
         "matches": [
           {
             "from_utf16": 5,
-            "to_utf16": 18,
+            "to_utf16": 19,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 18,
-            "message": "Unify in marker: <suggestion>красивые</suggestion>",
+            "pattern_to_utf16": 19,
+            "message": "Unify in marker: <suggestion>красивая</suggestion>",
             "short_message": "",
             "suggestions": [
-              "красивые"
+              "красивая"
             ],
             "expected_from_codepoint": 5,
-            "expected_to_codepoint": 18,
+            "expected_to_codepoint": 19,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 18
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
     },
     {
-      "id": "syn_uni_mkr_03",
+      "id": "syn_uni_mark_03",
       "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "тест красивый дома",
+      "text": "тест красивый книга",
       "features": [
-        "uni_in_marker",
+        "marker_spans_unify",
         "uni_no_match"
       ],
       "oracle_result": {
@@ -4371,103 +4339,29 @@
         "matches": [
           {
             "from_utf16": 5,
-            "to_utf16": 18,
+            "to_utf16": 19,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 18,
+            "pattern_to_utf16": 19,
             "message": "Unify in marker: <suggestion>красивый</suggestion>",
             "short_message": "",
             "suggestions": [
               "красивый"
             ],
             "expected_from_codepoint": 5,
-            "expected_to_codepoint": 18,
+            "expected_to_codepoint": 19,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 18
+            "expected_pattern_to_codepoint": 19
           }
         ]
       }
     },
     {
-      "id": "syn_uni_mkr_04",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест большая книга",
-      "features": [
-        "uni_in_marker",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 18,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 18,
-            "message": "Unify in marker: <suggestion>большая</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "большая"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 18,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 18
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mkr_05",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест большие книги",
-      "features": [
-        "uni_in_marker",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 18,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 18,
-            "message": "Unify in marker: <suggestion>большие</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "большие"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 18,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 18
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mkr_06",
+      "id": "syn_uni_mark_04",
       "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
       "category": "SYN_UNI_COMPLEX",
       "text": "тест новое окно",
       "features": [
-        "uni_in_marker",
+        "marker_spans_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4499,12 +4393,12 @@
       }
     },
     {
-      "id": "syn_uni_mkr_07",
+      "id": "syn_uni_mark_05",
       "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
       "category": "SYN_UNI_COMPLEX",
       "text": "тест новые окна",
       "features": [
-        "uni_in_marker",
+        "marker_spans_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4536,123 +4430,12 @@
       }
     },
     {
-      "id": "syn_uni_mkr_08",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест синий шар",
-      "features": [
-        "uni_in_marker",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 14,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 14,
-            "message": "Unify in marker: <suggestion>синий</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "синий"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 14,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 14
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mkr_09",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест синяя река",
-      "features": [
-        "uni_in_marker",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 15,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 15,
-            "message": "Unify in marker: <suggestion>синяя</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "синяя"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 15,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 15
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mkr_10",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест новый окно",
-      "features": [
-        "uni_in_marker",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 15,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 15,
-            "message": "Unify in marker: <suggestion>новый</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "новый"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 15,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 15
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_sk_01",
+      "id": "syn_uni_skip_01",
       "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт тут красивый дом",
+      "text": "старт красивый дом",
       "features": [
-        "uni_with_skip",
+        "finite_skip_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4667,27 +4450,27 @@
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 22,
+            "to_utf16": 18,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 22,
+            "pattern_to_utf16": 18,
             "message": "Unify with skip",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 22,
+            "expected_to_codepoint": 18,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 22
+            "expected_pattern_to_codepoint": 18
           }
         ]
       }
     },
     {
-      "id": "syn_uni_sk_02",
+      "id": "syn_uni_skip_02",
       "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт красиво красивые дома",
+      "text": "старт один красивый дом",
       "features": [
-        "uni_with_skip",
+        "finite_skip_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
@@ -4703,13 +4486,55 @@
       }
     },
     {
-      "id": "syn_uni_sk_03",
+      "id": "syn_uni_skip_03",
       "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт тут красивый дома",
+      "text": "старт один красивый дома",
       "features": [
-        "uni_with_skip",
+        "finite_skip_unify",
         "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_WITH_SKIP",
+        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with skip token",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_skip_04",
+      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "старт один два красивый дом",
+      "features": [
+        "finite_skip_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_WITH_SKIP",
+        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with skip token",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_skip_05",
+      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "старт новая книга",
+      "features": [
+        "finite_skip_unify",
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -4723,10 +4548,87 @@
         "matches": [
           {
             "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Unify with skip",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 17,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_inf_skip_01",
+      "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "начало один два три красивый дом",
+      "features": [
+        "infinite_skip_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_INFINITE_SKIP",
+        "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with infinite skip",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_inf_skip_02",
+      "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "начало один два три красивый дома",
+      "features": [
+        "infinite_skip_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_INFINITE_SKIP",
+        "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with infinite skip",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_mult_scopes_01",
+      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "новый дом и новая книга",
+      "features": [
+        "multiple_unify_scopes",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MULTI_SCOPES",
+        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Multiple unify scopes in sequence",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
             "to_utf16": 23,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 23,
-            "message": "Unify with skip",
+            "message": "Multiple unify scopes",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
@@ -4738,234 +4640,779 @@
       }
     },
     {
-      "id": "syn_uni_sk_04",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "id": "syn_uni_mult_scopes_02",
+      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт большая книга",
+      "text": "новый дома и новая книга",
       "features": [
-        "uni_with_skip",
-        "uni_positive_match"
+        "multiple_unify_scopes",
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "rule_id": "SYN_UNI_MULTI_SCOPES",
+        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
         "category_id": "SYN_UNI_COMPLEX",
         "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "description": "Multiple unify scopes in sequence",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 19,
+            "to_utf16": 24,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 19,
-            "message": "Unify with skip",
+            "pattern_to_utf16": 24,
+            "message": "Multiple unify scopes",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 19,
+            "expected_to_codepoint": 24,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 19
+            "expected_pattern_to_codepoint": 24
           }
         ]
       }
     },
     {
-      "id": "syn_uni_sk_05",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "id": "syn_uni_and_01",
+      "full_rule_id": "SYN_UNI_AND_GROUP[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт быстро большие книги",
+      "text": "красивый дом",
       "features": [
-        "uni_with_skip",
+        "and_group_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "rule_id": "SYN_UNI_AND_GROUP",
+        "full_rule_id": "SYN_UNI_AND_GROUP[1]",
         "category_id": "SYN_UNI_COMPLEX",
         "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "description": "Unification with AND group",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "AND group unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_and_02",
+      "full_rule_id": "SYN_UNI_AND_GROUP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "красивый дома",
+      "features": [
+        "and_group_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_AND_GROUP",
+        "full_rule_id": "SYN_UNI_AND_GROUP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with AND group",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "AND group unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_or_01",
+      "full_rule_id": "SYN_UNI_OR_GROUP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "построенный дом",
+      "features": [
+        "or_group_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_OR_GROUP",
+        "full_rule_id": "SYN_UNI_OR_GROUP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with OR group",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
+            "message": "OR group unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 15,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_or_02",
+      "full_rule_id": "SYN_UNI_OR_GROUP[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "построенные дом",
+      "features": [
+        "or_group_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_OR_GROUP",
+        "full_rule_id": "SYN_UNI_OR_GROUP[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with OR group",
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
       }
     },
     {
-      "id": "syn_uni_sk_06",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "id": "syn_uni_exc_01",
+      "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт новое окно",
+      "text": "красивый дом",
       "features": [
-        "uni_with_skip",
+        "previous_next_exceptions_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "rule_id": "SYN_UNI_EXCEPTIONS",
+        "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
         "category_id": "SYN_UNI_COMPLEX",
         "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "description": "Unification with next exception",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 16,
+            "to_utf16": 12,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 16,
-            "message": "Unify with skip",
+            "pattern_to_utf16": 12,
+            "message": "Exception unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 16,
+            "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 16
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_uni_sk_07",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "id": "syn_uni_exc_02",
+      "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт новые окна",
+      "text": "красивый исключение дом",
       "features": [
-        "uni_with_skip",
+        "previous_next_exceptions_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_EXCEPTIONS",
+        "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with next exception",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_sp_01",
+      "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "красивый дом",
+      "features": [
+        "spacebefore_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "rule_id": "SYN_UNI_SPACEBEFORE",
+        "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
         "category_id": "SYN_UNI_COMPLEX",
         "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "description": "Unification with spacebefore",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 16,
+            "to_utf16": 12,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 16,
-            "message": "Unify with skip",
+            "pattern_to_utf16": 12,
+            "message": "Spacebefore unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 16,
+            "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 16
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_uni_sk_08",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+      "id": "syn_uni_chk_01",
+      "full_rule_id": "SYN_UNI_CHUNK[1]",
       "category": "SYN_UNI_COMPLEX",
-      "text": "старт тут синий шар",
+      "text": "красивый дом",
       "features": [
-        "uni_with_skip",
+        "chunk_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
+        "rule_id": "SYN_UNI_CHUNK",
+        "full_rule_id": "SYN_UNI_CHUNK[1]",
         "category_id": "SYN_UNI_COMPLEX",
         "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "description": "Unification with chunk",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_raw_01",
+      "full_rule_id": "SYN_UNI_RAW_POS[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "красивый дом",
+      "features": [
+        "raw_pos_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_RAW_POS",
+        "full_rule_id": "SYN_UNI_RAW_POS[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with raw_pos",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
             "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Raw pos unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_ap_01",
+      "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "красивый дом",
+      "features": [
+        "antipattern_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_ANTIPATTERN",
+        "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with antipattern",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Antipattern unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_ap_02",
+      "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "стоп красивый дом",
+      "features": [
+        "antipattern_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_ANTIPATTERN",
+        "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with antipattern",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 5,
+            "to_utf16": 17,
+            "pattern_from_utf16": 5,
+            "pattern_to_utf16": 17,
+            "message": "Antipattern unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 5,
+            "expected_to_codepoint": 17,
+            "expected_pattern_from_codepoint": 5,
+            "expected_pattern_to_codepoint": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_min0_01",
+      "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "красивый дом",
+      "features": [
+        "min_zero_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MIN_ZERO",
+        "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with min=0",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Min zero unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_min0_02",
+      "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "дом",
+      "features": [
+        "min_zero_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MIN_ZERO",
+        "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with min=0",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 3,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 3,
+            "message": "Min zero unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 3,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_maxq_01",
+      "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "новый красивый большой дом",
+      "features": [
+        "max_quantifiers_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MAX_QUANT",
+        "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with max quantifier",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
+            "message": "Max quant unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_maxq_02",
+      "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "новый красивый большая дом",
+      "features": [
+        "max_quantifiers_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MAX_QUANT",
+        "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with max quantifier",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
+            "message": "Max quant unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_mref_01",
+      "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "префикс красивый дом суффикс",
+      "features": [
+        "match_references_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MATCH_REFS",
+        "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with surrounding match references",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Match ref: <suggestion>префикс красивый дом суффикс</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "префикс красивый дом суффикс"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 28,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 28
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_mref_02",
+      "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
+      "category": "SYN_UNI_COMPLEX",
+      "text": "префикс красивая дом суффикс",
+      "features": [
+        "match_references_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MATCH_REFS",
+        "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
+        "category_id": "SYN_UNI_COMPLEX",
+        "category_name": "Synthetic Complex Combinations",
+        "description": "Unification with surrounding match references",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_cand_succ_fail",
+      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "красивый дом красивый дома",
+      "features": [
+        "success_then_fail_candidate",
+        "repeated_calls_isolation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NUMBER_AGREE",
+        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Number agreement",
+        "is_default_off": false,
+        "matches_count": 2,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Number agree: <suggestion>красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          },
+          {
+            "from_utf16": 13,
+            "to_utf16": 26,
+            "pattern_from_utf16": 13,
+            "pattern_to_utf16": 26,
+            "message": "Number agree: <suggestion>красивый дома</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дома"
+            ],
+            "expected_from_codepoint": 13,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 13,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_cand_fail_succ",
+      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "красивый дома красивый дом",
+      "features": [
+        "fail_then_success_candidate",
+        "repeated_calls_isolation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NUMBER_AGREE",
+        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Number agreement",
+        "is_default_off": false,
+        "matches_count": 2,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Number agree: <suggestion>красивый дома</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дома"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 13,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 13
+          },
+          {
+            "from_utf16": 14,
+            "to_utf16": 26,
+            "pattern_from_utf16": 14,
+            "pattern_to_utf16": 26,
+            "message": "Number agree: <suggestion>красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дом"
+            ],
+            "expected_from_codepoint": 14,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 14,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_rej_iso",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "стали красивый",
+      "features": [
+        "controlled_rejected_reading_isolation",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_GENDER_AGREE",
+        "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Gender agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_eq_inter",
+      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_MULTI_FEAT",
+      "text": "этими новыми домами",
+      "features": [
+        "controlled_equivalence_intersection",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_MULTI_FEAT",
+        "category_name": "Synthetic Multi-Feature Agreement",
+        "description": "Case, Gender, and Number agreement",
+        "is_default_off": false,
+        "matches_count": 2,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Full nominal agree: <suggestion>этими новыми</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "этими новыми"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          },
+          {
+            "from_utf16": 6,
             "to_utf16": 19,
-            "pattern_from_utf16": 0,
+            "pattern_from_utf16": 6,
             "pattern_to_utf16": 19,
-            "message": "Unify with skip",
+            "message": "Full nominal agree: <suggestion>новыми домами</suggestion>",
             "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
+            "suggestions": [
+              "новыми домами"
+            ],
+            "expected_from_codepoint": 6,
             "expected_to_codepoint": 19,
-            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_from_codepoint": 6,
             "expected_pattern_to_codepoint": 19
           }
         ]
       }
     },
     {
-      "id": "syn_uni_sk_09",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт синяя река",
+      "id": "syn_uni_ctrl_miss_val",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "очень дом",
       "features": [
-        "uni_with_skip",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 16,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 16,
-            "message": "Unify with skip",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 16,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 16
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_sk_10",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт тут новый окно",
-      "features": [
-        "uni_with_skip",
+        "controlled_missing_equivalence_value",
         "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_GENDER_AGREE",
+        "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Gender agreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 20,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 20,
-            "message": "Unify with skip",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 20,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 20
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     }
   ]

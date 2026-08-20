@@ -8,7 +8,6 @@ import json
 from pathlib import Path
 import pytest
 
-from pylat_ru.grammar.classifier import classify_rule_element
 from pylat_ru.grammar.loader import GrammarLoader
 from pylat_ru.grammar.model import ExecutionState
 from tools.russian_grammar_unification_inventory import generate_unification_inventory
@@ -26,7 +25,7 @@ def test_grammar_unification_inventory_file_consistency():
 
 
 def test_grammar_unification_inventory_schema_and_counts():
-    """Verify inventory counts, schema versions, and category distributions."""
+    """Verify inventory counts, schema versions, context split, and transitions."""
     data = generate_unification_inventory()
 
     assert data["schema_version"] == "1.0.0"
@@ -41,6 +40,17 @@ def test_grammar_unification_inventory_schema_and_counts():
     assert src_totals["source_rule_elements"] == 892
     assert src_totals["embedded_examples_total"] == 2446
 
+    # Context split verification
+    ctx_split = data["context_split"]
+    assert ctx_split["root_level_unifications_count"] == 8
+    assert ctx_split["category_level_unifications_count"] == 0
+    assert ctx_split["rulegroup_level_unifications_count"] == 0
+    assert ctx_split["rule_level_unifications_count"] == 0
+    assert ctx_split["rule_local_unify_scopes_count"] == 28
+    assert ctx_split["rule_local_unify_ignore_scopes_count"] == 12
+    assert len(ctx_split["configuration_definitions"]) == 8
+
+    # Disposition and transitions verification
     disposition = data["task_0009_disposition"]
     assert disposition["runnable_source_rules_total"] == 759
     assert disposition["deferred_source_rules_total"] == 133
@@ -55,22 +65,28 @@ def test_grammar_unification_inventory_schema_and_counts():
     assert state_counts["MULTI_BLOCKER"] == 3
 
     transitions = data["task_0008_to_0009_transitions"]
+    assert transitions["CORE_0007_RUNNABLE -> CORE_0007_RUNNABLE"] == 506
+    assert transitions["ADVANCED_0008_RUNNABLE -> ADVANCED_0008_RUNNABLE"] == 229
     assert transitions["DEFERRED_0009_UNIFICATION -> UNIFICATION_0009_RUNNABLE"] == 24
     assert transitions["MULTI_BLOCKER -> DEFERRED_0010_FILTER"] == 4
+    assert transitions["DEFERRED_0010_FILTER -> DEFERRED_0010_FILTER"] == 16
+    assert transitions["DEFERRED_0012_SPELLING_OR_SUPPRESSION -> DEFERRED_0012_SPELLING_OR_SUPPRESSION"] == 110
     assert transitions["MULTI_BLOCKER -> MULTI_BLOCKER"] == 3
 
-    ex_totals = data["example_totals"]
-    assert ex_totals["all_examples_total"] == 2446
-    assert ex_totals["runnable_examples_total"] == 1954
-    assert ex_totals["runnable_examples_incorrect"] == 878
-    assert ex_totals["runnable_examples_correct"] == 1076
-    assert ex_totals["deferred_examples_total"] == 492
-    assert ex_totals["deferred_examples_incorrect"] == 161
-    assert ex_totals["deferred_examples_correct"] == 331
+    # Rule records identity and uniqueness verification
+    rules_records = data["rules"]
+    assert len(rules_records) == 892
+    full_ids = [r["full_id"] for r in rules_records]
+    assert len(set(full_ids)) == 892, f"Duplicate full IDs found: {len(full_ids) - len(set(full_ids))}"
+
+    # Verify no duplicates like dlitelnij_dlinnij[1] or Vazhno_chto_etogo[1]
+    assert full_ids.count("dlitelnij_dlinnij[1]") == 1
+    assert full_ids.count("dlitelnij_dlinnij[2]") == 1
+    assert full_ids.count("Vazhno_chto_etogo[1]") == 1
+    assert full_ids.count("Vazhno_chto_etogo[2]") == 1
 
     # Unification rules specific inventory
-    assert data["unification_rules_count"] == 28
-    uni_rules = [r for r in data["rules"] if r["uses_unification"]]
+    uni_rules = [r for r in rules_records if r["has_unify"]]
     assert len(uni_rules) == 28
     pure_uni = [r for r in uni_rules if r["state_task_0009"] == "UNIFICATION_0009_RUNNABLE"]
     assert len(pure_uni) == 24

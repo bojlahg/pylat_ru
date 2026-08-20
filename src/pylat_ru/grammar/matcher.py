@@ -660,10 +660,8 @@ class CompiledRuleVariant:
                 break
 
         if all_elements_match and matching_tokens == pattern_size:
-            filtered_tokens: Optional[List[AnalyzedTokenReadings]] = None
             if self.has_unification:
-                uni_ok, filtered_tokens = self._test_unification(to_unify, neutral_readings)
-                if not uni_ok:
+                if not self._test_unification(to_unify, neutral_readings):
                     return None
 
             # Compute match and error spans
@@ -687,7 +685,6 @@ class CompiledRuleVariant:
                 match_end_idx=match_end,
                 error_start_idx=error_start,
                 error_end_idx=error_end,
-                filtered_tokens=filtered_tokens,
             )
 
         return None
@@ -811,13 +808,12 @@ class CompiledRuleVariant:
         self,
         to_unify: Dict[CompiledPatternToken, List[List[AnalyzedToken]]],
         neutral_readings: Dict[CompiledPatternToken, List[AnalyzedTokenReadings]],
-    ) -> Tuple[bool, Optional[List[AnalyzedTokenReadings]]]:
+    ) -> bool:
         """Perform feature unification agreement check across matched candidate tokens."""
         if self.unifier is None:
-            return True, None
+            return True
 
         self.unifier.reset()
-        final_unified: Optional[List[AnalyzedTokenReadings]] = None
 
         for matcher in self.tokens:
             neutral = neutral_readings.get(matcher)
@@ -838,15 +834,17 @@ class CompiledRuleVariant:
                     any_matched = any_matched or res
 
                 if matcher.is_unify_negated and any_matched:
-                    return False, None
+                    self.unifier.reset()
+                    return False
 
                 if matcher.is_last_in_unify and readings == reading_sets[-1]:
                     if not any_matched and not matcher.is_unify_negated:
-                        return False, None
-                    final_unified = self.unifier.get_final_unified()
+                        self.unifier.reset()
+                        return False
                     self.unifier.reset()
 
-        return True, final_unified
+        return True
+
 
 def expand_rule_into_variants(
     rule: GrammarRule,
@@ -920,25 +918,31 @@ def _expand_pattern_elements(
         first, global_phrases, in_marker_override=in_marker_override
     )
 
-    combined: List[Tuple[List[PatternToken], List[int]]] = []
-    for f_tokens, f_len in first_branches:
+    results: List[Tuple[List[PatternToken], List[int]]] = []
+    for f_tokens, f_lens in first_branches:
         for r_tokens, r_lens in rest_variants:
-            combined.append((f_tokens + r_tokens, [f_len] + r_lens))
-
-    return combined
+            results.append((f_tokens + r_tokens, f_lens + r_lens))
+    return results
 
 
 def _flatten_and_to_tokens(and_elem: PatternAnd) -> List[PatternToken]:
-    """Flatten PatternAnd into tokens preserving member predicates and exceptions."""
+    """Flatten a PatternAnd into a list of PatternTokens."""
     primary_token: Optional[PatternToken] = None
     and_tokens: List[PatternToken] = []
 
-    for child in and_elem.elements:
-        if isinstance(child, PatternToken):
+    for el in and_elem.elements:
+        if isinstance(el, PatternToken):
             if primary_token is None:
-                primary_token = child
+                primary_token = el
             else:
-                and_tokens.append(child)
+                and_tokens.append(el)
+        elif isinstance(el, PatternAnd):
+            sub_tokens = _flatten_and_to_tokens(el)
+            for st in sub_tokens:
+                if primary_token is None:
+                    primary_token = st
+                else:
+                    and_tokens.append(st)
 
     if primary_token is not None:
         merged_exceptions = list(primary_token.exceptions) + list(and_elem.exceptions)
@@ -972,8 +976,8 @@ def _expand_single_element(
     elem: PatternElement,
     global_phrases: Dict[str, PatternPhrase],
     in_marker_override: Optional[bool] = None,
-) -> List[Tuple[List[PatternToken], int]]:
-    """Expand a single PatternElement into a list of (branch_tokens, logical_element_length)."""
+) -> List[Tuple[List[PatternToken], List[int]]]:
+    """Expand a single PatternElement into a list of (branch_tokens, logical_element_lengths)."""
     effective_marker = True if (in_marker_override or getattr(elem, "is_in_marker", False)) else None
 
     if isinstance(elem, PatternToken):
@@ -1004,21 +1008,21 @@ def _expand_single_element(
                 is_unify_neutral=tok.is_unify_neutral,
                 is_last_in_unify=tok.is_last_in_unify,
             )
-        return [([tok], 1)]
+        return [([tok], [1])]
 
     elif isinstance(elem, PatternAnd):
         toks = _flatten_and_to_tokens(elem)
         if in_marker_override is not None:
             for t in toks:
                 t.is_in_marker = in_marker_override
-        return [(toks, 1)]
+        return [(toks, [1])]
 
     elif isinstance(elem, PatternOr):
-        branches: List[Tuple[List[PatternToken], int]] = []
+        branches: List[Tuple[List[PatternToken], List[int]]] = []
         ordered_elements = list(elem.elements[1:]) + [elem.elements[0]] if len(elem.elements) > 1 else elem.elements
         for opt in ordered_elements:
-            for opt_tokens, opt_len in _expand_single_element(opt, global_phrases, in_marker_override=effective_marker):
-                branches.append((opt_tokens, opt_len))
+            for opt_tokens, opt_lens in _expand_single_element(opt, global_phrases, in_marker_override=effective_marker):
+                branches.append((opt_tokens, opt_lens))
         return branches
 
     elif isinstance(elem, PatternPhrase):
@@ -1031,7 +1035,7 @@ def _expand_single_element(
         )
         branches = []
         for p_tokens, _ in phrase_expansions:
-            branches.append((p_tokens, len(p_tokens)))
+            branches.append((p_tokens, [len(p_tokens)]))
         return branches
 
     elif isinstance(elem, PatternUnify):
@@ -1040,7 +1044,7 @@ def _expand_single_element(
             elem.elements, global_phrases, in_marker_override=effective_marker
         )
         branches = []
-        for u_tokens, _ in unify_expansions:
+        for u_tokens, u_lens in unify_expansions:
             expanded_tokens = []
             for tok in u_tokens:
                 if tok.min is not None and tok.min > 1:
@@ -1101,7 +1105,7 @@ def _expand_single_element(
                 last_tok.is_last_in_unify = True
                 if elem.negate:
                     last_tok.is_unify_negated = True
-            branches.append((expanded_tokens, len(expanded_tokens)))
+            branches.append((expanded_tokens, u_lens))
         return branches
 
     elif isinstance(elem, PatternUnifyIgnore):
@@ -1109,7 +1113,7 @@ def _expand_single_element(
             elem.elements, global_phrases, in_marker_override=effective_marker
         )
         branches = []
-        for i_tokens, _ in ignore_expansions:
+        for i_tokens, i_lens in ignore_expansions:
             expanded_tokens = []
             for tok in i_tokens:
                 expanded_tokens.append(
@@ -1135,7 +1139,7 @@ def _expand_single_element(
                         is_unify_neutral=True,
                     )
                 )
-            branches.append((expanded_tokens, len(expanded_tokens)))
+            branches.append((expanded_tokens, i_lens))
         return branches
 
     else:
