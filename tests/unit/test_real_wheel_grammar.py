@@ -224,7 +224,7 @@ assert inn_match.suggestions == []
 
 # 10. Task-0011 native Java-rule equivalents execute from the wheel only.
 native_tool = LanguageToolRU(enabled_rules=["WHITESPACE_PARAGRAPH_BEGIN"])
-native_text = "  Я идёт. Ростов — на — Дону. Это  тест."
+native_text = "  Текст. Я идёт. Ростов — на — Дону. Это  тест."
 native_matches = native_tool.check(native_text)
 native_ids = {{m.rule_id for m in native_matches}}
 assert "WHITESPACE_RULE" in native_ids                 # generic whitespace

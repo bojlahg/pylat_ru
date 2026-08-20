@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 from pylat_ru import LanguageToolRU
 from pylat_ru.native_rules import RussianJavaRulesEngine, TASK_0011_RULE_CLASSES
 
@@ -56,17 +58,43 @@ def test_explicit_enablement_and_disabling() -> None:
     assert not any(m.rule_id == "FILLER_WORDS_RU" for m in engine.check("ах слово"))
 
 
+def test_public_user_config_surface_and_pinned_option_ranges() -> None:
+    tool = LanguageToolRU(
+        enabled_rules=["FILLER_WORDS_RU", "TOO_LONG_PARAGRAPH"],
+        rule_config={
+            "TOO_LONG_SENTENCE": {"maxWords": 6},
+            "TOO_LONG_PARAGRAPH": {"maxWords": 6},
+            "FILLER_WORDS_RU": {"minPercent": 40, "excludeDirectSpeech": True},
+        },
+    )
+    assert any(match.rule_id == "TOO_LONG_SENTENCE" for match in tool.check("один два три четыре пять шесть семь."))
+    assert not any(match.rule_id == "FILLER_WORDS_RU" for match in tool.check("ах слово слово"))
+    for rule_id, config in (
+        ("TOO_LONG_SENTENCE", {"maxWords": 4}),
+        ("TOO_LONG_SENTENCE", {"maxWords": 101}),
+        ("TOO_LONG_PARAGRAPH", {"maxWords": 4}),
+        ("TOO_LONG_PARAGRAPH", {"maxWords": 301}),
+        ("FILLER_WORDS_RU", {"minPercent": -1}),
+        ("FILLER_WORDS_RU", {"minPercent": 101}),
+    ):
+        with pytest.raises(ValueError):
+            LanguageToolRU(rule_config={rule_id: config})
+
+
 def test_translated_russian_verb_conjugation_upstream_assertions() -> None:
     engine = RussianJavaRulesEngine()
     good = (
         "Я иду", "Она сидит", "Оно думает", "Они пишут", "Мы думаем", "Ты читаешь",
-        "Он творит", "Вы идёте", "Я ходил", "Они ходили", "Она ходила", "Оно ходило",
-        "Я пойду", "Она пойдёт", "Мы пойдём", "Ты может быть не помнишь.",
+        "Он творит", "Вы идёте", "Я ходил", "Они ходили", "Мы ходили", "Она ходила",
+        "Оно ходило", "Я ходила", "Я пойду", "Она пойдёт", "Оно пойдёт", "Мы пойдём",
+        "Ты пойдёшь", "Я согласился на предложение.", "Джек и я согласились",
+        "Ты может быть не помнишь.",
     )
     bad = (
         "Я идёт", "Она сидят", "Оно думаешь", "Они идёте", "Мы думаю", "Ты читает",
-        "Он творю", "Я ходили", "Они ходил", "Она ходил", "Оно ходила", "Я пойдёт",
-        "Она пойдут", "Мы пойдёшь", "Ты пойду", "Мы может поговорить здесь.",
+        "Он творю", "Я ходили", "Они ходил", "Мы ходила", "Она ходил", "Оно ходила",
+        "Я ходило", "Я пойдёт", "Она пойдут", "Оно пойдёте", "Мы пойдёшь", "Ты пойду",
+        "Мы может поговорить здесь.",
     )
     assert all(not engine.check_rule(text, "RU_VERB_CONJUGATION") for text in good)
     assert all(len(engine.check_rule(text, "RU_VERB_CONJUGATION")) == 1 for text in bad)

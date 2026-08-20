@@ -1,180 +1,87 @@
-# Task 0011 — Native Russian Java Rules: completion report
+# Task 0011 — Native Russian Java Rules: review-fix report
 
-## Baseline and result
+## Baseline and status
 
-- Accepted baseline: `main` at `e1d6288996b7deff355016d8b5a70bbd9b4a3240`.
+- Review-fix baseline: `main` at `ce6f145bdb52d1d462bab0d400515ca87aa04bbe`.
+- Original Task-0011 implementation parent: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
 - LanguageTool target: `v6.8`, commit `e807fcde6a6506191e1470744d2345da28c26be6`.
-- Implementation commit: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
-- Production remains Python-native: no Java/JRE, LT server, Java subprocess, localhost oracle, or runtime download.
-- State: 15 of 23 ordinary relevant Java rules implemented; eight remain explicitly Task-0012-deferred; the one language-model rule remains deferred.
+- Trusted oracle: `lt_6.8_source_build_jdk17_stefan`, JAR SHA-256 `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`.
+- Review-fix implementation commit: `PENDING_REVIEW_FIX_COMMIT`.
+- Production remains Python-native and does not invoke Java, an LT server, localhost services, or runtime downloads.
 
-## Exact rule accounting
+Rule accounting is unchanged and exact: 15/23 ordinary relevant Java rules are implemented (generic 10/10, Russian-specific 5/13); all eight Task-0012 rules remain deferred; the language-model rule remains deferred 0/1. `RussianSuppressMisspelledSuggestionsFilter` remains outside Task 0011. Task 0012 was not started.
 
-Implemented generic rules (10/10):
+## Review defects and fixes
 
-```text
-CommaWhitespaceRule
-UppercaseSentenceStartRule
-MultipleWhitespaceRule
-SentenceWhitespaceRule
-WhiteSpaceBeforeParagraphEnd
-WhiteSpaceAtBeginOfParagraph
-LongSentenceRule
-LongParagraphRule
-ParagraphRepeatBeginningRule
-PunctuationMarkAtParagraphEnd2
-```
+### CI skip mismatch
 
-Implemented Russian-specific rules (5/13):
+The prior report incorrectly claimed `416 passed / 0 skipped`; GitHub run `32366269081` actually produced `415 passed / 1 skipped` in both jobs. The skipped live-Java generator test was removed from ordinary pytest semantics, not deleted: the live generator remains an explicit development command, while ordinary pytest now verifies the deterministic committed synthesizer fixture-to-generator-query contract without Java. Final local result is `498 passed / 0 failed / 0 errors / 0 skipped`.
 
-```text
-RussianFillerWordsRule
-RussianUnpairedBracketsRule
-RussianVerbConjugationRule
-RussianDashRule
-RussianSpecificCaseRule
-```
+### Semantic-signature duplicate hole
 
-Explicitly deferred to Task 0012 (8/23 ordinary relevant rules):
+The semantic signature now excludes testcase ID, stored signature, coverage bookkeeping, finding counts, and expected Java output. It includes execution mode, target rule/class, input text, explicit enablement/disablement, and rule configuration. Integrity tests assert `len(signatures) == len(set(signatures))` across all three fixtures. The strengthened test found two real bookkeeping duplicates; both duplicate queries were removed without removing behavioral coverage. Result: 126/126 unique semantic signatures.
 
-```text
-MorfologikRussianSpellerRule
-MorfologikRussianYOSpellerRule
-RussianCompoundRule
-RussianSimpleReplaceRule
-RussianSimpleWordRepeatRule
-RussianWordCoherencyRule
-RussianWordRepeatRule
-RussianWordRootRepeatRule
-```
+### Inherited and configurable behavior
 
-`RussianConfusionProbabilityRule` / `CONFUSION_RULE` is separately recorded as `LANGUAGE_MODEL_DEFERRED` (0/1). No spelling or language-model approximation was added.
+- `RussianUnpairedBracketsRule` now carries the observable inherited `GenericUnpairedBracketsRule` conditions used by Russian: nested/mismatched symbols, symmetric quotes, cross-sentence/paragraph state, smiley and URL exceptions, RU/Latin/numeric enumeration forms, exact symbol spans, and multiple-match order.
+- `CommaWhitespaceRule` was corrected for leading commas and ellipsis behavior. Oracle coverage now includes both quote-spacing sides, exact suggestion order, parentheses, NBSP, decimal/thousands forms, extensions, control characters, and exact spans.
+- `LongParagraphRule` now implements the pinned `maxWords + 5` guard and `paraHasLinebreaks` behavior for completed internal-linebreak/checklist sentences, including multiple and unterminated final paragraphs.
+- `LongSentenceRule` now preserves the pinned segment state around `:`, `;`, and newline, including the inherited start-span behavior, quote/bracket/dash exclusion, quoted sentence-ending exclusion, punctuation counting, and exact spans.
+- `RussianDashRule` now accepts only the four whole-compound trie variants generated upstream; mixed en/em or spacing variants are not independently canonicalized.
+- Full-tool parity now uses a development-only `JLanguageTool.check(text)` probe with exactly the eight Task-0012 rules disabled. The Python public pipeline applies the pinned overlap/priority cleanup separately from direct single-rule execution and matches ordered full observable fields.
+- A minimal public `rule_config` surface reaches native rules through `LanguageToolRU`/`RussianJavaRulesEngine`: LongSentence `maxWords` default 50/range 5–100, LongParagraph default 220/range 5–300, and FillerWords `minPercent` default 8/range 0–100 plus `excludeDirectSpeech`. Boundary, custom percentage, zero-percent, and quote adjacency/spacing behavior are Java-oracle backed. The non-obvious pinned behavior at `minPercent=0` is preserved literally.
 
-The mechanically generated [registration inventory](../compat/russian_java_rules_inventory.json) records all 23 ordinary rules plus the LM rule with registration order/line, constructor arguments, IDs, categories, default state, source paths and SHA-256, resource dependencies, test sources, classification, and priority binding.
+All listed review areas required either implementation changes or combined-pipeline changes; no area is being claimed as `NO CODE CHANGE REQUIRED AFTER ORACLE CONFIRMATION` in aggregate.
 
-## Implementation
+## Oracle fixtures and integrity
 
-- `src/pylat_ru/native_rules.py` adds the narrowly scoped native rule/finding interface, full-text analysis context, 15 registered rules, default enablement, UTF-16/codepoint offsets, priority metadata, and deterministic ordering.
-- `LanguageToolRU.check()` now runs the accepted tokenizer/tagger/disambiguator/chunker once, combines XML grammar results with Task-0011 native results, adjusts sentence offsets to full-text offsets, and returns deterministic public findings.
-- `RussianVerbConjugationRule` uses the accepted LT-compatible Russian readings and preserves the pinned first-reading/POS conditions and exceptions.
-- `RussianDashRule` uses the complete pinned `compounds.txt`; runtime matching stores the 26,464 canonical eligible entries and searches bounded windows around actual dash characters instead of expanding 105,852 variants or scanning every entry per text.
-- `RussianSpecificCaseRule` uses the complete pinned `specific_case.txt`.
-- Default-off rules are not run unless explicitly enabled: `WHITESPACE_PARAGRAPH`, `WHITESPACE_PARAGRAPH_BEGIN`, `TOO_LONG_PARAGRAPH`, `PARAGRAPH_REPEAT_BEGINNING_RULE`, `FILLER_WORDS_RU`, and `PUNCTUATION_PARAGRAPH_END2`.
-- The wheel packages both required runtime resources; the production code uses `importlib.resources` only.
-
-## Priority reconciliation
-
-The pinned `Russian.java` contains priority keys which do not all equal the pinned rule IDs. The inventory records configured and effective priority separately instead of silently binding mismatched strings.
-
-Effective Task-0011 bindings are:
-
-```text
-RU_DASH_RULE             12
-TOO_LONG_PARAGRAPH      -15
-```
-
-Pinned orphan override keys directly affecting Task 0011 are:
-
-```text
-configured RUSSIAN_SPECIFIC_CASE = 9   vs registered RU_SPECIFIC_CASE
-configured PUNCT_DPT_2 = -2            vs registered PUNCTUATION_PARAGRAPH_END2
-```
-
-Thus both registered rules inherit base priority `0` in pinned v6.8. Deferred rules expose four additional orphan keys (`MORFOLOGIC_RULE_RU_RU`, `MORFOLOGIC_RULE_RU_RU_YO`, `RUSSIAN_SIMPLE_REPLACE_RULE`, and `Word_root_repeat`) and two bound keys (`RU_COMPOUNDS`, plus the Task-0011 keys above). This is a proved upstream inconsistency, not an unexplained Python difference.
-
-## Provenance and licensing
-
-Twenty-two newly required generic base/source test files were copied byte-exactly from the pinned checkout into `third_party/languagetool`, taking the vendored/licensed inventory from 118 to 140 files. All 140 are `VERIFIED_LGPL`; `BLOCKED_LICENSE_REVIEW = 0`. Complete hashes are in `third_party/languagetool/UPSTREAM.json` and `third_party/languagetool/license_inventory.json`.
-
-Key runtime resources:
-
-| Resource | Bytes | SHA-256 |
-| --- | ---: | --- |
-| `compounds.txt` | 899,551 | `71b4217689cf83c07eb88b4f4b5c9c5e482171a053b48fa93e1cd1c14e8e720a` |
-| `specific_case.txt` | 915 | `c35d08b0909b45acf242621961e2dbf0148792b70e4696be40248ad952c50966` |
-| pinned `Russian.java` | 8,757 | `e42c7b3ee2aaf1e76deea246beb16d3f08df64fd65943495f1e3d0ad017cfaa6` |
-
-Integrity tests prove that both packaged resource copies equal the pinned bytes.
-
-## Upstream tests and oracle evidence
-
-Inventoried generic test sources:
-
-```text
-CommaWhitespaceRuleTest.java
-GenericUnpairedBracketsRuleTest.java
-LongParagraphRuleTest.java
-LongSentenceRuleTest.java
-MultipleWhitespaceRuleTest.java
-PunctuationMarkAtParagraphEnd2Test.java
-SentenceWhitespaceRuleTest.java
-UppercaseSentenceStartRuleTest.java
-```
-
-Inventoried Russian evidence includes `RussianDashRuleTest.java`, `RussianSpecificCaseRuleTest.java`, `RussianUnpairedBracketsRuleTest.java`, `RussianVerbConjugationRuleTest.java`, and registered examples in `Russian.java`. No pinned dedicated behavior test exists for `RussianFillerWordsRule`, `WhiteSpaceBeforeParagraphEnd`, `WhiteSpaceAtBeginOfParagraph`, or `ParagraphRepeatBeginningRule`; those surfaces receive controlled single-rule oracle cases.
-
-Translated tests contain six focused Python functions, including 32 verb-conjugation good/bad assertions and direct dash/specific-case/bracket/default/priority/integration/offset assertions. The differential suite adds 45 parameterized full-field cases.
-
-Oracle identity:
-
-```text
-build id: lt_6.8_source_build_jdk17_stefan
-JAR SHA-256: b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc
-pinned commit: e807fcde6a6506191e1470744d2345da28c26be6
-```
-
-Fixtures:
+Fixtures were regenerated only by `python -m tools.generate_java_rules_fixtures_0011` through the trusted pinned Java oracle and written as deterministic LF bytes.
 
 | Fixture | Cases | Bytes | SHA-256 |
 | --- | ---: | ---: | --- |
-| `tests/fixtures/oracle_java_rules_0011_synthetic.json` | 30 | 28,863 | `f02a6511541f6c7bd1248dc8dab5413e347bcdade9fdab198bbcf38d73b8a2ae` |
-| `tests/fixtures/oracle_java_rules_0011_russian.json` | 15 | 14,062 | `6ba061a425a6a55a06284d476f486e32765f9f86cf1cf4f24265aaf27b5108ee` |
+| `oracle_java_rules_0011_synthetic.json` | 108 | 129,214 | `5a4767184df81babd476c1ad7f175d6b91a659be1d52c7ee1085d945cc57dcc7` |
+| `oracle_java_rules_0011_russian.json` | 12 | 11,396 | `0b0224312f6b2dc273bce8716061f5e8c68d09e91b34329471ca8b8e3465886e` |
+| `oracle_java_rules_0011_combined.json` | 6 | 11,591 | `ab7b95eb8207a775cf31bd040dc5477350b3f9c2dc3451ef768754785b84e1f4` |
 
-Every rule has positive and negative coverage. Coverage includes multi-finding inputs, Russian registered/upstream examples, thresholds, default-off rules, paragraph/sentence boundaries, resources, morphology, and non-BMP offsets. Fixtures were emitted by `tools/generate_java_rules_fixtures_0011.py` through the verified Java probe, with explicit LF bytes and semantic signatures.
+Single-rule parity is 120/120 and combined-pipeline parity is 6/6. Both compare ordered rule ID, category ID/name, UTF-16 and Python codepoint spans, source slice, message, short message, suggestions and order, and URL. IDs, build identity, counts, raw sizes/hashes, LF bytes, stored/recomputed signatures, and signature uniqueness are independently checked and bound by `compat/oracle_manifest.json`.
 
-Parity compares rule class/ID, category ID/name, finding count/order, Java UTF-16 spans, Python codepoint spans, source slices, message, short message, suggestions/order, and URL. Result: 45/45 exact cases, 100% full observable-field parity.
+## Upstream test translation
+
+- Upstream test files inventoried: 12.
+- Upstream `@Test` methods inspected: 13.
+- Direct upstream assertion scenarios represented in oracle fixtures: 27.
+- `RussianVerbConjugationRuleTest` sentence assertions translated: 41/41.
+- Distinct selected applicable upstream assertion scenarios translated/directly represented: 65/65 (three verb scenarios are also oracle-backed and counted once).
+- Additional controlled oracle cases beyond those direct upstream scenarios: 93 single-rule cases plus 6 combined-pipeline cases.
+
+The inspected surface includes `CommaWhitespaceRuleTest`, `GenericUnpairedBracketsRuleTest`, `RussianUnpairedBracketsRuleTest`, `LongParagraphRuleTest`, `LongSentenceRuleTest`, `RussianVerbConjugationRuleTest`, `RussianDashRuleTest`, `RussianSpecificCaseRuleTest`, `UppercaseSentenceStartRuleTest`, `MultipleWhitespaceRuleTest`, `SentenceWhitespaceRuleTest`, and `PunctuationMarkAtParagraphEnd2Test`. No pinned dedicated behavior test exists for `RussianFillerWordsRule`, `WhiteSpaceBeforeParagraphEnd`, `WhiteSpaceAtBeginOfParagraph`, or `ParagraphRepeatBeginningRule`; those use controlled oracle cases.
 
 ## Tests and wheel proof
 
-Focused verification:
-
-```text
-python -m pytest -q \
-  tests/upstream/test_java_rules_0011_oracle_parity.py \
-  tests/unit/test_java_rules_0011.py \
-  tests/unit/test_java_rules_0011_inventory.py \
-  tests/unit/test_real_wheel_grammar.py \
-  tests/unit/test_license_inventory.py \
-  tests/unit/test_foundation.py
-
-62 passed; failed=0; errors=0; skipped=0
-```
-
-The real-wheel test builds and installs the distribution into an isolated target, removes repository source paths, removes `JAVA_HOME`, and blocks sockets and subprocess calls. It executes a generic whitespace rule, an explicitly enabled paragraph rule, `RU_DASH_RULE`, and morphology-sensitive `RU_VERB_CONJUGATION`, as well as the accepted XML grammar/filter proofs. Result: passed.
-
-Full regression (final pre-commit run):
+Full pre-report regression:
 
 ```text
 python -m pytest -q
-416 passed; failed=0; errors=0; skipped=0
+498 passed in 76.53s
+failed=0; errors=0; skipped=0
 ```
 
-The accepted grammar counts remain unchanged: 778 runnable / 114 deferred source rules and 2,119 runnable / 327 deferred examples.
+The final focused oracle/integrity/config/combined/wheel set passed 138/138. The real-wheel proof was then rerun in the full suite and passed. It builds and installs the wheel into an isolated directory, removes repository source paths and `JAVA_HOME`, and blocks sockets/subprocess use in production execution. It executes representative Task-0011 generic whitespace, explicit default-off paragraph whitespace, dash-resource, morphology-sensitive verb, XML grammar, and filter findings.
 
-## Known differences and stopping point
+Accepted XML grammar counts remain 778 runnable / 114 deferred source rules and 2,119 runnable / 327 deferred examples.
 
-- There are no unexplained oracle differences in the committed Task-0011 evidence.
-- The priority ID mismatches above are preserved and explicitly reported as pinned upstream behavior.
-- The eight Task-0012 rules and spelling-dependent suppression filter remain deferred and unapproximated.
-- Task 0012 was not started.
+## Compatibility and known differences
 
-## Git and CI verification
+Updated machine-readable files are `compat/compatibility.json`, `compat/oracle_manifest.json`, and `compat/russian_java_rules_inventory.json`. The inventory records the three UserConfig surfaces and preserves pinned priority-ID mismatches (`RUSSIAN_SPECIFIC_CASE` vs `RU_SPECIFIC_CASE`, `PUNCT_DPT_2` vs `PUNCTUATION_PARAGRAPH_END2`) as upstream facts.
 
-- Implementation commit: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
-- Push target: `origin/main` without force or history rewrite.
-- Exact remote implementation SHA: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5` (verified with `git ls-remote origin refs/heads/main`).
-- Exact-SHA CI run: [CI #32366269081](https://github.com/bojlahg/pylat_ru/actions/runs/32366269081).
-- GitHub Actions Python 3.10: `success`, job `96416331112`, completed `2026-08-20T11:57:52Z`.
-- GitHub Actions Python 3.12: `success`, job `96416331386`, completed `2026-08-20T11:57:34Z`.
+Known unexplained Java-oracle differences: none in the committed Task-0011 fixtures.
 
-`FINAL = COMPLETE`
+## Git and final CI
+
+- Review-fix implementation commit: `PENDING_REVIEW_FIX_COMMIT`.
+- Final `main`: `PENDING_FINAL_SHA`.
+- Exact-SHA Actions run: `PENDING_FINAL_CI`.
+- Python 3.10: `PENDING_FINAL_CI`.
+- Python 3.12: `PENDING_FINAL_CI`.
+
+`FINAL = PENDING EXACT-SHA CI`

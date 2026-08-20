@@ -71,7 +71,9 @@
       "grammar_unification_russian_rules_oracle_cases_total": 216,
       "grammar_unification_total_oracle_cases": 389,
       "filters_synthetic_oracle_cases_total": 145,
-      "filters_russian_rules_oracle_cases_total": 165
+      "filters_russian_rules_oracle_cases_total": 165,
+      "task_0011_single_rule_oracle_cases_total": 120,
+      "task_0011_combined_pipeline_oracle_cases_total": 6
     },
     "russian_grammar_unification": {
       "equivalence_type_locator": "SUPPORTED",
@@ -266,6 +268,10 @@
         "task_0010_upstream_source_assertions_total": 17,
         "task_0010_translated_python_functions_total": 7,
         "task_0010_translated_assertions_total": 17,
+        "task_0011_upstream_source_test_files_inventoried": 12,
+        "task_0011_upstream_source_methods_inspected": 13,
+        "task_0011_direct_upstream_cases_represented": 27,
+        "task_0011_russian_verb_assertions_translated": 41,
         "remaining_upstream_test_files_not_ported": 11
       },
       "grammar_xml_examples": {
@@ -302,9 +308,13 @@
         "filters_synthetic_oracle_cases_total": 145,
         "filters_russian_rules_oracle_cases_total": 165,
         "task_0011_java_rules": {
-          "synthetic_cases": 30,
-          "real_russian_cases": 15,
-          "total_cases": 45,
+          "synthetic_cases": 108,
+          "real_russian_cases": 12,
+          "single_rule_total_cases": 120,
+          "combined_pipeline_cases": 6,
+          "total_cases": 126,
+          "semantic_signatures_unique": true,
+          "config_parity": "SUPPORTED",
           "full_observable_field_parity": 1.0
         }
       }

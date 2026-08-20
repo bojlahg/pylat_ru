@@ -31,7 +31,8 @@ def engine() -> RussianJavaRulesEngine:
 
 @pytest.mark.parametrize("fixture_name,case", _cases(), ids=lambda value: value if isinstance(value, str) else value["id"])
 def test_java_rule_oracle_parity(fixture_name: str, case: dict, engine: RussianJavaRulesEngine) -> None:
-    actual = engine.check_rule(case["text"], case["rule_id"])
+    case_engine = RussianJavaRulesEngine({case["rule_id"]: case["config"]}) if case["config"] else engine
+    actual = case_engine.check_rule(case["text"], case["rule_id"])
     normalized = [
         {
             "rule_id": finding.rule_id,
@@ -50,4 +51,3 @@ def test_java_rule_oracle_parity(fixture_name: str, case: dict, engine: RussianJ
         for finding in actual
     ]
     assert normalized == case["expected"], f"{fixture_name}:{case['id']}"
-

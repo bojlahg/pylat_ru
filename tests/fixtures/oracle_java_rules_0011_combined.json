@@ -1,0 +1,368 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0011",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 6
+  },
+  "cases": [
+    {
+      "id": "combined_xml_then_comma",
+      "text": "Ученик решил задать тест учителю. Не род , а ум.",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "xml",
+        "java_rule",
+        "different_offsets",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 24,
+          "from": 13,
+          "to": 24,
+          "source_slice": "задать тест"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 40,
+          "to_utf16": 42,
+          "from": 40,
+          "to": 42,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "16ab0b50df9e5e4912ffd5c891d1fcaa4f19d9f9365617ab9e42728e40ab84b1"
+    },
+    {
+      "id": "combined_comma_then_xml",
+      "text": "Не род , а ум. Ученик решил задать тест учителю.",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "xml",
+        "java_rule",
+        "different_offsets",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 6,
+          "to": 8,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 28,
+          "to_utf16": 39,
+          "from": 28,
+          "to": 39,
+          "source_slice": "задать тест"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "4a5170c62e07532a690ce9359237bb706288800b9978d60ea3fb1e043a8d3ef3"
+    },
+    {
+      "id": "combined_same_offset_priority",
+      "text": "из—за",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "java_rule",
+        "same_offset",
+        "priority",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "RU_DASH_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Использовано тире вместо дефиса.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из—за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "f2cd6c8e254e07b6dbd511c0e9eedbb774b55c6a8057fbbc19993e9ff184c5fc"
+    },
+    {
+      "id": "combined_same_offset_casing",
+      "text": "центральный банк РФ",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "java_rule",
+        "overlap",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "RU_SPECIFIC_CASE",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Для специальных наименований используйте предложенное написание заглавных и строчных букв.",
+          "short_message": "",
+          "suggestions": [
+            "Центральный банк РФ"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 19,
+          "from": 0,
+          "to": 19,
+          "source_slice": "центральный банк РФ"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "52b6e0932eb79f1b6bf7b7484c9b072a3e5b98c76e2f9415dac4fec8045c70e8"
+    },
+    {
+      "id": "combined_default_off_filler",
+      "text": "ах слово. Ученик решил задать тест учителю.",
+      "explicitly_enabled_rules": [
+        "FILLER_WORDS_RU"
+      ],
+      "coverage": [
+        "xml",
+        "java_rule",
+        "default_off",
+        "explicit_enablement",
+        "multiple_findings"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "FILLER_WORDS_RU",
+          "category_id": "CREATIVE_WRITING",
+          "category_name": "Стилистические подсказки для творческого письма",
+          "message": "Это — слово-паразит. Удалите его, если это возможно.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "ах"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 23,
+          "to_utf16": 34,
+          "from": 23,
+          "to": 34,
+          "source_slice": "задать тест"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "b64eb7611604783963e96ba212dc8021d51773d425d3611ab3561104a51dfec2"
+    },
+    {
+      "id": "combined_multiple_findings",
+      "text": "Ученик решил задать тест учителю ,а затем задать тест преподавателю.",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "xml",
+        "java_rule",
+        "multiple_findings",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "expected": [
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 24,
+          "from": 13,
+          "to": 24,
+          "source_slice": "задать тест"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 32,
+          "to_utf16": 34,
+          "from": 32,
+          "to": 34,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 42,
+          "to_utf16": 53,
+          "from": 42,
+          "to": 53,
+          "source_slice": "задать тест"
+        }
+      ],
+      "finding_count": 3,
+      "semantic_signature": "930d65ee0597f62648c1a55fe20bc7eaf24c5ee2b4c6c594a4b8c9cae690101d"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ server, Natasha, pymorphy, or another external NLP runtime.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Sequence
+from typing import Any, List, Mapping, Sequence
 
 from pylat_ru.analysis import (
     AnalyzedSentence,
@@ -100,11 +100,12 @@ class LanguageToolRU:
         self,
         disabled_rules: Sequence[str] | None = None,
         enabled_rules: Sequence[str] | None = None,
+        rule_config: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> None:
         self.disabled_rules = set(disabled_rules or [])
         self.enabled_rules = set(enabled_rules or [])
         self.grammar_engine = RussianGrammarEngine()
-        self.java_rules_engine = RussianJavaRulesEngine()
+        self.java_rules_engine = RussianJavaRulesEngine(rule_config=rule_config)
         for rule_id in self.disabled_rules:
             if self.java_rules_engine.get_rule(rule_id):
                 self.java_rules_engine.disable_rule(rule_id)
@@ -149,8 +150,18 @@ class LanguageToolRU:
                 source_order = rule.source_order_index if rule else 0
                 ordering.append((public.offset, -priority, xml_order_base + source_order, public))
 
-        ordering.sort(key=lambda item: (item[0], item[1], item[2], item[3].length))
-        results.extend(item[3] for item in ordering)
+        # JLanguageTool's full check surface cleans overlapping matches after
+        # all rule families have run.  Direct per-rule checks intentionally do
+        # not use this stage (e.g. both sides of a badly spaced comma).
+        selected: list[tuple[int, int, int, RuleMatch]] = []
+        for item in sorted(ordering, key=lambda value: (value[1], -value[3].length, -value[2], value[0])):
+            candidate = item[3]
+            candidate_end = candidate.offset + candidate.length
+            if any(candidate.offset < kept.offset + kept.length and kept.offset < candidate_end for *_, kept in selected):
+                continue
+            selected.append(item)
+        selected.sort(key=lambda item: (item[0], item[1], item[2], item[3].length))
+        results.extend(item[3] for item in selected)
         return results
 
     @staticmethod

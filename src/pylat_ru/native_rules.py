@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from importlib.resources import files
 import re
 import unicodedata
-from typing import Iterable, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedTokenReadings
 from pylat_ru.chunking.russian import RussianChunker
@@ -78,8 +78,9 @@ class NativeRule:
     default_off = False
     priority = 0
 
-    def __init__(self, registration_order: int) -> None:
+    def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         self.registration_order = registration_order
+        self.config = dict(config or {})
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         raise NotImplementedError
@@ -126,6 +127,8 @@ class CommaWhitespaceRule(NativeRule):
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         tokens = context.token_spans
         out: list[NativeRuleFinding] = []
+        if tokens and tokens[0].text == ",":
+            out.append(self.finding(context, tokens[0].start, tokens[0].end, "Поставьте пробел после запятой, а не перед ней.", (", ",)))
         for i, cur in enumerate(tokens):
             if i == 0:
                 continue
@@ -152,6 +155,8 @@ class CommaWhitespaceRule(NativeRule):
                     msg = "Поставьте пробел после запятой, а не перед ней."
                     repl = ", " if i + 1 < len(tokens) and not self._ws(tokens[i + 1].text) else ","
                 elif token == ".":
+                    if pp == ".":
+                        continue
                     nxt = tokens[i + 1].text if i + 1 < len(tokens) else ""
                     nxt2 = tokens[i + 2].text if i + 2 < len(tokens) else ""
                     domain = bool(re.fullmatch(r"(?i)(com|org|net|int|edu|gov|mil|[a-z]{2})", nxt))
@@ -315,6 +320,12 @@ class LongSentenceRule(NativeRule):
     description = "Удобочитаемость: предложение длиной 50 слов"
     max_words = 50
 
+    def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
+        super().__init__(registration_order, config)
+        self.max_words = int(self.config.get("maxWords", 50))
+        if not 5 <= self.max_words <= 100:
+            raise ValueError("TOO_LONG_SENTENCE maxWords must be between 5 and 100")
+
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
         opening = ["\"", "“", "„", "«", "(", "[", "{", "—"]
@@ -329,7 +340,7 @@ class LongSentenceRule(NativeRule):
             for span in spans:
                 token = span.text
                 if token in {":", ";", "\n", "\r\n", "\n\r"}:
-                    count, first = 0, None
+                    count = 0
                     continue
                 if quote == -1 and token in opening:
                     quote = opening.index(token)
@@ -343,7 +354,7 @@ class LongSentenceRule(NativeRule):
                         idx = spans.index(last)
                         if idx + 1 < len(spans) and spans[idx + 1].text in ".?!":
                             last = spans[idx + 1]
-                        out.append(self.finding(context, first.start, last.end, "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями."))
+                        out.append(self.finding(context, first.start, last.end, f"Предложение длиной {self.max_words} слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями."))
                         break
                     count += 1
         return out
@@ -357,13 +368,21 @@ class LongParagraphRule(NativeRule):
     default_off = True
     priority = -15
 
+    def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
+        super().__init__(registration_order, config)
+        self.max_words = int(self.config.get("maxWords", 220))
+        if not 5 <= self.max_words <= 300:
+            raise ValueError("TOO_LONG_PARAGRAPH maxWords must be between 5 and 300")
+
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
         for start, end in _paragraph_ranges(context.text):
             spans = tokens_to_spans(RussianWordTokenizer().tokenize(context.text[start:end]), base_offset=start, mapper=context.mapper)
             words = [s for s in spans if _is_word(s.text)]
-            if len(words) > 225:
-                out.append(self.finding(context, words[218].start, words[219].end, "Абзац длиной 220 слов, разбейте его на части."))
+            has_internal_linebreak = "\n" in context.text[start:end].rstrip("\r\n") or "\r" in context.text[start:end].rstrip("\r\n")
+            over_limit = len(words) > self.max_words + 5
+            if over_limit and not has_internal_linebreak and len(words) >= self.max_words:
+                out.append(self.finding(context, words[self.max_words - 2].start, words[self.max_words - 1].end, f"Абзац длиной {self.max_words} слов, разбейте его на части."))
         return out
 
 
@@ -405,20 +424,27 @@ class RussianFillerWordsRule(NativeRule):
     default_off = True
     filler_words = frozenset(("ах", "аа", "ааа", "аааа", "ау", "бу", "вау", "ох", "однако", "эээ", "э", "эй", "эх", "ух-ты", "ух"))
 
+    def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
+        super().__init__(registration_order, config)
+        self.min_percent = int(self.config.get("minPercent", 8))
+        if not 0 <= self.min_percent <= 100:
+            raise ValueError("FILLER_WORDS_RU minPercent must be between 0 and 100")
+        self.exclude_direct_speech = bool(self.config.get("excludeDirectSpeech", True))
+
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         candidates: list[TokenSpan] = []
         word_count = 0
         direct = False
         for span in context.token_spans:
-            if span.text in "\"“„»«" and not direct:
+            if self.exclude_direct_speech and span.text in "\"“„»«" and not direct and span.end < len(context.text) and not context.text[span.end].isspace():
                 direct = True
-            elif span.text in "\"“”»«" and direct:
+            elif self.exclude_direct_speech and span.text in "\"“”»«" and direct and span.start > 0 and not context.text[span.start - 1].isspace():
                 direct = False
-            elif not direct and _is_word(span.text):
+            elif (not direct or self.min_percent == 0) and _is_word(span.text):
                 word_count += 1
                 if span.text in self.filler_words:
                     candidates.append(span)
-        if word_count and len(candidates) * 100.0 / word_count > 8:
+        if word_count and len(candidates) * 100.0 / word_count > self.min_percent:
             return [self.finding(context, s.start, s.end, "Это — слово-паразит. Удалите его, если это возможно.") for s in candidates]
         return []
 
@@ -453,35 +479,48 @@ class RussianUnpairedBracketsRule(NativeRule):
     ends = (")", "}", "“", "\"", "'", "”")
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        stack: list[tuple[str, TokenSpan]] = []
-        unmatched: list[tuple[str, TokenSpan, bool]] = []
+        stack: list[tuple[str, TokenSpan, bool]] = []
         symmetric = {'\"', "'"}
         visible = [s for s in context.token_spans if not s.text.isspace()]
         for idx, span in enumerate(visible):
             token = span.text
             if token not in self.starts and token not in self.ends:
                 continue
+            prev = visible[idx - 1] if idx else None
+            prev2 = visible[idx - 2] if idx >= 2 else None
+            nxt = visible[idx + 1] if idx + 1 < len(visible) else None
+            if token in "()" and prev and (
+                (prev.text in {":", ";"} and prev.end == span.start)
+                or (prev2 and prev2.text in {":", ";"} and prev.text == "-" and prev2.end == prev.start)
+            ):
+                continue
             if token in symmetric:
-                if stack and stack[-1][0] == token:
+                preceded = idx == 0 or (prev is not None and prev.end < span.start) or (prev is not None and ((_is_non_word(prev.text) and prev.text != ".") or prev.text in self.starts))
+                followed = nxt is None or span.end < nxt.start or (nxt is not None and (_is_non_word(nxt.text) or nxt.text in self.ends or nxt.text.startswith("-") or nxt.text == "s"))
+                if stack and stack[-1][0] == token and followed:
                     stack.pop()
-                else:
-                    stack.append((token, span))
+                elif preceded:
+                    stack.append((token, span, True))
                 continue
             if token in self.starts:
-                stack.append((token, span))
+                stack.append((token, span, True))
                 continue
             j = self.ends.index(token)
             expected = self.starts[j]
-            prev = visible[idx - 1].text if idx else ""
-            if token == ")" and re.fullmatch(r"(?i)(\d{1,2}[а-яa-z']*|[а-яa-z]{1,2}|[ivxlcdm]+)\.?", prev):
+            prev_text = prev.text if prev else ""
+            if token == ")" and re.fullmatch(r"(?i)(\d{1,2}[а-яa-z']*|[а-яa-z]{1,2}|[ivxlcdm]+)\.?", prev_text):
                 continue
             if stack and stack[-1][0] == expected:
                 stack.pop()
             else:
-                unmatched.append((token, span, False))
-        unmatched.extend((symbol, span, True) for symbol, span in stack)
+                stack.append((token, span, False))
         out = []
-        for symbol, span, opening in unmatched:
+        for symbol, span, opening in stack:
+            if opening:
+                sentence_index = next((index for index, unit in enumerate(context.sentences) if unit.start <= span.start < unit.end), len(context.sentences) - 1)
+                sentence_text = context.sentences[sentence_index].text.rstrip() if context.sentences else ""
+                if sentence_index == len(context.sentences) - 1 and not sentence_text.endswith((".", "?", "!")):
+                    continue
             other = self.ends[self.starts.index(symbol)] if opening else self.starts[self.ends.index(symbol)]
             out.append(self.finding(context, span.start, span.end, f"Непарный символ: «{other}» скорей всего пропущен"))
         return out
@@ -573,7 +612,13 @@ class RussianDashRule(NativeRule):
                         continue
                     covered = context.text[start:end]
                     canonical = re.sub(r" ?[–—] ?", "-", covered)
-                    if canonical in compounds:
+                    variants = {
+                        canonical.replace("-", "–"),
+                        canonical.replace("-", "—"),
+                        canonical.replace("-", " – "),
+                        canonical.replace("-", " — "),
+                    }
+                    if canonical in compounds and covered in variants:
                         hits.append((start, end))
         seen = set()
         out = []
@@ -637,8 +682,13 @@ TASK_0011_RULE_CLASSES = (
 class RussianJavaRulesEngine:
     """Execute the exact Task-0011 native-rule registration for Russian."""
 
-    def __init__(self) -> None:
-        self.rules = tuple(cls(i) for i, cls in enumerate(TASK_0011_RULE_CLASSES))
+    def __init__(self, rule_config: Mapping[str, Mapping[str, Any]] | None = None) -> None:
+        config = dict(rule_config or {})
+        known = {cls.rule_id for cls in TASK_0011_RULE_CLASSES}
+        unknown = set(config) - known
+        if unknown:
+            raise KeyError(f"Unknown Task-0011 rule configuration: {sorted(unknown)}")
+        self.rules = tuple(cls(i, config.get(cls.rule_id)) for i, cls in enumerate(TASK_0011_RULE_CLASSES))
         self._rules = {rule.rule_id: rule for rule in self.rules}
         self._enabled_overrides: set[str] = set()
         self._disabled_overrides: set[str] = set()

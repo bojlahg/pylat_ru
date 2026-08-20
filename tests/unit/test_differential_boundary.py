@@ -237,19 +237,27 @@ def test_oracle_sha_env_and_argument_override(tmp_path: Path, monkeypatch: pytes
             oracle.validate_oracle()
 
 
-def test_generate_synthesizer_fixtures(tmp_path: Path):
-    """Verify synthesizer fixtures generation produces valid JSON schema and non-empty queries."""
-    oracle = JavaLanguageToolOracle()
-    if not oracle.is_java_available() or not oracle.get_jar_path():
-        pytest.skip("Java oracle not available")
+def test_synthesizer_fixture_generator_contract():
+    """Verify the committed fixture is a deterministic projection of generator queries.
 
-    generate_synthesizer_fixtures(oracle, tmp_path)
-    fixture_file = tmp_path / "oracle_russian_synthesizer_sample.json"
-    assert fixture_file.is_file()
-
+    Live Java regeneration remains available as the explicit development command
+    ``python -m tools.differential_lt --generate-synthesizer-fixtures`` and is not
+    part of ordinary Java-free pytest collection.
+    """
+    fixture_file = Path("tests/fixtures/oracle_russian_synthesizer_sample.json")
     data = json.loads(fixture_file.read_text(encoding="utf-8"))
     assert data["schema_version"] == "1.0.0"
     assert data["metadata"]["pinned_lt_version"] == PINNED_LT_VERSION
+    assert data["metadata"]["pinned_lt_commit"] == PINNED_LT_COMMIT
     assert len(data["queries"]) == len(SYNTHESIS_TEST_QUERIES)
-
+    for index, (actual, query) in enumerate(zip(data["queries"], SYNTHESIS_TEST_QUERIES), 1):
+        assert actual["id"] == f"synth_{index:03d}"
+        assert {key: actual[key] for key in ("category", "token", "lemma", "pos_tag", "pos_tag_is_regex")} == {
+            "category": query["category"],
+            "token": query.get("token", ""),
+            "lemma": query.get("lemma", query.get("token", "")),
+            "pos_tag": query["pos_tag"],
+            "pos_tag_is_regex": query.get("pos_tag_is_regex", False),
+        }
+        assert isinstance(actual["expected_forms"], list)
 

@@ -12,6 +12,7 @@ PIN = "e807fcde6a6506191e1470744d2345da28c26be6"
 FIXTURES = (
     ROOT / "tests/fixtures/oracle_java_rules_0011_synthetic.json",
     ROOT / "tests/fixtures/oracle_java_rules_0011_russian.json",
+    ROOT / "tests/fixtures/oracle_java_rules_0011_combined.json",
 )
 
 
@@ -20,7 +21,7 @@ def _sha(path: Path) -> str:
 
 
 def _signature(case: dict) -> str:
-    payload = {key: case[key] for key in ("id", "rule_class", "rule_id", "text", "coverage", "expected")}
+    payload = {key: case[key] for key in ("execution_mode", "rule_class", "rule_id", "text", "explicitly_enabled", "explicitly_enabled_rules", "explicitly_disabled_rules", "config")}
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
 
@@ -73,19 +74,22 @@ def test_task_0011_oracle_case_semantics_and_coverage() -> None:
         assert payload["metadata"]["pinned_lt_commit"] == PIN
         assert payload["metadata"]["oracle_generated"] is True
         cases.extend(payload["cases"])
-    assert len(cases) == 45
-    assert len({case["id"] for case in cases}) == 45
-    assert all(_signature(case) == case["semantic_signature"] for case in cases)
-    classes = {case["rule_class"] for case in cases}
+    assert len({case["id"] for case in cases}) == len(cases)
+    signatures = [_signature(case) for case in cases]
+    assert all(signature == case["semantic_signature"] for signature, case in zip(signatures, cases))
+    assert len(signatures) == len(set(signatures)), "duplicate semantic oracle queries must not be disguised by case IDs"
+    single_cases = [case for case in cases if case["execution_mode"] == "single_rule"]
+    classes = {case["rule_class"] for case in single_cases}
     assert len(classes) == 15
     for rule_class in classes:
-        rule_cases = [case for case in cases if case["rule_class"] == rule_class]
+        rule_cases = [case for case in single_cases if case["rule_class"] == rule_class]
         assert any("positive" in case["coverage"] and case["finding_count"] > 0 for case in rule_cases)
         assert any("negative" in case["coverage"] and case["finding_count"] == 0 for case in rule_cases)
         assert all(all(match["rule_id"] == case["rule_id"] for match in case["expected"]) for case in rule_cases)
     assert any(case["finding_count"] > 1 for case in cases)
     assert any("non_bmp" in case["coverage"] and case["expected"] for case in cases)
     assert all(case["finding_count"] == len(case["expected"]) for case in cases)
+    assert all(b"\r\n" not in path.read_bytes() for path in FIXTURES)
 
 
 def test_runtime_resource_copies_are_exact_pinned_bytes() -> None:
@@ -95,4 +99,3 @@ def test_runtime_resource_copies_are_exact_pinned_bytes() -> None:
     )
     for runtime_name, upstream_rel in pairs:
         assert _sha(ROOT / "src/pylat_ru/resources/ru" / runtime_name) == _sha(ROOT / "third_party/languagetool" / upstream_rel)
-
