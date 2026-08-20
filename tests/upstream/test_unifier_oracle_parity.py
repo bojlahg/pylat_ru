@@ -504,14 +504,37 @@ def test_add_neutral_element():
     sing1a = _make_token("osobiste", "adj:pl:nom.acc.voc:f.n.m2.m3:pos:aff", "osobisty")
     sing1b = _make_token("osobiste", "adj:sg:nom.acc.voc:n:pos:aff", "osobisty")
     sing2 = _make_token("godło", "subst:sg:nom.acc.voc:n", "godło")
-
     comma = _make_token(",", "comma", ",")
 
-    uni.is_unified(sing1a, equiv, False)
-    uni.is_unified(sing1b, equiv, True)
-    uni.add_neutral_element(AnalyzedTokenReadings(comma, 0))
-    assert uni.is_unified(sing2, equiv, True) is True
-    assert _format_unified_tokens(uni.get_final_unified()) == (
+    atr_sing1 = AnalyzedTokenReadings([sing1a, sing1b], start_pos=0, chunk_tags=["NP"], whitespace_before="")
+    atr_comma = AnalyzedTokenReadings([comma], start_pos=8, chunk_tags=["PUNCT"], whitespace_before=" ")
+    atr_sing2 = AnalyzedTokenReadings([sing2], start_pos=10, chunk_tags=["NP"], whitespace_before=" ")
+
+    uni.is_unified(sing1a, equiv, False, orig_atr=atr_sing1)
+    uni.is_unified(sing1b, equiv, True, orig_atr=atr_sing1)
+    uni.add_neutral_element(atr_comma)
+    assert uni.is_unified(sing2, equiv, True, orig_atr=atr_sing2) is True
+    
+    final_unified = uni.get_final_unified()
+    assert _format_unified_tokens(final_unified) == (
         "[osobiste[osobisty/adj:sg:nom.acc.voc:n:pos:aff*], ,[,/comma*], godło[godło/subst:sg:nom.acc.voc:n*]]"
     )
+    assert final_unified is not None
+    assert len(final_unified) == 3
+    # Check preservation of token text, start_pos, chunk_tags, and whitespace_before
+    assert final_unified[0].token == "osobiste"
+    assert final_unified[0].start_pos == 0
+    assert final_unified[0].chunk_tags == ["NP"]
+    assert final_unified[0].whitespace_before == ""
+    assert [r.pos_tag for r in final_unified[0].readings] == ["adj:sg:nom.acc.voc:n:pos:aff"]
+
+    assert final_unified[1].token == ","
+    assert final_unified[1].start_pos == 8
+    assert final_unified[1].chunk_tags == ["PUNCT"]
+    assert final_unified[1].whitespace_before == " "
+
+    assert final_unified[2].token == "godło"
+    assert final_unified[2].start_pos == 10
+    assert final_unified[2].chunk_tags == ["NP"]
+    assert final_unified[2].whitespace_before == " "
     uni.reset()

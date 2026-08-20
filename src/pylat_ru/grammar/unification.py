@@ -113,23 +113,24 @@ class Unifier:
         self.equivalences_to_be_kept.clear()
         self.unification_feats = None
 
-    def is_satisfied(self, a_token: AnalyzedToken, u_features: Dict[str, List[str]]) -> bool:
-        """Test if a token reading has shared features with other tokens."""
+    def is_satisfied(
+        self,
+        a_token: AnalyzedToken,
+        u_features: Dict[str, List[str]],
+        orig_atr: Optional[AnalyzedTokenReadings] = None,
+    ) -> bool:
+        """Check whether token satisfies feature definitions."""
         if self.all_feats_in and not self.equivalences_matched:
             return False
         if u_features is None:
             raise RuntimeError("isSatisfied called without features being set")
 
         self.unification_feats = u_features
-
         if self.all_feats_in:
-            return self._check_next(a_token, u_features)
+            return self._check_next(a_token, u_features, orig_atr=orig_atr)
         else:
-            while len(self.equivalences_matched) <= self.tok_cnt:
-                self.equivalences_matched.append({})
-
             unified = True
-            token_equiv_map = self.equivalences_matched[self.tok_cnt]
+            token_equiv_map: Dict[str, Set[str]] = {}
 
             for feat_key, types in u_features.items():
                 if not types:
@@ -143,21 +144,41 @@ class Unifier:
 
                 unified = feat_key in token_equiv_map
                 if not unified:
-                    del self.equivalences_matched[self.tok_cnt]
                     break
 
             if unified:
                 if self.tok_cnt == 0 or len(self.tok_sequence) == 0:
-                    self.tok_sequence.append(AnalyzedTokenReadings(a_token, 0))
+                    if orig_atr is not None:
+                        new_atr = AnalyzedTokenReadings(
+                            readings=[a_token],
+                            start_pos=orig_atr.start_pos,
+                            chunk_tags=list(orig_atr.chunk_tags),
+                            is_sentence_start=orig_atr.is_sentence_start,
+                            is_sentence_end=orig_atr.is_sentence_end,
+                            is_paragraph_end=orig_atr.is_paragraph_end,
+                            is_immunized=orig_atr.is_immunized,
+                            is_ignore_spelling=orig_atr.is_ignore_spelling,
+                            whitespace_before=orig_atr.whitespace_before,
+                            pos_fix=orig_atr.pos_fix,
+                        )
+                        self.tok_sequence.append(new_atr)
+                    else:
+                        self.tok_sequence.append(AnalyzedTokenReadings(a_token, 0))
                     self.tok_sequence_equivalences.append([token_equiv_map])
                 else:
                     self.tok_sequence[0].add_reading(a_token)
                     self.tok_sequence_equivalences[0].append(token_equiv_map)
+                self.equivalences_matched.append(token_equiv_map)
                 self.tok_cnt += 1
 
             return unified
 
-    def _check_next(self, a_token: AnalyzedToken, u_features: Dict[str, List[str]]) -> bool:
+    def _check_next(
+        self,
+        a_token: AnalyzedToken,
+        u_features: Dict[str, List[str]],
+        orig_atr: Optional[AnalyzedTokenReadings] = None,
+    ) -> bool:
         """Check compatibility of next token against interpretations from token 0."""
         any_feat_unified = False
         token_features_found = list(self.tmp_features_found)
@@ -190,7 +211,22 @@ class Unifier:
             if any_feat_unified:
                 equiv_copy = {k: set(v) for k, v in equivalences_matched_here.items()}
                 if len(self.tok_sequence) == self.readings_counter:
-                    self.tok_sequence.append(AnalyzedTokenReadings(a_token, 0))
+                    if orig_atr is not None:
+                        new_atr = AnalyzedTokenReadings(
+                            readings=[a_token],
+                            start_pos=orig_atr.start_pos,
+                            chunk_tags=list(orig_atr.chunk_tags),
+                            is_sentence_start=orig_atr.is_sentence_start,
+                            is_sentence_end=orig_atr.is_sentence_end,
+                            is_paragraph_end=orig_atr.is_paragraph_end,
+                            is_immunized=orig_atr.is_immunized,
+                            is_ignore_spelling=orig_atr.is_ignore_spelling,
+                            whitespace_before=orig_atr.whitespace_before,
+                            pos_fix=orig_atr.pos_fix,
+                        )
+                        self.tok_sequence.append(new_atr)
+                    else:
+                        self.tok_sequence.append(AnalyzedTokenReadings(a_token, 0))
                     self.tok_sequence_equivalences.append([equiv_copy])
                 else:
                     if self.readings_counter < len(self.tok_sequence):
@@ -268,11 +304,12 @@ class Unifier:
         u_features: Dict[str, List[str]],
         last_reading: bool,
         is_matched: bool = True,
+        orig_atr: Optional[AnalyzedTokenReadings] = None,
     ) -> bool:
         """Main lifecycle entry point testing whether sequence of tokens shares features."""
         if self.in_unification:
             if is_matched:
-                self.uni_matched |= self.is_satisfied(match_token, u_features)
+                self.uni_matched |= self.is_satisfied(match_token, u_features, orig_atr=orig_atr)
             self.uni_all_matched = self.uni_matched
 
             if last_reading:
@@ -282,7 +319,7 @@ class Unifier:
             return self.uni_all_matched and self.get_final_unification_value(u_features)
         else:
             if is_matched:
-                self.is_satisfied(match_token, u_features)
+                self.is_satisfied(match_token, u_features, orig_atr=orig_atr)
 
         if last_reading:
             self.in_unification = True

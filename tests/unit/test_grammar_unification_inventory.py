@@ -93,6 +93,29 @@ def test_grammar_unification_inventory_schema_and_counts():
     filter_uni = [r for r in uni_rules if r["state_task_0009"] == "DEFERRED_0010_FILTER"]
     assert len(filter_uni) == 4
 
+    # Example totals verification
+    ex_totals = data["example_totals"]
+    assert ex_totals["all_examples_total"] == 2446
+    assert ex_totals["all_incorrect_examples_total"] == 1039
+    assert ex_totals["all_correct_examples_total"] == 1407
+    assert ex_totals["runnable_examples_total"] == 1954
+    assert ex_totals["runnable_incorrect_examples_total"] == 878
+    assert ex_totals["runnable_correct_examples_total"] == 1076
+    assert ex_totals["deferred_examples_total"] == 492
+    assert ex_totals["deferred_incorrect_examples_total"] == 161
+    assert ex_totals["deferred_correct_examples_total"] == 331
+
+    # Unification totals verification
+    uni_totals = data["unification_totals"]
+    assert uni_totals["root_unification_elements_count"] == 8
+    assert uni_totals["configuration_features_count"] == 8
+    assert uni_totals["equivalence_types_count"] == 26
+    assert uni_totals["unify_scopes_count"] == 28
+    assert uni_totals["unify_ignore_scopes_count"] == 12
+    assert uni_totals["unification_using_rules_count"] == 28
+    assert uni_totals["unification_using_runnable_rules_count"] == 24
+    assert uni_totals["unification_using_deferred_rules_count"] == 4
+
 
 def test_grammar_unification_invariants():
     """Verify structural invariants across loaded rules and classification."""

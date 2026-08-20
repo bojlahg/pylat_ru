@@ -62,10 +62,12 @@ def test_unification_russian_rules_fixture_integrity(fixture_data):
     assert meta.get("generator_operation") == "tools/generate_oracle_unification_fixtures.py"
 
     oracle_build_id = meta.get("oracle_build_id")
+    assert oracle_build_id == "lt_6.8_source_build_jdk17_stefan"
     trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
     assert oracle_build_id in trusted_builds, f"Untrusted build_id: {oracle_build_id}"
 
     expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
+    assert expected_sha == "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc"
     assert meta.get("oracle_jar_sha256") == expected_sha
 
     cases = fixture_data.get("cases", [])
@@ -73,9 +75,10 @@ def test_unification_russian_rules_fixture_integrity(fixture_data):
     assert meta.get("promoted_rules_count") == 24
     assert len(meta.get("promoted_full_rule_ids", [])) == 24
 
-    # Assert all case IDs are unique
+    # Assert all case IDs are unique and inputs non-empty
     case_ids = [c["id"] for c in cases]
     assert len(set(case_ids)) == len(case_ids)
+    assert all(len(c.get("text", "")) > 0 for c in cases)
 
 
 def test_unification_russian_rules_feature_coverage(fixture_data):

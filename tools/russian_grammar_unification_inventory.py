@@ -275,8 +275,20 @@ def generate_unification_inventory() -> Dict[str, Any]:
         },
         "example_totals": {
             "all_examples_total": sum(r["examples_total_count"] for r in rules_inventory),
+            "all_incorrect_examples_total": sum(r["examples_incorrect_count"] for r in rules_inventory),
+            "all_correct_examples_total": sum(r["examples_correct_count"] for r in rules_inventory),
             "runnable_examples_total": sum(
                 r["examples_total_count"]
+                for r in rules_inventory
+                if r["state_task_0009"] in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
+            ),
+            "runnable_incorrect_examples_total": sum(
+                r["examples_incorrect_count"]
+                for r in rules_inventory
+                if r["state_task_0009"] in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
+            ),
+            "runnable_correct_examples_total": sum(
+                r["examples_correct_count"]
                 for r in rules_inventory
                 if r["state_task_0009"] in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
             ),
@@ -285,6 +297,26 @@ def generate_unification_inventory() -> Dict[str, Any]:
                 for r in rules_inventory
                 if r["state_task_0009"] not in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
             ),
+            "deferred_incorrect_examples_total": sum(
+                r["examples_incorrect_count"]
+                for r in rules_inventory
+                if r["state_task_0009"] not in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
+            ),
+            "deferred_correct_examples_total": sum(
+                r["examples_correct_count"]
+                for r in rules_inventory
+                if r["state_task_0009"] not in ("CORE_0007_RUNNABLE", "ADVANCED_0008_RUNNABLE", "UNIFICATION_0009_RUNNABLE")
+            ),
+        },
+        "unification_totals": {
+            "root_unification_elements_count": len(root_unifications),
+            "configuration_features_count": len(configuration_definitions),
+            "equivalence_types_count": sum(c["equivalences_count"] for c in configuration_definitions),
+            "unify_scopes_count": tag_counts["unify"],
+            "unify_ignore_scopes_count": tag_counts["unify-ignore"],
+            "unification_using_rules_count": sum(1 for r in rules_inventory if r["has_unify"]),
+            "unification_using_runnable_rules_count": sum(1 for r in rules_inventory if r["has_unify"] and r["state_task_0009"] == "UNIFICATION_0009_RUNNABLE"),
+            "unification_using_deferred_rules_count": sum(1 for r in rules_inventory if r["has_unify"] and r["state_task_0009"] != "UNIFICATION_0009_RUNNABLE"),
         },
         "raw_xml_totals": {
             "tag_counts": dict(tag_counts),

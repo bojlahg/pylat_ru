@@ -8,7 +8,7 @@
     "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
     "baseline_task_0008_commit": "5a2f4c032609ee2ce371ca5bb886883a186a3d83",
     "generator_path": "tools/russian_grammar_unification_inventory.py",
-    "generator_sha256": "1ed888fa1aee3342aa6193a8ac7cefad776b92604407811afcc60a8fce58386c",
+    "generator_sha256": "7f3cf296dc927d709ebd55cb58bdb66bb05e634c81dae5c83ddcbd4e66c9e630",
     "oracle_manifest_path": "compat/oracle_manifest.json"
   },
   "source_totals": {
@@ -321,8 +321,24 @@
   },
   "example_totals": {
     "all_examples_total": 2446,
+    "all_incorrect_examples_total": 1039,
+    "all_correct_examples_total": 1407,
     "runnable_examples_total": 1954,
-    "deferred_examples_total": 492
+    "runnable_incorrect_examples_total": 878,
+    "runnable_correct_examples_total": 1076,
+    "deferred_examples_total": 492,
+    "deferred_incorrect_examples_total": 161,
+    "deferred_correct_examples_total": 331
+  },
+  "unification_totals": {
+    "root_unification_elements_count": 8,
+    "configuration_features_count": 8,
+    "equivalence_types_count": 26,
+    "unify_scopes_count": 28,
+    "unify_ignore_scopes_count": 12,
+    "unification_using_rules_count": 28,
+    "unification_using_runnable_rules_count": 24,
+    "unification_using_deferred_rules_count": 4
   },
   "raw_xml_totals": {
     "tag_counts": {

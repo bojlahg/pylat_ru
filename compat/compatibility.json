@@ -49,9 +49,9 @@
       "grammar_core_oracle_cases_total": 62,
       "grammar_advanced_synthetic_oracle_cases_total": 141,
       "grammar_advanced_russian_rules_oracle_cases_total": 750,
-      "grammar_unification_synthetic_oracle_cases_total": 166,
+      "grammar_unification_synthetic_oracle_cases_total": 172,
       "grammar_unification_russian_rules_oracle_cases_total": 216,
-      "grammar_unification_total_oracle_cases": 382
+      "grammar_unification_total_oracle_cases": 388
     },
     "russian_grammar_unification": {
       "equivalence_type_locator": "SUPPORTED",
@@ -227,10 +227,13 @@
         "span_parity": 1.0,
         "suggestion_parity": 1.0,
         "evaluation_state": "UNIFICATION_0009_PARITY_VERIFIED",
-        "synthetic_oracle_cases_tested": 166,
-        "synthetic_oracle_cases_passed": 166,
+        "synthetic_oracle_cases_tested": 172,
+        "synthetic_oracle_cases_passed": 172,
         "real_russian_oracle_cases_tested": 216,
         "real_russian_oracle_cases_passed": 216,
+        "unification_upstream_source_methods_total": 7,
+        "unification_translated_python_functions_total": 7,
+        "unification_translated_assertions_total": 60,
         "wheel_isolation_status": "PASSED",
         "wheel_execution_verified": true
       }

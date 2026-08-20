@@ -159,7 +159,8 @@ assert uni_m.pattern_from_pos == 0
 assert uni_m.pattern_to_pos == 40
 assert uni_m.pattern_from_pos_utf16 == 0
 assert uni_m.pattern_to_pos_utf16 == 40
-assert len(uni_m.message) > 20
+assert uni_m.message == "Прилагательное не согласуется с существительным по роду."
+assert uni_m.short_message == "Грамматическая ошибка в согласовании рода"
 assert uni_m.suggestions == []
 
 print("REAL_WHEEL_GRAMMAR_SUCCESS")

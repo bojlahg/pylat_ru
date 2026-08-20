@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Set, Tuple
 import pytest
 
+from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
 from pylat_ru.chunking.russian import RussianChunker
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
@@ -39,7 +40,8 @@ REQUIRED_SYNTHETIC_UNIFICATION_FEATURES = {
     "max_quantifiers_unify",
     "and_group_unify",
     "or_group_unify",
-    "previous_next_exceptions_unify",
+    "previous_exception_unify",
+    "next_exception_unify",
     "spacebefore_unify",
     "chunk_unify",
     "raw_pos_unify",
@@ -47,9 +49,13 @@ REQUIRED_SYNTHETIC_UNIFICATION_FEATURES = {
     "marker_spans_unify",
     "match_references_unify",
     "controlled_multi_reading_filtering",
+    "controlled_base_pattern_reading_filtering",
     "controlled_rejected_reading_isolation",
     "controlled_equivalence_intersection",
     "controlled_missing_equivalence_value",
+    "controlled_positive_unification",
+    "controlled_negated_unification",
+    "controlled_neutral_unify_ignore",
     "uni_positive_match",
     "uni_no_match",
 }
@@ -70,6 +76,94 @@ def load_oracle_manifest() -> Dict[str, Any]:
     if not MANIFEST_PATH.is_file():
         pytest.fail(f"Oracle manifest not found at {MANIFEST_PATH}")
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def prepare_synthetic_sentence(
+    raw_text: str,
+    disambiguator: RussianHybridDisambiguator,
+    chunker: RussianChunker,
+) -> Tuple[AnalyzedSentence, str]:
+    """Parse injection annotations from raw text and construct AnalyzedSentence."""
+    clean_text = raw_text
+    injected_chunks: Dict[int, List[str]] = {}
+    injected_readings: Dict[int, List[AnalyzedToken]] = {}
+    injected_pre_disambig: Dict[int, List[AnalyzedToken]] = {}
+
+    while clean_text.startswith("||"):
+        end_idx = clean_text.find("||", 2)
+        if end_idx == -1:
+            break
+        tag = clean_text[2:end_idx]
+        clean_text = clean_text[end_idx + 2:]
+        if tag.startswith("INJECT_CHUNKS:"):
+            body = tag[len("INJECT_CHUNKS:"):]
+            for item in body.split(";"):
+                if not item:
+                    continue
+                tok_idx_str, ctags_str = item.split("=", 1)
+                injected_chunks[int(tok_idx_str)] = [ct for ct in ctags_str.split(",") if ct]
+        elif tag.startswith("INJECT_READINGS:"):
+            body = tag[len("INJECT_READINGS:"):]
+            for item in body.split(";"):
+                if not item:
+                    continue
+                tok_idx_str, rlist_str = item.split("=", 1)
+                rlist = []
+                for rd in rlist_str.split(","):
+                    if not rd:
+                        continue
+                    parts = rd.split("/", 2)
+                    t_str = parts[0]
+                    l_str = None if parts[1] == "null" else parts[1]
+                    p_str = None if parts[2] == "null" else parts[2]
+                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
+                injected_readings[int(tok_idx_str)] = rlist
+        elif tag.startswith("INJECT_PRE_DISAMBIG:"):
+            body = tag[len("INJECT_PRE_DISAMBIG:"):]
+            for item in body.split(";"):
+                if not item:
+                    continue
+                tok_idx_str, rlist_str = item.split("=", 1)
+                rlist = []
+                for rd in rlist_str.split(","):
+                    if not rd:
+                        continue
+                    parts = rd.split("/", 2)
+                    t_str = parts[0]
+                    l_str = None if parts[1] == "null" else parts[1]
+                    p_str = None if parts[2] == "null" else parts[2]
+                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
+                injected_pre_disambig[int(tok_idx_str)] = rlist
+
+    sent = disambiguator.disambiguate_text(clean_text)
+    sent.text = clean_text
+    chunker.chunk(sent)
+
+    if injected_chunks:
+        for idx, ctags in injected_chunks.items():
+            if 0 <= idx < len(sent.tokens):
+                sent.tokens[idx].chunk_tags = ctags
+
+    if injected_readings:
+        for idx, rlist in injected_readings.items():
+            if 0 <= idx < len(sent.tokens):
+                sent.tokens[idx].readings = list(rlist)
+
+    if injected_pre_disambig:
+        pre_tokens = list(sent.tokens)
+        for idx, rlist in injected_pre_disambig.items():
+            if 0 <= idx < len(pre_tokens):
+                atr_copy = AnalyzedTokenReadings(
+                    readings=list(rlist),
+                    whitespace_before=sent.tokens[idx].whitespace_before,
+                    start_pos=sent.tokens[idx].start_pos,
+                    is_sentence_start=sent.tokens[idx].is_sentence_start,
+                    is_sentence_end=sent.tokens[idx].is_sentence_end,
+                )
+                pre_tokens[idx] = atr_copy
+        sent.pre_disambig_tokens = pre_tokens
+
+    return sent, clean_text
 
 
 @pytest.fixture(scope="module")
@@ -98,18 +192,21 @@ def test_unification_synthetic_fixture_integrity(fixture_data):
     assert meta.get("generator_operation") == "tools/generate_oracle_unification_fixtures.py"
 
     oracle_build_id = meta.get("oracle_build_id")
+    assert oracle_build_id == "lt_6.8_source_build_jdk17_stefan"
     trusted_builds = {b["build_id"]: b for b in manifest.get("trusted_oracle_builds", [])}
     assert oracle_build_id in trusted_builds, f"Untrusted build_id: {oracle_build_id}"
 
     expected_sha = trusted_builds[oracle_build_id]["jar_sha256"]
+    assert expected_sha == "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc"
     assert meta.get("oracle_jar_sha256") == expected_sha
 
     cases = fixture_data.get("cases", [])
     assert meta.get("cases_count") == len(cases)
 
-    # Assert distinct case IDs
+    # Assert distinct case IDs and non-empty inputs
     case_ids = [c["id"] for c in cases]
     assert len(set(case_ids)) == len(case_ids), "Duplicate synthetic case IDs found"
+    assert all(len(c.get("text", "")) > 0 for c in cases), "Empty text in synthetic case"
 
 
 def test_synthetic_unification_feature_coverage(fixture_data):
@@ -140,7 +237,7 @@ def test_synthetic_unification_oracle_parity_all_cases(fixture_data, synthetic_e
 
     for case in cases:
         case_id = case["id"]
-        text = case["text"]
+        raw_text = case["text"]
         target_rule_id = case["full_rule_id"]
         oracle_res = case["oracle_result"]
 
@@ -149,16 +246,14 @@ def test_synthetic_unification_oracle_parity_all_cases(fixture_data, synthetic_e
             mismatches.append(f"[{case_id}] Rule not found in engine: {target_rule_id}")
             continue
 
-        sent = disambiguator.disambiguate_text(text)
-        sent.text = text
-        chunker.chunk(sent)
+        sent, clean_text = prepare_synthetic_sentence(raw_text, disambiguator, chunker)
 
         act_matches = engine.check_rule(sent, rule)
         exp_matches = oracle_res.get("matches", [])
 
         if len(act_matches) != oracle_res["matches_count"]:
             mismatches.append(
-                f"[{case_id}] ({target_rule_id}) Match count mismatch: expected {oracle_res['matches_count']}, got {len(act_matches)} for text {text!r}"
+                f"[{case_id}] ({target_rule_id}) Match count mismatch: expected {oracle_res['matches_count']}, got {len(act_matches)} for text {raw_text!r}"
             )
             continue
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Committed LanguageTool 6.8 Java Oracle Unification Pattern Matching Synthetic Fixture",
-  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag_regexp=\"yes\" postag=\"ADV:.*\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_COMPLEX\" name=\"Synthetic Complex Combinations\">\n    <rule id=\"SYN_UNI_WITH_MARKER\" name=\"Unification inside marker\">\n      <pattern>\n        <token>тест</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n      </pattern>\n      <message>Unify in marker: <suggestion>\\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_WITH_SKIP\" name=\"Unification with skip token\">\n      <pattern>\n        <token skip=\"1\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Unify with skip</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_INFINITE_SKIP\" name=\"Unification with infinite skip\">\n      <pattern>\n        <token skip=\"-1\">начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Infinite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MULTI_SCOPES\" name=\"Multiple unify scopes in sequence\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>и</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Multiple unify scopes</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_AND_GROUP\" name=\"Unification with AND group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <and>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token regexp=\"yes\">.*ый|.*ая|.*ое|.*ие|.*ой</token>\n          </and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>AND group unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_OR_GROUP\" name=\"Unification with OR group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <or>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"PT:.*\"/>\n          </or>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>OR group unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXCEPTIONS\" name=\"Unification with next exception\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"next\">исключение</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_SPACEBEFORE\" name=\"Unification with spacebefore\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token spacebefore=\"yes\" postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Spacebefore unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CHUNK\" name=\"Unification with chunk\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token chunk=\"NP\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Chunk unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_RAW_POS\" name=\"Unification with raw_pos\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token raw_pos=\"yes\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Raw pos unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANTIPATTERN\" name=\"Unification with antipattern\">\n      <antipattern>\n        <token>стоп</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n      </antipattern>\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Antipattern unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MIN_ZERO\" name=\"Unification with min=0\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"0\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Min zero unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX_QUANT\" name=\"Unification with max quantifier\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"3\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max quant unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MATCH_REFS\" name=\"Unification with surrounding match references\">\n      <pattern>\n        <token>префикс</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>суффикс</token>\n      </pattern>\n      <message>Match ref: <suggestion>\\1 \\2 \\3 \\4</suggestion></message>\n    </rule>\n  </category>\n</rules>\n",
+  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag_regexp=\"yes\" postag=\"ADV:.*\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_ADVANCED\" name=\"Synthetic Advanced Pattern Unify Combinations\">\n    <rule id=\"SYN_UNI_PREV_EXC\" name=\"Unification with previous exception\">\n      <pattern>\n        <token>старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"previous\">старт</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Previous exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEXT_EXC\" name=\"Unification with next exception\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"next\">дом</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Next exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX2\" name=\"Unification with max 2\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"2\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 2 unify: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX3\" name=\"Unification with max 3\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"3\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 3 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX_UNBOUNDED\" name=\"Unification with max -1\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"-1\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max -1 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MIN0\" name=\"Unification with min 0\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"0\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Min 0 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_FINITE_SKIP\" name=\"Unification with finite skip\">\n      <pattern>\n        <token skip=\"2\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Finite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_INFINITE_SKIP\" name=\"Unification with infinite skip\">\n      <pattern>\n        <token skip=\"-1\">начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Infinite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_AND\" name=\"Unification with AND group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <and>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token regexp=\"yes\">.*ый|.*ая|.*ое|.*ие|.*ой</token>\n          </and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>AND unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_OR\" name=\"Unification with OR group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <or>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"PT:.*\"/>\n          </or>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>OR unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_SPACEBEFORE\" name=\"Unification with spacebefore\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token spacebefore=\"no\" postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Spacebefore unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CHUNK\" name=\"Unification with chunk\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token chunk=\"NP\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Chunk unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANTIPATTERN\" name=\"Unification with antipattern\">\n      <antipattern>\n        <token>стоп</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n      </antipattern>\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Antipattern unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MARKER_SPANS\" name=\"Marker around unify\">\n      <pattern>\n        <token>префикс</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n        <token>суффикс</token>\n      </pattern>\n      <message>Marker spans unify: <suggestion>\\2 \\3</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MATCH_REFS\" name=\"Match references around unify\">\n      <pattern>\n        <token>слово1</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>слово4</token>\n      </pattern>\n      <message>Refs: <suggestion>\\1 \\2 \\3 \\4</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_RAW_POS_DIFF\" name=\"Raw pos discriminating unify\">\n      <pattern raw_pos=\"yes\">\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Raw pos diff</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MULTI_SCOPES\" name=\"Multiple unify scopes in sequence\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>и</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Multiple unify scopes</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_BASE_FILTER\" name=\"Base pattern filters readings before unify\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*:Nom\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*:Nom\"/>\n        </unify>\n      </pattern>\n      <message>Base filter</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MISSING_EQ\" name=\"Missing equivalence value\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"NON_EQUIV_TAG\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Missing eq</message>\n    </rule>\n  </category>\n</rules>\n",
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
@@ -9,52 +9,76 @@
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_unification_fixtures.py",
     "corpus_version": "1.0.0",
-    "cases_count": 166
+    "cases_count": 172
   },
   "feature_coverage": {
-    "chunk_unify": [
-      "syn_uni_chk_01"
-    ],
     "repeated_calls_isolation": [
       "syn_uni_cand_succ_fail",
       "syn_uni_cand_fail_succ"
     ],
-    "uni_explicit_types": [
-      "syn_uni_fem_01",
-      "syn_uni_fem_02",
-      "syn_uni_fem_03",
-      "syn_uni_fem_04",
-      "syn_uni_fem_05",
-      "syn_uni_fem_06",
-      "syn_uni_fem_07",
-      "syn_uni_fem_08",
-      "syn_uni_fem_09",
-      "syn_uni_fem_10",
-      "syn_uni_nomacc_01",
-      "syn_uni_nomacc_02",
-      "syn_uni_nomacc_03",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_05",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_07",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_09",
-      "syn_uni_nomacc_10"
+    "uni_neutral_elements": [
+      "syn_uni_ign_com_01",
+      "syn_uni_ign_com_02",
+      "syn_uni_ign_com_03",
+      "syn_uni_ign_com_04",
+      "syn_uni_ign_com_05",
+      "syn_uni_ign_com_06",
+      "syn_uni_ign_com_07",
+      "syn_uni_ign_com_08",
+      "syn_uni_ign_com_09",
+      "syn_uni_ign_com_10",
+      "syn_uni_ign_adv_01",
+      "syn_uni_ign_adv_02",
+      "syn_uni_ign_adv_03",
+      "syn_uni_ign_adv_04",
+      "syn_uni_ign_adv_05",
+      "syn_uni_ign_adv_06",
+      "syn_uni_ign_adv_07",
+      "syn_uni_ign_adv_08",
+      "syn_uni_ign_adv_09",
+      "syn_uni_ign_adv_10"
+    ],
+    "multiple_unify_scopes": [
+      "syn_uni_mult_scopes_01",
+      "syn_uni_mult_scopes_02"
+    ],
+    "success_then_fail_candidate": [
+      "syn_uni_cand_succ_fail"
+    ],
+    "and_group_unify": [
+      "syn_uni_and_01",
+      "syn_uni_and_02"
+    ],
+    "fail_then_success_candidate": [
+      "syn_uni_cand_fail_succ"
+    ],
+    "match_references_unify": [
+      "syn_uni_mref_01"
+    ],
+    "controlled_negated_unification": [
+      "syn_uni_ctrl_neg_unify"
+    ],
+    "max_quantifiers_unify": [
+      "syn_uni_max2_01",
+      "syn_uni_max2_02",
+      "syn_uni_max3_01",
+      "syn_uni_max3_02",
+      "syn_uni_max_unb_01"
     ],
     "controlled_rejected_reading_isolation": [
       "syn_uni_ctrl_rej_iso"
     ],
-    "uni_feature_gender": [
-      "syn_uni_gen_01",
-      "syn_uni_gen_02",
-      "syn_uni_gen_03",
-      "syn_uni_gen_04",
-      "syn_uni_gen_05",
-      "syn_uni_gen_06",
-      "syn_uni_gen_07",
-      "syn_uni_gen_08",
-      "syn_uni_gen_09",
-      "syn_uni_gen_10"
+    "spacebefore_unify": [
+      "syn_uni_sp_01",
+      "syn_uni_sp_02"
+    ],
+    "previous_exception_unify": [
+      "syn_uni_prev_exc_01",
+      "syn_uni_prev_exc_02"
+    ],
+    "min_zero_unify": [
+      "syn_uni_min0_01",
+      "syn_uni_min0_02"
     ],
     "uni_negation": [
       "syn_uni_neg_num_01",
@@ -78,9 +102,183 @@
       "syn_uni_neg_gn_09",
       "syn_uni_neg_gn_10"
     ],
+    "raw_pos_unify": [
+      "syn_uni_raw_pos_01",
+      "syn_uni_raw_pos_02"
+    ],
+    "uni_feature_case": [
+      "syn_uni_case_01",
+      "syn_uni_case_02",
+      "syn_uni_case_03",
+      "syn_uni_case_04",
+      "syn_uni_case_05",
+      "syn_uni_case_06",
+      "syn_uni_case_07",
+      "syn_uni_case_08",
+      "syn_uni_case_09",
+      "syn_uni_case_10"
+    ],
+    "uni_feature_gender": [
+      "syn_uni_gen_01",
+      "syn_uni_gen_02",
+      "syn_uni_gen_03",
+      "syn_uni_gen_04",
+      "syn_uni_gen_05",
+      "syn_uni_gen_06",
+      "syn_uni_gen_07",
+      "syn_uni_gen_08",
+      "syn_uni_gen_09",
+      "syn_uni_gen_10"
+    ],
+    "controlled_neutral_unify_ignore": [
+      "syn_uni_ctrl_neutral"
+    ],
+    "controlled_multi_reading_filtering": [
+      "syn_uni_3tok_05",
+      "syn_uni_ign_com_05",
+      "syn_uni_ctrl_mult_rd"
+    ],
+    "next_exception_unify": [
+      "syn_uni_next_exc_01",
+      "syn_uni_next_exc_02"
+    ],
+    "uni_feature_number": [
+      "syn_uni_num_01",
+      "syn_uni_num_02",
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_05",
+      "syn_uni_num_06",
+      "syn_uni_num_07",
+      "syn_uni_num_08",
+      "syn_uni_num_09",
+      "syn_uni_num_10"
+    ],
+    "uni_explicit_types": [
+      "syn_uni_fem_01",
+      "syn_uni_fem_02",
+      "syn_uni_fem_03",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_06",
+      "syn_uni_fem_07",
+      "syn_uni_fem_08",
+      "syn_uni_fem_09",
+      "syn_uni_fem_010",
+      "syn_uni_nomacc_01",
+      "syn_uni_nomacc_02",
+      "syn_uni_nomacc_03",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_07",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_09",
+      "syn_uni_nomacc_10"
+    ],
+    "marker_spans_unify": [
+      "syn_uni_mark_01"
+    ],
+    "controlled_positive_unification": [
+      "syn_uni_ctrl_pos_unify"
+    ],
+    "controlled_base_pattern_reading_filtering": [
+      "syn_uni_ctrl_base_filter"
+    ],
+    "uni_feature_animacy": [
+      "syn_uni_anim_01",
+      "syn_uni_anim_02",
+      "syn_uni_anim_03",
+      "syn_uni_anim_04",
+      "syn_uni_anim_05",
+      "syn_uni_anim_06",
+      "syn_uni_anim_07",
+      "syn_uni_anim_08",
+      "syn_uni_anim_09",
+      "syn_uni_anim_10"
+    ],
+    "controlled_missing_equivalence_value": [
+      "syn_uni_ctrl_miss_val"
+    ],
+    "chunk_unify": [
+      "syn_uni_chk_01",
+      "syn_uni_chk_02"
+    ],
+    "antipattern_unify": [
+      "syn_uni_ap_01",
+      "syn_uni_ap_02"
+    ],
+    "controlled_equivalence_intersection": [
+      "syn_uni_ctrl_eq_inter"
+    ],
+    "infinite_skip_unify": [
+      "syn_uni_infskip_01",
+      "syn_uni_infskip_02"
+    ],
+    "uni_no_match": [
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_09",
+      "syn_uni_gen_04",
+      "syn_uni_gen_05",
+      "syn_uni_gen_06",
+      "syn_uni_gen_10",
+      "syn_uni_case_06",
+      "syn_uni_case_10",
+      "syn_uni_gn_05",
+      "syn_uni_gn_06",
+      "syn_uni_gn_07",
+      "syn_uni_cgn_09",
+      "syn_uni_cgn_10",
+      "syn_uni_3tok_05",
+      "syn_uni_3tok_06",
+      "syn_uni_3tok_10",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_08",
+      "syn_uni_fem_010",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_10",
+      "syn_uni_neg_num_03",
+      "syn_uni_neg_num_04",
+      "syn_uni_neg_num_06",
+      "syn_uni_neg_num_09",
+      "syn_uni_neg_num_10",
+      "syn_uni_neg_gn_04",
+      "syn_uni_neg_gn_05",
+      "syn_uni_neg_gn_06",
+      "syn_uni_neg_gn_09",
+      "syn_uni_neg_gn_10",
+      "syn_uni_ign_com_05",
+      "syn_uni_ign_com_06",
+      "syn_uni_ign_com_10",
+      "syn_uni_ign_adv_05",
+      "syn_uni_ign_adv_06",
+      "syn_uni_ign_adv_10",
+      "syn_uni_prev_exc_01",
+      "syn_uni_prev_exc_02",
+      "syn_uni_next_exc_01",
+      "syn_uni_max3_02",
+      "syn_uni_fskip_02",
+      "syn_uni_infskip_02",
+      "syn_uni_and_02",
+      "syn_uni_or_03",
+      "syn_uni_sp_02",
+      "syn_uni_chk_02",
+      "syn_uni_ap_02",
+      "syn_uni_mult_scopes_02",
+      "syn_uni_raw_pos_02",
+      "syn_uni_ctrl_base_filter",
+      "syn_uni_ctrl_rej_iso",
+      "syn_uni_ctrl_miss_val"
+    ],
     "or_group_unify": [
       "syn_uni_or_01",
-      "syn_uni_or_02"
+      "syn_uni_or_02",
+      "syn_uni_or_03"
     ],
     "uni_positive_match": [
       "syn_uni_num_01",
@@ -150,9 +348,8 @@
       "syn_uni_neg_num_01",
       "syn_uni_neg_num_02",
       "syn_uni_neg_num_05",
-      "syn_uni_neg_num_06",
+      "syn_uni_neg_num_07",
       "syn_uni_neg_num_08",
-      "syn_uni_neg_num_09",
       "syn_uni_neg_gn_01",
       "syn_uni_neg_gn_02",
       "syn_uni_neg_gn_03",
@@ -172,135 +369,32 @@
       "syn_uni_ign_adv_07",
       "syn_uni_ign_adv_08",
       "syn_uni_ign_adv_09",
-      "syn_uni_mark_01",
-      "syn_uni_mark_02",
-      "syn_uni_mark_04",
-      "syn_uni_mark_05",
-      "syn_uni_skip_01",
-      "syn_uni_skip_02",
-      "syn_uni_skip_05",
-      "syn_uni_inf_skip_01",
-      "syn_uni_mult_scopes_01",
-      "syn_uni_and_01",
-      "syn_uni_or_01",
-      "syn_uni_exc_01",
-      "syn_uni_sp_01",
-      "syn_uni_chk_01",
-      "syn_uni_raw_01",
-      "syn_uni_ap_01",
+      "syn_uni_next_exc_02",
       "syn_uni_min0_01",
       "syn_uni_min0_02",
-      "syn_uni_maxq_01",
-      "syn_uni_mref_01",
-      "syn_uni_cand_succ_fail",
-      "syn_uni_cand_fail_succ",
-      "syn_uni_ctrl_eq_inter"
-    ],
-    "uni_neutral_elements": [
-      "syn_uni_ign_com_01",
-      "syn_uni_ign_com_02",
-      "syn_uni_ign_com_03",
-      "syn_uni_ign_com_04",
-      "syn_uni_ign_com_05",
-      "syn_uni_ign_com_06",
-      "syn_uni_ign_com_07",
-      "syn_uni_ign_com_08",
-      "syn_uni_ign_com_09",
-      "syn_uni_ign_com_10",
-      "syn_uni_ign_adv_01",
-      "syn_uni_ign_adv_02",
-      "syn_uni_ign_adv_03",
-      "syn_uni_ign_adv_04",
-      "syn_uni_ign_adv_05",
-      "syn_uni_ign_adv_06",
-      "syn_uni_ign_adv_07",
-      "syn_uni_ign_adv_08",
-      "syn_uni_ign_adv_09",
-      "syn_uni_ign_adv_10"
-    ],
-    "previous_next_exceptions_unify": [
-      "syn_uni_exc_01",
-      "syn_uni_exc_02"
-    ],
-    "controlled_multi_reading_filtering": [
-      "syn_uni_3tok_05",
-      "syn_uni_ign_com_05"
-    ],
-    "controlled_missing_equivalence_value": [
-      "syn_uni_ctrl_miss_val"
-    ],
-    "antipattern_unify": [
-      "syn_uni_ap_01",
-      "syn_uni_ap_02"
-    ],
-    "spacebefore_unify": [
-      "syn_uni_sp_01"
-    ],
-    "fail_then_success_candidate": [
-      "syn_uni_cand_fail_succ"
-    ],
-    "max_quantifiers_unify": [
-      "syn_uni_maxq_01",
-      "syn_uni_maxq_02"
-    ],
-    "min_zero_unify": [
-      "syn_uni_min0_01",
-      "syn_uni_min0_02"
-    ],
-    "success_then_fail_candidate": [
-      "syn_uni_cand_succ_fail"
-    ],
-    "uni_feature_animacy": [
-      "syn_uni_anim_01",
-      "syn_uni_anim_02",
-      "syn_uni_anim_03",
-      "syn_uni_anim_04",
-      "syn_uni_anim_05",
-      "syn_uni_anim_06",
-      "syn_uni_anim_07",
-      "syn_uni_anim_08",
-      "syn_uni_anim_09",
-      "syn_uni_anim_10"
-    ],
-    "finite_skip_unify": [
-      "syn_uni_skip_01",
-      "syn_uni_skip_02",
-      "syn_uni_skip_03",
-      "syn_uni_skip_04",
-      "syn_uni_skip_05"
-    ],
-    "and_group_unify": [
+      "syn_uni_max2_01",
+      "syn_uni_max2_02",
+      "syn_uni_max3_01",
+      "syn_uni_max_unb_01",
+      "syn_uni_fskip_01",
+      "syn_uni_infskip_01",
       "syn_uni_and_01",
-      "syn_uni_and_02"
-    ],
-    "controlled_equivalence_intersection": [
-      "syn_uni_ctrl_eq_inter"
-    ],
-    "marker_spans_unify": [
+      "syn_uni_or_01",
+      "syn_uni_or_02",
+      "syn_uni_sp_01",
+      "syn_uni_chk_01",
+      "syn_uni_ap_01",
       "syn_uni_mark_01",
-      "syn_uni_mark_02",
-      "syn_uni_mark_03",
-      "syn_uni_mark_04",
-      "syn_uni_mark_05"
-    ],
-    "infinite_skip_unify": [
-      "syn_uni_inf_skip_01",
-      "syn_uni_inf_skip_02"
-    ],
-    "raw_pos_unify": [
-      "syn_uni_raw_01"
-    ],
-    "uni_feature_case": [
-      "syn_uni_case_01",
-      "syn_uni_case_02",
-      "syn_uni_case_03",
-      "syn_uni_case_04",
-      "syn_uni_case_05",
-      "syn_uni_case_06",
-      "syn_uni_case_07",
-      "syn_uni_case_08",
-      "syn_uni_case_09",
-      "syn_uni_case_10"
+      "syn_uni_mref_01",
+      "syn_uni_mult_scopes_01",
+      "syn_uni_raw_pos_01",
+      "syn_uni_ctrl_mult_rd",
+      "syn_uni_ctrl_eq_inter",
+      "syn_uni_ctrl_pos_unify",
+      "syn_uni_ctrl_neg_unify",
+      "syn_uni_ctrl_neutral",
+      "syn_uni_cand_succ_fail",
+      "syn_uni_cand_fail_succ"
     ],
     "uni_multi_feature": [
       "syn_uni_gn_01",
@@ -334,81 +428,9 @@
       "syn_uni_3tok_09",
       "syn_uni_3tok_10"
     ],
-    "multiple_unify_scopes": [
-      "syn_uni_mult_scopes_01",
-      "syn_uni_mult_scopes_02"
-    ],
-    "uni_feature_number": [
-      "syn_uni_num_01",
-      "syn_uni_num_02",
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_05",
-      "syn_uni_num_06",
-      "syn_uni_num_07",
-      "syn_uni_num_08",
-      "syn_uni_num_09",
-      "syn_uni_num_10"
-    ],
-    "uni_no_match": [
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_09",
-      "syn_uni_gen_04",
-      "syn_uni_gen_05",
-      "syn_uni_gen_06",
-      "syn_uni_gen_10",
-      "syn_uni_case_06",
-      "syn_uni_case_10",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10",
-      "syn_uni_3tok_05",
-      "syn_uni_3tok_06",
-      "syn_uni_3tok_10",
-      "syn_uni_fem_04",
-      "syn_uni_fem_05",
-      "syn_uni_fem_08",
-      "syn_uni_fem_10",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_05",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_10",
-      "syn_uni_neg_num_03",
-      "syn_uni_neg_num_04",
-      "syn_uni_neg_num_07",
-      "syn_uni_neg_num_10",
-      "syn_uni_neg_gn_04",
-      "syn_uni_neg_gn_05",
-      "syn_uni_neg_gn_06",
-      "syn_uni_neg_gn_09",
-      "syn_uni_neg_gn_10",
-      "syn_uni_ign_com_05",
-      "syn_uni_ign_com_06",
-      "syn_uni_ign_com_10",
-      "syn_uni_ign_adv_05",
-      "syn_uni_ign_adv_06",
-      "syn_uni_ign_adv_10",
-      "syn_uni_mark_03",
-      "syn_uni_skip_03",
-      "syn_uni_skip_04",
-      "syn_uni_inf_skip_02",
-      "syn_uni_mult_scopes_02",
-      "syn_uni_and_02",
-      "syn_uni_or_02",
-      "syn_uni_exc_02",
-      "syn_uni_ap_02",
-      "syn_uni_maxq_02",
-      "syn_uni_mref_02",
-      "syn_uni_ctrl_rej_iso",
-      "syn_uni_ctrl_miss_val"
-    ],
-    "match_references_unify": [
-      "syn_uni_mref_01",
-      "syn_uni_mref_02"
+    "finite_skip_unify": [
+      "syn_uni_fskip_01",
+      "syn_uni_fskip_02"
     ]
   },
   "cases": [
@@ -2879,7 +2901,7 @@
       }
     },
     {
-      "id": "syn_uni_fem_10",
+      "id": "syn_uni_fem_010",
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "зеленое поле",
@@ -3197,27 +3219,6 @@
       "id": "syn_uni_neg_num_01",
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "красивый дома",
-      "features": [
-        "uni_negation",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_02",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
       "text": "красивые дом",
       "features": [
         "uni_negation",
@@ -3245,6 +3246,41 @@
             "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
             "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_02",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "новые окно",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 10,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 10,
+            "message": "Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 10,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 10
           }
         ]
       }
@@ -3295,104 +3331,6 @@
       "id": "syn_uni_neg_num_05",
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "новое окна",
-      "features": [
-        "uni_negation",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_06",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "новые окно",
-      "features": [
-        "uni_negation",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 10,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
-            "message": "Number disagree",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_07",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "новое окно",
-      "features": [
-        "uni_negation",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_08",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
-      "text": "большая книги",
-      "features": [
-        "uni_negation",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_NEG_NUMBER",
-        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-        "category_id": "SYN_UNI_NEGATION",
-        "category_name": "Synthetic Negated Unification",
-        "description": "Number disagreement",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_neg_num_09",
-      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
-      "category": "SYN_UNI_NEGATION",
       "text": "большие книга",
       "features": [
         "uni_negation",
@@ -3422,6 +3360,118 @@
             "expected_pattern_to_codepoint": 13
           }
         ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_06",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "новое окно",
+      "features": [
+        "uni_negation",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_07",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "старые стол",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_08",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "чистые вода",
+      "features": [
+        "uni_negation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_neg_num_09",
+      "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "чистая вода",
+      "features": [
+        "uni_negation",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Number disagreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -4245,206 +4295,226 @@
       }
     },
     {
-      "id": "syn_uni_mark_01",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест красивый дом",
+      "id": "syn_uni_prev_exc_01",
+      "full_rule_id": "SYN_UNI_PREV_EXC[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "старт красивый дом",
       "features": [
-        "marker_spans_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 17,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 17,
-            "message": "Unify in marker: <suggestion>красивый</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 17,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 17
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mark_02",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест красивая книга",
-      "features": [
-        "marker_spans_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 19,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 19,
-            "message": "Unify in marker: <suggestion>красивая</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивая"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 19,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 19
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mark_03",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест красивый книга",
-      "features": [
-        "marker_spans_unify",
+        "previous_exception_unify",
         "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
+        "rule_id": "SYN_UNI_PREV_EXC",
+        "full_rule_id": "SYN_UNI_PREV_EXC[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with previous exception",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_prev_exc_02",
+      "full_rule_id": "SYN_UNI_PREV_EXC[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "начало красивый дом",
+      "features": [
+        "previous_exception_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_PREV_EXC",
+        "full_rule_id": "SYN_UNI_PREV_EXC[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with previous exception",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_next_exc_01",
+      "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивый дом",
+      "features": [
+        "next_exception_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEXT_EXC",
+        "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with next exception",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_next_exc_02",
+      "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивая книга",
+      "features": [
+        "next_exception_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEXT_EXC",
+        "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with next exception",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 5,
-            "to_utf16": 19,
+            "from_utf16": 0,
+            "to_utf16": 14,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 19,
-            "message": "Unify in marker: <suggestion>красивый</suggestion>",
+            "pattern_to_utf16": 14,
+            "message": "Next exception unify",
             "short_message": "",
-            "suggestions": [
-              "красивый"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 19,
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 14,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 19
+            "expected_pattern_to_codepoint": 14
           }
         ]
       }
     },
     {
-      "id": "syn_uni_mark_04",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест новое окно",
+      "id": "syn_uni_min0_01",
+      "full_rule_id": "SYN_UNI_MIN0[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивый дом",
       "features": [
-        "marker_spans_unify",
+        "min_zero_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
+        "rule_id": "SYN_UNI_MIN0",
+        "full_rule_id": "SYN_UNI_MIN0[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with min 0",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 5,
-            "to_utf16": 15,
+            "from_utf16": 0,
+            "to_utf16": 12,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 15,
-            "message": "Unify in marker: <suggestion>новое</suggestion>",
+            "pattern_to_utf16": 12,
+            "message": "Min 0 unify",
             "short_message": "",
-            "suggestions": [
-              "новое"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 15,
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 15
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_uni_mark_05",
-      "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "тест новые окна",
+      "id": "syn_uni_min0_02",
+      "full_rule_id": "SYN_UNI_MIN0[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "дом",
       "features": [
-        "marker_spans_unify",
+        "min_zero_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_MARKER",
-        "full_rule_id": "SYN_UNI_WITH_MARKER[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification inside marker",
+        "rule_id": "SYN_UNI_MIN0",
+        "full_rule_id": "SYN_UNI_MIN0[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with min 0",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 5,
-            "to_utf16": 15,
+            "from_utf16": 0,
+            "to_utf16": 3,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 15,
-            "message": "Unify in marker: <suggestion>новые</suggestion>",
+            "pattern_to_utf16": 3,
+            "message": "Min 0 unify",
             "short_message": "",
-            "suggestions": [
-              "новые"
-            ],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 15,
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 3,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 15
+            "expected_pattern_to_codepoint": 3
           }
         ]
       }
     },
     {
-      "id": "syn_uni_skip_01",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт красивый дом",
+      "id": "syn_uni_max2_01",
+      "full_rule_id": "SYN_UNI_MAX2[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивый дом",
       "features": [
-        "finite_skip_unify",
+        "max_quantifiers_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_MAX2",
+        "full_rule_id": "SYN_UNI_MAX2[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with max 2",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Max 2 unify: <suggestion>красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_max2_02",
+      "full_rule_id": "SYN_UNI_MAX2[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "новый красивый дом",
+      "features": [
+        "max_quantifiers_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MAX2",
+        "full_rule_id": "SYN_UNI_MAX2[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with max 2",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
@@ -4453,9 +4523,11 @@
             "to_utf16": 18,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 18,
-            "message": "Unify with skip",
+            "message": "Max 2 unify: <suggestion>красивый дом</suggestion>",
             "short_message": "",
-            "suggestions": [],
+            "suggestions": [
+              "красивый дом"
+            ],
             "expected_from_codepoint": 0,
             "expected_to_codepoint": 18,
             "expected_pattern_from_codepoint": 0,
@@ -4465,108 +4537,157 @@
       }
     },
     {
-      "id": "syn_uni_skip_02",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт один красивый дом",
+      "id": "syn_uni_max3_01",
+      "full_rule_id": "SYN_UNI_MAX3[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "новый красивый большой дом",
       "features": [
-        "finite_skip_unify",
+        "max_quantifiers_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_MAX3",
+        "full_rule_id": "SYN_UNI_MAX3[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with max 3",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
+            "message": "Max 3 unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
       }
     },
     {
-      "id": "syn_uni_skip_03",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт один красивый дома",
+      "id": "syn_uni_max3_02",
+      "full_rule_id": "SYN_UNI_MAX3[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "новый красивый большая дом",
       "features": [
-        "finite_skip_unify",
+        "max_quantifiers_unify",
         "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_MAX3",
+        "full_rule_id": "SYN_UNI_MAX3[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with max 3",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
+            "message": "Max 3 unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
       }
     },
     {
-      "id": "syn_uni_skip_04",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "id": "syn_uni_max_unb_01",
+      "full_rule_id": "SYN_UNI_MAX_UNBOUNDED[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "новый красивый большой старый дом",
+      "features": [
+        "max_quantifiers_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MAX_UNBOUNDED",
+        "full_rule_id": "SYN_UNI_MAX_UNBOUNDED[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with max -1",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 33,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 33,
+            "message": "Max -1 unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 33,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 33
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_fskip_01",
+      "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
+      "category": "SYN_UNI_ADVANCED",
       "text": "старт один два красивый дом",
       "features": [
         "finite_skip_unify",
-        "uni_no_match"
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_FINITE_SKIP",
+        "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with finite skip",
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
       }
     },
     {
-      "id": "syn_uni_skip_05",
-      "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "старт новая книга",
+      "id": "syn_uni_fskip_02",
+      "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "старт один два три красивый дом",
       "features": [
         "finite_skip_unify",
-        "uni_positive_match"
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_WITH_SKIP",
-        "full_rule_id": "SYN_UNI_WITH_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with skip token",
+        "rule_id": "SYN_UNI_FINITE_SKIP",
+        "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with finite skip",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 17,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 17,
-            "message": "Unify with skip",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 17,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 17
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
-      "id": "syn_uni_inf_skip_01",
+      "id": "syn_uni_infskip_01",
       "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "начало один два три красивый дом",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "начало один два три четыре красивый дом",
       "features": [
         "infinite_skip_unify",
         "uni_positive_match"
@@ -4575,8 +4696,8 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_INFINITE_SKIP",
         "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with infinite skip",
         "is_default_off": false,
         "matches_count": 0,
@@ -4584,10 +4705,10 @@
       }
     },
     {
-      "id": "syn_uni_inf_skip_02",
+      "id": "syn_uni_infskip_02",
       "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "начало один два три красивый дома",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "начало один два три четыре красивые дом",
       "features": [
         "infinite_skip_unify",
         "uni_no_match"
@@ -4596,88 +4717,18 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_INFINITE_SKIP",
         "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with infinite skip",
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_mult_scopes_01",
-      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "новый дом и новая книга",
-      "features": [
-        "multiple_unify_scopes",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MULTI_SCOPES",
-        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Multiple unify scopes in sequence",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 23,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 23,
-            "message": "Multiple unify scopes",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 23,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 23
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mult_scopes_02",
-      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "новый дома и новая книга",
-      "features": [
-        "multiple_unify_scopes",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MULTI_SCOPES",
-        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Multiple unify scopes in sequence",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 24,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 24,
-            "message": "Multiple unify scopes",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 24,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 24
-          }
-        ]
       }
     },
     {
       "id": "syn_uni_and_01",
-      "full_rule_id": "SYN_UNI_AND_GROUP[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "full_rule_id": "SYN_UNI_AND[1]",
+      "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
       "features": [
         "and_group_unify",
@@ -4685,10 +4736,10 @@
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_AND_GROUP",
-        "full_rule_id": "SYN_UNI_AND_GROUP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "rule_id": "SYN_UNI_AND",
+        "full_rule_id": "SYN_UNI_AND[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with AND group",
         "is_default_off": false,
         "matches_count": 1,
@@ -4698,7 +4749,7 @@
             "to_utf16": 12,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 12,
-            "message": "AND group unify",
+            "message": "AND unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
@@ -4711,43 +4762,64 @@
     },
     {
       "id": "syn_uni_and_02",
-      "full_rule_id": "SYN_UNI_AND_GROUP[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дома",
+      "full_rule_id": "SYN_UNI_AND[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивые дом",
       "features": [
         "and_group_unify",
         "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_AND_GROUP",
-        "full_rule_id": "SYN_UNI_AND_GROUP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "rule_id": "SYN_UNI_AND",
+        "full_rule_id": "SYN_UNI_AND[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with AND group",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_or_01",
+      "full_rule_id": "SYN_UNI_OR[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивый дом",
+      "features": [
+        "or_group_unify",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_OR",
+        "full_rule_id": "SYN_UNI_OR[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with OR group",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
             "from_utf16": 0,
-            "to_utf16": 13,
+            "to_utf16": 12,
             "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "AND group unify",
+            "pattern_to_utf16": 12,
+            "message": "OR unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
+            "expected_to_codepoint": 12,
             "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
+            "expected_pattern_to_codepoint": 12
           }
         ]
       }
     },
     {
-      "id": "syn_uni_or_01",
-      "full_rule_id": "SYN_UNI_OR_GROUP[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "id": "syn_uni_or_02",
+      "full_rule_id": "SYN_UNI_OR[1]",
+      "category": "SYN_UNI_ADVANCED",
       "text": "построенный дом",
       "features": [
         "or_group_unify",
@@ -4755,10 +4827,10 @@
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_OR_GROUP",
-        "full_rule_id": "SYN_UNI_OR_GROUP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "rule_id": "SYN_UNI_OR",
+        "full_rule_id": "SYN_UNI_OR[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with OR group",
         "is_default_off": false,
         "matches_count": 1,
@@ -4768,7 +4840,7 @@
             "to_utf16": 15,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 15,
-            "message": "OR group unify",
+            "message": "OR unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
@@ -4780,9 +4852,9 @@
       }
     },
     {
-      "id": "syn_uni_or_02",
-      "full_rule_id": "SYN_UNI_OR_GROUP[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "id": "syn_uni_or_03",
+      "full_rule_id": "SYN_UNI_OR[1]",
+      "category": "SYN_UNI_ADVANCED",
       "text": "построенные дом",
       "features": [
         "or_group_unify",
@@ -4790,67 +4862,11 @@
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_OR_GROUP",
-        "full_rule_id": "SYN_UNI_OR_GROUP[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "rule_id": "SYN_UNI_OR",
+        "full_rule_id": "SYN_UNI_OR[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with OR group",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_exc_01",
-      "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дом",
-      "features": [
-        "previous_next_exceptions_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXCEPTIONS",
-        "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with next exception",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 12,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 12,
-            "message": "Exception unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 12,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 12
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_exc_02",
-      "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый исключение дом",
-      "features": [
-        "previous_next_exceptions_unify",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_EXCEPTIONS",
-        "full_rule_id": "SYN_UNI_EXCEPTIONS[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with next exception",
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
@@ -4859,8 +4875,8 @@
     {
       "id": "syn_uni_sp_01",
       "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дом",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивыйдом",
       "features": [
         "spacebefore_unify",
         "uni_positive_match"
@@ -4869,33 +4885,40 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_SPACEBEFORE",
         "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with spacebefore",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 12,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 12,
-            "message": "Spacebefore unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 12,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 12
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_sp_02",
+      "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивый дом",
+      "features": [
+        "spacebefore_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_SPACEBEFORE",
+        "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with spacebefore",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
       "id": "syn_uni_chk_01",
       "full_rule_id": "SYN_UNI_CHUNK[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дом",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_CHUNKS:1=NP||красивый дом",
       "features": [
         "chunk_unify",
         "uni_positive_match"
@@ -4904,30 +4927,9 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_CHUNK",
         "full_rule_id": "SYN_UNI_CHUNK[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with chunk",
-        "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
-      }
-    },
-    {
-      "id": "syn_uni_raw_01",
-      "full_rule_id": "SYN_UNI_RAW_POS[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дом",
-      "features": [
-        "raw_pos_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_RAW_POS",
-        "full_rule_id": "SYN_UNI_RAW_POS[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with raw_pos",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
@@ -4936,7 +4938,7 @@
             "to_utf16": 12,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 12,
-            "message": "Raw pos unify",
+            "message": "Chunk unify",
             "short_message": "",
             "suggestions": [],
             "expected_from_codepoint": 0,
@@ -4948,9 +4950,30 @@
       }
     },
     {
+      "id": "syn_uni_chk_02",
+      "full_rule_id": "SYN_UNI_CHUNK[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_CHUNKS:1=VP||красивый дом",
+      "features": [
+        "chunk_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_CHUNK",
+        "full_rule_id": "SYN_UNI_CHUNK[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Unification with chunk",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
       "id": "syn_uni_ap_01",
       "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
       "features": [
         "antipattern_unify",
@@ -4960,8 +4983,8 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_ANTIPATTERN",
         "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with antipattern",
         "is_default_off": false,
         "matches_count": 1,
@@ -4985,7 +5008,7 @@
     {
       "id": "syn_uni_ap_02",
       "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "category": "SYN_UNI_ADVANCED",
       "text": "стоп красивый дом",
       "features": [
         "antipattern_unify",
@@ -4995,8 +5018,8 @@
         "status": "FOUND",
         "rule_id": "SYN_UNI_ANTIPATTERN",
         "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with antipattern",
         "is_default_off": false,
         "matches_count": 1,
@@ -5018,176 +5041,36 @@
       }
     },
     {
-      "id": "syn_uni_min0_01",
-      "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "красивый дом",
-      "features": [
-        "min_zero_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MIN_ZERO",
-        "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with min=0",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 12,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 12,
-            "message": "Min zero unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 12,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 12
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_min0_02",
-      "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "дом",
-      "features": [
-        "min_zero_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MIN_ZERO",
-        "full_rule_id": "SYN_UNI_MIN_ZERO[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with min=0",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 3,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 3,
-            "message": "Min zero unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 3,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_maxq_01",
-      "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "новый красивый большой дом",
-      "features": [
-        "max_quantifiers_unify",
-        "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MAX_QUANT",
-        "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with max quantifier",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 26,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 26,
-            "message": "Max quant unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 26,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 26
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_maxq_02",
-      "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "новый красивый большая дом",
-      "features": [
-        "max_quantifiers_unify",
-        "uni_no_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_MAX_QUANT",
-        "full_rule_id": "SYN_UNI_MAX_QUANT[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with max quantifier",
-        "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 26,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 26,
-            "message": "Max quant unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 26,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 26
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_mref_01",
-      "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
-      "category": "SYN_UNI_COMPLEX",
+      "id": "syn_uni_mark_01",
+      "full_rule_id": "SYN_UNI_MARKER_SPANS[1]",
+      "category": "SYN_UNI_ADVANCED",
       "text": "префикс красивый дом суффикс",
       "features": [
-        "match_references_unify",
+        "marker_spans_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_MATCH_REFS",
-        "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with surrounding match references",
+        "rule_id": "SYN_UNI_MARKER_SPANS",
+        "full_rule_id": "SYN_UNI_MARKER_SPANS[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Marker around unify",
         "is_default_off": false,
         "matches_count": 1,
         "matches": [
           {
-            "from_utf16": 0,
-            "to_utf16": 28,
+            "from_utf16": 8,
+            "to_utf16": 20,
             "pattern_from_utf16": 0,
             "pattern_to_utf16": 28,
-            "message": "Match ref: <suggestion>префикс красивый дом суффикс</suggestion>",
+            "message": "Marker spans unify: <suggestion>красивый дом</suggestion>",
             "short_message": "",
             "suggestions": [
-              "префикс красивый дом суффикс"
+              "красивый дом"
             ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 28,
+            "expected_from_codepoint": 8,
+            "expected_to_codepoint": 20,
             "expected_pattern_from_codepoint": 0,
             "expected_pattern_to_codepoint": 28
           }
@@ -5195,137 +5078,187 @@
       }
     },
     {
-      "id": "syn_uni_mref_02",
+      "id": "syn_uni_mref_01",
       "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
-      "category": "SYN_UNI_COMPLEX",
-      "text": "префикс красивая дом суффикс",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "слово1 красивый дом слово4",
       "features": [
         "match_references_unify",
-        "uni_no_match"
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
         "rule_id": "SYN_UNI_MATCH_REFS",
         "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
-        "category_id": "SYN_UNI_COMPLEX",
-        "category_name": "Synthetic Complex Combinations",
-        "description": "Unification with surrounding match references",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Match references around unify",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 26,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 26,
+            "message": "Refs: <suggestion>слово1 красивый дом слово4</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово1 красивый дом слово4"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 26,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 26
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_mult_scopes_01",
+      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "новый дом и новая книга",
+      "features": [
+        "multiple_unify_scopes",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MULTI_SCOPES",
+        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Multiple unify scopes in sequence",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Multiple unify scopes",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 23
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_mult_scopes_02",
+      "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "красивые дом и новая книга",
+      "features": [
+        "multiple_unify_scopes",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MULTI_SCOPES",
+        "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Multiple unify scopes in sequence",
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
       }
     },
     {
-      "id": "syn_uni_cand_succ_fail",
-      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
-      "category": "SYN_UNI_SINGLE",
-      "text": "красивый дом красивый дома",
+      "id": "syn_uni_raw_pos_01",
+      "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_PRE_DISAMBIG:1=слово/слово/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:1=слово/слово/VB:Past:Fem||слово дом",
       "features": [
-        "success_then_fail_candidate",
-        "repeated_calls_isolation",
+        "raw_pos_unify",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_NUMBER_AGREE",
-        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
-        "category_id": "SYN_UNI_SINGLE",
-        "category_name": "Synthetic Single Feature Agreement",
-        "description": "Number agreement",
+        "rule_id": "SYN_UNI_RAW_POS_DIFF",
+        "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Raw pos discriminating unify",
         "is_default_off": false,
-        "matches_count": 2,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 12,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 12,
-            "message": "Number agree: <suggestion>красивый дом</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый дом"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 12,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 12
-          },
-          {
-            "from_utf16": 13,
-            "to_utf16": 26,
-            "pattern_from_utf16": 13,
-            "pattern_to_utf16": 26,
-            "message": "Number agree: <suggestion>красивый дома</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый дома"
-            ],
-            "expected_from_codepoint": 13,
-            "expected_to_codepoint": 26,
-            "expected_pattern_from_codepoint": 13,
-            "expected_pattern_to_codepoint": 26
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
-      "id": "syn_uni_cand_fail_succ",
-      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
-      "category": "SYN_UNI_SINGLE",
-      "text": "красивый дома красивый дом",
+      "id": "syn_uni_raw_pos_02",
+      "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_PRE_DISAMBIG:1=слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom||слово дом",
       "features": [
-        "fail_then_success_candidate",
-        "repeated_calls_isolation",
+        "raw_pos_unify",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_RAW_POS_DIFF",
+        "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Raw pos discriminating unify",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_mult_rd",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "features": [
+        "controlled_multi_reading_filtering",
         "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
-        "rule_id": "SYN_UNI_NUMBER_AGREE",
-        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+        "rule_id": "SYN_UNI_GENDER_AGREE",
+        "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
         "category_id": "SYN_UNI_SINGLE",
         "category_name": "Synthetic Single Feature Agreement",
-        "description": "Number agreement",
+        "description": "Gender agreement",
         "is_default_off": false,
-        "matches_count": 2,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Number agree: <suggestion>красивый дома</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый дома"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          },
-          {
-            "from_utf16": 14,
-            "to_utf16": 26,
-            "pattern_from_utf16": 14,
-            "pattern_to_utf16": 26,
-            "message": "Number agree: <suggestion>красивый дом</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый дом"
-            ],
-            "expected_from_codepoint": 14,
-            "expected_to_codepoint": 26,
-            "expected_pattern_from_codepoint": 14,
-            "expected_pattern_to_codepoint": 26
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_base_filter",
+      "full_rule_id": "SYN_UNI_BASE_FILTER[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom,слово/слово/ADJ:Masc:Sin:Gen|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "features": [
+        "controlled_base_pattern_reading_filtering",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_BASE_FILTER",
+        "full_rule_id": "SYN_UNI_BASE_FILTER[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Base pattern filters readings before unify",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
       "id": "syn_uni_ctrl_rej_iso",
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "стали красивый",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom,слово/слово/NN:Masc:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
       "features": [
         "controlled_rejected_reading_isolation",
         "uni_no_match"
@@ -5344,64 +5277,12 @@
     },
     {
       "id": "syn_uni_ctrl_eq_inter",
-      "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-      "category": "SYN_UNI_MULTI_FEAT",
-      "text": "этими новыми домами",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=книга/книга/NN:Fem:Sin:Nom||слово книга",
       "features": [
         "controlled_equivalence_intersection",
         "uni_positive_match"
-      ],
-      "oracle_result": {
-        "status": "FOUND",
-        "rule_id": "SYN_UNI_CASE_GENDER_NUMBER",
-        "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
-        "category_id": "SYN_UNI_MULTI_FEAT",
-        "category_name": "Synthetic Multi-Feature Agreement",
-        "description": "Case, Gender, and Number agreement",
-        "is_default_off": false,
-        "matches_count": 2,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 12,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 12,
-            "message": "Full nominal agree: <suggestion>этими новыми</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "этими новыми"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 12,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 12
-          },
-          {
-            "from_utf16": 6,
-            "to_utf16": 19,
-            "pattern_from_utf16": 6,
-            "pattern_to_utf16": 19,
-            "message": "Full nominal agree: <suggestion>новыми домами</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "новыми домами"
-            ],
-            "expected_from_codepoint": 6,
-            "expected_to_codepoint": 19,
-            "expected_pattern_from_codepoint": 6,
-            "expected_pattern_to_codepoint": 19
-          }
-        ]
-      }
-    },
-    {
-      "id": "syn_uni_ctrl_miss_val",
-      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
-      "category": "SYN_UNI_SINGLE",
-      "text": "очень дом",
-      "features": [
-        "controlled_missing_equivalence_value",
-        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -5413,6 +5294,166 @@
         "is_default_off": false,
         "matches_count": 0,
         "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_miss_val",
+      "full_rule_id": "SYN_UNI_MISSING_EQ[1]",
+      "category": "SYN_UNI_ADVANCED",
+      "text": "||INJECT_READINGS:1=слово/слово/NON_EQUIV_TAG|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "features": [
+        "controlled_missing_equivalence_value",
+        "uni_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_MISSING_EQ",
+        "full_rule_id": "SYN_UNI_MISSING_EQ[1]",
+        "category_id": "SYN_UNI_ADVANCED",
+        "category_name": "Synthetic Advanced Pattern Unify Combinations",
+        "description": "Missing equivalence value",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_pos_unify",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "features": [
+        "controlled_positive_unification",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_GENDER_AGREE",
+        "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Gender agreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_neg_unify",
+      "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
+      "category": "SYN_UNI_NEGATION",
+      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "features": [
+        "controlled_negated_unification",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NEG_GENDER_NUMBER",
+        "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
+        "category_id": "SYN_UNI_NEGATION",
+        "category_name": "Synthetic Negated Unification",
+        "description": "Gender/Number disagreement",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_ctrl_neutral",
+      "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+      "category": "SYN_UNI_IGNORE",
+      "text": "||INJECT_READINGS:1=слово1/слово1/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:2=запятая/запятая/,|| ||INJECT_READINGS:3=слово2/слово2/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:4=дом/дом/NN:Masc:Sin:Nom||слово1 , слово2 дом",
+      "features": [
+        "controlled_neutral_unify_ignore",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_IGNORE_COMMA",
+        "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
+        "category_id": "SYN_UNI_IGNORE",
+        "category_name": "Synthetic Unify Ignore (Neutral Elements)",
+        "description": "Unification with neutral punctuation",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_uni_cand_succ_fail",
+      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "красивый дом красивые дом",
+      "features": [
+        "success_then_fail_candidate",
+        "repeated_calls_isolation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NUMBER_AGREE",
+        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 12,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 12,
+            "message": "Number agree: <suggestion>красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 12,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_uni_cand_fail_succ",
+      "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "красивые дом красивый дом",
+      "features": [
+        "fail_then_success_candidate",
+        "repeated_calls_isolation",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_NUMBER_AGREE",
+        "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Number agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 25,
+            "pattern_from_utf16": 13,
+            "pattern_to_utf16": 25,
+            "message": "Number agree: <suggestion>красивый дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "красивый дом"
+            ],
+            "expected_from_codepoint": 13,
+            "expected_to_codepoint": 25,
+            "expected_pattern_from_codepoint": 13,
+            "expected_pattern_to_codepoint": 25
+          }
+        ]
       }
     }
   ]

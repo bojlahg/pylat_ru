@@ -826,10 +826,13 @@ class CompiledRuleVariant:
             if reading_sets is None:
                 continue
 
-            for readings in reading_sets:
+            num_sets = len(reading_sets)
+            for set_idx, readings in enumerate(reading_sets):
+                is_last_set = (set_idx == num_sets - 1)
                 any_matched = False
+                num_readings = len(readings)
                 for i, match_token in enumerate(readings):
-                    is_last_reading = (i == len(readings) - 1)
+                    is_last_reading = (i == num_readings - 1)
                     res = self.unifier.is_unified(match_token, matcher.uni_features, is_last_reading, True)
                     any_matched = any_matched or res
 
@@ -837,7 +840,7 @@ class CompiledRuleVariant:
                     self.unifier.reset()
                     return False
 
-                if matcher.is_last_in_unify and readings == reading_sets[-1]:
+                if matcher.is_last_in_unify and is_last_set:
                     if not any_matched and not matcher.is_unify_negated:
                         self.unifier.reset()
                         return False
