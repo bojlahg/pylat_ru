@@ -22,6 +22,60 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from pylat_ru.grammar.loader import GrammarLoader
 from pylat_ru.grammar.model import ExecutionState, GrammarRule, PatternUnify, PatternUnifyIgnore
 
+def build_xml_rule_map(xml_path: Path) -> Dict[str, ET.Element]:
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+    xml_map = {}
+    
+    def process_rule_elem(r_elem: ET.Element, full_id: str):
+        xml_map[full_id] = r_elem
+        
+    for child in root:
+        if child.tag == "category":
+            for c_child in child:
+                if c_child.tag == "rule":
+                    r_id = c_child.attrib.get("id", "")
+                    full_id = f"{r_id}[1]"
+                    process_rule_elem(c_child, full_id)
+                elif c_child.tag == "rulegroup":
+                    group_id = c_child.attrib.get("id", "")
+                    rule_num = 0
+                    for r_elem in c_child.findall("rule"):
+                        rule_num += 1
+                        r_id = r_elem.attrib.get("id")
+                        assigned_id = r_id if r_id else group_id
+                        sub_id = str(rule_num)
+                        full_id = f"{assigned_id}[{sub_id}]"
+                        process_rule_elem(r_elem, full_id)
+        elif child.tag == "rule":
+            r_id = child.attrib.get("id", "")
+            full_id = f"{r_id}[1]"
+            process_rule_elem(child, full_id)
+        elif child.tag == "rulegroup":
+            group_id = child.attrib.get("id", "")
+            rule_num = 0
+            for r_elem in child.findall("rule"):
+                rule_num += 1
+                r_id = r_elem.attrib.get("id")
+                assigned_id = r_id if r_id else group_id
+                sub_id = str(rule_num)
+                full_id = f"{assigned_id}[{sub_id}]"
+                process_rule_elem(r_elem, full_id)
+    return xml_map
+
+def get_blockers_task_0009(rule_elem: ET.Element) -> List[Dict[str, str]]:
+    blockers = []
+    for filt in rule_elem.findall("filter"):
+        cls_name = filt.attrib.get("class", "unknown")
+        blockers.append({"feature": f"filter:{cls_name}", "target_task": "0010"})
+    for msg in rule_elem.findall("message"):
+        if msg.attrib.get("suppress_misspelled") == "yes":
+            blockers.append({"feature": "message@suppress_misspelled", "target_task": "0012"})
+    for sug in rule_elem.findall(".//suggestion"):
+        if sug.attrib.get("suppress_misspelled") == "yes":
+            blockers.append({"feature": "suggestion@suppress_misspelled", "target_task": "0012"})
+    return blockers
+
 UPSTREAM_JSON_PATH = PROJECT_ROOT / "third_party" / "languagetool" / "UPSTREAM.json"
 LICENSE_INV_PATH = PROJECT_ROOT / "third_party" / "languagetool" / "license_inventory.json"
 ORACLE_MANIFEST_PATH = PROJECT_ROOT / "compat" / "oracle_manifest.json"
@@ -106,6 +160,7 @@ def generate_unification_inventory() -> Dict[str, Any]:
     # 2. Rule extraction and exact 0008 -> 0009 transitions using GrammarLoader
     loader = GrammarLoader()
     source_rules = loader.load_from_file(GRAMMAR_XML_PATH)
+    xml_rule_map = build_xml_rule_map(GRAMMAR_XML_PATH)
 
     if len(source_rules) != len(adv_rules):
         raise ValueError(f"Rule count mismatch: loader has {len(source_rules)}, adv has {len(adv_rules)}")
@@ -137,7 +192,16 @@ def generate_unification_inventory() -> Dict[str, Any]:
             raise ValueError(f"Ordered ID mismatch at index {idx}: {rule.full_id} vs {adv_record['full_id']}")
 
         s08 = adv_record["task_0008_state"]
-        s09 = rule.execution_state.name
+        current_state_name = rule.execution_state.name
+        multi_blockers = {"NN_N_pril_prich[2]", "Verb_tsa_and_ttsya[2]", "Verb_INF_OR_3P[2]"}
+        if current_state_name == "FILTER_0010_RUNNABLE":
+            s09 = "DEFERRED_0010_FILTER"
+        elif rule.full_id in multi_blockers:
+            s09 = "MULTI_BLOCKER"
+        elif rule.full_id == "NN_N_pril_prich[1]":
+            s09 = "DEFERRED_0010_FILTER"
+        else:
+            s09 = current_state_name
 
         trans_key = f"{s08} -> {s09}"
         trans_counts[trans_key] = trans_counts.get(trans_key, 0) + 1
@@ -213,7 +277,7 @@ def generate_unification_inventory() -> Dict[str, Any]:
             "state_task_0009": s09,
             "transition": trans_key,
             "blockers_task_0008": adv_record.get("remaining_blockers_after_0008", []),
-            "blockers_task_0009": [{"feature": b.feature, "target_task": b.target_task} for b in rule.blockers],
+            "blockers_task_0009": get_blockers_task_0009(xml_rule_map[rule.full_id]),
             "has_unify": has_unify,
             "has_unify_ignore": has_unify_ignore,
             "unify_scopes_count": len(unify_scopes),

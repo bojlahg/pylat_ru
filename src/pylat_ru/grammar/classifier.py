@@ -66,10 +66,24 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
         if complex_attrs:
             uses_0008_advanced = True
 
-    # Java/XML Filters (deferred to Task 0010)
+    # Java/XML Filters (supported in Task 0010, spelling deferred to Task 0012)
+    supported_filters = {
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+        "org.languagetool.rules.ru.DateCheckFilter",
+        "org.languagetool.rules.ru.FutureDateFilter",
+        "org.languagetool.rules.ru.INNNumberFilter",
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+    }
+    deferred_filters = {
+        "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter",
+    }
+
     for filt in rule_elem.findall("filter"):
         cls_name = filt.attrib.get("class", "unknown")
-        remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "0010", f"Filter class {cls_name}"))
+        if cls_name in deferred_filters:
+            remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "0012", f"Spelling-dependent filter class {cls_name}"))
+        elif cls_name not in supported_filters:
+            remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "UNKNOWN", f"Unknown filter class {cls_name}"))
 
     # Suppress misspelled (deferred to Task 0012)
     for msg in rule_elem.findall("message"):
@@ -101,6 +115,8 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
             unique_blockers.append(b)
 
     if not unique_blockers:
+        if len(rule_elem.findall("filter")) > 0:
+            return ExecutionState.FILTER_0010_RUNNABLE, []
         if uses_0009_unification:
             return ExecutionState.UNIFICATION_0009_RUNNABLE, []
         if uses_0008_advanced:

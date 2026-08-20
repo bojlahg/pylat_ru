@@ -8,7 +8,7 @@
     "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
     "baseline_task_0008_commit": "5a2f4c032609ee2ce371ca5bb886883a186a3d83",
     "generator_path": "tools/russian_grammar_unification_inventory.py",
-    "generator_sha256": "1ddfca717273222d2189c8b60faca51969c50dd824e58da7bfc3251574d12b86",
+    "generator_sha256": "26e0e39ad12b8c8b31871cab248896c7fcce71ff26e8785bdea5122afa4b2a48",
     "oracle_manifest_path": "compat/oracle_manifest.json"
   },
   "source_totals": {

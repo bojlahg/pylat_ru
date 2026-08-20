@@ -174,7 +174,12 @@ def test_grammar_engine_deferred_rule_fail_closed():
     # Find any deferred rule
     deferred_rule = next(
         r for r in engine.get_all_rules()
-        if r.execution_state not in (ExecutionState.CORE_0007_RUNNABLE, ExecutionState.ADVANCED_0008_RUNNABLE)
+        if r.execution_state not in (
+            ExecutionState.CORE_0007_RUNNABLE,
+            ExecutionState.ADVANCED_0008_RUNNABLE,
+            ExecutionState.UNIFICATION_0009_RUNNABLE,
+            ExecutionState.FILTER_0010_RUNNABLE,
+        )
     )
     with pytest.raises(UnsupportedGrammarFeatureError):
         engine.check_rule(sent, deferred_rule)

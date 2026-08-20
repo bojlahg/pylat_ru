@@ -5,7 +5,7 @@
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
-  "vendored_files_count": 109,
+  "vendored_files_count": 118,
   "files": {
     "COPYING.txt": {
       "size": 26432,
@@ -18,6 +18,26 @@
     "languagetool-core/src/main/java/org/languagetool/chunking/TokenPredicate.java": {
       "size": 3793,
       "sha256": "3f6c4280d73e5ebf7fd27b95e484b473bb0f480e4d6679af62ac8a0990896f7d"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractAdvancedSynthesizerFilter.java": {
+      "size": 8645,
+      "sha256": "ebae258c5b034f3af3a67a563cf254fa32d934065a6808a9750a2df4e754d387"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractDateCheckFilter.java": {
+      "size": 7013,
+      "sha256": "c18a7cbfc48369f89905d964d2757d50c6cff79911202ff46e9f16b8641446c0"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractFutureDateFilter.java": {
+      "size": 4157,
+      "sha256": "be48708586932a31d4bb9ce546bd4410b235c7ebbc8b2d3c7fbcb358c159c2df"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractSuppressMisspelledSuggestionsFilter.java": {
+      "size": 3336,
+      "sha256": "9a93332483a1ec33cd1eb0245b951598991e96b0b271670c824f2562b42c2739"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/PartialPosTagFilter.java": {
+      "size": 5324,
+      "sha256": "fdd3f4fa34e02f03f2f291527c1b382d4b55c0a0b9b8533d592ef605dd6fce1f"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java": {
       "size": 29812,
@@ -67,6 +87,14 @@
       "size": 4917,
       "sha256": "9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/RuleFilter.java": {
+      "size": 6004,
+      "sha256": "9d35d67c2ed47ce9f9bb332af4306fdb62fd56e28bca132c9aa6bdbe92697e8b"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/patterns/RuleFilterEvaluator.java": {
+      "size": 3771,
+      "sha256": "8c6313c12533e28873bf42d6c8b4d9a6025aea32fa67c63c5885064dad30ac58"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java": {
       "size": 16108,
       "sha256": "33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454"
@@ -94,6 +122,10 @@
     "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java": {
       "size": 42337,
       "sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/RuleFilterEvaluatorTest.java": {
+      "size": 3323,
+      "sha256": "45ee3705fb0fdeac3398581ab5d9599c4e80bca75a47661c1d99f51388680cc3"
     },
     "languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java": {
       "size": 25704,

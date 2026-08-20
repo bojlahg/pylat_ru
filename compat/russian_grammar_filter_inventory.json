@@ -1,0 +1,389 @@
+{
+  "schema_version": "1.0.0",
+  "pinned_languagetool": {
+    "version": "6.8",
+    "commit": "e807fcde6a6506191e1470744d2345da28c26be6"
+  },
+  "grammar_provenance": {
+    "path": "third_party/languagetool/languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml",
+    "size_bytes": 1194903,
+    "sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec"
+  },
+  "baseline_commit": "762ae1e5ce8174f12b1532d0c6212c08b72c9889",
+  "source_rules_total": 892,
+  "raw_filter_elements": 23,
+  "raw_class_refs": 23,
+  "raw_args_attrs": 23,
+  "per_class_reference_counts": {
+    "org.languagetool.rules.ru.DateCheckFilter": 2,
+    "org.languagetool.rules.ru.FutureDateFilter": 2,
+    "org.languagetool.rules.ru.INNNumberFilter": 1,
+    "org.languagetool.rules.ru.AdvancedSynthesizerFilter": 4,
+    "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": 1,
+    "org.languagetool.rules.ru.RussianPartialPosTagFilter": 13
+  },
+  "per_class_affected_rules": {
+    "org.languagetool.rules.ru.DateCheckFilter": [
+      "DATE_WEEKDAY1[1]",
+      "DATE_WEEKDAY1[2]"
+    ],
+    "org.languagetool.rules.ru.FutureDateFilter": [
+      "INVALID_TENSE_DATE[1]",
+      "INVALID_TENSE_DATE[2]"
+    ],
+    "org.languagetool.rules.ru.INNNumberFilter": [
+      "WRONG_INN[1]"
+    ],
+    "org.languagetool.rules.ru.AdvancedSynthesizerFilter": [
+      "Unify_Adj_NN_case[3]",
+      "Unify_PADJ_NN_case[1]",
+      "Unify_PADJ_NN_gender[1]",
+      "Unify_PADJ_NN_number[1]"
+    ],
+    "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": [
+      "NN_N_pril_prich[1]"
+    ],
+    "org.languagetool.rules.ru.RussianPartialPosTagFilter": [
+      "DoubleNE[1]",
+      "NN_N_pril_prich[2]",
+      "Ne_narech2[1]",
+      "Ne_narech[3]",
+      "Ne_narech[4]",
+      "Ne_pril_prich1[1]",
+      "Ne_pril_prich[1]",
+      "Ne_pril_prich[2]",
+      "Ne_pril_prich[3]",
+      "Ne_pril_prich[4]",
+      "Verb_INF_OR_3P[2]",
+      "Verb_tsa_and_ttsya[2]",
+      "pouchastvovat[1]"
+    ]
+  },
+  "filter_unification_overlap": 4,
+  "filter_spelling_overlap": 3,
+  "filter_advanced_overlap": 12,
+  "runnable_rules_count": 778,
+  "deferred_rules_count": 114,
+  "runnable_examples_total": 2119,
+  "runnable_examples_incorrect": 910,
+  "runnable_examples_correct": 1209,
+  "deferred_examples_total": 327,
+  "deferred_examples_incorrect": 129,
+  "deferred_examples_correct": 198,
+  "unknown_filter_class_count": 0,
+  "spelling_dependent_recognized_deferred_count": 1,
+  "synthetic_oracle_case_count": 120,
+  "real_oracle_case_count": 23,
+  "rules": [
+    {
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "filter_class": "org.languagetool.rules.ru.DateCheckFilter",
+      "raw_args": "year:\\5 month:\\4 day:\\3 weekDay:\\1",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 4,
+      "example_correct_count": 2
+    },
+    {
+      "full_rule_id": "DATE_WEEKDAY1[2]",
+      "filter_class": "org.languagetool.rules.ru.DateCheckFilter",
+      "raw_args": "year:\\7 month:\\5 day:\\3 weekDay:\\1",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 2,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "INVALID_TENSE_DATE[1]",
+      "filter_class": "org.languagetool.rules.ru.FutureDateFilter",
+      "raw_args": "year:\\4 month:\\3 day:\\2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "INVALID_TENSE_DATE[2]",
+      "filter_class": "org.languagetool.rules.ru.FutureDateFilter",
+      "raw_args": "year:\\6 month:\\4 day:\\2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "WRONG_INN[1]",
+      "filter_class": "org.languagetool.rules.ru.INNNumberFilter",
+      "raw_args": "inn:\\3",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.INNNumberFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 2,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "filter_class": "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+      "raw_args": "lemmaFrom:1 lemmaSelect:ADJ:MPR:.*:.* postagFrom:2 postagSelect:NN:.*:(.*):.*:(.*) postagReplace:ADJ:MPR:\\b1:\\b2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 5
+    },
+    {
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "filter_class": "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+      "raw_args": "lemmaFrom:1 lemmaSelect:ADJ:MPR:.*:.* postagFrom:2 postagSelect:NN:.*:(.*):.*:(.*) postagReplace:ADJ:MPR:\\b1:\\b2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 7
+    },
+    {
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "filter_class": "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+      "raw_args": "lemmaFrom:1 lemmaSelect:ADJ:MPR:.*:.* postagFrom:2 postagSelect:NN:.*:(.*):.*:(.*) postagReplace:ADJ:MPR:\\b1:\\b2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 9
+    },
+    {
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "filter_class": "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+      "raw_args": "lemmaFrom:1 lemmaSelect:ADJ:(Posit|Sup):.*:.* postagFrom:2 postagSelect:NN:.*:(.*):.*:(.*) postagReplace:ADJ:\\a1:\\b1:\\b2",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 9,
+      "example_correct_count": 57
+    },
+    {
+      "full_rule_id": "NN_N_pril_prich[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter",
+      "raw_args": "suppressMatch:true",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter"
+      ],
+      "task_0010_state": "DEFERRED_0012_SPELLING_OR_SUPPRESSION",
+      "remaining_blockers": [
+        "filter:org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter"
+      ],
+      "example_incorrect_count": 2,
+      "example_correct_count": 11
+    },
+    {
+      "full_rule_id": "NN_N_pril_prich[2]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:1 regexp:(.*[аеёиоуэюя][н])[н]([а-мо-я]{1,3}) postag_regexp:ADJ:.*  two_groups_regexp:yes ",
+      "prior_state": "MULTI_BLOCKER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter",
+        "suggestion@suppress_misspelled"
+      ],
+      "task_0010_state": "DEFERRED_0012_SPELLING_OR_SUPPRESSION",
+      "remaining_blockers": [
+        "suggestion@suppress_misspelled"
+      ],
+      "example_incorrect_count": 1,
+      "example_correct_count": 9
+    },
+    {
+      "full_rule_id": "Ne_narech[3]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:не(.*) postag_regexp:(ADV)  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "Ne_narech[4]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:1 regexp:не(.*) postag_regexp:(ADV)  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 2
+    },
+    {
+      "full_rule_id": "Ne_narech2[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:(.*) postag_regexp:(ADV) prefix:не suffix:  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 16
+    },
+    {
+      "full_rule_id": "Ne_pril_prich[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:3 regexp:(.*) postag_regexp:UNKNOWN prefix:не suffix:  negate_pos:yes",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 2
+    },
+    {
+      "full_rule_id": "Ne_pril_prich[2]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:3 regexp:(.*) postag_regexp:UNKNOWN prefix:не suffix:  negate_pos:yes",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "Ne_pril_prich[3]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:не(.*) postag_regexp:(ADJ:.*)|(PT:.*)  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "Ne_pril_prich[4]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:не(.*) postag_regexp:(ADJ:.*)|(PT:.*)  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 4
+    },
+    {
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:(.*) postag_regexp:UNKNOWN prefix:не suffix:  negate_pos:yes",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 15
+    },
+    {
+      "full_rule_id": "Verb_tsa_and_ttsya[2]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:4 regexp:(.*)ься postag_regexp:UNKNOWN   negate_pos:yes",
+      "prior_state": "MULTI_BLOCKER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter",
+        "message@suppress_misspelled"
+      ],
+      "task_0010_state": "DEFERRED_0012_SPELLING_OR_SUPPRESSION",
+      "remaining_blockers": [
+        "message@suppress_misspelled"
+      ],
+      "example_incorrect_count": 1,
+      "example_correct_count": 1
+    },
+    {
+      "full_rule_id": "Verb_INF_OR_3P[2]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:(.*)ься postag_regexp:UNKNOWN   negate_pos:yes",
+      "prior_state": "MULTI_BLOCKER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter",
+        "message@suppress_misspelled"
+      ],
+      "task_0010_state": "DEFERRED_0012_SPELLING_OR_SUPPRESSION",
+      "remaining_blockers": [
+        "message@suppress_misspelled"
+      ],
+      "example_incorrect_count": 1,
+      "example_correct_count": 4
+    },
+    {
+      "full_rule_id": "pouchastvovat[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:(.*) postag_regexp:(VB:.*) prefix:по suffix:  ",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 2
+    },
+    {
+      "full_rule_id": "DoubleNE[1]",
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "raw_args": "no:2 regexp:не(.*) postag_regexp:UNKNOWN   negate_pos:yes",
+      "prior_state": "DEFERRED_0010_FILTER",
+      "prior_blockers": [
+        "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "task_0010_state": "FILTER_0010_RUNNABLE",
+      "remaining_blockers": [],
+      "example_incorrect_count": 1,
+      "example_correct_count": 5
+    }
+  ]
+}

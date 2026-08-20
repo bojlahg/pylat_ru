@@ -245,14 +245,16 @@ def test_russian_pattern_rule_execution_suite():
     """Direct equivalent of RussianPatternRuleTest.testRules() running grammar.xml rules."""
     engine = RussianGrammarEngine.get_instance()
     all_runnable_rules = engine.get_runnable_rules()
-    assert len(all_runnable_rules) == 759
+    assert len(all_runnable_rules) == 778
 
     core_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
     advanced_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     unification_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
+    filter_rules = [r for r in all_runnable_rules if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE]
     assert len(core_rules) == 506
     assert len(advanced_rules) == 229
     assert len(unification_rules) == 24
+    assert len(filter_rules) == 19
 
     # Verify execution of representative core rules
     zadat = engine.get_rule("zadat_test[1]")
@@ -279,6 +281,7 @@ def test_deferred_features_inventory_task_0008_to_0010():
     runnable_0007 = [r for r in rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
     runnable_0008 = [r for r in rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     runnable_0009 = [r for r in rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
+    runnable_0010 = [r for r in rules if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE]
     deferred_0010 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0010_FILTER]
     deferred_0012 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0012_SPELLING_OR_SUPPRESSION]
     multi_blocker = [r for r in rules if r.execution_state == ExecutionState.MULTI_BLOCKER]
@@ -286,13 +289,15 @@ def test_deferred_features_inventory_task_0008_to_0010():
     assert len(runnable_0007) == 506, f"Expected 506 core 0007 rules, got {len(runnable_0007)}"
     assert len(runnable_0008) == 229, f"Expected 229 advanced 0008 rules, got {len(runnable_0008)}"
     assert len(runnable_0009) == 24, f"Expected 24 unification 0009 rules, got {len(runnable_0009)}"
-    assert len(deferred_0010) == 20, f"Expected 20 deferred 0010 rules, got {len(deferred_0010)}"
-    assert len(deferred_0012) == 110, f"Expected 110 deferred 0012 rules, got {len(deferred_0012)}"
-    assert len(multi_blocker) == 3, f"Expected 3 multi-blocker rules, got {len(multi_blocker)}"
+    assert len(runnable_0010) == 19, f"Expected 19 filter 0010 rules, got {len(runnable_0010)}"
+    assert len(deferred_0010) == 0, f"Expected 0 deferred 0010 rules, got {len(deferred_0010)}"
+    assert len(deferred_0012) == 114, f"Expected 114 deferred 0012 rules, got {len(deferred_0012)}"
+    assert len(multi_blocker) == 0, f"Expected 0 multi-blocker rules, got {len(multi_blocker)}"
     assert (
         len(runnable_0007)
         + len(runnable_0008)
         + len(runnable_0009)
+        + len(runnable_0010)
         + len(deferred_0010)
         + len(deferred_0012)
         + len(multi_blocker)

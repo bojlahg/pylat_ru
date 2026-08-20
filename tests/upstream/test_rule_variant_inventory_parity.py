@@ -73,10 +73,10 @@ def test_runnable_engine_variant_counts():
     engine = RussianGrammarEngine(rules=rules, loader=loader)
 
     runnable_rules = engine.get_runnable_rules()
-    assert len(runnable_rules) == 759
+    assert len(runnable_rules) == 778
 
     total_runnable_variants = sum(len(engine._compiled_variants.get(r.full_id, [])) for r in runnable_rules)
-    assert total_runnable_variants == 772
+    assert total_runnable_variants == 792
 
 
 def test_ordered_variant_signatures_parity():

@@ -17,6 +17,7 @@ class ExecutionState(str, Enum):
     CORE_0007_RUNNABLE = "CORE_0007_RUNNABLE"
     ADVANCED_0008_RUNNABLE = "ADVANCED_0008_RUNNABLE"
     UNIFICATION_0009_RUNNABLE = "UNIFICATION_0009_RUNNABLE"
+    FILTER_0010_RUNNABLE = "FILTER_0010_RUNNABLE"
     DEFERRED_0008_ADVANCED_MATCHING = "DEFERRED_0008_ADVANCED_MATCHING"
     DEFERRED_0009_UNIFICATION = "DEFERRED_0009_UNIFICATION"
     DEFERRED_0010_FILTER = "DEFERRED_0010_FILTER"
@@ -290,3 +291,4 @@ class RuleMatchResult:
     pattern_to_pos_utf16: int      # Java UTF-16 code unit end offset (full pattern span)
     matched_tokens_indices: List[int]
     marker_tokens_indices: List[int]
+    url: Optional[str] = None

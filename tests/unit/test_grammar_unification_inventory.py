@@ -126,6 +126,7 @@ def test_grammar_unification_invariants():
     runnable_0007 = [r for r in rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
     runnable_0008 = [r for r in rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     runnable_0009 = [r for r in rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
+    runnable_0010 = [r for r in rules if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE]
     deferred_0010 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0010_FILTER]
     deferred_0012 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0012_SPELLING_OR_SUPPRESSION]
     multi_blocker = [r for r in rules if r.execution_state == ExecutionState.MULTI_BLOCKER]
@@ -133,13 +134,14 @@ def test_grammar_unification_invariants():
     assert len(runnable_0007) == 506
     assert len(runnable_0008) == 229
     assert len(runnable_0009) == 24
-    assert len(deferred_0010) == 20
-    assert len(deferred_0012) == 110
-    assert len(multi_blocker) == 3
+    assert len(runnable_0010) == 19
+    assert len(deferred_0010) == 0
+    assert len(deferred_0012) == 114
+    assert len(multi_blocker) == 0
 
-    assert len(runnable_0007) + len(runnable_0008) + len(runnable_0009) == 759
-    assert len(deferred_0010) + len(deferred_0012) + len(multi_blocker) == 133
-    assert 759 + 133 == 892
+    assert len(runnable_0007) + len(runnable_0008) + len(runnable_0009) + len(runnable_0010) == 778
+    assert len(deferred_0010) + len(deferred_0012) + len(multi_blocker) == 114
+    assert 778 + 114 == 892
 
 
 def test_compatibility_oracle_cases_arithmetic():

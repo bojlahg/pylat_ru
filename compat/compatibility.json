@@ -8,19 +8,19 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0009_unification",
-    "overall_state": "UNIFICATION_ENGINE_ESTABLISHED",
+    "task_milestone": "0010_xml_filters",
+    "overall_state": "FILTER_ENGINE_ESTABLISHED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
       "grammar_core_runnable_source_rules_total": 506,
       "grammar_advanced_runnable_source_rules_total": 229,
       "grammar_unification_runnable_source_rules_total": 24,
-      "grammar_total_runnable_source_rules": 759,
-      "grammar_deferred_source_rules_total": 133,
-      "grammar_deferred_0010_source_rules_total": 20,
-      "grammar_deferred_0012_source_rules_total": 110,
-      "grammar_remaining_multi_blocker_source_rules_total": 3,
+      "grammar_total_runnable_source_rules": 778,
+      "grammar_deferred_source_rules_total": 114,
+      "grammar_deferred_0010_source_rules_total": 0,
+      "grammar_deferred_0012_source_rules_total": 114,
+      "grammar_remaining_multi_blocker_source_rules_total": 0,
       "grammar_unknown_source_rules_total": 0,
       "grammar_java_physical_variants_total": 907,
       "grammar_python_all_compiled_variants_total": 907,
@@ -29,12 +29,12 @@
       "grammar_or_generated_extra_variants_total": 15,
       "grammar_phrase_generated_extra_variants_total": 0,
       "grammar_examples_total": 2446,
-      "grammar_runnable_examples_total": 1954,
-      "grammar_runnable_examples_incorrect_total": 878,
-      "grammar_runnable_examples_correct_total": 1076,
-      "grammar_deferred_examples_total": 492,
-      "grammar_deferred_examples_incorrect_total": 161,
-      "grammar_deferred_examples_correct_total": 331,
+      "grammar_runnable_examples_total": 2119,
+      "grammar_runnable_examples_incorrect_total": 910,
+      "grammar_runnable_examples_correct_total": 1209,
+      "grammar_deferred_examples_total": 327,
+      "grammar_deferred_examples_incorrect_total": 129,
+      "grammar_deferred_examples_correct_total": 198,
       "disambiguation_rules_total": 77,
       "relevant_java_rules_total": 23,
       "language_model_rules_total": 1,
@@ -186,16 +186,38 @@
         "partial_count": 0,
         "unsupported_count": 2,
         "known_tags": [
-          "and", "antipattern", "category", "equivalence", "example",
-          "exception", "feature", "filter", "marker", "match", "message",
-          "or", "pattern", "phrase", "phraseref", "phrases", "rule",
-          "rulegroup", "rules", "short", "suggestion", "token", "type",
-          "unification", "unify", "unify-ignore", "url"
+          "and",
+          "antipattern",
+          "category",
+          "equivalence",
+          "example",
+          "exception",
+          "feature",
+          "filter",
+          "marker",
+          "match",
+          "message",
+          "or",
+          "pattern",
+          "phrase",
+          "phraseref",
+          "phrases",
+          "rule",
+          "rulegroup",
+          "rules",
+          "short",
+          "suggestion",
+          "token",
+          "type",
+          "unification",
+          "unify",
+          "unify-ignore",
+          "url"
         ]
       },
       "xml_filters": {
-        "status": "PARTIALLY_IMPLEMENTED",
-        "implemented": 1,
+        "status": "SUPPORTED",
+        "implemented": 7,
         "total": 7,
         "filter_classes": [
           "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
@@ -221,7 +243,9 @@
         "language_model_rules": {
           "implemented": 0,
           "total": 1,
-          "rules": ["RussianConfusionProbabilityRule"]
+          "rules": [
+            "RussianConfusionProbabilityRule"
+          ]
         }
       },
       "upstream_tests": {

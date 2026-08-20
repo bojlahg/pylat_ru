@@ -97,6 +97,7 @@ class RussianGrammarEngine:
                 ExecutionState.CORE_0007_RUNNABLE,
                 ExecutionState.ADVANCED_0008_RUNNABLE,
                 ExecutionState.UNIFICATION_0009_RUNNABLE,
+                ExecutionState.FILTER_0010_RUNNABLE,
             ):
                 variants = expand_rule_into_variants(r, self._loader.global_phrases, self._loader.unifier_config)
                 self._compiled_variants[r.full_id] = variants
@@ -121,6 +122,7 @@ class RussianGrammarEngine:
                 ExecutionState.CORE_0007_RUNNABLE,
                 ExecutionState.ADVANCED_0008_RUNNABLE,
                 ExecutionState.UNIFICATION_0009_RUNNABLE,
+                ExecutionState.FILTER_0010_RUNNABLE,
             )
         ]
 
@@ -172,6 +174,7 @@ class RussianGrammarEngine:
             ExecutionState.CORE_0007_RUNNABLE,
             ExecutionState.ADVANCED_0008_RUNNABLE,
             ExecutionState.UNIFICATION_0009_RUNNABLE,
+            ExecutionState.FILTER_0010_RUNNABLE,
         ):
             blocker_desc = ", ".join(f"{b.feature} (task {b.target_task})" for b in rule.blockers)
             raise UnsupportedGrammarFeatureError(
@@ -354,6 +357,23 @@ class RussianGrammarEngine:
                     matched_tokens_indices=list(range(match_res.match_start_idx, match_res.match_end_idx)),
                     marker_tokens_indices=list(range(match_res.error_start_idx, match_res.error_end_idx)),
                 )
+
+                if rule.filters:
+                    for filt_config in rule.filters:
+                        if res is None:
+                            break
+                        from pylat_ru.grammar.filters import get_filter_instance, RuleFilterEvaluator
+                        filt = get_filter_instance(filt_config.class_name)
+                        evaluator = RuleFilterEvaluator(filt)
+                        res = evaluator.run_filter(
+                            filt_config.args or "",
+                            res,
+                            matched_tokens,
+                            match_res.first_match_token,
+                            match_res.token_positions
+                        )
+                if res is None:
+                    continue
                 all_variant_matches.append(res)
 
         # Apply RuleWithMaxFilter overlap elimination across all variant matches of this rule
