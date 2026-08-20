@@ -382,7 +382,11 @@ def generate_fixtures() -> None:
             entry["covered_case_ids"].append(case["id"])
     metadata = {"pinned_lt_version": PINNED_LT_VERSION, "pinned_lt_commit": PINNED_LT_COMMIT, "oracle_build_id": validation["oracle_build_id"], "oracle_jar_sha256": validation["jar_sha256"], "generator_operation": "tools/generate_oracle_filters_fixtures.py"}
     real_fixture = {"schema_version": "2.0.0", "description": "Pinned Java LT Russian filter-rule examples", "metadata": {**metadata, "corpus_version": "2.0.0", "cases_count": len(real_cases), "promoted_rules_count": len(rules), "promoted_full_rule_ids": [rule.full_id for rule in rules]}, "feature_coverage": real_coverage, "cases": real_cases}
-    (fixtures_dir / "oracle_filters_russian_rules.json").write_text(json.dumps(real_fixture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    with (fixtures_dir / "oracle_filters_russian_rules.json").open(
+        "w", encoding="utf-8", newline="\n"
+    ) as stream:
+        json.dump(real_fixture, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
 
     synthetic_cases = build_synthetic_corpus()
     print(f"Querying Java oracle for {len(synthetic_cases)} distinct low-level cases")
@@ -394,7 +398,11 @@ def generate_fixtures() -> None:
         case["oracle_result"] = output
     coverage = make_coverage(synthetic_cases)
     synthetic_fixture = {"schema_version": "2.0.0", "description": "Pinned Java LT controlled low-level filter/evaluator evidence", "metadata": {**metadata, "corpus_version": "2.0.0", "controlled_current_date": dt.date.today().isoformat(), "cases_count": len(synthetic_cases), "semantic_signature_algorithm": "sha256-canonical-json-v1", "semantic_signature_fields": list(SIGNATURE_FIELDS)}, "feature_coverage": coverage, "cases": synthetic_cases}
-    (fixtures_dir / "oracle_filters_synthetic.json").write_text(json.dumps(synthetic_fixture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    with (fixtures_dir / "oracle_filters_synthetic.json").open(
+        "w", encoding="utf-8", newline="\n"
+    ) as stream:
+        json.dump(synthetic_fixture, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
     print(f"Saved {len(real_cases)} real and {len(synthetic_cases)} synthetic cases")
 
 

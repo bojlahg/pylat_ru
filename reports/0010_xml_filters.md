@@ -145,7 +145,7 @@ python -m pytest tests/unit/test_real_wheel_grammar.py -q
   1 passed; failed=0, errors=0, skipped=0
 
 python -m pytest -q
-  361 passed, 0 failed, 0 errors, 0 skipped; 76.86 s
+  361 passed, 0 failed, 0 errors, 0 skipped; 69.32 s
 ```
 
 The full run used CPython 3.10.11 on Windows and included the isolated real-wheel build/install/execution proof. Normal fixture-only tests and the live-oracle generation are reported separately above.
@@ -172,5 +172,6 @@ The full run used CPython 3.10.11 on Windows and included the isolated real-whee
 - Initial Task-0010 implementation commit: `d14be5f` on `main`.
 - Conformance review-fix implementation commit: `85a3451da293d8c58ecb0fd5436cd7af71a0708c`.
 - Final oracle-evidence correction started from `d4189f0aad3fea6a41be6d7c31fdcd5fb4b1c4fb`.
+- The first final-correction CI run exposed a cross-platform fixture-binding defect: Windows-generated CRLF bytes were hashed before Git's required LF normalization. The generator now writes explicit LF, the manifest binds the canonical Git bytes, and the complete local suite was rerun afterward.
 - Push target for the final correction: `origin/main`, without force or history rewrite. The exact pushed SHA and exact-SHA CI result are part of the final handoff verification.
 - Manual Oracle Conformance workflow: not invoked; live local trusted-oracle generation completed successfully as documented above.
