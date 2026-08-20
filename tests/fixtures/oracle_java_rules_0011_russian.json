@@ -1,0 +1,438 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0011",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 15
+  },
+  "cases": [
+    {
+      "id": "upstream_dash_iz_za",
+      "rule_class": "RussianDashRule",
+      "rule_id": "RU_DASH_RULE",
+      "text": "из—за",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_DASH_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Использовано тире вместо дефиса.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из—за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "4e505b6758c068cbb19530c97904ad17c4d4051bf8762f1377c0a4e845145d3e"
+    },
+    {
+      "id": "upstream_dash_rostov",
+      "rule_class": "RussianDashRule",
+      "rule_id": "RU_DASH_RULE",
+      "text": "Ростов — на — Дону",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_DASH_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Использовано тире вместо дефиса.",
+          "short_message": "",
+          "suggestions": [
+            "Ростов-на-Дону"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 18,
+          "from": 0,
+          "to": 18,
+          "source_slice": "Ростов — на — Дону"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "fa93065e24a018fb783d511a1b2927560820c090941394f801959032d3eb44bc"
+    },
+    {
+      "id": "upstream_dash_correct",
+      "rule_class": "RussianDashRule",
+      "rule_id": "RU_DASH_RULE",
+      "text": "Он вышел из-за забора.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "upstream_test"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6b44fd78a5e2f5d829161adb07998cc03c4eece6c38810657cd854cd03778a99"
+    },
+    {
+      "id": "upstream_specific_air_france",
+      "rule_class": "RussianSpecificCaseRule",
+      "rule_id": "RU_SPECIFIC_CASE",
+      "text": "I like air France.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SPECIFIC_CASE",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Для специальных наименований используйте начальную заглавную букву.",
+          "short_message": "",
+          "suggestions": [
+            "Air France"
+          ],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 17,
+          "from": 7,
+          "to": 17,
+          "source_slice": "air France"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "81da699b3d1a8b2bea7404db1b5dfe0ff43d4473416e7d55549644d4a164a398"
+    },
+    {
+      "id": "upstream_specific_central_bank",
+      "rule_class": "RussianSpecificCaseRule",
+      "rule_id": "RU_SPECIFIC_CASE",
+      "text": "центральный банк РФ",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SPECIFIC_CASE",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Для специальных наименований используйте предложенное написание заглавных и строчных букв.",
+          "short_message": "",
+          "suggestions": [
+            "Центральный банк РФ"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 19,
+          "from": 0,
+          "to": 19,
+          "source_slice": "центральный банк РФ"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "03e718be6e3e652b1fb491148620be15c5711e9555eb50545814d40228347cb3"
+    },
+    {
+      "id": "upstream_specific_correct",
+      "rule_class": "RussianSpecificCaseRule",
+      "rule_id": "RU_SPECIFIC_CASE",
+      "text": "Центральный банк РФ",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "upstream_test"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "1ca93e80721ffc9d173765bfbbefa9b8bdbd15bb5349dca2a78513a98f80df40"
+    },
+    {
+      "id": "upstream_brackets_apostrophe",
+      "rule_class": "RussianUnpairedBracketsRule",
+      "rule_id": "RU_UNPAIRED_BRACKETS",
+      "text": "В таком ключе был начат в мае 1823 в Кишинёве роман в стихах 'Евгений Онегин.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_UNPAIRED_BRACKETS",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Непарный символ: «'» скорей всего пропущен",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 61,
+          "to_utf16": 62,
+          "from": 61,
+          "to": 62,
+          "source_slice": "'"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e120d9ca6e9a0f6d2d352f5bd6d3f404c1fb07d30e0fc56088715c537ce6e52f"
+    },
+    {
+      "id": "upstream_brackets_balanced",
+      "rule_class": "RussianUnpairedBracketsRule",
+      "rule_id": "RU_UNPAIRED_BRACKETS",
+      "text": "(О жене и детях не беспокойся, я беру их на свои руки).",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "upstream_test"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "8c3f2210d6701bcd34d5627b37c99e9be56588886260f5826bd00c345ca0f8b8"
+    },
+    {
+      "id": "upstream_brackets_numerals",
+      "rule_class": "RussianUnpairedBracketsRule",
+      "rule_id": "RU_UNPAIRED_BRACKETS",
+      "text": "а), б), Д)..., ДД), аа) и 1а)",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "upstream_test"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b2d65cd484a5965b2ec0e12369c1e5f4082eaa5bab9370d48e240c6ce8ca603d"
+    },
+    {
+      "id": "upstream_verb_wrong_present",
+      "rule_class": "RussianVerbConjugationRule",
+      "rule_id": "RU_VERB_CONJUGATION",
+      "text": "Мы думаю",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test",
+        "morphology"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_VERB_CONJUGATION",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Неверное спряжение глагола или неверное местоимение",
+          "short_message": "Неверное спряжение глагола",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 8,
+          "from": 0,
+          "to": 8,
+          "source_slice": "Мы думаю"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "3d37f6238c95e4a406a922084163bfdd99694f6dc576810ea7ca4536d649e505"
+    },
+    {
+      "id": "upstream_verb_wrong_past",
+      "rule_class": "RussianVerbConjugationRule",
+      "rule_id": "RU_VERB_CONJUGATION",
+      "text": "Она ходил",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "upstream_test",
+        "morphology"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_VERB_CONJUGATION",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Неверное спряжение глагола или неверное местоимение",
+          "short_message": "Неверное спряжение глагола",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 9,
+          "from": 0,
+          "to": 9,
+          "source_slice": "Она ходил"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6f3f3a0311fdaf4e62747d1698008c9feaa4bd874f885f4304f948abf912e8e3"
+    },
+    {
+      "id": "upstream_verb_correct",
+      "rule_class": "RussianVerbConjugationRule",
+      "rule_id": "RU_VERB_CONJUGATION",
+      "text": "Они пишут",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "upstream_test",
+        "morphology"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "5c6d8b46a05cd33ff4ab890c9973e44fdb8dc33d60456ec7d78dcb80ab4d79c8"
+    },
+    {
+      "id": "upstream_comma",
+      "rule_class": "CommaWhitespaceRule",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Не род , а ум поставлю в воеводы.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "registered_example"
+      ],
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 6,
+          "to": 8,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "33fdd7e176f613a3ef3d2f2cc9d2bfccb8350d067e1258f0696e959384fb6823"
+    },
+    {
+      "id": "upstream_uppercase",
+      "rule_class": "UppercaseSentenceStartRule",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "Закончилось лето. дети снова сели за школьные парты.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "registered_example"
+      ],
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Дети"
+          ],
+          "url": null,
+          "from_utf16": 18,
+          "to_utf16": 22,
+          "from": 18,
+          "to": 22,
+          "source_slice": "дети"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e7506ae8c822a2291c09d50d55a89d0500ae05eec1ac8317464ee6579d0dabdb"
+    },
+    {
+      "id": "real_multiple_findings",
+      "rule_class": "CommaWhitespaceRule",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "😀 Раз ,два ,три.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "multi_finding",
+        "non_bmp"
+      ],
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 5,
+          "to": 7,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", два"
+          ],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 11,
+          "from": 6,
+          "to": 10,
+          "source_slice": ",два"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 13,
+          "from": 10,
+          "to": 12,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", три"
+          ],
+          "url": null,
+          "from_utf16": 12,
+          "to_utf16": 16,
+          "from": 11,
+          "to": 15,
+          "source_slice": ",три"
+        }
+      ],
+      "finding_count": 4,
+      "semantic_signature": "f24f62f9745050aa819913a0ce62e5c3e6a89517c62b7c1e4652409e46ecead8"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "upstream_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-  "total_vendored_files": 118,
+  "total_vendored_files": 140,
   "status_summary": {
-    "VERIFIED_LGPL": 118,
+    "VERIFIED_LGPL": 140,
     "BLOCKED_LICENSE_REVIEW": 0
   },
   "items": [
@@ -52,6 +52,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4584,
+      "sha256": "f832d7c053f1498fd9d1690fbb3f7d3a526ac8f8f365a16a7ecf4ebf84a7646c",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractDateCheckFilter.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractDateCheckFilter.java",
       "copyright_source": "LanguageTool Community",
@@ -59,6 +70,17 @@
       "vendored": true,
       "size_bytes": 7013,
       "sha256": "c18a7cbfc48369f89905d964d2757d50c6cff79911202ff46e9f16b8641446c0",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractFillerWordsRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractFillerWordsRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3874,
+      "sha256": "bedce8ac21f2dee9665f2bc1f954dde1dc4eab58a8900993f5c53ad2c6efa501",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
@@ -74,6 +96,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 8247,
+      "sha256": "d8ac44240cb9917ef46a263e0031d8f09498da80b9f84052d2ac1cf6a1a15e4c",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractSuppressMisspelledSuggestionsFilter.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractSuppressMisspelledSuggestionsFilter.java",
       "copyright_source": "LanguageTool Community",
@@ -81,6 +114,72 @@
       "vendored": true,
       "size_bytes": 3336,
       "sha256": "9a93332483a1ec33cd1eb0245b951598991e96b0b271670c824f2562b42c2739",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 9631,
+      "sha256": "ce8acb2afa0d093a567a1107f0d8bde1b80135f161c23fb6b4e1c9b42b2739c0",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/GenericUnpairedBracketsRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/GenericUnpairedBracketsRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 16391,
+      "sha256": "318985d974574ea81898df8dbc626f62e3adc628f21c7109f693df9f04e3118a",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/LongParagraphRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/LongParagraphRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 5081,
+      "sha256": "11ceb6432889d6a329a1d480f6fd97eea007cce3dad49166e3ced38feccc09db",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/LongSentenceRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/LongSentenceRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 6428,
+      "sha256": "1aff2d7e9da36899c3e8d4d5d36b1eb67f2e15288a6288b555b9cde78b7513df",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/MultipleWhitespaceRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/MultipleWhitespaceRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4006,
+      "sha256": "c9cbb7a79ee631843c54323679d503979770b3779fe7a78353da8f5a060069cb",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 5318,
+      "sha256": "f29575e3bf5e945b06b197566a7107577a1085784d73ca824d89b507f1291efb",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
@@ -96,6 +195,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3760,
+      "sha256": "f256e0cc1c9cdc45e245450c19632dc113bbadd837ca61896e2534ecb43fce08",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java",
       "copyright_source": "LanguageTool Community / Daniel Naber / Yakov Reztsov",
@@ -103,6 +213,50 @@
       "vendored": true,
       "size_bytes": 29812,
       "sha256": "03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/SentenceWhitespaceRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/SentenceWhitespaceRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3369,
+      "sha256": "c39094cab8b8cd77e2ad25708ef50f8857f6ca605b4b872ecfd1cefb49e58ab4",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 10174,
+      "sha256": "9f0054374d7ea106827c191a6ec56fc641067f7e1fae8a4cb77b3c2ec6bdef7e",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceAtBeginOfParagraph.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceAtBeginOfParagraph.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 2934,
+      "sha256": "24db609d6e11d33f73f4ee00576e57cddc190241e025cc7897825b9e7c39907f",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceBeforeParagraphEnd.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceBeforeParagraphEnd.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3492,
+      "sha256": "a161ab3e28b97092e194236c3f11163a1a39538a4619320c11907aec84e56649",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
@@ -292,6 +446,94 @@
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool SRX segmentation rule definition file (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 6672,
+      "sha256": "9f84bc4c0564cc96ea0275da84d6f801ebb78018f87fa1c3e4bdd984e16ca6dc",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/GenericUnpairedBracketsRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/GenericUnpairedBracketsRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 6092,
+      "sha256": "a8ecae2ec2a1688b74ff5b0f6f26f8322d92ecd00b533e2e6c9ac6de9616220d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3167,
+      "sha256": "d7a2cfa6a4f511d03225f263e0eec333b513205c5c31d7f3875c622b09f88cb1",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 6950,
+      "sha256": "6c7527fec22fe2ba86c7c5345c95bb064948fc71c94925f4ba871a1cff1fc659",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4516,
+      "sha256": "1b5ca95a44814b198f4efa9b047232c1947ce0b6cd98ba70cf14115dbe4c4e8a",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3739,
+      "sha256": "995707f7d566f5cd488f220d20f71ebb16698eb82c2dadf9f023a186e282db3d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 2373,
+      "sha256": "e1b97f7931196148822a52a913d47c0ae6dc4b2f32efcee172cfe927165cb806",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 3815,
+      "sha256": "3b9ef74ba85994e6e88acc1f062ad27a490ea9234b18e289249a10483d66f4f0",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
       "path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java",

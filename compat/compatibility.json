@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0010_xml_filters",
-    "overall_state": "FILTER_ENGINE_ESTABLISHED",
+    "task_milestone": "0011_russian_java_rules",
+    "overall_state": "JAVA_RULES_PARTIALLY_IMPLEMENTED",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -232,23 +232,26 @@
         "recognized_deferred": 1
       },
       "java_rules": {
-        "status": "NOT_YET_IMPLEMENTED",
+        "status": "PARTIALLY_IMPLEMENTED",
         "all_java_rules_total": 24,
         "relevant_rules": {
-          "implemented": 0,
+          "implemented": 15,
           "total": 23,
-          "russian_specific_implemented": 0,
+          "russian_specific_implemented": 5,
           "russian_specific_total": 13,
-          "generic_implemented": 0,
+          "generic_implemented": 10,
           "generic_total": 10
         },
+        "deferred_to_0012": 8,
         "language_model_rules": {
           "implemented": 0,
           "total": 1,
           "rules": [
             "RussianConfusionProbabilityRule"
-          ]
-        }
+          ],
+          "status": "LANGUAGE_MODEL_DEFERRED"
+        },
+        "inventory": "compat/russian_java_rules_inventory.json"
       },
       "upstream_tests": {
         "status": "PARTIALLY_PORTED",
@@ -297,7 +300,13 @@
           "WRONG_INN[1]"
         ],
         "filters_synthetic_oracle_cases_total": 145,
-        "filters_russian_rules_oracle_cases_total": 165
+        "filters_russian_rules_oracle_cases_total": 165,
+        "task_0011_java_rules": {
+          "synthetic_cases": 30,
+          "real_russian_cases": 15,
+          "total_cases": 45,
+          "full_observable_field_parity": 1.0
+        }
       }
     },
     "known_differences": []

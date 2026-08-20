@@ -50,6 +50,20 @@
       "sha256": "0cd33b2689cbac04befc27a0c505ca513de6d52d32498ba894ce648c55736833",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 165
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0011_synthetic.json",
+      "size_bytes": 28863,
+      "sha256": "f02a6511541f6c7bd1248dc8dab5413e347bcdade9fdab198bbcf38d73b8a2ae",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 30
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0011_russian.json",
+      "size_bytes": 14062,
+      "sha256": "6ba061a425a6a55a06284d476f486e32765f9f86cf1cf4f24265aaf27b5108ee",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 15
     }
   ],
   "description": "Trusted Java LanguageTool development oracle specification and reproducible build records for differential and fixture generation"

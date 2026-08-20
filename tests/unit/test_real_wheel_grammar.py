@@ -45,6 +45,8 @@ def test_real_wheel_build_and_grammar_execution() -> None:
             wheel_entries = set(zf.namelist())
             grammar_entries = [e for e in wheel_entries if e.endswith("pylat_ru/resources/rules/ru/grammar.xml")]
             assert len(grammar_entries) == 1, f"grammar.xml missing from wheel entries: {wheel_entries}"
+            assert any(e.endswith("pylat_ru/resources/ru/compounds.txt") for e in wheel_entries)
+            assert any(e.endswith("pylat_ru/resources/ru/specific_case.txt") for e in wheel_entries)
 
         # 3. Install wheel into isolated target directory
         install_target = tmp_path / "site-packages"
@@ -79,6 +81,7 @@ subprocess.run = _block_subprocess
 sys.path = [p for p in sys.path if "src" not in p]
 
 import pylat_ru
+from pylat_ru import LanguageToolRU
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.chunking.russian import RussianChunker
 from pylat_ru.grammar.engine import RussianGrammarEngine
@@ -219,10 +222,22 @@ assert inn_match.message == "Некорректный ИНН: 1234567890"
 assert inn_match.short_message == "Некорректный ИНН"
 assert inn_match.suggestions == []
 
+# 10. Task-0011 native Java-rule equivalents execute from the wheel only.
+native_tool = LanguageToolRU(enabled_rules=["WHITESPACE_PARAGRAPH_BEGIN"])
+native_text = "  Я идёт. Ростов — на — Дону. Это  тест."
+native_matches = native_tool.check(native_text)
+native_ids = {{m.rule_id for m in native_matches}}
+assert "WHITESPACE_RULE" in native_ids                 # generic whitespace
+assert "WHITESPACE_PARAGRAPH_BEGIN" in native_ids      # paragraph/default enablement
+assert "RU_DASH_RULE" in native_ids                    # pinned packaged compounds.txt
+assert "RU_VERB_CONJUGATION" in native_ids             # accepted native morphology
+assert all(m.source in {{"xml_grammar", "java_rule_0011"}} for m in native_matches)
+
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """
         run_env = dict(os.environ)
         run_env["PYTHONPATH"] = str(install_target)
+        run_env.pop("JAVA_HOME", None)
 
         # Execute in a clean empty working directory
         run_proc = subprocess.run(

@@ -5,7 +5,7 @@
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
-  "vendored_files_count": 118,
+  "vendored_files_count": 140,
   "files": {
     "COPYING.txt": {
       "size": 26432,
@@ -23,25 +23,81 @@
       "size": 8645,
       "sha256": "ebae258c5b034f3af3a67a563cf254fa32d934065a6808a9750a2df4e754d387"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java": {
+      "size": 4584,
+      "sha256": "f832d7c053f1498fd9d1690fbb3f7d3a526ac8f8f365a16a7ecf4ebf84a7646c"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/AbstractDateCheckFilter.java": {
       "size": 7013,
       "sha256": "c18a7cbfc48369f89905d964d2757d50c6cff79911202ff46e9f16b8641446c0"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractFillerWordsRule.java": {
+      "size": 3874,
+      "sha256": "bedce8ac21f2dee9665f2bc1f954dde1dc4eab58a8900993f5c53ad2c6efa501"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/AbstractFutureDateFilter.java": {
       "size": 4157,
       "sha256": "be48708586932a31d4bb9ce546bd4410b235c7ebbc8b2d3c7fbcb358c159c2df"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java": {
+      "size": 8247,
+      "sha256": "d8ac44240cb9917ef46a263e0031d8f09498da80b9f84052d2ac1cf6a1a15e4c"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/AbstractSuppressMisspelledSuggestionsFilter.java": {
       "size": 3336,
       "sha256": "9a93332483a1ec33cd1eb0245b951598991e96b0b271670c824f2562b42c2739"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java": {
+      "size": 9631,
+      "sha256": "ce8acb2afa0d093a567a1107f0d8bde1b80135f161c23fb6b4e1c9b42b2739c0"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/GenericUnpairedBracketsRule.java": {
+      "size": 16391,
+      "sha256": "318985d974574ea81898df8dbc626f62e3adc628f21c7109f693df9f04e3118a"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/LongParagraphRule.java": {
+      "size": 5081,
+      "sha256": "11ceb6432889d6a329a1d480f6fd97eea007cce3dad49166e3ced38feccc09db"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/LongSentenceRule.java": {
+      "size": 6428,
+      "sha256": "1aff2d7e9da36899c3e8d4d5d36b1eb67f2e15288a6288b555b9cde78b7513df"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/MultipleWhitespaceRule.java": {
+      "size": 4006,
+      "sha256": "c9cbb7a79ee631843c54323679d503979770b3779fe7a78353da8f5a060069cb"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java": {
+      "size": 5318,
+      "sha256": "f29575e3bf5e945b06b197566a7107577a1085784d73ca824d89b507f1291efb"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/PartialPosTagFilter.java": {
       "size": 5324,
       "sha256": "fdd3f4fa34e02f03f2f291527c1b382d4b55c0a0b9b8533d592ef605dd6fce1f"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2.java": {
+      "size": 3760,
+      "sha256": "f256e0cc1c9cdc45e245450c19632dc113bbadd837ca61896e2534ecb43fce08"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/RuleMatch.java": {
       "size": 29812,
       "sha256": "03595d139decfb0a87665d163dc2889fa05e7d69366c572a1784fd99b7737b9d"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/SentenceWhitespaceRule.java": {
+      "size": 3369,
+      "sha256": "c39094cab8b8cd77e2ad25708ef50f8857f6ca605b4b872ecfd1cefb49e58ab4"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java": {
+      "size": 10174,
+      "sha256": "9f0054374d7ea106827c191a6ec56fc641067f7e1fae8a4cb77b3c2ec6bdef7e"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceAtBeginOfParagraph.java": {
+      "size": 2934,
+      "sha256": "24db609d6e11d33f73f4ee00576e57cddc190241e025cc7897825b9e7c39907f"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceBeforeParagraphEnd.java": {
+      "size": 3492,
+      "sha256": "a161ab3e28b97092e194236c3f11163a1a39538a4619320c11907aec84e56649"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java": {
       "size": 11395,
@@ -110,6 +166,38 @@
     "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
       "size": 213633,
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java": {
+      "size": 6672,
+      "sha256": "9f84bc4c0564cc96ea0275da84d6f801ebb78018f87fa1c3e4bdd984e16ca6dc"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/GenericUnpairedBracketsRuleTest.java": {
+      "size": 6092,
+      "sha256": "a8ecae2ec2a1688b74ff5b0f6f26f8322d92ecd00b533e2e6c9ac6de9616220d"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java": {
+      "size": 3167,
+      "sha256": "d7a2cfa6a4f511d03225f263e0eec333b513205c5c31d7f3875c622b09f88cb1"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java": {
+      "size": 6950,
+      "sha256": "6c7527fec22fe2ba86c7c5345c95bb064948fc71c94925f4ba871a1cff1fc659"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java": {
+      "size": 4516,
+      "sha256": "1b5ca95a44814b198f4efa9b047232c1947ce0b6cd98ba70cf14115dbe4c4e8a"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java": {
+      "size": 3739,
+      "sha256": "995707f7d566f5cd488f220d20f71ebb16698eb82c2dadf9f023a186e282db3d"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java": {
+      "size": 2373,
+      "sha256": "e1b97f7931196148822a52a913d47c0ae6dc4b2f32efcee172cfe927165cb806"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java": {
+      "size": 3815,
+      "sha256": "3b9ef74ba85994e6e88acc1f062ad27a490ea9234b18e289249a10483d66f4f0"
     },
     "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java": {
       "size": 16047,

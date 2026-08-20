@@ -1,0 +1,717 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0011",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 30
+  },
+  "cases": [
+    {
+      "id": "comma_positive",
+      "rule_class": "CommaWhitespaceRule",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "😀 Не род ,а ум.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "non_bmp",
+        "spacing"
+      ],
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 9,
+          "to_utf16": 11,
+          "from": 8,
+          "to": 10,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", а"
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 12,
+          "from": 9,
+          "to": 11,
+          "source_slice": ",а"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "cd1a6dfcf7caa361b676e30dad6a903104be3de3f164a2f4aabb58fda4ffe7f9"
+    },
+    {
+      "id": "comma_negative",
+      "rule_class": "CommaWhitespaceRule",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Не род, а ум.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "spacing"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6d2e56cdcffee6da2ea6ce00cbf3e349061cf581e8c9be766d035a933925b636"
+    },
+    {
+      "id": "uppercase_positive",
+      "rule_class": "UppercaseSentenceStartRule",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "Закончилось лето. дети снова сели.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "sentence_boundary"
+      ],
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Дети"
+          ],
+          "url": null,
+          "from_utf16": 18,
+          "to_utf16": 22,
+          "from": 18,
+          "to": 22,
+          "source_slice": "дети"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c93824fd5ae89cec925d5025f33ea69d5e4ccfd457580c5cbc438a875cad4e83"
+    },
+    {
+      "id": "uppercase_negative",
+      "rule_class": "UppercaseSentenceStartRule",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "Закончилось лето. Дети снова сели.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "sentence_boundary"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "c69d629466762128a3d1aad0d435fc2b3316cff7d04331c15eb8fc9765f9ee8e"
+    },
+    {
+      "id": "multiple_ws_positive",
+      "rule_class": "MultipleWhitespaceRule",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "Это  тест.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "whitespace"
+      ],
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 5,
+          "from": 3,
+          "to": 5,
+          "source_slice": "  "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "5c101d7338eead57cb5287439826e77e86e7813076cb9391439f69854bfe076f"
+    },
+    {
+      "id": "multiple_ws_negative",
+      "rule_class": "MultipleWhitespaceRule",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "Это тест.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "whitespace"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "befb8fc232eef770df1061f8bf207fa58c3be9592b6fdd74550c7ee65a257d6a"
+    },
+    {
+      "id": "sentence_ws_positive",
+      "rule_class": "SentenceWhitespaceRule",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "Первое.Второе.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "sentence_boundary"
+      ],
+      "expected": [
+        {
+          "rule_id": "SENTENCE_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Добавьте пробел между предложениями.",
+          "short_message": "",
+          "suggestions": [
+            " Второе"
+          ],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 13,
+          "from": 7,
+          "to": 13,
+          "source_slice": "Второе"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6a48e51c349294b3b5a02b9e4395d3f339460e4564e9c605d6325c0eae15440d"
+    },
+    {
+      "id": "sentence_ws_negative",
+      "rule_class": "SentenceWhitespaceRule",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "Первое. Второе.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "sentence_boundary"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "7b4612b55195e4535054d2709f7b04a08b6eeb46dce3a87abd99124a97c55d82"
+    },
+    {
+      "id": "paragraph_end_ws_positive",
+      "rule_class": "WhiteSpaceBeforeParagraphEnd",
+      "rule_id": "WHITESPACE_PARAGRAPH",
+      "text": "Текст.  \n\nСледующий.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Удалите пробел в конце абзаца",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 8,
+          "from": 7,
+          "to": 8,
+          "source_slice": " "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "dcfe9b7a0236789f99093b9fa11b7549b3277808a63e166c2fbf297179a4debd"
+    },
+    {
+      "id": "paragraph_end_ws_negative",
+      "rule_class": "WhiteSpaceBeforeParagraphEnd",
+      "rule_id": "WHITESPACE_PARAGRAPH",
+      "text": "Текст.\n\nСледующий.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "adf138837fccddb6b56009d63b216371892210011348480f1ba0a1309b484f97"
+    },
+    {
+      "id": "paragraph_begin_ws_positive",
+      "rule_class": "WhiteSpaceAtBeginOfParagraph",
+      "rule_id": "WHITESPACE_PARAGRAPH_BEGIN",
+      "text": "  Текст.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_PARAGRAPH_BEGIN",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Удалите пробел в начале абзаца",
+          "short_message": "",
+          "suggestions": [
+            "Текст"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "  Текст"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d71838a3777f9f7a520ff5b87e64229b85a9de68f8d62c3187606e269c1e901a"
+    },
+    {
+      "id": "paragraph_begin_ws_negative",
+      "rule_class": "WhiteSpaceAtBeginOfParagraph",
+      "rule_id": "WHITESPACE_PARAGRAPH_BEGIN",
+      "text": "Текст.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "30a143effcbefdea3c6e8bef930d9109edc539b42879b5bd5d7dc4c1c3847359"
+    },
+    {
+      "id": "long_sentence_positive",
+      "rule_class": "LongSentenceRule",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "threshold"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 306,
+          "from": 0,
+          "to": 306,
+          "source_slice": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "af0dc9872dad1b44f16839f7fc9e89ef30ff2eeb718e4f5b788ad02abe505f69"
+    },
+    {
+      "id": "long_sentence_negative",
+      "rule_class": "LongSentenceRule",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "threshold"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "10b7519d20abb71e74b8d0fe057eb8a56ab11d895c52d2807f49bacc33ad1195"
+    },
+    {
+      "id": "long_paragraph_positive",
+      "rule_class": "LongParagraphRule",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "threshold",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 220 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 1308,
+          "to_utf16": 1319,
+          "from": 1308,
+          "to": 1319,
+          "source_slice": "слово слово"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "cc543aa7074fb4460cd11b113a4b2a0cd75e6788628508096cfbacf06255984b"
+    },
+    {
+      "id": "long_paragraph_negative",
+      "rule_class": "LongParagraphRule",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "threshold",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "f29bcb26735af9bbef859627b85604c7501ccaddafe49dd1144fdcc5fc97673c"
+    },
+    {
+      "id": "repeat_paragraph_positive",
+      "rule_class": "ParagraphRepeatBeginningRule",
+      "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+      "text": "Текст один.\n\nТекст два.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "paragraph_boundary",
+        "multi_finding",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Повтор начала последнего абзаца",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "Текст"
+        },
+        {
+          "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Повтор начала последнего абзаца",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 17,
+          "from": 13,
+          "to": 17,
+          "source_slice": "Текс"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "84ed0a9476a09e58aeb479b7e32db11540021f5c53077d2c18d4c3000cecb6e1"
+    },
+    {
+      "id": "repeat_paragraph_negative",
+      "rule_class": "ParagraphRepeatBeginningRule",
+      "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+      "text": "Первый текст.\n\nДругой текст.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0c2c8cdc77e9602e3c44a51791862ee203ef072529972cda0abc7fc0b7c98414"
+    },
+    {
+      "id": "filler_positive",
+      "rule_class": "RussianFillerWordsRule",
+      "rule_id": "FILLER_WORDS_RU",
+      "text": "ах слово",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "percentage",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "FILLER_WORDS_RU",
+          "category_id": "CREATIVE_WRITING",
+          "category_name": "Стилистические подсказки для творческого письма",
+          "message": "Это — слово-паразит. Удалите его, если это возможно.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "ах"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "f07a5afe9b2695766a7c5b45448deae67c3de89b5f895b43a07b9b821a62df3c"
+    },
+    {
+      "id": "filler_negative",
+      "rule_class": "RussianFillerWordsRule",
+      "rule_id": "FILLER_WORDS_RU",
+      "text": "обычное слово",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "percentage",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b2bedddfecb6eed1d795d76342699d690ab0a4253ec8830e4d1a96fc2692bce4"
+    },
+    {
+      "id": "paragraph_punctuation_positive",
+      "rule_class": "PunctuationMarkAtParagraphEnd2",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "один два три четыре пять шесть семь восемь девять десять одиннадцать",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "threshold",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Добавьте знак пунктуации в конце абзаца.",
+          "short_message": "",
+          "suggestions": [
+            "одиннадцать."
+          ],
+          "url": null,
+          "from_utf16": 57,
+          "to_utf16": 68,
+          "from": 57,
+          "to": 68,
+          "source_slice": "одиннадцать"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "7b0edae4d3746ae4a4bd977bbc8b394abb139465572b23a6459efc993621e946"
+    },
+    {
+      "id": "paragraph_punctuation_negative",
+      "rule_class": "PunctuationMarkAtParagraphEnd2",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "один два три четыре пять шесть семь восемь девять десять одиннадцать.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "threshold",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "8b873b7d17ae64c9cceae7961a3efe26cf42a9921b0606f2120127b084a23147"
+    },
+    {
+      "id": "brackets_positive",
+      "rule_class": "RussianUnpairedBracketsRule",
+      "rule_id": "RU_UNPAIRED_BRACKETS",
+      "text": "Это (тест.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "pairing"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_UNPAIRED_BRACKETS",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Непарный символ: «)» скорей всего пропущен",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 5,
+          "from": 4,
+          "to": 5,
+          "source_slice": "("
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "077ecede9f9b6634fbdbe1904e6c71859b80f64a678214a6ce64e6b99eb0726e"
+    },
+    {
+      "id": "brackets_negative",
+      "rule_class": "RussianUnpairedBracketsRule",
+      "rule_id": "RU_UNPAIRED_BRACKETS",
+      "text": "Это (тест).",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "pairing"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "02adb8b0c6ab59577a524fbc2b3e90c2107cdd60d9294478a8563c6878b5e963"
+    },
+    {
+      "id": "verb_positive",
+      "rule_class": "RussianVerbConjugationRule",
+      "rule_id": "RU_VERB_CONJUGATION",
+      "text": "Я идёт.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "morphology"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_VERB_CONJUGATION",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Неверное спряжение глагола или неверное местоимение",
+          "short_message": "Неверное спряжение глагола",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 6,
+          "from": 0,
+          "to": 6,
+          "source_slice": "Я идёт"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "7b15c52fbd2ba9338a5ebdb6bc3e9d3d1be0448ce8c5174b9b28fad0cec04375"
+    },
+    {
+      "id": "verb_negative",
+      "rule_class": "RussianVerbConjugationRule",
+      "rule_id": "RU_VERB_CONJUGATION",
+      "text": "Я иду.",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "morphology"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "35a972d39783c4ef4fb4d3acdc30ca68c49c2e96762928c844e72f84065efb4d"
+    },
+    {
+      "id": "dash_positive",
+      "rule_class": "RussianDashRule",
+      "rule_id": "RU_DASH_RULE",
+      "text": "из—за",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "resource"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_DASH_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Использовано тире вместо дефиса.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из—за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c5f274f4653afe9b4cbdb34891ab803ee020923fe198f2a8d511c22783a21569"
+    },
+    {
+      "id": "dash_negative",
+      "rule_class": "RussianDashRule",
+      "rule_id": "RU_DASH_RULE",
+      "text": "из-за",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "resource"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "8ce618d0c26adcfffd1545c73cee09d18c4bd717a8de42988717cf3e10ac3cb5"
+    },
+    {
+      "id": "specific_case_positive",
+      "rule_class": "RussianSpecificCaseRule",
+      "rule_id": "RU_SPECIFIC_CASE",
+      "text": "Рытый банк",
+      "explicitly_enabled": true,
+      "coverage": [
+        "positive",
+        "resource"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SPECIFIC_CASE",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Для специальных наименований используйте начальную заглавную букву.",
+          "short_message": "",
+          "suggestions": [
+            "Рытый Банк"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 10,
+          "from": 0,
+          "to": 10,
+          "source_slice": "Рытый банк"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e44529b99cb85010b7dc1fdde2b0e6c2fcbc8cc16c1919112e6787eb32a9fbf7"
+    },
+    {
+      "id": "specific_case_negative",
+      "rule_class": "RussianSpecificCaseRule",
+      "rule_id": "RU_SPECIFIC_CASE",
+      "text": "Рытый Банк",
+      "explicitly_enabled": true,
+      "coverage": [
+        "negative",
+        "resource"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "5b36a1e688f222454eb27ae5552bfb937fc7b20547b8c81d007757a12289414a"
+    }
+  ]
+}

@@ -38,14 +38,13 @@ def test_rule_match_dataclass():
         match.rule_id = "CHANGED"  # type: ignore
 
 
-def test_language_tool_ru_init_and_check_stub():
-    """Verify LanguageToolRU raises NotImplementedError until subsequent implementation tasks."""
-    tool = LanguageToolRU(disabled_rules=["RULE_1"])
-    assert "RULE_1" in tool.disabled_rules
-
-    with pytest.raises(NotImplementedError) as exc_info:
-        tool.check("Текст для проверки.")
-    assert "pylat_ru Russian pipeline implementation is in progress" in str(exc_info.value)
+def test_language_tool_ru_native_check_pipeline():
+    """Verify the public API executes the native Russian rule pipeline."""
+    tool = LanguageToolRU(disabled_rules=["WHITESPACE_RULE"])
+    assert "WHITESPACE_RULE" in tool.disabled_rules
+    assert not any(m.rule_id == "WHITESPACE_RULE" for m in tool.check("Текст  для проверки."))
+    enabled = LanguageToolRU(enabled_rules=["FILLER_WORDS_RU"])
+    assert any(m.rule_id == "FILLER_WORDS_RU" for m in enabled.check("ах слово"))
 
 
 def test_no_java_or_dev_oracle_imported_by_default():

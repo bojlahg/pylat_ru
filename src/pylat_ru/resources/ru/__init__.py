@@ -1,0 +1,1 @@
+"""Pinned Russian runtime resources."""
