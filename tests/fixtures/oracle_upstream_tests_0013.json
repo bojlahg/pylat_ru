@@ -1,0 +1,3342 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0013",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "language": "ru",
+    "case_count": 146,
+    "description": "Pinned core/generic upstream test scenarios executed against the trusted Java oracle with the Russian language."
+  },
+  "cases": [
+    {
+      "id": "comma_ws_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[0]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "412a9c689e8156c70aecb0a8f1e68126005c831081a4e0a9b2ecc489070f87c5"
+    },
+    {
+      "id": "comma_ws_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[1]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I work with the technology .Net and Azure.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6d27a5a4befe8392073e638026692d18030a65c706d0bb40ed4df59861bea8b4"
+    },
+    {
+      "id": "comma_ws_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[2]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I work with the technology .NET and Azure.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "da2714c95ad355452d5c5dc3da2b70fdfe3619b8ef6e7ec801800b6d950d5870"
+    },
+    {
+      "id": "comma_ws_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[3]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I use .MP3 or .WAV file suffix",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "5b10f1a8304c94ba9b2632ad412b1bc70f26875172050898a762706da7f7b9f8"
+    },
+    {
+      "id": "comma_ws_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[4]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This, is, a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0fddf9c5bb55537e34feac0df047b2ad23cbe9b556462251e9b7b9df5b76ac27"
+    },
+    {
+      "id": "comma_ws_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[5]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This (foo bar) is a test!.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "4d3d5c8320dffa9ef135772c6baae83f85898b8b6e9b35c328586b3cae527cb3"
+    },
+    {
+      "id": "comma_ws_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[6]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Das kostet €2,45.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "7afc0f270c4fa4cc64d21c4c74fc3aafce9f1f6b302bea50e57b5ecec05c042d"
+    },
+    {
+      "id": "comma_ws_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[7]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Das kostet 50,- Euro",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "966482194c027cb1b4ac67c0f928d4af8396c68ff923827fbd4524550440457f"
+    },
+    {
+      "id": "comma_ws_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[8]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a sentence with ellipsis ...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d48e836d78408cfb63c9c69e8df93d6c60774f9e9bfe81b756790b322b6c31eb"
+    },
+    {
+      "id": "comma_ws_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[9]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a figure: .5 and it's correct.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d513db9f83796ae6fbf380ef886f2bf84c34c54cca87da557716970577a3b3b8"
+    },
+    {
+      "id": "comma_ws_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[10]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is $1,000,000.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6a66685a3e93c5d709f9593557608565ffbec3ceb20cf03e792bb2dddd3d7cd4"
+    },
+    {
+      "id": "comma_ws_11",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[11]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is 1,5.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b82e7d15f5b9bd2d5ad3756d988151dfe958f97db47290bd79415f4713fed689"
+    },
+    {
+      "id": "comma_ws_12",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[12]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a ,,test''.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "17c4df14e814b155d4f6dd7dd7df1ee7574a91e84a35e342662a9f743f41c8d9"
+    },
+    {
+      "id": "comma_ws_13",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[13]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Run ./validate.sh to check the file.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "46017710650c2fdb120d9617c19904cf76bd2b10c5fa86130021b1dfd200820b"
+    },
+    {
+      "id": "comma_ws_14",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[14]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is, really, non-breaking whitespace.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "db31ed6d035194346e5a8a4e60ad450a88d15db30f260164d2405ab5dc8bce49"
+    },
+    {
+      "id": "comma_ws_15",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[15]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "In his book,\u0002 Einstein proved this to be true.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "877062f963ccca6899abd056f5fb8032670805179c9b31652b2c2af5b2686104"
+    },
+    {
+      "id": "comma_ws_16",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[16]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "- [ ] A checkbox at GitHub",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d98973459a4ec155474d53862c0d62723f10a927e8c34bfffe3e9de78143204d"
+    },
+    {
+      "id": "comma_ws_17",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[17]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "- [x] A checked checkbox at GitHub",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a51284b9ab21ead9b9c34cd9315513846e3807eba731d49cc54eec2147665dad"
+    },
+    {
+      "id": "comma_ws_18",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[18]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "A sentence 'with' ten \"correct\" examples of ’using’ quotation “marks” at «once» in it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "1f67ee54a1b820b964e230d734525dbf679cc1914927f8340d90de00d6bbb79a"
+    },
+    {
+      "id": "comma_ws_19",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[19]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I'd recommend resaving the .DOC as a PDF file.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "260d8aceabec39df0db561247c966f51c4a5defa213511f62139319377f10936"
+    },
+    {
+      "id": "comma_ws_20",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[20]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I'd recommend resaving the .mp3 as a WAV file.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "91284f3d4ed45f2063449f7c4a9a5e3943bebb62e893e97f1182fa4ef6ef5f1a"
+    },
+    {
+      "id": "comma_ws_21",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[21]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I'd suggest buying the .org domain.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "e6884cdebb303f6f8c96fff0b58cd4b869df0c3ade4069d3b56113dfe959875d"
+    },
+    {
+      "id": "comma_ws_22",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[22]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": ". This isn't good.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a181a72d7624dccc77f5f2d93113fc79df14ebdf9e49611a745c5391510da96d"
+    },
+    {
+      "id": "comma_ws_23",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[23]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "), this isn't good.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d90e2d57d9a2be95d821ebe59d1bc15c0d9afe0f46028ddd49fba40f9f80c744"
+    },
+    {
+      "id": "comma_ws_24",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[24]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Das sind .exe-Dateien",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a9a3d36aff302653b773ce42431cee3004da2bf88910b871f2e72883805fa650"
+    },
+    {
+      "id": "comma_ws_25",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[25]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "I live in .Los Angeles",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 9,
+          "to_utf16": 11,
+          "from": 9,
+          "to": 11,
+          "source_slice": " ."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "023ac6a11c291385122ba5bc4487d90dffecac5b1a6aa37db1e1b0bd08fe930e"
+    },
+    {
+      "id": "comma_ws_26",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[26]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Die Vertriebsniederlassu­ng der Versorgungstechnik..­.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 52,
+          "to_utf16": 54,
+          "from": 52,
+          "to": 54,
+          "source_slice": "­."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "36096e4f3c2b3096c3d6a7f7667d5bc904c9317c1f45bf56deac5739347c0112"
+    },
+    {
+      "id": "comma_ws_27",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[27]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Die Vertriebsniederlassu­ng der Versorgungstechnik..­.\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 52,
+          "to_utf16": 54,
+          "from": 52,
+          "to": 54,
+          "source_slice": "­."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "45d632ce6c53c6be6629947495e0a9c034e59ab77ccba3be1fea5358a8992337"
+    },
+    {
+      "id": "comma_ws_28",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[28]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This,is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", is"
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 7,
+          "from": 4,
+          "to": 7,
+          "source_slice": ",is"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d06b5bcceaf48aaae986597955e196d091c9a27d2c2f1f5b3bf257226f3d676a"
+    },
+    {
+      "id": "comma_ws_29",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[29]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This , is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "29ff47af7a2214be2f4de1425ba4d82689ef49295c79ad002a84ee728709aab4"
+    },
+    {
+      "id": "comma_ws_30",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[30]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This ,is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", is"
+          ],
+          "url": null,
+          "from_utf16": 5,
+          "to_utf16": 8,
+          "from": 5,
+          "to": 8,
+          "source_slice": ",is"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "98f10c41110864a21ab28522948453f739887a8970fcf3ae7a108a2244f1b547"
+    },
+    {
+      "id": "comma_ws_31",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[31]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": ",is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 1,
+          "from": 0,
+          "to": 1,
+          "source_slice": ","
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой.",
+          "short_message": "",
+          "suggestions": [
+            ", is"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 3,
+          "from": 0,
+          "to": 3,
+          "source_slice": ",is"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "8387783ac02f2e23f5e41f4a0c9dbb9c3c89b720e398280a11e83efb0c586847"
+    },
+    {
+      "id": "comma_ws_32",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[32]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This ( foo bar) is a test!.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел после открывающейся скобки.",
+          "short_message": "",
+          "suggestions": [
+            "("
+          ],
+          "url": null,
+          "from_utf16": 5,
+          "to_utf16": 7,
+          "from": 5,
+          "to": 7,
+          "source_slice": "( "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a93ec59f3b639c7a1f810852e35880ece7b613f20cfe1199ab0275f0ced4333d"
+    },
+    {
+      "id": "comma_ws_33",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[33]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This (foo bar ) is a test!.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел до закрывающейся скобки.",
+          "short_message": "",
+          "suggestions": [
+            ")"
+          ],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 15,
+          "from": 13,
+          "to": 15,
+          "source_slice": " )"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e69a60eb922b1bb541cae97baef6d1218a25b83f1b556b08e3909ba52b7a488b"
+    },
+    {
+      "id": "comma_ws_34",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[34]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a sentence with an orphaned full stop .",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 45,
+          "to_utf16": 47,
+          "from": 45,
+          "to": 47,
+          "source_slice": " ."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "89f000d72f03052dd40276f1555fa4c9fa4278a3ab9ff476ca6e66d88e2fd929"
+    },
+    {
+      "id": "comma_ws_35",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[35]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This is a test with a OOo footnote\u0002, which is denoted by 0x2 in the text.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "329d4c42d29691fc1e65e0016a08137ea66096a4521068d942b02ba5555ebefd"
+    },
+    {
+      "id": "comma_ws_36",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[36]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "A sentence ' with ' ten \" incorrect \" examples of ’ using ’ quotation “ marks ” at « once » in it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "' ",
+            " '"
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 13,
+          "from": 10,
+          "to": 13,
+          "source_slice": " ' "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "' ",
+            " '"
+          ],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 20,
+          "from": 17,
+          "to": 20,
+          "source_slice": " ' "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "\" ",
+            " \""
+          ],
+          "url": null,
+          "from_utf16": 23,
+          "to_utf16": 26,
+          "from": 23,
+          "to": 26,
+          "source_slice": " \" "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "\" ",
+            " \""
+          ],
+          "url": null,
+          "from_utf16": 35,
+          "to_utf16": 38,
+          "from": 35,
+          "to": 38,
+          "source_slice": " \" "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "’ ",
+            " ’"
+          ],
+          "url": null,
+          "from_utf16": 49,
+          "to_utf16": 52,
+          "from": 49,
+          "to": 52,
+          "source_slice": " ’ "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "’ ",
+            " ’"
+          ],
+          "url": null,
+          "from_utf16": 57,
+          "to_utf16": 60,
+          "from": 57,
+          "to": 60,
+          "source_slice": " ’ "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "“ ",
+            " “"
+          ],
+          "url": null,
+          "from_utf16": 69,
+          "to_utf16": 72,
+          "from": 69,
+          "to": 72,
+          "source_slice": " “ "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "” ",
+            " ”"
+          ],
+          "url": null,
+          "from_utf16": 77,
+          "to_utf16": 80,
+          "from": 77,
+          "to": 80,
+          "source_slice": " ” "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "« ",
+            " «"
+          ],
+          "url": null,
+          "from_utf16": 82,
+          "to_utf16": 85,
+          "from": 82,
+          "to": 85,
+          "source_slice": " « "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "» ",
+            " »"
+          ],
+          "url": null,
+          "from_utf16": 89,
+          "to_utf16": 92,
+          "from": 89,
+          "to": 92,
+          "source_slice": " » "
+        }
+      ],
+      "finding_count": 10,
+      "semantic_signature": "0e9f2c6ab066746ecea57c4d145c81789431756792a8a832fa2fb85ee1551609"
+    },
+    {
+      "id": "comma_ws_37",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[37]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "A sentence ' with' one examples of wrong quotations marks in it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "' ",
+            " '"
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 13,
+          "from": 10,
+          "to": 13,
+          "source_slice": " ' "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "0103fb6cb1e5c79d2359defa6cabc29fa29aa8526dbea1f1c641ef892b2277bb"
+    },
+    {
+      "id": "comma_ws_38",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[38]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "A sentence 'with ' one examples of wrong quotations marks in it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "' ",
+            " '"
+          ],
+          "url": null,
+          "from_utf16": 16,
+          "to_utf16": 19,
+          "from": 16,
+          "to": 19,
+          "source_slice": " ' "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c8c8f0104e9eaa10dac67c8e45a6c9685a32102695facd4568444ea8d2b65176"
+    },
+    {
+      "id": "comma_ws_39",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[39]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "ABB (  z.B. )",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел после открывающейся скобки.",
+          "short_message": "",
+          "suggestions": [
+            "("
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": "( "
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел до закрывающейся скобки.",
+          "short_message": "",
+          "suggestions": [
+            ")"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 13,
+          "from": 11,
+          "to": 13,
+          "source_slice": " )"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "fc9631d24f670f84f7cdf4dba1ed121f6a7d44365d91f5626dd40efe27cda5fc"
+    },
+    {
+      "id": "comma_ws_40",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[40]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "This ,",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a4a973a36a0a757fbae0d31383c809056a2fe534457e2f41dff1c2a900338f87"
+    },
+    {
+      "id": "comma_ws_41",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[41]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "You \" fixed\" it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "\" ",
+            " \""
+          ],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 6,
+          "from": 3,
+          "to": 6,
+          "source_slice": " \" "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "3470bfe06950e2b2e0457a37859fe7afd919a5c535bf6cd5ffa55a8f384dd819"
+    },
+    {
+      "id": "comma_ws_42",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[42]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "You \"fixed \" it.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел у символа кавычек.",
+          "short_message": "",
+          "suggestions": [
+            "\" ",
+            " \""
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 13,
+          "from": 10,
+          "to": 13,
+          "source_slice": " \" "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d7c00ddf974f4fa3f1afd016abdefdfde4395c3cc186c801e18170957bc9cce6"
+    },
+    {
+      "id": "comma_ws_43",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[43]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Ellipsis . . . as suggested by The Chicago Manual of Style",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 10,
+          "from": 8,
+          "to": 10,
+          "source_slice": " ."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "5e2d613d0de51dc856d7d6d4acdcb9b9962c539239cb3dd6c70eb268a507384a"
+    },
+    {
+      "id": "comma_ws_44",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "assertMatches[44]",
+      "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+      "text": "Ellipsis . . . . as suggested by The Chicago Manual of Style",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Не ставьте пробел перед точкой в конце предложения.",
+          "short_message": "",
+          "suggestions": [
+            "."
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 10,
+          "from": 8,
+          "to": 10,
+          "source_slice": " ."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e0ef8c496499c6436ac184e3e41a6b0a9a381ca8e7944af477205af517ef2f3f"
+    },
+    {
+      "id": "multi_ws_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[0]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "2833f75dfe5631b05d05eb771e7ea19eeba4be233616c48053f1a4c7050ed927"
+    },
+    {
+      "id": "multi_ws_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[1]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This﻿ is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "9c76d9e8aa143f4c60d80e13764ff7baa7a2cbcb9496e5debd46e745d2598677"
+    },
+    {
+      "id": "multi_ws_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[2]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This﻿﻿ is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "50b5472d4e6a234c3094853eeea1833252ab0e8cba8be2e18b8e6182a8d724e9"
+    },
+    {
+      "id": "multi_ws_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[3]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This ﻿is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0b8ff637773ec595f8876e77bc06ec70f3af88813d7add0f8e45461311912e9b"
+    },
+    {
+      "id": "multi_ws_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[4]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This﻿⁠ is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "e2cea26cfe558d40630217e5b38992abd435b6933451920f3b44a31733fa32fd"
+    },
+    {
+      "id": "multi_ws_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[5]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "﻿﻿This is a\n⁠\ntest sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "22c75ee2a8afca3955401a278b7255dd516f9a639ab9f7e05dfd3dd1b1c64554"
+    },
+    {
+      "id": "multi_ws_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[6]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "11ed64687901236e0997f9440f3a0d27da5b7a3a31fb6b8a7bef7d374b1d91ff"
+    },
+    {
+      "id": "multi_ws_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[7]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "\n\tThis is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "74b1f1d3caf58f71443f8141d4ba8651eb5e45a1e59252b84d2130bdb1a1b959"
+    },
+    {
+      "id": "multi_ws_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[8]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "Multiple tabs\t\tare okay",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "473c6f95a149dffd384498e1c41af20d3e06377fe70c87f4c3c74319d3183d51"
+    },
+    {
+      "id": "multi_ws_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[9]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "\n This is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "270c54fc50dfc9a3d4f14f2a5c465945816dd12483de1c78fee76c7bbe27bdd3"
+    },
+    {
+      "id": "multi_ws_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[10]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "\n    This is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "9a6cbfd4ce667555c38f4bdacbd0d8744747996fabd0fe4e735a29a0668b84dd"
+    },
+    {
+      "id": "multi_ws_11",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[11]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This  is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": "  "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6174b0b5ea735b686eddab02e27d45854eb2e34485ccbdaba36ea8a489a5a990"
+    },
+    {
+      "id": "multi_ws_12",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[12]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "\n   This  is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 10,
+          "from": 8,
+          "to": 10,
+          "source_slice": "  "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "f393ba67b395c1b074b2095c697934e68e6e1b73942c98034a2f615928dd03b4"
+    },
+    {
+      "id": "multi_ws_13",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[13]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This is a test   sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 14,
+          "to_utf16": 17,
+          "from": 14,
+          "to": 17,
+          "source_slice": "   "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "31cc3faef076123fbae955ffefdf4f8e83c6d36f9eeb9e8b586c83735a98fd07"
+    },
+    {
+      "id": "multi_ws_14",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[14]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This is   a  test   sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 10,
+          "from": 7,
+          "to": 10,
+          "source_slice": "   "
+        },
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 13,
+          "from": 11,
+          "to": 13,
+          "source_slice": "  "
+        },
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 20,
+          "from": 17,
+          "to": 20,
+          "source_slice": "   "
+        }
+      ],
+      "finding_count": 3,
+      "semantic_signature": "cac2970fb43bcbc37074bda55f972837e0e73f2c9969a6a860e083e3e7e4920d"
+    },
+    {
+      "id": "multi_ws_15",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[15]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "\t\t\t    \t\t\t\t  ",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            "\t"
+          ],
+          "url": null,
+          "from_utf16": 2,
+          "to_utf16": 7,
+          "from": 2,
+          "to": 7,
+          "source_slice": "\t    "
+        },
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            "\t"
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 13,
+          "from": 10,
+          "to": 13,
+          "source_slice": "\t  "
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "c5eb398e574558cfb35c968bd7cda604ff1a309ee3935a7c1c4600aedc2088a7"
+    },
+    {
+      "id": "multi_ws_16",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[16]",
+      "rule_id": "WHITESPACE_RULE",
+      "text": "This  is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "WHITESPACE_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Повтор пробела",
+          "short_message": "",
+          "suggestions": [
+            " "
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 6,
+          "from": 4,
+          "to": 6,
+          "source_slice": "  "
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "95162ba277ed83ac295539f32409e47f3127c19d56b9a3d3f142c37b23134021"
+    },
+    {
+      "id": "sentence_ws_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[0]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text. And there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d3b3ffde674bf886e3f15c0977caaef0b7295a6142f4cdf8a26bc9a4f207fffd"
+    },
+    {
+      "id": "sentence_ws_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[1]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text! And there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d7cdb06b891da29b52d350d115fd84fcbaa7bcba3a2e698f29b644591072d739"
+    },
+    {
+      "id": "sentence_ws_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[2]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text\nAnd there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "8c8842464002ed03ae730c503df5c6858c676332b55dd57fd300b6c85984753e"
+    },
+    {
+      "id": "sentence_ws_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[3]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text\n\nAnd there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0473309b291e10a3d62cd38a1ed5af7afae93f39c90e62e96114d3ed8ea7deca"
+    },
+    {
+      "id": "sentence_ws_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[4]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text.And there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "SENTENCE_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Добавьте пробел между предложениями.",
+          "short_message": "",
+          "suggestions": [
+            " And"
+          ],
+          "url": null,
+          "from_utf16": 15,
+          "to_utf16": 18,
+          "from": 15,
+          "to": 18,
+          "source_slice": "And"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "5e955ca441326ef52b558c169ea407c86378377b3a36dc56ebdf7e18474f91e5"
+    },
+    {
+      "id": "sentence_ws_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[5]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text!And there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "SENTENCE_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Добавьте пробел между предложениями.",
+          "short_message": "",
+          "suggestions": [
+            " And"
+          ],
+          "url": null,
+          "from_utf16": 15,
+          "to_utf16": 18,
+          "from": 15,
+          "to": 18,
+          "source_slice": "And"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d69bd98c55b5a6badd5d625efe9469b52fd47deb43903fe425640b38acc48361"
+    },
+    {
+      "id": "sentence_ws_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "scenario[6]",
+      "rule_id": "SENTENCE_WHITESPACE",
+      "text": "This is a text?And there's the next sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "SENTENCE_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Добавьте пробел между предложениями.",
+          "short_message": "",
+          "suggestions": [
+            " And"
+          ],
+          "url": null,
+          "from_utf16": 15,
+          "to_utf16": 18,
+          "from": 15,
+          "to": 18,
+          "source_slice": "And"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d27b76bc178ee10c13c7327e782767eeb7c1ca782ca1e9a74fd7351180a9b8ae"
+    },
+    {
+      "id": "uppercase_start_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[0]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "this",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6e798deb911299d27a7fd87e0f4400d014250c5496ce620db5d433df9fea7ac9"
+    },
+    {
+      "id": "uppercase_start_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[1]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "a) This is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b2c36abcf589a7323bf7a9abf98561f4a67b60f82ae3eec8aac5840267b2137e"
+    },
+    {
+      "id": "uppercase_start_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[2]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "iv. This is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "2cb53e250b93c4cbe3c3c2190691b23d1a20f03ceaa4ad2cdaff30cfefba244f"
+    },
+    {
+      "id": "uppercase_start_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[3]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "\"iv. This is a test sentence...\"",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0c432cbe5acabfed296bff3d0a6d8385c9da3da5798bd22a297bcf50280636e6"
+    },
+    {
+      "id": "uppercase_start_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[4]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "»iv. This is a test sentence...",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "60b143d3f35338a5401106cb851417290720fc2c655621b8f8f89fef1a85ae0c"
+    },
+    {
+      "id": "uppercase_start_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[5]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "This",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "4f1566bed9fe9d18fa79fd89fc78f71b23150a12ba86a4aadc07c0298eecc81c"
+    },
+    {
+      "id": "uppercase_start_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[6]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "This is",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "cd575efe0e5ca78c20fc01da4cdd0113b03a03daf8556ba9ee0b6ac06af8f6f6"
+    },
+    {
+      "id": "uppercase_start_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[7]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "This is a test sentence",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "164106cb69c41186cc8c45b09e4a93c9afece138c6d0fa5025f19b875c3b87c4"
+    },
+    {
+      "id": "uppercase_start_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[8]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b5afd250beea3467d3f0bc5343e2e092c8cf0b35a3d5cbd5909bc6e2b34845d2"
+    },
+    {
+      "id": "uppercase_start_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[9]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "http://www.languagetool.org",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "546bbf0d5f01b5ee231ef32961b1ebcbc58a1d856d335ea704302110487dfb7e"
+    },
+    {
+      "id": "uppercase_start_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[10]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "eBay can be at sentence start in lowercase.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "405ed0da1e474a9a20c2e1fc0dc4bba1bfd96ae818038c090185fa0cea2a41f6"
+    },
+    {
+      "id": "uppercase_start_11",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[11]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "¿Esto es una pregunta?",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "03807c96b1f89846a21fe496fe00e9d5b61e30145b24b5de22fa9390e784e1c5"
+    },
+    {
+      "id": "uppercase_start_12",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[12]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "¿Esto es una pregunta?, ¿y esto?",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "23a75f3edf6727f200d878059ead767fa563ca00d18aa48f1505afe9eda17e3d"
+    },
+    {
+      "id": "uppercase_start_13",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[13]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "ø This is a test sentence with a wrong bullet character.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "59d949d67f4efe4872d50c046ee3a720117b8cf628460bdfc109cbc8c3cbe76a"
+    },
+    {
+      "id": "uppercase_start_14",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[14]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "this is a test sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 4,
+          "from": 0,
+          "to": 4,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "aff5d1d78193e1bef13770252d98eb218c73379fd91f1c536f24c1c1705c4c29"
+    },
+    {
+      "id": "uppercase_start_15",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[15]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "this!",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 4,
+          "from": 0,
+          "to": 4,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "9353755794e622ccb876ce5bb19149a8a89d696bac2a92a488c205426982c21c"
+    },
+    {
+      "id": "uppercase_start_16",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[16]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "'this is a sentence'.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e11f4133ed28ade79455ff2a7e6e7b678532606142299ece88f997a4f271777d"
+    },
+    {
+      "id": "uppercase_start_17",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[17]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "\"this is a sentence.\"",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "5a2ca7494ae4138590f50af8dcdc49c84fb2d649fc52fa03557f98389dac88a6"
+    },
+    {
+      "id": "uppercase_start_18",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[18]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "„this is a sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "ad5c6e4c8bf5ed46d1403507ff17c12de9e8344f57318ef1ac20ecad6c667832"
+    },
+    {
+      "id": "uppercase_start_19",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[19]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "«this is a sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "eda93046264701f41781891e1d75687a556994980936be5b98eb85ea1d49cd6a"
+    },
+    {
+      "id": "uppercase_start_20",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[20]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "‘this is a sentence.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "This"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "this"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "48720c08f40c6bad5f3d3cf6916bee379ee6bf5ee7cb421e210598d0fd60e9ec"
+    },
+    {
+      "id": "uppercase_start_21",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[21]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "¿esto es una pregunta?",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Esto"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 5,
+          "from": 1,
+          "to": 5,
+          "source_slice": "esto"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "89d7f4e69b71b984fdcd0e34fdb715c26e1e0f189d2cf855c4d20e5daa460212"
+    },
+    {
+      "id": "uppercase_start_22",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "scenario[22]",
+      "rule_id": "UPPERCASE_SENTENCE_START",
+      "text": "¿Esto es una pregunta? ¿y esto?",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Y"
+          ],
+          "url": null,
+          "from_utf16": 24,
+          "to_utf16": 25,
+          "from": 24,
+          "to": 25,
+          "source_slice": "y"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "bf45804b079088cecdbb6d4ac2dfac35656df83eaaa32a056a209094ef6a3ee5"
+    },
+    {
+      "id": "long_sentence40_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[0]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": " is a rather short text.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "621c314493f34bcfd6934c7f13a84290f59cb1de293668f68ee70ae826d26762"
+    },
+    {
+      "id": "long_sentence40_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[1]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that short text.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 40 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 127,
+          "from": 0,
+          "to": 127,
+          "source_slice": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that short text."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "301602714bfbdad52652581893c5799d4ab991c6bd7f0737574aa8f435ba748d"
+    },
+    {
+      "id": "long_sentence40_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[2]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that short text",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 40 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 126,
+          "from": 0,
+          "to": 126,
+          "source_slice": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that short text"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "f72489f564eabcdd49626bb1dd1e27b0952e6bab3063783a8be2d3724b61d02d"
+    },
+    {
+      "id": "long_sentence40_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[3]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The sun slowly set behind the majestic mountains, casting a warm golden glow over the tranquil valley below, where a gentle breeze rustled the leaves of the trees, and the sound of a distant stream provided a soothing backdrop to the peaceful scene.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 40 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 249,
+          "from": 0,
+          "to": 249,
+          "source_slice": "The sun slowly set behind the majestic mountains, casting a warm golden glow over the tranquil valley below, where a gentle breeze rustled the leaves of the trees, and the sound of a distant stream provided a soothing backdrop to the peaceful scene."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d71d9716e5ecc83ab8c4b1d52fe3b08073bfca434876a00e0d71ed5a6bd04aab"
+    },
+    {
+      "id": "long_sentence40_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[4]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote “When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment” (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "dd6a4e60db05b0c284bc2ba898a8e992573269b971f9438c879cba1d779f1a0a"
+    },
+    {
+      "id": "long_sentence40_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[5]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote \"When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment\" (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "5428b2b769305b24848cbfe9dc3850ba93ab6ed7689b67cdc340b8adb7c10133"
+    },
+    {
+      "id": "long_sentence40_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[6]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote «When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment» (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "fe5b4512acea4dc8bc12290430aeb96bfebebe2826311bed198f4d5aa9fc683d"
+    },
+    {
+      "id": "long_sentence40_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[7]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote „When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment“ (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a2353b191c1d8b3ed2f86fe790d2579e1f3410b26068d800e5071999e46c22d3"
+    },
+    {
+      "id": "long_sentence40_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[8]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote \"When days\" grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope \"and fulfillment\" (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 40 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 253,
+          "from": 0,
+          "to": 253,
+          "source_slice": "The quote \"When days\" grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope \"and fulfillment\" (p."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a47b7e3b1172962d75257efd4fc5152dd6735fe5a5e9c9eccd0575bce6cfbabf"
+    },
+    {
+      "id": "long_sentence40_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[9]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 40 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 249,
+          "from": 0,
+          "to": 249,
+          "source_slice": "The quote When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment (p."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c2ef9968bc8af6d7afce62d0e420e260ce7c3c7e3116f1161242200e00ec8923"
+    },
+    {
+      "id": "long_sentence40_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=40 scenario[10]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "The quote “When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us through life’s dark valleys and into sunlit pathways of hope and fulfillment» (p. 9) refers to God’s nature as a combination of love and justice.",
+      "config": {
+        "maxWords": 40
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "fe56d2f6998b03bb142ae7c1d4740f2a97c2ff0c0609c2c002c1d4d470c23a6d"
+    },
+    {
+      "id": "long_sentence6_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[0]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "This is a rather short text.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "9d7d67f17b8c4ec976166c8695b2ef4ee17339bc5ef688a09a53c8f453fb8b6d"
+    },
+    {
+      "id": "long_sentence6_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[1]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "This is also a rather short text.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 33,
+          "from": 0,
+          "to": 33,
+          "source_slice": "This is also a rather short text."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "1070b67f80d1d50ab4bff8762846df09800d66f46efa88eba4dac00fa92bcf3a"
+    },
+    {
+      "id": "long_sentence6_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[2]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "These ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ don't count.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "eb1b229178a0abd85541cd0698ae6381283871c0e7144dbb7df8e85008e3da46"
+    },
+    {
+      "id": "long_sentence6_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[3]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "one two three four five six.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "2c84b97d847f41216e03f3d6edc0c27c23079ff99cd5557a3fad9d4b5d747f17"
+    },
+    {
+      "id": "long_sentence6_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[4]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "one two three (four) five six.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "49ff0472b6265d7911bf253b2fb01db0da379ce4eb54c0382b801257b6b8357f"
+    },
+    {
+      "id": "long_sentence6_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[5]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "one two three four five six seven.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 34,
+          "from": 0,
+          "to": 34,
+          "source_slice": "one two three four five six seven."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "3d29e7a4bbae9d588aca3b2026917bea39f13af8ae421e4ce962123e27c03e09"
+    },
+    {
+      "id": "long_sentence6_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[6]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "Eins zwei drei vier fünf sechs.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "e659750970f46ff5f82e6a70f648432996a5e42f0ddc229d59667c848bec2fe3"
+    },
+    {
+      "id": "long_sentence6_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[7]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "\n\n\nEins zwei drei vier fünf sechs seven",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 39,
+          "from": 3,
+          "to": 39,
+          "source_slice": "Eins zwei drei vier fünf sechs seven"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "4e27e52520afde718525fe6a34a865dc50f8f57dd154bfe7eda86359ef21666c"
+    },
+    {
+      "id": "long_sentence6_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[8]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "Eins zwei drei vier fünf sechs seven\n\n\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 36,
+          "from": 0,
+          "to": 36,
+          "source_slice": "Eins zwei drei vier fünf sechs seven"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "d165c671a8d6c64f72ea72a43d0f447ed1d07b883920cb0c219fba1ae24b5bf5"
+    },
+    {
+      "id": "long_sentence6_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[9]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "\n\n\nEins zwei drei vier fünf sechs seven\n\n\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 39,
+          "from": 3,
+          "to": 39,
+          "source_slice": "Eins zwei drei vier fünf sechs seven"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "1138c5e40bf4579c55e5125316e76d48b2c7c8d44c3166d477d1f7eeeb8d7d39"
+    },
+    {
+      "id": "long_sentence6_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[10]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "\n\n\nEins zwei drei vier fünf sechs seven.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 40,
+          "from": 3,
+          "to": 40,
+          "source_slice": "Eins zwei drei vier fünf sechs seven."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "f75c50e08d84118df6f73b6ade8da5a83e9dcc8a08f2fc72a0966dc5e30bbc9d"
+    },
+    {
+      "id": "long_sentence6_11",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[11]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "Eins zwei drei vier fünf sechs seven.\n\n\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 37,
+          "from": 0,
+          "to": 37,
+          "source_slice": "Eins zwei drei vier fünf sechs seven."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e7941e03c24f1647dc0231e13a820c7454a58d276135f4be2830bfdf9dd0ce69"
+    },
+    {
+      "id": "long_sentence6_12",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "upstream_method": "testMatch",
+      "upstream_scenario": "maxWords=6 scenario[12]",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "\n\n\nEins zwei drei vier fünf sechs seven.\n\n\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 6 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 40,
+          "from": 3,
+          "to": 40,
+          "source_slice": "Eins zwei drei vier fünf sechs seven."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "ff77cbf11e53ee745808c79fd8d86f05ef491f3b93a0fe2b539b6854d147962e"
+    },
+    {
+      "id": "long_paragraph_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[0]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "This is a short paragraph.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "385785305aecca9e22d410745c20f9b54a2f83f45b5a6933993520823366c856"
+    },
+    {
+      "id": "long_paragraph_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[1]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "This is only almost long paragraph by unit test standards.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "1ed74c8c8f8a592262817823319bfb2315d15caa0f6585f9f90ec9d2e87c7527"
+    },
+    {
+      "id": "long_paragraph_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[2]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "Here's some text as a filler. This is a long paragraph by unit test standards.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 6 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 21,
+          "from": 17,
+          "to": 21,
+          "source_slice": "as a"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "7068520d6fd22f4b72dfd1853b2019bb7c865832fcef964f846a57fb71a43df3"
+    },
+    {
+      "id": "long_paragraph_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[3]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "Here's some text as a filler.  A test. A long paragraph by unit test standards.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 6 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 21,
+          "from": 17,
+          "to": 21,
+          "source_slice": "as a"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "64368a0b3244b9236f4780b9751871f6f295c1041f6fa56e40d0612e66c0a0aa"
+    },
+    {
+      "id": "long_paragraph_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[4]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "Here's some text as a filler.  A test.\nNot a long paragraph.\nBecause of the line breaks.\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6bb21d2c4672adf76c7ecd77255dfa42d3aab80c3d661b5e4d87a7401a24af6b"
+    },
+    {
+      "id": "long_paragraph_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[5]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "- [ ] A test.\n- [ ] Not a long paragraph.\n- [ ] Because of the line breaks.\n- [ ] More text even.\n",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "2743ddbf1586d926c47464cea90a6c746a99e23b12ea6b3f36b5712698610bea"
+    },
+    {
+      "id": "long_paragraph_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[6]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "This is a short paragraph.\n\nHere's some text as filler. This is a long paragraph by unit test standards.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 6 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 45,
+          "to_utf16": 54,
+          "from": 45,
+          "to": 54,
+          "source_slice": "as filler"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a2f445b45ba72049444ccc5c28ee504d0656749bb564888be7589956d7fbbe5c"
+    },
+    {
+      "id": "long_paragraph_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "upstream_method": "testRule",
+      "upstream_scenario": "maxWords=6 scenario[7]",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "Here's some text as filler. This is a long paragraph by unit test standards.\n\nAnother paragraph.\n\nHere's some text as morefiller - this is a long paragraph by unit test standards.",
+      "config": {
+        "maxWords": 6
+      },
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 6 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 26,
+          "from": 17,
+          "to": 26,
+          "source_slice": "as filler"
+        },
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 6 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 115,
+          "to_utf16": 128,
+          "from": 115,
+          "to": 128,
+          "source_slice": "as morefiller"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "2dd48e8da88e296b874afa57a4ac2a91ebec0c5c99f546e73b3f340a4ef502f6"
+    },
+    {
+      "id": "punct_par_end2_00",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[0]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "2. This is an item in a list",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "46c8c02333aea73202bd757dd2fce6774d00236cc7a1dbc3cd08857f36b9e329"
+    },
+    {
+      "id": "punct_par_end2_01",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[1]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "2.2.2. This is an item in a list",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "bed0324bbbf94a90bf2f10c34e911876a85e7ba8def9606ec0083de2c4513d3e"
+    },
+    {
+      "id": "punct_par_end2_02",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[2]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "3d7d4052cce0d67cd4f5ad9690dbcaf094d46dbfc50f39ee7b1a758454c2fefe"
+    },
+    {
+      "id": "punct_par_end2_03",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[3]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "e0afd05c94ef6489944654bfd7735914b512bb9bd3b59f1a2f30985fd0dcec47"
+    },
+    {
+      "id": "punct_par_end2_04",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[4]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a really nice test",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a12c0aabe1da9f4aa8fccdcece4f6eb6173f96347707f5b93df52b70d49bc93f"
+    },
+    {
+      "id": "punct_par_end2_05",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[5]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a really nice test, and it has enough tokens\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Добавьте знак пунктуации в конце абзаца.",
+          "short_message": "",
+          "suggestions": [
+            "tokens."
+          ],
+          "url": null,
+          "from_utf16": 46,
+          "to_utf16": 52,
+          "from": 46,
+          "to": 52,
+          "source_slice": "tokens"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "2cc5071205bea0248d302526e93ee4cf5110279fcc517c030553f92ca8b11cd3"
+    },
+    {
+      "id": "punct_par_end2_06",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[6]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a really nice test, and it has enough tokens\n\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Добавьте знак пунктуации в конце абзаца.",
+          "short_message": "",
+          "suggestions": [
+            "tokens."
+          ],
+          "url": null,
+          "from_utf16": 46,
+          "to_utf16": 52,
+          "from": 46,
+          "to": 52,
+          "source_slice": "tokens"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a05280dd1f6efc15856c2e61f057ebee7fe6421a39f4718fdad8b46a3e660e63"
+    },
+    {
+      "id": "punct_par_end2_07",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[7]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "\"This is a really nice test, and it has enough tokens.\"\n\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "ad06e2bf929f2eabe8d4177c7ef74042ac2e5df250a89358e327b9cdfcb0882e"
+    },
+    {
+      "id": "punct_par_end2_08",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[8]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "\"This is a really nice test, and it has enough tokens\"\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "91569f98b0361431a57d10a706bf6c18eff6697de8cede17849e7c7b7fde1d59"
+    },
+    {
+      "id": "punct_par_end2_09",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[9]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "\"This is a really nice test, and it has enough tokens\"\n\n",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "53107a25074567936156bcfe39cd0b6187e95f660d27b4dc164d584e2a802e7d"
+    },
+    {
+      "id": "punct_par_end2_10",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[10]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nRegards,\nJim",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "28778ee620149510bf8e4ca0e5aece0b2fd797bd86db0fb86350ae34b6f87b5c"
+    },
+    {
+      "id": "punct_par_end2_11",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[11]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nRegards,\n\nJim",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "52c9acab6e661829888e9c5a9003d64719dcbe1afb72c0ee1bd0492567535e58"
+    },
+    {
+      "id": "punct_par_end2_12",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[12]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nKind Regards,\nJim",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "34bdd10ca8b17fe4880e74402a88b337e6d4543cfdf4cca98a34158318b1c548"
+    },
+    {
+      "id": "punct_par_end2_13",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[13]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nKind Regards,\n\nJim",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "415803ffe531ae3689d2ed5edd40ab2449379ffbbcf16adfbeb83b2aefb6f7c2"
+    },
+    {
+      "id": "punct_par_end2_14",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[14]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nKind Regards,\n\nJim Tester",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0f702209dcae476751f552b55cba578807e46f6361ab7cbf500173dee138c7c1"
+    },
+    {
+      "id": "punct_par_end2_15",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[15]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test.\n\nKind Regards,\n\nJim van Tester",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "f2aefd6349051d2d8c22a907c2ed76eada09b029204f65e813a4785022d2762f"
+    },
+    {
+      "id": "punct_par_end2_16",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[16]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is headline-style text",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "4353ef8e65dc12e772ce3306a3bf8d2db47fe0da5f28b89fcf09cc1191281fe0"
+    },
+    {
+      "id": "punct_par_end2_17",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[17]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is headline-style text.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "18c46d5415e01914741fe923e4e7120e11e8a5f09d864a136498e8841cbabbac"
+    },
+    {
+      "id": "punct_par_end2_18",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[18]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is headline-style text. If it gets longer, a dot is needed.",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0830a3f77615e14135c6e4271c0a1ca8b20de821c7f82c28711bfa20779fd049"
+    },
+    {
+      "id": "punct_par_end2_19",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[19]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is headline-style text. If it gets longer, a dot is needed",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Добавьте знак пунктуации в конце абзаца.",
+          "short_message": "",
+          "suggestions": [
+            "needed."
+          ],
+          "url": null,
+          "from_utf16": 57,
+          "to_utf16": 63,
+          "from": 57,
+          "to": 63,
+          "source_slice": "needed"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6d367a48c8ef76ad9749c3a5fa8f048fbe4e3f88cf6e8ac2cb34e987a4895658"
+    },
+    {
+      "id": "punct_par_end2_20",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[20]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a test\n\nKind Regards,\n\nJim van Tester",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "449ef192104642482dcb611288c5a55bd57c2a5e76855adf48b5f8954e2a955c"
+    },
+    {
+      "id": "punct_par_end2_21",
+      "upstream_source": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "upstream_method": "test",
+      "upstream_scenario": "scenario[21]",
+      "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+      "text": "This is a really nice test, and it has enough tokens\n\nKind Regards,\n\nJim van Tester",
+      "config": {},
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "expected": [
+        {
+          "rule_id": "PUNCTUATION_PARAGRAPH_END2",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Добавьте знак пунктуации в конце абзаца.",
+          "short_message": "",
+          "suggestions": [
+            "tokens."
+          ],
+          "url": null,
+          "from_utf16": 46,
+          "to_utf16": 52,
+          "from": 46,
+          "to": 52,
+          "source_slice": "tokens"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "b1ce41ee2c87e18402e1f705a30b2973fa91a780ea997036e6f7153a63cea457"
+    }
+  ]
+}

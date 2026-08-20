@@ -12,6 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Union
 import sys
+import threading
 import regex
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
@@ -476,7 +477,15 @@ class CompiledRuleVariant:
         self.minprevmatches = minprevmatches
         self.distancetokens = distancetokens
         self.unifier_config = unifier_config
-        self.unifier: Optional[Unifier] = unifier_config.create_unifier() if unifier_config is not None else None
+        # Upstream builds a fresh PatternRuleMatcher (and therefore a fresh
+        # Unifier and fresh PatternTokenMatcher state) for every rule match
+        # attempt, so no match state is ever shared.  Compiled variants here are
+        # cached and reused, so the two pieces of mutable per-attempt state --
+        # the unifier and the dynamic <match> token references -- are isolated:
+        # the unifier is per thread, and a whole match attempt over one sentence
+        # is serialised per variant by `_match_lock`.
+        self._unifier_local = threading.local()
+        self._match_lock = threading.RLock()
         self.has_unification = any(t.is_unified for t in self.tokens)
         self.min_occur_correction = sum(1 for t in self.tokens if t.min == 0)
         self.is_sent_start = (
@@ -484,6 +493,17 @@ class CompiledRuleVariant:
             and self.tokens[0].postag == "SENT_START"
             and not self.tokens[0].negate_pos
         )
+
+    @property
+    def unifier(self) -> Optional[Unifier]:
+        """This thread's unifier for this variant, created on first use."""
+        if self.unifier_config is None:
+            return None
+        existing = getattr(self._unifier_local, "unifier", None)
+        if existing is None:
+            existing = self.unifier_config.create_unifier()
+            self._unifier_local.unifier = existing
+        return existing
 
     def match_sentence(
         self,
@@ -516,15 +536,20 @@ class CompiledRuleVariant:
         results: List[MatchStateResult] = []
         imm_set = immunized_tokens or set()
 
-        for start_idx in range(min(limit, len(non_blank_tokens))):
-            m_res = self._match_from(
-                tokens=non_blank_tokens,
-                start_idx=start_idx,
-                synthesizer=synthesizer,
-                immunized_tokens=imm_set,
-            )
-            if m_res is not None:
-                results.append(m_res)
+        # The compiled tokens carry dynamic <match> reference state that upstream
+        # keeps in a per-attempt PatternTokenMatcher, so one variant may only run
+        # one match attempt at a time.
+        with self._match_lock:
+            for start_idx in range(min(limit, len(non_blank_tokens))):
+                m_res = self._match_from(
+                    tokens=non_blank_tokens,
+                    start_idx=start_idx,
+                    synthesizer=synthesizer,
+                    immunized_tokens=imm_set,
+                )
+                if m_res is not None:
+                    results.append(m_res)
+            self.reset_dynamic_state()
 
         return results
 
@@ -810,16 +835,17 @@ class CompiledRuleVariant:
         neutral_readings: Dict[CompiledPatternToken, List[AnalyzedTokenReadings]],
     ) -> bool:
         """Perform feature unification agreement check across matched candidate tokens."""
-        if self.unifier is None:
+        unifier = self.unifier
+        if unifier is None:
             return True
 
-        self.unifier.reset()
+        unifier.reset()
 
         for matcher in self.tokens:
             neutral = neutral_readings.get(matcher)
             if neutral is not None:
                 for atr in neutral:
-                    self.unifier.add_neutral_element(atr)
+                    unifier.add_neutral_element(atr)
                 continue
 
             reading_sets = to_unify.get(matcher)
@@ -833,18 +859,18 @@ class CompiledRuleVariant:
                 num_readings = len(readings)
                 for i, match_token in enumerate(readings):
                     is_last_reading = (i == num_readings - 1)
-                    res = self.unifier.is_unified(match_token, matcher.uni_features, is_last_reading, True)
+                    res = unifier.is_unified(match_token, matcher.uni_features, is_last_reading, True)
                     any_matched = any_matched or res
 
                 if matcher.is_unify_negated and any_matched:
-                    self.unifier.reset()
+                    unifier.reset()
                     return False
 
                 if matcher.is_last_in_unify and is_last_set:
                     if not any_matched and not matcher.is_unify_negated:
-                        self.unifier.reset()
+                        unifier.reset()
                         return False
-                    self.unifier.reset()
+                    unifier.reset()
 
         return True
 

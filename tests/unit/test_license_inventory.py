@@ -23,8 +23,8 @@ def test_upstream_json_structure_and_hashes(third_party_dir: Path):
     assert data["pinned_tag"] == "v6.8"
     assert data["pinned_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
     assert data["selection_rationale"] is not None
-    assert data["vendored_files_count"] == 155
-    assert len(data["files"]) == 155
+    assert data["vendored_files_count"] == 164
+    assert len(data["files"]) == 164
     assert LOCAL_GENERATED_METADATA <= set(data["files"])
 
     # Verify byte-exact hashes for immutable upstream assets.  Generated
@@ -55,8 +55,8 @@ def test_license_inventory_platform_independence_and_no_blocked(third_party_dir:
     data = json.loads(license_inv_path.read_text(encoding="utf-8"))
     assert data["schema_version"] == "1.0.0"
     assert data["status_summary"]["BLOCKED_LICENSE_REVIEW"] == 0
-    assert data["total_vendored_files"] == 155
-    assert data["status_summary"]["VERIFIED_LGPL"] == 155
+    assert data["total_vendored_files"] == 164
+    assert data["status_summary"]["VERIFIED_LGPL"] == 164
 
     for item in data["items"]:
         assert "\\" not in item["path"], f"Non-POSIX path in license_inventory.json: {item['path']}"

@@ -223,8 +223,19 @@ def inventory_junit_tests(upstream_dir: Path) -> Dict[str, Any]:
         rel_posix = path.relative_to(upstream_dir).as_posix()
         content = path.read_text(encoding="utf-8")
 
-        # Find test methods
-        test_methods = re.findall(r"public\s+void\s+([A-Za-z0-9_]+)\s*\(\s*\)", content)
+        # Find the locally declared @Test methods.  Task 0013 corrected this
+        # scan: the previous pattern matched every no-argument `public void`
+        # method (so JUnit @Before fixtures were counted) and missed
+        # `public final void` declarations such as
+        # RussianSynthesizerTest#testSynthesizeString and
+        # RussianSRXSentenceTokenizerTest#testTokenize.
+        stripped = re.sub(r"/\*.*?\*/", "", re.sub(r"//[^\n]*", "", content), flags=re.S)
+        test_methods = re.findall(
+            r"@Test\b[^;{]*?\b(?:public|protected|private)\s+(?:final\s+)?"
+            r"\w[\w.<>\[\]]*\s+(\w+)\s*\(",
+            stripped,
+            re.S,
+        )
         has_test_annot = bool(re.search(r"@Test\b", content))
 
         # Categorize component and strategy
@@ -269,7 +280,9 @@ def inventory_junit_tests(upstream_dir: Path) -> Dict[str, Any]:
         })
 
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.0.1",
+        "superseded_by": "compat/upstream_test_inventory_0013.json",
+        "scope": "locally declared @Test methods of the pinned Russian module test files",
         "total_test_files": len(test_files),
         "total_test_methods": sum(tf["test_method_count"] for tf in test_files),
         "test_files": test_files,

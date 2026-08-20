@@ -100,7 +100,10 @@ def test_russian_compound_rule(
     matches = engine.check_rule(text, "RU_COMPOUNDS")
     assert len(matches) == expected
     if suggestion is not None:
-        assert suggestion in matches[0].suggestions
+        # AbstractCompoundRuleTest#check asserts the exact suggestion list and
+        # its order, not mere membership.
+        assert expected == 1
+        assert list(matches[0].suggestions) == [suggestion]
 
 
 # --- RussianSimpleReplaceRuleTest ------------------------------------------

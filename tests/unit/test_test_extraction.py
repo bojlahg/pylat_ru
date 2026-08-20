@@ -120,3 +120,17 @@ def test_inventory_junit_tests_pinned_upstream_and_posix_paths(third_party_dir: 
     assert "RussianSynthesizerTest.java" in file_names
     assert "RussianSRXSentenceTokenizerTest.java" in file_names
     assert "DateCheckFilterTest.java" in file_names
+
+    # Task 0013: only @Test-annotated methods are counted, including the
+    # `public final void` declarations the original scan missed, and JUnit
+    # fixtures such as @Before setUp are not test methods.
+    assert res["schema_version"] == "1.0.1"
+    assert res["superseded_by"] == "compat/upstream_test_inventory_0013.json"
+    by_name = {tf["file_name"]: tf for tf in res["test_files"]}
+    assert by_name["RussianSynthesizerTest.java"]["test_methods"] == ["testSynthesizeString"]
+    assert by_name["RussianSRXSentenceTokenizerTest.java"]["test_methods"] == ["testTokenize"]
+    assert by_name["RussianConcurrencyTest.java"]["test_methods"] == []
+    assert by_name["RussianCompoundRuleTest.java"]["test_methods"] == ["testRule"]
+    assert by_name["RussianDashRuleTest.java"]["test_methods"] == ["testRule"]
+    for tf in res["test_files"]:
+        assert "setUp" not in tf["test_methods"], tf["file_name"]

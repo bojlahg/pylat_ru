@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0012_russian_spelling_compounds_replace_repeats",
-    "overall_state": "ORDINARY_JAVA_RULES_AND_XML_FILTERS_IMPLEMENTED",
+    "task_milestone": "0013_complete_upstream_russian_test_parity",
+    "overall_state": "COMPLETE_PINNED_RUSSIAN_TEST_PARITY",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -80,7 +80,13 @@
       "task_0012_rules_oracle_cases_total": 67,
       "task_0012_filter_oracle_cases_total": 10,
       "task_0012_combined_pipeline_oracle_cases_total": 15,
-      "task_0012_total_oracle_cases": 151
+      "task_0012_total_oracle_cases": 151,
+      "upstream_executable_methods_total": 24,
+      "upstream_contract_closure_total": 91,
+      "upstream_scenario_units_total": 261,
+      "task_0013_oracle_cases_total": 146,
+      "generic_core_evidence_sources_total": 13,
+      "tagger_dictionary_entries_total": 7176385
     },
     "russian_grammar_unification": {
       "equivalence_type_locator": "SUPPORTED",
@@ -264,23 +270,33 @@
         "inventory": "compat/russian_java_rules_inventory.json"
       },
       "upstream_tests": {
-        "status": "PARTIALLY_PORTED",
-        "upstream_test_files_total": 18,
-        "upstream_test_files_translated": 7,
-        "task_0009_python_test_functions_total": 42,
-        "task_0009_translated_assertions_total": 140,
-        "task_0009_oracle_parity_test_functions_total": 16,
-        "task_0009_python_tests_passed": 58,
-        "task_0010_upstream_source_test_files_total": 2,
-        "task_0010_upstream_source_methods_total": 7,
-        "task_0010_upstream_source_assertions_total": 17,
-        "task_0010_translated_python_functions_total": 7,
-        "task_0010_translated_assertions_total": 17,
-        "task_0011_upstream_source_test_files_inventoried": 12,
-        "task_0011_upstream_source_methods_inspected": 13,
-        "task_0011_direct_upstream_cases_represented": 27,
-        "task_0011_russian_verb_assertions_translated": 41,
-        "remaining_upstream_test_files_not_ported": 11
+        "status": "COMPLETE_PINNED_RUSSIAN_TEST_PARITY",
+        "inventory": "compat/upstream_test_inventory_0013.json",
+        "russian_module_test_files_total": 18,
+        "russian_module_test_files_accounted": 18,
+        "executable_methods_total": 24,
+        "executable_methods_mapped": 24,
+        "contract_closure_total": 91,
+        "scenario_units_total": 261,
+        "assertion_units_total": 150,
+        "ordinary_non_lm_contracts_total": 90,
+        "ordinary_non_lm_contracts_mapped": 90,
+        "ordinary_non_lm_scenario_units_total": 260,
+        "ordinary_non_lm_scenario_units_mapped": 260,
+        "direct_python_parity_mappings": 44,
+        "oracle_parity_mappings": 0,
+        "already_covered_equivalent_mappings": 18,
+        "not_executable_helper_mappings": 23,
+        "language_model_deferred_mappings": 1,
+        "not_applicable_with_proof_mappings": 5,
+        "blocked": 0,
+        "unmapped": 0,
+        "unknown": 0,
+        "generic_core_evidence_sources_total": 13,
+        "generic_core_evidence_sources_reconciled": 13,
+        "superseded_inventory": "compat/upstream_test_inventory.json",
+        "oracle_parity_generic_evidence_sources": 7,
+        "oracle_parity_cases": 146
       },
       "grammar_xml_examples": {
         "status": "ALL_RUNNABLE",
@@ -292,7 +308,7 @@
         "finding_parity": 1.0,
         "span_parity": 1.0,
         "suggestion_parity": 1.0,
-        "evaluation_state": "FILTER_0010_PARITY_VERIFIED",
+        "evaluation_state": "UPSTREAM_TEST_0013_PARITY_VERIFIED",
         "task_0009_oracle_evidence": {
           "evaluation_state": "UNIFICATION_0009_PARITY_VERIFIED",
           "synthetic_cases": 173,
@@ -339,6 +355,15 @@
           "same_rule_group_parity": "SUPPORTED",
           "suggestion_order_parity": "SUPPORTED",
           "full_observable_field_parity": 1.0
+        },
+        "task_0013_upstream_tests": {
+          "oracle_cases": 146,
+          "oracle_fixture": "tests/fixtures/oracle_upstream_tests_0013.json",
+          "semantic_signatures_unique": true,
+          "full_observable_field_parity": 1.0,
+          "core_evidence_sources_replayed_under_russian": 7,
+          "concurrency_parity": "SUPPORTED",
+          "state_isolation_parity": "SUPPORTED"
         }
       }
     },

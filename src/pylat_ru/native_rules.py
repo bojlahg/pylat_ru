@@ -74,6 +74,7 @@ class NativeRuleContext:
     sentences: tuple[SentenceUnit, ...]
     mapper: Utf16CodePointMapper
     token_spans: tuple[TokenSpan, ...]
+    sentence_token_spans: tuple[tuple[TokenSpan, ...], ...] = ()
 
 
 def _resource_lines(name: str) -> tuple[str, ...]:
@@ -97,6 +98,11 @@ class NativeRule:
     default_off = False
     priority = 0
     tags: tuple[str, ...] = ()
+    # Upstream ``Rule.getIncorrectExamples()`` / ``Rule.getCorrectExamples()``.
+    # The strings are the pinned LanguageTool 6.8 ``Example.wrong()`` /
+    # ``Example.fixed()`` literals, ``<marker>`` markup included.
+    incorrect_examples: tuple[str, ...] = ()
+    correct_examples: tuple[str, ...] = ()
 
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         self.registration_order = registration_order
@@ -141,54 +147,137 @@ class CommaWhitespaceRule(NativeRule):
     category_id = "TYPOGRAPHY"
     category_name = "Типографика"
     description = "Пробелы перед запятой или до и после скобок"
+    # pinned upstream examples: org/languagetool/language/Russian.java
+    incorrect_examples = (
+        "Не род<marker> ,</marker> а ум поставлю в воеводы.",
+    )
+    correct_examples = (
+        "Не род<marker>,</marker> а ум поставлю в воеводы.",
+    )
+
+    # Upstream CommaWhitespaceRule.FILE_EXTENSION - deliberately case sensitive:
+    # an all-lowercase or an all-uppercase 3-4 letter run, never mixed case.
+    _file_extension = re.compile(r"([a-z]{3,4}|[A-Z]{3,4}|ai|mp[34]|MP[34])(-.+)?")
+    _domain = re.compile(r"(?i)(com|org|net|int|edu|gov|mil|[a-z]{2})")
 
     @staticmethod
-    def _ws(token: str) -> bool:
-        return token != "\u200b" and (token.isspace() or token == "\u00a0")
+    def _is_field_code(token: str) -> bool:
+        """Upstream ``AnalyzedTokenReadings.isFieldCode`` (office field codes)."""
+        return token in ("\u0001", "\u0002")
+
+    @staticmethod
+    def _java_trim(token: str) -> str:
+        """``String.trim()``: strips code points <= U+0020 only."""
+        start, end = 0, len(token)
+        while start < end and ord(token[start]) <= 0x20:
+            start += 1
+        while end > start and ord(token[end - 1]) <= 0x20:
+            end -= 1
+        return token[start:end]
+
+    @classmethod
+    def _string_tools_is_whitespace(cls, token: str) -> bool:
+        """Upstream ``StringTools.isWhitespace``."""
+        if token in ("\u0001", "\u0002"):
+            return False
+        if token == "\ufeff":
+            return True
+        trimmed = cls._java_trim(token)
+        if not trimmed:
+            return True
+        if len(trimmed) == 1:
+            if token in ("\u200b", "\u00a0", "\u202f"):
+                return True
+            return trimmed.isspace()
+        return False
+
+    @classmethod
+    def _ws(cls, token: str) -> bool:
+        """Upstream ``CommaWhitespaceRule.isWhitespaceToken``.
+
+        ``AnalyzedTokenReadings.isWhitespace`` is computed from the token after
+        upstream's soft-hyphen cleanup, so a token made only of soft hyphens
+        counts as whitespace while ``getToken()`` still returns the original.
+        The empty SENT_START token is whitespace for the same reason.
+        """
+        cleaned = token.replace("\u00ad", "")
+        is_whitespace = cls._string_tools_is_whitespace(cleaned)
+        return (
+            is_whitespace or token == "\u00a0" or cls._is_field_code(token)
+        ) and token != "\u200b"
+
+    @staticmethod
+    def _is_digit_or_dot(token: str) -> bool:
+        """Upstream ``CommaWhitespaceRule.isDigitOrDot`` - first character only."""
+        return bool(token) and (token[0] == "." or token[0].isdigit())
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        tokens = context.token_spans
         out: list[NativeRuleFinding] = []
-        if tokens and tokens[0].text == ",":
-            out.append(self.finding(context, tokens[0].start, tokens[0].end, "Поставьте пробел после запятой, а не перед ней.", (", ",)))
-        for i, cur in enumerate(tokens):
+        # Upstream implements Rule.match(AnalyzedSentence): the loop state is
+        # rebuilt for every sentence and starts on the empty SENT_START token.
+        for unit, spans in zip(context.sentences, context.sentence_token_spans):
+            out.extend(self._match_sentence(context, unit, spans))
+        return out
+
+    def _match_sentence(
+        self,
+        context: NativeRuleContext,
+        unit: SentenceUnit,
+        spans: Sequence[TokenSpan],
+    ) -> list[NativeRuleFinding]:
+        out: list[NativeRuleFinding] = []
+        # (token text, start offset) including the leading SENT_START token.
+        tokens: list[tuple[str, int, int]] = [("", unit.start, unit.start)]
+        tokens.extend((span.text, span.start, span.end) for span in spans)
+        prev_white = False
+        for i in range(len(tokens)):
+            token, _, token_end = tokens[i]
+            is_whitespace = self._ws(token)
             if i == 0:
+                prev_white = is_whitespace and not self._is_field_code(token)
                 continue
-            prev = tokens[i - 1]
-            prev2 = tokens[i - 2] if i >= 2 else None
-            token, ptoken = cur.text, prev.text
-            pp = prev2.text if prev2 else ""
+            ptoken, prev_start, _ = tokens[i - 1]
+            pp, pp_start = (tokens[i - 2][0], tokens[i - 2][1]) if i >= 2 else ("", unit.start)
             msg = None
             repl = None
-            start = prev.start
+            start = prev_start
             suggestions: tuple[str, ...] = ()
-            if self._ws(token) and ptoken == "(":
+            two_suggestions = False
+            if is_whitespace and ptoken == "(":
                 msg, repl = "Не ставьте пробел после открывающейся скобки.", "("
-            elif self._ws(token) and ptoken in "'\"’”“«»" and pp == " ":
+            elif is_whitespace and ptoken in "'\"’”“«»" and pp == " ":
                 msg = "Не ставьте пробел у символа кавычек."
-                start = prev2.start if prev2 else prev.start
+                repl = ptoken
+                two_suggestions = True
+                start = pp_start
                 suggestions = (ptoken + " ", " " + ptoken)
-            elif not self._ws(token) and ptoken == "," and token not in "'\"’”“«»- ," and not any(c.isdigit() for c in pp + token) and pp != ",":
+            elif not is_whitespace and ptoken == "," and token not in "'\"’”“«»- ," and not any(c.isdigit() for c in pp + token) and pp != ",":
                 msg, repl = "Поставьте пробел после запятой.", ", " + token
-            elif self._ws(ptoken):
+            elif prev_white:
                 if token == ")":
                     msg, repl = "Не ставьте пробел до закрывающейся скобки.", ")"
-                elif token == "," and not (i + 1 < len(tokens) and tokens[i + 1].text == ","):
+                elif token == "," and not (i + 1 < len(tokens) and tokens[i + 1][0] == ","):
                     msg = "Поставьте пробел после запятой, а не перед ней."
-                    repl = ", " if i + 1 < len(tokens) and not self._ws(tokens[i + 1].text) else ","
+                    repl = ", " if i + 1 < len(tokens) and not self._ws(tokens[i + 1][0]) else ","
                 elif token == ".":
-                    if pp == ".":
-                        continue
-                    nxt = tokens[i + 1].text if i + 1 < len(tokens) else ""
-                    nxt2 = tokens[i + 2].text if i + 2 < len(tokens) else ""
-                    domain = bool(re.fullmatch(r"(?i)(com|org|net|int|edu|gov|mil|[a-z]{2})", nxt))
-                    ext = bool(re.fullmatch(r"(?i)([a-z]{3,4}|ai|mp[34])(-.+)?", nxt))
-                    if not domain and not ext and not (nxt and (nxt[0].isdigit() or nxt[0] == ".")) and not (nxt == "/" and re.fullmatch(r"[a-zA-Z]+", nxt2)):
+                    nxt = tokens[i + 1][0] if i + 1 < len(tokens) else ""
+                    nxt2 = tokens[i + 2][0] if i + 2 < len(tokens) else ""
+                    if not self._domain.fullmatch(nxt) and not self._file_extension.fullmatch(nxt):
                         msg, repl = "Не ставьте пробел перед точкой в конце предложения.", "."
+                        if self._is_digit_or_dot(nxt):
+                            msg = None  # figures such as ".5" and ellipsis
+                        elif nxt == "/" and re.fullmatch(r"[a-zA-Z]+", nxt2):
+                            msg = None  # commands like "./validate.sh"
+            if msg is not None and not two_suggestions and token_end < unit.end:
+                # Upstream skips the match when the marked text already equals
+                # the single suggested replacement.
+                if context.text[start:token_end] == repl:
+                    msg = None
             if msg:
                 if not suggestions:
                     suggestions = (repl or "",)
-                out.append(self.finding(context, start, cur.end, msg, suggestions))
+                out.append(self.finding(context, start, token_end, msg, suggestions))
+            prev_white = is_whitespace and not self._is_field_code(token)
         return out
 
 
@@ -197,6 +286,14 @@ class UppercaseSentenceStartRule(NativeRule):
     category_id = "CASING"
     category_name = "Заглавные буквы"
     description = "Предложение должно начинаться с заглавной буквы"
+    # pinned upstream examples: org/languagetool/language/Russian.java
+    incorrect_examples = (
+        "Закончилось лето. <marker>дети</marker> снова сели за школьные парты.",
+    )
+    correct_examples = (
+        "Закончилось лето. <marker>Дети</marker> снова сели за школьные парты.",
+    )
+
     _quotes = frozenset("\"'„»«“‘¡¿")
     _exceptions = {"n", "w", "x86", "ⓒ", "ø", "cc", "pH", "heylogin"}
 
@@ -499,6 +596,13 @@ class RussianUnpairedBracketsRule(NativeRule):
     description = "Непарные скобки или апострофы"
     starts = ("(", "{", "„", "\"", "'", "“")
     ends = (")", "}", "“", "\"", "'", "”")
+    # pinned upstream examples: org/languagetool/rules/ru/RussianUnpairedBracketsRule.java
+    incorrect_examples = (
+        "Самоотверженный поступок Оленина <marker>(</marker>подарок Лукашке коня вызывает лишь удивление и усиливает недоверие к нему станичников.",
+    )
+    correct_examples = (
+        "Самоотверженный поступок Оленина <marker>(</marker>подарок Лукашке коня) вызывает лишь удивление и усиливает недоверие к нему станичников.",
+    )
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         stack: list[tuple[str, TokenSpan, bool]] = []
@@ -556,6 +660,13 @@ class RussianVerbConjugationRule(NativeRule):
     pronoun = re.compile(r"PNN:(.*):Nom:(.*)")
     future = re.compile(r"VB:(Fut|Real):(.*):(.*):(.*):(.*)")
     past = re.compile(r"VB:Past:(.*):(.*):(.*)")
+    # pinned upstream examples: org/languagetool/rules/ru/RussianVerbConjugationRule.java
+    incorrect_examples = (
+        "<marker>Я идёт</marker>.",
+    )
+    correct_examples = (
+        "<marker>Я иду</marker>.",
+    )
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
@@ -660,6 +771,14 @@ class RussianSpecificCaseRule(NativeRule):
     description = "Написание специальных наименований в верхнем или нижнем регистре"
     # Russian.java contains an orphan priority key RUSSIAN_SPECIFIC_CASE; it
     # does not match this pinned rule ID, so the effective priority is 0.
+    # pinned upstream examples: org/languagetool/rules/ru/RussianSpecificCaseRule.java
+    incorrect_examples = (
+        "Река <marker>рытый банк</marker> находится в Прикаспийской низменности.",
+    )
+    correct_examples = (
+        "Река <marker>Рытый Банк</marker> находится в Прикаспийской низменности",
+    )
+
     _phrases = tuple(line.strip() for line in _resource_lines("specific_case.txt") if line.strip() and not line.startswith("#"))
     _proper = {p.lower(): p for p in _phrases}
     _max_len = max(len(p.split()) for p in _phrases)
@@ -815,6 +934,13 @@ class MorfologikRussianSpellerRule(_SpellerRuleBase):
     # Russian.java configures MORFOLOGIC_RULE_RU_RU (a typo), which never binds
     # the actual rule id, so the effective priority stays at the base value.
     priority = 0
+    # pinned upstream examples: org/languagetool/rules/ru/MorfologikRussianSpellerRule.java
+    incorrect_examples = (
+        "Все счастливые семьи похожи друг на друга, <marker>каждя</marker> несчастливая семья несчастлива по-своему.",
+    )
+    correct_examples = (
+        "Все счастливые семьи похожи друг на друга, <marker>каждая</marker> несчастливая семья несчастлива по-своему.",
+    )
 
 
 class MorfologikRussianYOSpellerRule(_SpellerRuleBase):
@@ -824,6 +950,13 @@ class MorfologikRussianYOSpellerRule(_SpellerRuleBase):
     default_off = True
     # Russian.java configures MORFOLOGIC_RULE_RU_RU_YO (a typo) -> orphan key.
     priority = 0
+    # pinned upstream examples: org/languagetool/rules/ru/MorfologikRussianYOSpellerRule.java
+    incorrect_examples = (
+        "Все счастливые семьи похожи друг на друга, <marker>каждя</marker> несчастливая семья несчастлива по-своему.",
+    )
+    correct_examples = (
+        "Все счастливые семьи похожи друг на друга, <marker>каждая</marker> несчастливая семья несчастлива по-своему.",
+    )
 
 
 @dataclass(frozen=True)
@@ -925,6 +1058,13 @@ class RussianCompoundRule(NativeRule):
     WITH_HYPHEN_MESSAGE = "Эти слова должны быть написаны через дефис."
     WITHOUT_HYPHEN_MESSAGE = "Эти слова должны быть написаны слитно."
     WITH_OR_WITHOUT_HYPHEN_MESSAGE = "Эти слова могут быть написаны через дефис или слитно."
+    # pinned upstream examples: org/languagetool/rules/ru/RussianCompoundRule.java
+    incorrect_examples = (
+        "Собрание состоится в <marker>конференц зале</marker>.",
+    )
+    correct_examples = (
+        "Собрание состоится в <marker>конференц-зале</marker>.",
+    )
 
     _data: _CompoundRuleData | None = None
 
@@ -1088,6 +1228,13 @@ class RussianSimpleReplaceRule(NativeRule):
     suggestions_separator = ", "
     # Russian.java configures RUSSIAN_SIMPLE_REPLACE_RULE, not RU_SIMPLE_REPLACE.
     priority = 0
+    # pinned upstream examples: org/languagetool/rules/ru/RussianSimpleReplaceRule.java
+    incorrect_examples = (
+        "<marker>Экспрессо</marker> – крепкий кофе, приготовленный из хорошо обжаренных и тонко помолотых кофейных зёрен.",
+    )
+    correct_examples = (
+        "<marker>Эспрессо</marker> – крепкий кофе, приготовленный из хорошо обжаренных и тонко помолотых кофейных зёрен.",
+    )
 
     _maps: tuple[dict[str, int], dict[str, int], dict[str, _SuggestionWithMessage], dict[str, _SuggestionWithMessage]] | None = None
 
@@ -1472,6 +1619,14 @@ class RussianWordCoherencyRule(_WordCoherencyRuleBase):
         "Единообразное написание слов с более чем одним допустимым написанием"
     )
     resource_name = "coherency.txt"
+    # pinned upstream examples: org/languagetool/rules/ru/RussianWordCoherencyRule.java
+    incorrect_examples = (
+        "Понятие «оффлайн» тоже имеет английские корни и связано со словом «offline», что означает «вне сети». Принтер перешёл в состояние <marker>офлайн</marker>.",
+    )
+    correct_examples = (
+        "Понятие «оффлайн» тоже имеет английские корни и связано со словом «offline», что означает «вне сети». Принтер перешёл в состояние <marker>оффлайн</marker>.",
+    )
+
     _word_map = None
 
     def build_message(self, word1: str, word2: str) -> str:
@@ -1487,6 +1642,14 @@ class RussianWordRootRepeatRule(_WordCoherencyRuleBase):
     default_off = True
     # Russian.java configures Word_root_repeat = -1, which never binds RU_WORD_ROOT_REPEAT.
     priority = 0
+    # pinned upstream examples: org/languagetool/rules/ru/RussianWordRootRepeatRule.java
+    incorrect_examples = (
+        "Абрикос рос в саду. У меня на столе стоит <marker>абрикосный</marker> сок.",
+    )
+    correct_examples = (
+        "Абрикос рос в саду. У меня на столе стоит сок из <marker>абрикосов</marker>.",
+    )
+
     _word_map = None
 
     def build_message(self, word1: str, word2: str) -> str:
@@ -1520,6 +1683,13 @@ class RussianWordRepeatRule(NativeRule):
     message = "Повтор слов в предложении"
     short_message = "Повтор слов в предложении"
     default_off = True
+    # pinned upstream examples: org/languagetool/rules/ru/RussianWordRepeatRule.java
+    incorrect_examples = (
+        "Всё смешалось в <marker>доме доме</marker> Облонских.",
+    )
+    correct_examples = (
+        "Всё смешалось в <marker>доме</marker> Облонских.",
+    )
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out: list[NativeRuleFinding] = []
@@ -1699,8 +1869,21 @@ class RussianJavaRulesEngine:
             analyzed.text = span.text
             self._chunker.chunk(analyzed)
             units.append(SentenceUnit(span.text, span.start, span.end, analyzed))
-        token_spans = tokens_to_spans(self._word_tokenizer.tokenize(text), mapper=mapper)
-        return NativeRuleContext(text, tuple(units), mapper, token_spans)
+        # Upstream tokenises every AnalyzedSentence from its own text, so the
+        # word tokenizer never sees the sentence boundary.  Tokenising the whole
+        # text at once would merge tokens across that boundary (for example
+        # ". Los" at the end of one sentence and the start of the next).
+        per_sentence: list[tuple[TokenSpan, ...]] = []
+        for unit in units:
+            per_sentence.append(
+                tokens_to_spans(
+                    self._word_tokenizer.tokenize(unit.text),
+                    base_offset=unit.start,
+                    mapper=mapper,
+                )
+            )
+        token_spans = tuple(span for spans in per_sentence for span in spans)
+        return NativeRuleContext(text, tuple(units), mapper, token_spans, tuple(per_sentence))
 
     def check_context(self, context: NativeRuleContext, include_disabled: bool = False) -> list[NativeRuleFinding]:
         findings = []

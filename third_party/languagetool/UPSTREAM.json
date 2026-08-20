@@ -5,7 +5,7 @@
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
-  "vendored_files_count": 155,
+  "vendored_files_count": 164,
   "files": {
     "COPYING.txt": {
       "size": 26432,
@@ -227,6 +227,22 @@
       "size": 454892,
       "sha256": "5d60620185f07c751eff8dfcee31ebc7071fbb945fdb0d4502594de21ca4a4df"
     },
+    "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java": {
+      "size": 20759,
+      "sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    "languagetool-core/src/test/java/org/languagetool/TestTools.java": {
+      "size": 7826,
+      "sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    "languagetool-core/src/test/java/org/languagetool/language/AbstractLanguageConcurrencyTest.java": {
+      "size": 3645,
+      "sha256": "166ffd71f746dc36b1aacec018d3e975478188dd4dce5eb6ea24ad18aa5c6cf4"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/AbstractCompoundRuleTest.java": {
+      "size": 3834,
+      "sha256": "6a3f3f6da1de7eae17227a1d0a5962f4bc361ed25499c10aa684573c60e2a4ab"
+    },
     "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java": {
       "size": 6672,
       "sha256": "9f84bc4c0564cc96ea0275da84d6f801ebb78018f87fa1c3e4bdd984e16ca6dc"
@@ -259,6 +275,14 @@
       "size": 3815,
       "sha256": "3b9ef74ba85994e6e88acc1f062ad27a490ea9234b18e289249a10483d66f4f0"
     },
+    "languagetool-core/src/test/java/org/languagetool/rules/WordListValidatorTest.java": {
+      "size": 8777,
+      "sha256": "20bb4465574d6bbec960131259c287f4b82330a729a81e1595b535c30f8d6164"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/AbstractPatternRuleTest.java": {
+      "size": 4570,
+      "sha256": "a3eaac899cb45e5cc5ca2adaa86f399f20f4a68ace6424f5f63ec38935d5c3a2"
+    },
     "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java": {
       "size": 16047,
       "sha256": "9b4adb24e4e92715ccfaf76a527001b9c01abf6b9f721b98efac1ffd3f3212ca"
@@ -275,9 +299,21 @@
       "size": 3323,
       "sha256": "45ee3705fb0fdeac3398581ab5d9599c4e80bca75a47661c1d99f51388680cc3"
     },
+    "languagetool-core/src/test/java/org/languagetool/rules/patterns/RuleIdValidator.java": {
+      "size": 4242,
+      "sha256": "06b3471a14e2319ac3c3fa8ca7b230bd316d2a19c33aef0b0a67ade8227b18a8"
+    },
     "languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java": {
       "size": 25704,
       "sha256": "095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b"
+    },
+    "languagetool-core/src/test/java/org/languagetool/rules/spelling/SpellcheckerTest.java": {
+      "size": 2767,
+      "sha256": "1b8b688a6b15863090afdb302e3406c89eb3a53a8df91b9e9600f36edb98fe91"
+    },
+    "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java": {
+      "size": 11446,
+      "sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
     },
     "languagetool-language-modules/ru/pom.xml": {
       "size": 2752,

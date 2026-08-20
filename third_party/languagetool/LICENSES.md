@@ -22,6 +22,7 @@ All vendored upstream assets for the Russian language module in LanguageTool are
 | `languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/` (`ru_RU.dict`, `ru_RU_yo.dict`, wordlists) | AOT.ru / Yakov Reztsov | LGPL-2.1-or-later | `VERIFIED_LGPL` | Russian spell-checking Morfologik dictionaries and frequency data |
 | `languagetool-language-modules/ru/src/main/java/` (Java rules, filters, tokenizers, taggers) | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Reference Java implementations for Russian rules & filters |
 | `languagetool-language-modules/ru/src/test/java/` (JUnit tests) | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Upstream test cases for conformance verification |
+| `languagetool-core/src/test/java/` (JUnit base/helper classes) | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Base/helper test classes whose inherited behaviour defines the Russian test contracts (Task 0013) |
 | `languagetool-core/src/main/resources/org/languagetool/resource/segment.srx` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | SRX sentence segmentation definitions |
 | `languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Globally accepted spellings loaded by `SpellingCheckRule` for every language |
 | `languagetool-core/src/main/java/org/languagetool/rules/` and `.../rules/spelling/` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Generic rule and spelling base classes inherited by the Russian rules |
@@ -29,8 +30,8 @@ All vendored upstream assets for the Russian language module in LanguageTool are
 
 ## Review & Verification Findings
 
-- Total vendored files: **155**
-- Verified LGPL files: **155**
+- Total vendored files: **164**
+- Verified LGPL files: **164**
 - Files with unclear license / blocked items: **0** (`BLOCKED_LICENSE_REVIEW` count: 0)
 
 All Russian dictionary files include explicit upstream provenance declarations (`README.txt` files citing `www.aot.ru` / `github.com/sokirko74/aot` under LGPL).

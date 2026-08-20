@@ -1,0 +1,3975 @@
+{
+  "schema_version": "1.0.0",
+  "task": "0013_complete_upstream_russian_test_parity",
+  "generated_by": "tools/inventory_upstream_tests_0013.py",
+  "pinned_upstream": {
+    "repository": "https://github.com/languagetool-org/languagetool.git",
+    "tag": "v6.8",
+    "commit": "e807fcde6a6506191e1470744d2345da28c26be6"
+  },
+  "status_enum": [
+    "DIRECT_PYTHON_PARITY",
+    "ORACLE_PARITY",
+    "ALREADY_COVERED_EQUIVALENTLY",
+    "NOT_EXECUTABLE_HELPER",
+    "LANGUAGE_MODEL_DEFERRED",
+    "NOT_APPLICABLE_WITH_PROOF",
+    "BLOCKED"
+  ],
+  "counting_rule": {
+    "unit_of_account": "parenthesis-depth-0 invocation inside an executable method body",
+    "assertion_call": "one JUnit/Hamcrest assertion call = one assertion unit",
+    "throw_guard": "one `throw new X(...)` fail-closed guard = one assertion unit",
+    "delegation": "one call to a method declared by the same class or a vendored superclass (including `new Helper(...).method(...)`) = one scenario unit, and the target is itself inventoried",
+    "vector_loop": "a for-each over a field initialised from a literal collection contributes len(unique elements) * (units inside the loop body); the invocations inside the loop body are not counted again",
+    "nested_calls": "invocations nested inside another invocation's argument list are arguments, not scenarios",
+    "comments": "commented-out code is never counted",
+    "setup": "allow-listed construction/accessor/plumbing calls contribute zero units",
+    "fail_closed": "an unclassified depth-0 invocation aborts the extraction rather than being silently skipped"
+  },
+  "tagger_dictionary_audit": {
+    "tool": "tools/audit_tagger_dictionary_0013.py",
+    "dictionary_path": "src/pylat_ru/resources/ru/russian.dict",
+    "dictionary_sha256": "387f9fcf652a574c9d361397c30aa87ef6f7397a76d3d51cd04c94e8dcbc4015",
+    "dictionary_size_bytes": 2322253,
+    "entries_total": 7176385,
+    "entries_without_pos_tag": 0,
+    "upstream_contract": "TestTools.testDictionary reads the tagger dictionary, iterates every WordData entry and warns (never fails) about entries lacking a POS tag"
+  },
+  "russian_module_test_files": [
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java",
+      "source_sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254",
+      "source_size_bytes": 1335,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.RussianConcurrencyTest",
+      "extends": "AbstractLanguageConcurrencyTest",
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [],
+      "inherited_test_methods": [
+        {
+          "java_class": "org.languagetool.language.AbstractLanguageConcurrencyTest",
+          "method": "testSpellCheckerFailure",
+          "declared_parameters": 0,
+          "key": "org.languagetool.language.AbstractLanguageConcurrencyTest#testSpellCheckerFailure/0",
+          "signature": "public void testSpellCheckerFailure()",
+          "source_line": 42,
+          "annotations": [
+            "@Ignore(\"too slow to run every time\")",
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": true,
+          "upstream_ignore_reason": "too slow to run every time",
+          "inherited_from": "org.languagetool.RussianConcurrencyTest",
+          "assertion_units": 1,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.RussianConcurrencyTest",
+          "method": "createLanguage",
+          "declared_parameters": 0,
+          "key": "org.languagetool.RussianConcurrencyTest#createLanguage/0",
+          "signature": "protected Language createLanguage()",
+          "source_line": 26,
+          "annotations": [
+            "@Override"
+          ],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 0,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.RussianConcurrencyTest",
+          "method": "createSampleText",
+          "declared_parameters": 0,
+          "key": "org.languagetool.RussianConcurrencyTest#createSampleText/0",
+          "signature": "protected String createSampleText()",
+          "source_line": 31,
+          "annotations": [
+            "@Override"
+          ],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 0,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 1,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/DateCheckFilterTest.java",
+      "source_sha256": "995d5a5c44fa80394ddee6278e279d0a04dec1047522fae3cba5e0401a657e22",
+      "source_size_bytes": 2067,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.DateCheckFilterTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.DateCheckFilterTest",
+          "method": "testGetDayOfWeek",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.DateCheckFilterTest#testGetDayOfWeek/0",
+          "signature": "public void testGetDayOfWeek()",
+          "source_line": 29,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 4,
+          "scenario_units": 4,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.DateCheckFilterTest",
+          "method": "testMonth",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.DateCheckFilterTest#testMonth/0",
+          "signature": "public void testMonth()",
+          "source_line": 43,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 5,
+          "scenario_units": 5,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 2,
+      "scenario_unit_count": 9,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/LanguageSpecificSpellcheckerTest.java",
+      "source_sha256": "b7873cd617a1c88da42e4f3ae2d7f6e28a4c98fce455d7eadce10cc544bc8e21",
+      "source_size_bytes": 1174,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.LanguageSpecificSpellcheckerTest",
+      "extends": "SpellcheckerTest",
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.LanguageSpecificSpellcheckerTest",
+          "method": "testRules",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.LanguageSpecificSpellcheckerTest#testRules/0",
+          "signature": "public void testRules()",
+          "source_line": 29,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.spelling.SpellcheckerTest#runLanguageSpecificTest/0"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 1,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianSpellerRuleTest.java",
+      "source_sha256": "9e6698d9c77db5def7dd5402954d8b1d4cbfd08a01d7736b62a30c1b5f769d62",
+      "source_size_bytes": 2307,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.MorfologikRussianSpellerRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.MorfologikRussianSpellerRuleTest",
+          "method": "testMorfologikSpeller",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.MorfologikRussianSpellerRuleTest#testMorfologikSpeller/0",
+          "signature": "public void testMorfologikSpeller()",
+          "source_line": 34,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 7,
+          "scenario_units": 7,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 7,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRuleTest.java",
+      "source_sha256": "8f0c995503f53b3300f9bb393fdf2472815392af8fa347d7b0ac6d1b22ada0dc",
+      "source_size_bytes": 2346,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.MorfologikRussianYOSpellerRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.MorfologikRussianYOSpellerRuleTest",
+          "method": "testMorfologikSpeller",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.MorfologikRussianYOSpellerRuleTest#testMorfologikSpeller/0",
+          "signature": "public void testMorfologikSpeller()",
+          "source_line": 34,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 6,
+          "scenario_units": 6,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 6,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianCompoundRuleTest.java",
+      "source_sha256": "0100a70daad3cae39a398dd2304e58c87153a84f3c49d1bcfb98326ec804cc3f",
+      "source_size_bytes": 3447,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianCompoundRuleTest",
+      "extends": "AbstractCompoundRuleTest",
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianCompoundRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianCompoundRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 45,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 19,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.AbstractCompoundRuleTest#check/2",
+            "org.languagetool.rules.AbstractCompoundRuleTest#check/3"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianCompoundRuleTest",
+          "method": "setUp",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianCompoundRuleTest#setUp/0",
+          "signature": "public void setUp()",
+          "source_line": 39,
+          "annotations": [
+            "@Before"
+          ],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 0,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 19,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java",
+      "source_sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13",
+      "source_size_bytes": 3040,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianDashRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 45,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 5,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.ru.RussianDashRuleTest#check/2",
+            "org.languagetool.rules.ru.RussianDashRuleTest#check/3"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+          "method": "setUp",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianDashRuleTest#setUp/0",
+          "signature": "public void setUp()",
+          "source_line": 38,
+          "annotations": [
+            "@Before"
+          ],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 0,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+          "method": "check",
+          "declared_parameters": 2,
+          "key": "org.languagetool.rules.ru.RussianDashRuleTest#check/2",
+          "signature": "private void check(int expectedErrors, String text)",
+          "source_line": 55,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.ru.RussianDashRuleTest#check/3"
+          ]
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+          "method": "check",
+          "declared_parameters": 3,
+          "key": "org.languagetool.rules.ru.RussianDashRuleTest#check/3",
+          "signature": "private void check(int expectedErrors, String text, String[] expSuggestions)",
+          "source_line": 59,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 4,
+          "scenario_units": 4,
+          "throw_guards": 1,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 5,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianPatternRuleTest.java",
+      "source_sha256": "aed0367fa0bc2a404efef54885bd31e254949fe15b66ec6e986a48d446782a02",
+      "source_size_bytes": 1163,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianPatternRuleTest",
+      "extends": "PatternRuleTest",
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianPatternRuleTest",
+          "method": "testRules",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianPatternRuleTest#testRules/0",
+          "signature": "public void testRules()",
+          "source_line": 29,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.patterns.PatternRuleTest#runGrammarRulesFromXmlTest/0"
+          ]
+        }
+      ],
+      "inherited_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+          "method": "testSupportsLanguage",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.patterns.PatternRuleTest#testSupportsLanguage/0",
+          "signature": "public void testSupportsLanguage()",
+          "source_line": 112,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": "org.languagetool.rules.ru.RussianPatternRuleTest",
+          "assertion_units": 6,
+          "scenario_units": 6,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.rules.patterns.AbstractPatternRuleTest",
+          "method": "shortMessageIsLongerThanErrorMessage",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.patterns.AbstractPatternRuleTest#shortMessageIsLongerThanErrorMessage/0",
+          "signature": "public void shortMessageIsLongerThanErrorMessage()",
+          "source_line": 33,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": "org.languagetool.rules.ru.RussianPatternRuleTest",
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.patterns.AbstractPatternRuleTest#warnIfShortMessageLongerThanErrorMessage/1"
+          ]
+        }
+      ],
+      "declared_helper_methods": [],
+      "executable_method_count": 3,
+      "scenario_unit_count": 8,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSimpleReplaceRuleTest.java",
+      "source_sha256": "eeae67ae0082331540613560250ecce1033aa0eb7f693c62624e76f0103d90a7",
+      "source_size_bytes": 2054,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianSimpleReplaceRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianSimpleReplaceRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianSimpleReplaceRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 35,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 5,
+          "scenario_units": 5,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 5,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSpecificCaseRuleTest.java",
+      "source_sha256": "fd9140318292318209f138640bae60b899c2df7a333de30215c0567657e48440",
+      "source_size_bytes": 2433,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 38,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 4,
+          "scenario_units": 9,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertBad/1",
+            "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertGood/1"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+          "method": "assertGood",
+          "declared_parameters": 1,
+          "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertGood/1",
+          "signature": "private void assertGood(String input)",
+          "source_line": 51,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 1,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+          "method": "assertBad",
+          "declared_parameters": 1,
+          "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertBad/1",
+          "signature": "private RuleMatch[] assertBad(String input)",
+          "source_line": 55,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 1,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 9,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianTest.java",
+      "source_sha256": "f79b1ad05d72bf54b860a7237bc944c031e2b554fd9549d64dca14183104abbd",
+      "source_size_bytes": 1684,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianTest",
+      "extends": "LanguageSpecificTest",
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianTest",
+          "method": "testLanguage",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianTest#testLanguage/0",
+          "signature": "public void testLanguage()",
+          "source_line": 31,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 2,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.LanguageSpecificTest#runTests/1",
+            "org.languagetool.LanguageSpecificTest#testDemoText/3"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 2,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianUnpairedBracketsRuleTest.java",
+      "source_sha256": "05d4f2dd486bc40556c368d4b2c6634a5da64a55e8e8944683609c496afc6d64",
+      "source_size_bytes": 2636,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianUnpairedBracketsRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianUnpairedBracketsRuleTest",
+          "method": "testRuleRussian",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianUnpairedBracketsRuleTest#testRuleRussian/0",
+          "signature": "public void testRuleRussian()",
+          "source_line": 36,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 5,
+          "scenario_units": 5,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 5,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianVerbConjugationRuleTest.java",
+      "source_sha256": "c985c7d3045da2aea7df5b9dbdf5635decc457d9c06779212db45fdddd6743a7",
+      "source_size_bytes": 3205,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianVerbConjugationRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianVerbConjugationRuleTest",
+          "method": "testRussianVerbConjugationRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianVerbConjugationRuleTest#testRussianVerbConjugationRule/0",
+          "signature": "public void testRussianVerbConjugationRule()",
+          "source_line": 46,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 41,
+          "scenario_units": 41,
+          "throw_guards": 0,
+          "vector_loops": [
+            {
+              "field": "wrongSentences",
+              "elements": 19,
+              "units_per_element": 1
+            },
+            {
+              "field": "rightSentences",
+              "elements": 22,
+              "units_per_element": 1
+            }
+          ],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 41,
+      "literal_vectors": {
+        "rightSentences": 22,
+        "wrongSentences": 19
+      }
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11",
+      "source_size_bytes": 3429,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 37,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 3,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertError/1",
+            "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1"
+          ]
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+          "method": "testCallIndependence",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testCallIndependence/0",
+          "signature": "public void testCallIndependence()",
+          "source_line": 44,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 2,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1"
+          ]
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+          "method": "testRuleCompleteTexts",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testRuleCompleteTexts/0",
+          "signature": "public void testRuleCompleteTexts()",
+          "source_line": 62,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 3,
+          "scenario_units": 3,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+          "method": "assertError",
+          "declared_parameters": 1,
+          "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertError/1",
+          "signature": "private void assertError(String s)",
+          "source_line": 49,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 1,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        },
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+          "method": "assertGood",
+          "declared_parameters": 1,
+          "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1",
+          "signature": "private void assertGood(String s)",
+          "source_line": 55,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 1,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 3,
+      "scenario_unit_count": 8,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordRepeatRuleTest.java",
+      "source_sha256": "0c3464fa95158b4e81b9e0cb2dc8d241f35b570bed487c37853c5c7f7812469e",
+      "source_size_bytes": 1768,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.rules.ru.RussianWordRepeatRuleTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.rules.ru.RussianWordRepeatRuleTest",
+          "method": "testRule",
+          "declared_parameters": 0,
+          "key": "org.languagetool.rules.ru.RussianWordRepeatRuleTest#testRule/0",
+          "signature": "public void testRule()",
+          "source_line": 35,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 2,
+          "scenario_units": 2,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 1,
+      "scenario_unit_count": 2,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java",
+      "source_sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d",
+      "source_size_bytes": 1725,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.synthesis.ru.RussianSynthesizerTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.synthesis.ru.RussianSynthesizerTest",
+          "method": "testSynthesizeString",
+          "declared_parameters": 0,
+          "key": "org.languagetool.synthesis.ru.RussianSynthesizerTest#testSynthesizeString/0",
+          "signature": "public final void testSynthesizeString()",
+          "source_line": 37,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 3,
+          "scenario_units": 3,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.synthesis.ru.RussianSynthesizerTest",
+          "method": "dummyToken",
+          "declared_parameters": 1,
+          "key": "org.languagetool.synthesis.ru.RussianSynthesizerTest#dummyToken/1",
+          "signature": "private AnalyzedToken dummyToken(String tokenStr)",
+          "source_line": 32,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 0,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": []
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 3,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tagging/ru/RussianTaggerTest.java",
+      "source_sha256": "fcf14eaa3fa59d83d9180caa8d35c937717b5e6dd000f900006ee98c92ab3205",
+      "source_size_bytes": 3208,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.tagging.ru.RussianTaggerTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.tagging.ru.RussianTaggerTest",
+          "method": "testDictionary",
+          "declared_parameters": 0,
+          "key": "org.languagetool.tagging.ru.RussianTaggerTest#testDictionary/0",
+          "signature": "public void testDictionary()",
+          "source_line": 31,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.TestTools#testDictionary/2"
+          ]
+        },
+        {
+          "java_class": "org.languagetool.tagging.ru.RussianTaggerTest",
+          "method": "testTagger",
+          "declared_parameters": 0,
+          "key": "org.languagetool.tagging.ru.RussianTaggerTest#testTagger/0",
+          "signature": "public void testTagger()",
+          "source_line": 36,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 4,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.TestTools#myAssert/4"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [],
+      "executable_method_count": 2,
+      "scenario_unit_count": 5,
+      "literal_vectors": {}
+    },
+    {
+      "source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java",
+      "source_sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c",
+      "source_size_bytes": 2800,
+      "module": "languagetool-language-modules/ru",
+      "java_class": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest",
+      "extends": null,
+      "file_classification": "EXECUTABLE_TEST_CLASS",
+      "declared_test_methods": [
+        {
+          "java_class": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest",
+          "method": "testTokenize",
+          "declared_parameters": 0,
+          "key": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testTokenize/0",
+          "signature": "public final void testTokenize()",
+          "source_line": 33,
+          "annotations": [
+            "@Test"
+          ],
+          "is_test": true,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 9,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testSplit/1"
+          ]
+        }
+      ],
+      "inherited_test_methods": [],
+      "declared_helper_methods": [
+        {
+          "java_class": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest",
+          "method": "testSplit",
+          "declared_parameters": 1,
+          "key": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testSplit/1",
+          "signature": "private void testSplit(final String... sentences)",
+          "source_line": 48,
+          "annotations": [],
+          "is_test": false,
+          "upstream_ignored": false,
+          "upstream_ignore_reason": "",
+          "inherited_from": null,
+          "assertion_units": 0,
+          "scenario_units": 1,
+          "throw_guards": 0,
+          "vector_loops": [],
+          "delegates_to": [
+            "org.languagetool.TestTools#testSplit/2"
+          ]
+        }
+      ],
+      "executable_method_count": 1,
+      "scenario_unit_count": 9,
+      "literal_vectors": {}
+    }
+  ],
+  "contract_closure": [
+    {
+      "java_class": "org.languagetool.RussianConcurrencyTest",
+      "method": "createLanguage",
+      "declared_parameters": 0,
+      "key": "org.languagetool.RussianConcurrencyTest#createLanguage/0",
+      "signature": "protected Language createLanguage()",
+      "source_line": 26,
+      "annotations": [
+        "@Override"
+      ],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java",
+      "declaring_source_sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254"
+    },
+    {
+      "java_class": "org.languagetool.RussianConcurrencyTest",
+      "method": "createSampleText",
+      "declared_parameters": 0,
+      "key": "org.languagetool.RussianConcurrencyTest#createSampleText/0",
+      "signature": "protected String createSampleText()",
+      "source_line": 31,
+      "annotations": [
+        "@Override"
+      ],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/RussianConcurrencyTest.java",
+      "declaring_source_sha256": "77e57be01adef655d86a6d068a3fd80b227c7e0cea341636ee5344bf3aac7254"
+    },
+    {
+      "java_class": "org.languagetool.language.AbstractLanguageConcurrencyTest",
+      "method": "testSpellCheckerFailure",
+      "declared_parameters": 0,
+      "key": "org.languagetool.language.AbstractLanguageConcurrencyTest#testSpellCheckerFailure/0",
+      "signature": "public void testSpellCheckerFailure()",
+      "source_line": 42,
+      "annotations": [
+        "@Ignore(\"too slow to run every time\")",
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": true,
+      "upstream_ignore_reason": "too slow to run every time",
+      "inherited_from": "org.languagetool.RussianConcurrencyTest",
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "concurrent checks of the pinned sample text must not raise and must stay deterministic",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_concurrency_fresh_instance_per_run",
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_concurrency_shared_instance_and_state_isolation"
+      ],
+      "oracle_cases": [],
+      "notes": "The pinned method carries @Ignore and therefore never executes at the pin. The Python port executes on every run, adds a shared-instance sharing model that upstream does not test, and asserts singleton identity plus result determinism; the per-thread stress level is reduced to 12 threads x 3 runs because a Python pipeline construction costs ~0.3s.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/language/AbstractLanguageConcurrencyTest.java",
+      "declaring_source_sha256": "166ffd71f746dc36b1aacec018d3e975478188dd4dce5eb6ea24ad18aa5c6cf4"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.DateCheckFilterTest",
+      "method": "testGetDayOfWeek",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.DateCheckFilterTest#testGetDayOfWeek/0",
+      "signature": "public void testGetDayOfWeek()",
+      "source_line": 29,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 4,
+      "scenario_units": 4,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "DateCheckFilter.getDayOfWeek for the four uncommented pinned inputs",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_date_check_filter_get_day_of_week"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/DateCheckFilterTest.java",
+      "declaring_source_sha256": "995d5a5c44fa80394ddee6278e279d0a04dec1047522fae3cba5e0401a657e22"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.DateCheckFilterTest",
+      "method": "testMonth",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.DateCheckFilterTest#testMonth/0",
+      "signature": "public void testMonth()",
+      "source_line": 43,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 5,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "DateCheckFilter.getMonth for roman numerals and cased month names",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_date_check_filter_get_month"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/DateCheckFilterTest.java",
+      "declaring_source_sha256": "995d5a5c44fa80394ddee6278e279d0a04dec1047522fae3cba5e0401a657e22"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.LanguageSpecificSpellcheckerTest",
+      "method": "testRules",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.LanguageSpecificSpellcheckerTest#testRules/0",
+      "signature": "public void testRules()",
+      "source_line": 29,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.spelling.SpellcheckerTest#runLanguageSpecificTest/0"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "delegates to SpellcheckerTest#runLanguageSpecificTest",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_language_specific_spellchecker_word_lists"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/LanguageSpecificSpellcheckerTest.java",
+      "declaring_source_sha256": "b7873cd617a1c88da42e4f3ae2d7f6e28a4c98fce455d7eadce10cc544bc8e21"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.MorfologikRussianSpellerRuleTest",
+      "method": "testMorfologikSpeller",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.MorfologikRussianSpellerRuleTest#testMorfologikSpeller/0",
+      "signature": "public void testMorfologikSpeller()",
+      "source_line": 34,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 7,
+      "scenario_units": 7,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "seven MORFOLOGIK_RULE_RU_RU match-count assertions",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_morfologik_russian_speller_rule"
+      ],
+      "oracle_cases": [
+        "spell_correct_cyrillic",
+        "spell_correct_yo",
+        "spell_correct_ye",
+        "spell_hyphen_wrong",
+        "spell_hyphen_correct",
+        "spell_proper_hyphen_correct",
+        "spell_proper_hyphen_wrong"
+      ],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianSpellerRuleTest.java",
+      "declaring_source_sha256": "9e6698d9c77db5def7dd5402954d8b1d4cbfd08a01d7736b62a30c1b5f769d62"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.MorfologikRussianYOSpellerRuleTest",
+      "method": "testMorfologikSpeller",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.MorfologikRussianYOSpellerRuleTest#testMorfologikSpeller/0",
+      "signature": "public void testMorfologikSpeller()",
+      "source_line": 34,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 6,
+      "scenario_units": 6,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "six MORFOLOGIK_RULE_RU_RU_YO match-count assertions",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_morfologik_russian_yo_speller_rule"
+      ],
+      "oracle_cases": [
+        "spell_yo_correct_yo",
+        "spell_yo_incorrect_ye"
+      ],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRuleTest.java",
+      "declaring_source_sha256": "8f0c995503f53b3300f9bb393fdf2472815392af8fa347d7b0ac6d1b22ada0dc"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianCompoundRuleTest",
+      "method": "setUp",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianCompoundRuleTest#setUp/0",
+      "signature": "public void setUp()",
+      "source_line": 39,
+      "annotations": [
+        "@Before"
+      ],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianCompoundRuleTest.java",
+      "declaring_source_sha256": "0100a70daad3cae39a398dd2304e58c87153a84f3c49d1bcfb98326ec804cc3f"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianCompoundRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianCompoundRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 45,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 19,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.AbstractCompoundRuleTest#check/2",
+        "org.languagetool.rules.AbstractCompoundRuleTest#check/3"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "nineteen AbstractCompoundRuleTest#check scenarios",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_compound_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianCompoundRuleTest.java",
+      "declaring_source_sha256": "0100a70daad3cae39a398dd2304e58c87153a84f3c49d1bcfb98326ec804cc3f"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+      "method": "setUp",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianDashRuleTest#setUp/0",
+      "signature": "public void setUp()",
+      "source_line": 38,
+      "annotations": [
+        "@Before"
+      ],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java",
+      "declaring_source_sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianDashRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 45,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.ru.RussianDashRuleTest#check/2",
+        "org.languagetool.rules.ru.RussianDashRuleTest#check/3"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "five RU_DASH_RULE scenarios with exact suggestion lists",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_dash_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java",
+      "declaring_source_sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+      "method": "check",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.ru.RussianDashRuleTest#check/2",
+      "signature": "private void check(int expectedErrors, String text)",
+      "source_line": 55,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.ru.RussianDashRuleTest#check/3"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "two-argument overload widening to check(expected, text, null)",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_dash_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java",
+      "declaring_source_sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianDashRuleTest",
+      "method": "check",
+      "declared_parameters": 3,
+      "key": "org.languagetool.rules.ru.RussianDashRuleTest#check/3",
+      "signature": "private void check(int expectedErrors, String text, String[] expSuggestions)",
+      "source_line": 59,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 4,
+      "scenario_units": 4,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "exact match count plus exact suggestion list and order",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_dash_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianDashRuleTest.java",
+      "declaring_source_sha256": "1e18b5750137e485a244befde2bc618b12be9c3d03dcb08e1d0533db3fc71c13"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianPatternRuleTest",
+      "method": "testRules",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianPatternRuleTest#testRules/0",
+      "signature": "public void testRules()",
+      "source_line": 29,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#runGrammarRulesFromXmlTest/0"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "delegates to PatternRuleTest#runGrammarRulesFromXmlTest",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_run_grammar_rules_from_xml_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianPatternRuleTest.java",
+      "declaring_source_sha256": "aed0367fa0bc2a404efef54885bd31e254949fe15b66ec6e986a48d446782a02"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "testSupportsLanguage",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#testSupportsLanguage/0",
+      "signature": "public void testSupportsLanguage()",
+      "source_line": 112,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": "org.languagetool.rules.ru.RussianPatternRuleTest",
+      "assertion_units": 6,
+      "scenario_units": 6,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "semantics": "PatternRule.supportsLanguage for language variants",
+      "python_tests": [],
+      "oracle_cases": [],
+      "reason": "The method builds `new FakeLanguage(\"yy\")`, `new FakeLanguage(\"zz\")` and `new FakeLanguage(\"zz\", \"VAR1\"/\"VAR2\")` only; Russian is never involved, and pylat_ru is a single-language library with no Language abstraction.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.AbstractPatternRuleTest",
+      "method": "shortMessageIsLongerThanErrorMessage",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.patterns.AbstractPatternRuleTest#shortMessageIsLongerThanErrorMessage/0",
+      "signature": "public void shortMessageIsLongerThanErrorMessage()",
+      "source_line": 33,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": "org.languagetool.rules.ru.RussianPatternRuleTest",
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.AbstractPatternRuleTest#warnIfShortMessageLongerThanErrorMessage/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "warning-only sweep over every pattern rule's <short>/<message> pair",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_short_message_sweep"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/AbstractPatternRuleTest.java",
+      "declaring_source_sha256": "a3eaac899cb45e5cc5ca2adaa86f399f20f4a68ace6424f5f63ec38935d5c3a2"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianSimpleReplaceRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianSimpleReplaceRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 35,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 5,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "five RU_SIMPLE_REPLACE assertions including the exact single suggestion",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_simple_replace_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSimpleReplaceRuleTest.java",
+      "declaring_source_sha256": "eeae67ae0082331540613560250ecce1033aa0eb7f693c62624e76f0103d90a7"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 38,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 4,
+      "scenario_units": 9,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertBad/1",
+        "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertGood/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "five RU_SPECIFIC_CASE verdicts plus exact offsets, suggestions and message",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_specific_case_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSpecificCaseRuleTest.java",
+      "declaring_source_sha256": "fd9140318292318209f138640bae60b899c2df7a333de30215c0567657e48440"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+      "method": "assertGood",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertGood/1",
+      "signature": "private void assertGood(String input)",
+      "source_line": 51,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "zero matches for the given input",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_specific_case_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSpecificCaseRuleTest.java",
+      "declaring_source_sha256": "fd9140318292318209f138640bae60b899c2df7a333de30215c0567657e48440"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest",
+      "method": "assertBad",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.ru.RussianSpecificCaseRuleTest#assertBad/1",
+      "signature": "private RuleMatch[] assertBad(String input)",
+      "source_line": 55,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "exactly one match for the given input",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_specific_case_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianSpecificCaseRuleTest.java",
+      "declaring_source_sha256": "fd9140318292318209f138640bae60b899c2df7a333de30215c0567657e48440"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianTest",
+      "method": "testLanguage",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianTest#testLanguage/0",
+      "signature": "public void testLanguage()",
+      "source_line": 31,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#runTests/1",
+        "org.languagetool.LanguageSpecificTest#testDemoText/3"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "demo text rule ids plus the whole LanguageSpecificTest#runTests suite",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_demo_text",
+        "tests/upstream/test_upstream_language_contract_0013.py::test_run_tests_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianTest.java",
+      "declaring_source_sha256": "f79b1ad05d72bf54b860a7237bc944c031e2b554fd9549d64dca14183104abbd"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianUnpairedBracketsRuleTest",
+      "method": "testRuleRussian",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianUnpairedBracketsRuleTest#testRuleRussian/0",
+      "signature": "public void testRuleRussian()",
+      "source_line": 36,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 5,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "five RU_UNPAIRED_BRACKETS match-count assertions",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_unpaired_brackets_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianUnpairedBracketsRuleTest.java",
+      "declaring_source_sha256": "05d4f2dd486bc40556c368d4b2c6634a5da64a55e8e8944683609c496afc6d64"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianVerbConjugationRuleTest",
+      "method": "testRussianVerbConjugationRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianVerbConjugationRuleTest#testRussianVerbConjugationRule/0",
+      "signature": "public void testRussianVerbConjugationRule()",
+      "source_line": 46,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 41,
+      "scenario_units": 41,
+      "throw_guards": 0,
+      "vector_loops": [
+        {
+          "field": "wrongSentences",
+          "elements": 19,
+          "units_per_element": 1
+        },
+        {
+          "field": "rightSentences",
+          "elements": 22,
+          "units_per_element": 1
+        }
+      ],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "19 wrong-sentence and 22 right-sentence RU_VERB_CONJUGATION vectors",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_verb_conjugation_rule_wrong",
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_verb_conjugation_rule_right",
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_verb_conjugation_vectors_match_pinned_source"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianVerbConjugationRuleTest.java",
+      "declaring_source_sha256": "c985c7d3045da2aea7df5b9dbdf5635decc457d9c06779212db45fdddd6743a7"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 37,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 3,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertError/1",
+        "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "two good and one bad RU_WORD_COHERENCY sentence",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "declaring_source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "method": "testCallIndependence",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testCallIndependence/0",
+      "signature": "public void testCallIndependence()",
+      "source_line": 44,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "separate calls must not share the 'should not appear' map",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_call_independence"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "declaring_source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "method": "assertError",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertError/1",
+      "signature": "private void assertError(String s)",
+      "source_line": 49,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "exactly one match for the given text",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "declaring_source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "method": "assertGood",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#assertGood/1",
+      "signature": "private void assertGood(String s)",
+      "source_line": 55,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "zero matches for the given text",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_rule",
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_call_independence"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "declaring_source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest",
+      "method": "testRuleCompleteTexts",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianWordCoherencyRuleTest#testRuleCompleteTexts/0",
+      "signature": "public void testRuleCompleteTexts()",
+      "source_line": 62,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 3,
+      "scenario_units": 3,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "whole-pipeline checks including a cross-paragraph text",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_coherency_complete_texts"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordCoherencyRuleTest.java",
+      "declaring_source_sha256": "edcd6f53a7c4bab39d035e51be9ce11be79e21d5204d3d1a49b319ba54b29d11"
+    },
+    {
+      "java_class": "org.languagetool.rules.ru.RussianWordRepeatRuleTest",
+      "method": "testRule",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.ru.RussianWordRepeatRuleTest#testRule/0",
+      "signature": "public void testRule()",
+      "source_line": 35,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 2,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "one correct and one incorrect RU_WORD_REPEAT sentence",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_word_repeat_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordRepeatRuleTest.java",
+      "declaring_source_sha256": "0c3464fa95158b4e81b9e0cb2dc8d241f35b570bed487c37853c5c7f7812469e"
+    },
+    {
+      "java_class": "org.languagetool.synthesis.ru.RussianSynthesizerTest",
+      "method": "dummyToken",
+      "declared_parameters": 1,
+      "key": "org.languagetool.synthesis.ru.RussianSynthesizerTest#dummyToken/1",
+      "signature": "private AnalyzedToken dummyToken(String tokenStr)",
+      "source_line": 32,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java",
+      "declaring_source_sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d"
+    },
+    {
+      "java_class": "org.languagetool.synthesis.ru.RussianSynthesizerTest",
+      "method": "testSynthesizeString",
+      "declared_parameters": 0,
+      "key": "org.languagetool.synthesis.ru.RussianSynthesizerTest#testSynthesizeString/0",
+      "signature": "public final void testSynthesizeString()",
+      "source_line": 37,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 3,
+      "scenario_units": 3,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "unknown lemma yields no form; two exact single-form synthesis results",
+      "python_tests": [
+        "tests/upstream/test_russian_synthesizer.py::test_synthesize_string"
+      ],
+      "oracle_cases": [
+        "tests/fixtures/oracle_russian_synthesizer_sample.json"
+      ],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java",
+      "declaring_source_sha256": "c9e358c8397f668e692270150e80bc056e8bab2351bdda4f2cbfe3256bc76a3d"
+    },
+    {
+      "java_class": "org.languagetool.tagging.ru.RussianTaggerTest",
+      "method": "testDictionary",
+      "declared_parameters": 0,
+      "key": "org.languagetool.tagging.ru.RussianTaggerTest#testDictionary/0",
+      "signature": "public void testDictionary()",
+      "source_line": 31,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.TestTools#testDictionary/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "the packaged tagger dictionary loads and every entry carries a POS tag",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_tagger_dictionary"
+      ],
+      "oracle_cases": [],
+      "notes": "Upstream only warns; the exhaustive 7,176,385-entry sweep is recorded under tagger_dictionary_audit and asserted by the inventory test, while the pytest port performs the load and a bounded deterministic prefix sweep.",
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tagging/ru/RussianTaggerTest.java",
+      "declaring_source_sha256": "fcf14eaa3fa59d83d9180caa8d35c937717b5e6dd000f900006ee98c92ab3205"
+    },
+    {
+      "java_class": "org.languagetool.tagging.ru.RussianTaggerTest",
+      "method": "testTagger",
+      "declared_parameters": 0,
+      "key": "org.languagetool.tagging.ru.RussianTaggerTest#testTagger/0",
+      "signature": "public void testTagger()",
+      "source_line": 36,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 4,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.TestTools#myAssert/4"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "four exact TestTools.myAssert reading strings",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_tagger_exact_readings"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tagging/ru/RussianTaggerTest.java",
+      "declaring_source_sha256": "fcf14eaa3fa59d83d9180caa8d35c937717b5e6dd000f900006ee98c92ab3205"
+    },
+    {
+      "java_class": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest",
+      "method": "testTokenize",
+      "declared_parameters": 0,
+      "key": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testTokenize/0",
+      "signature": "public final void testTokenize()",
+      "source_line": 33,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 9,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testSplit/1"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "nine Russian abbreviation segmentation scenarios",
+      "python_tests": [
+        "tests/upstream/test_russian_sentence_tokenizer_parity.py::test_upstream_russian_srx_sentence_tokenizer_test_suite"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java",
+      "declaring_source_sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c"
+    },
+    {
+      "java_class": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest",
+      "method": "testSplit",
+      "declared_parameters": 1,
+      "key": "org.languagetool.tokenizers.ru.RussianSRXSentenceTokenizerTest#testSplit/1",
+      "signature": "private void testSplit(final String... sentences)",
+      "source_line": 48,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.TestTools#testSplit/2"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "delegates to TestTools.testSplit",
+      "python_tests": [
+        "tests/upstream/test_russian_sentence_tokenizer_parity.py::test_upstream_russian_srx_sentence_tokenizer_test_suite"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java",
+      "declaring_source_sha256": "bdf4ce6037232cd8c2bcd697a35cbf2a8570ceca0a9aaa205aa35e76f75d840c"
+    },
+    {
+      "java_class": "org.languagetool.rules.spelling.SpellcheckerTest",
+      "method": "runLanguageSpecificTest",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.spelling.SpellcheckerTest#runLanguageSpecificTest/0",
+      "signature": "public void runLanguageSpecificTest()",
+      "source_line": 35,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 3,
+      "scenario_units": 3,
+      "throw_guards": 3,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "prohibit.txt and spelling.txt must not share a word; the language set must not be empty",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_language_specific_spellchecker_word_lists"
+      ],
+      "oracle_cases": [],
+      "notes": "The third guard (totalProhibited == 0) only fires for more than five languages and is unreachable for the single-language Russian module; the Python port asserts a non-empty prohibited list instead, which is stronger.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/spelling/SpellcheckerTest.java",
+      "declaring_source_sha256": "1b8b688a6b15863090afdb302e3406c89eb3a53a8df91b9e9600f36edb98fe91"
+    },
+    {
+      "java_class": "org.languagetool.rules.AbstractCompoundRuleTest",
+      "method": "check",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.AbstractCompoundRuleTest#check/2",
+      "signature": "public void check(int expectedErrors, String text)",
+      "source_line": 42,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.AbstractCompoundRuleTest#check/3"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "two-argument overload widening to check(expected, text, null)",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_compound_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/AbstractCompoundRuleTest.java",
+      "declaring_source_sha256": "6a3f3f6da1de7eae17227a1d0a5962f4bc361ed25499c10aa684573c60e2a4ab"
+    },
+    {
+      "java_class": "org.languagetool.rules.AbstractCompoundRuleTest",
+      "method": "check",
+      "declared_parameters": 3,
+      "key": "org.languagetool.rules.AbstractCompoundRuleTest#check/3",
+      "signature": "public void check(int expectedErrors, String text, String... expSuggestions)",
+      "source_line": 52,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 6,
+      "scenario_units": 6,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "exact match count plus exact suggestion list and order when suggestions are given",
+      "python_tests": [
+        "tests/upstream/test_java_rules_0012_upstream_tests.py::test_russian_compound_rule"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/AbstractCompoundRuleTest.java",
+      "declaring_source_sha256": "6a3f3f6da1de7eae17227a1d0a5962f4bc361ed25499c10aa684573c60e2a4ab"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "runGrammarRulesFromXmlTest",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#runGrammarRulesFromXmlTest/0",
+      "signature": "protected void runGrammarRulesFromXmlTest()",
+      "source_line": 150,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#runGrammarRuleForLanguage/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "runs runGrammarRuleForLanguage once for every language on the classpath",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_run_grammar_rules_from_xml_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.AbstractPatternRuleTest",
+      "method": "warnIfShortMessageLongerThanErrorMessage",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.AbstractPatternRuleTest#warnIfShortMessageLongerThanErrorMessage/1",
+      "signature": "private void warnIfShortMessageLongerThanErrorMessage(AbstractPatternRule rule)",
+      "source_line": 46,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/AbstractPatternRuleTest.java",
+      "declaring_source_sha256": "a3eaac899cb45e5cc5ca2adaa86f399f20f4a68ace6424f5f63ec38935d5c3a2"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "runTests",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#runTests/1",
+      "signature": "protected void runTests(Language lang)",
+      "source_line": 42,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#runTests/3"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "widens to runTests(lang, null, \"\")",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_run_tests_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testDemoText",
+      "declared_parameters": 3,
+      "key": "org.languagetool.LanguageSpecificTest#testDemoText/3",
+      "signature": "protected void testDemoText(Language lang, String text, List<String> expectedMatchIds)",
+      "source_line": 308,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#failTest/4"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "lt.check(demo text) must yield exactly the expected specific rule ids in order",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_demo_text"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "testDictionary",
+      "declared_parameters": 2,
+      "key": "org.languagetool.TestTools#testDictionary/2",
+      "signature": "public static void testDictionary(BaseTagger tagger, Language language)",
+      "source_line": 162,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "iterate every WordData entry of the tagger dictionary, warning about missing tags",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_tagger_dictionary"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "myAssert",
+      "declared_parameters": 4,
+      "key": "org.languagetool.TestTools#myAssert/4",
+      "signature": "public static void myAssert(String input, String expected, Tokenizer tokenizer, Tagger tagger)",
+      "source_line": 87,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 3,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.TestTools#getAsStrings/1",
+        "org.languagetool.TestTools#getNoWhitespaceTokens/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "tokenize, drop non-word tokens, tag, render sorted token/[lemma]POS readings",
+      "python_tests": [
+        "tests/upstream/test_upstream_russian_rule_tests_0013.py::test_russian_tagger_exact_readings"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "testSplit",
+      "declared_parameters": 2,
+      "key": "org.languagetool.TestTools#testSplit/2",
+      "signature": "public static void testSplit(String[] sentences, SentenceTokenizer sTokenizer)",
+      "source_line": 77,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "concatenating the expected sentences and re-splitting must return them unchanged",
+      "python_tests": [
+        "tests/upstream/test_russian_sentence_tokenizer_parity.py::test_upstream_russian_srx_sentence_tokenizer_test_suite"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "runGrammarRuleForLanguage",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#runGrammarRuleForLanguage/1",
+      "signature": "protected void runGrammarRuleForLanguage(Language lang)",
+      "source_line": 159,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 4,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#runTestForLanguage/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "German-only branching, country-variant skipping, then runTestForLanguage",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_run_grammar_rules_from_xml_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "runTests",
+      "declared_parameters": 3,
+      "key": "org.languagetool.LanguageSpecificTest#runTests/3",
+      "signature": "protected void runTests(Language lang, String onlyRunCode, String additionalValidationChars)",
+      "source_line": 50,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#runTests/4"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "widens to runTests(lang, lang, onlyRunCode, additionalValidationChars)",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_run_tests_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "failTest",
+      "declared_parameters": 4,
+      "key": "org.languagetool.LanguageSpecificTest#failTest/4",
+      "signature": "private void failTest(Language lang, String text, List<String> expectedMatchIds, List<String> actualRuleIds)",
+      "source_line": 342,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "semantics": "failure message formatter for testDemoText",
+      "python_tests": [],
+      "oracle_cases": [],
+      "reason": "Only reached when testDemoText already failed; it formats the failure text.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "getAsStrings",
+      "declared_parameters": 1,
+      "key": "org.languagetool.TestTools#getAsStrings/1",
+      "signature": "private static List<String> getAsStrings(AnalyzedTokenReadings tokenReadings)",
+      "source_line": 172,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "getNoWhitespaceTokens",
+      "declared_parameters": 1,
+      "key": "org.languagetool.TestTools#getNoWhitespaceTokens/1",
+      "signature": "private static List<String> getNoWhitespaceTokens(List<String> tokens)",
+      "source_line": 187,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "runTestForLanguage",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#runTestForLanguage/1",
+      "signature": "public void runTestForLanguage(Language lang)",
+      "source_line": 188,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 11,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.AbstractPatternRuleTest#getAllPatternRules/2",
+        "org.languagetool.rules.patterns.PatternRuleTest#createToolForTesting/1",
+        "org.languagetool.rules.patterns.PatternRuleTest#testGrammarRulesFromXML/3",
+        "org.languagetool.rules.patterns.PatternRuleTest#testMessages/2",
+        "org.languagetool.rules.patterns.PatternRuleTest#testRegexSyntax/2",
+        "org.languagetool.rules.patterns.PatternRuleTest#validateParenthesisInSynthesisMatches/1",
+        "org.languagetool.rules.patterns.PatternRuleTest#validatePatternFile/1",
+        "org.languagetool.rules.patterns.PatternRuleTest#validateRemoteRulesFile/1",
+        "org.languagetool.rules.patterns.PatternRuleTest#validateRuleIds/2",
+        "org.languagetool.rules.patterns.PatternRuleTest#validateSentenceStartNotInMarker/1",
+        "org.languagetool.rules.patterns.PatternRuleTest#validateUnifyIgnoreAtTheStartOfUnify/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "the eleven grammar validation sub-contracts for one language",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_run_grammar_rules_from_xml_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "runTests",
+      "declared_parameters": 4,
+      "key": "org.languagetool.LanguageSpecificTest#runTests/4",
+      "signature": "protected void runTests(Language lang, Language langVariantForReplaceTests, String onlyRunCode, String additionalValidationChars)",
+      "source_line": 54,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 10,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#countTempOffRules/1",
+        "org.languagetool.LanguageSpecificTest#testCoherencyBaseformIsOtherForm/1",
+        "org.languagetool.LanguageSpecificTest#testConfusionSetLoading/0",
+        "org.languagetool.LanguageSpecificTest#testJavaRules/1",
+        "org.languagetool.LanguageSpecificTest#testNoLineBreaksEtcInMessage/1",
+        "org.languagetool.LanguageSpecificTest#testNoQuotesAroundSuggestion/1",
+        "org.languagetool.LanguageSpecificTest#testReplaceRuleReplacements/1",
+        "org.languagetool.rules.WordListValidatorTest#testWordListValidity/1",
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/0"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "the nine language-wide sub-contracts",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_run_tests_aggregate"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.AbstractPatternRuleTest",
+      "method": "getAllPatternRules",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.patterns.AbstractPatternRuleTest#getAllPatternRules/2",
+      "signature": "protected List<AbstractPatternRule> getAllPatternRules(Language language, JLanguageTool languageTool)",
+      "source_line": 65,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/AbstractPatternRuleTest.java",
+      "declaring_source_sha256": "a3eaac899cb45e5cc5ca2adaa86f399f20f4a68ace6424f5f63ec38935d5c3a2"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "createToolForTesting",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#createToolForTesting/1",
+      "signature": "protected static MultiThreadedJLanguageTool createToolForTesting(Language lang)",
+      "source_line": 209,
+      "annotations": [
+        "@NotNull"
+      ],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#disableSpellingRules/1"
+      ],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "semantics": "optionally disables spelling rules before the example run",
+      "python_tests": [],
+      "oracle_cases": [],
+      "reason": "Guarded by `private static final boolean CHECK_WITH_SENTENCE_SPLITTING = false;` in PatternRuleTest, so disableSpellingRules() never executes at the pin.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "testGrammarRulesFromXML",
+      "declared_parameters": 3,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#testGrammarRulesFromXML/3",
+      "signature": "protected void testGrammarRulesFromXML(List<AbstractPatternRule> rules, JLanguageTool allRulesLt, Language lang)",
+      "source_line": 506,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 2,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#testGrammarRulesFromXML/3"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "every rule's correct and incorrect example sentences",
+      "python_tests": [
+        "tests/upstream/test_russian_grammar_examples.py::test_grammar_core_trigger_parity",
+        "tests/upstream/test_russian_grammar_examples.py::test_grammar_core_full_example_parity",
+        "tests/upstream/test_russian_grammar_examples.py::test_grammar_all_runnable_0010_trigger_parity",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_every_rule_has_incorrect_examples",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_incorrect_examples_have_marker_and_non_empty_text",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_suggestions_do_not_create_errors",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_no_error_triggering_examples_at_the_pin"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "testMessages",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#testMessages/2",
+      "signature": "protected void testMessages(Language lang, List<AbstractPatternRule> rules)",
+      "source_line": 461,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 5,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "no empty message, no 'todo'/'lorem ipsum'/'tbd' message",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_messages"
+      ],
+      "oracle_cases": [],
+      "notes": "The 'did you mean' warning and the trailing punctuation checks are guarded by language-code tests that exclude ru.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "testRegexSyntax",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#testRegexSyntax/2",
+      "signature": "protected void testRegexSyntax(Language lang, List<AbstractPatternRule> rules)",
+      "source_line": 435,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validateParenthesisInSynthesisMatches",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validateParenthesisInSynthesisMatches/1",
+      "signature": "protected void validateParenthesisInSynthesisMatches(JLanguageTool lt)",
+      "source_line": 337,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#addError/2",
+        "org.languagetool.rules.patterns.PatternRuleTest#getMaxBackReferenceNo/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "a synthesis match may not use a back reference above its parenthesis count",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_validate_parenthesis_in_synthesis_matches"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validatePatternFile",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validatePatternFile/1",
+      "signature": "protected void validatePatternFile(Language lang)",
+      "source_line": 217,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#validatePatternFile/1"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "ru/grammar.xml validates and loads completely",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_validate_pattern_file"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validateRemoteRulesFile",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validateRemoteRulesFile/1",
+      "signature": "protected void validateRemoteRulesFile(Language lang)",
+      "source_line": 248,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validateRuleIds",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validateRuleIds/2",
+      "signature": "protected void validateRuleIds(Language lang, JLanguageTool lt)",
+      "source_line": 259,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 4,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.RuleIdValidator#validateUniqueness/0"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "rule id shape (no DB_ prefix, no brackets, no space, <= 79 chars) and id uniqueness",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_validate_rule_ids",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_rule_id_uniqueness",
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_validate_category_ids"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validateSentenceStartNotInMarker",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validateSentenceStartNotInMarker/1",
+      "signature": "protected void validateSentenceStartNotInMarker(JLanguageTool lt)",
+      "source_line": 291,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "validateUnifyIgnoreAtTheStartOfUnify",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#validateUnifyIgnoreAtTheStartOfUnify/1",
+      "signature": "protected void validateUnifyIgnoreAtTheStartOfUnify(JLanguageTool lt)",
+      "source_line": 313,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.patterns.PatternRuleTest#addError/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "the first unified pattern token of a rule may not be unification neutral",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_validate_unify_ignore_not_at_start_of_unify"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "countTempOffRules",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#countTempOffRules/1",
+      "signature": "private void countTempOffRules(Language lang)",
+      "source_line": 416,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testCoherencyBaseformIsOtherForm",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#testCoherencyBaseformIsOtherForm/1",
+      "signature": "protected void testCoherencyBaseformIsOtherForm(Language lang)",
+      "source_line": 178,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.TestTools#disableAllRulesExcept/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "no synthesised form of a coherency.txt key may trigger the coherency rule",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_coherency_baseform_is_other_form"
+      ],
+      "oracle_cases": [],
+      "notes": "Upstream enables only EN_WORD_COHERENCY, an id Russian does not have, so the pinned check is vacuous for ru; the Python port asserts both the vacuity condition and the strengthened RU_WORD_COHERENCY reading.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testConfusionSetLoading",
+      "declared_parameters": 0,
+      "key": "org.languagetool.LanguageSpecificTest#testConfusionSetLoading/0",
+      "signature": "private void testConfusionSetLoading()",
+      "source_line": 252,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "LANGUAGE_MODEL_DEFERRED",
+      "semantics": "ru/confusion_sets.txt must load when the language exposes language-model rules",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_confusion_set_loading_is_language_model_deferred"
+      ],
+      "oracle_cases": [],
+      "reason": "The loader only runs when getRelevantLanguageModelRules() is non-empty; for Russian that list is exactly RussianConfusionProbabilityRule, which Task 0013 keeps deferred.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testJavaRules",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#testJavaRules/1",
+      "signature": "private void testJavaRules(String onlyRunCode)",
+      "source_line": 220,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 5,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#assertIdAndDescriptionValidity/2",
+        "org.languagetool.LanguageSpecificTest#assertIdUniqueness/4",
+        "org.languagetool.LanguageSpecificTest#assertIdValidity/2",
+        "org.languagetool.LanguageSpecificTest#testExamples/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "id/description validity, id uniqueness and example pairs of every non-pattern rule",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_id_and_description_validity",
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_id_uniqueness",
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_examples"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testNoLineBreaksEtcInMessage",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#testNoLineBreaksEtcInMessage/1",
+      "signature": "private void testNoLineBreaksEtcInMessage(Language lang)",
+      "source_line": 149,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testNoQuotesAroundSuggestion",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#testNoQuotesAroundSuggestion/1",
+      "signature": "private void testNoQuotesAroundSuggestion(Language lang)",
+      "source_line": 286,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "no rule message may wrap <suggestion>...</suggestion> in quotes",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_no_quotes_around_suggestion"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testReplaceRuleReplacements",
+      "declared_parameters": 1,
+      "key": "org.languagetool.LanguageSpecificTest#testReplaceRuleReplacements/1",
+      "signature": "protected void testReplaceRuleReplacements(Language lang)",
+      "source_line": 72,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.rules.WordListValidatorTest",
+      "method": "testWordListValidity",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.WordListValidatorTest#testWordListValidity/1",
+      "signature": "public void testWordListValidity(Language lang)",
+      "source_line": 246,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.rules.WordListValidatorTest#validateWords/2"
+      ],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "semantics": "spelling word list character validation",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_word_list_validator_skips_russian"
+      ],
+      "oracle_cases": [],
+      "reason": "The pinned method opens with `if (lang.getShortCode().equals(\"ru\")) { return; }   // skipping, Cyrillic chars not part of the validation yet`, so no Russian word list is ever validated.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/WordListValidatorTest.java",
+      "declaring_source_sha256": "20bb4465574d6bbec960131259c287f4b82330a729a81e1595b535c30f8d6164"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "testDisambiguationRulesFromXML",
+      "declared_parameters": 0,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/0",
+      "signature": "public void testDisambiguationRulesFromXML()",
+      "source_line": 55,
+      "annotations": [
+        "@Test"
+      ],
+      "is_test": true,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/1"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "disambiguation.xml loads, validates and reproduces all its examples",
+      "python_tests": [
+        "tests/upstream/test_russian_disambiguation_parity.py::test_upstream_disambiguation_xml_all_examples_parity",
+        "tests/upstream/test_russian_disambiguation_parity.py::test_upstream_disambiguation_end_to_end_examples"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "disableSpellingRules",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#disableSpellingRules/1",
+      "signature": "private static void disableSpellingRules(JLanguageTool lt)",
+      "source_line": 426,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "addError",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#addError/2",
+      "signature": "private void addError(AbstractPatternRule rule, String failure)",
+      "source_line": 500,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "method": "getMaxBackReferenceNo",
+      "declared_parameters": 1,
+      "key": "org.languagetool.rules.patterns.PatternRuleTest#getMaxBackReferenceNo/1",
+      "signature": "private int getMaxBackReferenceNo(String message)",
+      "source_line": 365,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "declaring_source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c"
+    },
+    {
+      "java_class": "org.languagetool.rules.patterns.RuleIdValidator",
+      "method": "validateUniqueness",
+      "declared_parameters": 0,
+      "key": "org.languagetool.rules.patterns.RuleIdValidator#validateUniqueness/0",
+      "signature": "public void validateUniqueness()",
+      "source_line": 46,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 2,
+      "scenario_units": 2,
+      "throw_guards": 2,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "no XML rule/rulegroup id may collide with a Java rule id or another file's id",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py::test_rule_id_uniqueness"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/RuleIdValidator.java",
+      "declaring_source_sha256": "06b3471a14e2319ac3c3fa8ca7b230bd316d2a19c33aef0b0a67ade8227b18a8"
+    },
+    {
+      "java_class": "org.languagetool.TestTools",
+      "method": "disableAllRulesExcept",
+      "declared_parameters": 2,
+      "key": "org.languagetool.TestTools#disableAllRulesExcept/2",
+      "signature": "public static void disableAllRulesExcept(JLanguageTool lt, String... ruleIdsToActivate)",
+      "source_line": 198,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/TestTools.java",
+      "declaring_source_sha256": "8b541bb37ab088fe33bb9ff6b2ad14fa3a932e36061668312405840a043630c9"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "assertIdAndDescriptionValidity",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#assertIdAndDescriptionValidity/2",
+      "signature": "private void assertIdAndDescriptionValidity(Language lang, Rule rule)",
+      "source_line": 365,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 2,
+      "scenario_units": 2,
+      "throw_guards": 2,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "rule id and description must not be empty",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_id_and_description_validity"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "assertIdUniqueness",
+      "declared_parameters": 4,
+      "key": "org.languagetool.LanguageSpecificTest#assertIdUniqueness/4",
+      "signature": "private void assertIdUniqueness(Map<String,String> ids, Set<Class> ruleClasses, Language language, Rule rule)",
+      "source_line": 347,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "a rule id may not occur twice across rule classes",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_id_uniqueness"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "assertIdValidity",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#assertIdValidity/2",
+      "signature": "private void assertIdValidity(Language lang, Rule rule)",
+      "source_line": 357,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 1,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "rule id must match ^[A-Z_][A-Z0-9_]+$",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_id_and_description_validity"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testExamples",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#testExamples/2",
+      "signature": "private void testExamples(Rule rule, JLanguageTool lt)",
+      "source_line": 378,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#testCorrectExamples/2",
+        "org.languagetool.LanguageSpecificTest#testIncorrectExamples/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "runs the correct and incorrect example checks for one rule",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_examples"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.rules.WordListValidatorTest",
+      "method": "validateWords",
+      "declared_parameters": 2,
+      "key": "org.languagetool.rules.WordListValidatorTest#validateWords/2",
+      "signature": "private void validateWords(List<String> words, String spellingFileName)",
+      "source_line": 268,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 1,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "semantics": "regex validation of a loaded spelling word list",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_word_list_validator_skips_russian"
+      ],
+      "oracle_cases": [],
+      "reason": "Unreachable for Russian because testWordListValidity returns before calling it.",
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/rules/WordListValidatorTest.java",
+      "declaring_source_sha256": "20bb4465574d6bbec960131259c287f4b82330a729a81e1595b535c30f8d6164"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "testDisambiguationRulesFromXML",
+      "declared_parameters": 1,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/1",
+      "signature": "private void testDisambiguationRulesFromXML(Set<Language> ignoredLanguages)",
+      "source_line": 59,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/3",
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#validateRuleFile/1"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "per-language loop over the disambiguation rule files",
+      "python_tests": [
+        "tests/upstream/test_russian_disambiguation_parity.py::test_upstream_disambiguation_xml_all_examples_parity"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testCorrectExamples",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#testCorrectExamples/2",
+      "signature": "private void testCorrectExamples(Rule rule, JLanguageTool lt)",
+      "source_line": 383,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#enableOnlyOneRule/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "a correct example must produce zero matches with only that rule enabled",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_examples"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "testIncorrectExamples",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#testIncorrectExamples/2",
+      "signature": "private void testIncorrectExamples(Rule rule, JLanguageTool lt)",
+      "source_line": 396,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 1,
+      "scenario_units": 2,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.LanguageSpecificTest#enableOnlyOneRule/2"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "semantics": "an incorrect example must produce exactly one match with only that rule enabled",
+      "python_tests": [
+        "tests/upstream/test_upstream_language_contract_0013.py::test_java_rules_examples"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "testDisambiguationRulesFromXML",
+      "declared_parameters": 3,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#testDisambiguationRulesFromXML/3",
+      "signature": "private void testDisambiguationRulesFromXML(List<DisambiguationPatternRule> rules, JLanguageTool lt, Language lang)",
+      "source_line": 118,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 14,
+      "scenario_units": 18,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#cleanXML/1",
+        "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#disambiguateUntil/4"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "semantics": "untouched examples stay untouched and disambiguated examples reach the expected readings",
+      "python_tests": [
+        "tests/upstream/test_russian_disambiguation_parity.py::test_upstream_disambiguation_xml_all_examples_parity",
+        "tests/upstream/test_russian_disambiguation_parity.py::test_upstream_disambiguation_end_to_end_examples",
+        "tests/upstream/test_russian_disambiguation_oracle_parity.py"
+      ],
+      "oracle_cases": [],
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "validateRuleFile",
+      "declared_parameters": 1,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#validateRuleFile/1",
+      "signature": "private void validateRuleFile(String filePath)",
+      "source_line": 94,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    },
+    {
+      "java_class": "org.languagetool.LanguageSpecificTest",
+      "method": "enableOnlyOneRule",
+      "declared_parameters": 2,
+      "key": "org.languagetool.LanguageSpecificTest#enableOnlyOneRule/2",
+      "signature": "private void enableOnlyOneRule(JLanguageTool lt, Rule ruleToActivate)",
+      "source_line": 409,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/LanguageSpecificTest.java",
+      "declaring_source_sha256": "9579b2aab40c259e7a052034f5876e404d7baf90740e8bde2be74dfe90ff01ac"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "cleanXML",
+      "declared_parameters": 1,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#cleanXML/1",
+      "signature": "private static String cleanXML(String str)",
+      "source_line": 231,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    },
+    {
+      "java_class": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest",
+      "method": "disambiguateUntil",
+      "declared_parameters": 4,
+      "key": "org.languagetool.tagging.disambiguation.rules.DisambiguationRuleTest#disambiguateUntil/4",
+      "signature": "private AnalyzedSentence disambiguateUntil(Language lang, List<DisambiguationPatternRule> rules, String ruleID, AnalyzedSentence sentence)",
+      "source_line": 217,
+      "annotations": [],
+      "is_test": false,
+      "upstream_ignored": false,
+      "upstream_ignore_reason": "",
+      "inherited_from": null,
+      "assertion_units": 0,
+      "scenario_units": 0,
+      "throw_guards": 0,
+      "vector_loops": [],
+      "delegates_to": [],
+      "status": "NOT_EXECUTABLE_HELPER",
+      "semantics": "plumbing or warning-only helper with no assertion or scenario unit",
+      "python_tests": [],
+      "oracle_cases": [],
+      "derived": true,
+      "declaring_source_path": "languagetool-core/src/test/java/org/languagetool/tagging/disambiguation/rules/DisambiguationRuleTest.java",
+      "declaring_source_sha256": "0a049853ac0550fea3f8ba3d2ac45466949516e83af0b6272d1d2be85283dfa7"
+    }
+  ],
+  "generic_core_evidence_sources": [
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",
+      "source_sha256": "9f84bc4c0564cc96ea0275da84d6f801ebb78018f87fa1c3e4bdd984e16ca6dc",
+      "source_size_bytes": 6672,
+      "java_class": "org.languagetool.rules.CommaWhitespaceRuleTest",
+      "test_methods": [
+        "testRule"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "COMMA_PARENTHESIS_WHITESPACE (CommaWhitespaceRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "comma_ws_",
+      "reason": "The pinned method runs against TestTools.getDemoLanguage(), so its literal expectations are Demo-language outcomes.  All 45 pinned scenario inputs were replayed through the trusted Java oracle with the Russian language and are asserted field for field."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/GenericUnpairedBracketsRuleTest.java",
+      "source_sha256": "a8ecae2ec2a1688b74ff5b0f6f26f8322d92ecd00b533e2e6c9ac6de9616220d",
+      "source_size_bytes": 6092,
+      "java_class": "org.languagetool.rules.GenericUnpairedBracketsRuleTest",
+      "test_methods": [
+        "testRule",
+        "testRuleMatchPositions"
+      ],
+      "test_method_count": 2,
+      "russian_dependency": "RU_UNPAIRED_BRACKETS base class (GenericUnpairedBracketsRule)",
+      "claimed_by": [],
+      "status": "NOT_APPLICABLE_WITH_PROOF",
+      "python_tests": [],
+      "reason": "Vendored but never claimed as Russian evidence.  Its setUpRule builds `new GenericUnpairedBracketsRule(messages, Arrays.asList(\"\\u00bb\"), Arrays.asList(\"\\u00ab\"))` on `new FakeLanguage()`; RussianUnpairedBracketsRule uses a different symbol set, so none of its scenarios is a Russian contract.  The Russian contract is RussianUnpairedBracketsRuleTest."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java",
+      "source_sha256": "d7a2cfa6a4f511d03225f263e0eec333b513205c5c31d7f3875c622b09f88cb1",
+      "source_size_bytes": 3167,
+      "java_class": "org.languagetool.rules.LongParagraphRuleTest",
+      "test_methods": [
+        "testRule"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "TOO_LONG_PARAGRAPH (LongParagraphRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "long_paragraph_",
+      "reason": "Demo-language test; all 8 pinned scenario inputs replayed under Russian with maxWords=6."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java",
+      "source_sha256": "6c7527fec22fe2ba86c7c5345c95bb064948fc71c94925f4ba871a1cff1fc659",
+      "source_size_bytes": 6950,
+      "java_class": "org.languagetool.rules.LongSentenceRuleTest",
+      "test_methods": [
+        "testMatch"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "TOO_LONG_SENTENCE (LongSentenceRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "long_sentence",
+      "reason": "Demo-language test; all 24 pinned scenario inputs replayed under Russian with the pinned maxWords values 40 and 6."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java",
+      "source_sha256": "1b5ca95a44814b198f4efa9b047232c1947ce0b6cd98ba70cf14115dbe4c4e8a",
+      "source_size_bytes": 4516,
+      "java_class": "org.languagetool.rules.MultipleWhitespaceRuleTest",
+      "test_methods": [
+        "testRule"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "WHITESPACE_RULE (MultipleWhitespaceRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "multi_ws_",
+      "reason": "Demo-language test; all 17 pinned scenario inputs replayed under Russian."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java",
+      "source_sha256": "995707f7d566f5cd488f220d20f71ebb16698eb82c2dadf9f023a186e282db3d",
+      "source_size_bytes": 3739,
+      "java_class": "org.languagetool.rules.PunctuationMarkAtParagraphEnd2Test",
+      "test_methods": [
+        "test"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "PUNCTUATION_PARAGRAPH_END2 (PunctuationMarkAtParagraphEnd2)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "punct_par_end2_",
+      "reason": "Demo-language test; all 22 pinned scenario inputs replayed under Russian."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java",
+      "source_sha256": "e1b97f7931196148822a52a913d47c0ae6dc4b2f32efcee172cfe927165cb806",
+      "source_size_bytes": 2373,
+      "java_class": "org.languagetool.rules.SentenceWhitespaceRuleTest",
+      "test_methods": [
+        "testMatch"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "SENTENCE_WHITESPACE (SentenceWhitespaceRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "sentence_ws_",
+      "reason": "FakeLanguage test; all 7 pinned scenario inputs replayed under Russian."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java",
+      "source_sha256": "3b9ef74ba85994e6e88acc1f062ad27a490ea9234b18e289249a10483d66f4f0",
+      "source_size_bytes": 3815,
+      "java_class": "org.languagetool.rules.UppercaseSentenceStartRuleTest",
+      "test_methods": [
+        "testRule"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "UPPERCASE_SENTENCE_START (UppercaseSentenceStartRule)",
+      "claimed_by": [
+        "compat/russian_java_rules_inventory.json"
+      ],
+      "status": "ORACLE_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_tests_0013_oracle_parity.py::test_upstream_test_oracle_parity"
+      ],
+      "oracle_case_prefix": "uppercase_start_",
+      "reason": "Demo-language test; all 23 pinned scenario inputs replayed under Russian."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleLoaderTest.java",
+      "source_sha256": "9b4adb24e4e92715ccfaf76a527001b9c01abf6b9f721b98efac1ffd3f3212ca",
+      "source_size_bytes": 16047,
+      "java_class": "org.languagetool.rules.patterns.PatternRuleLoaderTest",
+      "test_methods": [
+        "testGetRules",
+        "testPremiumXmlFlag",
+        "testToneTagsAttribute",
+        "testPrioAttribute",
+        "testEncryptDecrypt"
+      ],
+      "test_method_count": 5,
+      "russian_dependency": "XML grammar loading (Task 0007)",
+      "claimed_by": [
+        "compat/russian_grammar_core_inventory.json",
+        "reports/0007_xml_grammar_engine_core.md"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_loader_structure",
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_loader_fail_closed_validation"
+      ],
+      "reason": "Translated by Task 0007; the loader contract is reproduced directly."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleMatcherTest.java",
+      "source_sha256": "83790f315b5f86e3f1dab2109c4d0b0d7b1bbd40f5404eae2092c03ff4d11542",
+      "source_size_bytes": 22044,
+      "java_class": "org.languagetool.rules.patterns.PatternRuleMatcherTest",
+      "test_methods": [
+        "testMatch",
+        "testZeroMinOccurrences",
+        "testTwoZeroMinOccurrences",
+        "testZeroMinOccurrences2",
+        "testZeroMinOccurrences3",
+        "testZeroMinOccurrences4",
+        "testZeroMinOccurrencesWithEmptyElement",
+        "testZeroMinOccurrencesWithSuggestion",
+        "testTwoMinOccurrences",
+        "testZeroMinTwoMaxOccurrences",
+        "testTwoMaxOccurrencesWithAnyToken",
+        "testThreeMaxOccurrencesWithAnyToken",
+        "testZeroMinTwoMaxOccurrencesWithAnyToken",
+        "testTwoMaxOccurrences",
+        "testThreeMaxOccurrences",
+        "testOptionalWithoutExplicitMarker",
+        "testOptionalWithExplicitMarker",
+        "testOptionalAnyTokenWithExplicitMarker",
+        "testOptionalAnyTokenWithExplicitMarker2",
+        "testUnlimitedMaxOccurrences",
+        "testMaxTwoAndThreeOccurrences",
+        "testInfiniteSkip",
+        "testInfiniteSkipWithMatchReference",
+        "testNoMatchReferenceRecursion",
+        "testEquals"
+      ],
+      "test_method_count": 25,
+      "russian_dependency": "pattern matcher min/max/skip semantics (Tasks 0007-0008)",
+      "claimed_by": [
+        "compat/russian_grammar_core_inventory.json",
+        "reports/0008_advanced_xml_matching.md"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "python_tests": [
+        "tests/unit/test_advanced_grammar_matcher.py",
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_matcher_simple_match",
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_matcher_case_sensitivity",
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_matcher_regex_and_negation",
+        "tests/upstream/test_upstream_pattern_rules.py::test_pattern_rule_matcher_inflected_exact_semantics"
+      ],
+      "reason": "Translated by Tasks 0007-0008."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/PatternRuleTest.java",
+      "source_sha256": "bee01739d1884030b04b5ba89a8f104531d9b5cc60183c4dbc5b5668aa2db21c",
+      "source_size_bytes": 42337,
+      "java_class": "org.languagetool.rules.patterns.PatternRuleTest",
+      "test_methods": [
+        "testSupportsLanguage"
+      ],
+      "test_method_count": 1,
+      "russian_dependency": "RussianPatternRuleTest base class",
+      "claimed_by": [
+        "compat/upstream_test_inventory.json",
+        "reports/0007_xml_grammar_engine_core.md"
+      ],
+      "status": "DIRECT_PYTHON_PARITY",
+      "python_tests": [
+        "tests/upstream/test_upstream_pattern_rule_contract_0013.py"
+      ],
+      "reason": "Decomposed into its eleven Russian sub-contracts by Task 0013."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/RuleFilterEvaluatorTest.java",
+      "source_sha256": "45ee3705fb0fdeac3398581ab5d9599c4e80bca75a47661c1d99f51388680cc3",
+      "source_size_bytes": 3323,
+      "java_class": "org.languagetool.rules.patterns.RuleFilterEvaluatorTest",
+      "test_methods": [
+        "testGetResolvedArguments",
+        "testGetResolvedArgumentsWithColon",
+        "testDuplicateKey",
+        "testNoBackReference",
+        "testTooLargeBackRef"
+      ],
+      "test_method_count": 5,
+      "russian_dependency": "XML filter argument resolution (Task 0010)",
+      "claimed_by": [
+        "reports/0010_xml_filters.md"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "python_tests": [
+        "tests/unit/test_filters.py"
+      ],
+      "reason": "All five methods translated by Task 0010."
+    },
+    {
+      "source_path": "languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java",
+      "source_sha256": "095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b",
+      "source_size_bytes": 25704,
+      "java_class": "org.languagetool.rules.patterns.UnifierTest",
+      "test_methods": [
+        "testUnificationCase",
+        "testUnificationNumber",
+        "testUnificationNumberGender",
+        "testMultipleFeats",
+        "testMultipleFeatsWithMultipleTypes",
+        "testNegation",
+        "testAddNeutralElement"
+      ],
+      "test_method_count": 7,
+      "russian_dependency": "feature unification (Task 0009)",
+      "claimed_by": [
+        "reports/0009_unification.md"
+      ],
+      "status": "ALREADY_COVERED_EQUIVALENTLY",
+      "python_tests": [
+        "tests/upstream/test_unifier_oracle_parity.py"
+      ],
+      "reason": "All seven methods translated by Task 0009."
+    }
+  ],
+  "totals": {
+    "russian_module_test_files_total": 18,
+    "russian_module_test_files_accounted": 18,
+    "executable_methods_total": 24,
+    "executable_methods_mapped": 24,
+    "contract_closure_total": 91,
+    "contract_scenario_units_total": 261,
+    "contract_assertion_units_total": 150,
+    "ordinary_non_lm_contracts_total": 90,
+    "ordinary_non_lm_contracts_mapped": 90,
+    "ordinary_non_lm_scenario_units_total": 260,
+    "ordinary_non_lm_scenario_units_mapped": 260,
+    "status_counts": {
+      "DIRECT_PYTHON_PARITY": 44,
+      "ORACLE_PARITY": 0,
+      "ALREADY_COVERED_EQUIVALENTLY": 18,
+      "NOT_EXECUTABLE_HELPER": 23,
+      "LANGUAGE_MODEL_DEFERRED": 1,
+      "NOT_APPLICABLE_WITH_PROOF": 5,
+      "BLOCKED": 0
+    },
+    "blocked": 0,
+    "unmapped": 0,
+    "unknown": 0,
+    "generic_core_evidence_sources_total": 13,
+    "generic_core_evidence_sources_reconciled": 13
+  }
+}

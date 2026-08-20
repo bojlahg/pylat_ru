@@ -1,5 +1,7 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
+  "superseded_by": "compat/upstream_test_inventory_0013.json",
+  "scope": "locally declared @Test methods of the pinned Russian module test files",
   "total_test_files": 18,
   "total_test_methods": 21,
   "test_files": [
@@ -58,10 +60,9 @@
       "size_bytes": 3447,
       "has_test_annotation": true,
       "test_methods": [
-        "setUp",
         "testRule"
       ],
-      "test_method_count": 2,
+      "test_method_count": 1,
       "target_component": "rules",
       "porting_strategy": "semantic_port"
     },
@@ -71,10 +72,9 @@
       "size_bytes": 3040,
       "has_test_annotation": true,
       "test_methods": [
-        "setUp",
         "testRule"
       ],
-      "test_method_count": 2,
+      "test_method_count": 1,
       "target_component": "rules",
       "porting_strategy": "semantic_port"
     },
@@ -191,8 +191,10 @@
       "rel_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/synthesis/ru/RussianSynthesizerTest.java",
       "size_bytes": 1725,
       "has_test_annotation": true,
-      "test_methods": [],
-      "test_method_count": 0,
+      "test_methods": [
+        "testSynthesizeString"
+      ],
+      "test_method_count": 1,
       "target_component": "synthesizer",
       "porting_strategy": "semantic_port"
     },
@@ -214,8 +216,10 @@
       "rel_path": "languagetool-language-modules/ru/src/test/java/org/languagetool/tokenizers/ru/RussianSRXSentenceTokenizerTest.java",
       "size_bytes": 2800,
       "has_test_annotation": true,
-      "test_methods": [],
-      "test_method_count": 0,
+      "test_methods": [
+        "testTokenize"
+      ],
+      "test_method_count": 1,
       "target_component": "sentence_tokenizer",
       "porting_strategy": "mechanical"
     }
