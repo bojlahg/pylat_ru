@@ -498,5 +498,32 @@ committed Python test.  Java-dependent fixture generation
 `tools/audit_tagger_dictionary_0013.py`) is an explicit dev command and never
 runs during pytest.
 
-The exact-SHA GitHub Actions verification is appended below once the final
-commit is pushed.
+### Exact-SHA GitHub Actions verification
+
+Implementation commit:
+
+```text
+run ID:    32420629192
+run URL:   https://github.com/bojlahg/pylat_ru/actions/runs/32420629192
+event:     push
+head_sha:  d055cbed9a725bd8482a6ba67e83c10cfff62440
+conclusion: success
+
+Python 3.10  conclusion: success
+Python 3.12  conclusion: success
+```
+
+Both jobs ran every step successfully, including:
+
+* `Verify exact checkout SHA`, which asserts `git rev-parse HEAD == GITHUB_SHA`;
+* `Enforce zero failures, errors, and skips`, which parses the pytest JUnit
+  report and fails the job unless `failures == 0 and errors == 0 and skipped == 0`.
+
+The per-job *passed* count is not reproduced here: job logs and the uploaded
+`pytest-results.xml` artifacts require repository credentials, and none are
+available in this environment.  The machine-enforced part of the gate
+(`0 failed / 0 errors / 0 skipped`) is green on both jobs; the local run on the
+same commit reports `1002 passed`.
+
+This report was added by a docs-only follow-up commit; its own exact-SHA
+Actions run is recorded in the task handoff.
