@@ -3,7 +3,7 @@ import re
 from typing import List, Dict, Optional
 from pylat_ru.analysis import AnalyzedTokenReadings
 from pylat_ru.grammar.model import RuleMatchResult
-from .base import RuleFilter
+from .base import RuleFilter, FilterIllegalArgumentError, FilterRuntimeError
 from .date_check import SystemClock, trim_special_characters
 
 class FutureDateFilter(RuleFilter):
@@ -40,11 +40,14 @@ class FutureDateFilter(RuleFilter):
             return 11
         if mon.startswith("дек"):
             return 12
-        raise ValueError(f"Could not find month '{month_str}'")
+        raise FilterRuntimeError(f"Could not find month '{month_str}'")
 
-    def get_date(self, args: Dict[str, str]) -> datetime.date:
+    def get_date_components(self, args: Dict[str, str]) -> tuple[int, int, int]:
         year_str = self.get_required("year", args)
-        year = int(year_str)
+        try:
+            year = int(year_str)
+        except ValueError:
+            raise FilterIllegalArgumentError(f"Invalid year: '{year_str}'")
 
         month_str = self.get_required("month", args)
         if month_str.isdigit():
@@ -55,12 +58,14 @@ class FutureDateFilter(RuleFilter):
         day_str = self.get_required("day", args)
         m = self.DAY_OF_MONTH_PATTERN.fullmatch(day_str)
         if m:
-            day = int(m.group(1))
+            try:
+                day = int(m.group(1))
+            except ValueError:
+                raise FilterIllegalArgumentError(f"Invalid day: '{day_str}'")
         else:
             day = 0
 
-        # Validate date
-        return datetime.date(year, month, day)
+        return year, month, day
 
     def accept_rule_match(
         self,
@@ -70,8 +75,10 @@ class FutureDateFilter(RuleFilter):
         pattern_tokens: List[AnalyzedTokenReadings],
         token_positions: List[int]
     ) -> Optional[RuleMatchResult]:
+        year, month, day = self.get_date_components(arguments)
+
         try:
-            date_from_date = self.get_date(arguments)
+            date_from_date = datetime.date(year, month, day)
             
             if SystemClock.is_test_mode:
                 current_date = datetime.date(2014, 1, 1)
@@ -82,7 +89,5 @@ class FutureDateFilter(RuleFilter):
                 return match
             else:
                 return None
-        except ValueError:
-            return None
-        except Exception:
+        except (ValueError, OverflowError):
             return None

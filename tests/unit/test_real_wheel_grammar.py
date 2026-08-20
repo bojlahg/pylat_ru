@@ -163,6 +163,62 @@ assert uni_m.message == "Прилагательное не согласуетс�
 assert uni_m.short_message == "Грамматическая ошибка в согласовании рода"
 assert uni_m.suggestions == []
 
+# 7. Check a real AdvancedSynthesizerFilter rule and its exact replacement
+filter_synth_text = "моему отношение"
+filter_synth_sentence = disambiguator.disambiguate_text(filter_synth_text)
+filter_synth_sentence.text = filter_synth_text
+chunker.chunk(filter_synth_sentence)
+filter_synth_matches = engine.check_rule(filter_synth_sentence, "Unify_PADJ_NN_case[1]")
+assert len(filter_synth_matches) == 1
+filter_synth_match = filter_synth_matches[0]
+assert filter_synth_match.rule_id == "Unify_PADJ_NN_case"
+assert filter_synth_match.full_rule_id == "Unify_PADJ_NN_case[1]"
+assert filter_synth_match.from_pos == 0
+assert filter_synth_match.to_pos == 15
+assert filter_synth_match.from_pos_utf16 == 0
+assert filter_synth_match.to_pos_utf16 == 15
+assert filter_synth_match.pattern_from_pos == 0
+assert filter_synth_match.pattern_to_pos == 15
+assert filter_synth_match.pattern_from_pos_utf16 == 0
+assert filter_synth_match.pattern_to_pos_utf16 == 15
+assert filter_synth_match.message == "Притяжательное прилагательное (местоимение) не согласуется с существительным по падежу."
+assert filter_synth_match.short_message == "Не согласуются по падежу"
+assert filter_synth_match.suggestions == ["моё отношение"]
+
+# 8. Check a real RussianPartialPosTagFilter rule
+partial_pos_text = "Работа выполнена далеко неплохо."
+partial_pos_sentence = disambiguator.disambiguate_text(partial_pos_text)
+partial_pos_sentence.text = partial_pos_text
+chunker.chunk(partial_pos_sentence)
+partial_pos_matches = engine.check_rule(partial_pos_sentence, "Ne_narech[3]")
+assert len(partial_pos_matches) == 1
+partial_pos_match = partial_pos_matches[0]
+assert partial_pos_match.full_rule_id == "Ne_narech[3]"
+assert partial_pos_match.from_pos == 17
+assert partial_pos_match.to_pos == 31
+assert partial_pos_match.from_pos_utf16 == 17
+assert partial_pos_match.to_pos_utf16 == 31
+assert partial_pos_match.message == "Пишется раздельно с «не»: <suggestion>далеко не плохо</suggestion>."
+assert partial_pos_match.short_message == "Раздельно с «не»"
+assert partial_pos_match.suggestions == ["далеко не плохо"]
+
+# 9. Check a deterministic INNNumberFilter rule
+inn_text = "ИНН: 1234567890"
+inn_sentence = disambiguator.disambiguate_text(inn_text)
+inn_sentence.text = inn_text
+chunker.chunk(inn_sentence)
+inn_matches = engine.check_rule(inn_sentence, "WRONG_INN[1]")
+assert len(inn_matches) == 1
+inn_match = inn_matches[0]
+assert inn_match.full_rule_id == "WRONG_INN[1]"
+assert inn_match.from_pos == 0
+assert inn_match.to_pos == 15
+assert inn_match.from_pos_utf16 == 0
+assert inn_match.to_pos_utf16 == 15
+assert inn_match.message == "Некорректный ИНН: 1234567890"
+assert inn_match.short_message == "Некорректный ИНН"
+assert inn_match.suggestions == []
+
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """
         run_env = dict(os.environ)

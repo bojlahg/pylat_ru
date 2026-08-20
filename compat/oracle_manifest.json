@@ -36,5 +36,21 @@
       "description": "LanguageTool 6.8 standalone build compiled from pinned upstream commit e807fcde6a6506191e1470744d2345da28c26be6 with OpenJDK 17 in initial test setup"
     }
   ],
+  "fixture_bindings": [
+    {
+      "path": "tests/fixtures/oracle_filters_synthetic.json",
+      "size_bytes": 111593,
+      "sha256": "8a5af2a218fd2f2377ef6c0b8b125921dad9ad1bd5c645ad92b751aeab5e55d2",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 145
+    },
+    {
+      "path": "tests/fixtures/oracle_filters_russian_rules.json",
+      "size_bytes": 149553,
+      "sha256": "0e7ec43a198bb28913a9233b776031085608ef172718553597f64bf8726624de",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 165
+    }
+  ],
   "description": "Trusted Java LanguageTool development oracle specification and reproducible build records for differential and fixture generation"
 }

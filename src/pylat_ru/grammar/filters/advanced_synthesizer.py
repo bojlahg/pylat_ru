@@ -68,7 +68,7 @@ class AdvancedSynthesizerFilter(RuleFilter):
         is_word_all_upper = is_all_uppercase(lemma_surface)
 
         token = AnalyzedToken(token="", lemma=desired_lemma, pos_tag=desired_postag)
-        synth = RussianSynthesizer.get_instance()
+        synth = self.synthesizer or RussianSynthesizer.get_instance()
         replacements = synth.synthesize(token, desired_postag, pos_tag_is_regex=True)
 
         if len(replacements) > 0:
@@ -96,14 +96,9 @@ class AdvancedSynthesizerFilter(RuleFilter):
                         replacements_list.append(complete_suggestion)
 
             if not suggestion_used:
-                # Add adjusted raw replacements
-                for nr in replacements:
-                    if is_word_capitalized:
-                        nr = uppercase_first_char(nr)
-                    if is_word_all_upper:
-                        nr = nr.upper()
-                    if nr not in replacements_list:
-                        replacements_list.append(nr)
+                # Java appends the raw synthesizer array here: no casing pass and
+                # no extra deduplication beyond whatever the synthesizer returned.
+                replacements_list.extend(replacements)
 
             return dataclasses.replace(match, suggestions=replacements_list)
 

@@ -1,0 +1,3467 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Russian XML Filter Synthetic Fixture",
+  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <category id=\"SYN_DATE\" name=\"Synthetic Date Checks\">\n    <rule id=\"SYN_DATE_CHECK\" name=\"Date check\">\n      <pattern>\n        <token regexp=\"yes\">понедельник|вторник|среда|четверг|пятница|суббота|воскресенье</token>\n        <token regexp=\"yes\">\\d+</token>\n        <token regexp=\"yes\">января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря</token>\n        <token regexp=\"yes\">\\d{4}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.DateCheckFilter\" args=\"weekDay:\\1 day:\\2 month:\\3 year:\\4\"/>\n      <message>Date mismatch: {day} is not {realDay} in {currentYear}</message>\n    </rule>\n    <rule id=\"SYN_DATE_CHECK_WITHOUT_YEAR\" name=\"Date check without year\">\n      <pattern>\n        <token regexp=\"yes\">понедельник|вторник|среда|четверг|пятница|суббота|воскресенье</token>\n        <token regexp=\"yes\">\\d+</token>\n        <token regexp=\"yes\">января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.DateCheckFilter\" args=\"weekDay:\\1 day:\\2 month:\\3\"/>\n      <message>Date mismatch: {day} is not {realDay} in {currentYear}</message>\n    </rule>\n    <rule id=\"SYN_FUTURE_DATE\" name=\"Future date check\">\n      <pattern>\n        <token regexp=\"yes\">\\d+</token>\n        <token regexp=\"yes\">января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря</token>\n        <token regexp=\"yes\">\\d{4}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.FutureDateFilter\" args=\"day:\\1 month:\\2 year:\\3\"/>\n      <message>Future date</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_INN\" name=\"Synthetic INN Modulo Check\">\n    <rule id=\"SYN_INN_CHECK\" name=\"INN check\">\n      <pattern>\n        <token regexp=\"yes\">\\d{10}|\\d{12}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:1\"/>\n      <message>Invalid INN</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_PARTIAL_POS\" name=\"Synthetic Partial POS Check\">\n    <rule id=\"SYN_PARTIAL_POS_SIMPLE\" name=\"Partial POS Simple\">\n      <pattern>\n        <token regexp=\"yes\">не(\\p{L}+)</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.RussianPartialPosTagFilter\" args=\"no:1 regexp:не(.*) postag_regexp:VB:.*\"/>\n      <message>Partial POS</message>\n    </rule>\n    <rule id=\"SYN_PARTIAL_POS_NEGATED\" name=\"Partial POS Negated\">\n      <pattern>\n        <token regexp=\"yes\">не(\\p{L}+)</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.RussianPartialPosTagFilter\" args=\"no:1 regexp:не(.*) postag_regexp:VB:.* negate_pos:yes\"/>\n      <message>Partial POS</message>\n    </rule>\n    <rule id=\"SYN_PARTIAL_POS_TWO_GROUPS\" name=\"Partial POS Two Groups\">\n      <pattern>\n        <token regexp=\"yes\">не(\\p{L}+)ся</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.RussianPartialPosTagFilter\" args=\"no:1 regexp:не(.*)(ся) postag_regexp:VB:.* two_groups_regexp:yes\"/>\n      <message>Partial POS</message>\n    </rule>\n    <rule id=\"SYN_PARTIAL_POS_PREFIX_SUFFIX\" name=\"Partial POS Prefix/Suffix\">\n      <pattern>\n        <token regexp=\"yes\">не(\\p{L}+)</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.RussianPartialPosTagFilter\" args=\"no:1 regexp:не(.*) postag_regexp:VB:.* prefix:дела suffix:ть\"/>\n      <message>Partial POS</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_ADV_SYN\" name=\"Synthetic Advanced Synthesizer\">\n    <rule id=\"SYN_ADV_SYN_SIMPLE\" name=\"Adv Syn Simple\">\n      <pattern>\n        <token inflected=\"yes\">делать</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.AdvancedSynthesizerFilter\" args=\"lemmaFrom:1 postagFrom:1 lemmaSelect:.* postagSelect:VB:Past:TRANS:IMPFV:Masc\"/>\n      <message>Adv Syn: <suggestion>{suggestion}</suggestion></message>\n    </rule>\n    <rule id=\"SYN_ADV_SYN_REPLACE\" name=\"Adv Syn Replace\">\n      <pattern>\n        <token inflected=\"yes\">делать</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.AdvancedSynthesizerFilter\" args=\"lemmaFrom:1 postagFrom:1 lemmaSelect:VB:.* postagSelect:VB:Past:(TRANS):(IMPFV):(Masc) postagReplace:\\\\b1:Past:\\\\b2:\\\\b3\"/>\n      <message>Adv Syn: <suggestion>{suggestion}</suggestion></message>\n    </rule>\n    <rule id=\"SYN_ADV_SYN_NEW_LEMMA\" name=\"Adv Syn New Lemma\">\n      <pattern>\n        <token inflected=\"yes\">делать</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.AdvancedSynthesizerFilter\" args=\"lemmaFrom:1 postagFrom:1 lemmaSelect:.* postagSelect:VB:Past:TRANS:IMPFV:Masc newLemma:работать\"/>\n      <message>Adv Syn: <suggestion>{suggestion}</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_EVAL_EDGE\" name=\"RuleFilterEvaluator Edge Cases\">\n    <rule id=\"SYN_EVAL_NEG_REF\" name=\"Negative reference\">\n      <pattern>\n        <token>тест</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:-1\"/>\n      <message>Error</message>\n    </rule>\n    <rule id=\"SYN_EVAL_ZERO_REF\" name=\"Zero reference\">\n      <pattern>\n        <token>тест</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:0\"/>\n      <message>Error</message>\n    </rule>\n    <rule id=\"SYN_EVAL_TOO_LARGE_REF\" name=\"Too large reference\">\n      <pattern>\n        <token>тест</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:10\"/>\n      <message>Error</message>\n    </rule>\n    <rule id=\"SYN_EVAL_DUP_LITERAL\" name=\"Duplicate literal keys\">\n      <pattern>\n        <token regexp=\"yes\">\\d{10}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:2 no:1\"/>\n      <message>INN</message>\n    </rule>\n    <rule id=\"SYN_EVAL_DUP_BACKREF\" name=\"Duplicate backref keys\">\n      <pattern>\n        <token regexp=\"yes\">\\d{10}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:1 no:\\\\1\"/>\n      <message>Error</message>\n    </rule>\n    <rule id=\"SYN_EVAL_MARKER\" name=\"Marker position\">\n      <pattern>\n        <token>купить</token>\n        <marker>\n          <token regexp=\"yes\">\\d{10}</token>\n        </marker>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:marker\"/>\n      <message>INN</message>\n    </rule>\n    <rule id=\"SYN_EVAL_SKIPS\" name=\"Skip corrected\">\n      <pattern>\n        <token>купить</token>\n        <token skip=\"-1\">быстро</token>\n        <token regexp=\"yes\">\\d{10}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:\\\\3\"/>\n      <message>INN</message>\n    </rule>\n    <rule id=\"SYN_EVAL_SENT_START\" name=\"Sentence start check\">\n      <pattern>\n        <token postag=\"SENT_START\"/>\n        <token regexp=\"yes\">\\d{10}</token>\n      </pattern>\n      <filter class=\"org.languagetool.rules.ru.INNNumberFilter\" args=\"no:\\\\2\"/>\n      <message>INN</message>\n    </rule>\n  </category>\n</rules>\n",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "generator_operation": "tools/generate_oracle_filters_fixtures.py",
+    "corpus_version": "1.0.0",
+    "controlled_current_date": "2026-08-20",
+    "cases_count": 145
+  },
+  "feature_coverage": {
+    "AdvancedSynthesizerFilter_simple": [
+      "syn_filt_122",
+      "syn_filt_123",
+      "syn_filt_124",
+      "syn_filt_125"
+    ],
+    "AdvancedSynthesizerFilter_casing": [
+      "syn_filt_122",
+      "syn_filt_123",
+      "syn_filt_124",
+      "syn_filt_125"
+    ],
+    "AdvancedSynthesizerFilter_composite": [
+      "syn_filt_126",
+      "syn_filt_127",
+      "syn_filt_128",
+      "syn_filt_129"
+    ],
+    "AdvancedSynthesizerFilter_new_lemma": [
+      "syn_filt_130",
+      "syn_filt_131",
+      "syn_filt_132",
+      "syn_filt_133"
+    ],
+    "DateCheckFilter_valid": [
+      "syn_filt_001",
+      "syn_filt_002",
+      "syn_filt_003",
+      "syn_filt_004",
+      "syn_filt_005",
+      "syn_filt_006",
+      "syn_filt_007",
+      "syn_filt_008",
+      "syn_filt_009",
+      "syn_filt_010",
+      "syn_filt_041",
+      "syn_filt_042",
+      "syn_filt_043",
+      "syn_filt_044",
+      "syn_filt_045",
+      "syn_filt_046",
+      "syn_filt_047",
+      "syn_filt_048",
+      "syn_filt_049",
+      "syn_filt_050"
+    ],
+    "DateCheckFilter_invalid_weekday": [
+      "syn_filt_001",
+      "syn_filt_002",
+      "syn_filt_003",
+      "syn_filt_004",
+      "syn_filt_005",
+      "syn_filt_006",
+      "syn_filt_007",
+      "syn_filt_008",
+      "syn_filt_009",
+      "syn_filt_010"
+    ],
+    "DateCheckFilter_invalid_date": [
+      "syn_filt_011",
+      "syn_filt_012",
+      "syn_filt_013",
+      "syn_filt_014",
+      "syn_filt_015",
+      "syn_filt_016",
+      "syn_filt_017",
+      "syn_filt_018",
+      "syn_filt_019",
+      "syn_filt_020"
+    ],
+    "DateCheckFilter_unrecognized_weekday": [
+      "syn_filt_021",
+      "syn_filt_022",
+      "syn_filt_023",
+      "syn_filt_024",
+      "syn_filt_025",
+      "syn_filt_026",
+      "syn_filt_027",
+      "syn_filt_028",
+      "syn_filt_029",
+      "syn_filt_030"
+    ],
+    "DateCheckFilter_unrecognized_month": [
+      "syn_filt_031",
+      "syn_filt_032",
+      "syn_filt_033",
+      "syn_filt_034",
+      "syn_filt_035",
+      "syn_filt_036",
+      "syn_filt_037",
+      "syn_filt_038",
+      "syn_filt_039",
+      "syn_filt_040"
+    ],
+    "FutureDateFilter_future": [
+      "syn_filt_061",
+      "syn_filt_062",
+      "syn_filt_063",
+      "syn_filt_064",
+      "syn_filt_065",
+      "syn_filt_066",
+      "syn_filt_067",
+      "syn_filt_068",
+      "syn_filt_069",
+      "syn_filt_070"
+    ],
+    "FutureDateFilter_past": [
+      "syn_filt_051",
+      "syn_filt_052",
+      "syn_filt_053",
+      "syn_filt_054",
+      "syn_filt_055",
+      "syn_filt_056",
+      "syn_filt_057",
+      "syn_filt_058",
+      "syn_filt_059",
+      "syn_filt_060"
+    ],
+    "FutureDateFilter_invalid_date": [
+      "syn_filt_071",
+      "syn_filt_072",
+      "syn_filt_073",
+      "syn_filt_074",
+      "syn_filt_075",
+      "syn_filt_076",
+      "syn_filt_077",
+      "syn_filt_078",
+      "syn_filt_079",
+      "syn_filt_080"
+    ],
+    "FutureDateFilter_unrecognized_month": [
+      "syn_filt_081",
+      "syn_filt_082",
+      "syn_filt_083",
+      "syn_filt_084",
+      "syn_filt_085"
+    ],
+    "INNNumberFilter_10_valid": [
+      "syn_filt_086",
+      "syn_filt_087",
+      "syn_filt_088",
+      "syn_filt_089",
+      "syn_filt_090"
+    ],
+    "INNNumberFilter_10_invalid": [
+      "syn_filt_091",
+      "syn_filt_092",
+      "syn_filt_093",
+      "syn_filt_094",
+      "syn_filt_095"
+    ],
+    "INNNumberFilter_12_valid": [
+      "syn_filt_096",
+      "syn_filt_097",
+      "syn_filt_098",
+      "syn_filt_099",
+      "syn_filt_100"
+    ],
+    "INNNumberFilter_12_invalid": [
+      "syn_filt_101",
+      "syn_filt_102",
+      "syn_filt_103",
+      "syn_filt_104",
+      "syn_filt_105"
+    ],
+    "RussianPartialPosTagFilter_match": [
+      "syn_filt_106",
+      "syn_filt_107",
+      "syn_filt_108",
+      "syn_filt_109",
+      "syn_filt_118",
+      "syn_filt_119",
+      "syn_filt_120",
+      "syn_filt_121"
+    ],
+    "RussianPartialPosTagFilter_no_match": [
+      "syn_filt_110",
+      "syn_filt_111",
+      "syn_filt_112",
+      "syn_filt_113"
+    ],
+    "RussianPartialPosTagFilter_negate_pos": [
+      "syn_filt_114",
+      "syn_filt_115",
+      "syn_filt_116",
+      "syn_filt_117"
+    ],
+    "RuleFilterEvaluator_negative_ref": [
+      "syn_filt_134",
+      "syn_filt_135"
+    ],
+    "RuleFilterEvaluator_zero_ref": [
+      "syn_filt_136",
+      "syn_filt_137"
+    ],
+    "RuleFilterEvaluator_too_large_ref": [
+      "syn_filt_138",
+      "syn_filt_139"
+    ],
+    "RuleFilterEvaluator_duplicate_keys": [
+      "syn_filt_140",
+      "syn_filt_141",
+      "syn_filt_142"
+    ],
+    "RuleFilterEvaluator_skips": [
+      "syn_filt_144"
+    ],
+    "RuleFilterEvaluator_marker": [
+      "syn_filt_143"
+    ],
+    "RuleFilterEvaluator_sent_start": [
+      "syn_filt_145"
+    ]
+  },
+  "cases": [
+    {
+      "id": "syn_filt_001",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2010",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not среда in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_002",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2011",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not четверг in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_003",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2012",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not суббота in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_004",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2013",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not воскресенье in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_005",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_006",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2015",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_007",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2016",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not четверг in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_008",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2017",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not пятница in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_009",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2018",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not суббота in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_010",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "понедельник 29 сентября 2019",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid",
+        "DateCheckFilter_invalid_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 28,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 28,
+            "message": "Date mismatch: понедельник is not воскресенье in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_011",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 31 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_012",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 32 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_013",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 33 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_014",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 34 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_015",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 35 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_016",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 36 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_017",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 37 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_018",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 38 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_019",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 39 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_020",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 40 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_021",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно0 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_022",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно1 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_023",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно2 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_024",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно3 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_025",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно4 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_026",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно5 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_027",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно6 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_028",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно7 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_029",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно8 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_030",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "неизвестно9 29 сентября 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_weekday"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_031",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц0 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_032",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц1 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_033",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц2 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_034",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц3 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_035",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц4 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_036",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц5 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_037",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц6 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_038",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц7 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_039",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц8 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_040",
+      "full_rule_id": "SYN_DATE_CHECK[1]",
+      "text": "вторник 29 месяц9 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK",
+        "full_rule_id": "SYN_DATE_CHECK[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_041",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "понедельник 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Date mismatch: понедельник is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_042",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "вторник 29 сентября",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_043",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "среда 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Date mismatch: среда is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_044",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "четверг 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Date mismatch: четверг is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_045",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "пятница 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Date mismatch: пятница is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_046",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "суббота 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Date mismatch: суббота is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_047",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "воскресенье 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Date mismatch: воскресенье is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_048",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "понедельник 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Date mismatch: понедельник is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_049",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "вторник 29 сентября",
+      "expected_target_matches": 0,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_050",
+      "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+      "text": "среда 29 сентября",
+      "expected_target_matches": 1,
+      "features": [
+        "DateCheckFilter_valid"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR",
+        "full_rule_id": "SYN_DATE_CHECK_WITHOUT_YEAR[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Date check without year",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Date mismatch: среда is not вторник in 2026",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_051",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2011",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_052",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2012",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_053",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2013",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_054",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_055",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2015",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_056",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2016",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_057",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2017",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_058",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2018",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_059",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2019",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_060",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2020",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_past"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_061",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2031",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_062",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2032",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_063",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2033",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_064",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2034",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_065",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2035",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_066",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2036",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_067",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2037",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_068",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2038",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_069",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2039",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_070",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 января 2040",
+      "expected_target_matches": 1,
+      "features": [
+        "FutureDateFilter_future"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Future date",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_071",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "31 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_072",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "32 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_073",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "33 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_074",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "34 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_075",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "35 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_076",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "36 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_077",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "37 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_078",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "38 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_079",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "39 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_080",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "40 апреля 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_invalid_date"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_081",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 неизвестно0 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_082",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 неизвестно1 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_083",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 неизвестно2 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_084",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 неизвестно3 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_085",
+      "full_rule_id": "SYN_FUTURE_DATE[1]",
+      "text": "1 неизвестно4 2014",
+      "expected_target_matches": 0,
+      "features": [
+        "FutureDateFilter_unrecognized_month"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_FUTURE_DATE",
+        "full_rule_id": "SYN_FUTURE_DATE[1]",
+        "category_id": "SYN_DATE",
+        "category_name": "Synthetic Date Checks",
+        "description": "Future date check",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_086",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_10_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_087",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_10_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_088",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_10_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_089",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_10_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_090",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_10_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_091",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_10_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_092",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_10_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_093",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_10_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_094",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_10_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_095",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_10_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_096",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_12_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732259[500100732259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_097",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_12_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732259[500100732259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_098",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_12_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732259[500100732259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_099",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_12_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732259[500100732259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_100",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732259",
+      "expected_target_matches": 0,
+      "features": [
+        "INNNumberFilter_12_valid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732259[500100732259/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_101",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_12_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732250[500100732250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_102",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_12_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732250[500100732250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_103",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_12_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732250[500100732250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_104",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_12_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732250[500100732250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_105",
+      "full_rule_id": "SYN_INN_CHECK[1]",
+      "text": "500100732250",
+      "expected_target_matches": 1,
+      "features": [
+        "INNNumberFilter_12_invalid"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 500100732250[500100732250/NumD_P,</S>,O]' with rule SYN_INN_CHECK[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_106",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "неделал",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_107",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "неделал",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_108",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "неделал",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_109",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "неделал",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 7,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 7,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_110",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "нестол",
+      "expected_target_matches": 0,
+      "features": [
+        "RussianPartialPosTagFilter_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_111",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "нестол",
+      "expected_target_matches": 0,
+      "features": [
+        "RussianPartialPosTagFilter_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_112",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "нестол",
+      "expected_target_matches": 0,
+      "features": [
+        "RussianPartialPosTagFilter_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_113",
+      "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+      "text": "нестол",
+      "expected_target_matches": 0,
+      "features": [
+        "RussianPartialPosTagFilter_no_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_SIMPLE",
+        "full_rule_id": "SYN_PARTIAL_POS_SIMPLE[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Simple",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_114",
+      "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+      "text": "нестол",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_negate_pos"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_NEGATED",
+        "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Negated",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 6,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_115",
+      "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+      "text": "нестол",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_negate_pos"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_NEGATED",
+        "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Negated",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 6,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_116",
+      "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+      "text": "нестол",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_negate_pos"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_NEGATED",
+        "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Negated",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 6,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_117",
+      "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+      "text": "нестол",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_negate_pos"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_NEGATED",
+        "full_rule_id": "SYN_PARTIAL_POS_NEGATED[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Negated",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 6,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 6,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_118",
+      "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+      "text": "неделался",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_TWO_GROUPS",
+        "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Two Groups",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_119",
+      "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+      "text": "неделался",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_TWO_GROUPS",
+        "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Two Groups",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_120",
+      "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+      "text": "неделался",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_TWO_GROUPS",
+        "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Two Groups",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_121",
+      "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+      "text": "неделался",
+      "expected_target_matches": 1,
+      "features": [
+        "RussianPartialPosTagFilter_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_PARTIAL_POS_TWO_GROUPS",
+        "full_rule_id": "SYN_PARTIAL_POS_TWO_GROUPS[1]",
+        "category_id": "SYN_PARTIAL_POS",
+        "category_name": "Synthetic Partial POS Check",
+        "description": "Partial POS Two Groups",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Partial POS",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_122",
+      "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_simple",
+        "AdvancedSynthesizerFilter_casing"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_SIMPLE",
+        "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "делал"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_123",
+      "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_simple",
+        "AdvancedSynthesizerFilter_casing"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_SIMPLE",
+        "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "делал"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_124",
+      "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_simple",
+        "AdvancedSynthesizerFilter_casing"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_SIMPLE",
+        "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "делал"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_125",
+      "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_simple",
+        "AdvancedSynthesizerFilter_casing"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_SIMPLE",
+        "full_rule_id": "SYN_ADV_SYN_SIMPLE[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn Simple",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "делал"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_126",
+      "full_rule_id": "SYN_ADV_SYN_REPLACE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_composite"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> делал[делать/VB:Past:TRANS:IMPFV:Masc,</S>,B-VP]' with rule SYN_ADV_SYN_REPLACE[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_127",
+      "full_rule_id": "SYN_ADV_SYN_REPLACE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_composite"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> делал[делать/VB:Past:TRANS:IMPFV:Masc,</S>,B-VP]' with rule SYN_ADV_SYN_REPLACE[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_128",
+      "full_rule_id": "SYN_ADV_SYN_REPLACE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_composite"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> делал[делать/VB:Past:TRANS:IMPFV:Masc,</S>,B-VP]' with rule SYN_ADV_SYN_REPLACE[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_129",
+      "full_rule_id": "SYN_ADV_SYN_REPLACE[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_composite"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> делал[делать/VB:Past:TRANS:IMPFV:Masc,</S>,B-VP]' with rule SYN_ADV_SYN_REPLACE[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_130",
+      "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_new_lemma"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_NEW_LEMMA",
+        "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn New Lemma",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "{suggestion}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_131",
+      "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_new_lemma"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_NEW_LEMMA",
+        "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn New Lemma",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "{suggestion}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_132",
+      "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_new_lemma"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_NEW_LEMMA",
+        "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn New Lemma",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "{suggestion}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_133",
+      "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+      "text": "делал",
+      "expected_target_matches": 1,
+      "features": [
+        "AdvancedSynthesizerFilter_new_lemma"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_ADV_SYN_NEW_LEMMA",
+        "full_rule_id": "SYN_ADV_SYN_NEW_LEMMA[1]",
+        "category_id": "SYN_ADV_SYN",
+        "category_name": "Synthetic Advanced Synthesizer",
+        "description": "Adv Syn New Lemma",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 5,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 5,
+            "message": "Adv Syn: <suggestion>{suggestion}</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "{suggestion}"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "syn_filt_134",
+      "full_rule_id": "SYN_EVAL_NEG_REF[1]",
+      "text": "тест",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_negative_ref"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> тест[тест/NN:Inanim:Masc:Sin:Nom,тест/NN:Inanim:Masc:Sin:V,тесто/NN:Inanim:Neut:PL:R,</S>,O]' with rule SYN_EVAL_NEG_REF[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_135",
+      "full_rule_id": "SYN_EVAL_NEG_REF[1]",
+      "text": "тест2",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_negative_ref"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EVAL_NEG_REF",
+        "full_rule_id": "SYN_EVAL_NEG_REF[1]",
+        "category_id": "SYN_EVAL_EDGE",
+        "category_name": "RuleFilterEvaluator Edge Cases",
+        "description": "Negative reference",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_136",
+      "full_rule_id": "SYN_EVAL_ZERO_REF[1]",
+      "text": "тест",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_zero_ref"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> тест[тест/NN:Inanim:Masc:Sin:Nom,тест/NN:Inanim:Masc:Sin:V,тесто/NN:Inanim:Neut:PL:R,</S>,O]' with rule SYN_EVAL_ZERO_REF[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_137",
+      "full_rule_id": "SYN_EVAL_ZERO_REF[1]",
+      "text": "тест2",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_zero_ref"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EVAL_ZERO_REF",
+        "full_rule_id": "SYN_EVAL_ZERO_REF[1]",
+        "category_id": "SYN_EVAL_EDGE",
+        "category_name": "RuleFilterEvaluator Edge Cases",
+        "description": "Zero reference",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_138",
+      "full_rule_id": "SYN_EVAL_TOO_LARGE_REF[1]",
+      "text": "тест",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_too_large_ref"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> тест[тест/NN:Inanim:Masc:Sin:Nom,тест/NN:Inanim:Masc:Sin:V,тесто/NN:Inanim:Neut:PL:R,</S>,O]' with rule SYN_EVAL_TOO_LARGE_REF[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_139",
+      "full_rule_id": "SYN_EVAL_TOO_LARGE_REF[1]",
+      "text": "тест2",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_too_large_ref"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_EVAL_TOO_LARGE_REF",
+        "full_rule_id": "SYN_EVAL_TOO_LARGE_REF[1]",
+        "category_id": "SYN_EVAL_EDGE",
+        "category_name": "RuleFilterEvaluator Edge Cases",
+        "description": "Too large reference",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_140",
+      "full_rule_id": "SYN_EVAL_DUP_LITERAL[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_duplicate_keys"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_EVAL_DUP_LITERAL[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_141",
+      "full_rule_id": "SYN_EVAL_DUP_LITERAL[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "RuleFilterEvaluator_duplicate_keys"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_EVAL_DUP_LITERAL[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_142",
+      "full_rule_id": "SYN_EVAL_DUP_BACKREF[1]",
+      "text": "7701107259",
+      "expected_target_matches": 0,
+      "features": [
+        "RuleFilterEvaluator_duplicate_keys"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107259[7701107259/NumD_P,</S>,O]' with rule SYN_EVAL_DUP_BACKREF[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_143",
+      "full_rule_id": "SYN_EVAL_MARKER[1]",
+      "text": "купить 7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "RuleFilterEvaluator_marker"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> купить[купить/VB:INF:TRANS:PFV,B-VP] 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_EVAL_MARKER[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_144",
+      "full_rule_id": "SYN_EVAL_SKIPS[1]",
+      "text": "купить быстро 7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "RuleFilterEvaluator_skips"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> купить[купить/VB:INF:TRANS:PFV,B-VP] быстро[быстро/ADV,быстрый/ADJ:Short:Neut,O] 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_EVAL_SKIPS[1]",
+        "matches": []
+      }
+    },
+    {
+      "id": "syn_filt_145",
+      "full_rule_id": "SYN_EVAL_SENT_START[1]",
+      "text": "7701107250",
+      "expected_target_matches": 1,
+      "features": [
+        "RuleFilterEvaluator_sent_start"
+      ],
+      "oracle_result": {
+        "status": "EXCEPTION",
+        "exception_class": "java.lang.RuntimeException",
+        "exception_message": "Error analyzing sentence: '<S> 7701107250[7701107250/NumD_P,</S>,O]' with rule SYN_EVAL_SENT_START[1]",
+        "matches": []
+      }
+    }
+  ]
+}

@@ -11,6 +11,7 @@ import pytest
 from pylat_ru.grammar.engine import RussianGrammarEngine
 from pylat_ru.grammar.errors import UnsupportedGrammarFeatureError
 from pylat_ru.grammar.filters.date_check import SystemClock
+from pylat_ru.grammar.filters.registry import get_filter_instance
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedTokenReadings, AnalyzedToken
 
 
@@ -53,3 +54,13 @@ def test_spelling_dependency_exception():
         
     assert "0012" in str(exc_info.value)
     assert "RussianSuppressMisspelledSuggestionsFilter" in str(exc_info.value)
+
+
+def test_filter_registry_returns_match_local_instances():
+    class_name = "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+    first = get_filter_instance(class_name)
+    second = get_filter_instance(class_name)
+
+    first.set_synthesizer(object())
+    assert first is not second
+    assert second.synthesizer is None

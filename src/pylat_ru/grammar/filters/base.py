@@ -2,11 +2,25 @@ from typing import List, Dict, Optional, Any
 from pylat_ru.analysis import AnalyzedTokenReadings
 from pylat_ru.grammar.model import RuleMatchResult
 
+class FilterIllegalArgumentError(ValueError):
+    """Equivalent to Java's IllegalArgumentException."""
+    pass
+
+class FilterRuntimeError(RuntimeError):
+    """Equivalent to Java's RuntimeException (excluding IllegalArgumentException)."""
+    pass
+
 class RuleFilter:
     """Filter rule matches after a PatternRule has matched already.
     
     Corresponds to org.languagetool.rules.patterns.RuleFilter in Java.
     """
+
+    def __init__(self) -> None:
+        self.synthesizer: Any = None
+
+    def set_synthesizer(self, synthesizer: Any) -> None:
+        self.synthesizer = synthesizer
 
     def accept_rule_match(
         self,
@@ -25,7 +39,7 @@ class RuleFilter:
     def get_required(self, key: str, arguments: Dict[str, str]) -> str:
         val = arguments.get(key)
         if val is None:
-            raise ValueError(f"Missing key '{key}'")
+            raise FilterIllegalArgumentError(f"Missing key '{key}'")
         return val
 
     def get_optional(self, key: str, arguments: Dict[str, str], default_value: Optional[str] = None) -> Optional[str]:
@@ -41,12 +55,12 @@ class RuleFilter:
                 i += 1
             i += 1  # 1-indexed
             if len(from_str) > 6:
-                i += int(from_str[6:])
+                i += int(from_str.replace("marker", ""))
         else:
             i = int(from_str)
         
         if i < 1 or i > len(pattern_tokens):
-            raise ValueError(f"RuleFilter: Index out of bounds in {match.full_rule_id}, value: {from_str}")
+            raise FilterIllegalArgumentError(f"RuleFilter: Index out of bounds in {match.full_rule_id}, value: {from_str}")
         return i - 1
 
     def is_match_at_sentence_start(self, tokens: List[AnalyzedTokenReadings], match: RuleMatchResult) -> bool:

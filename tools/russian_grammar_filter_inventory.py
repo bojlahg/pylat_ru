@@ -264,6 +264,23 @@ def generate_inventory():
         ExecutionState.FILTER_0010_RUNNABLE
     ))
 
+    syn_fixture_path = PROJECT_ROOT / "tests" / "fixtures" / "oracle_filters_synthetic.json"
+    real_fixture_path = PROJECT_ROOT / "tests" / "fixtures" / "oracle_filters_russian_rules.json"
+
+    if syn_fixture_path.is_file():
+        with open(syn_fixture_path, "r", encoding="utf-8") as f:
+            syn_data = json.load(f)
+            synthetic_case_count = len(syn_data.get("cases", []))
+    else:
+        synthetic_case_count = 0
+
+    if real_fixture_path.is_file():
+        with open(real_fixture_path, "r", encoding="utf-8") as f:
+            real_data = json.load(f)
+            real_case_count = len(real_data.get("cases", []))
+    else:
+        real_case_count = 0
+
     inventory_data = {
         "schema_version": "1.0.0",
         "pinned_languagetool": {
@@ -298,8 +315,8 @@ def generate_inventory():
         "deferred_examples_correct": deferred_examples_corr,
         "unknown_filter_class_count": sum(1 for fr in filter_rules if fr["filter_class"] not in class_counts or fr["task_0010_state"] == "UNKNOWN"),
         "spelling_dependent_recognized_deferred_count": class_counts.get("org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter", 0),
-        "synthetic_oracle_case_count": 120,
-        "real_oracle_case_count": len(filter_rules),
+        "synthetic_oracle_case_count": synthetic_case_count,
+        "real_oracle_case_count": real_case_count,
         "rules": filter_rules
     }
 

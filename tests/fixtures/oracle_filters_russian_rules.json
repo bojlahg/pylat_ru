@@ -1,0 +1,4088 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Committed LanguageTool 6.8 Java Oracle Russian Filter Rules Fixture",
+  "metadata": {
+    "pinned_lt_version": "6.8",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "generator_operation": "tools/generate_oracle_filters_fixtures.py",
+    "corpus_version": "1.0.0",
+    "cases_count": 165,
+    "promoted_rules_count": 19,
+    "promoted_full_rule_ids": [
+      "DATE_WEEKDAY1[1]",
+      "DATE_WEEKDAY1[2]",
+      "INVALID_TENSE_DATE[1]",
+      "INVALID_TENSE_DATE[2]",
+      "WRONG_INN[1]",
+      "Unify_PADJ_NN_case[1]",
+      "Unify_PADJ_NN_gender[1]",
+      "Unify_PADJ_NN_number[1]",
+      "Unify_Adj_NN_case[3]",
+      "Ne_narech[3]",
+      "Ne_narech[4]",
+      "Ne_narech2[1]",
+      "Ne_pril_prich[1]",
+      "Ne_pril_prich[2]",
+      "Ne_pril_prich[3]",
+      "Ne_pril_prich[4]",
+      "Ne_pril_prich1[1]",
+      "pouchastvovat[1]",
+      "DoubleNE[1]"
+    ]
+  },
+  "feature_coverage": {
+    "filter:org.languagetool.rules.ru.DateCheckFilter": {
+      "filter_class": "org.languagetool.rules.ru.DateCheckFilter",
+      "covered_rule_ids": [
+        "DATE_WEEKDAY1[1]",
+        "DATE_WEEKDAY1[2]"
+      ],
+      "covered_case_ids": [
+        "filt_ru_001_DATE_WEEKDAY1_0",
+        "filt_ru_002_DATE_WEEKDAY1_1",
+        "filt_ru_003_DATE_WEEKDAY1_2",
+        "filt_ru_004_DATE_WEEKDAY1_3",
+        "filt_ru_005_DATE_WEEKDAY1_4",
+        "filt_ru_006_DATE_WEEKDAY1_5",
+        "filt_ru_007_DATE_WEEKDAY1_0",
+        "filt_ru_008_DATE_WEEKDAY1_1",
+        "filt_ru_009_DATE_WEEKDAY1_2"
+      ]
+    },
+    "filter:org.languagetool.rules.ru.FutureDateFilter": {
+      "filter_class": "org.languagetool.rules.ru.FutureDateFilter",
+      "covered_rule_ids": [
+        "INVALID_TENSE_DATE[1]",
+        "INVALID_TENSE_DATE[2]"
+      ],
+      "covered_case_ids": [
+        "filt_ru_010_INVALID_TENSE_DATE_0",
+        "filt_ru_011_INVALID_TENSE_DATE_1",
+        "filt_ru_012_INVALID_TENSE_DATE_0",
+        "filt_ru_013_INVALID_TENSE_DATE_1"
+      ]
+    },
+    "filter:org.languagetool.rules.ru.INNNumberFilter": {
+      "filter_class": "org.languagetool.rules.ru.INNNumberFilter",
+      "covered_rule_ids": [
+        "WRONG_INN[1]"
+      ],
+      "covered_case_ids": [
+        "filt_ru_014_WRONG_INN_0",
+        "filt_ru_015_WRONG_INN_1",
+        "filt_ru_016_WRONG_INN_2"
+      ]
+    },
+    "filter:org.languagetool.rules.ru.AdvancedSynthesizerFilter": {
+      "filter_class": "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
+      "covered_rule_ids": [
+        "Unify_PADJ_NN_case[1]",
+        "Unify_PADJ_NN_gender[1]",
+        "Unify_PADJ_NN_number[1]",
+        "Unify_Adj_NN_case[3]"
+      ],
+      "covered_case_ids": [
+        "filt_ru_017_Unify_PADJ_NN_case_0",
+        "filt_ru_018_Unify_PADJ_NN_case_1",
+        "filt_ru_019_Unify_PADJ_NN_case_2",
+        "filt_ru_020_Unify_PADJ_NN_case_3",
+        "filt_ru_021_Unify_PADJ_NN_case_4",
+        "filt_ru_022_Unify_PADJ_NN_case_5",
+        "filt_ru_023_Unify_PADJ_NN_gender_0",
+        "filt_ru_024_Unify_PADJ_NN_gender_1",
+        "filt_ru_025_Unify_PADJ_NN_gender_2",
+        "filt_ru_026_Unify_PADJ_NN_gender_3",
+        "filt_ru_027_Unify_PADJ_NN_gender_4",
+        "filt_ru_028_Unify_PADJ_NN_gender_5",
+        "filt_ru_029_Unify_PADJ_NN_gender_6",
+        "filt_ru_030_Unify_PADJ_NN_gender_7",
+        "filt_ru_031_Unify_PADJ_NN_number_0",
+        "filt_ru_032_Unify_PADJ_NN_number_1",
+        "filt_ru_033_Unify_PADJ_NN_number_2",
+        "filt_ru_034_Unify_PADJ_NN_number_3",
+        "filt_ru_035_Unify_PADJ_NN_number_4",
+        "filt_ru_036_Unify_PADJ_NN_number_5",
+        "filt_ru_037_Unify_PADJ_NN_number_6",
+        "filt_ru_038_Unify_PADJ_NN_number_7",
+        "filt_ru_039_Unify_PADJ_NN_number_8",
+        "filt_ru_040_Unify_PADJ_NN_number_9",
+        "filt_ru_041_Unify_Adj_NN_case_0",
+        "filt_ru_042_Unify_Adj_NN_case_1",
+        "filt_ru_043_Unify_Adj_NN_case_2",
+        "filt_ru_044_Unify_Adj_NN_case_3",
+        "filt_ru_045_Unify_Adj_NN_case_4",
+        "filt_ru_046_Unify_Adj_NN_case_5",
+        "filt_ru_047_Unify_Adj_NN_case_6",
+        "filt_ru_048_Unify_Adj_NN_case_7",
+        "filt_ru_049_Unify_Adj_NN_case_8",
+        "filt_ru_050_Unify_Adj_NN_case_9",
+        "filt_ru_051_Unify_Adj_NN_case_10",
+        "filt_ru_052_Unify_Adj_NN_case_11",
+        "filt_ru_053_Unify_Adj_NN_case_12",
+        "filt_ru_054_Unify_Adj_NN_case_13",
+        "filt_ru_055_Unify_Adj_NN_case_14",
+        "filt_ru_056_Unify_Adj_NN_case_15",
+        "filt_ru_057_Unify_Adj_NN_case_16",
+        "filt_ru_058_Unify_Adj_NN_case_17",
+        "filt_ru_059_Unify_Adj_NN_case_18",
+        "filt_ru_060_Unify_Adj_NN_case_19",
+        "filt_ru_061_Unify_Adj_NN_case_20",
+        "filt_ru_062_Unify_Adj_NN_case_21",
+        "filt_ru_063_Unify_Adj_NN_case_22",
+        "filt_ru_064_Unify_Adj_NN_case_23",
+        "filt_ru_065_Unify_Adj_NN_case_24",
+        "filt_ru_066_Unify_Adj_NN_case_25",
+        "filt_ru_067_Unify_Adj_NN_case_26",
+        "filt_ru_068_Unify_Adj_NN_case_27",
+        "filt_ru_069_Unify_Adj_NN_case_28",
+        "filt_ru_070_Unify_Adj_NN_case_29",
+        "filt_ru_071_Unify_Adj_NN_case_30",
+        "filt_ru_072_Unify_Adj_NN_case_31",
+        "filt_ru_073_Unify_Adj_NN_case_32",
+        "filt_ru_074_Unify_Adj_NN_case_33",
+        "filt_ru_075_Unify_Adj_NN_case_34",
+        "filt_ru_076_Unify_Adj_NN_case_35",
+        "filt_ru_077_Unify_Adj_NN_case_36",
+        "filt_ru_078_Unify_Adj_NN_case_37",
+        "filt_ru_079_Unify_Adj_NN_case_38",
+        "filt_ru_080_Unify_Adj_NN_case_39",
+        "filt_ru_081_Unify_Adj_NN_case_40",
+        "filt_ru_082_Unify_Adj_NN_case_41",
+        "filt_ru_083_Unify_Adj_NN_case_42",
+        "filt_ru_084_Unify_Adj_NN_case_43",
+        "filt_ru_085_Unify_Adj_NN_case_44",
+        "filt_ru_086_Unify_Adj_NN_case_45",
+        "filt_ru_087_Unify_Adj_NN_case_46",
+        "filt_ru_088_Unify_Adj_NN_case_47",
+        "filt_ru_089_Unify_Adj_NN_case_48",
+        "filt_ru_090_Unify_Adj_NN_case_49",
+        "filt_ru_091_Unify_Adj_NN_case_50",
+        "filt_ru_092_Unify_Adj_NN_case_51",
+        "filt_ru_093_Unify_Adj_NN_case_52",
+        "filt_ru_094_Unify_Adj_NN_case_53",
+        "filt_ru_095_Unify_Adj_NN_case_54",
+        "filt_ru_096_Unify_Adj_NN_case_55",
+        "filt_ru_097_Unify_Adj_NN_case_56",
+        "filt_ru_098_Unify_Adj_NN_case_57",
+        "filt_ru_099_Unify_Adj_NN_case_58",
+        "filt_ru_100_Unify_Adj_NN_case_59",
+        "filt_ru_101_Unify_Adj_NN_case_60",
+        "filt_ru_102_Unify_Adj_NN_case_61",
+        "filt_ru_103_Unify_Adj_NN_case_62",
+        "filt_ru_104_Unify_Adj_NN_case_63",
+        "filt_ru_105_Unify_Adj_NN_case_64",
+        "filt_ru_106_Unify_Adj_NN_case_65"
+      ]
+    },
+    "filter:org.languagetool.rules.ru.RussianPartialPosTagFilter": {
+      "filter_class": "org.languagetool.rules.ru.RussianPartialPosTagFilter",
+      "covered_rule_ids": [
+        "Ne_narech[3]",
+        "Ne_narech[4]",
+        "Ne_narech2[1]",
+        "Ne_pril_prich[1]",
+        "Ne_pril_prich[2]",
+        "Ne_pril_prich[3]",
+        "Ne_pril_prich[4]",
+        "Ne_pril_prich1[1]",
+        "pouchastvovat[1]",
+        "DoubleNE[1]"
+      ],
+      "covered_case_ids": [
+        "filt_ru_107_Ne_narech_0",
+        "filt_ru_108_Ne_narech_1",
+        "filt_ru_109_Ne_narech_0",
+        "filt_ru_110_Ne_narech_1",
+        "filt_ru_111_Ne_narech_2",
+        "filt_ru_112_Ne_narech2_0",
+        "filt_ru_113_Ne_narech2_1",
+        "filt_ru_114_Ne_narech2_2",
+        "filt_ru_115_Ne_narech2_3",
+        "filt_ru_116_Ne_narech2_4",
+        "filt_ru_117_Ne_narech2_5",
+        "filt_ru_118_Ne_narech2_6",
+        "filt_ru_119_Ne_narech2_7",
+        "filt_ru_120_Ne_narech2_8",
+        "filt_ru_121_Ne_narech2_9",
+        "filt_ru_122_Ne_narech2_10",
+        "filt_ru_123_Ne_narech2_11",
+        "filt_ru_124_Ne_narech2_12",
+        "filt_ru_125_Ne_narech2_13",
+        "filt_ru_126_Ne_narech2_14",
+        "filt_ru_127_Ne_narech2_15",
+        "filt_ru_128_Ne_narech2_16",
+        "filt_ru_129_Ne_pril_prich_0",
+        "filt_ru_130_Ne_pril_prich_1",
+        "filt_ru_131_Ne_pril_prich_2",
+        "filt_ru_132_Ne_pril_prich_0",
+        "filt_ru_133_Ne_pril_prich_1",
+        "filt_ru_134_Ne_pril_prich_0",
+        "filt_ru_135_Ne_pril_prich_1",
+        "filt_ru_136_Ne_pril_prich_0",
+        "filt_ru_137_Ne_pril_prich_1",
+        "filt_ru_138_Ne_pril_prich_2",
+        "filt_ru_139_Ne_pril_prich_3",
+        "filt_ru_140_Ne_pril_prich_4",
+        "filt_ru_141_Ne_pril_prich1_0",
+        "filt_ru_142_Ne_pril_prich1_1",
+        "filt_ru_143_Ne_pril_prich1_2",
+        "filt_ru_144_Ne_pril_prich1_3",
+        "filt_ru_145_Ne_pril_prich1_4",
+        "filt_ru_146_Ne_pril_prich1_5",
+        "filt_ru_147_Ne_pril_prich1_6",
+        "filt_ru_148_Ne_pril_prich1_7",
+        "filt_ru_149_Ne_pril_prich1_8",
+        "filt_ru_150_Ne_pril_prich1_9",
+        "filt_ru_151_Ne_pril_prich1_10",
+        "filt_ru_152_Ne_pril_prich1_11",
+        "filt_ru_153_Ne_pril_prich1_12",
+        "filt_ru_154_Ne_pril_prich1_13",
+        "filt_ru_155_Ne_pril_prich1_14",
+        "filt_ru_156_Ne_pril_prich1_15",
+        "filt_ru_157_pouchastvovat_0",
+        "filt_ru_158_pouchastvovat_1",
+        "filt_ru_159_pouchastvovat_2",
+        "filt_ru_160_DoubleNE_0",
+        "filt_ru_161_DoubleNE_1",
+        "filt_ru_162_DoubleNE_2",
+        "filt_ru_163_DoubleNE_3",
+        "filt_ru_164_DoubleNE_4",
+        "filt_ru_165_DoubleNE_5"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "filt_ru_001_DATE_WEEKDAY1_0",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится в понедельник, 7 октября 2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 51,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 51,
+            "message": "Днём недели 7 октября 2014 года является вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_002_DATE_WEEKDAY1_1",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится в понедельник 7 октября 2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 50,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 50,
+            "message": "Днём недели 7 октября 2014 года является вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_003_DATE_WEEKDAY1_2",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится в пятницу 7 октября 2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 46,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 46,
+            "message": "Днём недели 7 октября 2014 года является вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_004_DATE_WEEKDAY1_3",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится в понедельник, 7 окт 2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 47,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 47,
+            "message": "Днём недели 7 окт 2014 года является вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_005_DATE_WEEKDAY1_4",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится во вторник, 7 октября 2014 г.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_006_DATE_WEEKDAY1_5",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[1]",
+      "text": "Конференция состоится во вторник, 7 окт 2014 г.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_007_DATE_WEEKDAY1_0",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[2]",
+      "text": "Конференция состоится в понедельник, 7.10.2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 46,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 46,
+            "message": "Днём недели 7.10.2014 является не понедельник, а вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_008_DATE_WEEKDAY1_1",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[2]",
+      "text": "Конференция состоится в понедельник 7.10.2014 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 24,
+            "to_utf16": 45,
+            "pattern_from_utf16": 24,
+            "pattern_to_utf16": 45,
+            "message": "Днём недели 7.10.2014 является не понедельник, а вторник.",
+            "short_message": "",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_009_DATE_WEEKDAY1_2",
+      "category": "LOGIC",
+      "full_rule_id": "DATE_WEEKDAY1[2]",
+      "text": "Конференция состоится во вторник, 7.10.2014 г.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.DateCheckFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DATE_WEEKDAY1",
+        "full_rule_id": "DATE_WEEKDAY1[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "День недели не соответствует дате",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_010_INVALID_TENSE_DATE_0",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_TENSE_DATE[1]",
+      "text": "Мы посетили клиента 17 июня 2039 г.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_TENSE_DATE",
+        "full_rule_id": "INVALID_TENSE_DATE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Дата находится в будущем, а глагол – в прошлом",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 20,
+            "to_utf16": 32,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 32,
+            "message": "Данная дата находится в будущем, но глагол стоит в прошедшем времени.",
+            "short_message": "Дата – в будущем",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_011_INVALID_TENSE_DATE_1",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_TENSE_DATE[1]",
+      "text": "Мы посетили клиента 17 июня 1939 г.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_TENSE_DATE",
+        "full_rule_id": "INVALID_TENSE_DATE[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Дата находится в будущем, а глагол – в прошлом",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_012_INVALID_TENSE_DATE_0",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_TENSE_DATE[2]",
+      "text": "Мы посетили клиента 17.06.2039.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_TENSE_DATE",
+        "full_rule_id": "INVALID_TENSE_DATE[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Дата находится в будущем, а глагол – в прошлом",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 20,
+            "to_utf16": 30,
+            "pattern_from_utf16": 3,
+            "pattern_to_utf16": 30,
+            "message": "Данная дата находится в будущем, но глагол стоит в прошедшем времени.",
+            "short_message": "Дата – в будущем",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_013_INVALID_TENSE_DATE_1",
+      "category": "LOGIC",
+      "full_rule_id": "INVALID_TENSE_DATE[2]",
+      "text": "Мы посетили клиента 17.06.1939.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.FutureDateFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "INVALID_TENSE_DATE",
+        "full_rule_id": "INVALID_TENSE_DATE[2]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Дата находится в будущем, а глагол – в прошлом",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_014_WRONG_INN_0",
+      "category": "LOGIC",
+      "full_rule_id": "WRONG_INN[1]",
+      "text": "ИНН: 1234567890",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.INNNumberFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "WRONG_INN",
+        "full_rule_id": "WRONG_INN[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Некорректный ИНН",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
+            "message": "Некорректный ИНН: 1234567890",
+            "short_message": "Некорректный ИНН",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_015_WRONG_INN_1",
+      "category": "LOGIC",
+      "full_rule_id": "WRONG_INN[1]",
+      "text": "ИНН  123456789025",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.INNNumberFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "WRONG_INN",
+        "full_rule_id": "WRONG_INN[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Некорректный ИНН",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Некорректный ИНН: 123456789025",
+            "short_message": "Некорректный ИНН",
+            "suggestions": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_016_WRONG_INN_2",
+      "category": "LOGIC",
+      "full_rule_id": "WRONG_INN[1]",
+      "text": "ИНН: 2301050337",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.INNNumberFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "WRONG_INN",
+        "full_rule_id": "WRONG_INN[1]",
+        "category_id": "LOGIC",
+        "category_name": "Логические ошибки",
+        "description": "Некорректный ИНН",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_017_Unify_PADJ_NN_case_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "моё отношение",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_018_Unify_PADJ_NN_case_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "Сама кашу заварила, сама и расхлёбывай.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_019_Unify_PADJ_NN_case_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "Тем самым предложение обособляется.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_020_Unify_PADJ_NN_case_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "В простом курятнике моём Пшена мы с вами поклюём.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_021_Unify_PADJ_NN_case_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "Положив тем самым основы коалиции.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_022_Unify_PADJ_NN_case_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_case[1]",
+      "text": "моему отношение",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_case",
+        "full_rule_id": "Unify_PADJ_NN_case[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по падежу",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 15,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 15,
+            "message": "Притяжательное прилагательное (местоимение) не согласуется с существительным по падежу.",
+            "short_message": "Не согласуются по падежу",
+            "suggestions": [
+              "моё отношение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_023_Unify_PADJ_NN_gender_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "моё отношение",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_024_Unify_PADJ_NN_gender_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Он сам же тот пенальти реализовал.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_025_Unify_PADJ_NN_gender_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Сама кашу заварила, сама и расхлёбывай.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_026_Unify_PADJ_NN_gender_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Тем самым предложение обособляется.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_027_Unify_PADJ_NN_gender_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Это ваша супруга?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_028_Unify_PADJ_NN_gender_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Он каждые полчаса бежит в лабораторию.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_029_Unify_PADJ_NN_gender_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "Ваш второй ребёнок — мальчик?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_030_Unify_PADJ_NN_gender_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_gender[1]",
+      "text": "моей отношение",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_gender",
+        "full_rule_id": "Unify_PADJ_NN_gender[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по роду",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 14,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 14,
+            "message": "Притяжательное прилагательное (местоимение) не согласуется с существительным по роду.",
+            "short_message": "Не согласуются по роду",
+            "suggestions": [
+              "моё отношение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_031_Unify_PADJ_NN_number_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "это отношение",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_032_Unify_PADJ_NN_number_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Он путешествовал каких-нибудь месяца два.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_033_Unify_PADJ_NN_number_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Он каждые полчаса бежит в лабораторию.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_034_Unify_PADJ_NN_number_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Два ваших товарища.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_035_Unify_PADJ_NN_number_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Родоначальником собаки кто считает волка, кто шакала, а некоторые — оба эти вида (иногда к ним добавляют койота).",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_036_Unify_PADJ_NN_number_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Сама кашу заварила, сама и расхлёбывай.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_037_Unify_PADJ_NN_number_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Мои дедушка с бабушкой родились в прошлом веке.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_038_Unify_PADJ_NN_number_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Тем самым предложение обособляется.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_039_Unify_PADJ_NN_number_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "Унёс свои тело и душу.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_040_Unify_PADJ_NN_number_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_PADJ_NN_number[1]",
+      "text": "эти отношение",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_PADJ_NN_number",
+        "full_rule_id": "Unify_PADJ_NN_number[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование притяжательного прилагательного (местоимения) с существительным по числу",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 13,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 13,
+            "message": "Притяжательное прилагательное (местоимение) не согласуется с существительным по числу.",
+            "short_message": "Не согласуются по числу",
+            "suggestions": [
+              "это отношение"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_041_Unify_Adj_NN_case_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Ставшие хрестоматийными слова «Природой здесь нам суждено в Европу прорубить окно», которые А. С. Пушкин вкладывает в уста Петра I — лишь риторически эффектная фраза.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_042_Unify_Adj_NN_case_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Я терпеть не могу эту глупою женщину.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 22,
+            "to_utf16": 36,
+            "pattern_from_utf16": 22,
+            "pattern_to_utf16": 36,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "глупую женщину"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_043_Unify_Adj_NN_case_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Временными правительства называли журналисты.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_044_Unify_Adj_NN_case_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Эти добрые полчаса.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_045_Unify_Adj_NN_case_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Контактный тел.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_046_Unify_Adj_NN_case_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "У молодоженов был замечательный ретро автомобиль - белый запорожец.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_047_Unify_Adj_NN_case_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Подошел казавшийся смуглым человек.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_048_Unify_Adj_NN_case_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Всё необходимое накопитель получает от шины USB.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_049_Unify_Adj_NN_case_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Она позволяет сильным страны сей ситуативно решать.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_050_Unify_Adj_NN_case_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Временной заплату считали недолго.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_051_Unify_Adj_NN_case_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "У них выше вероятность инфаркта, чем у довольных партнером.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_052_Unify_Adj_NN_case_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Среди них наибольшей известностью пользовались простые шутки.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_053_Unify_Adj_NN_case_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Среди них большей известностью пользовались простые шутки.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_054_Unify_Adj_NN_case_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Крепкие столы.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_055_Unify_Adj_NN_case_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Проверь, что у них одинаковые род/число/падеж.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_056_Unify_Adj_NN_case_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Суеверие — это религия слабых духом.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_057_Unify_Adj_NN_case_16",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Счастливые часов не наблюдают.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_058_Unify_Adj_NN_case_17",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Смелого пуля боится.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_059_Unify_Adj_NN_case_18",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Быть умным Николаю мешала лень.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_060_Unify_Adj_NN_case_19",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Делала политически невозможной отмену единожды данных им законом прав.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_061_Unify_Adj_NN_case_20",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Этот экспорт, полностью подконтрольный правительствам стран мира, стремительно рос.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_062_Unify_Adj_NN_case_21",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Нам объявят необходимым запрет на спиртное.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_063_Unify_Adj_NN_case_22",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Нам объявят необходимыми игры на свежем воздухе.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_064_Unify_Adj_NN_case_23",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Для оставшихся неготовыми лодок соорудили бокс.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_065_Unify_Adj_NN_case_24",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Для оставшейся неготовой лодки соорудили бокс.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_066_Unify_Adj_NN_case_25",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вестминстер — место пребывания короля, а позднее парламента.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_067_Unify_Adj_NN_case_26",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Крепкий стол.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_068_Unify_Adj_NN_case_27",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Крепкая ограда.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_069_Unify_Adj_NN_case_28",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Умные уже тут.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_070_Unify_Adj_NN_case_29",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Мы чужие друг другу.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_071_Unify_Adj_NN_case_30",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Белый стул.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_072_Unify_Adj_NN_case_31",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вы должны помочь мне!",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_073_Unify_Adj_NN_case_32",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Больных гриппом просим не входить.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_074_Unify_Adj_NN_case_33",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Если загорелся зелёный машинам, то можно ехать.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_075_Unify_Adj_NN_case_34",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Если загорелся зелёный кошке, то ехать нельзя.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_076_Unify_Adj_NN_case_35",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Преподавать русский инострацам сложно.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_077_Unify_Adj_NN_case_36",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Корзина была полная ягод.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_078_Unify_Adj_NN_case_37",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Воспользуемся средним чисел а и б.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_079_Unify_Adj_NN_case_38",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "После выходных работник смотрелся не важно.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_080_Unify_Adj_NN_case_39",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Железная кроватью.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "Железною кроватью",
+              "Железной кроватью"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_081_Unify_Adj_NN_case_40",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вдали виднелись красивые сосны.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_082_Unify_Adj_NN_case_41",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вдали виднелись красивой ёлка.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 29,
+            "pattern_from_utf16": 16,
+            "pattern_to_utf16": 29,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "красивая ёлка"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_083_Unify_Adj_NN_case_42",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Мебель сделана из красивой сосны.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_084_Unify_Adj_NN_case_43",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "При императрице Екатерине Великой Россия успешно воевала с Турцией",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_085_Unify_Adj_NN_case_44",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "При Ярославе Мудром митрополит впервые был избран из числа русских священников",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_086_Unify_Adj_NN_case_45",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "В бассейне Нижней Таймыры есть такие объекты как Река Мамонта",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_087_Unify_Adj_NN_case_46",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Был построен добротный дом.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_088_Unify_Adj_NN_case_47",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Пушистая кошка грелась на солнышке.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_089_Unify_Adj_NN_case_48",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Эта пушистая кошкой грелась.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 19,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 19,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "пушистою кошкой",
+              "пушистой кошкой"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_090_Unify_Adj_NN_case_49",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вдали виднелось синее небо.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_091_Unify_Adj_NN_case_50",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Оно смотрелось синее неба.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_092_Unify_Adj_NN_case_51",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Быть в неоплатном долгу.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_093_Unify_Adj_NN_case_52",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Добротная усадьба.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_094_Unify_Adj_NN_case_53",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Добротная усадьбе.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 17,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 17,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "Добротной усадьбе"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_095_Unify_Adj_NN_case_54",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Нет крепкого сна.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_096_Unify_Adj_NN_case_55",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Нет крепкому сна.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 4,
+            "to_utf16": 16,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 16,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "крепкого сна"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_097_Unify_Adj_NN_case_56",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вода стекала по мягкому жёлобу.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_098_Unify_Adj_NN_case_57",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Вода стекала по мягкого жёлобу.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 16,
+            "to_utf16": 30,
+            "pattern_from_utf16": 16,
+            "pattern_to_utf16": 30,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "мягкому жёлобу"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_099_Unify_Adj_NN_case_58",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Мы увидели бурной реку и стремительными рыб, идущих против течения.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_100_Unify_Adj_NN_case_59",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Они справились с бурной рекой",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_101_Unify_Adj_NN_case_60",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Они справились с бурную рекой.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 17,
+            "to_utf16": 29,
+            "pattern_from_utf16": 17,
+            "pattern_to_utf16": 29,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "бурною рекой",
+              "бурной рекой"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_102_Unify_Adj_NN_case_61",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Они думали о родном доме.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_103_Unify_Adj_NN_case_62",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Это абсолютная ложь.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_104_Unify_Adj_NN_case_63",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Традиционно первым Германским государством принято считать восточно-франкское государство.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_105_Unify_Adj_NN_case_64",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Он каждые полчаса бежит в лабораторию.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_106_Unify_Adj_NN_case_65",
+      "category": "GRAMMAR",
+      "full_rule_id": "Unify_Adj_NN_case[3]",
+      "text": "Они думали о родного доме.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.AdvancedSynthesizerFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Unify_Adj_NN_case",
+        "full_rule_id": "Unify_Adj_NN_case[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Согласование прилагательного с существительным",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 13,
+            "to_utf16": 25,
+            "pattern_from_utf16": 13,
+            "pattern_to_utf16": 25,
+            "message": "Прилагательное не согласуется с существительным по падежу.",
+            "short_message": "",
+            "suggestions": [
+              "родном доме"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_107_Ne_narech_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech[3]",
+      "text": "Работа выполнена далеко не плохо.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech",
+        "full_rule_id": "Ne_narech[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_108_Ne_narech_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech[3]",
+      "text": "Работа выполнена далеко неплохо.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech",
+        "full_rule_id": "Ne_narech[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 17,
+            "to_utf16": 31,
+            "pattern_from_utf16": 17,
+            "pattern_to_utf16": 31,
+            "message": "Пишется раздельно с «не»: <suggestion>далеко не плохо</suggestion>.",
+            "short_message": "Раздельно с «не»",
+            "suggestions": [
+              "далеко не плохо"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_109_Ne_narech_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech[4]",
+      "text": "Работа выполнена не плохо, а хорошо.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech",
+        "full_rule_id": "Ne_narech[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_110_Ne_narech_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech[4]",
+      "text": "Он замолкает ненадолго, а потом поет печальную песню.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech",
+        "full_rule_id": "Ne_narech[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_111_Ne_narech_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech[4]",
+      "text": "Работа выполнена неплохо, а хорошо.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech",
+        "full_rule_id": "Ne_narech[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 17,
+            "to_utf16": 34,
+            "pattern_from_utf16": 17,
+            "pattern_to_utf16": 34,
+            "message": "Пишется раздельно с «не», имеется противопоставление с союзом «а»: <suggestion>не плохо, а хорошо</suggestion>.",
+            "short_message": "Раздельно с «не»",
+            "suggestions": [
+              "не плохо, а хорошо"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_112_Ne_narech2_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Несложно проверить его стабильность.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_113_Ne_narech2_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Она начала играть в волейбол не столько из интереса, сколько из тщеславия.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_114_Ne_narech2_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Сегодня не особо ветрено.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_115_Ne_narech2_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Это не ново.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_116_Ne_narech2_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Его уже не видно и не слышно.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_117_Ne_narech2_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Достаточно A, но не достаточно B.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_118_Ne_narech2_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Красное больше не модно.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_119_Ne_narech2_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Лена, а прыгать с парашютом не опасно?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_120_Ne_narech2_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Дома сидеть невесело.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_121_Ne_narech2_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Разве тебе не достаточно?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_122_Ne_narech2_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Разве не опасно бродить по улицам?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_123_Ne_narech2_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Отрасли промышленности с большим вложением капитала, совершенно не обязательно требуют вложения знаний.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_124_Ne_narech2_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Работа выполнена не плохо, а хорошо.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_125_Ne_narech2_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Работа выполнена не плохо, но хорошо.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_126_Ne_narech2_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Работа выполнена неплохо, но с опозданием.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_127_Ne_narech2_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Не обязательно упоминать нас, но мы будем признательны.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_128_Ne_narech2_16",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_narech2[1]",
+      "text": "Не сложно проверить его стабильность.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_narech2",
+        "full_rule_id": "Ne_narech2[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с наречиями (2)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Обычно пишется слитно с «не», отсутствует противопоставление, проверьте контекст: <suggestion>несложно</suggestion>.",
+            "short_message": "Обычно слитно с «не»",
+            "suggestions": [
+              "Несложно"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_129_Ne_pril_prich_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[1]",
+      "text": "Этот поступок был крайне неосторожным.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_130_Ne_pril_prich_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[1]",
+      "text": "Совсем не такой.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_131_Ne_pril_prich_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[1]",
+      "text": "Этот поступок был крайне не осторожным.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 25,
+            "to_utf16": 38,
+            "pattern_from_utf16": 18,
+            "pattern_to_utf16": 38,
+            "message": "Пишется слитно: <suggestion>неосторожным</suggestion>.",
+            "short_message": "Слитно с «не»",
+            "suggestions": [
+              "неосторожным"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_132_Ne_pril_prich_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[2]",
+      "text": "Это совершенно непродуманное решение.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_133_Ne_pril_prich_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[2]",
+      "text": "Это совершенно не продуманное решение.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[2]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 15,
+            "to_utf16": 29,
+            "pattern_from_utf16": 4,
+            "pattern_to_utf16": 29,
+            "message": "Пишется слитно: <suggestion>непродуманное</suggestion>.",
+            "short_message": "Слитно с «не»",
+            "suggestions": [
+              "непродуманное"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_134_Ne_pril_prich_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[3]",
+      "text": "Эта книга вовсе не интересная.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_135_Ne_pril_prich_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[3]",
+      "text": "Эта книга вовсе неинтересная.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[3]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 28,
+            "pattern_from_utf16": 10,
+            "pattern_to_utf16": 28,
+            "message": "Пишется раздельно с «не»: <suggestion>вовсе не интересная</suggestion>.",
+            "short_message": "Раздельно с «не»",
+            "suggestions": [
+              "вовсе не интересная"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_136_Ne_pril_prich_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[4]",
+      "text": "На полке лежит никому не нужная коробка.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_137_Ne_pril_prich_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[4]",
+      "text": "Наличие в них недостоверных сведений.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_138_Ne_pril_prich_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[4]",
+      "text": "В жизни нет ничего невозможного.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_139_Ne_pril_prich_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[4]",
+      "text": "На корабль доставили контейнеры с погруженными в них немецкими автомобилями.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_140_Ne_pril_prich_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich[4]",
+      "text": "На полке лежит никому ненужная коробка.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich",
+        "full_rule_id": "Ne_pril_prich[4]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 15,
+            "to_utf16": 30,
+            "pattern_from_utf16": 15,
+            "pattern_to_utf16": 30,
+            "message": "Пишется раздельно с «не»: <suggestion>никому не нужная</suggestion>.",
+            "short_message": "Раздельно с «не»",
+            "suggestions": [
+              "никому не нужная"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_141_Ne_pril_prich1_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Его походка медлительна, неуверенна.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_142_Ne_pril_prich1_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Река не глубокая, а мелкая.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_143_Ne_pril_prich1_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Река не глубока, а мелка.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_144_Ne_pril_prich1_3",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Река неглубокая, но холодная.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_145_Ne_pril_prich1_4",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Река неглубока, но холодна.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_146_Ne_pril_prich1_5",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Вы не женаты, не так ли?",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_147_Ne_pril_prich1_6",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Они не аналогичны ей, хотя и близки к этому.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_148_Ne_pril_prich1_7",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Ничто так не ценно, как здоровье.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_149_Ne_pril_prich1_8",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Эта община уже не жизненна.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_150_Ne_pril_prich1_9",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Я не готов к такому повороту событий.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_151_Ne_pril_prich1_10",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Он явно был не рад видеть мою семью.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_152_Ne_pril_prich1_11",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Мы с ней не знакомы.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_153_Ne_pril_prich1_12",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Человек не виновен в вымирании мамонтов.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_154_Ne_pril_prich1_13",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Эта доставка либо слишком дорога, либо вообще не доступна.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_155_Ne_pril_prich1_14",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Я никогда не бывал в Нью-Йорке, и моя сестра тоже не бывала там.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_156_Ne_pril_prich1_15",
+      "category": "GRAMMAR",
+      "full_rule_id": "Ne_pril_prich1[1]",
+      "text": "Его походка медлительна, не решительна.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "Ne_pril_prich1",
+        "full_rule_id": "Ne_pril_prich1[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "«Не» с прилагательными и причастиями (краткая форма)",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 25,
+            "to_utf16": 38,
+            "pattern_from_utf16": 25,
+            "pattern_to_utf16": 39,
+            "message": "Возможно пишется слитно, проверьте контекст: <suggestion>нерешительна</suggestion>.",
+            "short_message": "Возможно слитно с «не»",
+            "suggestions": [
+              "нерешительна"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_157_pouchastvovat_0",
+      "category": "GRAMMAR",
+      "full_rule_id": "pouchastvovat[1]",
+      "text": "Южнокорейский консорциум может поучаствовать в проекте.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "pouchastvovat",
+        "full_rule_id": "pouchastvovat[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание «поучаствовать», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_158_pouchastvovat_1",
+      "category": "GRAMMAR",
+      "full_rule_id": "pouchastvovat[1]",
+      "text": "Он хочет по идти в кругосветное путешествие. (Некорректный пример)",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "pouchastvovat",
+        "full_rule_id": "pouchastvovat[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание «поучаствовать», ...",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_159_pouchastvovat_2",
+      "category": "GRAMMAR",
+      "full_rule_id": "pouchastvovat[1]",
+      "text": "Южнокорейский консорциум может по участвовать в проекте.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "pouchastvovat",
+        "full_rule_id": "pouchastvovat[1]",
+        "category_id": "GRAMMAR",
+        "category_name": "Грамматика",
+        "description": "Правописание «поучаствовать», ...",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 31,
+            "to_utf16": 45,
+            "pattern_from_utf16": 31,
+            "pattern_to_utf16": 45,
+            "message": "Пишется слитно: <suggestion>поучаствовать</suggestion>",
+            "short_message": "Пишется слитно",
+            "suggestions": [
+              "поучаствовать"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "filt_ru_160_DoubleNE_0",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Эта книга интересная.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_161_DoubleNE_1",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Это не незнакомец.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_162_DoubleNE_2",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Он не немец.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_163_DoubleNE_3",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Это не только не критично, но и оправданно.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_164_DoubleNE_4",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Это не несёт никакой нагрузки.",
+      "is_incorrect": false,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 0,
+        "matches": []
+      }
+    },
+    {
+      "id": "filt_ru_165_DoubleNE_5",
+      "category": "STYLE",
+      "full_rule_id": "DoubleNE[1]",
+      "text": "Эта книга не неинтересная.",
+      "is_incorrect": true,
+      "filter_classes": [
+        "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "DoubleNE",
+        "full_rule_id": "DoubleNE[1]",
+        "category_id": "STYLE",
+        "category_name": "Стиль",
+        "description": "Двойное «не»",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 10,
+            "to_utf16": 25,
+            "pattern_from_utf16": 10,
+            "pattern_to_utf16": 25,
+            "message": "Не ставьте два «не» подряд, если это не оправдано смыслом предложения.",
+            "short_message": "Не ставьте два «не» подряд",
+            "suggestions": []
+          }
+        ]
+      }
+    }
+  ]
+}

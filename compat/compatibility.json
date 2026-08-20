@@ -69,7 +69,9 @@
       "grammar_unification_negate_missing_or_default": 1,
       "grammar_unification_synthetic_oracle_cases_total": 173,
       "grammar_unification_russian_rules_oracle_cases_total": 216,
-      "grammar_unification_total_oracle_cases": 389
+      "grammar_unification_total_oracle_cases": 389,
+      "filters_synthetic_oracle_cases_total": 145,
+      "filters_russian_rules_oracle_cases_total": 165
     },
     "russian_grammar_unification": {
       "equivalence_type_locator": "SUPPORTED",
@@ -216,8 +218,8 @@
         ]
       },
       "xml_filters": {
-        "status": "SUPPORTED",
-        "implemented": 7,
+        "status": "PARTIALLY_IMPLEMENTED",
+        "implemented": 6,
         "total": 7,
         "filter_classes": [
           "org.languagetool.rules.ru.AdvancedSynthesizerFilter",
@@ -225,9 +227,9 @@
           "org.languagetool.rules.ru.FutureDateFilter",
           "org.languagetool.rules.ru.INNNumberFilter",
           "org.languagetool.rules.ru.NoDisambiguationRussianPartialPosTagFilter",
-          "org.languagetool.rules.ru.RussianPartialPosTagFilter",
-          "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter"
-        ]
+          "org.languagetool.rules.ru.RussianPartialPosTagFilter"
+        ],
+        "recognized_deferred": 1
       },
       "java_rules": {
         "status": "NOT_YET_IMPLEMENTED",
@@ -256,28 +258,46 @@
         "task_0009_translated_assertions_total": 140,
         "task_0009_oracle_parity_test_functions_total": 16,
         "task_0009_python_tests_passed": 58,
+        "task_0010_upstream_source_test_files_total": 2,
+        "task_0010_upstream_source_methods_total": 7,
+        "task_0010_upstream_source_assertions_total": 17,
+        "task_0010_translated_python_functions_total": 7,
+        "task_0010_translated_assertions_total": 17,
         "remaining_upstream_test_files_not_ported": 11
       },
       "grammar_xml_examples": {
-        "status": "UNIFICATION_0009_RUNNABLE",
-        "runnable_examples_total": 1954,
-        "deferred_examples_total": 492,
+        "status": "FILTER_0010_RUNNABLE",
+        "runnable_examples_total": 2119,
+        "deferred_examples_total": 327,
         "total_examples": 2446
       },
       "parity_metrics": {
         "finding_parity": 1.0,
         "span_parity": 1.0,
         "suggestion_parity": 1.0,
-        "evaluation_state": "UNIFICATION_0009_PARITY_VERIFIED",
-        "synthetic_oracle_cases_tested": 173,
-        "synthetic_oracle_cases_passed": 173,
-        "real_russian_oracle_cases_tested": 216,
-        "real_russian_oracle_cases_passed": 216,
+        "evaluation_state": "FILTER_0010_PARITY_VERIFIED",
+        "task_0009_oracle_evidence": {
+          "evaluation_state": "UNIFICATION_0009_PARITY_VERIFIED",
+          "synthetic_cases": 173,
+          "real_russian_cases": 216,
+          "total_cases": 389
+        },
+        "synthetic_oracle_cases_tested": 145,
+        "synthetic_oracle_cases_passed": 145,
+        "real_russian_oracle_cases_tested": 165,
+        "real_russian_oracle_cases_passed": 165,
         "unification_upstream_source_methods_total": 7,
         "unification_translated_python_functions_total": 7,
         "unification_translated_assertions_total": 60,
         "wheel_isolation_status": "PASSED",
-        "wheel_execution_verified": true
+        "wheel_execution_verified": true,
+        "wheel_filter_rules_verified": [
+          "Unify_PADJ_NN_case[1]",
+          "Ne_narech[3]",
+          "WRONG_INN[1]"
+        ],
+        "filters_synthetic_oracle_cases_total": 145,
+        "filters_russian_rules_oracle_cases_total": 165
       }
     },
     "known_differences": []

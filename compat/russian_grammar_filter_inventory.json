@@ -72,8 +72,8 @@
   "deferred_examples_correct": 198,
   "unknown_filter_class_count": 0,
   "spelling_dependent_recognized_deferred_count": 1,
-  "synthetic_oracle_case_count": 120,
-  "real_oracle_case_count": 23,
+  "synthetic_oracle_case_count": 145,
+  "real_oracle_case_count": 165,
   "rules": [
     {
       "full_rule_id": "DATE_WEEKDAY1[1]",

@@ -364,6 +364,7 @@ class RussianGrammarEngine:
                             break
                         from pylat_ru.grammar.filters import get_filter_instance, RuleFilterEvaluator
                         filt = get_filter_instance(filt_config.class_name)
+                        filt.set_synthesizer(self._synthesizer)
                         evaluator = RuleFilterEvaluator(filt)
                         res = evaluator.run_filter(
                             filt_config.args or "",

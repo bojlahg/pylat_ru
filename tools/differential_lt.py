@@ -1602,37 +1602,49 @@ public class CheckSyntheticPatternRules {
                 sent = new AnalyzedSentence(tokens, preTokens);
             }
 
-            List<RuleMatch> allMatches = new ArrayList<>();
-            for (AbstractPatternRule variant : rSet) {
-                RuleMatch[] matches = variant.match(sent);
-                if (matches != null) {
-                    for (RuleMatch m : matches) {
-                        allMatches.add(m);
+            List<RuleMatch> filteredMatches = new ArrayList<>();
+            String exceptionClass = null;
+            String exceptionMessage = null;
+            try {
+                List<RuleMatch> allMatches = new ArrayList<>();
+                for (AbstractPatternRule variant : rSet) {
+                    RuleMatch[] matches = variant.match(sent);
+                    if (matches != null) {
+                        for (RuleMatch m : matches) {
+                            allMatches.add(m);
+                        }
                     }
                 }
+                filteredMatches = new org.languagetool.rules.RuleWithMaxFilter().filter(allMatches);
+            } catch (Throwable t) {
+                exceptionClass = t.getClass().getName();
+                exceptionMessage = t.getMessage();
             }
-            List<RuleMatch> filteredMatches = new org.languagetool.rules.RuleWithMaxFilter().filter(allMatches);
 
             StringBuilder sb = new StringBuilder();
-            sb.append("FOUND\u0008").append(r.getId()).append("\u0008").append(r.getFullId()).append("\u0008")
-              .append(r.getCategory().getId().toString()).append("\u0008")
-              .append(r.getCategory().getName()).append("\u0008")
-              .append(r.getDescription()).append("\u0008")
-              .append(r.isDefaultOff() ? "1" : "0").append("\u0008")
-              .append(filteredMatches.size());
+            if (exceptionClass != null) {
+                sb.append("EXCEPTION\u0008").append(exceptionClass).append("\u0008").append(exceptionMessage != null ? exceptionMessage : "");
+            } else {
+                sb.append("FOUND\u0008").append(r.getId()).append("\u0008").append(r.getFullId()).append("\u0008")
+                  .append(r.getCategory().getId().toString()).append("\u0008")
+                  .append(r.getCategory().getName()).append("\u0008")
+                  .append(r.getDescription()).append("\u0008")
+                  .append(r.isDefaultOff() ? "1" : "0").append("\u0008")
+                  .append(filteredMatches.size());
 
-            for (RuleMatch m : filteredMatches) {
-                sb.append("\u0008");
-                sb.append(m.getFromPos()).append("\u0002")
-                  .append(m.getToPos()).append("\u0002")
-                  .append(m.getPatternFromPos()).append("\u0002")
-                  .append(m.getPatternToPos()).append("\u0002")
-                  .append(m.getMessage()).append("\u0002")
-                  .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
-                List<String> repls = m.getSuggestedReplacements();
-                for (int repIdx = 0; repIdx < repls.size(); repIdx++) {
-                    if (repIdx > 0) sb.append("\u0003");
-                    sb.append(repls.get(repIdx));
+                for (RuleMatch m : filteredMatches) {
+                    sb.append("\u0008");
+                    sb.append(m.getFromPos()).append("\u0002")
+                      .append(m.getToPos()).append("\u0002")
+                      .append(m.getPatternFromPos()).append("\u0002")
+                      .append(m.getPatternToPos()).append("\u0002")
+                      .append(m.getMessage()).append("\u0002")
+                      .append(m.getShortMessage() != null ? m.getShortMessage() : "\u0005null").append("\u0002");
+                    List<String> repls = m.getSuggestedReplacements();
+                    for (int repIdx = 0; repIdx < repls.size(); repIdx++) {
+                        if (repIdx > 0) sb.append("\u0003");
+                        sb.append(repls.get(repIdx));
+                    }
                 }
             }
             out.print(sb.toString());
@@ -1726,6 +1738,15 @@ public class CheckSyntheticPatternRules {
                 status = fields[0]
                 if status == "NOT_FOUND":
                     results.append({"status": "NOT_FOUND", "target_rule_id": fields[1], "matches": []})
+                elif status == "EXCEPTION":
+                    exception_class = fields[1]
+                    exception_message = fields[2]
+                    results.append({
+                        "status": "EXCEPTION",
+                        "exception_class": exception_class,
+                        "exception_message": exception_message,
+                        "matches": []
+                    })
                 elif status == "FOUND":
                     rule_id = fields[1]
                     full_rule_id = fields[2]

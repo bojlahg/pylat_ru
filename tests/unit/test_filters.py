@@ -18,6 +18,8 @@ from pylat_ru.grammar.filters.date_check import DateCheckFilter, SystemClock
 from pylat_ru.grammar.filters.future_date import FutureDateFilter
 from pylat_ru.grammar.filters.inn import INNNumberFilter
 from pylat_ru.grammar.filters.partial_pos import RussianPartialPosTagFilter
+from pylat_ru.grammar.filters.evaluator import RuleFilterEvaluator
+from pylat_ru.grammar.filters.base import FilterIllegalArgumentError
 
 
 def make_atr(token: str, start_pos: int, readings: List[tuple[str, str | None, str | None]]) -> AnalyzedTokenReadings:
@@ -49,6 +51,81 @@ def make_dummy_match() -> RuleMatchResult:
         matched_tokens_indices=[0],
         marker_tokens_indices=[0],
     )
+
+
+# Direct translation of pinned RuleFilterEvaluatorTest.java (5 methods, 8 assertions).
+def test_rule_filter_evaluator_resolved_arguments():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    tokens = [
+        make_atr("fake1", 0, [("fake1", "pos", None)]),
+        make_atr("fake2", 0, [("fake2", "pos", None)]),
+    ]
+    resolved = evaluator.get_resolved_arguments(r"year:\1 month:\2", tokens, -1, [1, 1])
+    assert resolved["year"] == "fake1"
+    assert resolved["month"] == "fake2"
+    assert len(resolved) == 2
+
+
+def test_rule_filter_evaluator_value_with_colon():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    tokens = [make_atr("fake1", 0, [("fake1", "pos", None)])]
+    resolved = evaluator.get_resolved_arguments("regex:(?:foo[xyz])bar", tokens, -1, [1, 1])
+    assert resolved["regex"] == "(?:foo[xyz])bar"
+    assert len(resolved) == 1
+
+
+def test_rule_filter_evaluator_duplicate_backreference_key():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    tokens = [
+        make_atr("fake1", 0, [("fake1", "SENT_START", None)]),
+        make_atr("fake1", 0, [("fake1", "pos", None)]),
+        make_atr("fake2", 0, [("fake2", "pos", None)]),
+    ]
+    with pytest.raises(FilterIllegalArgumentError, match="Duplicate key"):
+        evaluator.get_resolved_arguments(r"year:\1 year:\2", tokens, -1, [1, 2])
+
+
+def test_rule_filter_evaluator_without_backreference():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    resolved = evaluator.get_resolved_arguments("year:2 foo:bar", [], -1, [])
+    assert resolved == {"year": "2", "foo": "bar"}
+
+
+def test_rule_filter_evaluator_too_large_backreference():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    with pytest.raises(FilterIllegalArgumentError, match="bigger than the number of tokens"):
+        evaluator.get_resolved_arguments(r"year:\1 month:\2 day:\3 weekDay:\4", [], -1, [])
+
+
+def test_rule_filter_evaluator_additional_edge_cases():
+    evaluator = RuleFilterEvaluator(INNNumberFilter())
+    tokens = [make_atr("fake1", 0, [("fake1", "pos", None)])]
+
+    assert evaluator.get_resolved_arguments("key:first key:second", tokens, -1, [1]) == {"key": "second"}
+    with pytest.raises(FilterIllegalArgumentError):
+        evaluator.get_resolved_arguments(r"key:\0", tokens, -1, [1])
+    with pytest.raises(FilterIllegalArgumentError):
+        evaluator.get_resolved_arguments(r"key:\-1", tokens, -1, [1])
+    with pytest.raises(FilterIllegalArgumentError, match="Invalid syntax"):
+        evaluator.get_resolved_arguments("missing-colon", tokens, -1, [1])
+
+
+# Direct translation of the 9 active assertions in pinned DateCheckFilterTest.java.
+def test_date_check_filter_upstream_weekday_mapping():
+    filt = DateCheckFilter()
+    assert filt.get_day_of_week("пн") == 2
+    assert filt.get_day_of_week("пн.") == 2
+    assert filt.get_day_of_week("вт") == 3
+    assert filt.get_day_of_week("пт") == 6
+
+
+def test_date_check_filter_upstream_month_mapping():
+    filt = DateCheckFilter()
+    assert filt.get_month("I") == 1
+    assert filt.get_month("XII") == 12
+    assert filt.get_month("декабрь") == 12
+    assert filt.get_month("Декабрь") == 12
+    assert filt.get_month("ДЕКАБРЬ") == 12
 
 
 @pytest.fixture
@@ -141,6 +218,35 @@ def test_advanced_synthesizer_filter_synthetic():
             [make_atr("домик", 0, [("домик", "NN:Masc:Nom", "дом")])],
             [0]
         )
+
+
+def test_advanced_synthesizer_no_placeholder_preserves_raw_forms_and_duplicates():
+    class StubSynthesizer:
+        def synthesize(self, token, pos_tag, pos_tag_is_regex=False):
+            assert pos_tag_is_regex is True
+            return ["делал", "делал"]
+
+    filt = AdvancedSynthesizerFilter()
+    filt.set_synthesizer(StubSynthesizer())
+    match = make_dummy_match()
+    match.suggestions = ["literal"]
+    tokens = [make_atr("ДЕЛАЛ", 0, [("ДЕЛАЛ", "VB:Past:TRANS:IMPFV:Masc", "делать")])]
+
+    result = filt.accept_rule_match(
+        match,
+        {
+            "lemmaFrom": "1",
+            "lemmaSelect": "VB:.*",
+            "postagFrom": "1",
+            "postagSelect": "VB:.*",
+        },
+        0,
+        tokens,
+        [1],
+    )
+
+    assert result is not None
+    assert result.suggestions == ["literal", "делал", "делал"]
 
 
 # =========================================================================

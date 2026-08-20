@@ -16,17 +16,12 @@ FILTER_CLASSES: Dict[str, Type[RuleFilter]] = {
     "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter": RussianSuppressMisspelledSuggestionsFilter,
 }
 
-# Singletons cache
-_instances: Dict[str, RuleFilter] = {}
-
 def get_filter_instance(class_name: str) -> RuleFilter:
-    """Return singleton instance of the registered filter class.
+    """Return a match-local instance of the registered filter class.
     
     Raises KeyError if the class name is not registered.
     """
     if class_name not in FILTER_CLASSES:
         raise KeyError(f"Unknown filter class: '{class_name}'")
-    
-    if class_name not in _instances:
-        _instances[class_name] = FILTER_CLASSES[class_name]()
-    return _instances[class_name]
+
+    return FILTER_CLASSES[class_name]()

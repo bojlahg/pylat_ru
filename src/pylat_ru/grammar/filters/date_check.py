@@ -4,7 +4,7 @@ import dataclasses
 from typing import List, Dict, Optional
 from pylat_ru.analysis import AnalyzedTokenReadings
 from pylat_ru.grammar.model import RuleMatchResult
-from .base import RuleFilter
+from .base import RuleFilter, FilterIllegalArgumentError, FilterRuntimeError
 
 class SystemClock:
     """Wrapper to control date/time deterministically in tests."""
@@ -69,7 +69,7 @@ class DateCheckFilter(RuleFilter):
             return 7  # Calendar.SATURDAY
         if day.startswith("вс") or day == "воскресенье":
             return 1  # Calendar.SUNDAY
-        raise ValueError(f"Could not find day of week for '{day_str}'")
+        raise FilterRuntimeError(f"Could not find day of week for '{day_str}'")
 
     def get_month(self, month_str: str) -> int:
         mon = month_str.lower()
@@ -97,7 +97,7 @@ class DateCheckFilter(RuleFilter):
             return 11
         if mon == "декабрь" or month_str == "XII" or mon == "декабря" or mon == "дек":
             return 12
-        raise ValueError(f"Could not find month '{month_str}'")
+        raise FilterRuntimeError(f"Could not find month '{month_str}'")
 
     def get_date(self, args: Dict[str, str]) -> datetime.date:
         year_arg = args.get("year")
@@ -106,7 +106,10 @@ class DateCheckFilter(RuleFilter):
         elif year_arg is None:
             year = SystemClock.get_current_year()
         else:
-            year = int(year_arg)
+            try:
+                year = int(year_arg)
+            except ValueError:
+                raise FilterIllegalArgumentError(f"Invalid year: '{year_arg}'")
 
         month_str = self.get_required("month", args)
         if month_str.isdigit():
@@ -117,7 +120,10 @@ class DateCheckFilter(RuleFilter):
         day_str = self.get_required("day", args)
         m = self.DAY_OF_MONTH_PATTERN.fullmatch(day_str)
         if m:
-            day = int(m.group(1))
+            try:
+                day = int(m.group(1))
+            except ValueError:
+                raise FilterIllegalArgumentError(f"Invalid day: '{day_str}'")
         else:
             day = 0
 
@@ -159,7 +165,9 @@ class DateCheckFilter(RuleFilter):
                 return dataclasses.replace(match, message=message, url=url)
             else:
                 return None
-        except ValueError as e:
+        except FilterIllegalArgumentError as e:
             raise e
+        except FilterRuntimeError:
+            return None
         except Exception:
             return None
