@@ -79,88 +79,86 @@ def load_oracle_manifest() -> Dict[str, Any]:
 
 
 def prepare_synthetic_sentence(
-    raw_text: str,
+    case: Dict[str, Any],
     disambiguator: RussianHybridDisambiguator,
     chunker: RussianChunker,
 ) -> Tuple[AnalyzedSentence, str]:
-    """Parse injection annotations from raw text and construct AnalyzedSentence."""
-    clean_text = raw_text
-    injected_chunks: Dict[int, List[str]] = {}
-    injected_readings: Dict[int, List[AnalyzedToken]] = {}
-    injected_pre_disambig: Dict[int, List[AnalyzedToken]] = {}
-
-    while clean_text.startswith("||"):
-        end_idx = clean_text.find("||", 2)
-        if end_idx == -1:
-            break
-        tag = clean_text[2:end_idx]
-        clean_text = clean_text[end_idx + 2:]
-        if tag.startswith("INJECT_CHUNKS:"):
-            body = tag[len("INJECT_CHUNKS:"):]
-            for item in body.split(";"):
-                if not item:
-                    continue
-                tok_idx_str, ctags_str = item.split("=", 1)
-                injected_chunks[int(tok_idx_str)] = [ct for ct in ctags_str.split(",") if ct]
-        elif tag.startswith("INJECT_READINGS:"):
-            body = tag[len("INJECT_READINGS:"):]
-            for item in body.split(";"):
-                if not item:
-                    continue
-                tok_idx_str, rlist_str = item.split("=", 1)
-                rlist = []
-                for rd in rlist_str.split(","):
-                    if not rd:
-                        continue
-                    parts = rd.split("/", 2)
-                    t_str = parts[0]
-                    l_str = None if parts[1] == "null" else parts[1]
-                    p_str = None if parts[2] == "null" else parts[2]
-                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
-                injected_readings[int(tok_idx_str)] = rlist
-        elif tag.startswith("INJECT_PRE_DISAMBIG:"):
-            body = tag[len("INJECT_PRE_DISAMBIG:"):]
-            for item in body.split(";"):
-                if not item:
-                    continue
-                tok_idx_str, rlist_str = item.split("=", 1)
-                rlist = []
-                for rd in rlist_str.split(","):
-                    if not rd:
-                        continue
-                    parts = rd.split("/", 2)
-                    t_str = parts[0]
-                    l_str = None if parts[1] == "null" else parts[1]
-                    p_str = None if parts[2] == "null" else parts[2]
-                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
-                injected_pre_disambig[int(tok_idx_str)] = rlist
+    """Parse injection annotations from raw text and construct AnalyzedSentence using mapped token indices."""
+    clean_text = case["text"]
+    injected_chunks_raw = case.get("inject_chunks", {})
+    injected_readings_raw = case.get("inject_readings", {})
+    injected_pre_disambig_raw = case.get("inject_pre_disambig", {})
+    injected_spacebefore_raw = case.get("inject_spacebefore", {})
 
     sent = disambiguator.disambiguate_text(clean_text)
     sent.text = clean_text
     chunker.chunk(sent)
 
-    if injected_chunks:
-        for idx, ctags in injected_chunks.items():
-            if 0 <= idx < len(sent.tokens):
-                sent.tokens[idx].chunk_tags = ctags
+    # Find non-whitespace, non-SENT_START indices in Python
+    non_ws_indices = []
+    for ti, tok in enumerate(sent.tokens):
+        if tok.is_sentence_start:
+            continue
+        t_str = tok.token
+        if not t_str or t_str.isspace():
+            continue
+        non_ws_indices.append(ti)
 
-    if injected_readings:
-        for idx, rlist in injected_readings.items():
-            if 0 <= idx < len(sent.tokens):
-                sent.tokens[idx].readings = list(rlist)
+    # 1. Inject chunks
+    for w_idx_str, ctags in injected_chunks_raw.items():
+        w_idx = int(w_idx_str)
+        if 0 <= w_idx < len(non_ws_indices):
+            tok_idx = non_ws_indices[w_idx]
+            sent.tokens[tok_idx].chunk_tags = list(ctags)
 
-    if injected_pre_disambig:
+    # 2. Inject readings (post-disambiguation)
+    if injected_readings_raw:
+        for w_idx_str, rlist_str in injected_readings_raw.items():
+            w_idx = int(w_idx_str)
+            if 0 <= w_idx < len(non_ws_indices):
+                tok_idx = non_ws_indices[w_idx]
+                rlist = []
+                for rd in rlist_str.split(","):
+                    if not rd:
+                        continue
+                    parts = rd.split("/", 2)
+                    t_str = parts[0]
+                    l_str = None if parts[1] == "null" else parts[1]
+                    p_str = None if parts[2] == "null" else parts[2]
+                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
+                sent.tokens[tok_idx].readings = rlist
+
+    # 3. Inject spacebefore
+    for w_idx_str, is_white in injected_spacebefore_raw.items():
+        w_idx = int(w_idx_str)
+        if 0 <= w_idx < len(non_ws_indices):
+            tok_idx = non_ws_indices[w_idx]
+            sent.tokens[tok_idx].set_whitespace_before(" " if is_white else "")
+
+    # 4. Inject pre-disambiguation readings
+    if injected_pre_disambig_raw:
         pre_tokens = list(sent.tokens)
-        for idx, rlist in injected_pre_disambig.items():
-            if 0 <= idx < len(pre_tokens):
+        for w_idx_str, rlist_str in injected_pre_disambig_raw.items():
+            w_idx = int(w_idx_str)
+            if 0 <= w_idx < len(non_ws_indices):
+                tok_idx = non_ws_indices[w_idx]
+                rlist = []
+                for rd in rlist_str.split(","):
+                    if not rd:
+                        continue
+                    parts = rd.split("/", 2)
+                    t_str = parts[0]
+                    l_str = None if parts[1] == "null" else parts[1]
+                    p_str = None if parts[2] == "null" else parts[2]
+                    rlist.append(AnalyzedToken(t_str, l_str, p_str))
                 atr_copy = AnalyzedTokenReadings(
-                    readings=list(rlist),
-                    whitespace_before=sent.tokens[idx].whitespace_before,
-                    start_pos=sent.tokens[idx].start_pos,
-                    is_sentence_start=sent.tokens[idx].is_sentence_start,
-                    is_sentence_end=sent.tokens[idx].is_sentence_end,
+                    readings=rlist,
+                    whitespace_before=sent.tokens[tok_idx].whitespace_before,
+                    start_pos=sent.tokens[tok_idx].start_pos,
+                    is_sentence_start=sent.tokens[tok_idx].is_sentence_start,
+                    is_sentence_end=sent.tokens[tok_idx].is_sentence_end,
                 )
-                pre_tokens[idx] = atr_copy
+                pre_tokens[tok_idx] = atr_copy
         sent.pre_disambig_tokens = pre_tokens
 
     return sent, clean_text
@@ -246,7 +244,7 @@ def test_synthetic_unification_oracle_parity_all_cases(fixture_data, synthetic_e
             mismatches.append(f"[{case_id}] Rule not found in engine: {target_rule_id}")
             continue
 
-        sent, clean_text = prepare_synthetic_sentence(raw_text, disambiguator, chunker)
+        sent, clean_text = prepare_synthetic_sentence(case, disambiguator, chunker)
 
         act_matches = engine.check_rule(sent, rule)
         exp_matches = oracle_res.get("matches", [])

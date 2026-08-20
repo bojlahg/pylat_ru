@@ -1431,9 +1431,13 @@ public class CheckSyntheticPatternRules {
         PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         for (int i = 0; i < caseArray.length; i++) {
             if (i > 0) out.print("\u0006");
-            String[] pair = caseArray[i].split("\u0007", 2);
-            String targetId = pair[0];
-            String inputText = pair.length > 1 ? pair[1] : "";
+            String[] parts = caseArray[i].split("\u0007", -1);
+            String targetId = parts[0];
+            String cleanText = parts.length > 1 ? parts[1] : "";
+            String rStr = parts.length > 2 ? parts[2] : "";
+            String pdStr = parts.length > 3 ? parts[3] : "";
+            String chkStr = parts.length > 4 ? parts[4] : "";
+            String sbStr = parts.length > 5 ? parts[5] : "";
 
             Set<AbstractPatternRule> rSet = ruleMap.get(targetId);
             if (rSet == null && targetId.contains("[")) {
@@ -1450,10 +1454,10 @@ public class CheckSyntheticPatternRules {
             }
 
             AbstractPatternRule r = rSet.iterator().next();
-            String cleanText = inputText;
             Map<Integer, List<org.languagetool.chunking.ChunkTag>> injectedChunks = new HashMap<>();
             Map<Integer, List<org.languagetool.AnalyzedToken>> injectedReadings = new HashMap<>();
             Map<Integer, List<org.languagetool.AnalyzedToken>> injectedPreDisambig = new HashMap<>();
+            Map<Integer, Boolean> injectedSpaceBefore = new HashMap<>();
 
             while (cleanText.startsWith("||")) {
                 int endIdx = cleanText.indexOf("||", 2);
@@ -1461,47 +1465,77 @@ public class CheckSyntheticPatternRules {
                 String tag = cleanText.substring(2, endIdx);
                 cleanText = cleanText.substring(endIdx + 2);
                 if (tag.startsWith("INJECT_CHUNKS:")) {
-                    String body = tag.substring("INJECT_CHUNKS:".length());
-                    for (String item : body.split(";")) {
-                        if (item.isEmpty()) continue;
-                        String[] kv = item.split("=", 2);
-                        int tokIdx = Integer.parseInt(kv[0]);
+                    chkStr = (chkStr.isEmpty() ? "" : chkStr + ";") + tag.substring("INJECT_CHUNKS:".length());
+                } else if (tag.startsWith("INJECT_READINGS:")) {
+                    rStr = (rStr.isEmpty() ? "" : rStr + ";") + tag.substring("INJECT_READINGS:".length());
+                } else if (tag.startsWith("INJECT_PRE_DISAMBIG:")) {
+                    pdStr = (pdStr.isEmpty() ? "" : pdStr + ";") + tag.substring("INJECT_PRE_DISAMBIG:".length());
+                } else if (tag.startsWith("INJECT_SPACEBEFORE:")) {
+                    sbStr = (sbStr.isEmpty() ? "" : sbStr + ";") + tag.substring("INJECT_SPACEBEFORE:".length());
+                }
+            }
+
+            AnalyzedSentence sent = lt.getAnalyzedSentence(cleanText);
+            AnalyzedTokenReadings[] origTokens = sent.getTokens();
+            List<Integer> nonWsIndices = new ArrayList<>();
+            for (int ti = 0; ti < origTokens.length; ti++) {
+                if (origTokens[ti].isSentenceStart()) continue;
+                String tStr = origTokens[ti].getToken();
+                if (tStr == null || tStr.trim().isEmpty()) continue;
+                nonWsIndices.add(ti);
+            }
+
+            if (!chkStr.isEmpty()) {
+                for (String item : chkStr.split(";")) {
+                    if (item.isEmpty()) continue;
+                    String[] kv = item.split("=", 2);
+                    int wIdx = Integer.parseInt(kv[0]);
+                    if (wIdx >= 0 && wIdx < nonWsIndices.size()) {
+                        int tokIdx = nonWsIndices.get(wIdx);
                         List<org.languagetool.chunking.ChunkTag> cTags = new ArrayList<>();
                         for (String ct : kv[1].split(",")) {
                             if (!ct.isEmpty()) cTags.add(new org.languagetool.chunking.ChunkTag(ct));
                         }
                         injectedChunks.put(tokIdx, cTags);
                     }
-                } else if (tag.startsWith("INJECT_READINGS:")) {
-                    String body = tag.substring("INJECT_READINGS:".length());
-                    for (String item : body.split(";")) {
-                        if (item.isEmpty()) continue;
-                        String[] kv = item.split("=", 2);
-                        int tokIdx = Integer.parseInt(kv[0]);
+                }
+            }
+
+            if (!rStr.isEmpty()) {
+                for (String item : rStr.split(";")) {
+                    if (item.isEmpty()) continue;
+                    String[] kv = item.split("=", 2);
+                    int wIdx = Integer.parseInt(kv[0]);
+                    if (wIdx >= 0 && wIdx < nonWsIndices.size()) {
+                        int tokIdx = nonWsIndices.get(wIdx);
                         List<org.languagetool.AnalyzedToken> rList = new ArrayList<>();
                         for (String rd : kv[1].split(",")) {
                             if (rd.isEmpty()) continue;
-                            String[] parts = rd.split("/", 3);
-                            String tStr = parts[0];
-                            String lStr = parts[1].equals("null") ? null : parts[1];
-                            String pStr = parts[2].equals("null") ? null : parts[2];
+                            String[] rParts = rd.split("/", 3);
+                            String tStr = rParts[0];
+                            String lStr = rParts[1].equals("null") ? null : rParts[1];
+                            String pStr = rParts[2].equals("null") ? null : rParts[2];
                             rList.add(new org.languagetool.AnalyzedToken(tStr, pStr, lStr));
                         }
                         injectedReadings.put(tokIdx, rList);
                     }
-                } else if (tag.startsWith("INJECT_PRE_DISAMBIG:")) {
-                    String body = tag.substring("INJECT_PRE_DISAMBIG:".length());
-                    for (String item : body.split(";")) {
-                        if (item.isEmpty()) continue;
-                        String[] kv = item.split("=", 2);
-                        int tokIdx = Integer.parseInt(kv[0]);
+                }
+            }
+
+            if (!pdStr.isEmpty()) {
+                for (String item : pdStr.split(";")) {
+                    if (item.isEmpty()) continue;
+                    String[] kv = item.split("=", 2);
+                    int wIdx = Integer.parseInt(kv[0]);
+                    if (wIdx >= 0 && wIdx < nonWsIndices.size()) {
+                        int tokIdx = nonWsIndices.get(wIdx);
                         List<org.languagetool.AnalyzedToken> rList = new ArrayList<>();
                         for (String rd : kv[1].split(",")) {
                             if (rd.isEmpty()) continue;
-                            String[] parts = rd.split("/", 3);
-                            String tStr = parts[0];
-                            String lStr = parts[1].equals("null") ? null : parts[1];
-                            String pStr = parts[2].equals("null") ? null : parts[2];
+                            String[] rParts = rd.split("/", 3);
+                            String tStr = rParts[0];
+                            String lStr = rParts[1].equals("null") ? null : rParts[1];
+                            String pStr = rParts[2].equals("null") ? null : rParts[2];
                             rList.add(new org.languagetool.AnalyzedToken(tStr, pStr, lStr));
                         }
                         injectedPreDisambig.put(tokIdx, rList);
@@ -1509,7 +1543,19 @@ public class CheckSyntheticPatternRules {
                 }
             }
 
-            AnalyzedSentence sent = lt.getAnalyzedSentence(cleanText);
+            if (!sbStr.isEmpty()) {
+                for (String item : sbStr.split(";")) {
+                    if (item.isEmpty()) continue;
+                    String[] kv = item.split("=", 2);
+                    int wIdx = Integer.parseInt(kv[0]);
+                    if (wIdx >= 0 && wIdx < nonWsIndices.size()) {
+                        int tokIdx = nonWsIndices.get(wIdx);
+                        boolean isWhite = kv[1].equals("1") || kv[1].equalsIgnoreCase("true");
+                        injectedSpaceBefore.put(tokIdx, isWhite);
+                    }
+                }
+            }
+
             if (!injectedChunks.isEmpty()) {
                 AnalyzedTokenReadings[] tokens = sent.getTokens();
                 for (Map.Entry<Integer, List<org.languagetool.chunking.ChunkTag>> entry : injectedChunks.entrySet()) {
@@ -1519,8 +1565,8 @@ public class CheckSyntheticPatternRules {
                     }
                 }
             }
-            if (!injectedReadings.isEmpty()) {
-                AnalyzedTokenReadings[] origTokens = sent.getTokens();
+            if (!injectedReadings.isEmpty() || !injectedSpaceBefore.isEmpty()) {
+                origTokens = sent.getTokens();
                 AnalyzedTokenReadings[] newTokens = new AnalyzedTokenReadings[origTokens.length];
                 for (int ti = 0; ti < origTokens.length; ti++) {
                     if (injectedReadings.containsKey(ti)) {
@@ -1530,6 +1576,9 @@ public class CheckSyntheticPatternRules {
                         newTokens[ti].setChunkTags(origTokens[ti].getChunkTags());
                     } else {
                         newTokens[ti] = origTokens[ti];
+                    }
+                    if (injectedSpaceBefore.containsKey(ti)) {
+                        newTokens[ti].setWhitespaceBefore(injectedSpaceBefore.get(ti) ? " " : "");
                     }
                 }
                 sent = new AnalyzedSentence(newTokens, sent.getPreDisambigTokens());
@@ -1545,6 +1594,9 @@ public class CheckSyntheticPatternRules {
                         preTokens[ti].setChunkTags(tokens[ti].getChunkTags());
                     } else {
                         preTokens[ti] = tokens[ti];
+                    }
+                    if (injectedSpaceBefore.containsKey(ti)) {
+                        preTokens[ti].setWhitespaceBefore(injectedSpaceBefore.get(ti) ? " " : "");
                     }
                 }
                 sent = new AnalyzedSentence(tokens, preTokens);
@@ -1598,7 +1650,52 @@ public class CheckSyntheticPatternRules {
                 capture_output=True,
             )
 
-            case_strings = [f"{c['full_rule_id']}\u0007{c['text']}" for c in cases]
+            case_strings = []
+            for c in cases:
+                fid = c["full_rule_id"]
+                txt = c["text"]
+                r_items = []
+                for k, v in c.get("inject_readings", {}).items():
+                    if isinstance(v, list):
+                        v_str = ",".join(
+                            f"{x['token']}/{x.get('lemma') or 'null'}/{x.get('pos_tag') or 'null'}"
+                            if isinstance(x, dict)
+                            else str(x)
+                            for x in v
+                        )
+                    else:
+                        v_str = str(v)
+                    r_items.append(f"{k}={v_str}")
+                r_str = ";".join(r_items)
+
+                pd_items = []
+                for k, v in c.get("inject_pre_disambig", {}).items():
+                    if isinstance(v, list):
+                        v_str = ",".join(
+                            f"{x['token']}/{x.get('lemma') or 'null'}/{x.get('pos_tag') or 'null'}"
+                            if isinstance(x, dict)
+                            else str(x)
+                            for x in v
+                        )
+                    else:
+                        v_str = str(v)
+                    pd_items.append(f"{k}={v_str}")
+                pd_str = ";".join(pd_items)
+
+                chk_items = []
+                for k, v in c.get("inject_chunks", {}).items():
+                    v_str = ",".join(v) if isinstance(v, list) else str(v)
+                    chk_items.append(f"{k}={v_str}")
+                chk_str = ";".join(chk_items)
+
+                sb_items = []
+                for k, v in c.get("inject_spacebefore", {}).items():
+                    v_str = "1" if v else "0"
+                    sb_items.append(f"{k}={v_str}")
+                sb_str = ";".join(sb_items)
+
+                case_strings.append(f"{fid}\u0007{txt}\u0007{r_str}\u0007{pd_str}\u0007{chk_str}\u0007{sb_str}")
+
             cases_joined = "\u0000".join(case_strings)
             payload = f"{xml_content}\u0004{cases_joined}"
             input_bytes = payload.encode("utf-8")

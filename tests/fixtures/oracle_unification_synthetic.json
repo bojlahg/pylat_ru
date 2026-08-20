@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Committed LanguageTool 6.8 Java Oracle Unification Pattern Matching Synthetic Fixture",
-  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag_regexp=\"yes\" postag=\"ADV:.*\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_ADVANCED\" name=\"Synthetic Advanced Pattern Unify Combinations\">\n    <rule id=\"SYN_UNI_PREV_EXC\" name=\"Unification with previous exception\">\n      <pattern>\n        <token>старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"previous\">старт</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Previous exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEXT_EXC\" name=\"Unification with next exception\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"next\">дом</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Next exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX2\" name=\"Unification with max 2\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"2\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 2 unify: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX3\" name=\"Unification with max 3\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"3\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 3 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX_UNBOUNDED\" name=\"Unification with max -1\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"-1\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max -1 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MIN0\" name=\"Unification with min 0\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"0\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Min 0 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_FINITE_SKIP\" name=\"Unification with finite skip\">\n      <pattern>\n        <token skip=\"2\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Finite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_INFINITE_SKIP\" name=\"Unification with infinite skip\">\n      <pattern>\n        <token skip=\"-1\">начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Infinite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_AND\" name=\"Unification with AND group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <and>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token regexp=\"yes\">.*ый|.*ая|.*ое|.*ие|.*ой</token>\n          </and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>AND unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_OR\" name=\"Unification with OR group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <or>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"PT:.*\"/>\n          </or>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>OR unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_SPACEBEFORE\" name=\"Unification with spacebefore\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token spacebefore=\"no\" postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Spacebefore unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CHUNK\" name=\"Unification with chunk\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token chunk=\"NP\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Chunk unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANTIPATTERN\" name=\"Unification with antipattern\">\n      <antipattern>\n        <token>стоп</token>\n        <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n      </antipattern>\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Antipattern unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MARKER_SPANS\" name=\"Marker around unify\">\n      <pattern>\n        <token>префикс</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n        <token>суффикс</token>\n      </pattern>\n      <message>Marker spans unify: <suggestion>\\2 \\3</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MATCH_REFS\" name=\"Match references around unify\">\n      <pattern>\n        <token>слово1</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>слово4</token>\n      </pattern>\n      <message>Refs: <suggestion>\\1 \\2 \\3 \\4</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_RAW_POS_DIFF\" name=\"Raw pos discriminating unify\">\n      <pattern raw_pos=\"yes\">\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Raw pos diff</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MULTI_SCOPES\" name=\"Multiple unify scopes in sequence\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>и</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Multiple unify scopes</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_BASE_FILTER\" name=\"Base pattern filters readings before unify\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*:Nom\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*:Nom\"/>\n        </unify>\n      </pattern>\n      <message>Base filter</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MISSING_EQ\" name=\"Missing equivalence value\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"NON_EQUIV_TAG\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Missing eq</message>\n    </rule>\n  </category>\n</rules>\n",
+  "synthetic_rules_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rules lang=\"ru\">\n  <unification feature=\"number\">\n    <equivalence type=\"Sin\">\n      <token postag=\".*:Sin(:.*)*|((ADJ|Ord|PT:(Past|Real):.*|PT_Short:Real|VB:Past):.*:(Masc|Fem|Neut)(:.*)*)|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"PL\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"gender\">\n    <equivalence type=\"Masc\">\n      <token postag=\".*:Masc(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Fem\">\n      <token postag=\".*:Fem(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Neut\">\n      <token postag=\".*:Neut(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Plural\">\n      <token postag=\".*:PL(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"case\">\n    <equivalence type=\"Nom\">\n      <token postag=\".*:Nom(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"R\">\n      <token postag=\".*:R(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2R(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"D\">\n      <token postag=\".*:D(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"V\">\n      <token postag=\".*:V(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"T\">\n      <token postag=\".*:T(:.*)*|NN:.*:(Masc|Fem|Neut)\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"P\">\n      <token postag=\".*:P(:.*)*|NN:.*:(Masc|Fem|Neut)|.*:2P(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <unification feature=\"animacy\">\n    <equivalence type=\"Anim\">\n      <token postag=\".*:(Anim|Inanimanim|Name|Patr|Fam)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n    <equivalence type=\"Inanim\">\n      <token postag=\".*:(Inanim|Inanimanim)(:.*)*\" postag_regexp=\"yes\"/>\n    </equivalence>\n  </unification>\n\n  <category id=\"SYN_UNI_SINGLE\" name=\"Synthetic Single Feature Agreement\">\n    <rule id=\"SYN_UNI_NUMBER_AGREE\" name=\"Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_GENDER_AGREE\" name=\"Gender agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_AGREE\" name=\"Case agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Case agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANIMACY_AGREE\" name=\"Animacy agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"animacy\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Animacy agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_MULTI_FEAT\" name=\"Synthetic Multi-Feature Agreement\">\n    <rule id=\"SYN_UNI_GENDER_NUMBER\" name=\"Gender and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender+Number agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CASE_GENDER_NUMBER\" name=\"Case, Gender, and Number agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\"/>\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Full nominal agree: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_THREE_TOKENS\" name=\"Three token unification\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Three tokens agree: <suggestion>\\1 \\2 \\3</suggestion></message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_TYPES\" name=\"Synthetic Explicit Types\">\n    <rule id=\"SYN_UNI_EXPLICIT_FEMININE\" name=\"Only feminine agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\">\n            <type id=\"Fem\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Feminine only</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_EXPLICIT_NOM_ACC\" name=\"Only nom or acc agreement\">\n      <pattern>\n        <unify>\n          <feature id=\"case\">\n            <type id=\"Nom\"/>\n            <type id=\"V\"/>\n          </feature>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Nom or Acc only</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_NEGATION\" name=\"Synthetic Negated Unification\">\n    <rule id=\"SYN_UNI_NEG_NUMBER\" name=\"Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Number disagree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEG_GENDER_NUMBER\" name=\"Gender/Number disagreement\">\n      <pattern>\n        <unify negate=\"yes\">\n          <feature id=\"gender\"/>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Gender/Number disagree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_IGNORE\" name=\"Synthetic Unify Ignore (Neutral Elements)\">\n    <rule id=\"SYN_UNI_IGNORE_COMMA\" name=\"Unification with neutral punctuation\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token>,</token>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore comma agree</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_IGNORE_ADVERB\" name=\"Unification with neutral adverb\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <unify-ignore>\n            <token postag=\"ADV\"/>\n          </unify-ignore>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Ignore adverb agree</message>\n    </rule>\n  </category>\n\n  <category id=\"SYN_UNI_ADVANCED\" name=\"Synthetic Advanced Pattern Unify Combinations\">\n    <rule id=\"SYN_UNI_PREV_EXC\" name=\"Unification with previous exception\">\n      <pattern>\n        <token regexp=\"yes\">старт|начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"previous\">старт</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Previous exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_NEXT_EXC\" name=\"Unification with next exception\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\">\n            <exception scope=\"next\">дом</exception>\n          </token>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Next exception unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX2\" name=\"Unification with max 2\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"2\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 2 unify: <suggestion>\\1 \\2</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX3\" name=\"Unification with max 3\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"3\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max 3 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MAX_UNBOUNDED\" name=\"Unification with max -1\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"1\" max=\"-1\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Max -1 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MIN0\" name=\"Unification with min 0\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token min=\"0\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Min 0 unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_FINITE_SKIP\" name=\"Unification with finite skip\">\n      <pattern>\n        <token skip=\"2\">старт</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Finite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_INFINITE_SKIP\" name=\"Unification with infinite skip\">\n      <pattern>\n        <token skip=\"-1\">начало</token>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Infinite skip unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_AND\" name=\"Unification with AND group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <and>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token regexp=\"yes\">.*ый|.*ая|.*ое|.*ие|.*ой</token>\n          </and>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>AND unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_OR\" name=\"Unification with OR group\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <or>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"PT:.*\"/>\n          </or>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>OR unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_SPACEBEFORE\" name=\"Unification with spacebefore\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token spacebefore=\"no\" postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Spacebefore unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_CHUNK\" name=\"Unification with chunk\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token chunk=\"NP\" postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Chunk unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_ANTIPATTERN\" name=\"Unification with antipattern\">\n      <antipattern>\n        <token>стоп</token>\n        <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n        <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n      </antipattern>\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Antipattern unify</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MARKER_SPANS\" name=\"Marker around unify\">\n      <pattern>\n        <token>префикс</token>\n        <marker>\n          <unify>\n            <feature id=\"number\"/>\n            <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n            <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n          </unify>\n        </marker>\n        <token>суффикс</token>\n      </pattern>\n      <message>Marker spans unify: <suggestion>\\2 \\3</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MATCH_REFS\" name=\"Match references around unify\">\n      <pattern>\n        <token>слово1</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>слово4</token>\n      </pattern>\n      <message>Refs: <suggestion>\\1 \\2 \\3 \\4</suggestion></message>\n    </rule>\n\n    <rule id=\"SYN_UNI_RAW_POS_DIFF\" name=\"Raw pos discriminating unify\">\n      <pattern raw_pos=\"yes\">\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Raw pos diff</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MULTI_SCOPES\" name=\"Multiple unify scopes in sequence\">\n      <pattern>\n        <unify>\n          <feature id=\"number\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n        <token>и</token>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Multiple unify scopes</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_BASE_FILTER\" name=\"Base pattern filters readings before unify\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"ADJ:.*:Nom\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*:Nom\"/>\n        </unify>\n      </pattern>\n      <message>Base filter</message>\n    </rule>\n\n    <rule id=\"SYN_UNI_MISSING_EQ\" name=\"Missing equivalence value\">\n      <pattern>\n        <unify>\n          <feature id=\"gender\"/>\n          <token postag_regexp=\"yes\" postag=\"NON_EQUIV_TAG\"/>\n          <token postag_regexp=\"yes\" postag=\"NN:.*\"/>\n        </unify>\n      </pattern>\n      <message>Missing eq</message>\n    </rule>\n  </category>\n</rules>\n",
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
@@ -9,12 +9,52 @@
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_unification_fixtures.py",
     "corpus_version": "1.0.0",
-    "cases_count": 172
+    "cases_count": 173
   },
   "feature_coverage": {
-    "repeated_calls_isolation": [
-      "syn_uni_cand_succ_fail",
-      "syn_uni_cand_fail_succ"
+    "uni_feature_case": [
+      "syn_uni_case_01",
+      "syn_uni_case_02",
+      "syn_uni_case_03",
+      "syn_uni_case_04",
+      "syn_uni_case_05",
+      "syn_uni_case_06",
+      "syn_uni_case_07",
+      "syn_uni_case_08",
+      "syn_uni_case_09",
+      "syn_uni_case_10"
+    ],
+    "uni_multi_feature": [
+      "syn_uni_gn_01",
+      "syn_uni_gn_02",
+      "syn_uni_gn_03",
+      "syn_uni_gn_04",
+      "syn_uni_gn_05",
+      "syn_uni_gn_06",
+      "syn_uni_gn_07",
+      "syn_uni_gn_08",
+      "syn_uni_gn_09",
+      "syn_uni_gn_10",
+      "syn_uni_cgn_01",
+      "syn_uni_cgn_02",
+      "syn_uni_cgn_03",
+      "syn_uni_cgn_04",
+      "syn_uni_cgn_05",
+      "syn_uni_cgn_06",
+      "syn_uni_cgn_07",
+      "syn_uni_cgn_08",
+      "syn_uni_cgn_09",
+      "syn_uni_cgn_10",
+      "syn_uni_3tok_01",
+      "syn_uni_3tok_02",
+      "syn_uni_3tok_03",
+      "syn_uni_3tok_04",
+      "syn_uni_3tok_05",
+      "syn_uni_3tok_06",
+      "syn_uni_3tok_07",
+      "syn_uni_3tok_08",
+      "syn_uni_3tok_09",
+      "syn_uni_3tok_10"
     ],
     "uni_neutral_elements": [
       "syn_uni_ign_com_01",
@@ -38,47 +78,32 @@
       "syn_uni_ign_adv_09",
       "syn_uni_ign_adv_10"
     ],
-    "multiple_unify_scopes": [
-      "syn_uni_mult_scopes_01",
-      "syn_uni_mult_scopes_02"
-    ],
-    "success_then_fail_candidate": [
-      "syn_uni_cand_succ_fail"
-    ],
-    "and_group_unify": [
-      "syn_uni_and_01",
-      "syn_uni_and_02"
-    ],
-    "fail_then_success_candidate": [
-      "syn_uni_cand_fail_succ"
-    ],
-    "match_references_unify": [
-      "syn_uni_mref_01"
-    ],
-    "controlled_negated_unification": [
-      "syn_uni_ctrl_neg_unify"
-    ],
-    "max_quantifiers_unify": [
-      "syn_uni_max2_01",
-      "syn_uni_max2_02",
-      "syn_uni_max3_01",
-      "syn_uni_max3_02",
-      "syn_uni_max_unb_01"
-    ],
-    "controlled_rejected_reading_isolation": [
-      "syn_uni_ctrl_rej_iso"
+    "min_zero_unify": [
+      "syn_uni_min0_01",
+      "syn_uni_min0_02"
     ],
     "spacebefore_unify": [
       "syn_uni_sp_01",
       "syn_uni_sp_02"
     ],
-    "previous_exception_unify": [
-      "syn_uni_prev_exc_01",
-      "syn_uni_prev_exc_02"
+    "or_group_unify": [
+      "syn_uni_or_01",
+      "syn_uni_or_02",
+      "syn_uni_or_03"
     ],
-    "min_zero_unify": [
-      "syn_uni_min0_01",
-      "syn_uni_min0_02"
+    "infinite_skip_unify": [
+      "syn_uni_infskip_01",
+      "syn_uni_infskip_02"
+    ],
+    "controlled_base_pattern_reading_filtering": [
+      "syn_uni_ctrl_base_filter"
+    ],
+    "controlled_rejected_reading_isolation": [
+      "syn_uni_ctrl_rej_iso"
+    ],
+    "next_exception_unify": [
+      "syn_uni_next_exc_01",
+      "syn_uni_next_exc_02"
     ],
     "uni_negation": [
       "syn_uni_neg_num_01",
@@ -102,183 +127,9 @@
       "syn_uni_neg_gn_09",
       "syn_uni_neg_gn_10"
     ],
-    "raw_pos_unify": [
-      "syn_uni_raw_pos_01",
-      "syn_uni_raw_pos_02"
-    ],
-    "uni_feature_case": [
-      "syn_uni_case_01",
-      "syn_uni_case_02",
-      "syn_uni_case_03",
-      "syn_uni_case_04",
-      "syn_uni_case_05",
-      "syn_uni_case_06",
-      "syn_uni_case_07",
-      "syn_uni_case_08",
-      "syn_uni_case_09",
-      "syn_uni_case_10"
-    ],
-    "uni_feature_gender": [
-      "syn_uni_gen_01",
-      "syn_uni_gen_02",
-      "syn_uni_gen_03",
-      "syn_uni_gen_04",
-      "syn_uni_gen_05",
-      "syn_uni_gen_06",
-      "syn_uni_gen_07",
-      "syn_uni_gen_08",
-      "syn_uni_gen_09",
-      "syn_uni_gen_10"
-    ],
-    "controlled_neutral_unify_ignore": [
-      "syn_uni_ctrl_neutral"
-    ],
-    "controlled_multi_reading_filtering": [
-      "syn_uni_3tok_05",
-      "syn_uni_ign_com_05",
-      "syn_uni_ctrl_mult_rd"
-    ],
-    "next_exception_unify": [
-      "syn_uni_next_exc_01",
-      "syn_uni_next_exc_02"
-    ],
-    "uni_feature_number": [
-      "syn_uni_num_01",
-      "syn_uni_num_02",
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_05",
-      "syn_uni_num_06",
-      "syn_uni_num_07",
-      "syn_uni_num_08",
-      "syn_uni_num_09",
-      "syn_uni_num_10"
-    ],
-    "uni_explicit_types": [
-      "syn_uni_fem_01",
-      "syn_uni_fem_02",
-      "syn_uni_fem_03",
-      "syn_uni_fem_04",
-      "syn_uni_fem_05",
-      "syn_uni_fem_06",
-      "syn_uni_fem_07",
-      "syn_uni_fem_08",
-      "syn_uni_fem_09",
-      "syn_uni_fem_010",
-      "syn_uni_nomacc_01",
-      "syn_uni_nomacc_02",
-      "syn_uni_nomacc_03",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_05",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_07",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_09",
-      "syn_uni_nomacc_10"
-    ],
-    "marker_spans_unify": [
-      "syn_uni_mark_01"
-    ],
-    "controlled_positive_unification": [
-      "syn_uni_ctrl_pos_unify"
-    ],
-    "controlled_base_pattern_reading_filtering": [
-      "syn_uni_ctrl_base_filter"
-    ],
-    "uni_feature_animacy": [
-      "syn_uni_anim_01",
-      "syn_uni_anim_02",
-      "syn_uni_anim_03",
-      "syn_uni_anim_04",
-      "syn_uni_anim_05",
-      "syn_uni_anim_06",
-      "syn_uni_anim_07",
-      "syn_uni_anim_08",
-      "syn_uni_anim_09",
-      "syn_uni_anim_10"
-    ],
-    "controlled_missing_equivalence_value": [
-      "syn_uni_ctrl_miss_val"
-    ],
-    "chunk_unify": [
-      "syn_uni_chk_01",
-      "syn_uni_chk_02"
-    ],
-    "antipattern_unify": [
-      "syn_uni_ap_01",
-      "syn_uni_ap_02"
-    ],
-    "controlled_equivalence_intersection": [
-      "syn_uni_ctrl_eq_inter"
-    ],
-    "infinite_skip_unify": [
-      "syn_uni_infskip_01",
-      "syn_uni_infskip_02"
-    ],
-    "uni_no_match": [
-      "syn_uni_num_03",
-      "syn_uni_num_04",
-      "syn_uni_num_09",
-      "syn_uni_gen_04",
-      "syn_uni_gen_05",
-      "syn_uni_gen_06",
-      "syn_uni_gen_10",
-      "syn_uni_case_06",
-      "syn_uni_case_10",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10",
-      "syn_uni_3tok_05",
-      "syn_uni_3tok_06",
-      "syn_uni_3tok_10",
-      "syn_uni_fem_04",
-      "syn_uni_fem_05",
-      "syn_uni_fem_08",
-      "syn_uni_fem_010",
-      "syn_uni_nomacc_04",
-      "syn_uni_nomacc_05",
-      "syn_uni_nomacc_06",
-      "syn_uni_nomacc_08",
-      "syn_uni_nomacc_10",
-      "syn_uni_neg_num_03",
-      "syn_uni_neg_num_04",
-      "syn_uni_neg_num_06",
-      "syn_uni_neg_num_09",
-      "syn_uni_neg_num_10",
-      "syn_uni_neg_gn_04",
-      "syn_uni_neg_gn_05",
-      "syn_uni_neg_gn_06",
-      "syn_uni_neg_gn_09",
-      "syn_uni_neg_gn_10",
-      "syn_uni_ign_com_05",
-      "syn_uni_ign_com_06",
-      "syn_uni_ign_com_10",
-      "syn_uni_ign_adv_05",
-      "syn_uni_ign_adv_06",
-      "syn_uni_ign_adv_10",
-      "syn_uni_prev_exc_01",
-      "syn_uni_prev_exc_02",
-      "syn_uni_next_exc_01",
-      "syn_uni_max3_02",
-      "syn_uni_fskip_02",
-      "syn_uni_infskip_02",
-      "syn_uni_and_02",
-      "syn_uni_or_03",
-      "syn_uni_sp_02",
-      "syn_uni_chk_02",
-      "syn_uni_ap_02",
-      "syn_uni_mult_scopes_02",
-      "syn_uni_raw_pos_02",
-      "syn_uni_ctrl_base_filter",
-      "syn_uni_ctrl_rej_iso",
-      "syn_uni_ctrl_miss_val"
-    ],
-    "or_group_unify": [
-      "syn_uni_or_01",
-      "syn_uni_or_02",
-      "syn_uni_or_03"
+    "multiple_unify_scopes": [
+      "syn_uni_mult_scopes_01",
+      "syn_uni_mult_scopes_02"
     ],
     "uni_positive_match": [
       "syn_uni_num_01",
@@ -305,9 +156,6 @@
       "syn_uni_anim_01",
       "syn_uni_anim_02",
       "syn_uni_anim_03",
-      "syn_uni_anim_04",
-      "syn_uni_anim_05",
-      "syn_uni_anim_06",
       "syn_uni_anim_07",
       "syn_uni_anim_08",
       "syn_uni_anim_09",
@@ -369,6 +217,7 @@
       "syn_uni_ign_adv_07",
       "syn_uni_ign_adv_08",
       "syn_uni_ign_adv_09",
+      "syn_uni_prev_exc_02",
       "syn_uni_next_exc_02",
       "syn_uni_min0_01",
       "syn_uni_min0_02",
@@ -396,41 +245,194 @@
       "syn_uni_cand_succ_fail",
       "syn_uni_cand_fail_succ"
     ],
-    "uni_multi_feature": [
-      "syn_uni_gn_01",
-      "syn_uni_gn_02",
-      "syn_uni_gn_03",
-      "syn_uni_gn_04",
-      "syn_uni_gn_05",
-      "syn_uni_gn_06",
-      "syn_uni_gn_07",
-      "syn_uni_gn_08",
-      "syn_uni_gn_09",
-      "syn_uni_gn_10",
-      "syn_uni_cgn_01",
-      "syn_uni_cgn_02",
-      "syn_uni_cgn_03",
-      "syn_uni_cgn_04",
-      "syn_uni_cgn_05",
-      "syn_uni_cgn_06",
-      "syn_uni_cgn_07",
-      "syn_uni_cgn_08",
-      "syn_uni_cgn_09",
-      "syn_uni_cgn_10",
-      "syn_uni_3tok_01",
-      "syn_uni_3tok_02",
-      "syn_uni_3tok_03",
-      "syn_uni_3tok_04",
-      "syn_uni_3tok_05",
-      "syn_uni_3tok_06",
-      "syn_uni_3tok_07",
-      "syn_uni_3tok_08",
-      "syn_uni_3tok_09",
-      "syn_uni_3tok_10"
+    "repeated_calls_isolation": [
+      "syn_uni_cand_succ_fail",
+      "syn_uni_cand_fail_succ"
+    ],
+    "chunk_unify": [
+      "syn_uni_chk_01",
+      "syn_uni_chk_02"
+    ],
+    "antipattern_unify": [
+      "syn_uni_ap_01",
+      "syn_uni_ap_02"
     ],
     "finite_skip_unify": [
       "syn_uni_fskip_01",
       "syn_uni_fskip_02"
+    ],
+    "controlled_multi_reading_filtering": [
+      "syn_uni_3tok_05",
+      "syn_uni_ign_com_05",
+      "syn_uni_ctrl_mult_rd"
+    ],
+    "uni_feature_gender": [
+      "syn_uni_gen_01",
+      "syn_uni_gen_02",
+      "syn_uni_gen_03",
+      "syn_uni_gen_04",
+      "syn_uni_gen_05",
+      "syn_uni_gen_06",
+      "syn_uni_gen_07",
+      "syn_uni_gen_08",
+      "syn_uni_gen_09",
+      "syn_uni_gen_10"
+    ],
+    "success_then_fail_candidate": [
+      "syn_uni_cand_succ_fail"
+    ],
+    "match_references_unify": [
+      "syn_uni_mref_01"
+    ],
+    "previous_exception_unify": [
+      "syn_uni_prev_exc_01",
+      "syn_uni_prev_exc_02"
+    ],
+    "controlled_missing_equivalence_value": [
+      "syn_uni_ctrl_miss_val"
+    ],
+    "uni_explicit_types": [
+      "syn_uni_fem_01",
+      "syn_uni_fem_02",
+      "syn_uni_fem_03",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_06",
+      "syn_uni_fem_07",
+      "syn_uni_fem_08",
+      "syn_uni_fem_09",
+      "syn_uni_fem_010",
+      "syn_uni_nomacc_01",
+      "syn_uni_nomacc_02",
+      "syn_uni_nomacc_03",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_07",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_09",
+      "syn_uni_nomacc_10"
+    ],
+    "max_quantifiers_unify": [
+      "syn_uni_max2_01",
+      "syn_uni_max2_02",
+      "syn_uni_max3_01",
+      "syn_uni_max3_02",
+      "syn_uni_max_unb_01"
+    ],
+    "marker_spans_unify": [
+      "syn_uni_mark_01"
+    ],
+    "controlled_neutral_unify_ignore": [
+      "syn_uni_ctrl_neutral"
+    ],
+    "uni_feature_number": [
+      "syn_uni_num_01",
+      "syn_uni_num_02",
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_05",
+      "syn_uni_num_06",
+      "syn_uni_num_07",
+      "syn_uni_num_08",
+      "syn_uni_num_09",
+      "syn_uni_num_10"
+    ],
+    "controlled_negated_unification": [
+      "syn_uni_ctrl_neg_unify"
+    ],
+    "controlled_positive_unification": [
+      "syn_uni_ctrl_pos_unify"
+    ],
+    "uni_no_match": [
+      "syn_uni_num_03",
+      "syn_uni_num_04",
+      "syn_uni_num_09",
+      "syn_uni_gen_04",
+      "syn_uni_gen_05",
+      "syn_uni_gen_06",
+      "syn_uni_gen_10",
+      "syn_uni_case_06",
+      "syn_uni_case_10",
+      "syn_uni_anim_04",
+      "syn_uni_anim_05",
+      "syn_uni_anim_06",
+      "syn_uni_gn_05",
+      "syn_uni_gn_06",
+      "syn_uni_gn_07",
+      "syn_uni_cgn_09",
+      "syn_uni_cgn_10",
+      "syn_uni_3tok_05",
+      "syn_uni_3tok_06",
+      "syn_uni_3tok_10",
+      "syn_uni_fem_04",
+      "syn_uni_fem_05",
+      "syn_uni_fem_08",
+      "syn_uni_fem_010",
+      "syn_uni_nomacc_04",
+      "syn_uni_nomacc_05",
+      "syn_uni_nomacc_06",
+      "syn_uni_nomacc_08",
+      "syn_uni_nomacc_10",
+      "syn_uni_neg_num_03",
+      "syn_uni_neg_num_04",
+      "syn_uni_neg_num_06",
+      "syn_uni_neg_num_09",
+      "syn_uni_neg_num_10",
+      "syn_uni_neg_gn_04",
+      "syn_uni_neg_gn_05",
+      "syn_uni_neg_gn_06",
+      "syn_uni_neg_gn_09",
+      "syn_uni_neg_gn_10",
+      "syn_uni_ign_com_05",
+      "syn_uni_ign_com_06",
+      "syn_uni_ign_com_10",
+      "syn_uni_ign_adv_05",
+      "syn_uni_ign_adv_06",
+      "syn_uni_ign_adv_10",
+      "syn_uni_prev_exc_01",
+      "syn_uni_next_exc_01",
+      "syn_uni_max3_02",
+      "syn_uni_fskip_02",
+      "syn_uni_infskip_02",
+      "syn_uni_and_02",
+      "syn_uni_or_03",
+      "syn_uni_sp_02",
+      "syn_uni_chk_02",
+      "syn_uni_ap_02",
+      "syn_uni_mult_scopes_02",
+      "syn_uni_raw_pos_02",
+      "syn_uni_raw_pos_nonraw_control",
+      "syn_uni_ctrl_base_filter",
+      "syn_uni_ctrl_rej_iso",
+      "syn_uni_ctrl_miss_val"
+    ],
+    "uni_feature_animacy": [
+      "syn_uni_anim_01",
+      "syn_uni_anim_02",
+      "syn_uni_anim_03",
+      "syn_uni_anim_04",
+      "syn_uni_anim_05",
+      "syn_uni_anim_06",
+      "syn_uni_anim_07",
+      "syn_uni_anim_08",
+      "syn_uni_anim_09",
+      "syn_uni_anim_10"
+    ],
+    "and_group_unify": [
+      "syn_uni_and_01",
+      "syn_uni_and_02"
+    ],
+    "fail_then_success_candidate": [
+      "syn_uni_cand_fail_succ"
+    ],
+    "raw_pos_unify": [
+      "syn_uni_raw_pos_01",
+      "syn_uni_raw_pos_02",
+      "syn_uni_raw_pos_nonraw_control"
+    ],
+    "controlled_equivalence_intersection": [
+      "syn_uni_ctrl_eq_inter"
     ]
   },
   "cases": [
@@ -439,6 +441,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -476,6 +479,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивые дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -512,7 +516,8 @@
       "id": "syn_uni_num_03",
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "красивый дома",
+      "text": "красивые книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_number",
         "uni_no_match"
@@ -525,24 +530,8 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Number agreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 13,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 13,
-            "message": "Number agree: <suggestion>красивый дома</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивый дома"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 13,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 13
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -550,6 +539,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивые дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_number",
         "uni_no_match"
@@ -571,6 +561,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "большая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -608,6 +599,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "большие книги",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -645,6 +637,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "новое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -682,6 +675,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "новые окна",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -718,7 +712,8 @@
       "id": "syn_uni_num_09",
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "новое окна",
+      "text": "новые книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_number",
         "uni_no_match"
@@ -731,24 +726,8 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Number agreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 10,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 10,
-            "message": "Number agree: <suggestion>новое окна</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "новое окна"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 10,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 10
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -756,6 +735,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "старый стол",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_number",
         "uni_positive_match"
@@ -793,6 +773,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -830,6 +811,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -867,6 +849,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -904,6 +887,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_gender",
         "uni_no_match"
@@ -925,6 +909,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивая дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_gender",
         "uni_no_match"
@@ -946,6 +931,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивое дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_gender",
         "uni_no_match"
@@ -967,6 +953,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "синий шар",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -1004,6 +991,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "синяя река",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -1041,6 +1029,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "синее море",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_gender",
         "uni_positive_match"
@@ -1078,6 +1067,7 @@
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "синий река",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_gender",
         "uni_no_match"
@@ -1099,6 +1089,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1136,6 +1127,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивого дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1173,6 +1165,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивому дому",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1210,6 +1203,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивым домом",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1247,6 +1241,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивом доме",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1284,6 +1279,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый дому",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_case",
         "uni_no_match"
@@ -1305,6 +1301,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1342,6 +1339,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивой книги",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1379,6 +1377,7 @@
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивую книгу",
+      "expected_target_matches": 1,
       "features": [
         "uni_feature_case",
         "uni_positive_match"
@@ -1415,7 +1414,8 @@
       "id": "syn_uni_case_10",
       "full_rule_id": "SYN_UNI_CASE_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "красивая книги",
+      "text": "красивому книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_feature_case",
         "uni_no_match"
@@ -1428,31 +1428,20 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Case agreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 14,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 14,
-            "message": "Case agree: <suggestion>красивая книги</suggestion>",
-            "short_message": "",
-            "suggestions": [
-              "красивая книги"
-            ],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 14,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 14
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
       "id": "syn_uni_anim_01",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "живой кот",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Anim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1465,15 +1454,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_02",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "деревянный стол",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Inanim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Inanim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1486,15 +1496,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_03",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "умный человек",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Anim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1507,18 +1538,39 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_04",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "быстрый конь",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Inanim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
-        "uni_positive_match"
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -1536,10 +1588,15 @@
       "id": "syn_uni_anim_05",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "каменный мост",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Inanim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Anim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
-        "uni_positive_match"
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -1557,10 +1614,15 @@
       "id": "syn_uni_anim_06",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "верная собака",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Inanim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
-        "uni_positive_match"
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -1578,7 +1640,12 @@
       "id": "syn_uni_anim_07",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "железная дверь",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Inanim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Inanim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1591,15 +1658,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_08",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "сильный медведь",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Anim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1612,15 +1700,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_09",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "чистая вода",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Inanim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Inanim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1633,15 +1742,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_anim_10",
       "full_rule_id": "SYN_UNI_ANIMACY_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "добрый учитель",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Anim:Masc:Sin:Acc",
+        "1": "дом/дом/NN:Anim:Masc:Sin:Acc"
+      },
       "features": [
         "uni_feature_animacy",
         "uni_positive_match"
@@ -1654,8 +1784,24 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Animacy agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Animacy agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
@@ -1663,6 +1809,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1698,6 +1845,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1733,6 +1881,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1768,6 +1917,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивые дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1803,6 +1953,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -1824,6 +1975,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивая дома",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -1845,6 +1997,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивые дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -1866,6 +2019,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "большой город",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1901,6 +2055,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "большая река",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1936,6 +2091,7 @@
       "full_rule_id": "SYN_UNI_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "большие реки",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -1971,6 +2127,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2008,6 +2165,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивого дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2045,6 +2203,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивой книги",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2082,6 +2241,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивому дому",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2119,6 +2279,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивой книге",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2156,6 +2317,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивым домом",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2193,6 +2355,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивой книгой",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2230,6 +2393,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивом доме",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2267,6 +2431,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивый дома",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -2288,6 +2453,7 @@
       "full_rule_id": "SYN_UNI_CASE_GENDER_NUMBER[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "красивая дому",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -2309,6 +2475,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "новый красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2346,6 +2513,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "новая красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2383,6 +2551,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "новое красивое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2420,6 +2589,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "новые красивые дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2457,6 +2627,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "большой красивая дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match",
@@ -2479,6 +2650,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "новый красивая книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -2500,6 +2672,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "старый добрый друг",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2537,6 +2710,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "старая добрая подруга",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2574,6 +2748,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "старые добрые друзья",
+      "expected_target_matches": 1,
       "features": [
         "uni_multi_feature",
         "uni_positive_match"
@@ -2611,6 +2786,7 @@
       "full_rule_id": "SYN_UNI_THREE_TOKENS[1]",
       "category": "SYN_UNI_MULTI_FEAT",
       "text": "старый добрая друг",
+      "expected_target_matches": 0,
       "features": [
         "uni_multi_feature",
         "uni_no_match"
@@ -2632,6 +2808,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2667,6 +2844,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "синяя река",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2702,6 +2880,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "большая река",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2737,6 +2916,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2758,6 +2938,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивое окно",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2779,6 +2960,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "старая машина",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2814,6 +2996,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "чистая вода",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2849,6 +3032,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "новый стол",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2870,6 +3054,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "зеленая трава",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2905,6 +3090,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_FEMININE[1]",
       "category": "SYN_UNI_TYPES",
       "text": "зеленое поле",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -2926,6 +3112,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2961,6 +3148,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -2996,6 +3184,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивую книгу",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -3030,7 +3219,8 @@
       "id": "syn_uni_nomacc_04",
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
-      "text": "красивого дома",
+      "text": "красивом доме",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3043,22 +3233,8 @@
         "category_name": "Synthetic Explicit Types",
         "description": "Only nom or acc agreement",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 14,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 14,
-            "message": "Nom or Acc only",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 14,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 14
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -3066,6 +3242,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивому дому",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3087,6 +3264,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "красивым домом",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3108,6 +3286,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "новое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -3143,6 +3322,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "новому окну",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3164,6 +3344,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "чистый лист",
+      "expected_target_matches": 1,
       "features": [
         "uni_explicit_types",
         "uni_positive_match"
@@ -3199,6 +3380,7 @@
       "full_rule_id": "SYN_UNI_EXPLICIT_NOM_ACC[1]",
       "category": "SYN_UNI_TYPES",
       "text": "чистым листом",
+      "expected_target_matches": 0,
       "features": [
         "uni_explicit_types",
         "uni_no_match"
@@ -3220,6 +3402,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивые дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3255,6 +3438,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "новые окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3290,6 +3474,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3311,6 +3496,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивые дома",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3332,6 +3518,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "большие книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3367,6 +3554,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "новое окно",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3388,6 +3576,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "старые стол",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3423,6 +3612,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "чистые вода",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3458,6 +3648,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "чистая вода",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3479,6 +3670,7 @@
       "full_rule_id": "SYN_UNI_NEG_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "большая книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3500,6 +3692,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивый книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3535,6 +3728,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивая дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3570,6 +3764,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивое дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3605,6 +3800,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3626,6 +3822,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивая книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3647,6 +3844,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "красивое окно",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3668,6 +3866,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "синий река",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3703,6 +3902,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "синяя шар",
+      "expected_target_matches": 1,
       "features": [
         "uni_negation",
         "uni_positive_match"
@@ -3738,6 +3938,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "синее море",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3759,6 +3960,7 @@
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
       "text": "синий шар",
+      "expected_target_matches": 0,
       "features": [
         "uni_negation",
         "uni_no_match"
@@ -3780,6 +3982,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "новый , красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3815,6 +4018,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "новая , красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3850,6 +4054,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "новое , красивое окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3885,6 +4090,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "новые , красивые дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3920,6 +4126,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "большой , красивая дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match",
@@ -3942,6 +4149,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "новый , красивая книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -3963,6 +4171,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "старый , добрый друг",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -3998,6 +4207,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "старая , добрая подруга",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4033,6 +4243,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "старые , добрые друзья",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4068,6 +4279,7 @@
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
       "text": "старый , добрая друг",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4088,7 +4300,8 @@
       "id": "syn_uni_ign_adv_01",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивый дом",
+      "text": "красивый очень дом",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4101,15 +4314,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 18,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 18,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 18,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 18
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_02",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивая книга",
+      "text": "красивая очень книга",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4122,15 +4350,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 20,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 20,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 20,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 20
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_03",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивое окно",
+      "text": "красивое очень окно",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4143,15 +4386,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_04",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивые дома",
+      "text": "красивые очень дома",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4164,15 +4422,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_05",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивый книга",
+      "text": "красивый очень книга",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4193,7 +4466,8 @@
       "id": "syn_uni_ign_adv_06",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "очень красивая дом",
+      "text": "красивая очень дом",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4214,7 +4488,8 @@
       "id": "syn_uni_ign_adv_07",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "весьма интересный факт",
+      "text": "интересный весьма факт",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4227,15 +4502,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 22,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 22,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 22
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_08",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "весьма интересная мысль",
+      "text": "интересная весьма мысль",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4248,15 +4538,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 23,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 23,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 23,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 23
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_09",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "весьма интересное дело",
+      "text": "интересное весьма дело",
+      "expected_target_matches": 1,
       "features": [
         "uni_neutral_elements",
         "uni_positive_match"
@@ -4269,15 +4574,30 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral adverb",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 22,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 22,
+            "message": "Ignore adverb agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 22,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 22
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ign_adv_10",
       "full_rule_id": "SYN_UNI_IGNORE_ADVERB[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "весьма интересный мысль",
+      "text": "интересный весьма мысль",
+      "expected_target_matches": 0,
       "features": [
         "uni_neutral_elements",
         "uni_no_match"
@@ -4299,6 +4619,7 @@
       "full_rule_id": "SYN_UNI_PREV_EXC[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "старт красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "previous_exception_unify",
         "uni_no_match"
@@ -4320,9 +4641,10 @@
       "full_rule_id": "SYN_UNI_PREV_EXC[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "начало красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "previous_exception_unify",
-        "uni_no_match"
+        "uni_positive_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -4332,8 +4654,22 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with previous exception",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Previous exception unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
+          }
+        ]
       }
     },
     {
@@ -4341,6 +4677,7 @@
       "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "next_exception_unify",
         "uni_no_match"
@@ -4362,6 +4699,7 @@
       "full_rule_id": "SYN_UNI_NEXT_EXC[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивая книга",
+      "expected_target_matches": 1,
       "features": [
         "next_exception_unify",
         "uni_positive_match"
@@ -4397,6 +4735,7 @@
       "full_rule_id": "SYN_UNI_MIN0[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "min_zero_unify",
         "uni_positive_match"
@@ -4432,6 +4771,7 @@
       "full_rule_id": "SYN_UNI_MIN0[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "дом",
+      "expected_target_matches": 1,
       "features": [
         "min_zero_unify",
         "uni_positive_match"
@@ -4467,6 +4807,7 @@
       "full_rule_id": "SYN_UNI_MAX2[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "max_quantifiers_unify",
         "uni_positive_match"
@@ -4504,6 +4845,7 @@
       "full_rule_id": "SYN_UNI_MAX2[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "новый красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "max_quantifiers_unify",
         "uni_positive_match"
@@ -4541,6 +4883,7 @@
       "full_rule_id": "SYN_UNI_MAX3[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "новый красивый большой дом",
+      "expected_target_matches": 1,
       "features": [
         "max_quantifiers_unify",
         "uni_positive_match"
@@ -4575,7 +4918,8 @@
       "id": "syn_uni_max3_02",
       "full_rule_id": "SYN_UNI_MAX3[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "новый красивый большая дом",
+      "text": "новый красивый большие дом",
+      "expected_target_matches": 0,
       "features": [
         "max_quantifiers_unify",
         "uni_no_match"
@@ -4588,22 +4932,8 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with max 3",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 0,
-            "to_utf16": 26,
-            "pattern_from_utf16": 0,
-            "pattern_to_utf16": 26,
-            "message": "Max 3 unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 0,
-            "expected_to_codepoint": 26,
-            "expected_pattern_from_codepoint": 0,
-            "expected_pattern_to_codepoint": 26
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -4611,6 +4941,7 @@
       "full_rule_id": "SYN_UNI_MAX_UNBOUNDED[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "новый красивый большой старый дом",
+      "expected_target_matches": 1,
       "features": [
         "max_quantifiers_unify",
         "uni_positive_match"
@@ -4645,7 +4976,8 @@
       "id": "syn_uni_fskip_01",
       "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "старт один два красивый дом",
+      "text": "старт в дом красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "finite_skip_unify",
         "uni_positive_match"
@@ -4658,15 +4990,30 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with finite skip",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 24,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 24,
+            "message": "Finite skip unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 24,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 24
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_fskip_02",
       "full_rule_id": "SYN_UNI_FINITE_SKIP[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "старт один два три красивый дом",
+      "text": "старт и в дом красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "finite_skip_unify",
         "uni_no_match"
@@ -4687,7 +5034,8 @@
       "id": "syn_uni_infskip_01",
       "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "начало один два три четыре красивый дом",
+      "text": "начало и в дом у красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "infinite_skip_unify",
         "uni_positive_match"
@@ -4700,15 +5048,30 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with infinite skip",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 29,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 29,
+            "message": "Infinite skip unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 29,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 29
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_infskip_02",
       "full_rule_id": "SYN_UNI_INFINITE_SKIP[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "начало один два три четыре красивые дом",
+      "text": "начало и в дом у красивые дом",
+      "expected_target_matches": 0,
       "features": [
         "infinite_skip_unify",
         "uni_no_match"
@@ -4730,6 +5093,7 @@
       "full_rule_id": "SYN_UNI_AND[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "and_group_unify",
         "uni_positive_match"
@@ -4765,6 +5129,7 @@
       "full_rule_id": "SYN_UNI_AND[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивые дом",
+      "expected_target_matches": 0,
       "features": [
         "and_group_unify",
         "uni_no_match"
@@ -4786,6 +5151,7 @@
       "full_rule_id": "SYN_UNI_OR[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "or_group_unify",
         "uni_positive_match"
@@ -4821,6 +5187,7 @@
       "full_rule_id": "SYN_UNI_OR[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "построенный дом",
+      "expected_target_matches": 1,
       "features": [
         "or_group_unify",
         "uni_positive_match"
@@ -4856,6 +5223,7 @@
       "full_rule_id": "SYN_UNI_OR[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "построенные дом",
+      "expected_target_matches": 0,
       "features": [
         "or_group_unify",
         "uni_no_match"
@@ -4876,7 +5244,15 @@
       "id": "syn_uni_sp_01",
       "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "красивыйдом",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "inject_spacebefore": {
+        "1": false
+      },
       "features": [
         "spacebefore_unify",
         "uni_positive_match"
@@ -4889,15 +5265,37 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with spacebefore",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Spacebefore unify",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_sp_02",
       "full_rule_id": "SYN_UNI_SPACEBEFORE[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "красивый дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "inject_spacebefore": {
+        "1": true
+      },
       "features": [
         "spacebefore_unify",
         "uni_no_match"
@@ -4918,7 +5316,13 @@
       "id": "syn_uni_chk_01",
       "full_rule_id": "SYN_UNI_CHUNK[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_CHUNKS:1=NP||красивый дом",
+      "text": "красивый дом",
+      "expected_target_matches": 1,
+      "inject_chunks": {
+        "0": [
+          "NP"
+        ]
+      },
       "features": [
         "chunk_unify",
         "uni_positive_match"
@@ -4953,7 +5357,13 @@
       "id": "syn_uni_chk_02",
       "full_rule_id": "SYN_UNI_CHUNK[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_CHUNKS:1=VP||красивый дом",
+      "text": "красивый дом",
+      "expected_target_matches": 0,
+      "inject_chunks": {
+        "0": [
+          "VP"
+        ]
+      },
       "features": [
         "chunk_unify",
         "uni_no_match"
@@ -4975,6 +5385,7 @@
       "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "antipattern_unify",
         "uni_positive_match"
@@ -5010,6 +5421,7 @@
       "full_rule_id": "SYN_UNI_ANTIPATTERN[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "стоп красивый дом",
+      "expected_target_matches": 0,
       "features": [
         "antipattern_unify",
         "uni_no_match"
@@ -5022,22 +5434,8 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Unification with antipattern",
         "is_default_off": false,
-        "matches_count": 1,
-        "matches": [
-          {
-            "from_utf16": 5,
-            "to_utf16": 17,
-            "pattern_from_utf16": 5,
-            "pattern_to_utf16": 17,
-            "message": "Antipattern unify",
-            "short_message": "",
-            "suggestions": [],
-            "expected_from_codepoint": 5,
-            "expected_to_codepoint": 17,
-            "expected_pattern_from_codepoint": 5,
-            "expected_pattern_to_codepoint": 17
-          }
-        ]
+        "matches_count": 0,
+        "matches": []
       }
     },
     {
@@ -5045,6 +5443,7 @@
       "full_rule_id": "SYN_UNI_MARKER_SPANS[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "префикс красивый дом суффикс",
+      "expected_target_matches": 1,
       "features": [
         "marker_spans_unify",
         "uni_positive_match"
@@ -5082,6 +5481,7 @@
       "full_rule_id": "SYN_UNI_MATCH_REFS[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "слово1 красивый дом слово4",
+      "expected_target_matches": 1,
       "features": [
         "match_references_unify",
         "uni_positive_match"
@@ -5119,6 +5519,7 @@
       "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "новый дом и новая книга",
+      "expected_target_matches": 1,
       "features": [
         "multiple_unify_scopes",
         "uni_positive_match"
@@ -5154,6 +5555,7 @@
       "full_rule_id": "SYN_UNI_MULTI_SCOPES[1]",
       "category": "SYN_UNI_ADVANCED",
       "text": "красивые дом и новая книга",
+      "expected_target_matches": 0,
       "features": [
         "multiple_unify_scopes",
         "uni_no_match"
@@ -5174,7 +5576,16 @@
       "id": "syn_uni_raw_pos_01",
       "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_PRE_DISAMBIG:1=слово/слово/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:1=слово/слово/VB:Past:Fem||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_pre_disambig": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "inject_readings": {
+        "0": "слово/слово/VB:Past:Fem",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "raw_pos_unify",
         "uni_positive_match"
@@ -5187,15 +5598,38 @@
         "category_name": "Synthetic Advanced Pattern Unify Combinations",
         "description": "Raw pos discriminating unify",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Raw pos diff",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_raw_pos_02",
       "full_rule_id": "SYN_UNI_RAW_POS_DIFF[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_PRE_DISAMBIG:1=слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_pre_disambig": {
+        "0": "слово/слово/ADJ:Fem:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "raw_pos_unify",
         "uni_no_match"
@@ -5213,13 +5647,22 @@
       }
     },
     {
-      "id": "syn_uni_ctrl_mult_rd",
+      "id": "syn_uni_raw_pos_nonraw_control",
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_pre_disambig": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "inject_readings": {
+        "0": "слово/слово/VB:Past:Fem",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
-        "controlled_multi_reading_filtering",
-        "uni_positive_match"
+        "raw_pos_unify",
+        "uni_no_match"
       ],
       "oracle_result": {
         "status": "FOUND",
@@ -5234,10 +5677,57 @@
       }
     },
     {
+      "id": "syn_uni_ctrl_mult_rd",
+      "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+      "category": "SYN_UNI_SINGLE",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
+      "features": [
+        "controlled_multi_reading_filtering",
+        "uni_positive_match"
+      ],
+      "oracle_result": {
+        "status": "FOUND",
+        "rule_id": "SYN_UNI_GENDER_AGREE",
+        "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
+        "category_id": "SYN_UNI_SINGLE",
+        "category_name": "Synthetic Single Feature Agreement",
+        "description": "Gender agreement",
+        "is_default_off": false,
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Gender agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
+      }
+    },
+    {
       "id": "syn_uni_ctrl_base_filter",
       "full_rule_id": "SYN_UNI_BASE_FILTER[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom,слово/слово/ADJ:Masc:Sin:Gen|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Fem:Sin:Nom,слово/слово/ADJ:Masc:Sin:Gen",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_base_pattern_reading_filtering",
         "uni_no_match"
@@ -5258,7 +5748,12 @@
       "id": "syn_uni_ctrl_rej_iso",
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom,слово/слово/NN:Masc:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Fem:Sin:Nom,слово/слово/NN:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_rejected_reading_isolation",
         "uni_no_match"
@@ -5279,7 +5774,12 @@
       "id": "syn_uni_ctrl_eq_inter",
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=книга/книга/NN:Fem:Sin:Nom||слово книга",
+      "text": "слово книга",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom,слово/слово/ADJ:Fem:Sin:Nom",
+        "1": "книга/книга/NN:Fem:Sin:Nom"
+      },
       "features": [
         "controlled_equivalence_intersection",
         "uni_positive_match"
@@ -5292,15 +5792,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Gender agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 11,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 11,
+            "message": "Gender agree: <suggestion>слово книга</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово книга"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 11,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 11
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ctrl_miss_val",
       "full_rule_id": "SYN_UNI_MISSING_EQ[1]",
       "category": "SYN_UNI_ADVANCED",
-      "text": "||INJECT_READINGS:1=слово/слово/NON_EQUIV_TAG|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 0,
+      "inject_readings": {
+        "0": "слово/слово/NON_EQUIV_TAG",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_missing_equivalence_value",
         "uni_no_match"
@@ -5321,7 +5842,12 @@
       "id": "syn_uni_ctrl_pos_unify",
       "full_rule_id": "SYN_UNI_GENDER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Masc:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_positive_unification",
         "uni_positive_match"
@@ -5334,15 +5860,36 @@
         "category_name": "Synthetic Single Feature Agreement",
         "description": "Gender agreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Gender agree: <suggestion>слово дом</suggestion>",
+            "short_message": "",
+            "suggestions": [
+              "слово дом"
+            ],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ctrl_neg_unify",
       "full_rule_id": "SYN_UNI_NEG_GENDER_NUMBER[1]",
       "category": "SYN_UNI_NEGATION",
-      "text": "||INJECT_READINGS:1=слово/слово/ADJ:Fem:Sin:Nom|| ||INJECT_READINGS:2=дом/дом/NN:Masc:Sin:Nom||слово дом",
+      "text": "слово дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово/слово/ADJ:Fem:Sin:Nom",
+        "1": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_negated_unification",
         "uni_positive_match"
@@ -5355,15 +5902,35 @@
         "category_name": "Synthetic Negated Unification",
         "description": "Gender/Number disagreement",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 9,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 9,
+            "message": "Gender/Number disagree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 9,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 9
+          }
+        ]
       }
     },
     {
       "id": "syn_uni_ctrl_neutral",
       "full_rule_id": "SYN_UNI_IGNORE_COMMA[1]",
       "category": "SYN_UNI_IGNORE",
-      "text": "||INJECT_READINGS:1=слово1/слово1/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:2=запятая/запятая/,|| ||INJECT_READINGS:3=слово2/слово2/ADJ:Masc:Sin:Nom|| ||INJECT_READINGS:4=дом/дом/NN:Masc:Sin:Nom||слово1 , слово2 дом",
+      "text": "слово1 , слово2 дом",
+      "expected_target_matches": 1,
+      "inject_readings": {
+        "0": "слово1/слово1/ADJ:Masc:Sin:Nom",
+        "2": "слово2/слово2/ADJ:Masc:Sin:Nom",
+        "3": "дом/дом/NN:Masc:Sin:Nom"
+      },
       "features": [
         "controlled_neutral_unify_ignore",
         "uni_positive_match"
@@ -5376,8 +5943,22 @@
         "category_name": "Synthetic Unify Ignore (Neutral Elements)",
         "description": "Unification with neutral punctuation",
         "is_default_off": false,
-        "matches_count": 0,
-        "matches": []
+        "matches_count": 1,
+        "matches": [
+          {
+            "from_utf16": 0,
+            "to_utf16": 19,
+            "pattern_from_utf16": 0,
+            "pattern_to_utf16": 19,
+            "message": "Ignore comma agree",
+            "short_message": "",
+            "suggestions": [],
+            "expected_from_codepoint": 0,
+            "expected_to_codepoint": 19,
+            "expected_pattern_from_codepoint": 0,
+            "expected_pattern_to_codepoint": 19
+          }
+        ]
       }
     },
     {
@@ -5385,6 +5966,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивый дом красивые дом",
+      "expected_target_matches": 1,
       "features": [
         "success_then_fail_candidate",
         "repeated_calls_isolation",
@@ -5423,6 +6005,7 @@
       "full_rule_id": "SYN_UNI_NUMBER_AGREE[1]",
       "category": "SYN_UNI_SINGLE",
       "text": "красивые дом красивый дом",
+      "expected_target_matches": 1,
       "features": [
         "fail_then_success_candidate",
         "repeated_calls_isolation",

@@ -8,7 +8,7 @@
     "grammar_xml_sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
     "baseline_task_0008_commit": "5a2f4c032609ee2ce371ca5bb886883a186a3d83",
     "generator_path": "tools/russian_grammar_unification_inventory.py",
-    "generator_sha256": "7f3cf296dc927d709ebd55cb58bdb66bb05e634c81dae5c83ddcbd4e66c9e630",
+    "generator_sha256": "1ddfca717273222d2189c8b60faca51969c50dd824e58da7bfc3251574d12b86",
     "oracle_manifest_path": "compat/oracle_manifest.json"
   },
   "source_totals": {
@@ -267,9 +267,9 @@
   },
   "unification_construct_distributions": {
     "unify_negate_distribution": {
-      "yes": 19,
-      "no": 0,
-      "default_no": 9
+      "explicit_yes": 19,
+      "explicit_no": 8,
+      "missing_or_default": 1
     },
     "unify_features_distribution": {
       "gender": 11,

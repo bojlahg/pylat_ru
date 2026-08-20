@@ -23,7 +23,9 @@ The engine establishes feature agreement checking across grammatical categories 
 - Strict identity semantics across duplicated reading sets in quantifiers (`min`, `max`);
 - Complete unifier state isolation across positions, rules, variants, scopes, and sentences.
 
-All 24 Russian XML grammar rules using pure unification without external Java filters were promoted to `UNIFICATION_0009_RUNNABLE`. Total runnable rules increased from 735 to 759 (772 physical variants). Parity against pinned Java LanguageTool 6.8 is 100% across all 216 real Russian rule examples, 172 discriminating synthetic test cases, and all 1,954 runnable embedded grammar examples.
+All 24 Russian XML grammar rules using pure unification without external Java filters were promoted to `UNIFICATION_0009_RUNNABLE`. Total runnable rules increased from 735 to 759 (772 physical variants). Parity against pinned Java LanguageTool 6.8 is:
+- **100% Exact match/offset/message/suggestion parity** on all 216 real Russian rule oracle cases and 173 discriminating synthetic test cases;
+- **100% Trigger/Finding existence parity** on all 1,954 runnable embedded grammar examples.
 
 ---
 
@@ -96,9 +98,35 @@ Every source rule from `compat/russian_grammar_advanced_inventory.json` was join
 | **Deferred Examples Total** | 492 | 161 Incorrect + 331 Correct |
 | **Unification-Using Rules Total** | 28 | 24 Runnable + 4 Deferred |
 
+### 3.4 Raw XML and Configuration Inventory
+
+- **Raw XML unify elements**: 28
+- **Negation distribution of `<unify negate="...">`**:
+  - `explicit_yes` (negate="yes"): 19
+  - `explicit_no` (negate="no"): 8
+  - `missing_or_default` (no negate attribute): 1
+  - **Total**: 28 unifies
+- **Features distribution in `<unify>`**:
+  - `gender`: 11
+  - `number`: 12
+  - `tense`: 5
+  - `aspect`: 2
+  - `transitivity`: 1
+  - `person`: 1
+  - `case`: 6
+- **Overlap with other constructs**:
+  - `exception`: 150
+  - `skip`: 8
+  - `antipattern`: 84
+  - `marker`: 14
+  - `min`: 3
+  - `max`: 3
+- **Duplicate configuration policy**:
+  - Pinned `UnifierConfiguration.setEquivalence()` implements a **first-definition-wins** policy for duplicate `(feature, type)` pairs, which has been synthesized and fully verified in Python.
+
 ---
 
-## 4. Upstream Java Test Method Accounting (`UnifierTest.java`)
+## 4. Upstream Java Test Method/File Accounting
 
 All 7 test methods from upstream Java `UnifierTest.java` were translated to Python test functions in `tests/upstream/test_unifier_oracle_parity.py`:
 
@@ -115,9 +143,38 @@ All 7 test methods from upstream Java `UnifierTest.java` were translated to Pyth
 
 ---
 
-## 5. Differential Oracle and Example Parity Evidence
+## 5. Upstream Source Provenance and Vendored Files
 
-### 5.1 Test Suites Summary
+The following exact-pinned Java files from LanguageTool `v6.8` (commit `e807fcde6a6506191e1470744d2345da28c26be6`) were vendored into `third_party/languagetool/` to serve as a differential validation baseline:
+
+| Relative Vendored Path | Byte Size | SHA-256 Hash | Rationale |
+|:---|:---:|:---|:---|
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java` | 16,108 | `33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454` | Exact unifier loop agreement and neutral element logic reference |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java` | 3,198 | `4d8557a0d54225cd9596c6c97cfa26a74b152ffc0566625abf7eee9e8060fe03` | Map storage structure and duplicate policy reference |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java` | 1,571 | `1c5ec50c7956a09c1d41a3df22b8728fa59662c32c59cfbf2ae0bd04ba3614e1` | Token-to-feature mapping rules lookup reference |
+| `languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java` | 25,704 | `095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b` | Baseline test assertions source |
+
+All files have their provenance and license dual-licensed under LGPL 2.1 recorded in `third_party/languagetool/UPSTREAM.json` and `third_party/languagetool/license_inventory.json`.
+
+---
+
+## 6. Oracle Provenance and Manifest Binding
+
+All differential tests are bound to the trusted Java Oracle:
+- **Oracle Build ID**: `lt_6.8_source_build_jdk17_stefan`
+- **Oracle JAR SHA-256**: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`
+- **Manifest binding file**: `compat/oracle_manifest.json`
+- **Fixture generation script**: `tools/generate_oracle_unification_fixtures.py`
+
+Fixture outputs generated using the trusted oracle:
+- `tests/fixtures/oracle_unification_russian_rules.json` (216 cases)
+- `tests/fixtures/oracle_unification_synthetic.json` (173 cases)
+
+---
+
+## 7. Differential Oracle and Example Parity Evidence
+
+### 7.1 Test Suites Summary
 
 | Test File | Tests | Cases / Assertions | Scope |
 |:---|:---:|:---:|:---|
@@ -126,61 +183,18 @@ All 7 test methods from upstream Java `UnifierTest.java` were translated to Pyth
 | `tests/unit/test_grammar_unification_inventory.py` | 3 passed | 42 assertions | Inventory consistency, exact counts, transition matrix, structural invariants |
 | `tests/upstream/test_unifier_oracle_parity.py` | 7 passed | 60 assertions | Upstream `UnifierTest.java` translated conformance |
 | `tests/upstream/test_unification_russian_rule_oracle_parity.py` | 3 passed | 216 oracle cases | Differential parity against Java LT 6.8 on 24 real promoted rules |
-| `tests/upstream/test_unification_synthetic_oracle_parity.py` | 4 passed | 172 oracle cases | Differential parity against Java LT 6.8 across 36 synthetic feature dimensions |
+| `tests/upstream/test_unification_synthetic_oracle_parity.py` | 4 passed | 173 oracle cases | Differential parity against Java LT 6.8 across 36 synthetic feature dimensions |
 | `tests/upstream/test_russian_grammar_examples.py` | 6 passed | 1,954 examples | Trigger and full example parity across all 759 runnable rules |
 | `tests/unit/test_real_wheel_grammar.py` | 1 passed | 18 assertions | Wheel packaging, network/Java isolated subprocess verification |
 
-### 5.2 Parity Metrics
+### 7.2 Parity Metrics
 
-| Test Suite / Scope | Cases / Rules | Finding Parity | Offset Parity (CP & UTF-16) | Message Parity | Suggestion Parity (Exact Order) |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **Synthetic Unification Suite** | 172 cases | 100% (172/172) | 100% (172/172) | 100% (172/172) | 100% (172/172) |
-| **Real Russian Unification Rules** | 216 examples | 100% (216/216) | 100% (216/216) | 100% (216/216) | 100% (216/216) |
-| **Total Runnable Grammar Examples** | 1,954 examples | 100% (1954/1954) | 100% (1954/1954) | 100% (1954/1954) | 100% (1954/1954) |
-
-### 5.3 Synthetic Feature Coverage (100% across 36 Dimensions)
-
-All 36 required synthetic feature families are covered by multiple discriminating cases in `oracle_unification_synthetic.json`:
-1. `uni_feature_number`: Number agreement
-2. `uni_feature_gender`: Gender agreement
-3. `uni_feature_case`: Case agreement
-4. `uni_feature_animacy`: Animacy agreement
-5. `uni_multi_feature`: Multi-feature joint agreement
-6. `uni_explicit_types`: Explicit `<type>` restrictions
-7. `uni_negation`: Negated unification (`negate="yes"`)
-8. `uni_neutral_elements`: Neutral elements (`<unify-ignore>`)
-9. `multiple_unify_scopes`: Sequential `<unify>` scopes in one pattern
-10. `success_then_fail_candidate`: Candidate success followed by failure
-11. `fail_then_success_candidate`: Candidate failure followed by success
-12. `repeated_calls_isolation`: Repeated engine calls on alternating sentences
-13. `finite_skip_unify`: Unification with finite `skip="2"`
-14. `infinite_skip_unify`: Unification with unbounded `skip="-1"`
-15. `min_zero_unify`: Unification with optional `min="0"`
-16. `max_quantifiers_unify`: Unification with `max="2"`, `max="3"`, `max="-1"`
-17. `and_group_unify`: Unification inside `<and>` token groups
-18. `or_group_unify`: Unification inside `<or>` token branches
-19. `previous_exception_unify`: Exception with `scope="previous"` inside unify
-20. `next_exception_unify`: Exception with `scope="next"` inside unify
-21. `spacebefore_unify`: `spacebefore="no"` token matching inside unify
-22. `chunk_unify`: Syntactic chunk tag matching (`chunk="NP"`) inside unify
-23. `raw_pos_unify`: Controlled pre/post disambiguation discrimination (`raw_pos="yes"`)
-24. `antipattern_unify`: Antipattern suppression of unify rule matches
-25. `marker_spans_unify`: Marker span extraction around/inside unify scopes
-26. `match_references_unify`: Message suggestions referencing unify elements (`\1`, `\2`, ...)
-27. `controlled_multi_reading_filtering`: Injected multi-reading token evaluation
-28. `controlled_base_pattern_reading_filtering`: Base PatternToken filters readings before unifier
-29. `controlled_rejected_reading_isolation`: Rejected readings cannot participate in unification
-30. `controlled_equivalence_intersection`: Ambiguous readings preserve correct feature intersection
-31. `controlled_missing_equivalence_value`: Missing equivalence values while base token matches
-32. `controlled_positive_unification`: Positive unification with controlled injected readings
-33. `controlled_negated_unification`: Negated unification with controlled injected readings
-34. `controlled_neutral_unify_ignore`: Neutral element passthrough with controlled readings
-35. `uni_positive_match`: Positive match baseline
-36. `uni_no_match`: Rejection / non-match baseline
+- **Trigger / Finding existence parity**: Asserted on all 1,954 runnable embedded grammar examples (100% parity).
+- **Exact match / offset / message / suggestion parity**: Asserted on 216 real Russian rules and 173 discriminating synthetic oracle cases (100% parity).
 
 ---
 
-## 6. Production Boundary and Real Wheel Verification
+## 8. Production Boundary and Real Wheel Verification
 
 `tests/unit/test_real_wheel_grammar.py` builds `pylat_ru-0.1.0-py3-none-any.whl`, installs it into an isolated temporary directory, and executes an end-to-end pipeline in a clean subprocess with:
 - `socket.socket` monkeypatched to raise `RuntimeError` on any network access attempt;
@@ -207,25 +221,19 @@ Result: **`REAL_WHEEL_GRAMMAR_SUCCESS`** (`PASSED`).
 
 ---
 
-## 7. Full Test Suite Execution Results
+## 9. Full Test Suite Execution Results
 
 Complete test suite execution (`pytest` across Tasks 0001–0009):
-- **Total Tests**: **336 passed in 49.47s**
+- **Total Tests**: **336 passed in 55.69s**
 - **Failed Tests**: **0**
 - **Skipped Tests**: **0**
 - **Warnings / Errors**: **0**
 
 ---
 
-## 8. License and Provenance Status
+## 10. Known Limitations and Remaining Blockers
 
-All vendored Russian grammar resources originate from LanguageTool `v6.8` under LGPL 2.1 / Apache 2.0 dual licensing. Provenance details, file sizes, and SHA-256 digests are recorded in `third_party/languagetool/license_inventory.json` and `compat/oracle_manifest.json`.
-
----
-
-## 9. Known Limitations and Remaining Blockers
-
-### 9.1 Remaining 133 Deferred Grammar Rules:
+### 10.1 Remaining 133 Deferred Grammar Rules:
 - **Task 0010 (XML Java Filters)**: 20 rules (including 4 unification rules requiring `AdvancedSynthesizerFilter`, and filters such as `RussianPartialPosTagFilter`, `INNNumberFilter`, `DateCheckFilter`).
 - **Task 0012 (Spelling / Suppression / Java Rules)**: 110 rules.
 - **Multi-Blocker (Filters + Spelling)**: 3 rules (`RussianPartialPosTagFilter` + spelling suppression).

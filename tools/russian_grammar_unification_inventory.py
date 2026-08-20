@@ -115,7 +115,20 @@ def generate_unification_inventory() -> Dict[str, Any]:
     state_0008_counts: Dict[str, int] = {}
     state_0009_counts: Dict[str, int] = {}
 
-    unify_negate_distribution = {"yes": 0, "no": 0, "default_no": 0}
+    unify_negate_distribution = {
+        "explicit_yes": 0,
+        "explicit_no": 0,
+        "missing_or_default": 0,
+    }
+    for unify_el in root.findall(".//unify"):
+        neg_val = unify_el.attrib.get("negate")
+        if neg_val == "yes":
+            unify_negate_distribution["explicit_yes"] += 1
+        elif neg_val == "no":
+            unify_negate_distribution["explicit_no"] += 1
+        elif neg_val is None:
+            unify_negate_distribution["missing_or_default"] += 1
+
     unify_features_distribution: Counter[str] = Counter()
     overlap_feature_counts: Counter[str] = Counter()
 
@@ -144,8 +157,6 @@ def generate_unification_inventory() -> Dict[str, Any]:
                 feats = [f.name for f in elem.features]
                 for f in feats:
                     unify_features_distribution[f] += 1
-                neg_str = "yes" if elem.negate else "default_no"
-                unify_negate_distribution[neg_str] += 1
                 unify_scopes.append({
                     "features": feats,
                     "negate": elem.negate,
