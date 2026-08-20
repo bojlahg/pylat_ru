@@ -5,7 +5,7 @@
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_generated": true,
-    "case_count": 6
+    "case_count": 11
   },
   "cases": [
     {
@@ -33,6 +33,42 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 24,
+          "from": 13,
+          "to": 24,
+          "source_slice": "задать тест"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 40,
+          "to_utf16": 42,
+          "from": 40,
+          "to": 42,
+          "source_slice": " ,"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "zadat_test",
@@ -68,7 +104,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "16ab0b50df9e5e4912ffd5c891d1fcaa4f19d9f9365617ab9e42728e40ab84b1"
+      "semantic_signature": "59c688a6245184574f3fb89010eb6ad624ee6d85fa58e7f88df43d1acd5321ae"
     },
     {
       "id": "combined_comma_then_xml",
@@ -95,6 +131,42 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ","
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 6,
+          "to": 8,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 28,
+          "to_utf16": 39,
+          "from": 28,
+          "to": 39,
+          "source_slice": "задать тест"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
@@ -130,7 +202,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "4a5170c62e07532a690ce9359237bb706288800b9978d60ea3fb1e043a8d3ef3"
+      "semantic_signature": "76986f7f30fd3731e7370c7d449dd7a8962b4dd35ea018e9b5e8bda03e59c6eb"
     },
     {
       "id": "combined_same_offset_priority",
@@ -157,6 +229,58 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Из"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "из"
+        },
+        {
+          "rule_id": "RU_DASH_RULE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Использовано тире вместо дефиса.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из—за"
+        },
+        {
+          "rule_id": "Tire_and_spaces",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Перед и после тире должны быть пробелы: <suggestion>из — за</suggestion>",
+          "short_message": "Нужен пробел",
+          "suggestions": [
+            "из — за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из—за"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "RU_DASH_RULE",
@@ -176,7 +300,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "f2cd6c8e254e07b6dbd511c0e9eedbb774b55c6a8057fbbc19993e9ff184c5fc"
+      "semantic_signature": "137b3b04f0284eb9ebd93ca7319bd22afcbbe01aad72c64ae609aed71e46a0db"
     },
     {
       "id": "combined_same_offset_casing",
@@ -202,6 +326,42 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Центральный"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 11,
+          "from": 0,
+          "to": 11,
+          "source_slice": "центральный"
+        },
+        {
+          "rule_id": "RU_SPECIFIC_CASE",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Для специальных наименований используйте предложенное написание заглавных и строчных букв.",
+          "short_message": "",
+          "suggestions": [
+            "Центральный банк РФ"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 19,
+          "from": 0,
+          "to": 19,
+          "source_slice": "центральный банк РФ"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "RU_SPECIFIC_CASE",
@@ -221,7 +381,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "52b6e0932eb79f1b6bf7b7484c9b072a3e5b98c76e2f9415dac4fec8045c70e8"
+      "semantic_signature": "25d5a2190a45a46d502e028a9ac6cdb2e39062582c00320ed3c5677e3c269099"
     },
     {
       "id": "combined_default_off_filler",
@@ -251,6 +411,56 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "UPPERCASE_SENTENCE_START",
+          "category_id": "CASING",
+          "category_name": "Заглавные буквы",
+          "message": "Это предложение не начинается с заглавной буквы.",
+          "short_message": "Заглавные буквы",
+          "suggestions": [
+            "Ах"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "ах"
+        },
+        {
+          "rule_id": "FILLER_WORDS_RU",
+          "category_id": "CREATIVE_WRITING",
+          "category_name": "Стилистические подсказки для творческого письма",
+          "message": "Это — слово-паразит. Удалите его, если это возможно.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "ах"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 23,
+          "to_utf16": 34,
+          "from": 23,
+          "to": 34,
+          "source_slice": "задать тест"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "FILLER_WORDS_RU",
@@ -284,7 +494,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "b64eb7611604783963e96ba212dc8021d51773d425d3611ab3561104a51dfec2"
+      "semantic_signature": "5d65f7e49ae4b1e3a58afc4d5feb4b18d91bbbee343815ee8067fc3bcff1fe14"
     },
     {
       "id": "combined_multiple_findings",
@@ -311,6 +521,58 @@
         "RU_WORD_ROOT_REPEAT"
       ],
       "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 13,
+          "to_utf16": 24,
+          "from": 13,
+          "to": 24,
+          "source_slice": "задать тест"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 32,
+          "to_utf16": 34,
+          "from": 32,
+          "to": 34,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 42,
+          "to_utf16": 53,
+          "from": 42,
+          "to": 53,
+          "source_slice": "задать тест"
+        }
+      ],
+      "raw_rule_expected": {},
       "expected": [
         {
           "rule_id": "zadat_test",
@@ -362,7 +624,511 @@
         }
       ],
       "finding_count": 3,
-      "semantic_signature": "930d65ee0597f62648c1a55fe20bc7eaf24c5ee2b4c6c594a4b8c9cae690101d"
+      "semantic_signature": "747b32cf9cfef4734c655bd027aca5992d98c0b2f8e01c3ad172dfd9728558ee"
+    },
+    {
+      "id": "combined_picky_long_sentence_comma_overlap",
+      "text": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ,слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled_rules": [
+        "TOO_LONG_SENTENCE"
+      ],
+      "config": {
+        "level": "picky"
+      },
+      "raw_rule_ids": [
+        "TOO_LONG_SENTENCE",
+        "COMMA_PARENTHESIS_WHITESPACE"
+      ],
+      "coverage": [
+        "picky",
+        "overlap",
+        "raw_rule_triggers",
+        "same_rule_group",
+        "priority"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 313,
+          "from": 0,
+          "to": 313,
+          "source_slice": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ,слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 155,
+          "to_utf16": 157,
+          "from": 155,
+          "to": 157,
+          "source_slice": " ,"
+        }
+      ],
+      "raw_rule_expected": {
+        "TOO_LONG_SENTENCE": [
+          {
+            "rule_id": "TOO_LONG_SENTENCE",
+            "category_id": "STYLE",
+            "category_name": "Стиль",
+            "message": "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+            "short_message": "",
+            "suggestions": [],
+            "url": null,
+            "from_utf16": 0,
+            "to_utf16": 313,
+            "from": 0,
+            "to": 313,
+            "source_slice": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ,слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+          }
+        ],
+        "COMMA_PARENTHESIS_WHITESPACE": [
+          {
+            "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+            "category_id": "TYPOGRAPHY",
+            "category_name": "Типографика",
+            "message": "Поставьте пробел после запятой, а не перед ней.",
+            "short_message": "",
+            "suggestions": [
+              ", "
+            ],
+            "url": null,
+            "from_utf16": 155,
+            "to_utf16": 157,
+            "from": 155,
+            "to": 157,
+            "source_slice": " ,"
+          },
+          {
+            "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+            "category_id": "TYPOGRAPHY",
+            "category_name": "Типографика",
+            "message": "Поставьте пробел после запятой.",
+            "short_message": "",
+            "suggestions": [
+              ", слово"
+            ],
+            "url": null,
+            "from_utf16": 156,
+            "to_utf16": 162,
+            "from": 156,
+            "to": 162,
+            "source_slice": ",слово"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 155,
+          "to_utf16": 157,
+          "from": 155,
+          "to": 157,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "2d786b16105df95c48b0c10491e6aceb4bfbc9815cae40f4ed948c06c534eaeb"
+    },
+    {
+      "id": "combined_picky_long_sentence_xml_overlap",
+      "text": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ученик решил задать тест учителю слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "explicitly_enabled_rules": [
+        "TOO_LONG_SENTENCE"
+      ],
+      "config": {
+        "level": "picky"
+      },
+      "raw_rule_ids": [
+        "TOO_LONG_SENTENCE"
+      ],
+      "coverage": [
+        "picky",
+        "overlap",
+        "xml",
+        "priority"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 333,
+          "from": 0,
+          "to": 333,
+          "source_slice": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ученик решил задать тест учителю слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+        },
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 127,
+          "to_utf16": 138,
+          "from": 127,
+          "to": 138,
+          "source_slice": "задать тест"
+        }
+      ],
+      "raw_rule_expected": {
+        "TOO_LONG_SENTENCE": [
+          {
+            "rule_id": "TOO_LONG_SENTENCE",
+            "category_id": "STYLE",
+            "category_name": "Стиль",
+            "message": "Предложение длиной 50 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+            "short_message": "",
+            "suggestions": [],
+            "url": null,
+            "from_utf16": 0,
+            "to_utf16": 333,
+            "from": 0,
+            "to": 333,
+            "source_slice": "Слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово ученик решил задать тест учителю слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+          }
+        ]
+      },
+      "expected": [
+        {
+          "rule_id": "zadat_test",
+          "category_id": "LOGIC",
+          "category_name": "Логические ошибки",
+          "message": "Опечатка: <suggestion>предложить тест</suggestion>",
+          "short_message": "Опечатка",
+          "suggestions": [
+            "предложить тест"
+          ],
+          "url": null,
+          "from_utf16": 127,
+          "to_utf16": 138,
+          "from": 127,
+          "to": 138,
+          "source_slice": "задать тест"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "06762961fd7c96d4a841cb4a249705a9785fd52f7734ce4d9f4ee55d890ce1aa"
+    },
+    {
+      "id": "combined_equal_priority_same_length_last_tie",
+      "text": "Привет друзья!",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "xml",
+        "equal_priority",
+        "same_length",
+        "last_match_tie"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "Privet_druzja",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>Привет, друзья</suggestion>",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "Привет, друзья"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 13,
+          "from": 0,
+          "to": 13,
+          "source_slice": "Привет друзья"
+        },
+        {
+          "rule_id": "POZHALUJSTA",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>Привет, друзья</suggestion>.",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "Привет, друзья"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 13,
+          "from": 0,
+          "to": 13,
+          "source_slice": "Привет друзья"
+        }
+      ],
+      "raw_rule_expected": {},
+      "expected": [
+        {
+          "rule_id": "POZHALUJSTA",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>Привет, друзья</suggestion>.",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "Привет, друзья"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 13,
+          "from": 0,
+          "to": 13,
+          "source_slice": "Привет друзья"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "8c8cbb28d788ef43bb0305ed095dd63040a1dd177d5a7a58ca0798226acc8fa6"
+    },
+    {
+      "id": "combined_equal_priority_nested_longest_tie",
+      "text": "Сделано таким образом что работает.",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "xml",
+        "equal_priority",
+        "nested",
+        "longest_span_tie"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "takim_obrazom_chto",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>таким образом, что</suggestion>.",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "таким образом, что"
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 25,
+          "from": 8,
+          "to": 25,
+          "source_slice": "таким образом что"
+        },
+        {
+          "rule_id": "CHTO_COMMA",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>образом, что</suggestion>.",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "образом, что"
+          ],
+          "url": null,
+          "from_utf16": 14,
+          "to_utf16": 25,
+          "from": 14,
+          "to": 25,
+          "source_slice": "образом что"
+        }
+      ],
+      "raw_rule_expected": {},
+      "expected": [
+        {
+          "rule_id": "takim_obrazom_chto",
+          "category_id": "PUNCTUATION",
+          "category_name": "Пунктуация",
+          "message": "Пропущена запятая: <suggestion>таким образом, что</suggestion>.",
+          "short_message": "Пропущена запятая",
+          "suggestions": [
+            "таким образом, что"
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 25,
+          "from": 8,
+          "to": 25,
+          "source_slice": "таким образом что"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "b85f168e91b6b1f3819097f445c4773bde0def9a2ce813cd9cce35c9ab71e180"
+    },
+    {
+      "id": "combined_adjacent_non_overlapping",
+      "text": "Не род ,а ум. Не чин ,а честь.",
+      "explicitly_enabled_rules": [],
+      "coverage": [
+        "java_rule",
+        "adjacent",
+        "non_overlapping",
+        "ordering"
+      ],
+      "rule_class": "JLanguageTool",
+      "rule_id": "*",
+      "execution_mode": "combined_pipeline",
+      "explicitly_enabled": false,
+      "explicitly_disabled_rules": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "MORFOLOGIK_RULE_RU_RU_YO",
+        "RU_COMPOUNDS",
+        "RU_SIMPLE_REPLACE",
+        "WORD_REPEAT_RULE",
+        "RU_WORD_COHERENCY",
+        "RU_WORD_REPEAT",
+        "RU_WORD_ROOT_REPEAT"
+      ],
+      "config": {},
+      "raw_rule_ids": [],
+      "pre_overlap_expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 6,
+          "to": 8,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 20,
+          "to_utf16": 22,
+          "from": 20,
+          "to": 22,
+          "source_slice": " ,"
+        }
+      ],
+      "raw_rule_expected": {},
+      "expected": [
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 6,
+          "to_utf16": 8,
+          "from": 6,
+          "to": 8,
+          "source_slice": " ,"
+        },
+        {
+          "rule_id": "COMMA_PARENTHESIS_WHITESPACE",
+          "category_id": "TYPOGRAPHY",
+          "category_name": "Типографика",
+          "message": "Поставьте пробел после запятой, а не перед ней.",
+          "short_message": "",
+          "suggestions": [
+            ", "
+          ],
+          "url": null,
+          "from_utf16": 20,
+          "to_utf16": 22,
+          "from": 20,
+          "to": 22,
+          "source_slice": " ,"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "1822de4a61f563ef85ffda3c027fd5c6a47b96c9907a4d9be09aef53a55a8723"
     }
   ]
 }

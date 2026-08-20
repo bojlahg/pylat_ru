@@ -5,7 +5,7 @@
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_generated": true,
-    "case_count": 108
+    "case_count": 114
   },
   "cases": [
     {
@@ -24,7 +24,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "8fbd80f9b8afd4f348060c2fe8b8c5f01621e55f6bdc26f4eca85cea411c0d49"
+      "semantic_signature": "a6e0bee3c95fadf9c95a713595df3ef8190e70784b69b02b005e19f904179eef"
     },
     {
       "id": "comma_space_before",
@@ -59,7 +59,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "0b7c7b83e0606c80ec5bebf321cf27bf07c84c3fdd43f0d2c0b23d2766ba21db"
+      "semantic_signature": "46a10ef72d917bcda269ec95d14e96752db0f42915bf8e2c1fc67d5ee1bad18d"
     },
     {
       "id": "comma_missing_after",
@@ -94,7 +94,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "8521acf78a5270ae3fddc28d39e4b5db3fc2ce8cec87c9931addbd7048203d7b"
+      "semantic_signature": "50914e65ba4ee3ac65b805efdb6d21a2a95f766d8bbe6ce324a238112e65cebd"
     },
     {
       "id": "comma_both_sides",
@@ -146,7 +146,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "3fc2225f05142d1837f3623d127e6dc1f173331e2a30aec535dc383c54ee8546"
+      "semantic_signature": "8e4d839cbe7868d5eaf0c905a065fcbcd30208f95ef3725fb877330bb9c4ba73"
     },
     {
       "id": "comma_text_start",
@@ -198,7 +198,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "9d74d32736892658518cce269035eb113fdb90412a59044211a50c915cb0096a"
+      "semantic_signature": "046c1285cb6aec734aac5c682da34e68c94c59fdf71ce23b3ed1ac5f06a024ff"
     },
     {
       "id": "comma_decimal",
@@ -216,7 +216,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "ea64203c862e1d6cb25316840562a2b0b0e9a99cd5de7af4c8a7ae0fce649115"
+      "semantic_signature": "4d3c3ce0caa176dc908d79c348a5b808aa550f825ffcbf0ffbebcf3bbe8e3fd7"
     },
     {
       "id": "comma_thousands",
@@ -234,7 +234,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "7d0229bff36223f1d425d925f40261b31418a539aa726fa59ca7bdd18cd89536"
+      "semantic_signature": "65336b274930be1694d636dc750ebd6dc16e2adf183ebb7e4b2252dcc7ba2748"
     },
     {
       "id": "comma_nbsp",
@@ -252,7 +252,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "d321077b4b76ca6bbc1bbfe8cc527bc4e23c084e90f6d5e99c0ce405772aeeda"
+      "semantic_signature": "a94831487cf7229d310485cb320d62c8f360217c2d0355b8c4082336875892e7"
     },
     {
       "id": "comma_ellipsis",
@@ -288,7 +288,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "db7b92cbb63f9da7be7d204508b95dbee08fe8d4740041043e477837ccd5de89"
+      "semantic_signature": "0b98d14454775edc04216b07f324b1b27a65299230f9cbcf591f2f9a862446ca"
     },
     {
       "id": "comma_extensions",
@@ -306,7 +306,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "50d03f249ca95cd34f82b46fa70688a798e7e1e131b182c46dd86f03f7e0b9bb"
+      "semantic_signature": "558ea69c78d710108cd28a7f3ba42893fd213f0bd99fe39f9b0e2ee35d70d097"
     },
     {
       "id": "comma_quote_left",
@@ -343,7 +343,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "d23e54ed75f88fbf4b85997bca1188b6ad8c7f4ca07310d3718a5ef823b1bb6c"
+      "semantic_signature": "a51eb11caa3320f2bbb039823f2034f16cbee3f3b7a4303d8cc921b12e7029df"
     },
     {
       "id": "comma_quote_right",
@@ -380,7 +380,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "015283402a1647e84eaae903b25ab497e56e56dc7112b4082e5c79e63ebf4a8c"
+      "semantic_signature": "8a17c39d93301c2a023a1032a487252743fc4bfc3039343fd9daecd27ee01811"
     },
     {
       "id": "comma_quote_suggestions_left",
@@ -417,7 +417,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "7191ae081165abc913d61e019cf8d647b97ef912f87c0ceabf30635339f12d0c"
+      "semantic_signature": "9d89dbe32e3d4572e7a5324244872eb496a5a87b8924565a4f3947f01c496d76"
     },
     {
       "id": "comma_quote_suggestions_right",
@@ -454,7 +454,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "0796701135b97df663846210929276ba7b8eadb53ee9e38c65f68446ec2241f5"
+      "semantic_signature": "da6254fe3b7386fe1753effcf49254f3d48d4ce0cf7c35b0e1331830f1081217"
     },
     {
       "id": "comma_parenthesis_after",
@@ -506,7 +506,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "9e2f09a29322074280f3cc42a41b5d66658a502ef07bc36e4d68ffc84a1d3951"
+      "semantic_signature": "873a50761ed12a45605cc47601bfb8efaeb7887d37863a65f1819dc5cdf2b845"
     },
     {
       "id": "comma_parenthesis_before",
@@ -541,7 +541,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "707850895a8af45979e4a7ebc3a3ca963a2bf5f91db8b81d8ebc5e396184bc8d"
+      "semantic_signature": "ed0a2a1b557725a82bf83023af3c38a637a524f0bd7f4992701be0f93afd352e"
     },
     {
       "id": "comma_control",
@@ -559,7 +559,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6d6295f16b43580b2a741a1a5199490d4ee3ca3d3f5bf2ced2bfcd3d42def7d2"
+      "semantic_signature": "101c8f32d26cbfe17efe9c4eb4c0a98b12dc6924240b9ae9c030a6a73e95e029"
     },
     {
       "id": "comma_non_bmp_multiple",
@@ -643,7 +643,7 @@
         }
       ],
       "finding_count": 4,
-      "semantic_signature": "38a95f42f39e26dad044fee8a690c08864f25eab8ab3344395de3236a8675ad2"
+      "semantic_signature": "6306cb8a0f999a6118775699912091a1093a46d1276a4730f6428ba67bec99f3"
     },
     {
       "id": "uppercase_negative",
@@ -661,7 +661,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "314f0062c5159551a763268062cbc9f4cfafeaa6d1e23d74d14c86d301eb174b"
+      "semantic_signature": "a16081589f1e8563616b90bc3e84d2c80a722c792fac7b794fe64626d6aee1ad"
     },
     {
       "id": "uppercase_text_start",
@@ -698,7 +698,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "4a59a6a28585d012a3509488a289b85bdc72baacd76950940b82cc9a37754f0a"
+      "semantic_signature": "243f2990ac135e0f1d52443314050a6ac182072d5a4ef9ab97246ac0185ced19"
     },
     {
       "id": "uppercase_single_word",
@@ -717,7 +717,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6f53bda94c2f568286568bd7d19bad057e75a176d49c1ce9f86e4a80fcabb40d"
+      "semantic_signature": "0daf0ea118789f0a81fd2a8dd77bead9efc3f78a9f6717dc4cf217f6b5b86054"
     },
     {
       "id": "uppercase_enumeration",
@@ -753,7 +753,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "0e21f34c38e51f405988c04ab1e2cd21ef3bed2224adbb45d6fbdcb2c01980bc"
+      "semantic_signature": "e015a4e1d63749cb2287eba4b77df45d15a2e55b4d780ac9781f750e5dde05d2"
     },
     {
       "id": "uppercase_quoted",
@@ -789,7 +789,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "74b04253e08328a9de7446ee14a4fadf8038435b8e3a1240d59e8397ad976155"
+      "semantic_signature": "d9fabd285c084e541c327826d64d75dc87c28ba523b035d0cee0b5767a63357e"
     },
     {
       "id": "multiple_ws_positive",
@@ -824,7 +824,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "824138467fe95e51eb0142b2b44962766bff30924271412c593db840dccc0625"
+      "semantic_signature": "e2ee80afaacb526d2c3c3787a863bad353cc0e8971f23eb376e7efc624478671"
     },
     {
       "id": "multiple_ws_negative",
@@ -842,7 +842,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "8c5d117376a28a406fbe31e46381bc6ca0d273681ac9c62d0e725d3c83994e38"
+      "semantic_signature": "303802afbe99d6e329c763a055fde1536dc8373db45840ee7e5b8d268641eca6"
     },
     {
       "id": "multiple_ws_three",
@@ -911,7 +911,7 @@
         }
       ],
       "finding_count": 3,
-      "semantic_signature": "82f474776cd4c1b30026e534b8cbcd6a942854be0db393f2a3e7ebc4747668d7"
+      "semantic_signature": "25e1280e69efce4d8b7a3dcceaa9175c5b9e8c7566d44ddef6339d3d85e1fb19"
     },
     {
       "id": "multiple_ws_nbsp",
@@ -947,7 +947,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "1f715c7125ea9b26fe0f00cc3a6d11872d1b37b5254af151b8831f52142c1ae6"
+      "semantic_signature": "318b8a035c0921966d07980894ac598737a0b64f41ada4a1cd9424d31ca1ffd0"
     },
     {
       "id": "multiple_ws_tabs",
@@ -966,7 +966,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6cf3b8b903cb84ebc7fca07911227ea55df4a36e664ebd442be959bc5369a6b0"
+      "semantic_signature": "f2f338c729985ca0e4afe1a1bdcc1b4eebec9850a681eb056d05124dae19f783"
     },
     {
       "id": "multiple_ws_bom",
@@ -985,7 +985,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6382567deaec2745fedd62d97c3f22477b9540dc4b8c4216dbef3d9a673ac407"
+      "semantic_signature": "e1494139c057395716c8b7d6aa47d23fc7197941e7c3d925171c867be9d40247"
     },
     {
       "id": "sentence_ws_positive",
@@ -1020,7 +1020,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "194e422277fe80a1cd7696ae6e92690d8fd7c3e60735355937a744074b0c86b1"
+      "semantic_signature": "081a5b8af71f3f3c7cf6b7b6e5c33039e899d9543ea3e82f15113f8872575dba"
     },
     {
       "id": "sentence_ws_negative",
@@ -1038,7 +1038,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "76e898a4308c0f8e35ead0562d22816dba3e802c5fb274cf92b79076c8383f1b"
+      "semantic_signature": "376d9c6d995127a0d0cf88babaa30eb1c275dec8ba78ee1f2c9ec73622cf74d2"
     },
     {
       "id": "sentence_ws_exclamation",
@@ -1074,7 +1074,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "ec820719e42857a27bace277853c50ff9fa51ee5c868e3a5a856b6ec379ab28c"
+      "semantic_signature": "8ea706fa173c76fc2a42d0a38f295f151785213d3e5454e0427e05a22c834f30"
     },
     {
       "id": "sentence_ws_question",
@@ -1110,7 +1110,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "9904a11c3e2261588f160bece59309d41205a7fb12f3c050cd338d645e3f119b"
+      "semantic_signature": "fb3868934cad121567185b20e88c52a1c04735fb6efda95d3b7c6a1717e809d0"
     },
     {
       "id": "sentence_ws_newline",
@@ -1129,7 +1129,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "7b82a5269f3fb419f3b3424407df0062d3ea41a33d7fb9772449a8ccf476548f"
+      "semantic_signature": "f466d60e5678172694ae0a708c1eb7eb4d99bb049f0acedc2c3ae214dc24cf22"
     },
     {
       "id": "paragraph_end_ws_positive",
@@ -1163,7 +1163,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "7398905297d5e7660bc38f1c435da24327127813a7c7cadf06d367a5c5d319dc"
+      "semantic_signature": "d36cf9aaaf638ae9b16f1cbb8fcc2552fa43baa7f302244f8d745e139c904a03"
     },
     {
       "id": "paragraph_end_ws_negative",
@@ -1182,7 +1182,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "efbf044581fee7948bf39e10cf5d1278ca14be3fce513feb70027d0650304a51"
+      "semantic_signature": "6eeb518c51406f48f6dccd93014a240a8796d34db582a22d144597050229206e"
     },
     {
       "id": "paragraph_begin_ws_positive",
@@ -1218,7 +1218,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "9784235a45b407e12f6d4703bb12ecf6a0abd8a53f3164db6441d86256bdcc35"
+      "semantic_signature": "9314e1da3164f573d7396f617648f5c78e84804062b88212a6d5924765d70f71"
     },
     {
       "id": "paragraph_begin_ws_negative",
@@ -1237,7 +1237,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "73dfee8e0c6cd0c2284ebdf4dd9e8155ecd854a50c670fab1985e422ca32972c"
+      "semantic_signature": "92d33b5889bd9b065db807badac8e89ca5f01b9c2302f6680b0c7a37ca0c8187"
     },
     {
       "id": "long_sentence_equal",
@@ -1255,7 +1255,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "59edbcdb77782c6554f86211a1c7457fb7a0bae97e1d3b6e0831df7ec3f6d154"
+      "semantic_signature": "17a0f4162b5363db51bd3d77ad5b5e00737593119df2731b50daa6200039537c"
     },
     {
       "id": "long_sentence_above",
@@ -1289,7 +1289,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "1156bfbc910aabb5017f69ff5d2f5cf7e326cf368a47bef22a5c47c3969b9e31"
+      "semantic_signature": "6a91e031036b4697287e4f1d8e4244a5fc8596e8281ed46d640a12957c7fb6eb"
     },
     {
       "id": "long_sentence_semicolon",
@@ -1323,7 +1323,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "97909d6fd205a2bd7159404f0c162f40a48fd030f40f1ad4b4660c9f74f3e421"
+      "semantic_signature": "c1af461f8f9939f56b4b309f580c5e5ddbb407b20c8dca9546d0966f92f26712"
     },
     {
       "id": "long_sentence_colon",
@@ -1357,7 +1357,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "2ac8330025e7655105e13bb675f3c8e85092b6e9f9494988aaba29ed748fc39a"
+      "semantic_signature": "730aacabc0b6cb6bdb9a6afa5a8a31586c2cd7211d6fbfb14e51634339807bf2"
     },
     {
       "id": "long_sentence_newline",
@@ -1391,7 +1391,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "899e5471e3637beecc379d39119b0ec56d2f3374fe86921a536e5950a5ea8a01"
+      "semantic_signature": "28b01967d2d9f2f8de51d4caff7eeabfbae6e3a625584e2a4d3f18e0ca43cec0"
     },
     {
       "id": "long_sentence_quoted",
@@ -1409,7 +1409,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "543ba273fcb261f3f9fae27ae4e74a502383b254a5749ed5392b58a066b3b44c"
+      "semantic_signature": "729a441933036bddcdc5144e8fc5cd345990947baf1c2ec20ce576a3177340de"
     },
     {
       "id": "long_sentence_bracketed",
@@ -1427,7 +1427,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "16d41d57879fb151d172d2773d23e39e05f11c1fcef1f7a8c7a5b96dd5423287"
+      "semantic_signature": "3b93e31c39c2416f14656ff6508a93bb4dc6795c8e9d9acc3c39e1d0a2c60e62"
     },
     {
       "id": "long_sentence_dash_quote",
@@ -1445,7 +1445,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "ec9e88ed5c05a3be6218afad1c0d7ca66dc9307e2006712a632b201fd0c8a7ad"
+      "semantic_signature": "a4b6a4108976da20445a7278ca9a88918d7ac56cfd8024fd661e958958f5a993"
     },
     {
       "id": "long_sentence_quoted_end",
@@ -1463,7 +1463,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "07ed2b8a5bee41cf138681c7dc888105ea96cfcc2fecf168408b5c58e6c380e3"
+      "semantic_signature": "4547370e0722a01a3d449c129525f0f9fcaf26ddae58c7fbe0ab5b8081cddbb1"
     },
     {
       "id": "long_sentence_punctuation",
@@ -1483,7 +1483,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "e105992c58c5eabf75a26cfb16ac233ba4cad4025b800ca7e6bafb30bbcd5a2b"
+      "semantic_signature": "749f3d0b294e6dbb688ba031ed9e4e8b5f4c09e98dd4030a16325b19c305f464"
     },
     {
       "id": "long_sentence_config_below",
@@ -1504,7 +1504,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6d7c9034f01cd408f2763b2fd909a65d2aa1f8875df50b965e9ba342e60bb984"
+      "semantic_signature": "9db859226f449add4fb9f62e3386cfd2f4fe9f93fb1f3b014d7562a63ef158f3"
     },
     {
       "id": "long_sentence_config_equal",
@@ -1525,7 +1525,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "369609d8d7f916574bf2a578e251947326523b30d1e9ddda9e7326a0f0525dcc"
+      "semantic_signature": "5e14821fe4a6cd31bf0a619bfe92677bc935798bff2c7255ef1d3aed6eec8a90"
     },
     {
       "id": "long_sentence_config_above",
@@ -1561,7 +1561,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "fc933ab69b6177e3ebdd7a3cbb742be7b4de0c0adc0f43e4336053953d2011ed"
+      "semantic_signature": "51e068a8b7461f0e511dba515fde3a204e601d7356cac7bbbe658caedf91b41a"
     },
     {
       "id": "long_paragraph_equal",
@@ -1580,7 +1580,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "f9eccb6768bbc5fe44213f66e8587a4dab86c25d7103aa91082c70250d6f00bc"
+      "semantic_signature": "3476efebbb6a6b817cace16699228666456e89fdf7ff38ef321c4fbe7b19fb96"
     },
     {
       "id": "long_paragraph_above_final",
@@ -1600,7 +1600,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "7b8ffafd0040dbd8cbe6994dceb8c96e26261aa47f38b08c22bf5189fd9404ca"
+      "semantic_signature": "be41321b1aff99ba8039d8e58ac53f21570246a34997c1e4bd2c96731c0e3cde"
     },
     {
       "id": "long_paragraph_guard_band",
@@ -1619,7 +1619,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "04062621a7f73e657a315abac6ef3498e11db00268d3a5241fc1990a347d6e96"
+      "semantic_signature": "81badc656b52cf96bb13702162dd136c91eee5f6a18c8fbb047214862527bb21"
     },
     {
       "id": "long_paragraph_above_guard",
@@ -1654,7 +1654,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "5431ac2d6f1720d089083017a2ea8cc48369cf2e2a29b18b2c92187f3a893e91"
+      "semantic_signature": "9350f260d758705aa6c859472b8ae7af7da81afb263e25c753c1b6af7bac80e3"
     },
     {
       "id": "long_paragraph_final_no_separator",
@@ -1689,7 +1689,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "7240547b0cc608277618e1bdf105c0a6223f09fa6de2480902912adf141f59ec"
+      "semantic_signature": "39adf5ed4f103abd9e83bb6df283759da50bc27a63084fa7b60431471d66a6eb"
     },
     {
       "id": "long_paragraph_linebreak",
@@ -1708,7 +1708,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "09933626a4b9d9cba568663fa7bdd3f6fda091e87b03678d6c002234042f27e8"
+      "semantic_signature": "af9ac7382c150d0db34761229cfbcbdd53ce00bd42a559036e9a4f889582fee6"
     },
     {
       "id": "long_paragraph_checklist",
@@ -1727,7 +1727,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "8970e9b267bf1dd3f653099b8233011c09218e465f93086fabc7e930ea31500c"
+      "semantic_signature": "d1765165579a5aed335bbfba93e3a1144d993a8b5170a68dd4091f08cf5e762a"
     },
     {
       "id": "long_paragraph_multiple",
@@ -1776,7 +1776,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "f6711ee0571556af6ad22dce512a9ee210b043b0f413df994be2840d9f71818f"
+      "semantic_signature": "87e6fe84345b4a9cff05adac8c6a81480193dac3789da580639856f9f30b952c"
     },
     {
       "id": "long_paragraph_config_below",
@@ -1797,7 +1797,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "3084ed0114545f5e613ad19abba08bbcea4ef2d2d3a54eff6bb0cad72e3befe3"
+      "semantic_signature": "db077553aca56d53dddbe4e0150dea33588d047eb177a9b83b785d28a919a403"
     },
     {
       "id": "long_paragraph_config_equal",
@@ -1818,7 +1818,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "36a3d3bda5ab9a0389d64d3aa61628ab72fc42ef20b4552790387d5d093749a2"
+      "semantic_signature": "365d10e019c0ae1a5605658e945fcb34c4ebf27f13835f1ae0df618aa0484e56"
     },
     {
       "id": "long_paragraph_config_above",
@@ -1854,7 +1854,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "d2e4d17171bb049ec749ce34a644eba9adc750c89b542c451acd18e89b188020"
+      "semantic_signature": "566084c3a2fc2147f480b0105f3dceb6522a5bcc84111550187c666fbe3b8748"
     },
     {
       "id": "repeat_paragraph_positive",
@@ -1903,7 +1903,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "77e5632f4f401231064b72ffd78e564f993d3a9a99a1eab49641759fe31d2cf8"
+      "semantic_signature": "99881ee8fb5a3dfd37e45f00346f2ecaf6f1390a3d75a9d0914a5e4bc18a1297"
     },
     {
       "id": "repeat_paragraph_negative",
@@ -1922,7 +1922,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "a6bfc337455738f7e66cfd59351c0c96ba5843417f924ab341df960b68ded3b3"
+      "semantic_signature": "1195d50be56064ef4f8a1d8f96b09fe3883ffbc6cc9e4c17b4bf2b1b1ef7a467"
     },
     {
       "id": "filler_default_above",
@@ -1957,7 +1957,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "120523a956faf483170dc6dceb02cf0c5c79fbeb112949432b9e840b0ba4d739"
+      "semantic_signature": "07654c2eaa7187adff7e85ee5ef1af4cdf43887f33893d8f29e4f1720853eb6c"
     },
     {
       "id": "filler_default_below",
@@ -1977,7 +1977,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "077b79f1c8d67fc53cb058aaccf617025051ecfafd5556a1a86f412e140f153f"
+      "semantic_signature": "fd91221b8c1d59df58be98febb67b763af5e72843c58b8e14644486f3274d047"
     },
     {
       "id": "filler_default_quote_adjacent",
@@ -1997,7 +1997,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "8863a2ab892253c9bb04688b7a278f7ccf7727205763e6539c8446f8f5c73a88"
+      "semantic_signature": "980316edb45f4defa86eb067767a330e7948783ba55d93ffd57d43c9b572ae18"
     },
     {
       "id": "filler_default_quote_spaced",
@@ -2032,7 +2032,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "d1cf12802a8738592895192fa08d4de798ef40c8364a6520ba4a3bb65b3aafb5"
+      "semantic_signature": "8f75d9715ba5605858ff964dd7be66d1c1e9630aebab72d66909937d92848904"
     },
     {
       "id": "filler_zero",
@@ -2069,7 +2069,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "a4fe98fefb322545da961854ee716c713140572df1a0cd5de123e680cbf52e7b"
+      "semantic_signature": "b38388659b605553f6c6fc959fe7db986628cbcd4e7e9615f44af8f102608c25"
     },
     {
       "id": "filler_eight_equal",
@@ -2091,7 +2091,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "e8303d0f62152a751d7c8062af504a0e1ac62340ed646ba8f7fa8bdeac98f5bf"
+      "semantic_signature": "179b7e0976f59969d2a36f03b25c09ddf4f8efedea0be8f1566bbd8687386ded"
     },
     {
       "id": "filler_custom_above",
@@ -2128,7 +2128,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "e74dbd2483856bf0a5167c63279aaa6d3abe894aed387132b915517185628172"
+      "semantic_signature": "e74e2cf111fc1a33bbe26651d1c48da95de7442bf332cb761a083f48ba9bd49a"
     },
     {
       "id": "filler_custom_below",
@@ -2150,7 +2150,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "c0cac5f68e287eb6258bb8a3fa311edcfd61a0202b818ba382ca02376a3f2386"
+      "semantic_signature": "9f7102cd0028b74ea830948151bb9e65e843f6b235026d7e8dfe6ced79c88d4c"
     },
     {
       "id": "filler_quote_adjacent",
@@ -2187,7 +2187,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "d51e91e32be60e4f568d1fe7a3c9ffee87d6d336d8f699c6a6abaf3967b71d24"
+      "semantic_signature": "5706800d2b6574e61366cfd02c4ab98ef2217078bac2e3ad88adcd480b436e79"
     },
     {
       "id": "filler_quote_spaced",
@@ -2224,7 +2224,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "dcc6b90b62de798d778c395a547a5197009b6120d0b82279aebd72fadc95b570"
+      "semantic_signature": "4f25b199979854f33c46ac2970f4c37f28b76fac650811174ffeae4d2e7f1daa"
     },
     {
       "id": "filler_include_direct",
@@ -2261,7 +2261,210 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "dcaf3a5c362cf65208d1008ffd0688e67c8722fd60c479354c9b2d58c1b44a98"
+      "semantic_signature": "de18dd69431a8405969224adbb0059e7147cfa28daef484a4d481cbd6fe43b98"
+    },
+    {
+      "id": "long_sentence_config_ui_below",
+      "rule_class": "LongSentenceRule",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "слово слово слово слово слово.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "maxWords": 4
+      },
+      "coverage": [
+        "positive",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 4 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 30,
+          "from": 0,
+          "to": 30,
+          "source_slice": "слово слово слово слово слово."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "ccc3b2742c04fa8e29d1b8a9c214f2637c8114e24efcd7ff3e0a9cb69398b78b"
+    },
+    {
+      "id": "long_sentence_config_ui_above",
+      "rule_class": "LongSentenceRule",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "maxWords": 101
+      },
+      "coverage": [
+        "positive",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_SENTENCE",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Предложение длиной 101 слов от позиции маркера необходимо проверить. Более короткие предложения лучше воспринимаются читателями.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 612,
+          "from": 0,
+          "to": 612,
+          "source_slice": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово."
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "0198c431a571cd5edc7da829e3a53ca2ccfabb2a13aa1417d89c84dca666e36d"
+    },
+    {
+      "id": "long_paragraph_config_ui_below",
+      "rule_class": "LongParagraphRule",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "слово слово слово слово слово слово слово слово слово слово",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "maxWords": 4
+      },
+      "coverage": [
+        "positive",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 4 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 12,
+          "to_utf16": 23,
+          "from": 12,
+          "to": 23,
+          "source_slice": "слово слово"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "ffc3a0fbffdf9ab07b26588ad26f3e6d93ad36df01c05add0e7223dedcdcae3f"
+    },
+    {
+      "id": "long_paragraph_config_ui_above",
+      "rule_class": "LongParagraphRule",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "text": "слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово слово",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "maxWords": 301
+      },
+      "coverage": [
+        "positive",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [
+        {
+          "rule_id": "TOO_LONG_PARAGRAPH",
+          "category_id": "STYLE",
+          "category_name": "Стиль",
+          "message": "Абзац длиной 301 слов, разбейте его на части.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 1794,
+          "to_utf16": 1805,
+          "from": 1794,
+          "to": 1805,
+          "source_slice": "слово слово"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "b735381dcf9cff5be5e8df4b7b56ef0a0a26839278e05037fb467ff4ea15af63"
+    },
+    {
+      "id": "filler_config_ui_below",
+      "rule_class": "RussianFillerWordsRule",
+      "rule_id": "FILLER_WORDS_RU",
+      "text": "ах слово",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "minPercent": -1,
+        "excludeDirectSpeech": true
+      },
+      "coverage": [
+        "positive",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [
+        {
+          "rule_id": "FILLER_WORDS_RU",
+          "category_id": "CREATIVE_WRITING",
+          "category_name": "Стилистические подсказки для творческого письма",
+          "message": "Это — слово-паразит. Удалите его, если это возможно.",
+          "short_message": "",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 2,
+          "from": 0,
+          "to": 2,
+          "source_slice": "ах"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "8d3f1de1117d0e4418eb70def97431493f8a0f6563e0cb5b7858a629aeb10296"
+    },
+    {
+      "id": "filler_config_ui_above",
+      "rule_class": "RussianFillerWordsRule",
+      "rule_id": "FILLER_WORDS_RU",
+      "text": "ах слово",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "minPercent": 101,
+        "excludeDirectSpeech": true
+      },
+      "coverage": [
+        "negative",
+        "config",
+        "outside_ui_bounds"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a88f3ba08336c52daf3d82f69325de530da21c0a741f2391e92066e1a2ed9d9d"
     },
     {
       "id": "paragraph_punctuation_positive",
@@ -2297,7 +2500,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "a32a7fbfc0d05116c88189dea82149df69440815c71d05e57d62586b6b4972ea"
+      "semantic_signature": "590649ceaadb0d54d44db711219527ebf56619d05f06d15843302d26f4b859c0"
     },
     {
       "id": "paragraph_punctuation_negative",
@@ -2316,7 +2519,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "d94643cf43105b3ae113dd925a420e1a6c482cfcb0bf6357546d38276c87b319"
+      "semantic_signature": "ac391cd95a25c2a2e686c10e551af040a453123927c139a45b06145b827ef785"
     },
     {
       "id": "paragraph_punctuation_too_short",
@@ -2336,7 +2539,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "34067c43c9d070932755ddd6440ebb924ab4b64e6c767ea2a80a8c018c3bfd8c"
+      "semantic_signature": "3bb560e91a8c8016e00f806c225a2e4f8ae61505fd076da21cef12636d3d9707"
     },
     {
       "id": "paragraph_punctuation_numbered_list",
@@ -2356,7 +2559,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "60beb49059634ab465820966a144dd2a419827218d3b50cca5bf2cd29e677559"
+      "semantic_signature": "97c6ba51967b532dd1151a1a7c403f510bd3325cc27228ca1f81c5860d5858ef"
     },
     {
       "id": "paragraph_punctuation_quoted",
@@ -2376,7 +2579,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "cba9a8320241f67ac12c231aef33f9c45d0ebb68fc033ed131653a0a7bb3668c"
+      "semantic_signature": "d8b5d0a7d4e85cc8bedf1a8bd97e1720ac459e89935016b61aa6de9f459fc4f8"
     },
     {
       "id": "brackets_balanced",
@@ -2394,7 +2597,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "4efe147bf927f9cb1da7c880b84f223d2fd0b2ca8009c2b16f032e8076769e66"
+      "semantic_signature": "c32f6c5fa6e44d576d65af0a09a5db05db096935258f0acc5e092dce2c4bd52d"
     },
     {
       "id": "brackets_missing_closer",
@@ -2428,7 +2631,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "e3253b19c100f99da9d99dfafcfca3bee694ed6bbb01cb2f73cb1ba8dda51870"
+      "semantic_signature": "ebe363edf8a88eea26a90019357b05ae8fd6f7984645afba0beb8efdfc96e785"
     },
     {
       "id": "brackets_unfinished_fragment",
@@ -2447,7 +2650,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "1c613e52e49f37d403a7c2927193dcce85f176f58229ba51b96f0a405a4762ba"
+      "semantic_signature": "f87f3184de68856ee93970aa6d0d037858dbb80afb9bffad38ef49959f74776f"
     },
     {
       "id": "brackets_missing_opener",
@@ -2481,7 +2684,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "60504528eb61294b52523634fcb14653c9f964d788d2c26829497890746c8133"
+      "semantic_signature": "c118aa2fdab1d59bd15ef13218cc4354ca72eb1c9454b89515f96ac11d8ce9ef"
     },
     {
       "id": "brackets_nested",
@@ -2499,7 +2702,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "fdf875893be1bf5227d3042b034aa1fe79ab23224f43c4dd7d93c3143bdfd27d"
+      "semantic_signature": "399ce8306512eb84b2e735f84255f32d2e16565db39bfb739ac02d5cc2497489"
     },
     {
       "id": "brackets_mismatch",
@@ -2547,7 +2750,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "bb909372c7aa5748286ab08d6437b3b0c59da5033d1a9feec2751dab068413a2"
+      "semantic_signature": "68bd321198419b576a6f38c0363d87e3ca0f636a4e79da162abe1494e5030978"
     },
     {
       "id": "brackets_symmetric_balanced",
@@ -2565,7 +2768,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "a05df6a38d42a8254f97b48f97446aa033ea033a3ed47b270644fbacc6378bd0"
+      "semantic_signature": "c9bc0dcf7ad80fca87834a79c4d5048bfe5dd8ea1abbc3aa69ab13f438b21404"
     },
     {
       "id": "brackets_cross_sentence",
@@ -2583,7 +2786,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6d1a267d19a40aefc881dba4967bb31ceac57adf06991f100acdcab206822a08"
+      "semantic_signature": "ae7a11463eadec52cc4f2d7eee97d1755539f2a59c2671330b4980cb45f42023"
     },
     {
       "id": "brackets_cross_paragraph",
@@ -2601,7 +2804,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "42cd141e5b32f48b2483f0203f606e47a7ebf5819eaa995babcc0964e0b17a75"
+      "semantic_signature": "bc534b65fdcca2dd8a9bedd8f89adfe3f998972e336ccfcd8839c627569ca4c7"
     },
     {
       "id": "brackets_smileys",
@@ -2619,7 +2822,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "11e869d628b37786b6a6a7d0296b468e143b58a4beef439c336c532acfadb0dc"
+      "semantic_signature": "844603e477445174d1e2bbd80d431134f793c5fd0436ac43492a6cc3c55e6e24"
     },
     {
       "id": "brackets_enumeration_latin",
@@ -2638,7 +2841,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "8d30876e1585a8728b1919159895a747a63f2ffdd08827ba03881b78603de3dc"
+      "semantic_signature": "333e95f39d027831266495bf85cf8171e1e5db0cd4a022d8d2c8adeadf67787d"
     },
     {
       "id": "brackets_enumeration_russian",
@@ -2657,7 +2860,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "d88451b37bb67e7d585a644c4007a63f4d065f9f4d9c5c8db57c82a8e585a5c0"
+      "semantic_signature": "735ba6fd0617a75443ce7b73906fab501e32bd6fd789ca602d707396b95f21c3"
     },
     {
       "id": "brackets_url",
@@ -2675,7 +2878,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "cac1eed917a0d146be530f50c56607ee8d3ca48784dc43c8dc7c434cdd548dcc"
+      "semantic_signature": "56478c595f7b9405bf44473afd12c0d7b85fa584f330f771a9bb767501cb813e"
     },
     {
       "id": "brackets_punctuation",
@@ -2708,7 +2911,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "07dc79de7ecf2ef4fcd13f3b31e9867e9a0ac98ac9f3a2284b4ff86aa1907d71"
+      "semantic_signature": "abc8a45c0c6a2f0f5e46ce13b39275bc6a28c56d5dd332ca5e0c7840f88b229d"
     },
     {
       "id": "brackets_multiple",
@@ -2756,7 +2959,7 @@
         }
       ],
       "finding_count": 2,
-      "semantic_signature": "fe78592789d6288485c686ded5e38cce4ed94af05942d0c0270249e7e0d49860"
+      "semantic_signature": "c51fb44ffd8542aa51373f8aa0f58c458de86ad8f42fb114f2bfe662867bac70"
     },
     {
       "id": "verb_positive",
@@ -2789,7 +2992,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "e6ff5f289b76c7bde57bf61efd72fdb5242afa0650c2374a6095c312dbfcd41c"
+      "semantic_signature": "8a7035d7aecb35ae78125a863982a8ce17bbdd07900f9277d0697437a54ce09d"
     },
     {
       "id": "verb_negative",
@@ -2807,7 +3010,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "68c085f717cc296b7672c9d4e5eddf57675e0e3494b516351683007b9b4719b6"
+      "semantic_signature": "ef848a35f6947860d1d25865214133ebf86fa3816a4ba17f230d98ec71134bf5"
     },
     {
       "id": "dash_hyphen",
@@ -2825,7 +3028,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "c7ada66eafbc0d265d21323ad714c447ecc144869a8730bcc1b91c80bb15426a"
+      "semantic_signature": "1021b4f760af5c862f46b27e9d352c34ce0666024147dd0928a717b2bab12498"
     },
     {
       "id": "dash_em",
@@ -2860,7 +3063,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "a0b0291cf5c9c15685b9c105d799a4e477ea3c5f82cdaf179ace01de472cbf0a"
+      "semantic_signature": "56898a56d7cffd61c03bb5bf93c9422f39e22d65041afc4b81511c639604f1f9"
     },
     {
       "id": "dash_spaced_en",
@@ -2895,7 +3098,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "34936c6858c9383753d176c2c46013750fa76a8a01382f52e2f057d12996fd21"
+      "semantic_signature": "4f295d005b97f7b6fa6e3b413c8acab0151b7a0f30dd3a53d6435dc0b132fab8"
     },
     {
       "id": "dash_rostov_spaced_em",
@@ -2931,7 +3134,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "247df7cd29bc31a5c51b4a1e7c564ec7a435a5838e56c29b6f168208bfd386a6"
+      "semantic_signature": "8699c55e9c980e40c31769a0f73d9baef45ab05cbdb8ac09cbbe945dea50f65f"
     },
     {
       "id": "dash_rostov_spaced_en",
@@ -2967,7 +3170,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "44ac45381f9976996c7aaae93f09444ed8506dd21c2f03b80ea6ee2349fa0fa9"
+      "semantic_signature": "67dd9b11681808916adb0b47288e5cf6e5db5d6acf545f1d582a692f4972ab53"
     },
     {
       "id": "dash_rostov_em",
@@ -3003,7 +3206,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "017f3f920b329a35d9899699ac87c10f71a651c4c06c8b39b2b6558c7ec50937"
+      "semantic_signature": "fb53dbea69412e0ed625e3b2c8e8ffd7023089e80e9b2fc6401cac18feee7674"
     },
     {
       "id": "dash_rostov_en",
@@ -3039,7 +3242,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "d18ba5591d9c837d23963dd0984c9a0c766b0cc056ffa61b41128c3e4a6297e0"
+      "semantic_signature": "1c2c8bece6abde50d05fcd78ddcf7641e9467406ec805050738048ba8b65fcfa"
     },
     {
       "id": "dash_rostov_mixed_one",
@@ -3058,7 +3261,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "983d76a620cf911dba807d4c556095cd3285e13060b96d2a4539ca99ea5c2d64"
+      "semantic_signature": "d7109eeaa205334320c7430243964f1248812c2f26dcc2c698dd93ceb6b27435"
     },
     {
       "id": "dash_rostov_mixed_two",
@@ -3077,7 +3280,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "c74dd414566c77dfde037705053a79a34f56692eb73d3a273b59074dc41fbc5b"
+      "semantic_signature": "735e77e97809fdf5b8147ed03da1e61cde4b6c91277424b6c2ffc2121258f18e"
     },
     {
       "id": "specific_case_positive",
@@ -3112,7 +3315,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "6fe27068278e728e4976f6f203361d4bd3d734f176a217f23f65afcea5786c90"
+      "semantic_signature": "0ecedc146fa20fb3f0389e13d4d343f9021c06413a94bfeab5796138398ef3c9"
     },
     {
       "id": "specific_case_negative",
@@ -3130,7 +3333,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "03eb13e67a3ffccc34122ba403410d3791ec14cfcdb56bdd3ec9ac0e2556171a"
+      "semantic_signature": "1da040b25a7ca93edee30cee01a8205170667773eb2695832d55082a3eab5a11"
     }
   ]
 }

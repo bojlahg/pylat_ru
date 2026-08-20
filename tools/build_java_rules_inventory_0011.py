@@ -57,12 +57,13 @@ def _write(path: Path, data: object) -> None:
 
 
 def build_inventory() -> None:
+    base_priorities = {"TOO_LONG_SENTENCE": -101}
     rules = []
     for order, row in enumerate(ROWS):
         cls, rule_id, kind, category, default_off, line, ctor, classification, resources, tests, override = row
         source = _source_path(cls, kind)
         target, configured = override if override else (None, 0)
-        effective = configured if target == rule_id else 0
+        effective = configured if target == rule_id else base_priorities.get(rule_id, -50 if "STYLE" in category else 0)
         rules.append({
             "registration_order": order,
             "registration_line": line,
@@ -112,7 +113,14 @@ def update_compatibility() -> None:
         "language_model_rules": {"implemented": 0, "total": 1, "rules": ["RussianConfusionProbabilityRule"], "status": "LANGUAGE_MODEL_DEFERRED"},
         "inventory": "compat/russian_java_rules_inventory.json",
     }
-    state["implementation_progress"]["parity_metrics"]["task_0011_java_rules"] = {"synthetic_cases": 30, "real_russian_cases": 15, "total_cases": 45, "full_observable_field_parity": 1.0}
+    fixture_root = ROOT / "tests" / "fixtures"
+    synthetic = len(json.loads((fixture_root / "oracle_java_rules_0011_synthetic.json").read_text(encoding="utf-8"))["cases"])
+    russian = len(json.loads((fixture_root / "oracle_java_rules_0011_russian.json").read_text(encoding="utf-8"))["cases"])
+    combined = len(json.loads((fixture_root / "oracle_java_rules_0011_combined.json").read_text(encoding="utf-8"))["cases"])
+    metrics = {"synthetic_cases": synthetic, "real_russian_cases": russian, "single_rule_total_cases": synthetic + russian, "combined_pipeline_cases": combined, "total_cases": synthetic + russian + combined, "semantic_signatures_unique": True, "config_parity": "SUPPORTED", "overlap_filter_parity": "SUPPORTED", "same_rule_group_parity": "SUPPORTED", "full_observable_field_parity": 1.0}
+    state["summary"]["task_0011_single_rule_oracle_cases_total"] = synthetic + russian
+    state["summary"]["task_0011_combined_pipeline_oracle_cases_total"] = combined
+    state["implementation_progress"]["parity_metrics"]["task_0011_java_rules"] = metrics
     _write(path, data)
 
 
@@ -120,7 +128,7 @@ def update_oracle_manifest() -> None:
     path = ROOT / "compat" / "oracle_manifest.json"
     data = json.loads(path.read_text(encoding="utf-8"))
     bindings = [b for b in data["fixture_bindings"] if "java_rules_0011" not in b["path"]]
-    for name in ("oracle_java_rules_0011_synthetic.json", "oracle_java_rules_0011_russian.json"):
+    for name in ("oracle_java_rules_0011_synthetic.json", "oracle_java_rules_0011_russian.json", "oracle_java_rules_0011_combined.json"):
         fixture = ROOT / "tests" / "fixtures" / name
         payload = json.loads(fixture.read_text(encoding="utf-8"))
         bindings.append({"path": f"tests/fixtures/{name}", "size_bytes": fixture.stat().st_size, "sha256": _hash(fixture), "oracle_build_id": "lt_6.8_source_build_jdk17_stefan", "case_count": len(payload["cases"])})

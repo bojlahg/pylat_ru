@@ -124,6 +124,12 @@ SYNTHETIC_CASES = [
     _case("filler_quote_adjacent", "RussianFillerWordsRule", "«ах слово»", "negative", "direct_speech", "quote_adjacent", config={"minPercent": 0, "excludeDirectSpeech": True}),
     _case("filler_quote_spaced", "RussianFillerWordsRule", "« ах слово»", "positive", "direct_speech", "quote_spacing", config={"minPercent": 0, "excludeDirectSpeech": True}),
     _case("filler_include_direct", "RussianFillerWordsRule", "«ах слово»", "positive", "direct_speech", "include", config={"minPercent": 0, "excludeDirectSpeech": False}),
+    _case("long_sentence_config_ui_below", "LongSentenceRule", _words(5), "positive", "config", "outside_ui_bounds", config={"maxWords": 4}),
+    _case("long_sentence_config_ui_above", "LongSentenceRule", _words(102), "positive", "config", "outside_ui_bounds", config={"maxWords": 101}),
+    _case("long_paragraph_config_ui_below", "LongParagraphRule", _words(10, ""), "positive", "config", "outside_ui_bounds", config={"maxWords": 4}),
+    _case("long_paragraph_config_ui_above", "LongParagraphRule", _words(307, ""), "positive", "config", "outside_ui_bounds", config={"maxWords": 301}),
+    _case("filler_config_ui_below", "RussianFillerWordsRule", "ах слово", "positive", "config", "outside_ui_bounds", config={"minPercent": -1, "excludeDirectSpeech": True}),
+    _case("filler_config_ui_above", "RussianFillerWordsRule", "ах слово", "negative", "config", "outside_ui_bounds", config={"minPercent": 101, "excludeDirectSpeech": True}),
     ("paragraph_punctuation_positive", "PunctuationMarkAtParagraphEnd2", "один два три четыре пять шесть семь восемь девять десять одиннадцать", ["positive", "threshold", "default_off"]),
     ("paragraph_punctuation_negative", "PunctuationMarkAtParagraphEnd2", "один два три четыре пять шесть семь восемь девять десять одиннадцать.", ["negative", "threshold", "default_off"]),
     _case("paragraph_punctuation_too_short", "PunctuationMarkAtParagraphEnd2", "Это короткий текст без точки", "negative", "upstream_assertion", "too_short", "default_off"),
@@ -181,6 +187,25 @@ COMBINED_CASES = [
     {"id": "combined_same_offset_casing", "text": "центральный банк РФ", "explicitly_enabled_rules": [], "coverage": ["java_rule", "overlap", "ordering"]},
     {"id": "combined_default_off_filler", "text": "ах слово. Ученик решил задать тест учителю.", "explicitly_enabled_rules": ["FILLER_WORDS_RU"], "coverage": ["xml", "java_rule", "default_off", "explicit_enablement", "multiple_findings"]},
     {"id": "combined_multiple_findings", "text": "Ученик решил задать тест учителю ,а затем задать тест преподавателю.", "explicitly_enabled_rules": [], "coverage": ["xml", "java_rule", "multiple_findings", "ordering"]},
+    {
+        "id": "combined_picky_long_sentence_comma_overlap",
+        "text": " ".join(["Слово"] + ["слово"] * 24 + ["слово", ",слово"] + ["слово"] * 25) + ".",
+        "explicitly_enabled_rules": ["TOO_LONG_SENTENCE"],
+        "config": {"level": "picky"},
+        "raw_rule_ids": ["TOO_LONG_SENTENCE", "COMMA_PARENTHESIS_WHITESPACE"],
+        "coverage": ["picky", "overlap", "raw_rule_triggers", "same_rule_group", "priority"],
+    },
+    {
+        "id": "combined_picky_long_sentence_xml_overlap",
+        "text": " ".join(["Слово"] + ["слово"] * 18) + " ученик решил задать тест учителю " + " ".join(["слово"] * 31) + ".",
+        "explicitly_enabled_rules": ["TOO_LONG_SENTENCE"],
+        "config": {"level": "picky"},
+        "raw_rule_ids": ["TOO_LONG_SENTENCE"],
+        "coverage": ["picky", "overlap", "xml", "priority"],
+    },
+    {"id": "combined_equal_priority_same_length_last_tie", "text": "Привет друзья!", "explicitly_enabled_rules": [], "coverage": ["xml", "equal_priority", "same_length", "last_match_tie"]},
+    {"id": "combined_equal_priority_nested_longest_tie", "text": "Сделано таким образом что работает.", "explicitly_enabled_rules": [], "coverage": ["xml", "equal_priority", "nested", "longest_span_tie"]},
+    {"id": "combined_adjacent_non_overlapping", "text": "Не род ,а ум. Не чин ,а честь.", "explicitly_enabled_rules": [], "coverage": ["java_rule", "adjacent", "non_overlapping", "ordering"]},
 ]
 
 
@@ -195,7 +220,7 @@ def _config_arg(config: dict[str, Any]) -> str:
 def _probe(java: str, jar: Path, rule_id: str, text: str, config: dict[str, Any] | None = None, *, mode: str = "single", enabled: list[str] | None = None) -> list[dict[str, Any]]:
     encoded = base64.b64encode(text.encode("utf-8")).decode("ascii")
     config_encoded = base64.b64encode(_config_arg(config or {}).encode("utf-8")).decode("ascii")
-    command = "--check" if mode == "single" else "--combined"
+    command = {"single": "--check", "combined": "--combined", "combined_raw": "--combined-raw"}[mode]
     selector = rule_id if mode == "single" else ",".join(enabled or [])
     proc = subprocess.run(
         [java, "-Dfile.encoding=UTF-8", "-cp", f"{JAVA_SOURCE.parent}{os.pathsep}{jar}", "JavaRulesOracle0011", command, selector, encoded, config_encoded],
@@ -232,7 +257,7 @@ def _probe(java: str, jar: Path, rule_id: str, text: str, config: dict[str, Any]
 
 
 def _signature(case: dict[str, Any]) -> str:
-    payload = {key: case[key] for key in ("execution_mode", "rule_class", "rule_id", "text", "explicitly_enabled", "explicitly_enabled_rules", "explicitly_disabled_rules", "config")}
+    payload = {key: case.get(key, []) if key == "raw_rule_ids" else case[key] for key in ("execution_mode", "rule_class", "rule_id", "text", "explicitly_enabled", "explicitly_enabled_rules", "explicitly_disabled_rules", "config", "raw_rule_ids")}
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
 
@@ -285,9 +310,15 @@ def generate_combined(path: Path, jar: Path, build_id: str) -> None:
             "execution_mode": "combined_pipeline",
             "explicitly_enabled": False,
             "explicitly_disabled_rules": DEFERRED_RULE_IDS,
-            "config": {},
+            "config": raw_case.get("config", {}),
+            "raw_rule_ids": raw_case.get("raw_rule_ids", []),
         }
-        case["expected"] = _probe("java", jar, "", case["text"], mode="combined", enabled=case["explicitly_enabled_rules"])
+        case["pre_overlap_expected"] = _probe("java", jar, "", case["text"], case["config"], mode="combined_raw", enabled=case["explicitly_enabled_rules"])
+        case["raw_rule_expected"] = {
+            rule_id: _probe("java", jar, rule_id, case["text"], case["config"])
+            for rule_id in case["raw_rule_ids"]
+        }
+        case["expected"] = _probe("java", jar, "", case["text"], case["config"], mode="combined", enabled=case["explicitly_enabled_rules"])
         case["finding_count"] = len(case["expected"])
         case["semantic_signature"] = _signature(case)
         compiled.append(case)

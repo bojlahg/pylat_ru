@@ -67,18 +67,20 @@ def test_public_user_config_surface_and_pinned_option_ranges() -> None:
             "FILLER_WORDS_RU": {"minPercent": 40, "excludeDirectSpeech": True},
         },
     )
-    assert any(match.rule_id == "TOO_LONG_SENTENCE" for match in tool.check("один два три четыре пять шесть семь."))
+    assert any(match.rule_id == "TOO_LONG_SENTENCE" for match in tool.check("Один два три четыре пять шесть семь."))
     assert not any(match.rule_id == "FILLER_WORDS_RU" for match in tool.check("ах слово слово"))
-    for rule_id, config in (
-        ("TOO_LONG_SENTENCE", {"maxWords": 4}),
-        ("TOO_LONG_SENTENCE", {"maxWords": 101}),
-        ("TOO_LONG_PARAGRAPH", {"maxWords": 4}),
-        ("TOO_LONG_PARAGRAPH", {"maxWords": 301}),
-        ("FILLER_WORDS_RU", {"minPercent": -1}),
-        ("FILLER_WORDS_RU", {"minPercent": 101}),
-    ):
-        with pytest.raises(ValueError):
-            LanguageToolRU(rule_config={rule_id: config})
+    low_sentence = RussianJavaRulesEngine({"TOO_LONG_SENTENCE": {"maxWords": 4}})
+    high_sentence = RussianJavaRulesEngine({"TOO_LONG_SENTENCE": {"maxWords": 101}})
+    low_paragraph = RussianJavaRulesEngine({"TOO_LONG_PARAGRAPH": {"maxWords": 4}})
+    high_paragraph = RussianJavaRulesEngine({"TOO_LONG_PARAGRAPH": {"maxWords": 301}})
+    low_filler = RussianJavaRulesEngine({"FILLER_WORDS_RU": {"minPercent": -1}})
+    high_filler = RussianJavaRulesEngine({"FILLER_WORDS_RU": {"minPercent": 101}})
+    assert low_sentence.check_rule(" ".join(["слово"] * 5), "TOO_LONG_SENTENCE")
+    assert high_sentence.check_rule(" ".join(["слово"] * 102), "TOO_LONG_SENTENCE")
+    assert low_paragraph.check_rule(" ".join(["слово"] * 10), "TOO_LONG_PARAGRAPH")
+    assert high_paragraph.check_rule(" ".join(["слово"] * 307), "TOO_LONG_PARAGRAPH")
+    assert low_filler.check_rule("ах слово", "FILLER_WORDS_RU")
+    assert not high_filler.check_rule("ах слово", "FILLER_WORDS_RU")
 
 
 def test_translated_russian_verb_conjugation_upstream_assertions() -> None:

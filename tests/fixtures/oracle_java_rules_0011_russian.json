@@ -24,7 +24,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "d1046f933c63fd6b78d5591c76582c7e7e043b63edbcf1c8705a066d8b7343c7"
+      "semantic_signature": "44bb1f8e3bebd726b728d01794d4c03567a34a180e2cd580f384fd9817ebb390"
     },
     {
       "id": "upstream_specific_air_france",
@@ -59,7 +59,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "52e5a4f1b14d8d7af1cc6e3926158669c098b5508a72ae3368e6ee5ea3b70532"
+      "semantic_signature": "72101de7135c9449644642f167d26c21c600416b7273215a0e49d6647886f069"
     },
     {
       "id": "upstream_specific_central_bank",
@@ -94,7 +94,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "cb1c596e734d05220e245a3a0afe6a12266fcb94595c9384f8611a1de02bc2f5"
+      "semantic_signature": "2769f782bb2c4a915671b8d0e6aff225f4ea1b4c8b44cdf0c7281b48fab58ab8"
     },
     {
       "id": "upstream_specific_correct",
@@ -112,7 +112,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "3d01ed15624c70105d0d1d5af2e9c4dfdbcdc4b725c203de147a055035b1939f"
+      "semantic_signature": "404f0bfaf31c36b2ce44864bcbe212f4e684d3350e0e539dedcd2c54dd645d72"
     },
     {
       "id": "upstream_brackets_apostrophe",
@@ -145,7 +145,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "0bef0b60fe49388a34502cc47f68d0a7cffe6f623c9282d57f1a93bd3971018a"
+      "semantic_signature": "e0626186da6afcfbfdce9a1aa2d47ed8e3cb53f33fbc1bcd23f97704c048f891"
     },
     {
       "id": "upstream_brackets_balanced",
@@ -163,7 +163,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "aa76ec8d1f693121aa14948294d789deb9f34efb22176523cff06e3c2ae84f01"
+      "semantic_signature": "f456c97f3df3d396206c4e38a7067dc5058fed5dc1b9623304948d5b70d89d6e"
     },
     {
       "id": "upstream_brackets_numerals",
@@ -181,7 +181,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "6eabb1cab1df09e6578d6854032495afbab2d285f98e4cf8a425a5d5e226c1f0"
+      "semantic_signature": "4c5947dccc9e176179205b91e3429b51c832b4cbf41e4acc1b6d3f137e710232"
     },
     {
       "id": "upstream_verb_wrong_present",
@@ -215,7 +215,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "f34f445b4c8873aab4d7d38d33b111e21b532771cb152c6ada90b44915489c59"
+      "semantic_signature": "c3e2dc85de35d42d6ec954682a89b3f81c46e5fe87a80d4d36f78a3215a81a29"
     },
     {
       "id": "upstream_verb_wrong_past",
@@ -249,7 +249,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "88e481db31ddb953c38c67eaddce5dcd4e7d1d48725178de183833163dc88d63"
+      "semantic_signature": "d42f2ecb5695e126b428c0164cd18e3532aa13a6afd8f1c401413bc3f7ec5098"
     },
     {
       "id": "upstream_verb_correct",
@@ -268,7 +268,7 @@
       ],
       "expected": [],
       "finding_count": 0,
-      "semantic_signature": "a5b794c8b2338a3efee59028b52e96bf4d3e069aab49abaaa9e961eb39c4b8b1"
+      "semantic_signature": "ace363a188322d59b538209126c6e38fba174a5f0c3f024ef2dcdcbb82a44897"
     },
     {
       "id": "upstream_comma",
@@ -304,7 +304,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "ca03b1a5b6aaa29704f819097a73eec8da5352c760efa0dd82f84260978c96b4"
+      "semantic_signature": "cbd892fad83722a290cdd035b3028daebc7ecdb73cd060311104f0524986ae38"
     },
     {
       "id": "upstream_uppercase",
@@ -339,7 +339,7 @@
         }
       ],
       "finding_count": 1,
-      "semantic_signature": "710d1ebc1ff6ccac2432896fba746f99e6b4943c2abf312a98f8557a34a17f03"
+      "semantic_signature": "68cf23417474848bab11a224e40184c0e4122019f0445fd97ddfd5f763d4965e"
     }
   ]
 }

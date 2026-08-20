@@ -36,6 +36,16 @@ public final class JavaRulesOracle0011 {
       }
       return;
     }
+    if (args.length == 2 && args[0].equals("--rule-metadata")) {
+      for (Rule rule : tool.getAllRules()) {
+        if (rule.getId().equals(args[1])) {
+          System.out.printf("%s\t%d\t%s\t%s%n", rule.getFullId(),
+              language.getRulePriority(rule), rule.getTags(),
+              rule.isIncludedInErrorsCorrectedAllAtOnce());
+        }
+      }
+      return;
+    }
     if ((args.length == 3 || args.length == 4) && args[0].equals("--check")) {
       String ruleId = args[1];
       String text = new String(Base64.getDecoder().decode(args[2]), StandardCharsets.UTF_8);
@@ -63,7 +73,8 @@ public final class JavaRulesOracle0011 {
       printMatches(matches, bases);
       return;
     }
-    if ((args.length == 3 || args.length == 4) && args[0].equals("--combined")) {
+    if ((args.length == 3 || args.length == 4)
+        && (args[0].equals("--combined") || args[0].equals("--combined-raw"))) {
       String text = decode(args[2]);
       for (String ruleId : TASK_0012_RULES) {
         tool.disableRule(ruleId);
@@ -73,7 +84,12 @@ public final class JavaRulesOracle0011 {
           tool.enableRule(ruleId);
         }
       }
-      List<RuleMatch> matches = tool.check(text);
+      if (args[0].equals("--combined-raw")) {
+        tool.setCleanOverlappingMatches(false);
+      }
+      List<RuleMatch> matches = configText.contains("level=picky")
+          ? tool.check(text, JLanguageTool.Level.PICKY)
+          : tool.check(text);
       List<Integer> bases = new ArrayList<>();
       for (int i = 0; i < matches.size(); i++) bases.add(0);
       printMatches(matches, bases);

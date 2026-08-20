@@ -17,6 +17,7 @@ from pylat_ru.analysis import (
 )
 from pylat_ru.disambiguation import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
+from pylat_ru.match_filters import filter_rule_matches
 from pylat_ru.native_rules import NativeRuleFinding, RussianJavaRulesEngine
 from pylat_ru.morfologik import (
     DictionaryEntry,
@@ -87,6 +88,13 @@ class RuleMatch:
     category_name: str = ""
     url: str | None = None
     priority: int = 0
+    full_rule_id: str = ""
+    tags: tuple[str, ...] = ()
+    registration_order: int = 0
+    included_in_errors_corrected_all_at_once: bool = False
+    original_error: str = ""
+    utf16_offset: int = 0
+    utf16_length: int = 0
 
 
 class LanguageToolRU:
@@ -121,19 +129,22 @@ class LanguageToolRU:
         """Check Russian text without Java or an external NLP runtime."""
         if not text:
             return []
+        return filter_rule_matches(self._collect_matches(text), text)
+
+    def _collect_matches(self, text: str) -> list[RuleMatch]:
+        """Collect matches in pinned rule-execution order before global filters."""
         context = self.java_rules_engine.analyze(text)
-        results: List[RuleMatch] = []
-        ordering: list[tuple[int, int, int, RuleMatch]] = []
+        candidates: list[RuleMatch] = []
 
         for native in self.java_rules_engine.check_context(context):
             public = self._native_to_public(native)
-            ordering.append((native.from_pos, -native.priority, native.registration_order, public))
+            candidates.append(public)
 
         xml_order_base = len(self.java_rules_engine.rules)
         for unit in context.sentences:
             for finding in self.grammar_engine.check_sentence(unit.analyzed):
                 rule = self.grammar_engine.get_rule(finding.full_rule_id)
-                priority = (rule.prio or 0) if rule else 0
+                priority = self._xml_rule_priority(rule)
                 public = RuleMatch(
                     rule_id=finding.rule_id,
                     category_id=finding.category_id,
@@ -146,23 +157,15 @@ class LanguageToolRU:
                     category_name=finding.category_name,
                     url=finding.url,
                     priority=priority,
+                    full_rule_id=finding.full_rule_id,
+                    tags=tuple(rule.tags) if rule else (),
+                    registration_order=xml_order_base + (rule.source_order_index if rule else 0),
+                    original_error=text[unit.start + finding.from_pos:unit.start + finding.to_pos],
+                    utf16_offset=context.mapper.codepoint_to_utf16(unit.start + finding.from_pos),
+                    utf16_length=finding.to_pos_utf16 - finding.from_pos_utf16,
                 )
-                source_order = rule.source_order_index if rule else 0
-                ordering.append((public.offset, -priority, xml_order_base + source_order, public))
-
-        # JLanguageTool's full check surface cleans overlapping matches after
-        # all rule families have run.  Direct per-rule checks intentionally do
-        # not use this stage (e.g. both sides of a badly spaced comma).
-        selected: list[tuple[int, int, int, RuleMatch]] = []
-        for item in sorted(ordering, key=lambda value: (value[1], -value[3].length, -value[2], value[0])):
-            candidate = item[3]
-            candidate_end = candidate.offset + candidate.length
-            if any(candidate.offset < kept.offset + kept.length and kept.offset < candidate_end for *_, kept in selected):
-                continue
-            selected.append(item)
-        selected.sort(key=lambda item: (item[0], item[1], item[2], item[3].length))
-        results.extend(item[3] for item in selected)
-        return results
+                candidates.append(public)
+        return candidates
 
     @staticmethod
     def _native_to_public(finding: NativeRuleFinding) -> RuleMatch:
@@ -178,4 +181,31 @@ class LanguageToolRU:
             category_name=finding.category_name,
             url=finding.url,
             priority=finding.priority,
+            full_rule_id=finding.rule_id,
+            tags=finding.tags,
+            registration_order=finding.registration_order,
+            original_error=finding.original_error,
+            utf16_offset=finding.from_pos_utf16,
+            utf16_length=finding.to_pos_utf16 - finding.from_pos_utf16,
         )
+
+    @staticmethod
+    def _xml_rule_priority(rule: Any | None) -> int:
+        if rule is None:
+            return 0
+        russian = {"RU_DASH_RULE": 12, "RU_COMPOUNDS": 11,
+                   "RUSSIAN_SIMPLE_REPLACE_RULE": 10, "RUSSIAN_SPECIFIC_CASE": 9,
+                   "MORFOLOGIC_RULE_RU_RU_YO": 2, "MORFOLOGIC_RULE_RU_RU": 1,
+                   "Word_root_repeat": -1, "PUNCT_DPT_2": -2,
+                   "TOO_LONG_PARAGRAPH": -15}
+        if rule.id in russian:
+            return russian[rule.id]
+        if rule.id.upper() == "TOO_LONG_SENTENCE":
+            return -101
+        if rule.prio:
+            return rule.prio
+        if rule.category_id == "REPETITIONS_STYLE":
+            return -55
+        if "STYLE" in rule.category_id:
+            return -50
+        return 0

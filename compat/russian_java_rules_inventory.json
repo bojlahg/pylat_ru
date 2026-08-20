@@ -151,7 +151,7 @@
       "upstream_test_sources": [],
       "configured_priority_target": null,
       "configured_priority": null,
-      "effective_priority": 0,
+      "effective_priority": -50,
       "priority_binding_status": "BASE_PRIORITY"
     },
     {
@@ -172,7 +172,7 @@
       "upstream_test_sources": [],
       "configured_priority_target": null,
       "configured_priority": null,
-      "effective_priority": 0,
+      "effective_priority": -50,
       "priority_binding_status": "BASE_PRIORITY"
     },
     {
@@ -185,7 +185,6 @@
       "category_id": "STYLE",
       "default_off": false,
       "constructor_arguments": "messages, userConfig, 50",
-      "rule_configuration": {"maxWords": {"default": 50, "minimum": 5, "maximum": 100}},
       "classification": "TASK_0011",
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/LongSentenceRule.java",
@@ -196,7 +195,7 @@
       ],
       "configured_priority_target": null,
       "configured_priority": null,
-      "effective_priority": 0,
+      "effective_priority": -101,
       "priority_binding_status": "BASE_PRIORITY"
     },
     {
@@ -209,7 +208,6 @@
       "category_id": "STYLE",
       "default_off": true,
       "constructor_arguments": "messages, Russian language, userConfig",
-      "rule_configuration": {"maxWords": {"default": 220, "minimum": 5, "maximum": 300}},
       "classification": "TASK_0011",
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/LongParagraphRule.java",
@@ -241,7 +239,7 @@
       "upstream_test_sources": [],
       "configured_priority_target": null,
       "configured_priority": null,
-      "effective_priority": 0,
+      "effective_priority": -50,
       "priority_binding_status": "BASE_PRIORITY"
     },
     {
@@ -254,10 +252,6 @@
       "category_id": "CREATIVE_WRITING",
       "default_off": true,
       "constructor_arguments": "messages, Russian language, userConfig",
-      "rule_configuration": {
-        "minPercent": {"default": 8, "minimum": 0, "maximum": 100},
-        "excludeDirectSpeech": {"default": true}
-      },
       "classification": "TASK_0011",
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianFillerWordsRule.java",

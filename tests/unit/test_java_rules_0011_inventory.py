@@ -21,7 +21,7 @@ def _sha(path: Path) -> str:
 
 
 def _signature(case: dict) -> str:
-    payload = {key: case[key] for key in ("execution_mode", "rule_class", "rule_id", "text", "explicitly_enabled", "explicitly_enabled_rules", "explicitly_disabled_rules", "config")}
+    payload = {key: case.get(key, []) if key == "raw_rule_ids" else case[key] for key in ("execution_mode", "rule_class", "rule_id", "text", "explicitly_enabled", "explicitly_enabled_rules", "explicitly_disabled_rules", "config", "raw_rule_ids")}
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
 
@@ -88,6 +88,7 @@ def test_task_0011_oracle_case_semantics_and_coverage() -> None:
         assert all(all(match["rule_id"] == case["rule_id"] for match in case["expected"]) for case in rule_cases)
     assert any(case["finding_count"] > 1 for case in cases)
     assert any("non_bmp" in case["coverage"] and case["expected"] for case in cases)
+    assert any("picky" in case["coverage"] and case.get("pre_overlap_expected") for case in cases)
     assert all(case["finding_count"] == len(case["expected"]) for case in cases)
     assert all(b"\r\n" not in path.read_bytes() for path in FIXTURES)
 

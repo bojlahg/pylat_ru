@@ -37,6 +37,8 @@ class NativeRuleFinding:
     to_pos_utf16: int
     priority: int
     registration_order: int
+    tags: tuple[str, ...] = ()
+    original_error: str = ""
     url: str | None = None
     source: str = "java_rule_0011"
 
@@ -77,6 +79,7 @@ class NativeRule:
     description = ""
     default_off = False
     priority = 0
+    tags: tuple[str, ...] = ()
 
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         self.registration_order = registration_order
@@ -110,6 +113,8 @@ class NativeRule:
             to_pos_utf16=context.mapper.codepoint_to_utf16(end),
             priority=self.priority,
             registration_order=self.registration_order,
+            tags=self.tags,
+            original_error=context.text[start:end],
             url=url,
         )
 
@@ -278,6 +283,7 @@ class WhiteSpaceBeforeParagraphEnd(NativeRule):
     category_name = "Стиль"
     description = "Пробел в конце абзаца"
     default_off = True
+    priority = -50
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
@@ -298,6 +304,7 @@ class WhiteSpaceAtBeginOfParagraph(NativeRule):
     category_name = "Стиль"
     description = "Пробел в начале абзаца"
     default_off = True
+    priority = -50
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
@@ -319,12 +326,12 @@ class LongSentenceRule(NativeRule):
     category_name = "Стиль"
     description = "Удобочитаемость: предложение длиной 50 слов"
     max_words = 50
+    priority = -101
+    tags = ("picky",)
 
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         super().__init__(registration_order, config)
         self.max_words = int(self.config.get("maxWords", 50))
-        if not 5 <= self.max_words <= 100:
-            raise ValueError("TOO_LONG_SENTENCE maxWords must be between 5 and 100")
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
@@ -367,12 +374,11 @@ class LongParagraphRule(NativeRule):
     description = "Удобочитаемость: абзац длиной 220 слов"
     default_off = True
     priority = -15
+    tags = ("picky",)
 
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         super().__init__(registration_order, config)
         self.max_words = int(self.config.get("maxWords", 220))
-        if not 5 <= self.max_words <= 300:
-            raise ValueError("TOO_LONG_PARAGRAPH maxWords must be between 5 and 300")
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out = []
@@ -392,6 +398,7 @@ class ParagraphRepeatBeginningRule(NativeRule):
     category_name = "Стиль"
     description = "Повтор начала абзаца"
     default_off = True
+    priority = -50
     _quotes = re.compile(r"[’'\"„“”»«‚‘›‹()\[\]]")
 
     def _first(self, context: NativeRuleContext, start: int, end: int) -> TokenSpan | None:
@@ -427,8 +434,6 @@ class RussianFillerWordsRule(NativeRule):
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         super().__init__(registration_order, config)
         self.min_percent = int(self.config.get("minPercent", 8))
-        if not 0 <= self.min_percent <= 100:
-            raise ValueError("FILLER_WORDS_RU minPercent must be between 0 and 100")
         self.exclude_direct_speech = bool(self.config.get("excludeDirectSpeech", True))
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
@@ -737,12 +742,13 @@ class RussianJavaRulesEngine:
             if not include_disabled and not self.is_rule_enabled(rule.rule_id):
                 continue
             findings.extend(rule.match(context))
-        return sorted(findings, key=lambda f: (f.from_pos, -f.priority, f.registration_order, f.to_pos))
+        return findings
 
     def check(self, text: str, include_disabled: bool = False) -> list[NativeRuleFinding]:
         if not text:
             return []
-        return self.check_context(self.analyze(text), include_disabled=include_disabled)
+        findings = self.check_context(self.analyze(text), include_disabled=include_disabled)
+        return sorted(findings, key=lambda f: (f.from_pos, -f.priority, f.registration_order, f.to_pos))
 
     def check_rule(self, text: str, rule_id: str) -> list[NativeRuleFinding]:
         rule = self._rules.get(rule_id)
