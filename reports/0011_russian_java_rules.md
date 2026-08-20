@@ -6,7 +6,7 @@
 - Original Task-0011 implementation parent: `875dcd0c2aa78deecaf8fb9be574030cf559e4d5`.
 - LanguageTool target: `v6.8`, commit `e807fcde6a6506191e1470744d2345da28c26be6`.
 - Trusted oracle: `lt_6.8_source_build_jdk17_stefan`, JAR SHA-256 `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`.
-- Review-fix implementation commit: `PENDING_REVIEW_FIX_COMMIT`.
+- Review-fix implementation commit: `95527bf3ff932fd1716fa9667e93e5fb1186713a`.
 - Production remains Python-native and does not invoke Java, an LT server, localhost services, or runtime downloads.
 
 Rule accounting is unchanged and exact: 15/23 ordinary relevant Java rules are implemented (generic 10/10, Russian-specific 5/13); all eight Task-0012 rules remain deferred; the language-model rule remains deferred 0/1. `RussianSuppressMisspelledSuggestionsFilter` remains outside Task 0011. Task 0012 was not started.
@@ -68,6 +68,8 @@ failed=0; errors=0; skipped=0
 
 The final focused oracle/integrity/config/combined/wheel set passed 138/138. The real-wheel proof was then rerun in the full suite and passed. It builds and installs the wheel into an isolated directory, removes repository source paths and `JAVA_HOME`, and blocks sockets/subprocess use in production execution. It executes representative Task-0011 generic whitespace, explicit default-off paragraph whitespace, dash-resource, morphology-sensitive verb, XML grammar, and filter findings.
 
+CI now verifies `git rev-parse HEAD == GITHUB_SHA` and parses the generated JUnit XML after pytest. Each matrix job prints and enforces `failures=0`, `errors=0`, and `skipped=0`; a green job can no longer hide a skip as run `32366269081` did.
+
 Accepted XML grammar counts remain 778 runnable / 114 deferred source rules and 2,119 runnable / 327 deferred examples.
 
 ## Compatibility and known differences
@@ -78,10 +80,8 @@ Known unexplained Java-oracle differences: none in the committed Task-0011 fixtu
 
 ## Git and final CI
 
-- Review-fix implementation commit: `PENDING_REVIEW_FIX_COMMIT`.
-- Final `main`: `PENDING_FINAL_SHA`.
-- Exact-SHA Actions run: `PENDING_FINAL_CI`.
-- Python 3.10: `PENDING_FINAL_CI`.
-- Python 3.12: `PENDING_FINAL_CI`.
+- Review-fix implementation commit: `95527bf3ff932fd1716fa9667e93e5fb1186713a`.
+- Implementation validation run: [CI #32371529962](https://github.com/bojlahg/pylat_ru/actions/runs/32371529962), exact SHA `95527bf3ff932fd1716fa9667e93e5fb1186713a`, both jobs `success`.
+- The exact SHA/run for the commit containing this report and the new zero-skip CI gate is necessarily recorded in the final task handoff after that commit exists.
 
-`FINAL = PENDING EXACT-SHA CI`
+`FINAL = SUBJECT TO EXACT-SHA CI FOR REPORT/GATE COMMIT`

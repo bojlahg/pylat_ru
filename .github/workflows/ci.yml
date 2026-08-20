@@ -29,6 +29,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify exact checkout SHA
+        shell: bash
+        run: |
+          checkout_sha="$(git rev-parse HEAD)"
+          echo "checkout_sha=${checkout_sha}"
+          echo "github_sha=${GITHUB_SHA}"
+          test "${checkout_sha}" = "${GITHUB_SHA}"
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -43,6 +51,26 @@ jobs:
       - name: Run test suite against committed fixtures
         run: |
           python -m pytest --junitxml=pytest-results.xml
+
+      - name: Enforce zero failures, errors, and skips
+        shell: bash
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+
+          root = ET.parse("pytest-results.xml").getroot()
+          suite = root.find("testsuite") if root.tag == "testsuites" else root
+          if suite is None:
+              raise SystemExit("pytest JUnit report has no testsuite")
+          tests = int(suite.attrib["tests"])
+          failures = int(suite.attrib.get("failures", 0))
+          errors = int(suite.attrib.get("errors", 0))
+          skipped = int(suite.attrib.get("skipped", 0))
+          passed = tests - failures - errors - skipped
+          print(f"{passed} passed / {failures} failed / {errors} errors / {skipped} skipped")
+          if failures or errors or skipped:
+              raise SystemExit("Task-0011 CI DoD requires failures=0, errors=0, skipped=0")
+          PY
 
       - name: Upload pytest report
         if: always()
