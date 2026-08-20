@@ -340,9 +340,10 @@ Inherited base classes inspected and bound (vendored with hashes in
 ```text
 upstream test files inventoried                   18
 Task-0012 direct test files                        6
-@Test methods in those files                       9
-direct assertions translated                      47
-oracle-only controlled scenarios                 104
+@Test methods in those files                        8
+direct upstream assertions translated             47
+oracle cases derived from upstream material       48
+oracle-only controlled scenarios                 103
 rules without a dedicated upstream test            2
   RussianSimpleWordRepeatRule  (WORD_REPEAT_RULE)
   RussianWordRootRepeatRule    (RU_WORD_ROOT_REPEAT)
@@ -350,7 +351,10 @@ rules without a dedicated upstream test            2
 
 Both rules without a dedicated upstream test are covered exclusively by controlled
 Java-oracle scenarios (15 and 5 cases respectively), never by locally invented
-expectations.
+expectations.  "Derived from upstream material" counts the oracle cases whose text
+comes from a JUnit assertion or from a rule's own registered `addExamplePair`
+example; the remaining 103 are controlled scenarios whose expected result was read
+back from Java.
 
 ---
 
