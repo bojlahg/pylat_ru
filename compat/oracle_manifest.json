@@ -39,15 +39,15 @@
   "fixture_bindings": [
     {
       "path": "tests/fixtures/oracle_filters_synthetic.json",
-      "size_bytes": 111593,
-      "sha256": "8a5af2a218fd2f2377ef6c0b8b125921dad9ad1bd5c645ad92b751aeab5e55d2",
+      "size_bytes": 292712,
+      "sha256": "88fcebfe342a64a25bc64912acf29d982179897b444afc0dfd389d8b64d39d90",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 145
+      "case_count": 178
     },
     {
       "path": "tests/fixtures/oracle_filters_russian_rules.json",
-      "size_bytes": 149553,
-      "sha256": "0e7ec43a198bb28913a9233b776031085608ef172718553597f64bf8726624de",
+      "size_bytes": 154720,
+      "sha256": "05280901cb15f63bb976527996658f71fd2476d96f4498f892a07a6cc81b82f7",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 165
     }

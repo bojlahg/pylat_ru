@@ -1,13 +1,13 @@
 {
-  "schema_version": "1.0.0",
-  "description": "Committed LanguageTool 6.8 Java Oracle Russian Filter Rules Fixture",
+  "schema_version": "2.0.0",
+  "description": "Pinned Java LT Russian filter-rule examples",
   "metadata": {
     "pinned_lt_version": "6.8",
     "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
     "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
     "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
     "generator_operation": "tools/generate_oracle_filters_fixtures.py",
-    "corpus_version": "1.0.0",
+    "corpus_version": "2.0.0",
     "cases_count": 165,
     "promoted_rules_count": 19,
     "promoted_full_rule_ids": [
@@ -280,7 +280,8 @@
             "pattern_to_utf16": 51,
             "message": "Днём недели 7 октября 2014 года является вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -311,7 +312,8 @@
             "pattern_to_utf16": 50,
             "message": "Днём недели 7 октября 2014 года является вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -342,7 +344,8 @@
             "pattern_to_utf16": 46,
             "message": "Днём недели 7 октября 2014 года является вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -373,7 +376,8 @@
             "pattern_to_utf16": 47,
             "message": "Днём недели 7 окт 2014 года является вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -446,7 +450,8 @@
             "pattern_to_utf16": 46,
             "message": "Днём недели 7.10.2014 является не понедельник, а вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -477,7 +482,8 @@
             "pattern_to_utf16": 45,
             "message": "Днём недели 7.10.2014 является не понедельник, а вторник.",
             "short_message": "",
-            "suggestions": []
+            "suggestions": [],
+            "url": "https://www.timeanddate.com/calendar/?year=2014"
           }
         ]
       }
@@ -529,7 +535,8 @@
             "pattern_to_utf16": 32,
             "message": "Данная дата находится в будущем, но глагол стоит в прошедшем времени.",
             "short_message": "Дата – в будущем",
-            "suggestions": []
+            "suggestions": [],
+            "url": null
           }
         ]
       }
@@ -581,7 +588,8 @@
             "pattern_to_utf16": 30,
             "message": "Данная дата находится в будущем, но глагол стоит в прошедшем времени.",
             "short_message": "Дата – в будущем",
-            "suggestions": []
+            "suggestions": [],
+            "url": null
           }
         ]
       }
@@ -633,7 +641,8 @@
             "pattern_to_utf16": 15,
             "message": "Некорректный ИНН: 1234567890",
             "short_message": "Некорректный ИНН",
-            "suggestions": []
+            "suggestions": [],
+            "url": null
           }
         ]
       }
@@ -664,7 +673,8 @@
             "pattern_to_utf16": 17,
             "message": "Некорректный ИНН: 123456789025",
             "short_message": "Некорректный ИНН",
-            "suggestions": []
+            "suggestions": [],
+            "url": null
           }
         ]
       }
@@ -823,7 +833,8 @@
             "short_message": "Не согласуются по падежу",
             "suggestions": [
               "моё отношение"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -1003,7 +1014,8 @@
             "short_message": "Не согласуются по роду",
             "suggestions": [
               "моё отношение"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -1225,7 +1237,8 @@
             "short_message": "Не согласуются по числу",
             "suggestions": [
               "это отношение"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -1279,7 +1292,8 @@
             "short_message": "",
             "suggestions": [
               "глупую женщину"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2090,7 +2104,8 @@
             "suggestions": [
               "Железною кроватью",
               "Железной кроватью"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2144,7 +2159,8 @@
             "short_message": "",
             "suggestions": [
               "красивая ёлка"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2304,7 +2320,8 @@
             "suggestions": [
               "пушистою кошкой",
               "пушистой кошкой"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2421,7 +2438,8 @@
             "short_message": "",
             "suggestions": [
               "Добротной усадьбе"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2475,7 +2493,8 @@
             "short_message": "",
             "suggestions": [
               "крепкого сна"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2529,7 +2548,8 @@
             "short_message": "",
             "suggestions": [
               "мягкому жёлобу"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2605,7 +2625,8 @@
             "suggestions": [
               "бурною рекой",
               "бурной рекой"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2722,7 +2743,8 @@
             "short_message": "",
             "suggestions": [
               "родном доме"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2776,7 +2798,8 @@
             "short_message": "Раздельно с «не»",
             "suggestions": [
               "далеко не плохо"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -2851,7 +2874,8 @@
             "short_message": "Раздельно с «не»",
             "suggestions": [
               "не плохо, а хорошо"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3220,7 +3244,8 @@
             "short_message": "Обычно слитно с «не»",
             "suggestions": [
               "Несложно"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3295,7 +3320,8 @@
             "short_message": "Слитно с «не»",
             "suggestions": [
               "неосторожным"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3349,7 +3375,8 @@
             "short_message": "Слитно с «не»",
             "suggestions": [
               "непродуманное"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3403,7 +3430,8 @@
             "short_message": "Раздельно с «не»",
             "suggestions": [
               "вовсе не интересная"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3520,7 +3548,8 @@
             "short_message": "Раздельно с «не»",
             "suggestions": [
               "никому не нужная"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3868,7 +3897,8 @@
             "short_message": "Возможно слитно с «не»",
             "suggestions": [
               "нерешительна"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -3943,7 +3973,8 @@
             "short_message": "Пишется слитно",
             "suggestions": [
               "поучаствовать"
-            ]
+            ],
+            "url": null
           }
         ]
       }
@@ -4079,7 +4110,8 @@
             "pattern_to_utf16": 25,
             "message": "Не ставьте два «не» подряд, если это не оправдано смыслом предложения.",
             "short_message": "Не ставьте два «не» подряд",
-            "suggestions": []
+            "suggestions": [],
+            "url": null
           }
         ]
       }

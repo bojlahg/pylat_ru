@@ -19,7 +19,7 @@ from pylat_ru.grammar.filters.future_date import FutureDateFilter
 from pylat_ru.grammar.filters.inn import INNNumberFilter
 from pylat_ru.grammar.filters.partial_pos import RussianPartialPosTagFilter
 from pylat_ru.grammar.filters.evaluator import RuleFilterEvaluator
-from pylat_ru.grammar.filters.base import FilterIllegalArgumentError
+from pylat_ru.grammar.filters.base import FilterIllegalArgumentError, FilterRuntimeError
 
 
 def make_atr(token: str, start_pos: int, readings: List[tuple[str, str | None, str | None]]) -> AnalyzedTokenReadings:
@@ -81,7 +81,7 @@ def test_rule_filter_evaluator_duplicate_backreference_key():
         make_atr("fake1", 0, [("fake1", "pos", None)]),
         make_atr("fake2", 0, [("fake2", "pos", None)]),
     ]
-    with pytest.raises(FilterIllegalArgumentError, match="Duplicate key"):
+    with pytest.raises(FilterRuntimeError, match="Duplicate key"):
         evaluator.get_resolved_arguments(r"year:\1 year:\2", tokens, -1, [1, 2])
 
 
@@ -93,7 +93,7 @@ def test_rule_filter_evaluator_without_backreference():
 
 def test_rule_filter_evaluator_too_large_backreference():
     evaluator = RuleFilterEvaluator(INNNumberFilter())
-    with pytest.raises(FilterIllegalArgumentError, match="bigger than the number of tokens"):
+    with pytest.raises(FilterRuntimeError, match="bigger than the number of tokens"):
         evaluator.get_resolved_arguments(r"year:\1 month:\2 day:\3 weekDay:\4", [], -1, [])
 
 
@@ -102,11 +102,11 @@ def test_rule_filter_evaluator_additional_edge_cases():
     tokens = [make_atr("fake1", 0, [("fake1", "pos", None)])]
 
     assert evaluator.get_resolved_arguments("key:first key:second", tokens, -1, [1]) == {"key": "second"}
-    with pytest.raises(FilterIllegalArgumentError):
+    with pytest.raises(IndexError):
         evaluator.get_resolved_arguments(r"key:\0", tokens, -1, [1])
-    with pytest.raises(FilterIllegalArgumentError):
+    with pytest.raises(IndexError):
         evaluator.get_resolved_arguments(r"key:\-1", tokens, -1, [1])
-    with pytest.raises(FilterIllegalArgumentError, match="Invalid syntax"):
+    with pytest.raises(FilterRuntimeError, match="Invalid syntax"):
         evaluator.get_resolved_arguments("missing-colon", tokens, -1, [1])
 
 
@@ -316,9 +316,10 @@ def test_future_date_filter_synthetic(clean_clock):
     res_leap = filt.accept_rule_match(match, {"year": "2016", "month": "2", "day": "29"}, 0, [], [])
     assert res_leap is not None
 
-    # Case 4: Invalid date leap year (2015-02-29) -> returns None (ValueError caught)
+    # Case 4: Java Calendar.after compares the pending future fields before
+    # forcing strict validation, so this invalid future date is preserved.
     res_invalid_leap = filt.accept_rule_match(match, {"year": "2015", "month": "2", "day": "29"}, 0, [], [])
-    assert res_invalid_leap is None
+    assert res_invalid_leap is match
 
     # Case 5-20: Test sequential dates
     for y in range(2000, 2016):

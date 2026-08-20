@@ -31,7 +31,7 @@ class RuleFilterEvaluator:
         pattern_token_pos: int,
         token_positions: List[int]
     ) -> Dict[str, str]:
-        from .base import FilterIllegalArgumentError
+        from .base import FilterIllegalArgumentError, FilterRuntimeError
         if not filter_args:
             return {}
         result: Dict[str, str] = {}
@@ -40,7 +40,7 @@ class RuleFilterEvaluator:
         for arg in arguments:
             delim_pos = arg.find(':')
             if delim_pos == -1:
-                raise FilterIllegalArgumentError(f"Invalid syntax for key/value, expected 'key:value', got: '{arg}'")
+                raise FilterRuntimeError(f"Invalid syntax for key/value, expected 'key:value', got: '{arg}'")
             key = arg[:delim_pos]
             val = arg[delim_pos + 1:]
             
@@ -51,14 +51,16 @@ class RuleFilterEvaluator:
                     raise FilterIllegalArgumentError(f"Invalid backreference format in: '{val}'")
                 
                 if ref_number > len(token_positions):
-                    raise FilterIllegalArgumentError(f"Your reference number {ref_number} is bigger than the number of tokens: {len(token_positions)}")
+                    raise FilterRuntimeError(f"Your reference number {ref_number} is bigger than the number of tokens: {len(token_positions)}")
                 
                 corrected_ref = self.get_skip_corrected_reference(token_positions, ref_number)
-                if corrected_ref < 0 or corrected_ref >= len(pattern_tokens):
-                    raise FilterIllegalArgumentError(f"Your reference number {ref_number} is bigger than number of matching tokens: {len(pattern_tokens)}")
+                if corrected_ref < 0:
+                    raise IndexError(corrected_ref)
+                if corrected_ref >= len(pattern_tokens):
+                    raise FilterRuntimeError(f"Your reference number {ref_number} is bigger than number of matching tokens: {len(pattern_tokens)}")
                 
                 if key in result:
-                    raise FilterIllegalArgumentError(f"Duplicate key '{key}'")
+                    raise FilterRuntimeError(f"Duplicate key '{key}'")
                 result[key] = pattern_tokens[corrected_ref].token
             else:
                 result[key] = val

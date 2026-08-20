@@ -145,6 +145,8 @@ class DateCheckFilter(RuleFilter):
             try:
                 date_from_date = self.get_date(arguments)
                 day_of_week_from_date = (date_from_date.weekday() + 1) % 7 + 1
+            except FilterIllegalArgumentError:
+                raise
             except (ValueError, OverflowError):
                 return None
 
@@ -162,7 +164,18 @@ class DateCheckFilter(RuleFilter):
 
                 url = f"https://www.timeanddate.com/calendar/?year={date_from_date.year}"
 
-                return dataclasses.replace(match, message=message, url=url)
+                # Java constructs a fresh RuleMatch and does not copy the
+                # provisional match's replacement list.
+                return dataclasses.replace(
+                    match,
+                    message=message,
+                    suggestions=[],
+                    pattern_from_pos=match.from_pos,
+                    pattern_to_pos=match.to_pos,
+                    pattern_from_pos_utf16=match.from_pos_utf16,
+                    pattern_to_pos_utf16=match.to_pos_utf16,
+                    url=url,
+                )
             else:
                 return None
         except FilterIllegalArgumentError as e:

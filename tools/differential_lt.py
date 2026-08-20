@@ -13,6 +13,7 @@ IMPORTANT:
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -1287,6 +1288,8 @@ public class CheckPatternRules {
                     if (repIdx > 0) sb.append("\u0003");
                     sb.append(repls.get(repIdx));
                 }
+                sb.append("\u0002")
+                  .append(m.getUrl() != null ? m.getUrl().toString() : "\u0005null");
             }
             out.print(sb.toString());
         }
@@ -1342,7 +1345,7 @@ public class CheckPatternRules {
                     matches: List[Dict[str, Any]] = []
                     for m_str in fields[8 : 8 + match_count]:
                         m_parts = m_str.split("\u0002")
-                        if len(m_parts) >= 7:
+                        if len(m_parts) >= 8:
                             from_p = int(m_parts[0])
                             to_p = int(m_parts[1])
                             pat_from_p = int(m_parts[2])
@@ -1350,6 +1353,7 @@ public class CheckPatternRules {
                             msg = m_parts[4]
                             short_msg = None if m_parts[5] == "\u0005null" else m_parts[5]
                             suggs = [s for s in m_parts[6].split("\u0003") if s] if m_parts[6] else []
+                            url = None if m_parts[7] == "\u0005null" else m_parts[7]
                             matches.append(
                                 {
                                     "from_utf16": from_p,
@@ -1359,6 +1363,7 @@ public class CheckPatternRules {
                                     "message": msg,
                                     "short_message": short_msg,
                                     "suggestions": suggs,
+                                    "url": url,
                                 }
                             )
 
@@ -1792,6 +1797,310 @@ public class CheckSyntheticPatternRules {
                             "matches": matches,
                         }
                     )
+            return results
+
+    def check_low_level_filter_cases(
+        self, cases: Sequence[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """Run controlled RuleFilterEvaluator/filter cases against pinned Java LT.
+
+        This deliberately bypasses pattern matching so evidence proves the filter
+        branch itself rather than a preceding tokenizer or pattern outcome.
+        """
+        self.validate_oracle()
+        jar = self.get_jar_path()
+
+        def java_string(value: Optional[str]) -> str:
+            if value is None:
+                return "null"
+            return json.dumps(str(value), ensure_ascii=False)
+
+        init_lines: List[str] = []
+        for case in cases:
+            init_lines.append("{ CaseData c = new CaseData();")
+            init_lines.append(f"c.id = {java_string(case['id'])};")
+            init_lines.append(f"c.operation = {java_string(case['operation'])};")
+            init_lines.append(f"c.filterClass = {java_string(case.get('filter_class', ''))};")
+            init_lines.append(f"c.filterArgs = {java_string(case.get('filter_args', ''))};")
+            init_lines.append(f"c.selectedKey = {java_string(case.get('selected_key'))};")
+            init_lines.append(f"c.patternTokenPos = {int(case.get('pattern_token_pos', 0))};")
+            for key, value in sorted(case.get("arguments", {}).items()):
+                init_lines.append(
+                    f"c.arguments.put({java_string(key)}, {java_string(value)});"
+                )
+            for token in case.get("tokens", []):
+                reading_exprs = []
+                for reading in token.get("readings", []):
+                    reading_exprs.append(
+                        "new String[]{%s,%s,%s}"
+                        % (
+                            java_string(reading.get("token", token["token"])),
+                            java_string(reading.get("lemma")),
+                            java_string(reading.get("pos_tag")),
+                        )
+                    )
+                if not reading_exprs:
+                    reading_exprs.append(
+                        "new String[]{%s,null,null}" % java_string(token["token"])
+                    )
+                init_lines.append(
+                    "c.tokens.add(atr(%s, %d, new String[][]{%s}));"
+                    % (
+                        java_string(token["token"]),
+                        int(token.get("start_pos", 0)),
+                        ",".join(reading_exprs),
+                    )
+                )
+            for position in case.get("token_positions", []):
+                init_lines.append(f"c.tokenPositions.add({int(position)});")
+            match = case.get("match", {})
+            init_lines.append(f"c.matchFrom = {int(match.get('from_pos', 0))};")
+            init_lines.append(f"c.matchTo = {int(match.get('to_pos', 1))};")
+            init_lines.append(f"c.message = {java_string(match.get('message', 'message'))};")
+            init_lines.append(
+                f"c.shortMessage = {java_string(match.get('short_message', 'short'))};"
+            )
+            for suggestion in match.get("suggestions", []):
+                init_lines.append(
+                    f"c.suggestions.add({java_string(suggestion)});"
+                )
+            init_lines.append("cases.add(c); }")
+
+        java_src = r'''import org.languagetool.AnalyzedSentence;
+import org.languagetool.AnalyzedToken;
+import org.languagetool.AnalyzedTokenReadings;
+import org.languagetool.language.Russian;
+import org.languagetool.rules.Rule;
+import org.languagetool.rules.RuleMatch;
+import org.languagetool.rules.patterns.RuleFilter;
+import org.languagetool.rules.patterns.RuleFilterEvaluator;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class CheckLowLevelFilterCases {
+  static class OracleRule extends Rule {
+    @Override public String getId() { return "LOW_LEVEL_FILTER_ORACLE"; }
+    @Override public String getDescription() { return "Low-level filter oracle"; }
+    @Override public RuleMatch[] match(AnalyzedSentence sentence) throws IOException { return RuleMatch.EMPTY_ARRAY; }
+  }
+
+  static class CaseData {
+    String id;
+    String operation;
+    String filterClass = "";
+    String filterArgs = "";
+    String selectedKey;
+    int patternTokenPos;
+    Map<String,String> arguments = new LinkedHashMap<>();
+    List<AnalyzedTokenReadings> tokens = new ArrayList<>();
+    List<Integer> tokenPositions = new ArrayList<>();
+    int matchFrom;
+    int matchTo = 1;
+    String message = "message";
+    String shortMessage = "short";
+    List<String> suggestions = new ArrayList<>();
+  }
+
+  static class PositionProbe extends RuleFilter {
+    int position(String value, AnalyzedTokenReadings[] tokens, RuleMatch match) {
+      return getPosition(value, tokens, match);
+    }
+    @Override public RuleMatch acceptRuleMatch(
+        RuleMatch match, Map<String,String> arguments, int patternTokenPos,
+        AnalyzedTokenReadings[] patternTokens, List<Integer> tokenPositions) {
+      return match;
+    }
+  }
+
+  static AnalyzedTokenReadings atr(String token, int startPos, String[][] rawReadings) {
+    List<AnalyzedToken> readings = new ArrayList<>();
+    for (String[] raw : rawReadings) {
+      readings.add(new AnalyzedToken(raw[0], raw[2], raw[1]));
+    }
+    return new AnalyzedTokenReadings(readings, startPos);
+  }
+
+  static RuleFilter createFilter(String className) {
+    switch (className) {
+      case "org.languagetool.rules.ru.AdvancedSynthesizerFilter":
+        return new org.languagetool.rules.ru.AdvancedSynthesizerFilter();
+      case "org.languagetool.rules.ru.DateCheckFilter":
+        return new org.languagetool.rules.ru.DateCheckFilter();
+      case "org.languagetool.rules.ru.FutureDateFilter":
+        return new org.languagetool.rules.ru.FutureDateFilter();
+      case "org.languagetool.rules.ru.INNNumberFilter":
+        return new org.languagetool.rules.ru.INNNumberFilter();
+      case "org.languagetool.rules.ru.RussianPartialPosTagFilter":
+        return new org.languagetool.rules.ru.RussianPartialPosTagFilter();
+      default:
+        throw new IllegalArgumentException("Unsupported low-level filter class: " + className);
+    }
+  }
+
+  static String b64(String value) {
+    if (value == null) value = "";
+    return Base64.getUrlEncoder().withoutPadding().encodeToString(value.getBytes(StandardCharsets.UTF_8));
+  }
+
+  static String encodeMap(Map<String,String> values) {
+    List<String> keys = new ArrayList<>(values.keySet());
+    Collections.sort(keys);
+    List<String> parts = new ArrayList<>();
+    for (String key : keys) parts.add(b64(key) + ":" + b64(values.get(key)));
+    return String.join(",", parts);
+  }
+
+  static String encodeList(List<String> values) {
+    List<String> parts = new ArrayList<>();
+    for (String value : values) parts.add(b64(value));
+    return String.join(",", parts);
+  }
+
+  static void emit(Map<String,String> fields) {
+    List<String> parts = new ArrayList<>();
+    for (Map.Entry<String,String> entry : fields.entrySet()) {
+      parts.add(entry.getKey() + "=" + b64(entry.getValue()));
+    }
+    System.out.println("LOW_LEVEL_ORACLE\t" + String.join("\u001f", parts));
+  }
+
+  public static void main(String[] args) throws Exception {
+    Russian russian = Russian.getInstance();
+    List<CaseData> cases = new ArrayList<>();
+    // CASE_INITIALIZERS
+
+    for (CaseData c : cases) {
+      Map<String,String> result = new LinkedHashMap<>();
+      result.put("id", c.id);
+      result.put("operation", c.operation);
+      try {
+        AnalyzedTokenReadings[] tokens = c.tokens.toArray(new AnalyzedTokenReadings[0]);
+        if (c.operation.equals("evaluator")) {
+          RuleFilterEvaluator evaluator = new RuleFilterEvaluator(null);
+          Map<String,String> resolved = evaluator.getResolvedArguments(
+              c.filterArgs, tokens, c.patternTokenPos, c.tokenPositions);
+          result.put("status", "RESULT");
+          result.put("resolved_args", encodeMap(resolved));
+          int selected = -1;
+          if (c.selectedKey != null && resolved.containsKey(c.selectedKey)) {
+            String selectedValue = resolved.get(c.selectedKey);
+            if (selectedValue.matches("marker(?:[+-]\\d+)?|[+-]?\\d+")) {
+              AnalyzedSentence probeSentence = new AnalyzedSentence(tokens, tokens);
+              RuleMatch probeMatch = new RuleMatch(
+                  new OracleRule(), probeSentence, c.matchFrom, c.matchTo, c.message, c.shortMessage);
+              selected = new PositionProbe().position(selectedValue, tokens, probeMatch);
+            } else {
+              for (int i = 0; i < tokens.length; i++) {
+                if (Objects.equals(tokens[i].getToken(), selectedValue)) {
+                  selected = i;
+                  break;
+                }
+              }
+            }
+          }
+          result.put("selected_position", Integer.toString(selected));
+        } else if (c.operation.equals("filter")) {
+          RuleFilter filter = createFilter(c.filterClass);
+          filter.setLanguage(russian);
+          AnalyzedSentence sentence = new AnalyzedSentence(tokens, tokens);
+          RuleMatch match = new RuleMatch(
+              new OracleRule(), sentence, c.matchFrom, c.matchTo, c.message, c.shortMessage);
+          match.setSuggestedReplacements(c.suggestions);
+          RuleMatch filtered = filter.acceptRuleMatch(
+              match, c.arguments, c.patternTokenPos, tokens, c.tokenPositions);
+          result.put("status", "RESULT");
+          if (filtered == null) {
+            result.put("decision", "reject");
+          } else {
+            result.put("decision", filtered == match ? "preserve" : "modify");
+            result.put("from_utf16", Integer.toString(filtered.getFromPos()));
+            result.put("to_utf16", Integer.toString(filtered.getToPos()));
+            result.put("message", filtered.getMessage());
+            result.put("short_message", filtered.getShortMessage());
+            result.put("suggestions", encodeList(filtered.getSuggestedReplacements()));
+            result.put("url", filtered.getUrl() == null ? "" : filtered.getUrl().toString());
+          }
+        } else {
+          throw new IllegalArgumentException("Unknown operation: " + c.operation);
+        }
+      } catch (Throwable t) {
+        result.put("status", "EXCEPTION");
+        result.put("exception_class", t.getClass().getName());
+        result.put("exception_message", t.getMessage() == null ? "" : t.getMessage());
+      }
+      emit(result);
+    }
+  }
+}
+'''.replace("    // CASE_INITIALIZERS", "\n    ".join(init_lines))
+
+        def decode_b64(value: str) -> str:
+            if not value:
+                return ""
+            padding = "=" * ((4 - len(value) % 4) % 4)
+            return base64.urlsafe_b64decode(value + padding).decode("utf-8")
+
+        def decode_map(value: str) -> Dict[str, str]:
+            result: Dict[str, str] = {}
+            if not value:
+                return result
+            for item in value.split(","):
+                key_raw, val_raw = item.split(":", 1)
+                result[decode_b64(key_raw)] = decode_b64(val_raw)
+            return result
+
+        def decode_list(value: str) -> List[str]:
+            if not value:
+                return []
+            return [decode_b64(item) for item in value.split(",")]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            src_file = Path(tmpdir) / "CheckLowLevelFilterCases.java"
+            src_file.write_text(java_src, encoding="utf-8", newline="\n")
+            subprocess.run(
+                ["javac", "-encoding", "UTF-8", "-cp", str(jar), str(src_file)],
+                check=True,
+                capture_output=True,
+            )
+            proc = subprocess.run(
+                [
+                    "java",
+                    "-Dfile.encoding=UTF-8",
+                    "-Dstdout.encoding=UTF-8",
+                    "-cp",
+                    f"{tmpdir}{os.pathsep}{jar}",
+                    "CheckLowLevelFilterCases",
+                ],
+                capture_output=True,
+            )
+            if proc.returncode != 0:
+                raise RuntimeError(
+                    "Java CheckLowLevelFilterCases failed: "
+                    + proc.stderr.decode("utf-8", errors="replace")
+                )
+
+            results: List[Dict[str, Any]] = []
+            for line in proc.stdout.decode("utf-8").splitlines():
+                if not line.startswith("LOW_LEVEL_ORACLE\t"):
+                    continue
+                line = line.split("\t", 1)[1]
+                raw_fields: Dict[str, str] = {}
+                for field in line.split("\u001f"):
+                    key, encoded = field.split("=", 1)
+                    raw_fields[key] = decode_b64(encoded)
+                if "resolved_args" in raw_fields:
+                    raw_fields["resolved_args"] = decode_map(raw_fields["resolved_args"])
+                if "suggestions" in raw_fields:
+                    raw_fields["suggestions"] = decode_list(raw_fields["suggestions"])
+                for int_key in ("selected_position", "from_utf16", "to_utf16"):
+                    if int_key in raw_fields:
+                        raw_fields[int_key] = int(raw_fields[int_key])
+                results.append(raw_fields)
+            if len(results) != len(cases):
+                raise RuntimeError(
+                    f"Expected {len(cases)} low-level Java results, got {len(results)}"
+                )
             return results
 
     def evaluate_pattern_tokens(

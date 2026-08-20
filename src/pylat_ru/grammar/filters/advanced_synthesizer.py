@@ -5,7 +5,7 @@ from pylat_ru.analysis import AnalyzedTokenReadings, AnalyzedToken
 from pylat_ru.grammar.model import RuleMatchResult
 from pylat_ru.tagging.string_tools import is_capitalized_word, is_all_uppercase, uppercase_first_char
 from pylat_ru.synthesis.synthesizer import RussianSynthesizer
-from .base import RuleFilter
+from .base import RuleFilter, FilterIllegalArgumentError
 
 class AdvancedSynthesizerFilter(RuleFilter):
     """Filters rule matches and synthesizes suggestions.
@@ -52,7 +52,7 @@ class AdvancedSynthesizerFilter(RuleFilter):
             return None
 
         if desired_postag is None:
-            raise ValueError(
+            raise FilterIllegalArgumentError(
                 f"AdvancedSynthesizerFilter: undefined POS tag for rule {match.full_rule_id} "
                 f"with POS regex '{postag_select}' for token: {postag_token}"
             )
@@ -100,7 +100,17 @@ class AdvancedSynthesizerFilter(RuleFilter):
                 # no extra deduplication beyond whatever the synthesizer returned.
                 replacements_list.extend(replacements)
 
-            return dataclasses.replace(match, suggestions=replacements_list)
+            # Java returns a fresh RuleMatch, whose pattern span defaults to
+            # the finding span rather than retaining the provisional span.
+            return dataclasses.replace(
+                match,
+                suggestions=replacements_list,
+                pattern_from_pos=match.from_pos,
+                pattern_to_pos=match.to_pos,
+                pattern_from_pos_utf16=match.from_pos_utf16,
+                pattern_to_pos_utf16=match.to_pos_utf16,
+                url=None,
+            )
 
         return match
 

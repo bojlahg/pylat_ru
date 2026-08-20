@@ -4,7 +4,7 @@ from pylat_ru.analysis import AnalyzedTokenReadings, AnalyzedSentence
 from pylat_ru.grammar.model import RuleMatchResult
 from pylat_ru.tagging.russian import RussianTagger
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
-from .base import RuleFilter
+from .base import RuleFilter, FilterRuntimeError
 
 class RussianPartialPosTagFilter(RuleFilter):
     """Filters rule matches by checking POS tags of a sub-token.
@@ -21,7 +21,7 @@ class RussianPartialPosTagFilter(RuleFilter):
         token_positions: List[int]
     ) -> Optional[RuleMatchResult]:
         if "no" not in arguments or "regexp" not in arguments or "postag_regexp" not in arguments:
-            raise ValueError(
+            raise FilterRuntimeError(
                 "Set 'no', 'regexp' and 'postag_regexp' for filter RussianPartialPosTagFilter"
             )
 
@@ -43,9 +43,9 @@ class RussianPartialPosTagFilter(RuleFilter):
 
         pattern = re.compile(regexp_pattern)
         if (pattern.groups != 1) and not two_groups_regexp:
-            raise ValueError(f"Got {pattern.groups} groups for regex '{regexp_pattern}', expected 1")
+            raise FilterRuntimeError(f"Got {pattern.groups} groups for regex '{regexp_pattern}', expected 1")
         if (pattern.groups != 2) and two_groups_regexp:
-            raise ValueError(f"Got {pattern.groups} groups for regex '{regexp_pattern}', expected 2")
+            raise FilterRuntimeError(f"Got {pattern.groups} groups for regex '{regexp_pattern}', expected 2")
 
         m = pattern.fullmatch(token_str)
         if m is not None:

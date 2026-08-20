@@ -72,7 +72,7 @@
   "deferred_examples_correct": 198,
   "unknown_filter_class_count": 0,
   "spelling_dependent_recognized_deferred_count": 1,
-  "synthetic_oracle_case_count": 145,
+  "synthetic_oracle_case_count": 178,
   "real_oracle_case_count": 165,
   "rules": [
     {

@@ -77,17 +77,22 @@ class FutureDateFilter(RuleFilter):
     ) -> Optional[RuleMatchResult]:
         year, month, day = self.get_date_components(arguments)
 
+        if SystemClock.is_test_mode:
+            current_date = datetime.date(2014, 1, 1)
+        else:
+            current_date = SystemClock.now().date()
+
         try:
             date_from_date = datetime.date(year, month, day)
-            
-            if SystemClock.is_test_mode:
-                current_date = datetime.date(2014, 1, 1)
-            else:
-                current_date = SystemClock.now().date()
 
             if date_from_date > current_date:
                 return match
             else:
                 return None
         except (ValueError, OverflowError):
-            return None
+            # Java Calendar.after() compares the pending calendar fields
+            # without forcing strict-date validation in this path.  Thus an
+            # invalid date in a future month/year is still considered future.
+            return match if (year, month, day) > (
+                current_date.year, current_date.month, current_date.day
+            ) else None

@@ -68,11 +68,11 @@ All entries below are byte-exact from the pinned commit and recorded as `VERIFIE
 
 ## Implementation semantics
 
-The engine creates and formats a provisional `RuleMatchResult`, resolves `filter@args` against the physical matched token slice and `tokenPositions`, then executes the native filter. A filter can reject, preserve, or replace the provisional match without losing IDs, marker/full-pattern spans, UTF-16 offsets, rule type, ordering, or existing fields.
+The engine creates and formats a provisional `RuleMatchResult`, resolves `filter@args` against the physical matched token slice and `tokenPositions`, then executes the native filter. A filter can reject, preserve, or replace the provisional match. Filters that construct a fresh Java `RuleMatch` (`AdvancedSynthesizerFilter` and the modifying `DateCheckFilter` branch) reset the full-pattern span to the finding span and copy only the fields upstream copies.
 
 - `RuleFilterEvaluator` preserves Java whitespace splitting, first-colon parsing, 1-based backreferences, skip correction, explicit bounds failures, duplicate-backreference failure, and literal duplicate overwrite.
 - `AdvancedSynthesizerFilter` uses the engine's current native `RussianSynthesizer`, first matching ATR reading with first-reading fallback, marker/numeric positions, composite `\aN`/`\bN` tags, Java casing/template order, template-result deduplication, and raw no-placeholder forms (including duplicates). Russian `adaptSuggestion` is the inherited identity behavior. Filter instances are match-local so contextual synthesizers cannot leak across engines.
-- `DateCheckFilter` and `FutureDateFilter` distinguish Java-equivalent illegal-argument and runtime failures. Invalid strict dates are rejected; required/malformed arguments propagate where upstream does. `SystemClock` provides isolated production-current and controlled-test behavior.
+- `DateCheckFilter` and `FutureDateFilter` distinguish Java-equivalent illegal-argument and runtime failures. `DateCheckFilter` rejects invalid strict dates. `FutureDateFilter` preserves Java `Calendar.after` behavior for pending invalid future fields, while required/malformed arguments propagate where upstream does. `SystemClock` provides isolated production-current and controlled-test behavior.
 - `INNNumberFilter` ports the pinned 10/12-digit checksum algorithms and ASCII digit semantics.
 - `RussianPartialPosTagFilter` runs the native tagger and the accepted single-token Russian disambiguator, including presence-based `negate_pos` and exact one/two-group behavior.
 - `RussianSuppressMisspelledSuggestionsFilter` is recognized but remains non-executable. It fails closed with an explicit Task-0012 spelling dependency; no dictionary-membership or heuristic approximation was added.
@@ -100,10 +100,12 @@ Examples: 2,119 runnable (910 incorrect, 1,209 correct) and 327 deferred (129 in
 - Oracle build: `lt_6.8_source_build_jdk17_stefan`.
 - JAR SHA-256: `b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`.
 - Live generator: `python tools/generate_oracle_filters_fixtures.py`; completed successfully against the trusted Java oracle.
-- Synthetic fixture: 145 cases across 27 feature dimensions; 112 ordinary results and 33 captured Java exception results.
+- Synthetic fixture: 178 genuinely distinct low-level cases across 84 feature dimensions; 166 ordinary results and 12 exact-class Java exception results. Canonical semantic SHA-256 signatures cover operation/filter, arguments, controlled ATR, token positions, marker state, and provisional match state; generation and tests reject duplicates.
 - Real Russian fixture: all 165 embedded examples for all 19 promoted rules; 32 positive and 133 zero-match oracle results.
 - Controlled omitted-year fixture date: `2026-08-20`; production still uses the runtime current year.
-- Compared fields: finding count/order, rule/full IDs and metadata, marker and full-pattern UTF-16 spans, messages, short messages, and suggestions/order. Python codepoint spans are independently asserted by grammar and wheel tests.
+- Real-rule compared fields: finding count/order, rule ID, full rule ID, category ID/name, rule description, default-off state, marker and full-pattern UTF-16 spans, message, short message, suggestions/order, and URL. Python codepoint spans and source slices for marker and full-pattern spans are derived from Java UTF-16 offsets and asserted independently.
+- Low-level compared fields: resolved arguments, selected numeric/marker/backreference position, reject/preserve/modify decision, returned offsets/message/short message/suggestions/URL, and exact Java exception class plus mapped Python exception category.
+- Coverage fails closed: normal features require a Java `RESULT`; an exception counts only for an explicitly exception-named feature with a pinned class/category. Pattern non-matches and unrelated missing-argument failures are absent from this fixture.
 - `compat/oracle_manifest.json` binds both fixtures to the trusted build with byte size and SHA-256.
 
 Committed-fixture parity is part of normal pytest. Live Java generation is development-only and neither Java nor oracle assets are imported by production code.
@@ -128,7 +130,7 @@ Final verification commands/results:
 
 ```text
 python tools/generate_oracle_filters_fixtures.py
-  19 rules / 165 real cases; 145 synthetic cases; exit 0
+  19 rules / 165 real cases; 178 distinct low-level synthetic cases; exit 0
 
 python tools/russian_grammar_filter_inventory.py
   23 filter-bearing rules; exit 0
@@ -136,11 +138,14 @@ python tools/russian_grammar_filter_inventory.py
 python -m pytest tests/upstream/test_filters_oracle_parity.py -q
   5 passed
 
+python -m pytest tests/upstream/test_russian_grammar_examples.py::test_grammar_all_runnable_0010_trigger_parity -q
+  1 passed; all 2,119 runnable examples; failed=0, errors=0, skipped=0
+
 python -m pytest tests/unit/test_real_wheel_grammar.py -q
-  1 passed
+  1 passed; failed=0, errors=0, skipped=0
 
 python -m pytest -q
-  361 passed, 0 failed, 0 errors, 0 skipped; 73.10 s
+  361 passed, 0 failed, 0 errors, 0 skipped; 76.86 s
 ```
 
 The full run used CPython 3.10.11 on Windows and included the isolated real-wheel build/install/execution proof. Normal fixture-only tests and the live-oracle generation are reported separately above.
@@ -152,7 +157,7 @@ The full run used CPython 3.10.11 on Windows and included the isolated real-whee
 - `FILTER_0010_RUNNABLE`: 19 rules.
 - Runnable/deferred source rules: 778 / 114.
 - Runnable/deferred examples: 2,119 / 327.
-- Oracle cases: 145 synthetic + 165 real.
+- Oracle cases: 178 synthetic + 165 real.
 - Unknown filter classes: 0.
 - Wheel production isolation: passed.
 
@@ -166,7 +171,6 @@ The full run used CPython 3.10.11 on Windows and included the isolated real-whee
 
 - Initial Task-0010 implementation commit: `d14be5f` on `main`.
 - Conformance review-fix implementation commit: `85a3451da293d8c58ecb0fd5436cd7af71a0708c`.
-- Push target: `origin/main`, without force or history rewrite.
-- Remote verification after implementation push: `origin/main = 85a3451da293d8c58ecb0fd5436cd7af71a0708c`.
-- Automatic GitHub Actions CI: run `32354828005`, `success`; jobs `Python 3.10` and `Python 3.12` both `success` for the exact implementation SHA.
+- Final oracle-evidence correction started from `d4189f0aad3fea6a41be6d7c31fdcd5fb4b1c4fb`.
+- Push target for the final correction: `origin/main`, without force or history rewrite. The exact pushed SHA and exact-SHA CI result are part of the final handoff verification.
 - Manual Oracle Conformance workflow: not invoked; live local trusted-oracle generation completed successfully as documented above.
