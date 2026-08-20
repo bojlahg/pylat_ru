@@ -131,17 +131,18 @@ def test_grammar_unification_invariants():
     deferred_0012 = [r for r in rules if r.execution_state == ExecutionState.DEFERRED_0012_SPELLING_OR_SUPPRESSION]
     multi_blocker = [r for r in rules if r.execution_state == ExecutionState.MULTI_BLOCKER]
 
+    # Task 0012 promoted every rule that was blocked by spelling / suppression.
     assert len(runnable_0007) == 506
-    assert len(runnable_0008) == 229
+    assert len(runnable_0008) == 339
     assert len(runnable_0009) == 24
-    assert len(runnable_0010) == 19
+    assert len(runnable_0010) == 23
     assert len(deferred_0010) == 0
-    assert len(deferred_0012) == 114
+    assert len(deferred_0012) == 0
     assert len(multi_blocker) == 0
 
-    assert len(runnable_0007) + len(runnable_0008) + len(runnable_0009) + len(runnable_0010) == 778
-    assert len(deferred_0010) + len(deferred_0012) + len(multi_blocker) == 114
-    assert 778 + 114 == 892
+    assert len(runnable_0007) + len(runnable_0008) + len(runnable_0009) + len(runnable_0010) == 892
+    assert len(deferred_0010) + len(deferred_0012) + len(multi_blocker) == 0
+    assert 892 + 0 == 892
 
 
 def test_compatibility_oracle_cases_arithmetic():

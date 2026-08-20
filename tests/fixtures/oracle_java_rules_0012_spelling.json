@@ -1,0 +1,2158 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0012",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 59
+  },
+  "cases": [
+    {
+      "id": "spell_correct_cyrillic",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "русский",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "correct_cyrillic",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "1e0b12f59b9ed583396bc2d7164b44060a041208755e88e6f620c18fdfc1b2c2"
+    },
+    {
+      "id": "spell_correct_yo",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ёжик",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_vs_ye",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "754cd4761d7e8594a124e3f960a0c3a5702caca90a63f7e880269339c66bbbcd"
+    },
+    {
+      "id": "spell_correct_ye",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ежик",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_vs_ye",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "0f45e2a49d33f339f8cc6091da2268686ed7f016959d8f0cadc86c357fd4bf2c"
+    },
+    {
+      "id": "spell_misspelled_cyrillic",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "каждя",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "misspelled_cyrillic",
+        "several_suggestions",
+        "suggestion_order"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "дождя",
+          "кадя",
+          "каждая",
+          "вождя",
+          "ка ждя"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "3c2a2842893956c0dbed96a6be65b91648e6cfca70dca1de907055a0c4baeb19"
+    },
+    {
+      "id": "spell_hyphen_wrong",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "юго-зпдный",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "hyphenated",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "юго-западный"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "34ed3d7aa3ab12e0eabcff3230ee1a400bb32e3975f2e3d289c780655f4c7c64"
+    },
+    {
+      "id": "spell_hyphen_correct",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "северо-восточный",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "hyphenated",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "a7c0d7ec9a69be1cc41d2c424691de39524855f31442c71e891aecb5c048aa9e"
+    },
+    {
+      "id": "spell_proper_hyphen_correct",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Ростов-на-Дону",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "hyphenated",
+        "title_case",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "8ac15ea44e8b0264b289af48f9430e40ab71cf7aebf2d23a47d4a02c147a319f"
+    },
+    {
+      "id": "spell_proper_hyphen_wrong",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Ростов-на-дону",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "hyphenated",
+        "title_case",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "Ростов-на-Дону",
+          "Ростова-на-Дону",
+          "Ростове-на-Дону",
+          "Ростову-на-Дону"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "663cafccfb3ef04062862300d591ab4d59e0b32c67e184194c8f97fd70934af9"
+    },
+    {
+      "id": "spell_sentence_start_case",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Превет",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "sentence_start_capitalization",
+        "suggestion_capitalization"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "Привет",
+          "Кривить",
+          "Привить",
+          "Криветь",
+          "Кривит",
+          "Кривят",
+          "Приветь",
+          "Привит",
+          "Ревет",
+          "Премет",
+          "Превич",
+          "Припять",
+          "Привин",
+          "П ревет",
+          "Пре вет"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "8c69399d8354d6bd161b69e8f00efdc99e906d08b2a6c04ea7062f19159247b3"
+    },
+    {
+      "id": "spell_all_caps",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ПРЕВЕТ",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "all_caps",
+        "ignore_all_uppercase"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "803c1c5e39accd664dc7da69814eb8d0cf094b7a8e62bb1ce3c55dc7620d7d0e"
+    },
+    {
+      "id": "spell_all_caps_correct",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ПРИВЕТ",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "all_caps"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "4e69ddd0d42786014ed0c2f6dd5868ed358a0e99ec9dc8fa6e7bbd1929857818"
+    },
+    {
+      "id": "spell_mixed_case",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ПрИвЕт",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "mixed_case",
+        "ignore_all_uppercase"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "42387b03ccd51af3def573479d98a68df3c4209b612bbd0f9eb68422e026ce4b"
+    },
+    {
+      "id": "spell_title_case_wrong",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Каждя",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "title_case",
+        "suggestion_capitalization",
+        "several_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "Дождя",
+          "Вождя",
+          "Ка ждя"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "3c8cbb1310751cfdb6cae7f091c6c78dcb275a39292ce72c0efa6d3d289fed20"
+    },
+    {
+      "id": "spell_combining_acute",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ко́т",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "combining_acute",
+        "unmappable_in_dictionary_charset",
+        "several_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "кость",
+          "кот",
+          "корт",
+          "конт",
+          "кофт",
+          "копт",
+          "кост",
+          "кошт"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "e0449dc793f0517e3970fe0ba9549d570387db6c72fe4b17adc1ea0104e25ff9"
+    },
+    {
+      "id": "spell_combining_grave",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ко̀т",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "combining_grave",
+        "unmappable_in_dictionary_charset",
+        "several_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "кость",
+          "кот",
+          "корт",
+          "конт",
+          "кофт",
+          "копт",
+          "кост",
+          "кошт"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "cc8b4cdb16bcc1f6a9f754eaf773083b554120e89ea1b2f039852bfcb16f2e6a"
+    },
+    {
+      "id": "spell_modifier_apostrophe",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "котʼ",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "modifier_apostrophe",
+        "unmappable_in_dictionary_charset",
+        "several_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "кот",
+          "котэ",
+          "коти",
+          "кота",
+          "коте",
+          "кото",
+          "коту",
+          "коты"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "4185d4188757f35817a082f49d0b051f3daedc87ffe9f8c82dff4e6e0584b668"
+    },
+    {
+      "id": "spell_digits",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "12345",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "digits"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "2334faeffe8e0704de171d670ef634253e6babf6e6e2d42f7cb5042b7ce6fa00"
+    },
+    {
+      "id": "spell_punctuation",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "!!!",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "punctuation"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "045527ba8f5ccfecddc9b0bc6c115bcbf09bd316198ae2c7cbaa1f3e2c8ed14c"
+    },
+    {
+      "id": "spell_latin_default_config",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "wordd",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "non_russian",
+        "config_zero",
+        "config_not_applied_by_direct_query"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "44c06f75e5312e903d624c7ba9c57854c800d57f43916dc8ff6eb69230ab60c7"
+    },
+    {
+      "id": "spell_latin_config_one",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "wordd",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "non_russian",
+        "config_one",
+        "several_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "Ford",
+          "Word"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "ea780d614b577cff3a2812ebe176f442f682a0c3d7ef21cdaa22e5354df0c88b"
+    },
+    {
+      "id": "spell_latin_config_minus_one",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "wordd",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": -1
+      },
+      "coverage": [
+        "positive",
+        "non_russian",
+        "config_out_of_ui_bounds",
+        "config_not_applied_by_direct_query"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "cf01f435e3c55ea42d9075819a809ab58e7f0eb4bb73673bbeeb906ee9034726"
+    },
+    {
+      "id": "spell_latin_config_two",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "wordd",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 2
+      },
+      "coverage": [
+        "positive",
+        "non_russian",
+        "config_out_of_ui_bounds",
+        "config_not_applied_by_direct_query"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "048408a1b47c54cc27e0f3949726d8e91036f8d1a76ce0d500fbf7e58d9ba509"
+    },
+    {
+      "id": "spell_mixed_script",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "teхt",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "mixed_script",
+        "config_zero",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "192f16f7bfba781c46cfa03f3367f1b065ddeb67c3e0b6da0f1c1e3db53aef42"
+    },
+    {
+      "id": "spell_mixed_script_config_one",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "teхt",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "mixed_script",
+        "config_one",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "6a7442602ca059af936814f0556db7ac3b3ced7f0c4ce98e298bb04ce48163ef"
+    },
+    {
+      "id": "spell_spelling_txt_addition",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ГИБДД",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "spelling_addition"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "a49bfe459c7aa36234de86e0129ad5f424fd8594d2f178bd31c51e47bf612de0"
+    },
+    {
+      "id": "spell_prohibited_word",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Тайланд",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "prohibit_resource",
+        "prohibition_not_applied_by_direct_query"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "270b083444b82d4d36d05e0e8176d1b0ca00341822c2236e1217810236325b5f"
+    },
+    {
+      "id": "spell_prohibited_lowercase",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "друшлаг",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "prohibit_resource"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "дуршлаг"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "2fc42da5431ab157453a08dab40fb5a64fe0a2e4be82b57a40010617e1239f07"
+    },
+    {
+      "id": "spell_ignore_txt_entry",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "что-что",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "ignore_resource",
+        "ignore_list_not_applied_by_direct_query",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "02ad1cf2264c210d9dba441b7f8510d73a34fc7ef7af4b0dcc6e339d02282889"
+    },
+    {
+      "id": "spell_nosuggest_blogger",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "блогер",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "nosuggest"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "ed847012e1310d39599279478a212a92820f5955352c9e32123ac45ebd77983f"
+    },
+    {
+      "id": "spell_no_suggestion_result",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ыфвацйщшгн",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "cd622607b7d5063b73bc6eb35f0d7ad492527bec812df1d0bdc67eab1e2e08ee"
+    },
+    {
+      "id": "spell_url_token",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "http://example.com/абв",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "url",
+        "url_check_not_applied_by_direct_query",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "5c2b428c445cd7ac7c4aa8cc515a915bd72de0cb84f142b69816894c26df32bd"
+    },
+    {
+      "id": "spell_email_token",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "user@example.com",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "email",
+        "email_check_not_applied_by_direct_query",
+        "no_suggestions"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": []
+      },
+      "finding_count": 1,
+      "semantic_signature": "29919f38020b4f7612dbcf9650b4c7112cbaf17f0d7a646e83f669be97901d39"
+    },
+    {
+      "id": "spell_global_spelling_phrase_token",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Facebook",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "negative",
+        "global_spelling_resource"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "77c3fb2526cba12ff6cb2d5345bf0e149076160e6c7525816223fe49d456a81a"
+    },
+    {
+      "id": "spell_languagetool",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "LanguageTool",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "negative",
+        "languagetool_special"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "21e072c42c919d8f69ce73e5faa2755383e22880a69eec57c9f3d650d50aec62"
+    },
+    {
+      "id": "spell_yo_correct",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "ёжик",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_dictionary",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "e83bb1c7821b5415bee00a34bfbaf487cee30bef4bc20efe5768275d23f75dc9"
+    },
+    {
+      "id": "spell_yo_ye_is_wrong",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "ежик",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "yo_dictionary",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "ёжик",
+          "ящик",
+          "джек",
+          "ерик",
+          "ялик",
+          "ежи",
+          "иже",
+          "яцек",
+          "ёжика",
+          "ёжике",
+          "ёжики",
+          "ёжику",
+          "ёжил",
+          "ёжим",
+          "ёжит",
+          "ёжив",
+          "еже",
+          "ежей",
+          "ежих",
+          "ежин",
+          "илек",
+          "ирек",
+          "ирик",
+          "ижиц",
+          "яник",
+          "ярик",
+          "ясик",
+          "Джек",
+          "ежи к"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "44490302f7a08bc84ceaa65fb2cd081c794d24963a14eb25ba93c03066fb61d7"
+    },
+    {
+      "id": "spell_yo_russian",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "русский",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_dictionary",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "efa8ba4cad57f9769bdd1afeff59390d4695156cdefee3c4a96d20f34223a7de"
+    },
+    {
+      "id": "spell_yo_hyphen_wrong",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "юго-зпдный",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "yo_dictionary",
+        "hyphenated",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "юго-западный"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "d465d34cd97158710a52b8335686917b40b8935c86e449f1b1a459c0e313ff94"
+    },
+    {
+      "id": "spell_yo_hyphen_correct",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "северо-восточный",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_dictionary",
+        "hyphenated",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "e48df5fc3aa474a9f1bb123ae06ea89725d808e0e2a5b599e04147b36f14f0e1"
+    },
+    {
+      "id": "spell_yo_proper_hyphen",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "Ростов-на-Дону",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_dictionary",
+        "hyphenated",
+        "upstream_assertion"
+      ],
+      "expected": {
+        "misspelled": false,
+        "suggestions": []
+      },
+      "finding_count": 0,
+      "semantic_signature": "d77e992ab2a2376a3b074f8f95b9627c1d846eb4454f960e94a195df212db1d6"
+    },
+    {
+      "id": "spell_yo_nosuggest_elka",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "елка",
+      "execution_mode": "direct_speller",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "yo_dictionary",
+        "nosuggest"
+      ],
+      "expected": {
+        "misspelled": true,
+        "suggestions": [
+          "ёлка",
+          "ёлку",
+          "ялта",
+          "ярко",
+          "ямка",
+          "явка",
+          "ятка",
+          "едко",
+          "белка",
+          "янка",
+          "телка",
+          "ёлках",
+          "ёлкам",
+          "ёлке",
+          "ёлки",
+          "ёлкою",
+          "ёлкой",
+          "ёмка",
+          "ёмко",
+          "юлка",
+          "юлку",
+          "едка",
+          "ейка",
+          "ейку",
+          "ела",
+          "елла",
+          "еллу",
+          "елва",
+          "елву",
+          "елза",
+          "елзу",
+          "емко",
+          "ила",
+          "илека",
+          "илга",
+          "илгу",
+          "илька",
+          "илза",
+          "илзу",
+          "инка",
+          "инку",
+          "иска",
+          "иску",
+          "лека",
+          "леку",
+          "мелка",
+          "яка",
+          "яла",
+          "ялика",
+          "ялту",
+          "ямку",
+          "янку",
+          "ярка",
+          "ярку",
+          "ятку",
+          "явку",
+          "шелка"
+        ]
+      },
+      "finding_count": 1,
+      "semantic_signature": "7341cb70d4226dac067b485e19c8e78befe0fa7c47b11c8ac819746552eabd38"
+    },
+    {
+      "id": "spell_rule_registered_example",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Все счастливые семьи похожи друг на друга, каждя несчастливая семья несчастлива по-своему.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "exact_span",
+        "suggestion_order"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "дождя",
+            "кадя",
+            "каждая",
+            "вождя",
+            "ка ждя"
+          ],
+          "url": null,
+          "from_utf16": 43,
+          "to_utf16": 48,
+          "from": 43,
+          "to": 48,
+          "source_slice": "каждя"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "bfe0c431b858496c4c9908b51454f0bb25449345f182c287e458b69a4817563f"
+    },
+    {
+      "id": "spell_rule_sentence_start",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Превет мир!",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "sentence_start_capitalization",
+        "suggestion_capitalization"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Привет",
+            "Кривить",
+            "Привить",
+            "Криветь",
+            "Кривит",
+            "Кривят",
+            "Приветь",
+            "Привит",
+            "Ревет",
+            "Премет",
+            "Превич",
+            "Припять",
+            "Привин",
+            "П ревет",
+            "Пре вет"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 6,
+          "from": 0,
+          "to": 6,
+          "source_slice": "Превет"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c7c390b0a7b3d47a008aa4a0aa027e920168a65e505022d0ba96ce5f6030156c"
+    },
+    {
+      "id": "spell_rule_multiple_errors",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Это тест с ыфвацй и жщшгн.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "multi_finding",
+        "multiple_misspellings"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "живой",
+            "фай",
+            "фавор",
+            "афкой",
+            "айвой",
+            "алаой",
+            "аввой",
+            "бивай",
+            "бовой",
+            "бывай",
+            "давай",
+            "девай",
+            "девой",
+            "дивой",
+            "елвой",
+            "емвой",
+            "фаций",
+            "фарой",
+            "фасуй",
+            "фатой",
+            "фавий",
+            "фазой",
+            "фифой",
+            "фигой",
+            "филой",
+            "фимой",
+            "фирой",
+            "фитой",
+            "фокой",
+            "фомой",
+            "форой",
+            "фраун",
+            "фугой",
+            "фугуй",
+            "фулой",
+            "фурой",
+            "хивой",
+            "изваяй",
+            "йовой",
+            "кавой",
+            "кивай",
+            "кивой",
+            "ковой",
+            "кувой",
+            "лавой",
+            "левой",
+            "навоюй",
+            "навой",
+            "невой",
+            "ниваций",
+            "нивой",
+            "новаций",
+            "новой",
+            "обвой",
+            "освой",
+            "отвоюй",
+            "отвой",
+            "оваций",
+            "овцой",
+            "ошвой",
+            "павой",
+            "певай",
+            "пивай",
+            "повоюй",
+            "повой",
+            "яффой",
+            "явкой",
+            "явной",
+            "язвой",
+            "рёвой",
+            "ревой",
+            "ривой",
+            "савой",
+            "сдвой",
+            "севой",
+            "сивой",
+            "совой",
+            "сувой",
+            "сваей",
+            "свай",
+            "тувой",
+            "тывой",
+            "удвой",
+            "урвутся",
+            "усвой",
+            "утвой",
+            "живай",
+            "вафой",
+            "вагой",
+            "вахой",
+            "ваий",
+            "валуй",
+            "ваяй",
+            "васой",
+            "ватой",
+            "вазой",
+            "вовой",
+            "выдувай",
+            "взвой",
+            "зёвой",
+            "завоюй",
+            "завой",
+            "зевай",
+            "зевой",
+            "зовутся",
+            "шевой",
+            "элвой",
+            "Аевой",
+            "Афкой",
+            "Алаой",
+            "Аввой",
+            "Бовой",
+            "Ховой",
+            "Иевой",
+            "Йовой",
+            "Лёвой",
+            "Левой",
+            "Ловой",
+            "Невой",
+            "Новой",
+            "Оевой",
+            "Ривой",
+            "Севой",
+            "Товой",
+            "Тувой",
+            "Тывой",
+            "Вовой",
+            "Шевой",
+            "Шивой",
+            "Щавой",
+            "Щевой",
+            "Чавой"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 17,
+          "from": 11,
+          "to": 17,
+          "source_slice": "ыфвацй"
+        },
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "жан",
+            "жаргон",
+            "жетон",
+            "яшин",
+            "женин",
+            "аршин",
+            "шон",
+            "кашин",
+            "жадан",
+            "гн",
+            "мгн",
+            "мишин",
+            "яншин",
+            "жанин",
+            "шушун",
+            "Ёлшин",
+            "Ёшин",
+            "афшин",
+            "агшин",
+            "айшан",
+            "акшин",
+            "аршан",
+            "аршен",
+            "ашан",
+            "ашон",
+            "башен",
+            "башин",
+            "бешен",
+            "дошин",
+            "душён",
+            "душен",
+            "емшан",
+            "ершён",
+            "ершен",
+            "фашин",
+            "фэшн",
+            "гашён",
+            "гашен",
+            "кишн",
+            "кошён",
+            "кошен",
+            "кушан",
+            "лишён",
+            "лишен",
+            "магн",
+            "машин",
+            "мешан",
+            "мешен",
+            "мошон",
+            "мушин",
+            "мышин",
+            "мшан",
+            "ношен",
+            "пашен",
+            "пашин",
+            "пешен",
+            "пушён",
+            "пушен",
+            "пышен",
+            "рюшен",
+            "решён",
+            "решен",
+            "ришан",
+            "рушан",
+            "рушен",
+            "сошен",
+            "стогн",
+            "сушён",
+            "сушен",
+            "тешен",
+            "тошен",
+            "тушён",
+            "тушен",
+            "тушин",
+            "ушан",
+            "жёг",
+            "жёгши",
+            "жён",
+            "жёван",
+            "жабен",
+            "жабин",
+            "жаден",
+            "жадин",
+            "жахан",
+            "жакан",
+            "жален",
+            "жанн",
+            "жарен",
+            "жбан",
+            "ждан",
+            "жег",
+            "жегши",
+            "жен",
+            "женен",
+            "женн",
+            "жеван",
+            "жги",
+            "жгу",
+            "жгун",
+            "жиг",
+            "жига",
+            "жиган",
+            "жиге",
+            "жиги",
+            "жигу",
+            "жилен",
+            "жилин",
+            "жирен",
+            "житен",
+            "жижин",
+            "жогин",
+            "жокин",
+            "жрун",
+            "жуан",
+            "жуанн",
+            "жудин",
+            "жулан",
+            "жулин",
+            "жупан",
+            "журён",
+            "журен",
+            "журин",
+            "журн",
+            "жужан",
+            "жужанн",
+            "жужгин",
+            "жужин",
+            "жужун",
+            "жучен",
+            "жжён",
+            "жжен",
+            "ваагн",
+            "вешён",
+            "вешан",
+            "вешен",
+            "вишан",
+            "вишен",
+            "вышин",
+            "шан",
+            "шин",
+            "шошон",
+            "шушан",
+            "шушанн",
+            "экшен",
+            "элшан",
+            "щигр",
+            "Юйшин",
+            "Юршин",
+            "Юшин",
+            "Ющин",
+            "Ющишин",
+            "Аёшин",
+            "Аюшин",
+            "Аешин",
+            "Афшин",
+            "Агшин",
+            "Айшан",
+            "Айшин",
+            "Акшин",
+            "Аншин",
+            "Аршен",
+            "Ашин",
+            "Ашон",
+            "Ащин",
+            "Башин",
+            "Бишон",
+            "Бошин",
+            "Бушин",
+            "Бышин",
+            "Дёшин",
+            "Дашин",
+            "Дешин",
+            "Дошин",
+            "Душин",
+            "Дышин",
+            "Елшин",
+            "Емшин",
+            "Еншин",
+            "Ершин",
+            "Евшин",
+            "Ешин",
+            "Ещин",
+            "Фешин",
+            "Фишин",
+            "Фошин",
+            "Гашин",
+            "Гишин",
+            "Гошин",
+            "Гушин",
+            "Хашин",
+            "Имшин",
+            "Иншин",
+            "Иошин",
+            "Иршин",
+            "Иушин",
+            "Ившин",
+            "Ишин",
+            "Ищеин",
+            "Ищин",
+            "Кашин",
+            "Кошин",
+            "Кушин",
+            "Лёшин",
+            "Люшин",
+            "Лашин",
+            "Лешин",
+            "Лишин",
+            "Лошин",
+            "Ляшин",
+            "Лушин",
+            "Мёшин",
+            "Машин",
+            "Мешин",
+            "Мишин",
+            "Мошин",
+            "Мяшин",
+            "Мушин",
+            "Мышин",
+            "Нешин",
+            "Няшин",
+            "Оюшин",
+            "Окшин",
+            "Омшин",
+            "Оншин",
+            "Оршин",
+            "Ошин",
+            "Пашин",
+            "Пешин",
+            "Пошин",
+            "Пушин",
+            "Пышин",
+            "Якшин",
+            "Яншин",
+            "Яршин",
+            "Яшин",
+            "Ящишин",
+            "Рашин",
+            "Решин",
+            "Ришан",
+            "Ряшин",
+            "Рушан",
+            "Рышин",
+            "Сашин",
+            "Сошин",
+            "Сушин",
+            "Тюшин",
+            "Ташин",
+            "Тешин",
+            "Тишин",
+            "Тошин",
+            "Тушин",
+            "Ушин",
+            "Ваагн",
+            "Вишан",
+            "Вошин",
+            "Шашин",
+            "Шешин",
+            "Шишин",
+            "Шошин",
+            "Шушан",
+            "Шушанн",
+            "Шушин",
+            "Элшан",
+            "Чашин",
+            "Чешин"
+          ],
+          "url": null,
+          "from_utf16": 20,
+          "to_utf16": 25,
+          "from": 20,
+          "to": 25,
+          "source_slice": "жщшгн"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "85f24ba70d913e9704d339c1fc639c7335452db6079c98be8ec45c24bb0f1c82"
+    },
+    {
+      "id": "spell_rule_correct_sentence",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Это правильное предложение.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "correct_cyrillic"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "dbcfce8da7ab46af0ed4860dac4dfd3298fd6a1c5b994e580b2696827f06f611"
+    },
+    {
+      "id": "spell_rule_url_and_email",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Смотри http://example.com/page и user@example.com.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "url",
+        "email"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "f2b112a315e246497d2f837a04b6a8c42bd2289e5b4edfd544eb4a2a7e71a4b9"
+    },
+    {
+      "id": "spell_rule_numbers_punctuation",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Число 12345 и знак §.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "digits",
+        "punctuation"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b3da719e83d30b9632d152ada3d343af2d363fddaa377bbd46a44ee1104a5350"
+    },
+    {
+      "id": "spell_rule_non_bmp_prefix",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "😀 каждя.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "non_bmp",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "дождя",
+            "кадя",
+            "каждая",
+            "вождя",
+            "ка ждя"
+          ],
+          "url": null,
+          "from_utf16": 3,
+          "to_utf16": 8,
+          "from": 2,
+          "to": 7,
+          "source_slice": "каждя"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "2464a7d5f41b609243d08f243f388161ba4027efea028579070b24dc8f7db811"
+    },
+    {
+      "id": "spell_rule_soft_hyphen_inside",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "каж­dя слово.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "ignored_characters",
+        "russian_letter_pattern"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "76419e0647bb18aa3686b87ec39688b6ada1eecd86c0b50b034cd429d2321d13"
+    },
+    {
+      "id": "spell_rule_soft_hyphen_inside_config_one",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "каж­dя слово.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "ignored_characters",
+        "hidden_char_offset",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Каждая",
+            "Кожная"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 6,
+          "from": 0,
+          "to": 6,
+          "source_slice": "каж­dя"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "9999e846f171402dc7d400905568b78384afab45ac23f91a9ce277d5208e6f7a"
+    },
+    {
+      "id": "spell_rule_combining_acute_word",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ко́т сидит.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "combining_acute"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "ab4ded62b156a686a1a748c73bab0596a6067cfd502be6a60a264d185b76f616"
+    },
+    {
+      "id": "spell_rule_prohibited",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Тайланд красив.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "prohibit_resource"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "Тайланд"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6090b8fcce71dfcf37a0719e58ab58575cb5abe01b5366d26473c07deed69af6"
+    },
+    {
+      "id": "spell_rule_spelling_addition",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "ГИБДД и ОСАГО работают.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "spelling_addition"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "fadfdd4481d1d6fca82647ccdd5e3b4c9f59054800b68a46d7517d2958de13e3"
+    },
+    {
+      "id": "spell_rule_antipattern_phrase",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Microsoft Entra тут.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "negative",
+        "ignore_spelling_antipattern"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "75624da90787ac0c7e678534b519df10ddf3f9fb6f94684f2895cbf111c61de3"
+    },
+    {
+      "id": "spell_rule_antipattern_tokenized",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "Он использует log4j сегодня.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "negative",
+        "ignore_spelling_antipattern"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "301585c88794a74565da7ec7a23edbda38a411409f12739174a7437d4237acb4"
+    },
+    {
+      "id": "spell_rule_latin_config_one",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "The quick brown fox.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {
+        "conf_ru_Value": 1
+      },
+      "coverage": [
+        "positive",
+        "non_russian",
+        "config_one",
+        "multi_finding"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Cher",
+            "TAP",
+            "TCP",
+            "TCS",
+            "TIF",
+            "TLD",
+            "TLS",
+            "TMX",
+            "TPU",
+            "TUI",
+            "TXT",
+            "Vue"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 3,
+          "from": 0,
+          "to": 3,
+          "source_slice": "The"
+        },
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Buick"
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 9,
+          "from": 4,
+          "to": 9,
+          "source_slice": "quick"
+        },
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Crewe",
+            "Crowdin",
+            "Eton",
+            "Grok"
+          ],
+          "url": null,
+          "from_utf16": 10,
+          "to_utf16": 15,
+          "from": 10,
+          "to": 15,
+          "source_slice": "brown"
+        },
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Fox",
+            "Vox",
+            "IoT",
+            "Max",
+            "Xbox"
+          ],
+          "url": null,
+          "from_utf16": 16,
+          "to_utf16": 19,
+          "from": 16,
+          "to": 19,
+          "source_slice": "fox"
+        }
+      ],
+      "finding_count": 4,
+      "semantic_signature": "efa2c8304577151f25f68024bcf348dd7fb93cec6cfaf94c2b80737177907d24"
+    },
+    {
+      "id": "spell_rule_latin_config_zero",
+      "rule_class": "MorfologikRussianSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "text": "The quick brown fox.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "non_russian",
+        "config_zero"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "733ba3661b73b7e60556b1c7963d650487e6cc91efeab42740a0581b65538135"
+    },
+    {
+      "id": "spell_rule_yo_default_dictionary",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "Ежик и елка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "yo_dictionary",
+        "multi_finding",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "Джек",
+            "Ёжик",
+            "Еник",
+            "Ерик",
+            "Ежак",
+            "Еждик",
+            "Ежев",
+            "Ежи",
+            "Ежин",
+            "Ежи к"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 4,
+          "from": 0,
+          "to": 4,
+          "source_slice": "Ежик"
+        },
+        {
+          "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+          "category_id": "TYPOS",
+          "category_name": "Проверка орфографии",
+          "message": "Возможно найдена орфографическая ошибка.",
+          "short_message": "Орфографическая ошибка",
+          "suggestions": [
+            "ёлка",
+            "ёлку",
+            "ялта",
+            "ярко",
+            "ямка",
+            "явка",
+            "ятка",
+            "едко",
+            "белка",
+            "янка",
+            "телка",
+            "ёлках",
+            "ёлкам",
+            "ёлке",
+            "ёлки",
+            "ёлкою",
+            "ёлкой",
+            "ёмка",
+            "ёмко",
+            "юлка",
+            "юлку",
+            "едка",
+            "ейка",
+            "ейку",
+            "ела",
+            "елла",
+            "еллу",
+            "елва",
+            "елву",
+            "елза",
+            "елзу",
+            "емко",
+            "ила",
+            "илека",
+            "илга",
+            "илгу",
+            "илька",
+            "илза",
+            "илзу",
+            "инка",
+            "инку",
+            "иска",
+            "иску",
+            "лека",
+            "леку",
+            "мелка",
+            "яка",
+            "яла",
+            "ялика",
+            "ялту",
+            "ямку",
+            "янку",
+            "ярка",
+            "ярку",
+            "ятку",
+            "явку",
+            "шелка"
+          ],
+          "url": null,
+          "from_utf16": 7,
+          "to_utf16": 11,
+          "from": 7,
+          "to": 11,
+          "source_slice": "елка"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "45a05e246e9ad3484e263e68aecfc7beb2e57578db4dda1e1ce972c34f60a196"
+    },
+    {
+      "id": "spell_rule_yo_correct",
+      "rule_class": "MorfologikRussianYOSpellerRule",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU_YO",
+      "text": "Ёжик и ёлка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "yo_dictionary",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "519a9930a95bf9d7df8b042da82c86179ac099e1282108fb8e9747fd70d6c37a"
+    }
+  ]
+}

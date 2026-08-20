@@ -47,6 +47,20 @@ def test_real_wheel_build_and_grammar_execution() -> None:
             assert len(grammar_entries) == 1, f"grammar.xml missing from wheel entries: {wheel_entries}"
             assert any(e.endswith("pylat_ru/resources/ru/compounds.txt") for e in wheel_entries)
             assert any(e.endswith("pylat_ru/resources/ru/specific_case.txt") for e in wheel_entries)
+            for required in (
+                "pylat_ru/resources/ru/hunspell/ru_RU.dict",
+                "pylat_ru/resources/ru/hunspell/ru_RU.info",
+                "pylat_ru/resources/ru/hunspell/ru_RU_yo.dict",
+                "pylat_ru/resources/ru/hunspell/ru_RU_yo.info",
+                "pylat_ru/resources/ru/hunspell/spelling.txt",
+                "pylat_ru/resources/ru/hunspell/ignore.txt",
+                "pylat_ru/resources/ru/hunspell/prohibit.txt",
+                "pylat_ru/resources/spelling_global.txt",
+                "pylat_ru/resources/rules/ru/replace.txt",
+                "pylat_ru/resources/rules/ru/coherency.txt",
+                "pylat_ru/resources/rules/ru/wordrootrep.txt",
+            ):
+                assert any(e.endswith(required) for e in wheel_entries), f"missing from wheel: {required}"
 
         # 3. Install wheel into isolated target directory
         install_target = tmp_path / "site-packages"
@@ -231,13 +245,63 @@ assert "WHITESPACE_RULE" in native_ids                 # generic whitespace
 assert "WHITESPACE_PARAGRAPH_BEGIN" in native_ids      # paragraph/default enablement
 assert "RU_DASH_RULE" in native_ids                    # pinned packaged compounds.txt
 assert "RU_VERB_CONJUGATION" in native_ids             # accepted native morphology
-assert all(m.source in {{"xml_grammar", "java_rule_0011"}} for m in native_matches)
+assert all(m.source in {{"xml_grammar", "java_rule"}} for m in native_matches)
+
+# 11. Task-0012 spelling executes from the packaged Morfologik dictionaries only.
+from pylat_ru.spelling import get_default_spelling_rule
+
+speller_tool = LanguageToolRU()
+spell_matches = [
+    m for m in speller_tool.check("Все счастливые семьи похожи друг на друга, каждя несчастливая семья.")
+    if m.rule_id == "MORFOLOGIK_RULE_RU_RU"
+]
+assert len(spell_matches) == 1
+assert spell_matches[0].offset == 43
+assert spell_matches[0].length == 5
+assert list(spell_matches[0].replacements) == ["дождя", "кадя", "каждая", "вождя", "ка ждя"]
+assert spell_matches[0].message == "Возможно найдена орфографическая ошибка."
+assert spell_matches[0].short_message == "Орфографическая ошибка"
+assert not [
+    m for m in speller_tool.check("Это правильное предложение.")
+    if m.rule_id == "MORFOLOGIK_RULE_RU_RU"
+]
+
+# 12. The default-off YO speller only runs when explicitly enabled.
+assert not [m for m in speller_tool.check("Ежик и елка.") if m.rule_id == "MORFOLOGIK_RULE_RU_RU_YO"]
+yo_tool = LanguageToolRU(enabled_rules=["MORFOLOGIK_RULE_RU_RU_YO"])
+yo_ids = [m.rule_id for m in yo_tool.check("Ежик и елка.")]
+assert "MORFOLOGIK_RULE_RU_RU_YO" in yo_ids
+
+# 13. Remaining Task-0012 rules run from packaged resources.
+java_engine = speller_tool.java_rules_engine
+compound = java_engine.check_rule("Собрание состоится в конференц зале.", "RU_COMPOUNDS")
+assert [list(m.suggestions) for m in compound] == [["конференц-зале"]]
+replace = java_engine.check_rule("Книга была порвата.", "RU_SIMPLE_REPLACE")
+assert [list(m.suggestions) for m in replace] == [["порвана"]]
+repeat = java_engine.check_rule("Это это тест.", "WORD_REPEAT_RULE")
+assert [list(m.suggestions) for m in repeat] == [["Это"]]
+coherency = java_engine.check_rule("Он блогер. Другая блоггер тут.", "RU_WORD_COHERENCY")
+assert len(coherency) == 1
+
+# 14. The XML rule that uses RussianSuppressMisspelledSuggestionsFilter.
+filter_text = "Сегодня на ужин жареная на масле картошка."
+filter_sentence = disambiguator.disambiguate_text(filter_text)
+filter_sentence.text = filter_text
+chunker.chunk(filter_sentence)
+filter_matches = engine.check_rule(filter_sentence, "NN_N_pril_prich[1]")
+assert len(filter_matches) == 1
+assert list(filter_matches[0].suggestions) == ["жаренная"]
+assert get_default_spelling_rule().rule_id == "MORFOLOGIK_RULE_RU_RU"
 
 print("REAL_WHEEL_GRAMMAR_SUCCESS")
 """
         run_env = dict(os.environ)
         run_env["PYTHONPATH"] = str(install_target)
+        # Production execution must not be able to reach a Java runtime or a
+        # LanguageTool checkout even if the development machine has them.
         run_env.pop("JAVA_HOME", None)
+        run_env.pop("PYLAT_ORACLE_SHA256", None)
+        run_env["PATH"] = str(tmp_path)
 
         # Execute in a clean empty working directory
         run_proc = subprocess.run(

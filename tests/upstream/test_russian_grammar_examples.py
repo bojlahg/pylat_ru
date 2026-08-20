@@ -37,15 +37,15 @@ def chunker():
 def test_grammar_core_runnable_rules_count(engine):
     """Verify that 506 CORE, 229 ADVANCED, 24 UNIFICATION, 19 FILTER rules are classified (778 total runnable)."""
     all_rules = engine.get_runnable_rules()
-    assert len(all_rules) == 778, f"Expected 778 total runnable rules, got {len(all_rules)}"
+    assert len(all_rules) == 892, f"Expected 892 total runnable rules, got {len(all_rules)}"
     core_rules = [r for r in all_rules if r.execution_state == ExecutionState.CORE_0007_RUNNABLE]
     advanced_rules = [r for r in all_rules if r.execution_state == ExecutionState.ADVANCED_0008_RUNNABLE]
     unification_rules = [r for r in all_rules if r.execution_state == ExecutionState.UNIFICATION_0009_RUNNABLE]
     filter_rules = [r for r in all_rules if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE]
     assert len(core_rules) == 506, f"Expected 506 core runnable rules, got {len(core_rules)}"
-    assert len(advanced_rules) == 229, f"Expected 229 advanced runnable rules, got {len(advanced_rules)}"
+    assert len(advanced_rules) == 339, f"Expected 339 advanced runnable rules, got {len(advanced_rules)}"
     assert len(unification_rules) == 24, f"Expected 24 unification runnable rules, got {len(unification_rules)}"
-    assert len(filter_rules) == 19, f"Expected 19 filter runnable rules, got {len(filter_rules)}"
+    assert len(filter_rules) == 23, f"Expected 23 filter runnable rules, got {len(filter_rules)}"
 
 
 def test_grammar_core_trigger_parity(engine, disambiguator, chunker):
@@ -254,6 +254,6 @@ def test_grammar_all_runnable_0010_trigger_parity(engine, disambiguator, chunker
                     f"[{rule.full_id}] Correct example #{ex_idx} falsely triggered rule: {text!r}"
                 )
 
-    assert total_examples == 2119, f"Expected 2119 total examples, got {total_examples}"
+    assert total_examples == 2446, f"Expected 2446 total examples, got {total_examples}"
     assert not failures, f"All 0010 runnable grammar examples trigger failures ({len(failures)}):\n" + "\n".join(failures)
 

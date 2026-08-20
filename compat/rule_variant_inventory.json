@@ -10,8 +10,8 @@
   "source_xml_rules_total": 892,
   "java_total_physical_rules": 907,
   "python_all_compiled_variants_total": 907,
-  "python_runnable_source_rules_total": 759,
-  "python_runnable_compiled_variants_total": 772,
+  "python_runnable_source_rules_total": 892,
+  "python_runnable_compiled_variants_total": 907,
   "multi_variant_source_rules_count": 15,
   "multi_variant_source_rule_ids": [
     "Slovosoch_v_proshlom[1]",

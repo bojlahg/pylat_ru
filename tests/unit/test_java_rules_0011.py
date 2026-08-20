@@ -30,8 +30,14 @@ EXPECTED_IDS = {
 def test_task_0011_inventory_and_defaults() -> None:
     engine = RussianJavaRulesEngine()
     assert len(TASK_0011_RULE_CLASSES) == 15
-    assert {rule.rule_id for rule in engine.rules} == EXPECTED_IDS
-    default_off = {rule.rule_id for rule in engine.rules if rule.default_off}
+    assert {cls.rule_id for cls in TASK_0011_RULE_CLASSES} == EXPECTED_IDS
+    # Task 0012 registers the remaining eight rules alongside these fifteen.
+    assert EXPECTED_IDS.issubset({rule.rule_id for rule in engine.rules})
+    default_off = {
+        rule.rule_id
+        for rule in engine.rules
+        if rule.default_off and rule.rule_id in EXPECTED_IDS
+    }
     assert default_off == {
         "WHITESPACE_PARAGRAPH",
         "WHITESPACE_PARAGRAPH_BEGIN",
@@ -117,7 +123,7 @@ def test_combined_public_xml_and_java_rule_pipeline() -> None:
     ids = [finding.rule_id for finding in findings]
     assert "zadat_test" in ids
     assert "COMMA_PARENTHESIS_WHITESPACE" in ids
-    assert all(finding.source in {"xml_grammar", "java_rule_0011"} for finding in findings)
+    assert all(finding.source in {"xml_grammar", "java_rule"} for finding in findings)
 
 
 def test_non_bmp_offsets_and_priority_ordering() -> None:

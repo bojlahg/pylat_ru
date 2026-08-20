@@ -22,7 +22,7 @@ def test_load_upstream_metadata_success(third_party_dir: Path):
     assert meta["pinned_commit"] == "e807fcde6a6506191e1470744d2345da28c26be6"
     assert meta["pinned_tag"] == "v6.8"
     assert meta["upstream_repository"] == "https://github.com/languagetool-org/languagetool.git"
-    assert len(meta["files"]) == 140
+    assert len(meta["files"]) == 155
 
 
 def test_load_upstream_metadata_missing_file(tmp_path: Path):

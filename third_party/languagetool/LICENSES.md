@@ -23,14 +23,24 @@ All vendored upstream assets for the Russian language module in LanguageTool are
 | `languagetool-language-modules/ru/src/main/java/` (Java rules, filters, tokenizers, taggers) | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Reference Java implementations for Russian rules & filters |
 | `languagetool-language-modules/ru/src/test/java/` (JUnit tests) | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Upstream test cases for conformance verification |
 | `languagetool-core/src/main/resources/org/languagetool/resource/segment.srx` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | SRX sentence segmentation definitions |
+| `languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Globally accepted spellings loaded by `SpellingCheckRule` for every language |
+| `languagetool-core/src/main/java/org/languagetool/rules/` and `.../rules/spelling/` | LanguageTool Project | LGPL-2.1-or-later | `VERIFIED_LGPL` | Generic rule and spelling base classes inherited by the Russian rules |
 | `COPYING.txt` | Free Software Foundation | LGPL-2.1 | `VERIFIED_LGPL` | Upstream license text |
 
 ## Review & Verification Findings
 
-- Total vendored files: **88**
-- Verified LGPL files: **88**
+- Total vendored files: **155**
+- Verified LGPL files: **155**
 - Files with unclear license / blocked items: **0** (`BLOCKED_LICENSE_REVIEW` count: 0)
 
 All Russian dictionary files include explicit upstream provenance declarations (`README.txt` files citing `www.aot.ru` / `github.com/sokirko74/aot` under LGPL).
 All Java source files include standard LGPL v2.1+ license headers.
 XML rule files are covered under the overall LanguageTool LGPL-2.1-or-later distribution license.
+
+## Related Third-Party Trees
+
+`morfologik-stemming` 2.1.9 — the speller and dictionary-metadata implementation
+LanguageTool 6.8 depends on — is vendored separately under
+[`third_party/morfologik/`](../morfologik/) because it is **BSD-3-Clause**, not LGPL.
+See `third_party/morfologik/UPSTREAM.json` and
+`third_party/morfologik/license_inventory.json`.

@@ -40,7 +40,12 @@ def _normalize(findings, text: str) -> list[dict]:
 
 @pytest.mark.parametrize("case", CASES, ids=lambda case: case["id"])
 def test_combined_xml_and_java_pipeline_matches_pinned_order(case: dict) -> None:
-    tool = LanguageToolRU(enabled_rules=case["explicitly_enabled_rules"])
+    # The fixture was generated with the eight Task-0012 rules disabled in Java,
+    # so the Python pipeline is configured the same way for this comparison.
+    tool = LanguageToolRU(
+        enabled_rules=case["explicitly_enabled_rules"],
+        disabled_rules=case["explicitly_disabled_rules"],
+    )
     assert _normalize(tool.check(case["text"]), case["text"]) == case["expected"]
     pre_overlap = same_rule_group_filter(tool._collect_matches(case["text"]))
     assert _normalize(pre_overlap, case["text"]) == case["pre_overlap_expected"]

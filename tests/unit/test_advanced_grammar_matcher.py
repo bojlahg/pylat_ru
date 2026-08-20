@@ -921,7 +921,7 @@ def test_max_attribute_validation_boundaries():
 # ==============================================================================
 
 def test_deferred_rules_preserve_complete_pattern_structure():
-    """Verify that all deferred rules in grammar.xml retain full typed pattern nodes."""
+    """Verify that filter/unification rules in grammar.xml retain full typed pattern nodes."""
     loader = GrammarLoader()
     rules = loader.load_default()
     assert len(rules) == 892
@@ -930,7 +930,9 @@ def test_deferred_rules_preserve_complete_pattern_structure():
     filter_0010 = [r for r in rules if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE]
 
     assert len(unification_0009) == 24
-    assert len(filter_0010) == 19
+    # Task 0012 promoted the four filter-using rules that were blocked by
+    # suppress_misspelled / RussianSuppressMisspelledSuggestionsFilter.
+    assert len(filter_0010) == 23
 
     for r in unification_0009:
         assert r.pattern is not None

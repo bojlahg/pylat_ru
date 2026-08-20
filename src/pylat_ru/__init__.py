@@ -100,8 +100,10 @@ class RuleMatch:
 class LanguageToolRU:
     """Russian LanguageTool pipeline interface (Python-native).
 
-    Runs the accepted Russian analysis pipeline, XML grammar rules, and the
-    15 Python-native Java-rule equivalents implemented by Task 0011.
+    Runs the accepted Russian analysis pipeline, all 892 XML grammar rules, and
+    the 23 Python-native equivalents of the ordinary Russian Java rules,
+    including native Morfologik spelling.  The language-model rule
+    ``RussianConfusionProbabilityRule`` is not part of this surface.
     """
 
     def __init__(

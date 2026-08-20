@@ -73,37 +73,16 @@ def classify_rule_element(rule_elem: ET.Element) -> Tuple[ExecutionState, List[R
         "org.languagetool.rules.ru.FutureDateFilter",
         "org.languagetool.rules.ru.INNNumberFilter",
         "org.languagetool.rules.ru.RussianPartialPosTagFilter",
-    }
-    deferred_filters = {
+        # Task 0012: implemented on top of the native default spelling rule.
         "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter",
     }
 
     for filt in rule_elem.findall("filter"):
         cls_name = filt.attrib.get("class", "unknown")
-        if cls_name in deferred_filters:
-            remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "0012", f"Spelling-dependent filter class {cls_name}"))
-        elif cls_name not in supported_filters:
+        if cls_name not in supported_filters:
             remaining_blockers.append(RuleBlocker(f"filter:{cls_name}", "UNKNOWN", f"Unknown filter class {cls_name}"))
 
-    # Suppress misspelled (deferred to Task 0012)
-    for msg in rule_elem.findall("message"):
-        if msg.attrib.get("suppress_misspelled") == "yes":
-            remaining_blockers.append(
-                RuleBlocker(
-                    "message@suppress_misspelled",
-                    "0012",
-                    "Message suppress_misspelled attribute",
-                )
-            )
-    for sug in rule_elem.findall(".//suggestion"):
-        if sug.attrib.get("suppress_misspelled") == "yes":
-            remaining_blockers.append(
-                RuleBlocker(
-                    "suggestion@suppress_misspelled",
-                    "0012",
-                    "Suggestion suppress_misspelled attribute",
-                )
-            )
+    # Task 0012 implements suppress_misspelled on <message> and <suggestion>.
 
     # Deduplicate remaining blockers preserving order
     unique_blockers: List[RuleBlocker] = []

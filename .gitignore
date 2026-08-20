@@ -47,6 +47,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+pytest-results.xml
 *.cover
 *.py,cover
 .hypothesis/
@@ -93,3 +94,6 @@ Thumbs.db
 # NOTE:
 # third_party/languagetool/ is intentionally NOT ignored. Pinned upstream resources whose
 # provenance/license has been reviewed are expected to be tracked explicitly.
+
+# Compiled development-only Java oracle probes
+tools/*.class

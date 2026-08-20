@@ -10,3 +10,4 @@
 # Vendored upstream assets are byte-exact provenance artifacts.
 # Do not normalize their line endings on checkout or commit.
 third_party/languagetool/** -text
+third_party/morfologik/** -text

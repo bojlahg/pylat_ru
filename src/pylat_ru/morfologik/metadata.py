@@ -6,6 +6,7 @@ Parser and validator for Morfologik dictionary metadata (.info files).
 from __future__ import annotations
 
 import codecs
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import BinaryIO, Dict, List, Mapping, Optional, TextIO, Union
@@ -21,20 +22,21 @@ KEY_SEPARATOR = "fsa.dict.separator"
 KEY_ENCODING = "fsa.dict.encoding"
 KEY_ENCODER = "fsa.dict.encoder"
 KEY_FREQUENCY_INCLUDED = "fsa.dict.frequency-included"
-KEY_IGNORE_PUNCTUATION = "fsa.dict.ignore-punctuation"
-KEY_IGNORE_NUMBERS = "fsa.dict.ignore-numbers"
-KEY_IGNORE_CAMEL_CASE = "fsa.dict.ignore-camel-case"
-KEY_IGNORE_ALL_UPPERCASE = "fsa.dict.ignore-all-uppercase"
-KEY_IGNORE_DIACRITICS = "fsa.dict.ignore-diacritics"
-KEY_CONVERT_CASE = "fsa.dict.convert-case"
-KEY_SUPPORT_RUN_ON_WORDS = "fsa.dict.support-run-on-words"
+KEY_IGNORE_PUNCTUATION = "fsa.dict.speller.ignore-punctuation"
+KEY_IGNORE_NUMBERS = "fsa.dict.speller.ignore-numbers"
+KEY_IGNORE_CAMEL_CASE = "fsa.dict.speller.ignore-camel-case"
+KEY_IGNORE_ALL_UPPERCASE = "fsa.dict.speller.ignore-all-uppercase"
+KEY_IGNORE_DIACRITICS = "fsa.dict.speller.ignore-diacritics"
+KEY_CONVERT_CASE = "fsa.dict.speller.convert-case"
+KEY_SUPPORT_RUN_ON_WORDS = "fsa.dict.speller.runon-words"
+KEY_LOCALE = "fsa.dict.speller.locale"
 KEY_INPUT_CONVERSION = "fsa.dict.input-conversion"
 KEY_OUTPUT_CONVERSION = "fsa.dict.output-conversion"
-KEY_REPLACEMENT_PAIRS = "fsa.dict.replacement-pairs"
-KEY_EQUIVALENT_CHARS = "fsa.dict.equivalent-chars"
+KEY_REPLACEMENT_PAIRS = "fsa.dict.speller.replacement-pairs"
+KEY_EQUIVALENT_CHARS = "fsa.dict.speller.equivalent-chars"
 KEY_AUTHOR = "fsa.dict.author"
 KEY_LICENSE = "fsa.dict.license"
-KEY_CREATION_DATE = "fsa.dict.created-date"
+KEY_CREATION_DATE = "fsa.dict.created"
 
 SUPPORTED_ENCODERS = frozenset({"SUFFIX"})
 
@@ -57,6 +59,9 @@ class DictionaryMetadata:
     support_run_on_words: bool = True
     input_conversion: Dict[str, str] = field(default_factory=dict)
     output_conversion: Dict[str, str] = field(default_factory=dict)
+    replacement_pairs: Dict[str, List[str]] = field(default_factory=dict)
+    equivalent_chars: Dict[str, List[str]] = field(default_factory=dict)
+    locale: Optional[str] = None
     raw_attributes: Dict[str, str] = field(default_factory=dict)
 
     @classmethod
@@ -171,23 +176,53 @@ class DictionaryMetadata:
         conv_case = _parse_bool(KEY_CONVERT_CASE, True)
         run_on = _parse_bool(KEY_SUPPORT_RUN_ON_WORDS, True)
 
-        # 6. Conversions
-        def _parse_pairs(val_str: Optional[str]) -> Dict[str, str]:
-            if not val_str:
-                return {}
-            res: Dict[str, str] = {}
-            for part in val_str.split(","):
+        # 6. Conversions and speller pair attributes.
+        #
+        # Morfologik splits these attributes on ",\s*" and each element on " ",
+        # requiring exactly two space-separated parts (DictionaryAttribute).
+        def _split_pairs(key: str, val_str: Optional[str]) -> List[List[str]]:
+            if val_str is None:
+                return []
+            pairs: List[List[str]] = []
+            for part in re.split(r",\s*", val_str):
                 part = part.strip()
-                if not part:
-                    continue
-                if "/" not in part:
-                    continue
-                k, v = part.split("/", 1)
-                res[k.strip()] = v.strip()
+                two = part.split(" ")
+                if len(two) != 2:
+                    raise InvalidMetadataError(
+                        f"Attribute {key} is not in the proper format in {source_name}: {val_str}"
+                    )
+                pairs.append(two)
+            return pairs
+
+        def _parse_conversion(key: str) -> Dict[str, str]:
+            res: Dict[str, str] = {}
+            for src, dst in _split_pairs(key, attrs.get(key)):
+                if src in res:
+                    raise InvalidMetadataError(
+                        f"Conversion cannot specify different values for the same input string in "
+                        f"{source_name}: {src}"
+                    )
+                res[src] = dst
             return res
 
-        in_conv = _parse_pairs(attrs.get(KEY_INPUT_CONVERSION))
-        out_conv = _parse_pairs(attrs.get(KEY_OUTPUT_CONVERSION))
+        in_conv = _parse_conversion(KEY_INPUT_CONVERSION)
+        out_conv = _parse_conversion(KEY_OUTPUT_CONVERSION)
+
+        replacement_pairs: Dict[str, List[str]] = {}
+        for src, dst in _split_pairs(KEY_REPLACEMENT_PAIRS, attrs.get(KEY_REPLACEMENT_PAIRS)):
+            replacement_pairs.setdefault(src, []).append(dst)
+
+        equivalent_chars: Dict[str, List[str]] = {}
+        for src, dst in _split_pairs(KEY_EQUIVALENT_CHARS, attrs.get(KEY_EQUIVALENT_CHARS)):
+            if len(src) != 1 or len(dst) != 1:
+                raise InvalidMetadataError(
+                    f"Attribute {KEY_EQUIVALENT_CHARS} is not in the proper format in {source_name}: "
+                    f"{attrs.get(KEY_EQUIVALENT_CHARS)}"
+                )
+            equivalent_chars.setdefault(src, []).append(dst)
+
+        locale_value = attrs.get(KEY_LOCALE)
+        locale_value = locale_value.strip() if locale_value else None
 
         return cls(
             separator=sep_str,
@@ -204,5 +239,8 @@ class DictionaryMetadata:
             support_run_on_words=run_on,
             input_conversion=in_conv,
             output_conversion=out_conv,
+            replacement_pairs=replacement_pairs,
+            equivalent_chars=equivalent_chars,
+            locale=locale_value,
             raw_attributes=dict(attrs),
         )

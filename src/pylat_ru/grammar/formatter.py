@@ -27,6 +27,24 @@ from pylat_ru.tagging.string_tools import (
 )
 
 
+# PatternRuleMatcher.MISTAKE marks a synthesized form that the tagger does not
+# know; PatternRuleHandler.PLEASE_SPELL_ME marks a suggestion that must be
+# dropped when that happens.  The suggestion text itself is never emitted, so a
+# private sentinel is enough to carry the same decision through formatting.
+SPELL_SUPPRESS_MARK = "\ue000pylat_ru:mistake\ue000"
+
+
+def _tagger_knows_word(word: str) -> bool:
+    """``MatchState``'s tagger-based speller: unknown means no lemma and no POS tag."""
+    from pylat_ru.tagging.russian import RussianTagger
+
+    readings = RussianTagger.get_instance().tag([word])
+    if not readings:
+        return False
+    first = readings[0].get_analyzed_token(0)
+    return not (first.lemma is None and first.has_no_tag)
+
+
 def _java_to_python_regex_repl(repl: str) -> str:
     """Convert Java replacement string syntax ($1, $2, \\$, \\\\) to Python regex replacement format."""
     if not repl:
@@ -110,8 +128,14 @@ def resolve_match_reference_forms(
     first_match_token: int,
     element_lengths: Optional[Sequence[int]] = None,
     synthesizer: Optional[RussianSynthesizer] = None,
+    check_spelling: bool = False,
 ) -> List[str]:
-    """Resolve a single MatchReference into a list of candidate replacement strings."""
+    """Resolve a single MatchReference into a list of candidate replacement strings.
+
+    With ``check_spelling`` the match behaves like a ``Match`` inside a
+    ``suppress_misspelled`` suggestion: forms that cannot be synthesized or that
+    the tagger does not recognize are returned as :data:`SPELL_SUPPRESS_MARK`.
+    """
     token_k = ref.no - 1  # 0-indexed token position matching Java LT PatternRuleMatcher
     if token_k < 0:
         return [""]
@@ -192,36 +216,60 @@ def resolve_match_reference_forms(
         except Exception as e:
             raise GrammarError(f"Malformed regular expression or replacement in <match>: {e}") from e
 
-    # 2. POS synthesis / modification
+    # 2. POS synthesis / modification -- MatchState.getTargetPosTag
+    synth = synthesizer or RussianSynthesizer.get_instance()
     target_pos = ref.postag
-    if target_pos and ref.postag_regexp and ref.postag_replace:
-        orig_pos = ""
-        matched_reading = None
-        for rd in target_atr.readings:
-            if rd.pos_tag and (regex.search(ref.postag, rd.pos_tag) or regex.fullmatch(ref.postag, rd.pos_tag)):
-                orig_pos = rd.pos_tag
-                matched_reading = rd
-                break
-        py_pos_repl = _java_to_python_regex_repl(ref.postag_replace)
-        try:
-            if matched_reading is not None:
-                target_at = matched_reading
-                target_pos = regex.sub(ref.postag, py_pos_repl, orig_pos)
-            else:
-                target_pos = regex.sub(ref.postag, py_pos_repl, ref.postag)
-        except Exception as e:
-            raise GrammarError(f"Malformed regular expression or replacement in postag_replace: {e}") from e
+    if target_pos and ref.postag_regexp:
+        # Java uses Matcher.matches(), i.e. only a full match of the postag regex
+        # against a reading's POS tag contributes to the target tag.
+        pos_tags = [
+            rd.pos_tag
+            for rd in target_atr.readings
+            if rd.pos_tag and regex.fullmatch(ref.postag, rd.pos_tag)
+        ]
+        target_pos = synth.get_target_pos_tag(pos_tags, target_pos)
+        if ref.postag_replace is not None:
+            if not pos_tags:
+                pos_tags = [target_pos]
+            py_pos_repl = _java_to_python_regex_repl(ref.postag_replace)
+            replaced_tags = []
+            for tag in pos_tags:
+                try:
+                    tag = regex.sub(ref.postag, py_pos_repl, tag)
+                except Exception as e:
+                    raise GrammarError(
+                        f"Malformed regular expression or replacement in postag_replace: {e}"
+                    ) from e
+                if ref.setpos == "yes":
+                    tag = synth.get_pos_tag_correction(tag)
+                replaced_tags.append(tag)
+            target_pos = "|".join(replaced_tags)
 
     words = [raw_word]
-    if target_pos:
-        synth = synthesizer or RussianSynthesizer.get_instance()
-        if synth:
+    synthesis_failed = False
+    if target_pos and synth:
+        if ref.postag_regexp and ref.lemma is None:
+            # MatchState collects the forms of every reading in a TreeSet.
+            forms: set = set()
+            for rd in target_atr.readings:
+                produced = synth.synthesize(rd, target_pos, pos_tag_is_regex=True)
+                if produced:
+                    forms.update(produced)
+            if forms:
+                words = sorted(forms)
+            else:
+                # MatchState uses "(" + token + ")" here, which the
+                # suppress_misspelled filter always removes.
+                synthesis_failed = True
+        else:
             tok_input = ref.lemma if ref.lemma is not None else (target_at if target_at is not None else raw_word)
             synth_forms = synth.synthesize(tok_input, target_pos, pos_tag_is_regex=ref.postag_regexp)
             if synth_forms:
                 words = list(synth_forms)
             elif ref.lemma:
                 words = [ref.lemma]
+            else:
+                synthesis_failed = True
     elif ref.lemma:
         words = [ref.lemma]
 
@@ -239,7 +287,13 @@ def resolve_match_reference_forms(
         w = convert_case(ref.case_conversion, w, sample=sample_str)
         out_forms.append(w)
 
-    return out_forms if out_forms else [raw_word]
+    if not out_forms:
+        out_forms = [raw_word]
+    if check_spelling:
+        if synthesis_failed:
+            return [SPELL_SUPPRESS_MARK for _ in out_forms]
+        out_forms = [w if _tagger_knows_word(w) else SPELL_SUPPRESS_MARK for w in out_forms]
+    return out_forms
 
 
 def resolve_match_reference(
@@ -273,15 +327,34 @@ class TemplateFormatter:
         first_match_token: int = 0,
         element_lengths: Optional[Sequence[int]] = None,
         synthesizer: Optional[RussianSynthesizer] = None,
+        suggestion_suppress_flags: Sequence[bool] = (),
     ) -> str:
-        """Format rule message replacing <match no="X"> references and expanding multi-form suggestions."""
-        positions = list(token_positions) if token_positions is not None else [1] * len(tokens)
+        """Format rule message replacing <match no="X"> references and expanding multi-form suggestions.
 
-        def _build_sug_block(acc: List[List[str]]) -> str:
+        ``suggestion_suppress_flags`` carries the per-``<suggestion>``
+        ``suppress_misspelled`` state in document order; together with the
+        message-level flag it reproduces ``removeSuppressMisspelled``, which
+        deletes every suggestion whose synthesized form is misspelled.
+        """
+        positions = list(token_positions) if token_positions is not None else [1] * len(tokens)
+        suggestion_index = 0
+
+        def _suppresses(index: int) -> bool:
+            if template.suppress_misspelled:
+                return True
+            return index < len(suggestion_suppress_flags) and suggestion_suppress_flags[index]
+
+        def _build_sug_block(acc: List[List[str]], suppress: bool) -> Optional[str]:
             expanded = [""]
             for form_list in acc:
                 expanded = [prefix + f for prefix in expanded for f in form_list]
             cleaned = [regex.sub(r" {2,}", " ", s) for s in expanded]
+            if suppress:
+                cleaned = [item for item in cleaned if SPELL_SUPPRESS_MARK not in item]
+                if not cleaned:
+                    return None
+            else:
+                cleaned = [item.replace(SPELL_SUPPRESS_MARK, "") for item in cleaned]
             return "</suggestion>, <suggestion>".join(cleaned)
 
         # Parse message template elements into chunks (outside suggestions vs inside suggestions)
@@ -303,11 +376,13 @@ class TemplateFormatter:
                         inside, after_end = after_sug.split("</suggestion>", 1)
                         if inside:
                             sug_accumulator.append([inside])
-                        sug_block = _build_sug_block(sug_accumulator)
+                        sug_block = _build_sug_block(sug_accumulator, _suppresses(suggestion_index))
+                        suggestion_index += 1
                         # Replace leading '<suggestion>' from message_chunks
                         if message_chunks and message_chunks[-1] == "<suggestion>":
                             message_chunks.pop()
-                        message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
+                        if sug_block is not None:
+                            message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
                         in_suggestion = False
                         sug_accumulator = []
                         if after_end:
@@ -318,10 +393,12 @@ class TemplateFormatter:
                     inside, after_end = elem.split("</suggestion>", 1)
                     if inside:
                         sug_accumulator.append([inside])
-                    sug_block = _build_sug_block(sug_accumulator)
+                    sug_block = _build_sug_block(sug_accumulator, _suppresses(suggestion_index))
+                    suggestion_index += 1
                     if message_chunks and message_chunks[-1] == "<suggestion>":
                         message_chunks.pop()
-                    message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
+                    if sug_block is not None:
+                        message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
                     in_suggestion = False
                     sug_accumulator = []
                     if after_end:
@@ -339,6 +416,7 @@ class TemplateFormatter:
                     first_match_token=first_match_token,
                     element_lengths=element_lengths,
                     synthesizer=synthesizer,
+                    check_spelling=in_suggestion and _suppresses(suggestion_index),
                 )
                 if in_suggestion:
                     sug_accumulator.append(forms)
@@ -346,10 +424,12 @@ class TemplateFormatter:
                     message_chunks.append(forms[0] if forms else "")
 
         if in_suggestion and sug_accumulator:
-            sug_block = _build_sug_block(sug_accumulator)
+            sug_block = _build_sug_block(sug_accumulator, _suppresses(suggestion_index))
+            suggestion_index += 1
             if message_chunks and message_chunks[-1] == "<suggestion>":
                 message_chunks.pop()
-            message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
+            if sug_block is not None:
+                message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
 
         formatted = "".join(message_chunks)
         # Collapse multiple consecutive spaces

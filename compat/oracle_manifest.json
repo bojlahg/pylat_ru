@@ -71,6 +71,34 @@
       "sha256": "edf539f4e1d4c30f72239c76e2df4a1f20555e427e48ec3ed4e85a1178fc4680",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 11
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_spelling.json",
+      "size_bytes": 62615,
+      "sha256": "1de3f0da0d975262b6e1f26dbff993b73a4b3a74d8da18df4ea36e8f35ef10a6",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 59
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_rules.json",
+      "size_bytes": 62346,
+      "sha256": "6237cf26b297f466d0d4cb42ddea916b084bcec9ec3c0df8b9c81a41513b4d6f",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 67
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_filter.json",
+      "size_bytes": 8633,
+      "sha256": "8f7c5dae39b8eead644822bb311e219a0ae7232a238334fda2e216675fc7cd19",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 10
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_combined.json",
+      "size_bytes": 48920,
+      "sha256": "559a88399e61ba9cce4be8f6c41430a5065859a1a479990c4e2c6af16f465c08",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 15
     }
   ],
   "description": "Trusted Java LanguageTool development oracle specification and reproducible build records for differential and fixture generation"

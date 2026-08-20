@@ -6,6 +6,8 @@ and RussianGrammarEngine core execution.
 
 from __future__ import annotations
 
+import copy
+
 import pytest
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedToken, AnalyzedTokenReadings
@@ -28,6 +30,7 @@ from pylat_ru.grammar.model import (
     Pattern,
     PatternToken,
     PatternTokenException,
+    RuleBlocker,
     SuggestionTemplate,
 )
 
@@ -166,13 +169,13 @@ def test_grammar_engine_execution_and_disabling():
 
 
 def test_grammar_engine_deferred_rule_fail_closed():
-    """Verify attempting to run a deferred rule raises UnsupportedGrammarFeatureError."""
+    """Verify attempting to run a rule with an unimplemented blocker fails closed."""
     engine = RussianGrammarEngine.get_instance()
     disambiguator = RussianHybridDisambiguator.get_instance()
     sent = disambiguator.disambiguate_text("Тестовое предложение.")
 
-    # Find any deferred rule
-    deferred_rule = next(
+    # Task 0012 leaves no deferred grammar rule at all.
+    assert not [
         r for r in engine.get_all_rules()
         if r.execution_state not in (
             ExecutionState.CORE_0007_RUNNABLE,
@@ -180,9 +183,17 @@ def test_grammar_engine_deferred_rule_fail_closed():
             ExecutionState.UNIFICATION_0009_RUNNABLE,
             ExecutionState.FILTER_0010_RUNNABLE,
         )
-    )
+    ]
+
+    # Fail-closed execution is still proven with a rule carrying an unknown blocker.
+    unsupported = copy.copy(engine.get_all_rules()[0])
+    unsupported.execution_state = ExecutionState.UNKNOWN
+    unsupported.blockers = [
+        RuleBlocker("filter:com.example.Unknown", "UNKNOWN", "Unknown filter class")
+    ]
     with pytest.raises(UnsupportedGrammarFeatureError):
-        engine.check_rule(sent, deferred_rule)
+        engine.check_rule(sent, unsupported)
+
 
 
 def test_grammar_engine_emoji_and_non_bmp_offsets():

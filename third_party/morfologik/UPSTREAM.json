@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "upstream_repository": "https://github.com/morfologik/morfologik-stemming.git",
+  "pinned_tag": "2.1.9",
+  "selection_rationale": "morfologik-stemming 2.1.9 is the version LanguageTool 6.8 depends on; its speller implements the spelling verdicts and suggestion ranking that the Russian Morfologik rules expose.",
+  "used_by": [
+    "src/pylat_ru/morfologik/speller.py",
+    "src/pylat_ru/morfologik/metadata.py"
+  ],
+  "license": "BSD-3-Clause",
+  "vendored_files_count": 6,
+  "files": {
+    "LICENSE.txt": {
+      "size": 1606,
+      "sha256": "741bb9a9ed0e305cede810cee05bc22f135751f595202517a6c7e827280b102e"
+    },
+    "morfologik-speller/src/main/java/morfologik/speller/HMatrix.java": {
+      "size": 3380,
+      "sha256": "c14b33717bce6e675e99adb0761d55055ea7506f0e5cfc612e09c29d85500158"
+    },
+    "morfologik-speller/src/main/java/morfologik/speller/Speller.java": {
+      "size": 37550,
+      "sha256": "5b19302f388a68753a3ba6eea761b14d24380e29925eb3ac54e6f46cb188270b"
+    },
+    "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryAttribute.java": {
+      "size": 11229,
+      "sha256": "5c6078928d64bc3d52513f2f55a3e25c3ef831b309b785ec06174302967edd35"
+    },
+    "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryLookup.java": {
+      "size": 9993,
+      "sha256": "c7dcb57c0980adb00d959a007aa49d0a87c702662b0709904c9b1d1fa502e289"
+    },
+    "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryMetadata.java": {
+      "size": 14533,
+      "sha256": "b751e63e3078111db2fa6360a3d7e4d7d258bac0036da76ee7298ebcec9a6a34"
+    }
+  }
+}

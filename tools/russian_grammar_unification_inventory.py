@@ -192,16 +192,19 @@ def generate_unification_inventory() -> Dict[str, Any]:
             raise ValueError(f"Ordered ID mismatch at index {idx}: {rule.full_id} vs {adv_record['full_id']}")
 
         s08 = adv_record["task_0008_state"]
-        current_state_name = rule.execution_state.name
-        multi_blockers = {"NN_N_pril_prich[2]", "Verb_tsa_and_ttsya[2]", "Verb_INF_OR_3P[2]"}
-        if current_state_name == "FILTER_0010_RUNNABLE":
-            s09 = "DEFERRED_0010_FILTER"
-        elif rule.full_id in multi_blockers:
+        # The Task-0009 disposition is a milestone snapshot: it must stay stable
+        # as later tasks implement filters and spelling, so it is derived from the
+        # frozen Task-0009 blocker rules rather than from the live classifier.
+        blockers_0009 = get_blockers_task_0009(xml_rule_map[rule.full_id])
+        blocker_tasks = {b["target_task"] for b in blockers_0009}
+        if len(blocker_tasks) > 1:
             s09 = "MULTI_BLOCKER"
-        elif rule.full_id == "NN_N_pril_prich[1]":
+        elif blocker_tasks == {"0010"}:
             s09 = "DEFERRED_0010_FILTER"
+        elif blocker_tasks == {"0012"}:
+            s09 = "DEFERRED_0012_SPELLING_OR_SUPPRESSION"
         else:
-            s09 = current_state_name
+            s09 = rule.execution_state.name
 
         trans_key = f"{s08} -> {s09}"
         trans_counts[trans_key] = trans_counts.get(trans_key, 0) + 1

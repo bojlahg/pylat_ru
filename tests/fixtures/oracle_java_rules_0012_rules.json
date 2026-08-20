@@ -1,0 +1,1929 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0012",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 67
+  },
+  "cases": [
+    {
+      "id": "compound_correct_hyphen",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Он вышел из-за дома.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "424056a8de9a6014621461e22ad62d0093e1affa8bcbeea1d1fa1a5fe9ec8f48"
+    },
+    {
+      "id": "compound_correct_abbrev",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Разработка ПО за идею.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "98d5a146a067b270c7b1800b57f0515bdfd0aefb5e20d3253c7f992b4dbb923c"
+    },
+    {
+      "id": "compound_either_form_ok",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "естественно-научный",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "either_form"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "dea5062fc43691684204c95fac0c15c4c72844b315de953f6417e1435e22b94f"
+    },
+    {
+      "id": "compound_space_to_hyphen",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "из за",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "space_to_hyphen",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "из за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "4a78aca4d6efbe4a42a42603345cc935c7475784c59e7f001cb8cb71afa20f13"
+    },
+    {
+      "id": "compound_space_to_hyphen_po",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "по за",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "space_to_hyphen"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "по-за"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 5,
+          "from": 0,
+          "to": 5,
+          "source_slice": "по за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "714fafe56977d57aeac498374b746dfb272f50573222a8528cbad33467853b46"
+    },
+    {
+      "id": "compound_inside_longer_text",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "нет нет из за да да",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "token_boundaries"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "из-за"
+          ],
+          "url": null,
+          "from_utf16": 8,
+          "to_utf16": 13,
+          "from": 8,
+          "to": 13,
+          "source_slice": "из за"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "78c8480a857d24320a091685724ae49919b6fdfbc0a78ba5980a390ff03e67f4"
+    },
+    {
+      "id": "compound_multi_token",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ростов на Дону",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "multi_token",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Ростов-на-Дону"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 14,
+          "from": 0,
+          "to": 14,
+          "source_slice": "Ростов на Дону"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "778231ade2addaaaffa5ae6cd470a2e8bba37c1796713830f6048f206d19072d"
+    },
+    {
+      "id": "compound_joined_only",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "кругло суточный",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "space_to_joined"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны слитно.",
+          "short_message": "",
+          "suggestions": [
+            "круглосуточный"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 15,
+          "from": 0,
+          "to": 15,
+          "source_slice": "кругло суточный"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "61fb589aeb15af5587af6f1edef100f8ae35e5fe9c837e5de2063ce4475ee186"
+    },
+    {
+      "id": "compound_wrong_case",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ростов на дону",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "case_sensitivity"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "5e957dde7b06751e03ad84ec46748e187f605c493240a9c97df2922d87f0d241"
+    },
+    {
+      "id": "compound_wrong_case_lower",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ведь сейчас в лос Анджелесе",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "case_sensitivity"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d8716301583bafb828171e1c12c79c1e031dee1fc08c7be9056cbd10524d5698"
+    },
+    {
+      "id": "compound_partial_hyphen",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ростов-на Дону",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "partial_hyphen",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Ростов-на-Дону"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 14,
+          "from": 0,
+          "to": 14,
+          "source_slice": "Ростов-на Дону"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "0c25d2896851bac6ae814e22d1405fe5babf19c545e0e1fc0a2c0efce542fdca"
+    },
+    {
+      "id": "compound_single_char_correct",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "во-первых",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "single_char_first_part"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d7b104e91bc61ea2df5fbf24d83592286a5ecf68fe8e7c619be99a6021d4c95a"
+    },
+    {
+      "id": "compound_single_char_wrong",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "во первых",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "single_char_first_part"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "во-первых"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 9,
+          "from": 0,
+          "to": 9,
+          "source_slice": "во первых"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "3f0b6f16b3a0533deba00b68cfe6fe0c880d2675a6dd0aaade45d4b95308bf96"
+    },
+    {
+      "id": "compound_los_angeles",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Лос Анджелес",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Лос-Анджелес"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 12,
+          "from": 0,
+          "to": 12,
+          "source_slice": "Лос Анджелес"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "1fc628c03d253a53e72446c421f70e71fe4d3a0a5ba95c4cc98ee6c5bf911a3d"
+    },
+    {
+      "id": "compound_los_angeles_inflected",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ведь сейчас в Лос Анджелесе",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Лос-Анджелесе"
+          ],
+          "url": null,
+          "from_utf16": 14,
+          "to_utf16": 27,
+          "from": 14,
+          "to": 27,
+          "source_slice": "Лос Анджелесе"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e82dba181eb145a6b264c721a4b6784d034854e1e43cff8012ace42700254da0"
+    },
+    {
+      "id": "compound_los_angeles_sentence",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Ведь сейчас в Лос Анджелесе хорошая погода.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Лос-Анджелесе"
+          ],
+          "url": null,
+          "from_utf16": 14,
+          "to_utf16": 27,
+          "from": 14,
+          "to": 27,
+          "source_slice": "Лос Анджелесе"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "bb14b40b62b02c44d080bb0aeea15bd086caaeeb3713454851e45c2f2aae5548"
+    },
+    {
+      "id": "compound_sentence_start_upper",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Во первых, мы были довольно высоко над уровнем моря.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "sentence_start_uppercase"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "Во-первых"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 9,
+          "from": 0,
+          "to": 9,
+          "source_slice": "Во первых"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "801a1d100d3e6ac11b067a8cd6ba8454721ed321dd3f1352f42fed6f2c8c8682"
+    },
+    {
+      "id": "compound_mid_sentence",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Мы, во первых, были довольно высоко над уровнем моря.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "punctuation_boundary"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "во-первых"
+          ],
+          "url": null,
+          "from_utf16": 4,
+          "to_utf16": 13,
+          "from": 4,
+          "to": 13,
+          "source_slice": "во первых"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "c5e40874119efde593d98ec4de4469c80e8a83f983eb066d1aed55ba10568db7"
+    },
+    {
+      "id": "compound_registered_example",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "Собрание состоится в конференц зале.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_COMPOUNDS",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Эти слова должны быть написаны через дефис.",
+          "short_message": "",
+          "suggestions": [
+            "конференц-зале"
+          ],
+          "url": null,
+          "from_utf16": 21,
+          "to_utf16": 35,
+          "from": 21,
+          "to": 35,
+          "source_slice": "конференц зале"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "974ee777fa9417f24f3e9dce48e9541a10633627fc0557b8a3f3e8faf5cdc773"
+    },
+    {
+      "id": "compound_all_uppercase",
+      "rule_class": "RussianCompoundRule",
+      "rule_id": "RU_COMPOUNDS",
+      "text": "ЛОС АНДЖЕЛЕС",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "all_uppercase"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "9776f17c9613576e14dc6cd4fd186cf07f978f4ae65ce491aff657ae94cf7612"
+    },
+    {
+      "id": "replace_correct_a",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Рост кораллов тут самый быстрый,",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "6684871676f2d4b27cd96708d3c42bc8c49db74801b340652fe5b573d1597d20"
+    },
+    {
+      "id": "replace_correct_b",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Книга была порвана.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d1d74bba682f209a6d1e54104bfbedfecdb4b096313b33b2a561806e3c27aafc"
+    },
+    {
+      "id": "replace_single_word",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Книга была порвата.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "single_word",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«порвата» — просторечие, исправление: <suggestion>порвана</suggestion>",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "порвана"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 18,
+          "from": 11,
+          "to": 18,
+          "source_slice": "порвата"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "47552104315aeb0f448b88159298961cae85c68048912fcb727b68bbf1c35162"
+    },
+    {
+      "id": "replace_registered_example",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Экспрессо – крепкий кофе.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "sentence_start_case"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Опечатка",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "Эспрессо"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 9,
+          "from": 0,
+          "to": 9,
+          "source_slice": "Экспрессо"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "354b823a85918ea6f0c51af79186dc867dd2f22425c150a0d1056409761d5e86"
+    },
+    {
+      "id": "replace_all_uppercase",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "ЭКСПРЕССО – крепкий кофе.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "all_uppercase",
+        "case_adaptation"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Опечатка",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "ЭСПРЕССО"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 9,
+          "from": 0,
+          "to": 9,
+          "source_slice": "ЭКСПРЕССО"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a35c172bb8b96080921c7823f2fd3b5e887c46a89efd805c5351ec2cc4ccdede"
+    },
+    {
+      "id": "replace_sentence_start",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Порвата книга.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "sentence_start_case",
+        "case_adaptation"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«Порвата» — просторечие, исправление: <suggestion>порвана</suggestion>",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "Порвана"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "Порвата"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "7a2345a4a236d53bce2634de3fb2037a7ce0d02006a4733d4fef053266c4e7c3"
+    },
+    {
+      "id": "replace_multi_word",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "по-крайней мере это так.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "multi_word"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Опечатка",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "По крайней"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 10,
+          "from": 0,
+          "to": 10,
+          "source_slice": "по-крайней"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "dab08ba76f15ad1050049dcde779f2045e0cea170ad821a1e778a99e12b72b1f"
+    },
+    {
+      "id": "replace_multi_word_space",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Он хотел ни будь там.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "multi_word"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Опечатка",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "нибудь"
+          ],
+          "url": null,
+          "from_utf16": 9,
+          "to_utf16": 16,
+          "from": 9,
+          "to": 16,
+          "source_slice": "ни будь"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "e6251960cd2410e44bc8c593e470992d3d4547221c79fbec1d0256db28e4965a"
+    },
+    {
+      "id": "replace_digits_form",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Здесь было 2-ух человек.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "digit_form"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Некорректное сокращение",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "двух"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 15,
+          "from": 11,
+          "to": 15,
+          "source_slice": "2-ух"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "9982628315f6cbf8c203565c17afe307c61497d6d390c51cbdbf19f981d379ab"
+    },
+    {
+      "id": "replace_punctuation_adjacent",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "«порвата» книга.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "punctuation_adjacency"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«порвата» — просторечие, исправление: <suggestion>порвана</suggestion>",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "Порвана"
+          ],
+          "url": null,
+          "from_utf16": 1,
+          "to_utf16": 8,
+          "from": 1,
+          "to": 8,
+          "source_slice": "порвата"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "2b4ca82187f92272a301320cd02eae99e759c023b20c30fd076ea6947d36d011"
+    },
+    {
+      "id": "replace_multiple_findings",
+      "rule_class": "RussianSimpleReplaceRule",
+      "rule_id": "RU_SIMPLE_REPLACE",
+      "text": "Книга была порвата, и другая книга была порвата.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "multi_finding"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«порвата» — просторечие, исправление: <suggestion>порвана</suggestion>",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "порвана"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 18,
+          "from": 11,
+          "to": 18,
+          "source_slice": "порвата"
+        },
+        {
+          "rule_id": "RU_SIMPLE_REPLACE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«порвата» — просторечие, исправление: <suggestion>порвана</suggestion>",
+          "short_message": "Ошибка?",
+          "suggestions": [
+            "порвана"
+          ],
+          "url": null,
+          "from_utf16": 40,
+          "to_utf16": 47,
+          "from": 40,
+          "to": 47,
+          "source_slice": "порвата"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "76c93fef5e6089aff5f71433e1e7411c40b86386d41ccdb427c6633592b97389"
+    },
+    {
+      "id": "simple_repeat_positive",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Это это тест.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "immediate_repeat",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "WORD_REPEAT_RULE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Возможная опечатка: повтор слова",
+          "short_message": "Повтор слова",
+          "suggestions": [
+            "Это"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "Это это"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "13b86ffa373b60ec68a31fe9c0cfe8adac588a1fc18a6bf85b2b7b8784b98052"
+    },
+    {
+      "id": "simple_repeat_negative",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Это тест.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "immediate_repeat"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "a5d9ecd6484a0fccfe08c703357e946e0d9efe2dff058ed5d09ceb72b0094352"
+    },
+    {
+      "id": "simple_repeat_case_variant",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Дом дом стоит.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "case_variants"
+      ],
+      "expected": [
+        {
+          "rule_id": "WORD_REPEAT_RULE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Возможная опечатка: повтор слова",
+          "short_message": "Повтор слова",
+          "suggestions": [
+            "Дом"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "Дом дом"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6c3213cb1daa5bc4936a21b8f415ed89e9b869e0f07776b0bb017ac5e9603b0b"
+    },
+    {
+      "id": "simple_repeat_ignored_i",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Он и и она.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "ignored_word"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "64b26a7c041f35b0888b00af249ac609b69d958fd9e17d788ed1f3e603b8d4a9"
+    },
+    {
+      "id": "simple_repeat_ignored_po",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Он по по дороге.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "ignored_word"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "92476c61725df4b73069f5d3fd61814290210688f3263190bf063241efc4b0c7"
+    },
+    {
+      "id": "simple_repeat_ignored_po_abbrev",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Установил ПО по инструкции.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "ignored_word"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0f3d76d67e2168b8c13463b359c2eb265782aedef0403fbbdae6355803293471"
+    },
+    {
+      "id": "simple_repeat_ignored_chto",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Он сказал что что.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "ignored_word"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "c54bb967ae5616ef0bd214c5a7226bdac54587f00928ec0f9ce230bfb4cbdb58"
+    },
+    {
+      "id": "simple_repeat_single_letters",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Буквы а а б.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "single_letter_spelling"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "11a7b52d4f00562998ff369330e5e07d8f1c0d29c2c2c1fc0482a505758e2293"
+    },
+    {
+      "id": "simple_repeat_punctuation_between",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Дом, дом стоит.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "punctuation_between"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "71fd40389281136c7aa7d6883717b3eeef7688b37a97d234b5812601431c2011"
+    },
+    {
+      "id": "simple_repeat_sentence_boundary",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Это дом. Дом стоит.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "sentence_boundary"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "348af6d7778af19bcd6a6043cb8ee4c5a00c019e51f83ecc991f9f0c4495d8f7"
+    },
+    {
+      "id": "simple_repeat_multiple",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Дом дом стоит. Сад сад цветёт.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "multi_finding"
+      ],
+      "expected": [
+        {
+          "rule_id": "WORD_REPEAT_RULE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Возможная опечатка: повтор слова",
+          "short_message": "Повтор слова",
+          "suggestions": [
+            "Дом"
+          ],
+          "url": null,
+          "from_utf16": 0,
+          "to_utf16": 7,
+          "from": 0,
+          "to": 7,
+          "source_slice": "Дом дом"
+        },
+        {
+          "rule_id": "WORD_REPEAT_RULE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Возможная опечатка: повтор слова",
+          "short_message": "Повтор слова",
+          "suggestions": [
+            "Сад"
+          ],
+          "url": null,
+          "from_utf16": 15,
+          "to_utf16": 22,
+          "from": 15,
+          "to": 22,
+          "source_slice": "Сад сад"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "119883a96a31575c9f29363f9e1fecbfbc248d86b3f7f5127fd04e9550da3de9"
+    },
+    {
+      "id": "simple_repeat_numbers",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Число 1 1 тут.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "numeric"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d37550d42882dfc9946bed4d84068005b592e548c72c1261c14d87bb39ba722f"
+    },
+    {
+      "id": "simple_repeat_ellipsis",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Пауза ... ... конец.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "punctuation_only"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "4d4fef921843575dcdbc6bfa281c22e81133fa8f99658420d0d8242b7bc45a6a"
+    },
+    {
+      "id": "simple_repeat_quoted",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Он сказал «дом дом».",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "quoted_text"
+      ],
+      "expected": [
+        {
+          "rule_id": "WORD_REPEAT_RULE",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Возможная опечатка: повтор слова",
+          "short_message": "Повтор слова",
+          "suggestions": [
+            "дом"
+          ],
+          "url": null,
+          "from_utf16": 11,
+          "to_utf16": 18,
+          "from": 11,
+          "to": 18,
+          "source_slice": "дом дом"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a909d704b582a4bc12158ba87862526b4a88ad3c9d8647155ca4796a88840c82"
+    },
+    {
+      "id": "simple_repeat_paragraph_boundary",
+      "rule_class": "RussianSimpleWordRepeatRule",
+      "rule_id": "WORD_REPEAT_RULE",
+      "text": "Это дом.\n\nДом стоит.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "paragraph_boundary"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "17b0f65614ac23a762611aba7eb376463998bd642f90b523f1b13d488fdbd86e"
+    },
+    {
+      "id": "coherency_negative_upstream",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "По шкале Цельсия абсолютному нулю соответствует температура −273,15 °C.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "61c8fa8216d20191a30f5c5a474a6579305801dcbe3cd4196054bc81bb7031f6"
+    },
+    {
+      "id": "coherency_positive_upstream",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "По шкале Цельсия абсолютному нулю соответствует температура −273,15 °C или ноль по шкале Кельвина.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_COHERENCY",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«ноль» и «нуль» не следует использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "нуль"
+          ],
+          "url": null,
+          "from_utf16": 75,
+          "to_utf16": 79,
+          "from": 75,
+          "to": 79,
+          "source_slice": "ноль"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "1653cadadf07568c4959902079462044984b6f20f791f8b009cffbbf597bb45a"
+    },
+    {
+      "id": "coherency_consistent_spelling",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "По шкале Цельсия абсолютному нулю соответствует температура −273,15 °C или нуль по шкале Кельвина.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "eba6c08685f98c1519f234d54729c374006200ab371c2b90dacd0478adcc2ac5"
+    },
+    {
+      "id": "coherency_call_independence_a",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Абсолютный нуль.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "call_independence"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "99cebf68e9e97b5ad5634389fb2e9fe6da67e801bb0c85667f666189392d34fb"
+    },
+    {
+      "id": "coherency_call_independence_b",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Ноль по шкале Кельвина.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "call_independence"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "d3ebc86653fe00d34c29736b683edebbcab342f6c3e6a79937ace1950d1f69d4"
+    },
+    {
+      "id": "coherency_cross_paragraph",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Абсолютный нуль.\n\nСовсем недостижим. И ноль по шкале Кельвина.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "paragraph_boundary"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_COHERENCY",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«ноль» и «нуль» не следует использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "нуль"
+          ],
+          "url": null,
+          "from_utf16": 39,
+          "to_utf16": 43,
+          "from": 39,
+          "to": 43,
+          "source_slice": "ноль"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "8db3ec5c5a31ab4eb89a430b4f202ae1ca47e7768357bf7619e509016c9f1cf0"
+    },
+    {
+      "id": "coherency_registered_example",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Понятие «оффлайн» тоже имеет английские корни и связано со словом «offline», что означает «вне сети». Принтер перешёл в состояние офлайн.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_COHERENCY",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«офлайн» и «оффлайн» не следует использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "оффлайн"
+          ],
+          "url": null,
+          "from_utf16": 130,
+          "to_utf16": 136,
+          "from": 130,
+          "to": 136,
+          "source_slice": "офлайн"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "be3bdb45052bc7992ca5ecfe06cc9c56913f464e8c2203417bd5c44c5a900491"
+    },
+    {
+      "id": "coherency_blogger",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Он блогер. Другой блоггер тоже.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "resource_entry"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_COHERENCY",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«блоггер» и «блогер» не следует использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "блогер"
+          ],
+          "url": null,
+          "from_utf16": 18,
+          "to_utf16": 25,
+          "from": 18,
+          "to": 25,
+          "source_slice": "блоггер"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6ca984e4fb74e1237db51c9b931f83dd95a6b0a425a6b2a8bbb961a9845f09d1"
+    },
+    {
+      "id": "coherency_case_adaptation",
+      "rule_class": "RussianWordCoherencyRule",
+      "rule_id": "RU_WORD_COHERENCY",
+      "text": "Он блогер. Другая блоггер тут.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "case_adaptation"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_COHERENCY",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«блоггер» и «блогер» не следует использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "блогер"
+          ],
+          "url": null,
+          "from_utf16": 18,
+          "to_utf16": 25,
+          "from": 18,
+          "to": 25,
+          "source_slice": "блоггер"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "7e0e2062d01147937e9a501a5dd67e0e55bd6ceef67d4088ee383a774f1bfbac"
+    },
+    {
+      "id": "word_repeat_negative_upstream",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Повтор слов в предложении.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "upstream_assertion",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "b1e6847449f95d9985db0a9f33c64e5fc78effebef2c2650a8c1467f4c4ffc00"
+    },
+    {
+      "id": "word_repeat_positive_upstream",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Повтор слов в повтор предложении.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "upstream_assertion",
+        "default_off",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Повтор слов в предложении",
+          "short_message": "Повтор слов в предложении",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 14,
+          "to_utf16": 20,
+          "from": 14,
+          "to": 20,
+          "source_slice": "повтор"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "cf2c209ea34a48c023fe7fc3356ff44f1e7d429f099d8123956c09d3b617c0ca"
+    },
+    {
+      "id": "word_repeat_registered_example",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Всё смешалось в доме доме Облонских.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Повтор слов в предложении",
+          "short_message": "Повтор слов в предложении",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 21,
+          "to_utf16": 25,
+          "from": 21,
+          "to": 25,
+          "source_slice": "доме"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6ea7268777394c69d67d07535c3da6bab0d6bced2c959174a4eeb961b6a7000a"
+    },
+    {
+      "id": "word_repeat_excluded_word",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Он не пошёл и не поехал.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "excluded_word",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "03e80e6f15dcdad923311e677a4564ab5d942db3c40bdb54ecb4d12938bbef26"
+    },
+    {
+      "id": "word_repeat_excluded_pos",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Он шёл в дом в сад.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "excluded_pos",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "918cc43953a1d13ee9c5135d2f58c8e6935491b675d958445cc9990faab03c52"
+    },
+    {
+      "id": "word_repeat_numbers",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Было 5 и 5 предметов.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "excluded_nonwords",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "8e85130ec17e25afc773aa8f7871c2a4a3fcb6f33904edb9e867cef282116fc0"
+    },
+    {
+      "id": "word_repeat_distance",
+      "rule_class": "RussianWordRepeatRule",
+      "rule_id": "RU_WORD_REPEAT",
+      "text": "Дом стоял высоко, а другой дом стоял низко.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "distance",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Повтор слов в предложении",
+          "short_message": "Повтор слов в предложении",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 27,
+          "to_utf16": 30,
+          "from": 27,
+          "to": 30,
+          "source_slice": "дом"
+        },
+        {
+          "rule_id": "RU_WORD_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "Повтор слов в предложении",
+          "short_message": "Повтор слов в предложении",
+          "suggestions": [],
+          "url": null,
+          "from_utf16": 31,
+          "to_utf16": 36,
+          "from": 31,
+          "to": 36,
+          "source_slice": "стоял"
+        }
+      ],
+      "finding_count": 2,
+      "semantic_signature": "459238350909b20f586ca274c9ee61b9b7fbaa37e8efba17e5331b6107e78934"
+    },
+    {
+      "id": "root_repeat_registered_example",
+      "rule_class": "RussianWordRootRepeatRule",
+      "rule_id": "RU_WORD_ROOT_REPEAT",
+      "text": "Абрикос рос в саду. У меня на столе стоит абрикосный сок.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "registered_example",
+        "default_off",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_ROOT_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«абрикосный» и «абрикос» – однокоренные слова, их не стоит использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "абрикос"
+          ],
+          "url": null,
+          "from_utf16": 42,
+          "to_utf16": 52,
+          "from": 42,
+          "to": 52,
+          "source_slice": "абрикосный"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "ee88596754285e355ef76550f1b50eac9f37ca8acfd3cc420532178ccea8b09c"
+    },
+    {
+      "id": "root_repeat_negative",
+      "rule_class": "RussianWordRootRepeatRule",
+      "rule_id": "RU_WORD_ROOT_REPEAT",
+      "text": "Абрикос рос в саду.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "e425e6e504ba8720b8e9aa8bb82dac74767f8f353a32cebe37464128192db291"
+    },
+    {
+      "id": "root_repeat_single_sentence",
+      "rule_class": "RussianWordRootRepeatRule",
+      "rule_id": "RU_WORD_ROOT_REPEAT",
+      "text": "Абрикосный сок и абрикос.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "same_sentence",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_ROOT_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«абрикос» и «абрикосный» – однокоренные слова, их не стоит использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "абрикосный"
+          ],
+          "url": null,
+          "from_utf16": 17,
+          "to_utf16": 24,
+          "from": 17,
+          "to": 24,
+          "source_slice": "абрикос"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "294da9b142ffb0d26a55ce4641163f62f13d85cb130cbefbfd5a27d527b4f2ad"
+    },
+    {
+      "id": "root_repeat_unrelated",
+      "rule_class": "RussianWordRootRepeatRule",
+      "rule_id": "RU_WORD_ROOT_REPEAT",
+      "text": "Яблоко лежит на столе. Груша тоже.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "unrelated_words",
+        "default_off"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "7c862916c71cc97bfadd1d2529516e1b5aaa1ae41182d959352864ef3c062639"
+    },
+    {
+      "id": "root_repeat_paragraph_boundary",
+      "rule_class": "RussianWordRootRepeatRule",
+      "rule_id": "RU_WORD_ROOT_REPEAT",
+      "text": "Абрикос рос в саду.\n\nСок абрикосный вкусный.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "paragraph_boundary",
+        "default_off"
+      ],
+      "expected": [
+        {
+          "rule_id": "RU_WORD_ROOT_REPEAT",
+          "category_id": "MISC",
+          "category_name": "Общие правила",
+          "message": "«абрикосный» и «абрикос» – однокоренные слова, их не стоит использовать одновременно",
+          "short_message": "",
+          "suggestions": [
+            "абрикос"
+          ],
+          "url": null,
+          "from_utf16": 25,
+          "to_utf16": 35,
+          "from": 25,
+          "to": 35,
+          "source_slice": "абрикосный"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "77edecc76c760b5a2a130f0410d11baa8808876e4ef74074b9669bce2144bdaa"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
   "pinned_tag": "v6.8",
   "commit_date": "2026-05-05T15:03:23Z",
   "selection_rationale": "LanguageTool v6.8 is the latest stable release milestone, featuring the complete modern Russian rule set, updated dictionary assets, and full test suite.",
-  "vendored_files_count": 140,
+  "vendored_files_count": 155,
   "files": {
     "COPYING.txt": {
       "size": 26432,
@@ -23,6 +23,10 @@
       "size": 8645,
       "sha256": "ebae258c5b034f3af3a67a563cf254fa32d934065a6808a9750a2df4e754d387"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractCompoundRule.java": {
+      "size": 11881,
+      "sha256": "eaa42c3ce1d770341094eb4d3b5e7bb649a820d54489b51248a462c596181122"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java": {
       "size": 4584,
       "sha256": "f832d7c053f1498fd9d1690fbb3f7d3a526ac8f8f365a16a7ecf4ebf84a7646c"
@@ -39,6 +43,10 @@
       "size": 4157,
       "sha256": "be48708586932a31d4bb9ce546bd4410b235c7ebbc8b2d3c7fbcb358c159c2df"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractSimpleReplaceRule2.java": {
+      "size": 19756,
+      "sha256": "b9c1deb47c9b6b827b3737f58b7b7eb24e28b57cbf5429f946b4587e0d4fc12a"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java": {
       "size": 8247,
       "sha256": "d8ac44240cb9917ef46a263e0031d8f09498da80b9f84052d2ac1cf6a1a15e4c"
@@ -47,9 +55,21 @@
       "size": 3336,
       "sha256": "9a93332483a1ec33cd1eb0245b951598991e96b0b271670c824f2562b42c2739"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/AbstractWordCoherencyRule.java": {
+      "size": 4707,
+      "sha256": "308e22853a0a40da88c22d2c8c67df170c6e4a10923890663a7416fa27941e5d"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/AdvancedWordRepeatRule.java": {
+      "size": 4824,
+      "sha256": "55dba9f4eed8871f7c45f52e658349630cddfe79b7fa94015113fa97c4a053f7"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java": {
       "size": 9631,
       "sha256": "ce8acb2afa0d093a567a1107f0d8bde1b80135f161c23fb6b4e1c9b42b2739c0"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/CompoundRuleData.java": {
+      "size": 4949,
+      "sha256": "f3654aecc2c7878fe150463a5a5a2ab33cdf85a54e0a888185ee90c42595e2f1"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/GenericUnpairedBracketsRule.java": {
       "size": 16391,
@@ -87,6 +107,10 @@
       "size": 3369,
       "sha256": "c39094cab8b8cd77e2ad25708ef50f8857f6ca605b4b872ecfd1cefb49e58ab4"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/SuggestedReplacement.java": {
+      "size": 5038,
+      "sha256": "a6628a28954652377b729f75a1f24a9a1e7920b64d8fb24a61ca4b1f21358e74"
+    },
     "languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java": {
       "size": 10174,
       "sha256": "9f0054374d7ea106827c191a6ec56fc641067f7e1fae8a4cb77b3c2ec6bdef7e"
@@ -98,6 +122,14 @@
     "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceBeforeParagraphEnd.java": {
       "size": 3492,
       "sha256": "a161ab3e28b97092e194236c3f11163a1a39538a4619320c11907aec84e56649"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/WordCoherencyDataLoader.java": {
+      "size": 2705,
+      "sha256": "f9183f51bb2795c8dd89cfc9f23853ad2a9a1904e9e9ca83de1fc48680266a33"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/WordRepeatRule.java": {
+      "size": 5154,
+      "sha256": "d1fe44d151ad9972039932d3dbb4949a842d89c587387e684d4ade35adcbe251"
     },
     "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java": {
       "size": 11395,
@@ -163,9 +195,37 @@
       "size": 27473,
       "sha256": "bd68584d2673330a75147fbe2f4682da007fadbdecf99a4b02c192cdd335d185"
     },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/CachingWordListLoader.java": {
+      "size": 2486,
+      "sha256": "842ee7f8694b8eb920756cef96900eb00597952c9b7ba9c24ddf9c844f451ca3"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/SpellingCheckRule.java": {
+      "size": 26512,
+      "sha256": "61e09cd85f43cb4ee307b0067cc378bc6d64c5ff6900351d6c4cedb88bc8c2d8"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikMultiSpeller.java": {
+      "size": 19607,
+      "sha256": "80358a7a2a9b6083592d74124d07f7525b99d8223bcb810cdcf303a9786e7821"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpeller.java": {
+      "size": 8265,
+      "sha256": "aa4d30de74c21fca7777f2a10c54ce269b168828177df6367e74b31b07f30e4f"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpellerRule.java": {
+      "size": 33047,
+      "sha256": "f829d158d1196ea0e750c85b239d1ec36799239041d9237fbb9e449115611af3"
+    },
+    "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/WeightedSuggestion.java": {
+      "size": 1558,
+      "sha256": "957bb7b6433913edc0e0f9c3e2b904907110885ed210da509264bbb534ee0b40"
+    },
     "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx": {
       "size": 213633,
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da"
+    },
+    "languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt": {
+      "size": 454892,
+      "sha256": "5d60620185f07c751eff8dfcee31ebc7071fbb945fdb0d4502594de21ca4a4df"
     },
     "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java": {
       "size": 6672,

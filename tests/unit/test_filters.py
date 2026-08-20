@@ -422,7 +422,8 @@ def test_filter_rules_examples_parity(clean_clock):
         if r.execution_state == ExecutionState.FILTER_0010_RUNNABLE
     ]
 
-    assert len(filter_rules) == 19
+    # Task 0012 promoted the four filter rules blocked by suppress_misspelled.
+    assert len(filter_rules) == 23
 
     for rule in filter_rules:
         for ex in rule.examples:

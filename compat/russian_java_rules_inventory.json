@@ -5,11 +5,13 @@
   "registration_source_sha256": "e42c7b3ee2aaf1e76deea246beb16d3f08df64fd65943495f1e3d0ad017cfaa6",
   "accounting": {
     "relevant_total": 23,
+    "implemented_total": 23,
     "implemented_0011": 15,
-    "deferred_0012": 8,
+    "implemented_0012": 8,
+    "deferred_ordinary": 0,
     "generic_implemented": 10,
     "generic_total": 10,
-    "russian_specific_implemented": 5,
+    "russian_specific_implemented": 13,
     "russian_specific_total": 13,
     "language_model_total": 1,
     "language_model_implemented": 0
@@ -29,6 +31,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java",
       "source_sha256": "ce8acb2afa0d093a567a1107f0d8bde1b80135f161c23fb6b4e1c9b42b2739c0",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java"
@@ -52,6 +55,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java",
       "source_sha256": "9f0054374d7ea106827c191a6ec56fc641067f7e1fae8a4cb77b3c2ec6bdef7e",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/UppercaseSentenceStartRuleTest.java"
@@ -72,12 +76,42 @@
       "default_off": false,
       "constructor_arguments": "messages, Russian language, userConfig, altLanguages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/MorfologikRussianSpellerRule.java",
       "source_sha256": "ec8a78abe30b03202d18378bdce575138b0f8ec3dba0937f3c60002e56e52d73",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpellerRule.java",
+          "source_sha256": "f829d158d1196ea0e750c85b239d1ec36799239041d9237fbb9e449115611af3"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikMultiSpeller.java",
+          "source_sha256": "80358a7a2a9b6083592d74124d07f7525b99d8223bcb810cdcf303a9786e7821"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpeller.java",
+          "source_sha256": "aa4d30de74c21fca7777f2a10c54ce269b168828177df6367e74b31b07f30e4f"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/WeightedSuggestion.java",
+          "source_sha256": "957bb7b6433913edc0e0f9c3e2b904907110885ed210da509264bbb534ee0b40"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/SpellingCheckRule.java",
+          "source_sha256": "61e09cd85f43cb4ee307b0067cc378bc6d64c5ff6900351d6c4cedb88bc8c2d8"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/CachingWordListLoader.java",
+          "source_sha256": "842ee7f8694b8eb920756cef96900eb00597952c9b7ba9c24ddf9c844f451ca3"
+        }
+      ],
       "resource_dependencies": [
         "/ru/hunspell/ru_RU.dict",
-        "/ru/hunspell/spelling.txt"
+        "/ru/hunspell/ru_RU.info",
+        "/ru/hunspell/ignore.txt",
+        "/ru/hunspell/spelling.txt",
+        "/ru/hunspell/prohibit.txt",
+        "spelling_global.txt"
       ],
       "upstream_test_sources": [
         "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianSpellerRuleTest.java"
@@ -101,6 +135,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/MultipleWhitespaceRule.java",
       "source_sha256": "c9cbb7a79ee631843c54323679d503979770b3779fe7a78353da8f5a060069cb",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/MultipleWhitespaceRuleTest.java"
@@ -124,6 +159,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/SentenceWhitespaceRule.java",
       "source_sha256": "c39094cab8b8cd77e2ad25708ef50f8857f6ca605b4b872ecfd1cefb49e58ab4",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/SentenceWhitespaceRuleTest.java"
@@ -147,6 +183,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceBeforeParagraphEnd.java",
       "source_sha256": "a161ab3e28b97092e194236c3f11163a1a39538a4619320c11907aec84e56649",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [],
       "configured_priority_target": null,
@@ -168,6 +205,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/WhiteSpaceAtBeginOfParagraph.java",
       "source_sha256": "24db609d6e11d33f73f4ee00576e57cddc190241e025cc7897825b9e7c39907f",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [],
       "configured_priority_target": null,
@@ -189,6 +227,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/LongSentenceRule.java",
       "source_sha256": "1aff2d7e9da36899c3e8d4d5d36b1eb67f2e15288a6288b555b9cde78b7513df",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/LongSentenceRuleTest.java"
@@ -212,6 +251,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/LongParagraphRule.java",
       "source_sha256": "11ceb6432889d6a329a1d480f6fd97eea007cce3dad49166e3ced38feccc09db",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/LongParagraphRuleTest.java"
@@ -235,6 +275,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java",
       "source_sha256": "f29575e3bf5e945b06b197566a7107577a1085784d73ca824d89b507f1291efb",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [],
       "configured_priority_target": null,
@@ -256,6 +297,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianFillerWordsRule.java",
       "source_sha256": "84dea8cf6c9354f17ec9cc13cf9f96fbd7923e5b4badaad46856fa6e6e8c7bd4",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [],
       "configured_priority_target": null,
@@ -277,6 +319,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-core/src/main/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2.java",
       "source_sha256": "f256e0cc1c9cdc45e245450c19632dc113bbadd837ca61896e2534ecb43fce08",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-core/src/test/java/org/languagetool/rules/PunctuationMarkAtParagraphEnd2Test.java"
@@ -297,11 +340,42 @@
       "default_off": true,
       "constructor_arguments": "messages, Russian language, userConfig, altLanguages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRule.java",
       "source_sha256": "ab44364af5e7dada97112706ca30eaa70ebf13e3a94c63efa7979fd7fbd14d6e",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpellerRule.java",
+          "source_sha256": "f829d158d1196ea0e750c85b239d1ec36799239041d9237fbb9e449115611af3"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikMultiSpeller.java",
+          "source_sha256": "80358a7a2a9b6083592d74124d07f7525b99d8223bcb810cdcf303a9786e7821"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpeller.java",
+          "source_sha256": "aa4d30de74c21fca7777f2a10c54ce269b168828177df6367e74b31b07f30e4f"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/WeightedSuggestion.java",
+          "source_sha256": "957bb7b6433913edc0e0f9c3e2b904907110885ed210da509264bbb534ee0b40"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/SpellingCheckRule.java",
+          "source_sha256": "61e09cd85f43cb4ee307b0067cc378bc6d64c5ff6900351d6c4cedb88bc8c2d8"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/spelling/CachingWordListLoader.java",
+          "source_sha256": "842ee7f8694b8eb920756cef96900eb00597952c9b7ba9c24ddf9c844f451ca3"
+        }
+      ],
       "resource_dependencies": [
-        "/ru/hunspell/ru_RU_yo.dict"
+        "/ru/hunspell/ru_RU_yo.dict",
+        "/ru/hunspell/ru_RU_yo.info",
+        "/ru/hunspell/ignore.txt",
+        "/ru/hunspell/spelling.txt",
+        "/ru/hunspell/prohibit.txt",
+        "spelling_global.txt"
       ],
       "upstream_test_sources": [
         "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/MorfologikRussianYOSpellerRuleTest.java"
@@ -325,6 +399,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianUnpairedBracketsRule.java",
       "source_sha256": "2bee29b6de45038c0a632dd4b9dd1578a91364ce07af42defcbc9b14af18cdf9",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianUnpairedBracketsRuleTest.java"
@@ -345,9 +420,19 @@
       "default_off": false,
       "constructor_arguments": "messages, Russian language, userConfig",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianCompoundRule.java",
       "source_sha256": "bf9370afe44da38a5a5e0d74391bb71cb377313d9cf8d8c532e66eeb6b7d9a0a",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/AbstractCompoundRule.java",
+          "source_sha256": "eaa42c3ce1d770341094eb4d3b5e7bb649a820d54489b51248a462c596181122"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/CompoundRuleData.java",
+          "source_sha256": "f3654aecc2c7878fe150463a5a5a2ab33cdf85a54e0a888185ee90c42595e2f1"
+        }
+      ],
       "resource_dependencies": [
         "/ru/compounds.txt"
       ],
@@ -370,9 +455,15 @@
       "default_off": false,
       "constructor_arguments": "messages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSimpleReplaceRule.java",
       "source_sha256": "fe2a636be817541168ce5716e5a6fbdf601024cf255a3e485179a2df30a33ed0",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/AbstractSimpleReplaceRule2.java",
+          "source_sha256": "b9c1deb47c9b6b827b3737f58b7b7eb24e28b57cbf5429f946b4587e0d4fc12a"
+        }
+      ],
       "resource_dependencies": [
         "/ru/replace.txt"
       ],
@@ -395,9 +486,15 @@
       "default_off": false,
       "constructor_arguments": "messages, Russian language",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSimpleWordRepeatRule.java",
       "source_sha256": "862f02ffec6de08458158faf0d409b868a6785c94433ffc857527f61a1288abf",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/WordRepeatRule.java",
+          "source_sha256": "d1fe44d151ad9972039932d3dbb4949a842d89c587387e684d4ade35adcbe251"
+        }
+      ],
       "resource_dependencies": [],
       "upstream_test_sources": [],
       "configured_priority_target": null,
@@ -416,9 +513,19 @@
       "default_off": false,
       "constructor_arguments": "messages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordCoherencyRule.java",
       "source_sha256": "c47c310a74fb7accc9b08073c0fc5f4fd0add14bae170332eff334e7f4833988",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/AbstractWordCoherencyRule.java",
+          "source_sha256": "308e22853a0a40da88c22d2c8c67df170c6e4a10923890663a7416fa27941e5d"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/WordCoherencyDataLoader.java",
+          "source_sha256": "f9183f51bb2795c8dd89cfc9f23853ad2a9a1904e9e9ca83de1fc48680266a33"
+        }
+      ],
       "resource_dependencies": [
         "/ru/coherency.txt"
       ],
@@ -441,9 +548,15 @@
       "default_off": true,
       "constructor_arguments": "messages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordRepeatRule.java",
       "source_sha256": "c72b3c2100c95aa16695d29a1080bf83333c6ea73d17b7c82baaab382a6f44ca",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/AdvancedWordRepeatRule.java",
+          "source_sha256": "55dba9f4eed8871f7c45f52e658349630cddfe79b7fa94015113fa97c4a053f7"
+        }
+      ],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianWordRepeatRuleTest.java"
@@ -464,9 +577,19 @@
       "default_off": true,
       "constructor_arguments": "messages",
       "classification": "TASK_0012",
-      "compatibility_status": "DEFERRED_0012_SPELLING_COMPOUND_REPLACE_REPEAT",
+      "compatibility_status": "NATIVE_0012_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianWordRootRepeatRule.java",
       "source_sha256": "43250f2b391bd763e41b2947051074df821fda7a466b288fc110f695c9e82440",
+      "inherited_sources": [
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/AbstractWordCoherencyRule.java",
+          "source_sha256": "308e22853a0a40da88c22d2c8c67df170c6e4a10923890663a7416fa27941e5d"
+        },
+        {
+          "source_file": "languagetool-core/src/main/java/org/languagetool/rules/WordCoherencyDataLoader.java",
+          "source_sha256": "f9183f51bb2795c8dd89cfc9f23853ad2a9a1904e9e9ca83de1fc48680266a33"
+        }
+      ],
       "resource_dependencies": [
         "/ru/wordrootrep.txt"
       ],
@@ -490,6 +613,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianVerbConjugationRule.java",
       "source_sha256": "6e97a306da3445ae33087be444e7b842dad74f50166d8a88ad13cdbcfa9652c1",
+      "inherited_sources": [],
       "resource_dependencies": [],
       "upstream_test_sources": [
         "languagetool-language-modules/ru/src/test/java/org/languagetool/rules/ru/RussianVerbConjugationRuleTest.java"
@@ -513,6 +637,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianDashRule.java",
       "source_sha256": "22561c7d99518bfb5abb4d284c39bff060015265ece4629518dcad0300e6335b",
+      "inherited_sources": [],
       "resource_dependencies": [
         "/ru/compounds.txt"
       ],
@@ -538,6 +663,7 @@
       "compatibility_status": "NATIVE_0011_IMPLEMENTED",
       "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSpecificCaseRule.java",
       "source_sha256": "d78eb7708b998aa2d37d7ed8121d5c1b1329ac7d8c21e63d884f06bbcaf1757e",
+      "inherited_sources": [],
       "resource_dependencies": [
         "/ru/specific_case.txt"
       ],
@@ -550,6 +676,151 @@
       "priority_binding_status": "ORPHAN_OVERRIDE_ID"
     }
   ],
+  "runtime_resources": [
+    {
+      "upstream_path": "/ru/coherency.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/coherency.txt",
+      "packaged_path": "src/pylat_ru/resources/rules/ru/coherency.txt",
+      "size_bytes": 987,
+      "sha256": "f6b282c5da932fc5025ce068ba96261c24255d7b1cc8c95dd56d6dd400167bd2",
+      "packaged_sha256": "f6b282c5da932fc5025ce068ba96261c24255d7b1cc8c95dd56d6dd400167bd2",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/compounds.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/compounds.txt",
+      "packaged_path": "src/pylat_ru/resources/ru/compounds.txt",
+      "size_bytes": 899551,
+      "sha256": "71b4217689cf83c07eb88b4f4b5c9c5e482171a053b48fa93e1cd1c14e8e720a",
+      "packaged_sha256": "71b4217689cf83c07eb88b4f4b5c9c5e482171a053b48fa93e1cd1c14e8e720a",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/ignore.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ignore.txt",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/ignore.txt",
+      "size_bytes": 72,
+      "sha256": "0561df4242ce2d6c6768cb57a0be7822ffda7c3e5991c8664aef7da05351f616",
+      "packaged_sha256": "0561df4242ce2d6c6768cb57a0be7822ffda7c3e5991c8664aef7da05351f616",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/prohibit.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/prohibit.txt",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/prohibit.txt",
+      "size_bytes": 868,
+      "sha256": "fb56a59b07d43fc0543e6e39d845cfc0d2674438bde628efca7fba93b4f1bcae",
+      "packaged_sha256": "fb56a59b07d43fc0543e6e39d845cfc0d2674438bde628efca7fba93b4f1bcae",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/ru_RU.dict",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU.dict",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/ru_RU.dict",
+      "size_bytes": 1889147,
+      "sha256": "10c3acd195935a589d3baebe8de4a829def7d19ee4d0613664196795fe91403f",
+      "packaged_sha256": "10c3acd195935a589d3baebe8de4a829def7d19ee4d0613664196795fe91403f",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/ru_RU.info",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU.info",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/ru_RU.info",
+      "size_bytes": 1078,
+      "sha256": "1d6a66af2b3c1812c44d03d2b8d27e6f407e8c99b071956a82296c600679f6a4",
+      "packaged_sha256": "1d6a66af2b3c1812c44d03d2b8d27e6f407e8c99b071956a82296c600679f6a4",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/ru_RU_yo.dict",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU_yo.dict",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/ru_RU_yo.dict",
+      "size_bytes": 1783672,
+      "sha256": "215cc717920e814a40702f65c2aa3c8e4598fd8f41004140aa00cf1a4893434b",
+      "packaged_sha256": "215cc717920e814a40702f65c2aa3c8e4598fd8f41004140aa00cf1a4893434b",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/ru_RU_yo.info",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/ru_RU_yo.info",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/ru_RU_yo.info",
+      "size_bytes": 1086,
+      "sha256": "956e5db4022ffe4b989ac841ab30b33781867b6a1f20905e40bca83c81650573",
+      "packaged_sha256": "956e5db4022ffe4b989ac841ab30b33781867b6a1f20905e40bca83c81650573",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/hunspell/spelling.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/hunspell/spelling.txt",
+      "packaged_path": "src/pylat_ru/resources/ru/hunspell/spelling.txt",
+      "size_bytes": 39687,
+      "sha256": "964c4bb256ebe8170c4df7e91cea6c66a5717a3ad984debe321f4d65f6a268d7",
+      "packaged_sha256": "964c4bb256ebe8170c4df7e91cea6c66a5717a3ad984debe321f4d65f6a268d7",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/replace.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/replace.txt",
+      "packaged_path": "src/pylat_ru/resources/rules/ru/replace.txt",
+      "size_bytes": 13485,
+      "sha256": "38bfd8fc096dd0581d4213847c39ee51bc9b5ef3f63b9663900de8da2b091829",
+      "packaged_sha256": "38bfd8fc096dd0581d4213847c39ee51bc9b5ef3f63b9663900de8da2b091829",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/specific_case.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/specific_case.txt",
+      "packaged_path": "src/pylat_ru/resources/ru/specific_case.txt",
+      "size_bytes": 915,
+      "sha256": "c35d08b0909b45acf242621961e2dbf0148792b70e4696be40248ad952c50966",
+      "packaged_sha256": "c35d08b0909b45acf242621961e2dbf0148792b70e4696be40248ad952c50966",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "/ru/wordrootrep.txt",
+      "vendored_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/wordrootrep.txt",
+      "packaged_path": "src/pylat_ru/resources/rules/ru/wordrootrep.txt",
+      "size_bytes": 565589,
+      "sha256": "a6c59703ddf81ae0bb8b1525455e48b055ca4865b351f279a7bb324499a239d5",
+      "packaged_sha256": "a6c59703ddf81ae0bb8b1525455e48b055ca4865b351f279a7bb324499a239d5",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "upstream_path": "spelling_global.txt",
+      "vendored_path": "languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt",
+      "packaged_path": "src/pylat_ru/resources/spelling_global.txt",
+      "size_bytes": 454892,
+      "sha256": "5d60620185f07c751eff8dfcee31ebc7071fbb945fdb0d4502594de21ca4a4df",
+      "packaged_sha256": "5d60620185f07c751eff8dfcee31ebc7071fbb945fdb0d4502594de21ca4a4df",
+      "byte_exact": true,
+      "license": "LGPL-2.1-or-later"
+    }
+  ],
+  "xml_filters": {
+    "total": 7,
+    "implemented": 7,
+    "deferred": 0,
+    "final_filter": {
+      "class": "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter",
+      "source_file": "languagetool-language-modules/ru/src/main/java/org/languagetool/rules/ru/RussianSuppressMisspelledSuggestionsFilter.java",
+      "source_sha256": "98a8525ce97c6c8b45576a9af80c294234dcfe8c6ad8409bb3fbf8783b72e35f",
+      "base_source_file": "languagetool-core/src/main/java/org/languagetool/rules/AbstractSuppressMisspelledSuggestionsFilter.java",
+      "base_source_sha256": "9a93332483a1ec33cd1eb0245b951598991e96b0b271670c824f2562b42c2739",
+      "default_spelling_rule": "MORFOLOGIK_RULE_RU_RU"
+    }
+  },
   "language_model_rules": [
     {
       "rule_class": "RussianConfusionProbabilityRule",

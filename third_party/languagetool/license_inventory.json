@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "upstream_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
-  "total_vendored_files": 140,
+  "total_vendored_files": 155,
   "status_summary": {
-    "VERIFIED_LGPL": 140,
+    "VERIFIED_LGPL": 155,
     "BLOCKED_LICENSE_REVIEW": 0
   },
   "items": [
@@ -52,6 +52,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractCompoundRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractCompoundRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 11881,
+      "sha256": "eaa42c3ce1d770341094eb4d3b5e7bb649a820d54489b51248a462c596181122",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractDashRule.java",
       "copyright_source": "LanguageTool Community / source file header",
@@ -96,6 +107,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractSimpleReplaceRule2.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractSimpleReplaceRule2.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 19756,
+      "sha256": "b9c1deb47c9b6b827b3737f58b7b7eb24e28b57cbf5429f946b4587e0d4fc12a",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractStatisticStyleRule.java",
       "copyright_source": "LanguageTool Community / source file header",
@@ -118,6 +140,28 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AbstractWordCoherencyRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AbstractWordCoherencyRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4707,
+      "sha256": "308e22853a0a40da88c22d2c8c67df170c6e4a10923890663a7416fa27941e5d",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/AdvancedWordRepeatRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/AdvancedWordRepeatRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4824,
+      "sha256": "55dba9f4eed8871f7c45f52e658349630cddfe79b7fa94015113fa97c4a053f7",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/CommaWhitespaceRule.java",
       "copyright_source": "LanguageTool Community / source file header",
@@ -127,6 +171,17 @@
       "sha256": "ce8acb2afa0d093a567a1107f0d8bde1b80135f161c23fb6b4e1c9b42b2739c0",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/CompoundRuleData.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/CompoundRuleData.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 4949,
+      "sha256": "f3654aecc2c7878fe150463a5a5a2ab33cdf85a54e0a888185ee90c42595e2f1",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
     },
     {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/GenericUnpairedBracketsRule.java",
@@ -228,6 +283,17 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/SuggestedReplacement.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/SuggestedReplacement.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 5038,
+      "sha256": "a6628a28954652377b729f75a1f24a9a1e7920b64d8fb24a61ca4b1f21358e74",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/UppercaseSentenceStartRule.java",
       "copyright_source": "LanguageTool Community / source file header",
@@ -259,6 +325,28 @@
       "sha256": "a161ab3e28b97092e194236c3f11163a1a39538a4619320c11907aec84e56649",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool Java source and test files (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/WordCoherencyDataLoader.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/WordCoherencyDataLoader.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 2705,
+      "sha256": "f9183f51bb2795c8dd89cfc9f23853ad2a9a1904e9e9ca83de1fc48680266a33",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/WordRepeatRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/WordRepeatRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 5154,
+      "sha256": "d1fe44d151ad9972039932d3dbb4949a842d89c587387e684d4ade35adcbe251",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
     },
     {
       "path": "languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java",
@@ -437,6 +525,72 @@
       "notes": "LanguageTool Java source and test files (LGPL)"
     },
     {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/CachingWordListLoader.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/CachingWordListLoader.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 2486,
+      "sha256": "842ee7f8694b8eb920756cef96900eb00597952c9b7ba9c24ddf9c844f451ca3",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/SpellingCheckRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/SpellingCheckRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 26512,
+      "sha256": "61e09cd85f43cb4ee307b0067cc378bc6d64c5ff6900351d6c4cedb88bc8c2d8",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikMultiSpeller.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikMultiSpeller.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 19607,
+      "sha256": "80358a7a2a9b6083592d74124d07f7525b99d8223bcb810cdcf303a9786e7821",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpeller.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpeller.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 8265,
+      "sha256": "aa4d30de74c21fca7777f2a10c54ce269b168828177df6367e74b31b07f30e4f",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpellerRule.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/MorfologikSpellerRule.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 33047,
+      "sha256": "f829d158d1196ea0e750c85b239d1ec36799239041d9237fbb9e449115611af3",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/WeightedSuggestion.java",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/java/org/languagetool/rules/spelling/morfologik/WeightedSuggestion.java",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 1558,
+      "sha256": "957bb7b6433913edc0e0f9c3e2b904907110885ed210da509264bbb534ee0b40",
+      "status": "VERIFIED_LGPL",
+      "notes": "LanguageTool Java source inherited by the Task-0012 Russian rules (LGPL)"
+    },
+    {
       "path": "languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/resources/org/languagetool/resource/segment.srx",
       "copyright_source": "LanguageTool Community / Yakov Reztsov / Alexey Sokirko (AOT.ru)",
@@ -446,6 +600,17 @@
       "sha256": "746cd57ee0be4a962875d4d3855f29cb1c3ab5daca5641de25d599ea055d64da",
       "status": "VERIFIED_LGPL",
       "notes": "LanguageTool SRX segmentation rule definition file (LGPL)"
+    },
+    {
+      "path": "languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt",
+      "upstream_origin": "https://github.com/languagetool-org/languagetool/blob/e807fcde6a6506191e1470744d2345da28c26be6/languagetool-core/src/main/resources/org/languagetool/resource/spelling_global.txt",
+      "copyright_source": "LanguageTool Community / source file header",
+      "license": "LGPL-2.1-or-later",
+      "vendored": true,
+      "size_bytes": 454892,
+      "sha256": "5d60620185f07c751eff8dfcee31ebc7071fbb945fdb0d4502594de21ca4a4df",
+      "status": "VERIFIED_LGPL",
+      "notes": "Globally accepted spellings used by SpellingCheckRule for all languages (LGPL)"
     },
     {
       "path": "languagetool-core/src/test/java/org/languagetool/rules/CommaWhitespaceRuleTest.java",

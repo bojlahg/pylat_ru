@@ -8,10 +8,12 @@ from __future__ import annotations
 import datetime
 import pytest
 
+from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
 from pylat_ru.grammar.errors import UnsupportedGrammarFeatureError
 from pylat_ru.grammar.filters.date_check import SystemClock
 from pylat_ru.grammar.filters.registry import get_filter_instance
+from pylat_ru.grammar.model import ExecutionState
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedTokenReadings, AnalyzedToken
 
 
@@ -42,18 +44,25 @@ def test_system_clock_restored_isolation(clean_clock):
     assert SystemClock.is_test_mode is False
 
 
-def test_spelling_dependency_exception():
+def test_spelling_dependent_filter_rule_is_runnable():
+    """NN_N_pril_prich[1] uses RussianSuppressMisspelledSuggestionsFilter (Task 0012)."""
     engine = RussianGrammarEngine.get_instance()
-    
-    # NN_N_pril_prich[1] is the spelling-filtered rule (deferred to Task 0012)
-    # Ensure checking it raises UnsupportedGrammarFeatureError naming the task 0012 spelling dependency
-    sent = AnalyzedSentence([])
-    
-    with pytest.raises(UnsupportedGrammarFeatureError) as exc_info:
-        engine.check_rule(sent, "NN_N_pril_prich[1]")
-        
-    assert "0012" in str(exc_info.value)
-    assert "RussianSuppressMisspelledSuggestionsFilter" in str(exc_info.value)
+    rule = engine.get_rule("NN_N_pril_prich[1]")
+
+    assert rule is not None
+    assert rule.execution_state == ExecutionState.FILTER_0010_RUNNABLE
+    assert rule.blockers == []
+    assert any(
+        f.class_name == "org.languagetool.rules.ru.RussianSuppressMisspelledSuggestionsFilter"
+        for f in rule.filters
+    )
+
+    text = "Сегодня на ужин жареная на масле картошка."
+    sent = RussianHybridDisambiguator.get_instance().disambiguate_text(text)
+    sent.text = text
+    matches = engine.check_rule(sent, "NN_N_pril_prich[1]")
+    assert [list(m.suggestions) for m in matches] == [["жаренная"]]
+
 
 
 def test_filter_registry_returns_match_local_instances():

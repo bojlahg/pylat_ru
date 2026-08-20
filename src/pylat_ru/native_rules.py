@@ -1,22 +1,39 @@
 """Python-native equivalents of the Java rules registered by Russian LT 6.8.
 
-This module intentionally models only the Task-0011 registration surface.  It
-does not contain spelling, compound-spelling, replacement, coherency, or word
-repetition substitutes (those remain the explicit Task-0012 boundary).
+``RUSSIAN_RULE_CLASSES`` reproduces the exact 23-entry registration order of
+``Russian.getRelevantRules()``: the fifteen rules implemented by Task 0011 plus
+the eight spelling, compound, replacement, repetition and coherency rules
+implemented by Task 0012.  ``RussianConfusionProbabilityRule`` is a language-model
+rule registered separately upstream and remains out of scope.
 """
 
 from __future__ import annotations
 
+from collections import deque
 from dataclasses import dataclass
 from importlib.resources import files
 import re
 import unicodedata
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Optional, Sequence
 
 from pylat_ru.analysis import AnalyzedSentence, AnalyzedTokenReadings
 from pylat_ru.chunking.russian import RussianChunker
 from pylat_ru.disambiguation.hybrid import RussianHybridDisambiguator
 from pylat_ru.tokenization.offsets import TokenSpan, Utf16CodePointMapper, tokens_to_spans
+from pylat_ru.spelling import (
+    DESC_SPELLING,
+    RussianSpeller,
+    RussianSpellerRuleBase,
+    RussianYoSpeller,
+    SpellerToken,
+    is_all_uppercase,
+    is_capitalized_word,
+    is_emoji,
+    is_punctuation_mark,
+    starts_with_uppercase,
+    uppercase_first_char,
+    utf16_len,
+)
 from pylat_ru.tokenization.sentence import RussianSentenceTokenizer
 from pylat_ru.tokenization.word import RussianWordTokenizer
 
@@ -40,7 +57,7 @@ class NativeRuleFinding:
     tags: tuple[str, ...] = ()
     original_error: str = ""
     url: str | None = None
-    source: str = "java_rule_0011"
+    source: str = "java_rule"
 
 
 @dataclass(frozen=True)
@@ -665,6 +682,917 @@ class RussianSpecificCaseRule(NativeRule):
         return out
 
 
+# ---------------------------------------------------------------------------
+# Task 0012 — the eight remaining ordinary Russian Java rules
+# ---------------------------------------------------------------------------
+
+
+def _java_string_hash(text: str) -> int:
+    """Java ``String.hashCode()`` (32-bit signed)."""
+    value = 0
+    for ch in text:
+        value = (value * 31 + ord(ch)) & 0xFFFFFFFF
+    if value >= 0x80000000:
+        value -= 0x100000000
+    return value
+
+
+def _java_hash_spread(hash_value: int) -> int:
+    """Java ``HashMap.hash()``: ``h ^ (h >>> 16)``."""
+    h = hash_value & 0xFFFFFFFF
+    return (h ^ (h >> 16)) & 0xFFFFFFFF
+
+
+def java_hash_set_order(items: Sequence[Optional[str]]) -> list[Optional[str]]:
+    """Iteration order of a ``java.util.HashSet<String>`` filled with ``items``.
+
+    ``AbstractWordCoherencyRule`` iterates a ``Collectors.toSet()`` result, so the
+    first matching base form -- and therefore which match is reported -- depends
+    on Java's bucket order rather than reading order.  Buckets are masked with
+    ``capacity - 1``, and resizing preserves relative order inside a bucket, so
+    a stable sort on the final bucket index reproduces it exactly.
+    """
+    unique: list[Optional[str]] = []
+    seen: set[Optional[str]] = set()
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            unique.append(item)
+    capacity = 16
+    while len(unique) > int(capacity * 0.75):
+        capacity *= 2
+    mask = capacity - 1
+    return sorted(
+        unique,
+        key=lambda item: 0 if item is None else (_java_hash_spread(_java_string_hash(item)) & mask),
+    )
+
+
+def _uncapitalize(text: str) -> str:
+    """``org.apache.commons.lang3.StringUtils.uncapitalize``."""
+    if not text:
+        return text
+    lowered = text[0].lower()
+    if len(lowered) != 1:
+        return text
+    return lowered + text[1:]
+
+
+def _sentence_tokens(unit: SentenceUnit) -> list[AnalyzedTokenReadings]:
+    return list(unit.analyzed.get_tokens_without_whitespace())
+
+
+class _SentenceOffsets:
+    """Translate per-sentence UTF-16 token offsets into absolute code-point offsets."""
+
+    def __init__(self, unit: SentenceUnit) -> None:
+        self.unit = unit
+        self.mapper = Utf16CodePointMapper(unit.text)
+
+    def absolute(self, utf16_pos: int) -> int:
+        return self.unit.start + self.mapper.utf16_to_codepoint(utf16_pos)
+
+    def local(self, utf16_pos: int) -> int:
+        return self.mapper.utf16_to_codepoint(utf16_pos)
+
+
+def _end_pos(token: AnalyzedTokenReadings) -> int:
+    """Java ``AnalyzedTokenReadings.getEndPos()`` (UTF-16 units)."""
+    return token.start_pos + utf16_len(token.token)
+
+
+class _SpellerRuleBase(NativeRule):
+    """Shared registration wrapper around the native Morfologik speller."""
+
+    speller_class: type[RussianSpellerRuleBase] = RussianSpeller
+    category_id = "TYPOS"
+    category_name = "Проверка орфографии"
+
+    def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
+        super().__init__(registration_order, config)
+        unknown = set(self.config) - {"conf_ru_Value"}
+        if unknown:
+            raise KeyError(f"Unknown configuration keys for {self.rule_id}: {sorted(unknown)}")
+        value = self.config.get("conf_ru_Value", 0)
+        if not isinstance(value, int) or isinstance(value, bool):
+            raise TypeError(f"{self.rule_id} conf_ru_Value must be an int, got {value!r}")
+        self.speller = self.speller_class(conf_ru_value=value)
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            tokens = [
+                SpellerToken(
+                    token=token.token,
+                    clean_token=token.get_analyzed_token(0).token or "",
+                    start_pos=token.start_pos,
+                    is_sentence_start=token.is_sentence_start,
+                    is_immunized=token.is_immunized,
+                    is_ignore_spelling=token.is_ignore_spelling,
+                    is_whitespace_before=bool(getattr(token, "is_whitespace_before", False)),
+                )
+                for token in _sentence_tokens(unit)
+            ]
+            for match in self.speller.match(tokens):
+                out.append(
+                    self.finding(
+                        context,
+                        offsets.absolute(match.from_pos),
+                        offsets.absolute(match.to_pos),
+                        match.message,
+                        tuple(match.suggestions),
+                        match.short_message,
+                    )
+                )
+        return out
+
+
+class MorfologikRussianSpellerRule(_SpellerRuleBase):
+    rule_id = "MORFOLOGIK_RULE_RU_RU"
+    description = DESC_SPELLING
+    speller_class = RussianSpeller
+    # Russian.java configures MORFOLOGIC_RULE_RU_RU (a typo), which never binds
+    # the actual rule id, so the effective priority stays at the base value.
+    priority = 0
+
+
+class MorfologikRussianYOSpellerRule(_SpellerRuleBase):
+    rule_id = "MORFOLOGIK_RULE_RU_RU_YO"
+    description = "Проверка орфографии. Только «Ё» (экспериментальное правило)."
+    speller_class = RussianYoSpeller
+    default_off = True
+    # Russian.java configures MORFOLOGIC_RULE_RU_RU_YO (a typo) -> orphan key.
+    priority = 0
+
+
+@dataclass(frozen=True)
+class _CompoundRuleData:
+    incorrect_compounds: frozenset[str]
+    joined_suggestion: frozenset[str]
+    joined_lower_case_suggestion: frozenset[str]
+    dash_suggestion: frozenset[str]
+    has_digit_patterns: bool
+
+
+_COMPOUND_MAX_TERMS = 5
+_COMPOUND_COMMENT = re.compile(r"#.*$")
+_COMPOUND_DASHES = re.compile(r"--+")
+_COMPOUND_WHITESPACE = re.compile(r"\s+")
+
+
+def _load_compound_rule_data(name: str) -> _CompoundRuleData:
+    """Port of ``org.languagetool.rules.CompoundRuleData`` (no ``LineExpander``)."""
+    incorrect: set[str] = set()
+    joined: set[str] = set()
+    joined_lower: set[str] = set()
+    dash: set[str] = set()
+    has_digits = False
+    for raw_line in _resource_lines(name):
+        if raw_line == "" or raw_line.startswith("#"):
+            continue
+        line = _COMPOUND_COMMENT.sub("", raw_line, count=1).strip()
+        exp_line = line.replace("-", " ")
+        parts = exp_line.split(" ")
+        if len(parts) == 1:
+            raise ValueError(f"Not a compound in file {name}: {exp_line}")
+        if len(parts) > _COMPOUND_MAX_TERMS:
+            raise ValueError(f"Too many compound parts in file {name}: {exp_line}")
+        if exp_line.lower() in incorrect:
+            raise ValueError(f"Duplicated word in file {name}: {exp_line}")
+        if exp_line.endswith("+"):
+            exp_line = exp_line[:-1]
+            joined.add(exp_line)
+        elif exp_line.endswith("*"):
+            exp_line = exp_line[:-1]
+            dash.add(exp_line)
+        elif exp_line.endswith("?"):
+            exp_line = exp_line[:-1]
+            joined.add(exp_line)
+            joined_lower.add(exp_line)
+        elif exp_line.endswith("$"):
+            exp_line = exp_line[:-1]
+            joined.add(exp_line)
+            dash.add(exp_line)
+            joined_lower.add(exp_line)
+        else:
+            joined.add(exp_line)
+            dash.add(exp_line)
+        incorrect.add(exp_line)
+        if "\\d" in exp_line:
+            has_digits = True
+    return _CompoundRuleData(
+        incorrect_compounds=frozenset(incorrect),
+        joined_suggestion=frozenset(joined),
+        joined_lower_case_suggestion=frozenset(joined_lower),
+        dash_suggestion=frozenset(dash),
+        has_digit_patterns=has_digits,
+    )
+
+
+class _SyntheticToken:
+    """The empty padding token ``AbstractCompoundRule`` appends past the sentence end."""
+
+    __slots__ = ("start_pos",)
+
+    def __init__(self, start_pos: int) -> None:
+        self.start_pos = start_pos
+
+    @property
+    def token(self) -> str:
+        return ""
+
+    @property
+    def is_immunized(self) -> bool:
+        return False
+
+    @property
+    def is_whitespace_before(self) -> bool:
+        return False
+
+    @property
+    def is_sentence_start(self) -> bool:
+        return False
+
+
+class RussianCompoundRule(NativeRule):
+    rule_id = "RU_COMPOUNDS"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = "Правописание через дефис"
+    priority = 11
+
+    WITH_HYPHEN_MESSAGE = "Эти слова должны быть написаны через дефис."
+    WITHOUT_HYPHEN_MESSAGE = "Эти слова должны быть написаны слитно."
+    WITH_OR_WITHOUT_HYPHEN_MESSAGE = "Эти слова могут быть написаны через дефис или слитно."
+
+    _data: _CompoundRuleData | None = None
+
+    @classmethod
+    def data(cls) -> _CompoundRuleData:
+        if cls._data is None:
+            cls._data = _load_compound_rule_data("compounds.txt")
+        return cls._data
+
+    @staticmethod
+    def _normalize(text: str) -> str:
+        value = text.strip()
+        value = value.replace(" - ", " ")
+        value = value.replace("-", " ")
+        return _COMPOUND_WHITESPACE.sub(" ", value)
+
+    @staticmethod
+    def _is_not_all_uppercase(text: str) -> bool:
+        for part in text.split(" "):
+            if part != "-" and is_all_uppercase(part):
+                return False
+        return True
+
+    @staticmethod
+    def _merge_compound(text: str, uncapitalize_mid_words: bool) -> str:
+        parts = text.replace("-", " ").split(" ")
+        out = []
+        for index, part in enumerate(parts):
+            if index == 0:
+                out.append(part)
+            else:
+                out.append(_uncapitalize(part) if uncapitalize_mid_words else part)
+        return "".join(out)
+
+    def _string_to_token_map(
+        self, prev_tokens: Sequence[Any]
+    ) -> tuple[list[str], list[str], dict[str, Any]]:
+        strings_to_check: list[str] = []
+        orig_strings_to_check: list[str] = []
+        string_to_token: dict[str, Any] = {}
+        builder = ""
+        is_first_sent_start = False
+        for j, atr in enumerate(prev_tokens):
+            if atr.is_whitespace_before:
+                builder += " "
+            builder += atr.token
+            if j == 0:
+                is_first_sent_start = atr.is_sentence_start
+            if j >= 1 or (j == 0 and not is_first_sent_start):
+                string_to_check = self._normalize(builder)
+                # RussianCompoundRule sets sentenceStartsWithUpperCase = true
+                if is_first_sent_start:
+                    string_to_check = _uncapitalize(string_to_check)
+                strings_to_check.append(string_to_check)
+                orig_strings_to_check.append(builder.strip())
+                if string_to_check not in string_to_token:
+                    string_to_token[string_to_check] = atr
+        return strings_to_check, orig_strings_to_check, string_to_token
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        data = self.data()
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            tokens = _sentence_tokens(unit)
+            prev_rule_match: tuple[int, int] | None = None
+            prev_tokens: deque = deque()
+            for i in range(len(tokens) + _COMPOUND_MAX_TERMS):
+                if i >= len(tokens):
+                    token: Any = _SyntheticToken(prev_tokens[0].start_pos)
+                else:
+                    token = tokens[i]
+                if i == 0:
+                    if len(prev_tokens) == _COMPOUND_MAX_TERMS:
+                        prev_tokens.popleft()
+                    prev_tokens.append(token)
+                    continue
+                if token.is_immunized:
+                    continue
+
+                first_match_token = prev_tokens[0]
+                strings, orig_strings, string_to_token = self._string_to_token_map(prev_tokens)
+                for k in range(len(strings) - 1, -1, -1):
+                    string_to_check = strings[k]
+                    orig_string_to_check = orig_strings[k]
+                    if string_to_check not in data.incorrect_compounds:
+                        continue
+                    atr = string_to_token[string_to_check]
+                    message = None
+                    replacement: list[str] = []
+                    if string_to_check in data.dash_suggestion and " " not in orig_string_to_check:
+                        break  # already joined
+                    if string_to_check in data.dash_suggestion:
+                        replacement.append(orig_string_to_check.replace(" ", "-"))
+                        message = self.WITH_HYPHEN_MESSAGE
+                    if (
+                        self._is_not_all_uppercase(orig_string_to_check)
+                        and string_to_check in data.joined_suggestion
+                    ):
+                        replacement.append(
+                            self._merge_compound(
+                                orig_string_to_check,
+                                any(s in string_to_check for s in data.joined_lower_case_suggestion),
+                            )
+                        )
+                        message = self.WITHOUT_HYPHEN_MESSAGE
+                    parts = string_to_check.split(" ")
+                    if parts and len(parts[0]) == 1:
+                        replacement = [orig_string_to_check.replace(" ", "-")]
+                        message = self.WITH_HYPHEN_MESSAGE
+                    elif not replacement or len(replacement) == 2:
+                        message = self.WITH_OR_WITHOUT_HYPHEN_MESSAGE
+                    original = unit.text[
+                        offsets.local(first_match_token.start_pos):offsets.local(_end_pos(atr))
+                    ]
+                    replacement = [
+                        _COMPOUND_DASHES.sub("-", item)
+                        for item in replacement
+                        if _COMPOUND_DASHES.sub("-", item) != original
+                    ]
+                    if not replacement:
+                        break
+                    start_pos = first_match_token.start_pos
+                    end_pos = _end_pos(atr)
+                    if prev_rule_match is not None and prev_rule_match[0] == start_pos:
+                        prev_rule_match = (start_pos, end_pos)
+                        break
+                    prev_rule_match = (start_pos, end_pos)
+                    out.append(
+                        self.finding(
+                            context,
+                            offsets.absolute(start_pos),
+                            offsets.absolute(end_pos),
+                            message or "",
+                            tuple(replacement),
+                        )
+                    )
+                    break
+                if len(prev_tokens) == _COMPOUND_MAX_TERMS:
+                    prev_tokens.popleft()
+                prev_tokens.append(token)
+        return out
+
+
+@dataclass(frozen=True)
+class _SuggestionWithMessage:
+    suggestion: str
+    message: str | None
+
+
+_MAX_TOKENS_IN_MULTIWORD = 20
+
+
+class RussianSimpleReplaceRule(NativeRule):
+    rule_id = "RU_SIMPLE_REPLACE"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = "Поиск просторечий и ошибочных фраз"
+    short = "Ошибка?"
+    message_template = "«$match» — просторечие, исправление: $suggestions"
+    suggestions_separator = ", "
+    # Russian.java configures RUSSIAN_SIMPLE_REPLACE_RULE, not RU_SIMPLE_REPLACE.
+    priority = 0
+
+    _maps: tuple[dict[str, int], dict[str, int], dict[str, _SuggestionWithMessage], dict[str, _SuggestionWithMessage]] | None = None
+
+    @classmethod
+    def maps(cls):
+        if cls._maps is None:
+            cls._maps = _load_simple_replace("replace.txt")
+        return cls._maps
+
+    @staticmethod
+    def _is_punctuation_start(word: str) -> bool:
+        """``AbstractSimpleReplaceRule2.isPunctuationStart``."""
+        if any(ch.isdigit() and unicodedata.category(ch) == "Nd" for ch in word):
+            return True
+        if is_punctuation_mark(word):
+            return True
+        # StringTools.isNotWordCharacter: a single non-letter character
+        return len(word) == 1 and unicodedata.category(word)[0] != "L"
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        m_start_space, m_start_no_space, m_full_space, m_full_no_space = self.maps()
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            tokens = _sentence_tokens(unit)
+            matches: list[tuple[int, int, str, tuple[str, ...]]] = []
+            sent_start = 1
+            while sent_start < len(tokens) and self._is_punctuation_start(tokens[sent_start].token):
+                sent_start += 1
+            for start_index in range(sent_start, len(tokens)):
+                tok = tokens[start_index].token
+                if len(tok) < 1:
+                    continue
+                k = start_index + 1
+                while k < len(tokens) and not tokens[k].is_whitespace_before:
+                    tok += tokens[k].token
+                    k += 1
+                tok = tok.lower()
+                if tok in m_start_space:
+                    key_builder = ""
+                    max_token_len = m_start_space[tok]
+                    end_index = start_index
+                    while (
+                        end_index < len(tokens)
+                        and end_index - start_index < _MAX_TOKENS_IN_MULTIWORD
+                    ):
+                        if end_index > start_index and tokens[end_index].is_whitespace_before:
+                            key_builder += " "
+                        key_builder += tokens[end_index].token
+                        original_str = key_builder
+                        number_of_spaces = original_str.count(" ")
+                        if number_of_spaces + 1 > max_token_len:
+                            break
+                        if number_of_spaces > 0:
+                            entry = m_full_space.get(original_str.lower())
+                            self._create_match(
+                                matches, entry, start_index, end_index, original_str, tokens, sent_start
+                            )
+                        end_index += 1
+                if tok[:1] in m_start_no_space:
+                    end_index = start_index
+                    key_builder = ""
+                    while (
+                        end_index < len(tokens)
+                        and end_index - start_index < _MAX_TOKENS_IN_MULTIWORD
+                    ):
+                        if end_index > start_index and tokens[end_index].is_whitespace_before:
+                            break
+                        key_builder += tokens[end_index].token
+                        original_str = key_builder
+                        entry = m_full_no_space.get(original_str.lower())
+                        self._create_match(
+                            matches, entry, start_index, end_index, original_str, tokens, sent_start
+                        )
+                        end_index += 1
+            for from_pos, to_pos, message, suggestions in matches:
+                out.append(
+                    self.finding(
+                        context,
+                        offsets.absolute(from_pos),
+                        offsets.absolute(to_pos),
+                        message,
+                        suggestions,
+                        self.short,
+                    )
+                )
+        return out
+
+    def _create_match(
+        self,
+        matches: list[tuple[int, int, str, tuple[str, ...]]],
+        entry: _SuggestionWithMessage | None,
+        start_index: int,
+        end_index: int,
+        original_str: str,
+        tokens: Sequence[AnalyzedTokenReadings],
+        sent_start: int,
+    ) -> None:
+        if entry is None:
+            return
+        replacements = entry.suggestion.split("|")
+        from_pos = tokens[start_index].start_pos
+        to_pos = _end_pos(tokens[end_index])
+        if matches:
+            last = matches[-1]
+            if last[0] <= from_pos and last[1] >= to_pos:
+                return
+        # StringTools.isCamelCase is ASCII-only and never matches Russian.
+        all_uppercase = is_all_uppercase(original_str)
+        capitalized = is_capitalized_word(original_str.split(" ")[0])
+        final_replacements: list[str] = []
+        for repl in replacements:
+            final_repl = repl
+            if sent_start == start_index or capitalized:
+                final_repl = uppercase_first_char(repl)
+            if all_uppercase:
+                final_repl = repl.upper()
+            if (
+                repl != original_str
+                and final_repl != original_str
+                and final_repl not in final_replacements
+            ):
+                final_replacements.append(final_repl)
+            if final_repl == original_str:
+                final_replacements.clear()
+                break
+        if not final_replacements:
+            return
+        message = entry.message
+        if message is not None and (
+            message.startswith("http://") or message.startswith("https://")
+        ):
+            message = None
+        if message is None:
+            msg_suggestions = ""
+            for index, repl in enumerate(replacements):
+                if index > 0:
+                    msg_suggestions += (
+                        self.suggestions_separator if index == len(replacements) - 1 else ", "
+                    )
+                msg_suggestions += "<suggestion>" + repl + "</suggestion>"
+            message = self.message_template.replace("$match", original_str, 1).replace(
+                "$suggestions", msg_suggestions, 1
+            )
+        if matches:
+            last = matches[-1]
+            if last[0] >= from_pos and last[1] <= to_pos:
+                matches.pop()
+        matches.append((from_pos, to_pos, message, tuple(final_replacements)))
+
+
+def _load_simple_replace(name: str):
+    """Port of ``AbstractSimpleReplaceRule2.fillMaps`` for a case-insensitive rule."""
+    m_start_space: dict[str, int] = {}
+    m_start_no_space: dict[str, int] = {}
+    m_full_space: dict[str, _SuggestionWithMessage] = {}
+    m_full_no_space: dict[str, _SuggestionWithMessage] = {}
+    path = files("pylat_ru.resources.rules.ru").joinpath(name)
+    for raw_line in path.read_text(encoding="utf-8").split("\n"):
+        line = raw_line.rstrip("\r").strip()
+        if not line or line.startswith("#"):
+            continue
+        if "  " in line:
+            raise ValueError(
+                f"More than one consecutive space in {name} - use a tab character as "
+                f"a delimiter for the message: {line}"
+            )
+        line = line.split("#", 1)[0].strip()
+        parts = line.split("\t")
+        conf_pair = parts[0]
+        if len(parts) == 1:
+            message = None
+        elif len(parts) == 2:
+            message = parts[1]
+        else:
+            raise ValueError(f"Format error in file {name}. Line: {line}")
+        conf_pair_parts = conf_pair.split("=")
+        if len(conf_pair_parts) < 2:
+            raise ValueError(
+                f"Format error in file {name}. Missing suggestion after character '='. Line: {line}"
+            )
+        suggestion = conf_pair_parts[1]
+        for wrong_form in conf_pair_parts[0].split("|"):
+            search_key = wrong_form.lower()
+            if search_key == suggestion:
+                raise ValueError(
+                    f"Format error in file {name}. Found same word on left and right side "
+                    f"of '='. Line: {line}"
+                )
+            entry = _SuggestionWithMessage(suggestion, message)
+            if wrong_form.find(" ") <= 0:
+                first_char = search_key[:1]
+                if first_char in m_start_no_space:
+                    if m_start_no_space[first_char] < len(search_key):
+                        m_start_no_space[first_char] = len(search_key)
+                else:
+                    m_start_no_space[first_char] = len(search_key)
+                m_full_no_space[search_key] = entry
+            else:
+                key_tokens = search_key.split(" ")
+                first_token = key_tokens[0]
+                if first_token in m_start_space:
+                    if m_start_space[first_token] < len(key_tokens):
+                        m_start_space[first_token] = len(key_tokens)
+                else:
+                    m_start_space[first_token] = len(key_tokens)
+                m_full_space[search_key] = entry
+    return m_start_space, m_start_no_space, m_full_space, m_full_no_space
+
+
+_SIMPLE_REPEAT_PATTERN = re.compile("[a-zA-Zа-яёА-ЯЁ]")
+_WORD_REPEAT_IGNORED_NAMES = (
+    "Phi", "Li", "Xiao", "Duran", "Wagga", "Abdullah", "Nwe", "Pago", "Cao",
+)
+
+
+def _is_numeric_space(text: str) -> bool:
+    """``org.apache.commons.lang3.StringUtils.isNumericSpace``."""
+    for ch in text:
+        if ch != " " and unicodedata.category(ch) != "Nd":
+            return False
+    return True
+
+
+class RussianSimpleWordRepeatRule(NativeRule):
+    rule_id = "WORD_REPEAT_RULE"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = "Повтор слов (например: «он он»)"
+    message = "Возможная опечатка: повтор слова"
+    short_message = "Повтор слова"
+
+    @staticmethod
+    def _is_word(token: str) -> bool:
+        if is_emoji(token):
+            return False
+        if _is_numeric_space(token):
+            return False
+        if len(token) == 1 and unicodedata.category(token)[0] != "L":
+            return False
+        return True
+
+    @staticmethod
+    def _word_repetition_of(word: str, tokens: Sequence[AnalyzedTokenReadings], position: int) -> bool:
+        return (
+            position > 0
+            and tokens[position - 1].token == word
+            and tokens[position].token == word
+        )
+
+    def _ignore(self, tokens: Sequence[AnalyzedTokenReadings], position: int) -> bool:
+        for word in ("-", "и", "по"):
+            if self._word_repetition_of(word, tokens, position):
+                return True
+        if tokens[position - 1].token == "ПО" and tokens[position].token == "по":
+            return True
+        if tokens[position - 1].token == "по" and tokens[position].token == "ПО":
+            return True
+        if self._word_repetition_of("что", tokens, position):
+            return True
+        if (
+            _SIMPLE_REPEAT_PATTERN.fullmatch(tokens[position].token)
+            and position > 1
+            and _SIMPLE_REPEAT_PATTERN.fullmatch(tokens[position - 1].token)
+        ):
+            return True
+        for name in _WORD_REPEAT_IGNORED_NAMES:
+            if self._word_repetition_of(name, tokens, position):
+                return True
+        return False
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            tokens = _sentence_tokens(unit)
+            prev_token = ""
+            for i in range(1, len(tokens)):
+                token = tokens[i].token
+                if tokens[i].is_immunized:
+                    prev_token = ""
+                    continue
+                if (
+                    self._is_word(token)
+                    and prev_token.lower() == token.lower()
+                    and prev_token != ""
+                    and not self._ignore(tokens, i)
+                ):
+                    prev_pos = tokens[i - 1].start_pos
+                    pos = tokens[i].start_pos
+                    out.append(
+                        self.finding(
+                            context,
+                            offsets.absolute(prev_pos),
+                            offsets.absolute(pos + utf16_len(prev_token)),
+                            self.message,
+                            (prev_token,),
+                            self.short_message,
+                        )
+                    )
+                prev_token = token
+        return out
+
+
+def _load_word_coherency_data(name: str) -> dict[str, tuple[str, ...]]:
+    """Port of ``org.languagetool.rules.WordCoherencyDataLoader``."""
+    mapping: dict[str, list[str]] = {}
+    path = files("pylat_ru.resources.rules.ru").joinpath(name)
+    for raw_line in path.read_text(encoding="utf-8").split("\n"):
+        line = raw_line.rstrip("\r")
+        if not line or line[0] == "#":
+            continue
+        parts = line.split(";")
+        if len(parts) != 2:
+            raise ValueError(f"Format error in file {name}, line: {line}")
+        for left, right in ((parts[0], parts[1]), (parts[1], parts[0])):
+            bucket = mapping.setdefault(left, [])
+            if right not in bucket:
+                bucket.append(right)
+    return {key: tuple(value) for key, value in mapping.items()}
+
+
+class _WordCoherencyRuleBase(NativeRule):
+    """Port of ``org.languagetool.rules.AbstractWordCoherencyRule`` (a TextLevelRule)."""
+
+    resource_name = ""
+    _word_map: dict[str, tuple[str, ...]] | None = None
+
+    @classmethod
+    def word_map(cls) -> dict[str, tuple[str, ...]]:
+        if cls._word_map is None:
+            cls._word_map = _load_word_coherency_data(cls.resource_name)
+        return cls._word_map
+
+    def build_message(self, word1: str, word2: str) -> str:
+        raise NotImplementedError
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        word_map = self.word_map()
+        should_not_appear_word: dict[str, str] = {}
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            for tmp_token in _sentence_tokens(unit):
+                token = tmp_token.token
+                readings = tmp_token.get_readings()
+                if not readings:
+                    continue
+                baseforms = java_hash_set_order([reading.lemma for reading in readings])
+                for baseform in baseforms:
+                    if baseform is not None:
+                        token = baseform
+                    from_pos = offsets.absolute(tmp_token.start_pos)
+                    to_pos = offsets.absolute(_end_pos(tmp_token))
+                    if token in should_not_appear_word:
+                        other_spelling = should_not_appear_word[token]
+                        message = self.build_message(token, other_spelling)
+                        marked = unit.text[
+                            offsets.local(tmp_token.start_pos):offsets.local(_end_pos(tmp_token))
+                        ]
+                        replacement = re.sub(
+                            "(?i)" + re.escape(token), other_spelling, marked, count=1
+                        )
+                        if starts_with_uppercase(tmp_token.token):
+                            replacement = uppercase_first_char(replacement)
+                        if marked.lower() != replacement.lower():
+                            out.append(
+                                self.finding(context, from_pos, to_pos, message, (replacement,))
+                            )
+                        break
+                    if token in word_map:
+                        for should_not_appear in word_map[token]:
+                            should_not_appear_word[should_not_appear] = token
+        return out
+
+
+class RussianWordCoherencyRule(_WordCoherencyRuleBase):
+    rule_id = "RU_WORD_COHERENCY"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = (
+        "Единообразное написание слов с более чем одним допустимым написанием"
+    )
+    resource_name = "coherency.txt"
+    _word_map = None
+
+    def build_message(self, word1: str, word2: str) -> str:
+        return f"«{word1}» и «{word2}» не следует использовать одновременно"
+
+
+class RussianWordRootRepeatRule(_WordCoherencyRuleBase):
+    rule_id = "RU_WORD_ROOT_REPEAT"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = "Повтор однокоренных слов"
+    resource_name = "wordrootrep.txt"
+    default_off = True
+    # Russian.java configures Word_root_repeat = -1, which never binds RU_WORD_ROOT_REPEAT.
+    priority = 0
+    _word_map = None
+
+    def build_message(self, word1: str, word2: str) -> str:
+        return (
+            f"«{word1}» и «{word2}» – однокоренные слова, "
+            "их не стоит использовать одновременно"
+        )
+
+
+_ADVANCED_REPEAT_EXC_WORDS = frozenset({
+    "не", "ни", "а", "их", "на", "в", "по", "минута", "друг", "час", "секунда",
+    "ПАО", "ООО", "табл", "рис",
+})
+_ADVANCED_REPEAT_EXC_POS = re.compile(
+    r"INTERJECTION|PRDC|PREP|CONJ|PARTICLE|ABR|NumC:.*|Num:.*"
+)
+_ADVANCED_REPEAT_EXC_NONWORDS = re.compile(
+    r"&quot|&gt|&lt|&amp|[0-9].*|"
+    r"M*(D?C{0,3}|C[DM])(L?X{0,3}|X[LC])(V?I{0,3}|I[VX])$"
+)
+_SENTENCE_END_TAGNAME = "SENT_END"
+
+
+class RussianWordRepeatRule(NativeRule):
+    """Port of ``RussianWordRepeatRule`` on ``AdvancedWordRepeatRule``."""
+
+    rule_id = "RU_WORD_REPEAT"
+    category_id = "MISC"
+    category_name = "Общие правила"
+    description = "Повтор слов в предложении"
+    message = "Повтор слов в предложении"
+    short_message = "Повтор слов в предложении"
+    default_off = True
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        out: list[NativeRuleFinding] = []
+        for unit in context.sentences:
+            offsets = _SentenceOffsets(unit)
+            tokens = _sentence_tokens(unit)
+            repetition = False
+            inflected_words: set[str] = set()
+            cur_token = 0
+            for i in range(1, len(tokens)):
+                token = tokens[i].token
+                is_word = True
+                has_lemma = True
+                if len(token) < 2:
+                    is_word = False
+                for analyzed_token in tokens[i].get_readings():
+                    pos_tag = analyzed_token.pos_tag
+                    if pos_tag is not None:
+                        if pos_tag == "":
+                            is_word = False
+                            break
+                        lemma = analyzed_token.lemma
+                        if lemma is None:
+                            has_lemma = False
+                            break
+                        if lemma in _ADVANCED_REPEAT_EXC_WORDS:
+                            is_word = False
+                            break
+                        if _ADVANCED_REPEAT_EXC_POS.fullmatch(pos_tag):
+                            is_word = False
+                            break
+                    else:
+                        has_lemma = False
+                if is_word and _ADVANCED_REPEAT_EXC_NONWORDS.fullmatch(tokens[i].token):
+                    is_word = False
+
+                prev_lemma = ""
+                if is_word:
+                    not_sent_end = False
+                    for analyzed_token in tokens[i].get_readings():
+                        pos = analyzed_token.pos_tag
+                        if pos is not None:
+                            not_sent_end = not_sent_end or (_SENTENCE_END_TAGNAME == pos)
+                        if has_lemma:
+                            cur_lemma = analyzed_token.lemma
+                            if prev_lemma != cur_lemma and not not_sent_end:
+                                if cur_lemma in inflected_words and cur_token != i:
+                                    repetition = True
+                                else:
+                                    inflected_words.add(analyzed_token.lemma)
+                                    cur_token = i
+                            prev_lemma = cur_lemma
+                        else:
+                            if tokens[i].token in inflected_words and not not_sent_end:
+                                repetition = True
+                            else:
+                                inflected_words.add(tokens[i].token)
+                if repetition:
+                    pos = tokens[i].start_pos
+                    out.append(
+                        self.finding(
+                            context,
+                            offsets.absolute(pos),
+                            offsets.absolute(pos + utf16_len(token)),
+                            self.message,
+                            (),
+                            self.short_message,
+                        )
+                    )
+                    repetition = False
+        return out
+
+
 TASK_0011_RULE_CLASSES = (
     CommaWhitespaceRule,
     UppercaseSentenceStartRule,
@@ -683,17 +1611,55 @@ TASK_0011_RULE_CLASSES = (
     RussianSpecificCaseRule,
 )
 
+TASK_0012_RULE_CLASSES = (
+    MorfologikRussianSpellerRule,
+    MorfologikRussianYOSpellerRule,
+    RussianCompoundRule,
+    RussianSimpleReplaceRule,
+    RussianSimpleWordRepeatRule,
+    RussianWordCoherencyRule,
+    RussianWordRepeatRule,
+    RussianWordRootRepeatRule,
+)
+
+# Exact registration order of Russian.getRelevantRules() at the pinned revision.
+RUSSIAN_RULE_CLASSES = (
+    CommaWhitespaceRule,
+    UppercaseSentenceStartRule,
+    MorfologikRussianSpellerRule,
+    MultipleWhitespaceRule,
+    SentenceWhitespaceRule,
+    WhiteSpaceBeforeParagraphEnd,
+    WhiteSpaceAtBeginOfParagraph,
+    LongSentenceRule,
+    LongParagraphRule,
+    ParagraphRepeatBeginningRule,
+    RussianFillerWordsRule,
+    PunctuationMarkAtParagraphEnd2,
+    MorfologikRussianYOSpellerRule,
+    RussianUnpairedBracketsRule,
+    RussianCompoundRule,
+    RussianSimpleReplaceRule,
+    RussianSimpleWordRepeatRule,
+    RussianWordCoherencyRule,
+    RussianWordRepeatRule,
+    RussianWordRootRepeatRule,
+    RussianVerbConjugationRule,
+    RussianDashRule,
+    RussianSpecificCaseRule,
+)
+
 
 class RussianJavaRulesEngine:
     """Execute the exact Task-0011 native-rule registration for Russian."""
 
     def __init__(self, rule_config: Mapping[str, Mapping[str, Any]] | None = None) -> None:
         config = dict(rule_config or {})
-        known = {cls.rule_id for cls in TASK_0011_RULE_CLASSES}
+        known = {cls.rule_id for cls in RUSSIAN_RULE_CLASSES}
         unknown = set(config) - known
         if unknown:
-            raise KeyError(f"Unknown Task-0011 rule configuration: {sorted(unknown)}")
-        self.rules = tuple(cls(i, config.get(cls.rule_id)) for i, cls in enumerate(TASK_0011_RULE_CLASSES))
+            raise KeyError(f"Unknown Russian rule configuration: {sorted(unknown)}")
+        self.rules = tuple(cls(i, config.get(cls.rule_id)) for i, cls in enumerate(RUSSIAN_RULE_CLASSES))
         self._rules = {rule.rule_id: rule for rule in self.rules}
         self._enabled_overrides: set[str] = set()
         self._disabled_overrides: set[str] = set()

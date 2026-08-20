@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "schema_version": "1.0.0",
+    "task": "0012",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_generated": true,
+    "case_count": 10
+  },
+  "cases": [
+    {
+      "id": "filter_nn_pril_prich_incorrect",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Сегодня на ужин жареная на масле картошка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "real_grammar_rule",
+        "suppress_match_true",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "NN_N_pril_prich",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Причастие пишется с «нн», есть зависимые слова: <suggestion>жаренная</suggestion>",
+          "short_message": "Пишется с «нн»",
+          "suggestions": [
+            "жаренная"
+          ],
+          "url": null,
+          "from_utf16": 16,
+          "to_utf16": 23,
+          "from": 16,
+          "to": 23,
+          "source_slice": "жареная"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "42d8ef3d7174c24e09d5383d6eae341c4b88640144037b26cd44a4812d20a297"
+    },
+    {
+      "id": "filter_nn_pril_prich_incorrect_2",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Сегодня на ужин жареная в этом масле картошка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "real_grammar_rule",
+        "suppress_match_true"
+      ],
+      "expected": [
+        {
+          "rule_id": "NN_N_pril_prich",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Причастие пишется с «нн», есть зависимые слова: <suggestion>жаренная</suggestion>",
+          "short_message": "Пишется с «нн»",
+          "suggestions": [
+            "жаренная"
+          ],
+          "url": null,
+          "from_utf16": 16,
+          "to_utf16": 23,
+          "from": 16,
+          "to": 23,
+          "source_slice": "жареная"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "a1db9fde217bbc9ca7ebbcccb138845500a73ae6d39de4ff2997f0be0923ca9e"
+    },
+    {
+      "id": "filter_nn_pril_prich_correct",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Сегодня на ужин жаренная на масле картошка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "real_grammar_rule",
+        "suppress_match_true"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0bc2bd0827d4c3112ce6a9fc5258fa7189cc6c917f51f4ded4b9acedd10e09d1"
+    },
+    {
+      "id": "filter_nn_pril_prich_exception",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Стеклянный, оловянный и деревянный – это исключения из правила.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "real_grammar_rule",
+        "suppress_match_true"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "0c2e55a95866d3b97340e7c96bf1a4072a654e9ece4f21f15c94927415007dd9"
+    },
+    {
+      "id": "filter_nn_pril_prich_suppressed",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Вводится единый для всех ведомств госбюджет, с едиными остатками.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "real_grammar_rule",
+        "all_misspelled_suppressed"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "1b3222fb5fafe6c3c091ead298cff7b5b779fd5b5c186e78f82dc0a57614d88a"
+    },
+    {
+      "id": "filter_nn_pril_prich_zelenoy",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Это сделано с целью получения «самой зеленой в мире» электроэнергии.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "real_grammar_rule",
+        "token_exception"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "979b90d9766cd17c6776914ced2f2d9a5210d319ecfca6d0197f2a976e74cf87"
+    },
+    {
+      "id": "filter_nn_pril_prich_woman",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[1]",
+      "text": "Я не уверена в том, что он говорит правду.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "real_grammar_rule",
+        "all_misspelled_suppressed"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "66c71ee297b9dce6185f9405f7ca6541fc977821adab24eda40f863ac28fd997"
+    },
+    {
+      "id": "suggestion_suppress_nn_to_n",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[2]",
+      "text": "Сегодня на ужин жаренная картошка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "positive",
+        "suggestion_suppress_misspelled",
+        "exact_span"
+      ],
+      "expected": [
+        {
+          "rule_id": "NN_N_pril_prich",
+          "category_id": "GRAMMAR",
+          "category_name": "Грамматика",
+          "message": "Прилагательное пишется с «н», зависимых слов нет: <suggestion>жареная</suggestion>",
+          "short_message": "Пишется с «н»",
+          "suggestions": [
+            "жареная"
+          ],
+          "url": null,
+          "from_utf16": 16,
+          "to_utf16": 24,
+          "from": 16,
+          "to": 24,
+          "source_slice": "жаренная"
+        }
+      ],
+      "finding_count": 1,
+      "semantic_signature": "6762f69b71c23e558bc864daaf0c0e540afb16e53e5c651d90e300df7fe638ea"
+    },
+    {
+      "id": "suggestion_suppress_nn_to_n_negative",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[2]",
+      "text": "Сегодня у нас на ужин жаренная Иваном картошка.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "suggestion_suppress_misspelled"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "52ec1c00d7b59f127cf72dd5f1c850327b7ae88e099fc42bfeb11af5eae96b17"
+    },
+    {
+      "id": "message_suppress_vodnyy",
+      "rule_class": "PatternRule",
+      "rule_id": "NN_N_pril_prich[2]",
+      "text": "Раньше в этом регионе.",
+      "execution_mode": "single_rule",
+      "explicitly_enabled": true,
+      "explicitly_enabled_rules": [],
+      "explicitly_disabled_rules": [],
+      "config": {},
+      "coverage": [
+        "negative",
+        "message_suppress_misspelled"
+      ],
+      "expected": [],
+      "finding_count": 0,
+      "semantic_signature": "666cb26df6f39fcb317b5fc470e3830277c96cd994a6656e9d2905288a3795f9"
+    }
+  ]
+}

@@ -38,8 +38,9 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-pylat_ru = ["py.typed", "resources/*.json", "resources/ru/*"]
-"pylat_ru.resources.rules.ru" = ["*.xml"]
+pylat_ru = ["py.typed", "resources/*.json", "resources/*.txt", "resources/ru/*", "resources/ru/hunspell/*"]
+"pylat_ru.resources.ru.hunspell" = ["*.dict", "*.info", "*.txt"]
+"pylat_ru.resources.rules.ru" = ["*.xml", "*.txt"]
 "pylat_ru.resources.disambiguation" = ["*.xml"]
 "pylat_ru.resources.tagger" = ["*.dict", "*.info"]
 "pylat_ru.resources.synth" = ["*.dict", "*.info"]

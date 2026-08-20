@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "upstream_repository": "https://github.com/morfologik/morfologik-stemming.git",
+  "pinned_tag": "2.1.9",
+  "total_vendored_files": 6,
+  "status_summary": {
+    "VERIFIED_BSD_3_CLAUSE": 6,
+    "BLOCKED_LICENSE_REVIEW": 0
+  },
+  "items": [
+    {
+      "path": "LICENSE.txt",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/LICENSE.txt",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 1606,
+      "sha256": "741bb9a9ed0e305cede810cee05bc22f135751f595202517a6c7e827280b102e",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    },
+    {
+      "path": "morfologik-speller/src/main/java/morfologik/speller/HMatrix.java",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/morfologik-speller/src/main/java/morfologik/speller/HMatrix.java",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 3380,
+      "sha256": "c14b33717bce6e675e99adb0761d55055ea7506f0e5cfc612e09c29d85500158",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    },
+    {
+      "path": "morfologik-speller/src/main/java/morfologik/speller/Speller.java",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/morfologik-speller/src/main/java/morfologik/speller/Speller.java",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 37550,
+      "sha256": "5b19302f388a68753a3ba6eea761b14d24380e29925eb3ac54e6f46cb188270b",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    },
+    {
+      "path": "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryAttribute.java",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/morfologik-stemming/src/main/java/morfologik/stemming/DictionaryAttribute.java",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 11229,
+      "sha256": "5c6078928d64bc3d52513f2f55a3e25c3ef831b309b785ec06174302967edd35",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    },
+    {
+      "path": "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryLookup.java",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/morfologik-stemming/src/main/java/morfologik/stemming/DictionaryLookup.java",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 9993,
+      "sha256": "c7dcb57c0980adb00d959a007aa49d0a87c702662b0709904c9b1d1fa502e289",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    },
+    {
+      "path": "morfologik-stemming/src/main/java/morfologik/stemming/DictionaryMetadata.java",
+      "upstream_origin": "https://github.com/morfologik/morfologik-stemming/blob/2.1.9/morfologik-stemming/src/main/java/morfologik/stemming/DictionaryMetadata.java",
+      "copyright_source": "Dawid Weiss, Marcin Milkowski / morfologik-stemming LICENSE.txt",
+      "license": "BSD-3-Clause",
+      "vendored": true,
+      "size_bytes": 14533,
+      "sha256": "b751e63e3078111db2fa6360a3d7e4d7d258bac0036da76ee7298ebcec9a6a34",
+      "status": "VERIFIED_BSD_3_CLAUSE",
+      "notes": "morfologik-stemming source used as the behavioral reference for the native speller"
+    }
+  ]
+}

@@ -262,7 +262,20 @@ class RussianGrammarEngine:
                     first_match_token=match_res.first_match_token,
                     element_lengths=variant.element_lengths,
                     synthesizer=self._synthesizer,
+                    suggestion_suppress_flags=[
+                        sug.suppress_misspelled for sug in rule.suggestions
+                    ],
                 )
+
+                # PatternRuleMatcher: a suppress_misspelled message with no
+                # surviving suggestion produces no rule match at all.
+                if rule.message_template and rule.message_template.suppress_misspelled:
+                    in_message_suggestions = sum(
+                        1 for elem in rule.message_template.elements if elem == "<suggestion>"
+                    )
+                    has_out_of_message_suggestions = len(rule.suggestions) > in_message_suggestions
+                    if "<suggestion>" not in message and not has_out_of_message_suggestions:
+                        continue
 
                 # Format suggestions
                 sug_matches = regex.findall(r"<suggestion>(.*?)</suggestion>", message)
