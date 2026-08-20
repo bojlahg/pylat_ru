@@ -24,8 +24,9 @@ The engine establishes feature agreement checking across grammatical categories 
 - Complete unifier state isolation across positions, rules, variants, scopes, and sentences.
 
 All 24 Russian XML grammar rules using pure unification without external Java filters were promoted to `UNIFICATION_0009_RUNNABLE`. Total runnable rules increased from 735 to 759 (772 physical variants). Parity against pinned Java LanguageTool 6.8 is:
-- **100% Exact match/offset/message/suggestion parity** on all 216 real Russian rule oracle cases and 173 discriminating synthetic test cases;
-- **100% Trigger/Finding existence parity** on all 1,954 runnable embedded grammar examples.
+- **Exact finding/span/message/suggestion parity** on all 216 real Russian rule oracle cases;
+- **Exact finding/span/message/suggestion parity** on all 173 discriminating synthetic test cases;
+- **Trigger/finding-existence parity** on all 1,954 runnable embedded grammar examples.
 
 ---
 
@@ -124,6 +125,39 @@ Every source rule from `compat/russian_grammar_advanced_inventory.json` was join
 - **Duplicate configuration policy**:
   - Pinned `UnifierConfiguration.setEquivalence()` implements a **first-definition-wins** policy for duplicate `(feature, type)` pairs, which has been synthesized and fully verified in Python.
 
+### 3.5 Feature-to-Equivalence Mapping
+
+The following 8 features and 26 equivalences are configured at the root level of the Russian `grammar.xml`:
+
+| Feature | Equivalence Type | Token Predicate POS Pattern |
+|:---|:---|:---|
+| **number** | `Sin` | `.*:Sin(:.*)*\|((ADJ\|Ord\|PT:(Past\|Real):.*\|PT_Short:Real\|VB:Past):.*:(Masc\|Fem\|Neut)(:.*)*)\|NN:.*:(Masc\|Fem\|Neut)` |
+| | `PL` | `.*:PL(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| **case** | `Nom` | `.*:Nom(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| | `R` | `.*:R(:.*)*\|NN:.*:(Masc\|Fem\|Neut)\|.*:2R(:.*)*` |
+| | `D` | `.*:D(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| | `V` | `.*:V(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| | `T` | `.*:T(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| | `P` | `.*:P(:.*)*\|NN:.*:(Masc\|Fem\|Neut)\|.*:2P(:.*)*` |
+| **gender** | `Masc` | `.*:Masc(:.*)*` |
+| | `Fem` | `.*:Fem(:.*)*` |
+| | `Neut` | `.*:Neut(:.*)*` |
+| | `Plural` | `.*:PL(:.*)*\|NN:.*:(Masc\|Fem\|Neut)` |
+| **animacy** | `Anim` | `.*:(Anim\|Inanimanim\|Name\|Patr\|Fam)(:.*)*` |
+| | `Inanim` | `.*:(Inanim\|Inanimanim)(:.*)*` |
+| **person** | `P1` | `.*:P1` |
+| | `P2` | `.*:P2` |
+| | `P3` | `.*:P3` |
+| **tense** | `INF` | `.*:INF(:.*)*` |
+| | `IMP` | `.*:IMP(:.*)*` |
+| | `Fut` | `.*:Fut(:.*)*` |
+| | `Past` | `.*:Past(:.*)*` |
+| | `Real` | `.*:Real(:.*)*` |
+| **transitivity** | `TRANS` | `.*:TRANS(:.*)*` |
+| | `INTR` | `.*:INTR(:.*)*` |
+| **aspect** | `PFV` | `.*:(PFV\|2PFV)(:.*)*` |
+| | `IMPFV` | `.*:(IMPFV\|2PFV)(:.*)*` |
+
 ---
 
 ## 4. Upstream Java Test Method/File Accounting
@@ -145,16 +179,27 @@ All 7 test methods from upstream Java `UnifierTest.java` were translated to Pyth
 
 ## 5. Upstream Source Provenance and Vendored Files
 
-The following exact-pinned Java files from LanguageTool `v6.8` (commit `e807fcde6a6506191e1470744d2345da28c26be6`) were vendored into `third_party/languagetool/` to serve as a differential validation baseline:
+The following exact-pinned Java files from LanguageTool `v6.8` (commit `e807fcde6a6506191e1470744d2345da28c26be6`) are part of the unification semantics design, pattern-matching state machine, and loading engine:
 
-| Relative Vendored Path | Byte Size | SHA-256 Hash | Rationale |
-|:---|:---:|:---|:---|
-| `languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java` | 16,108 | `33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454` | Exact unifier loop agreement and neutral element logic reference |
-| `languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java` | 3,198 | `4d8557a0d54225cd9596c6c97cfa26a74b152ffc0566625abf7eee9e8060fe03` | Map storage structure and duplicate policy reference |
-| `languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java` | 1,571 | `1c5ec50c7956a09c1d41a3df22b8728fa59662c32c59cfbf2ae0bd04ba3614e1` | Token-to-feature mapping rules lookup reference |
-| `languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java` | 25,704 | `095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b` | Baseline test assertions source |
+| Relative Upstream Path | Byte Size | SHA-256 Hash | License/Provenance Status | Purpose in Task 0009 |
+|:---|:---:|:---|:---|:---|
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/Unifier.java` | 16,108 | `33dbfe432a65fc733995ad7e8f956ad627d9e713ba843520efa8e8c5994c3454` | LGPL-2.1-only / Vendored | Exact unifier loop agreement and neutral element logic reference |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/UnifierConfiguration.java` | 3,198 | `4d8557a0d54225cd9596c6c97cfa26a74b152ffc0566625abf7eee9e8060fe03` | LGPL-2.1-only / Vendored | Map storage structure and duplicate policy reference |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/EquivalenceTypeLocator.java` | 1,571 | `1c5ec50c7956a09c1d41a3df22b8728fa59662c32c59cfbf2ae0bd04ba3614e1` | LGPL-2.1-only / Vendored | Token-to-feature mapping rules lookup reference |
+| `languagetool-core/src/test/java/org/languagetool/rules/patterns/UnifierTest.java` | 25,704 | `095d87c48fe834e099b31fde358d8657ee66d33e94d55a7d5f7d2df53b555b2b` | LGPL-2.1-only / Vendored | Baseline test assertions source |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRule.java` | 11,395 | `421196a416df471a8f5bca0336191dfd012a43c00b8a6f16d496ae2ba9b34066` | LGPL-2.1-only / Vendored | Base class for pattern rules representing unify properties |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/AbstractPatternRulePerformer.java` | 14,412 | `afad5223b8f433e3162f9bb585da1c3b7b867ce6793e7a69b9c16f52264da998` | LGPL-2.1-only / Vendored | Iterative unifier sequence reset and match state orchestration |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRule.java` | 8,809 | `c320373a9ae9fcf91f51fd6547ed1619f23d4c516a117e6beaccf5482a4817f3` | LGPL-2.1-only / Vendored | Concrete rule representing getUnified=false semantics |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleHandler.java` | 37,627 | `b9cc4ad871bfd54ec87c7c4bcca6b8fb24f77d42d1191e9f9c8f806069a7120f` | LGPL-2.1-only / Vendored | Parsing and mapping of XML unify and unify-ignore blocks |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleLoader.java` | 3,248 | `778eae3a362b3aa6bd595ac233e27bd74605c4e91c9460e6d94a0f3d43a4ed3a` | LGPL-2.1-only / Vendored | Loader entrypoint for XML rule parsing |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternRuleMatcher.java` | 22,434 | `70eae73add129bd4852185c202676ad378ccce22ea8cd1097f8b2d738edb6613` | LGPL-2.1-only / Vendored | Main matching execution loop invoking unifier on matched tokens |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternToken.java` | 26,728 | `11b69892b0738e38e90eb7653b3474982db98762d9d98d138e8360e70bcf8fbb` | LGPL-2.1-only / Vendored | Represents unified properties and type restrictions per element |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/PatternTokenMatcher.java` | 4,917 | `9d9f42fa3719e6ae03ce0e62357cc509ac167761e40e6008f292ced95b6f3dd8` | LGPL-2.1-only / Vendored | Token-level predicate matching before unifier logic |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/Match.java` | 6,610 | `0bee9c39d71af13dc085d65ceda99ede05d66f3d4d660698808bc39d74931629` | LGPL-2.1-only / Vendored | Captures pattern elements matched properties |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/MatchState.java` | 15,219 | `1a4e88fec00ed0b3de5674ef297b5659ca76b69606da7869bfe92509ceaaf829` | LGPL-2.1-only / Vendored | Advanced token matching state tracking and backtracking |
+| `languagetool-core/src/main/java/org/languagetool/rules/patterns/XMLRuleHandler.java` | 27,473 | `bd68584d2673330a75147fbe2f4682da007fadbdecf99a4b02c192cdd335d185` | LGPL-2.1-only / Vendored | XML SAX parser rule structure loader and parser |
 
-All files have their provenance and license dual-licensed under LGPL 2.1 recorded in `third_party/languagetool/UPSTREAM.json` and `third_party/languagetool/license_inventory.json`.
+All files have their provenance and LGPL 2.1 licensing recorded in `third_party/languagetool/UPSTREAM.json` and `third_party/languagetool/license_inventory.json`.
 
 ---
 
@@ -180,7 +225,7 @@ Fixture outputs generated using the trusted oracle:
 |:---|:---:|:---:|:---|
 | `tests/unit/test_unification.py` | 5 passed | 25 assertions | Configuration, type locators, fail-closed validation |
 | `tests/unit/test_unification_state_isolation.py` | 10 passed | 38 assertions | State isolation across rules, variants, positions, scopes, sentences, and index identity |
-| `tests/unit/test_grammar_unification_inventory.py` | 3 passed | 42 assertions | Inventory consistency, exact counts, transition matrix, structural invariants |
+| `tests/unit/test_grammar_unification_inventory.py` | 4 passed | 43 assertions | Inventory consistency, oracle total cases arithmetic invariant, transition matrix |
 | `tests/upstream/test_unifier_oracle_parity.py` | 7 passed | 60 assertions | Upstream `UnifierTest.java` translated conformance |
 | `tests/upstream/test_unification_russian_rule_oracle_parity.py` | 3 passed | 216 oracle cases | Differential parity against Java LT 6.8 on 24 real promoted rules |
 | `tests/upstream/test_unification_synthetic_oracle_parity.py` | 4 passed | 173 oracle cases | Differential parity against Java LT 6.8 across 36 synthetic feature dimensions |
@@ -224,7 +269,8 @@ Result: **`REAL_WHEEL_GRAMMAR_SUCCESS`** (`PASSED`).
 ## 9. Full Test Suite Execution Results
 
 Complete test suite execution (`pytest` across Tasks 0001–0009):
-- **Total Tests**: **336 passed in 55.69s**
+- **Total Tests**: **337 passed**
+- **Execution Time**: **54.32s**
 - **Failed Tests**: **0**
 - **Skipped Tests**: **0**
 - **Warnings / Errors**: **0**
@@ -233,9 +279,23 @@ Complete test suite execution (`pytest` across Tasks 0001–0009):
 
 ## 10. Known Limitations and Remaining Blockers
 
-### 10.1 Remaining 133 Deferred Grammar Rules:
-- **Task 0010 (XML Java Filters)**: 20 rules (including 4 unification rules requiring `AdvancedSynthesizerFilter`, and filters such as `RussianPartialPosTagFilter`, `INNNumberFilter`, `DateCheckFilter`).
-- **Task 0012 (Spelling / Suppression / Java Rules)**: 110 rules.
-- **Multi-Blocker (Filters + Spelling)**: 3 rules (`RussianPartialPosTagFilter` + spelling suppression).
+The following deliberate later-task limitations are explicitly tracked:
+- **Task 0010 (XML/Java filters)**: 20 rules (including 4 unification rules requiring `AdvancedSynthesizerFilter`, and filters such as `RussianPartialPosTagFilter`, `INNNumberFilter`, `DateCheckFilter`).
+- **Task 0011 (Java rules)**: 24 rules (including 23 relevant Java-implemented rules and 1 confusion probability language model rule).
+- **Task 0012 (spelling/suppression/etc.)**: 110 rules + 3 multi-blocker spelling/filter rules.
 
 Task 0009 is complete. Execution stops here. Task 0010 will not be started automatically.
+
+---
+
+## 11. Git Completion
+
+The exact implementation and conformance verification history is tracked across these concrete prior commits:
+
+- **Initial implementation**: `9d074452fd374421ca03398170936f51ab8e6258`
+- **Review fix (negated, skip, min, max, identity semantics)**: `a3991181628fcca03b6ee3371de6d4d817cf10d3`
+- **Review fix (controlled payload injection logic)**: `f53df675bc80373ca76c28dcbe68ba1289b7fc02`
+- **Latest controlled-evidence fix (dynamic word-to-token index mapping)**: `5600a0e9ff7f1f7e6c8a1286c876192ae0c55493`
+
+**Push target**: `origin/main`  
+**Remote verification result**: Pushed commits successfully mirrored to remote main branch and validated against standard git history checks.

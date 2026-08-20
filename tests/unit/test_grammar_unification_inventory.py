@@ -140,3 +140,18 @@ def test_grammar_unification_invariants():
     assert len(runnable_0007) + len(runnable_0008) + len(runnable_0009) == 759
     assert len(deferred_0010) + len(deferred_0012) + len(multi_blocker) == 133
     assert 759 + 133 == 892
+
+
+def test_compatibility_oracle_cases_arithmetic():
+    """Verify that compatibility.json oracle arithmetic holds exactly."""
+    compat_path = Path("compat/compatibility.json")
+    assert compat_path.is_file(), f"compatibility.json missing: {compat_path}"
+    data = json.loads(compat_path.read_text(encoding="utf-8"))
+    summary = data["compatibility_status"]["summary"]
+
+    synthetic = summary["grammar_unification_synthetic_oracle_cases_total"]
+    real = summary["grammar_unification_russian_rules_oracle_cases_total"]
+    total = summary["grammar_unification_total_oracle_cases"]
+
+    assert total == synthetic + real, f"Arithmetic mismatch in compatibility.json summary: {total} != {synthetic} + {real}"
+
