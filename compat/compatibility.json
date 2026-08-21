@@ -380,6 +380,7 @@
     ],
     "task_0014_differential_corpus": {
       "status": "COMPLETE",
+      "campaign_source_sha": "931d3aaf76b37138fef63dee11e8bb3cd51b0634",
       "manifest": "compat/differential_corpus_0014_manifest.json",
       "summary": "compat/differential_summary_0014.json",
       "allowlist": "compat/differential_allowlist_0014.json",

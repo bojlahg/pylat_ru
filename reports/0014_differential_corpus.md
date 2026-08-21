@@ -1,6 +1,6 @@
 # Task 0014 — Differential Corpus and Full-Pipeline Compatibility Audit
 
-## Second review-fix authoritative completion evidence (2026-08-21)
+## Final evidence-fix authoritative completion evidence (2026-08-21)
 
 This section is the authoritative completion evidence for
 the Task-0014 review-fix specifications and supersedes the historical Task-0014
@@ -8,6 +8,13 @@ counts and CI reference later in this report. The earlier body is retained only 
 record of the original campaign. Per the exact-SHA policy, the new GitHub
 Actions run is recorded only in the final handoff after the final commit is pushed;
 there is no post-CI documentation commit.
+
+The full campaign was rerun from the clean, immutable reviewed implementation
+commit `931d3aaf76b37138fef63dee11e8bb3cd51b0634`. In the committed summary,
+`repository_sha` means the source commit whose implementation and campaign tooling
+were executed; `compatibility_status.task_0014_differential_corpus.campaign_source_sha`
+records the same binding explicitly. Both values must agree, and a Java-free
+integrity test enforces that relationship.
 
 ### Scope and implementation
 
@@ -105,12 +112,12 @@ All 239/239 committed regressions now reproduce the trusted Java output under th
 ### Verification and boundary
 
 ```text
-Focused Task-0014 tests: 141 passed
-Full pytest:             1138 passed
+Focused Task-0014 tests: 134 passed
+Full pytest:             1139 passed
 Failures:                0
 Errors:                  0
 Skipped:                 0
-Wall time:               225.93 s
+Wall time:               207.56 s
 Wheel isolation:         PASS
 State/order isolation:   PASS (299 comparable selected cases, all 11 profiles)
 ```

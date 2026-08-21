@@ -38,6 +38,7 @@ from tools.differential_lt import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ORACLE_MANIFEST_PATH = REPO_ROOT / "compat" / "oracle_manifest.json"
+REVIEWED_CAMPAIGN_SOURCE_SHA = "931d3aaf76b37138fef63dee11e8bb3cd51b0634"
 
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -268,6 +269,19 @@ def test_summary_is_bound_to_the_committed_manifest(
     ]
     assert summary["oracle"]["jar_sha256"] == manifest["oracle_jar_sha256"]
     assert summary["oracle"]["pinned_lt_commit"] == PINNED_LT_COMMIT
+
+
+def test_campaign_evidence_is_bound_to_the_reviewed_implementation_commit(
+    summary: dict,
+) -> None:
+    """The campaign and compatibility metadata name one immutable source commit."""
+    payload = json.loads(
+        (REPO_ROOT / "compat" / "compatibility.json").read_text(encoding="utf-8")
+    )
+    section = payload["compatibility_status"]["task_0014_differential_corpus"]
+    assert summary["repository_sha"] == REVIEWED_CAMPAIGN_SOURCE_SHA
+    assert section["campaign_source_sha"] == REVIEWED_CAMPAIGN_SOURCE_SHA
+    assert section["campaign_source_sha"] == summary["repository_sha"]
 
 
 def test_summary_totals_are_internally_consistent(summary: dict) -> None:
