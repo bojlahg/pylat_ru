@@ -73,7 +73,19 @@ def test_public_user_config_surface_and_pinned_option_ranges() -> None:
             "FILLER_WORDS_RU": {"minPercent": 40, "excludeDirectSpeech": True},
         },
     )
-    assert any(match.rule_id == "TOO_LONG_SENTENCE" for match in tool.check("Один два три четыре пять шесть семь."))
+    # TOO_LONG_SENTENCE carries the ``picky`` tag, and pinned
+    # ``JLanguageTool.check(text)`` runs at ``Level.DEFAULT``, which drops every
+    # picky-tagged match before grouping.  Task 0014 confirmed against the trusted
+    # oracle that the pinned pipeline returns no match at all for this text, so the
+    # configured threshold is asserted on the rule surface, where it is observable.
+    long_sentence = "Один два три четыре пять шесть семь."
+    assert tool.check(long_sentence) == []
+    assert any(
+        match.rule_id == "TOO_LONG_SENTENCE"
+        for match in RussianJavaRulesEngine({"TOO_LONG_SENTENCE": {"maxWords": 6}}).check(
+            long_sentence
+        )
+    )
     assert not any(match.rule_id == "FILLER_WORDS_RU" for match in tool.check("ах слово слово"))
     low_sentence = RussianJavaRulesEngine({"TOO_LONG_SENTENCE": {"maxWords": 4}})
     high_sentence = RussianJavaRulesEngine({"TOO_LONG_SENTENCE": {"maxWords": 101}})

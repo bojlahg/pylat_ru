@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "task": "0014",
+  "description": "Narrow, machine-readable classifications for genuinely out-of-scope ordinary differences. Section 12 forbids broad suppression: an entry must name a concrete case id or mismatch fingerprint, the exact fields, a reason, upstream source evidence and a project scope reason. RussianConfusionProbabilityRule is excluded from the Java surface before comparison, so this list is expected to stay empty.",
+  "entries": []
+}

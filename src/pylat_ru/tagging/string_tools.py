@@ -111,3 +111,46 @@ def lowercase_first_char(text: str) -> str:
     Matches Java StringTools.lowercaseFirstChar(String).
     """
     return change_first_char_case(text, uppercase=False)
+
+
+def java_trim(text: str) -> str:
+    """``String.trim``: strip characters at or below U+0020 from both ends.
+
+    Python's ``str.strip()`` also removes NBSP and other Unicode spaces, which Java's
+    ``trim`` keeps, so the two are not interchangeable inside a pinned port.
+    """
+    start = 0
+    end = len(text)
+    while start < end and text[start] <= " ":
+        start += 1
+    while end > start and text[end - 1] <= " ":
+        end -= 1
+    return text[start:end]
+
+
+def trim_whitespace(text: str) -> str:
+    """Port of ``StringTools.trimWhitespace``.
+
+    Trims the ends, collapses runs of characters at or below U+0020, and drops line
+    feeds, tabs and carriage returns entirely.  ``PatternToken.setStringElement`` runs
+    every pattern-token string through this, which is what lets an XML alternation be
+    written across several indented lines without the indentation becoming part of the
+    pattern.
+    """
+    stripped = java_trim(text)
+    filtered: list[str] = []
+    index = 0
+    length = len(stripped)
+    while index < length:
+        character = stripped[index]
+        if character <= " " and (
+            (index + 1 < length and stripped[index + 1] <= " ")
+            or (index > 1 and stripped[index - 1] <= " ")
+        ):
+            index += 1
+            continue
+        if character not in ("\n", "\t", "\r"):
+            filtered.append(character)
+        index += 1
+    joined = "".join(filtered)
+    return stripped if len(joined) == len(stripped) else joined

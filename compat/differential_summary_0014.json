@@ -1,0 +1,3736 @@
+{
+  "by_rule_id": {
+    "ABREV_DOT": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "ABR_GENDER": {
+      "exact_case_occurrences": 36,
+      "java_occurrences": 36,
+      "mismatch_count": 0,
+      "pylat_occurrences": 36
+    },
+    "ADV_Navstrechu_and_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "A_NO_DA": {
+      "exact_case_occurrences": 33,
+      "java_occurrences": 33,
+      "mismatch_count": 0,
+      "pylat_occurrences": 33
+    },
+    "A_VDRUG_NO_COMMA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Adj_NN_number_Software": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Adv_vposledstvii": {
+      "exact_case_occurrences": 19,
+      "java_occurrences": 19,
+      "mismatch_count": 0,
+      "pylat_occurrences": 19
+    },
+    "BLIZKIJ_BLIZHNIJ": {
+      "exact_case_occurrences": 25,
+      "java_occurrences": 25,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "BOLSHAJA_POLOVINA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "BUD_CHTO_BUDET": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "B_S_kosvr": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "CHAS_PIK": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "CHREZVICHAJNO_GROMADNIJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "CHTO_COMMA": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "CHTO_PRAVDA_TO_PRAVDA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "COMMA_DEFIS": {
+      "exact_case_occurrences": 17,
+      "java_occurrences": 17,
+      "mismatch_count": 0,
+      "pylat_occurrences": 17
+    },
+    "COMMA_PARENTHESIS_WHITESPACE": {
+      "exact_case_occurrences": 742,
+      "java_occurrences": 742,
+      "mismatch_count": 0,
+      "pylat_occurrences": 742
+    },
+    "COMPLEX_SOUZ_NO_COMMA": {
+      "exact_case_occurrences": 27,
+      "java_occurrences": 27,
+      "mismatch_count": 0,
+      "pylat_occurrences": 27
+    },
+    "COMPLEX_SOUZ_NO_COMMA2": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "COMPLEX_SOUZ_PUNCT": {
+      "exact_case_occurrences": 29,
+      "java_occurrences": 29,
+      "mismatch_count": 0,
+      "pylat_occurrences": 29
+    },
+    "COMPLEX_SOUZ_PUNCT_2": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "COMPLEX_SOUZ_PUNCT_START_S": {
+      "exact_case_occurrences": 23,
+      "java_occurrences": 23,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "Cap_Letters_Fam": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Cap_Letters_Name": {
+      "exact_case_occurrences": 34,
+      "java_occurrences": 34,
+      "mismatch_count": 0,
+      "pylat_occurrences": 34
+    },
+    "Cap_Letters_SName": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Chastitsa_NI_usilen_negat": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Chastitsa_NI_v_ustojchiv_vyrazh": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Com_Num": {
+      "exact_case_occurrences": 83,
+      "java_occurrences": 83,
+      "mismatch_count": 0,
+      "pylat_occurrences": 89
+    },
+    "Comma_Chtobi_2VERB": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Comma_before_kak": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Comma_mol": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "DATE_WEEKDAY1": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "DEFIS_COMMA": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "DOUBLE_PUNCTUATION": {
+      "exact_case_occurrences": 47,
+      "java_occurrences": 47,
+      "mismatch_count": 0,
+      "pylat_occurrences": 47
+    },
+    "DOUBL_KAVITCHKI": {
+      "exact_case_occurrences": 32,
+      "java_occurrences": 32,
+      "mismatch_count": 0,
+      "pylat_occurrences": 32
+    },
+    "DPT_BI": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "DPT_Unification": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "DUMU_DUMAT": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Defis_to": {
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
+      "mismatch_count": 0,
+      "pylat_occurrences": 22
+    },
+    "Digit_comnatnaja": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Digit_defis_letter": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "DotOrCase": {
+      "exact_case_occurrences": 162,
+      "java_occurrences": 162,
+      "mismatch_count": 0,
+      "pylat_occurrences": 162
+    },
+    "DoubleIH": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "DoubleNE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "DoubleNOT": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "Dvigenie_and_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Dvojnoe_negate_s_NE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "EAdj_NN_number_2_4": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "ESLI_TO": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "EST_CHEM_ZANJATSA": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "FILLER_WORDS_RU": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Frazeologizm_nevernij": {
+      "exact_case_occurrences": 68,
+      "java_occurrences": 68,
+      "mismatch_count": 0,
+      "pylat_occurrences": 68
+    },
+    "GDE_COMMA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "GLAVNAJA_SUT": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Genitsya": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Hyphen_and_spaces": {
+      "exact_case_occurrences": 1,
+      "java_occurrences": 1,
+      "mismatch_count": 0,
+      "pylat_occurrences": 1
+    },
+    "INFORMATIVNIJ_INFORMACIONNIJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "INVALID_DATE": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "INVALID_TENSE_DATE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "ISKLUCHIT_ISKLUCHENIE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "IS_POD": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "I_TO_I_SE": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "KAK_I": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "KAK_PRAVILO": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "KAVITCHKI": {
+      "exact_case_occurrences": 88,
+      "java_occurrences": 88,
+      "mismatch_count": 0,
+      "pylat_occurrences": 88
+    },
+    "KRUG_KRUGLIJ": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "KTO_VB_PL": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "KV": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "KWT": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "KWT.H": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "K_TAKIM_KAK": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Kak_Tak_i": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Kak_bi_to_ni_bilo": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Kak_budto": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Kogda_to1": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Kontrol_za_nad": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "LC_AFTER_PERIOD_RU": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "LICHNO_JA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Latin_letters": {
+      "exact_case_occurrences": 114,
+      "java_occurrences": 114,
+      "mismatch_count": 0,
+      "pylat_occurrences": 114
+    },
+    "Latin_single_letter": {
+      "exact_case_occurrences": 30,
+      "java_occurrences": 30,
+      "mismatch_count": 0,
+      "pylat_occurrences": 30
+    },
+    "Linguistics_hrabry": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Lishnij_sojuz": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "Logical_biographia_gizni": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Logical_govorite_vopros": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_komandirovochnij": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Logical_kurica_nasijivaet_jajca": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Logical_odel_nadel": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "Logical_podnjal_tost": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_podorojali_ceny": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Logical_prazdnoe_prazdnichnoe": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Logical_prignul_s_parashuta": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_reshit_zatanuvshujusa_problemu": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Logical_samij_gigantskij": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_skritij_skritnij": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Logical_sobiratsya_vmeste": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_sochetatsja_vmeste": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_sosedstvovat_drug_s_drugom": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_svoja_avtobiographija": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Logical_uluchshenie_otmechennih_nedostatkov": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Logical_vidajuschijsja_as": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Logical_zalozheno_xx_derevjev": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Lower_Letters_after_comma": {
+      "exact_case_occurrences": 13,
+      "java_occurrences": 13,
+      "mismatch_count": 0,
+      "pylat_occurrences": 13
+    },
+    "MISSING_PUNCT_IN_BULLET": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "MORFOLOGIK_RULE_RU_RU": {
+      "exact_case_occurrences": 15539,
+      "java_occurrences": 15539,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15539
+    },
+    "MORFOLOGIK_RULE_RU_RU_YO": {
+      "exact_case_occurrences": 1959,
+      "java_occurrences": 1959,
+      "mismatch_count": 0,
+      "pylat_occurrences": 1962
+    },
+    "Many_PNN": {
+      "exact_case_occurrences": 56,
+      "java_occurrences": 56,
+      "mismatch_count": 0,
+      "pylat_occurrences": 56
+    },
+    "MissingYO": {
+      "exact_case_occurrences": 236,
+      "java_occurrences": 236,
+      "mismatch_count": 0,
+      "pylat_occurrences": 236
+    },
+    "NEMNOGO_PRIOTKRIT": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "NEUJTO": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "NE_PREDSTAVL_VOZM": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "NE_VB_NN_NN": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "NI_CHTO_NE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "NN_N_pril_prich": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "NO_KAK_POPALO": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "NO_NE_TO_CHTO": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Ne_komu_inomu_kak": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Ne_narech": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "Ne_narech_ne_horosho": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Ne_pril_prich": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Nepraviln_pristavki": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Nesmotrja_na_to_chto": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Nesmotrja_na_to_chto2": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Ni_mnogo_ni_malo": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Ni_to_ni_drugoe": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "Not_Comma_eto": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Num_plus_Noun": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "Num_plus_Noun1": {
+      "exact_case_occurrences": 1,
+      "java_occurrences": 1,
+      "mismatch_count": 0,
+      "pylat_occurrences": 1
+    },
+    "OCHEN_KROHOTNIJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "OPREDELENIA": {
+      "exact_case_occurrences": 42,
+      "java_occurrences": 42,
+      "mismatch_count": 0,
+      "pylat_occurrences": 42
+    },
+    "O_KOTORIJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "O_OB_OBO": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "O_P_padeg": {
+      "exact_case_occurrences": 28,
+      "java_occurrences": 28,
+      "mismatch_count": 0,
+      "pylat_occurrences": 28
+    },
+    "Oba_obe": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Obobchajuchee_slovo": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Oborot_ne_kto_inoj_kak": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Oborot_nikto_inoj_ne": {
+      "exact_case_occurrences": 39,
+      "java_occurrences": 39,
+      "mismatch_count": 0,
+      "pylat_occurrences": 39
+    },
+    "Obrazovanie_form_pril_i_mestoimenij": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Obrazovanie_form_prilagat_sravnit_st": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Obrazovanie_form_suschestvitelnykh_prof": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Obrazovanije_glagoln_form_imperativ": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Obrazovanije_slozhnyh_slov": {
+      "exact_case_occurrences": 26,
+      "java_occurrences": 26,
+      "mismatch_count": 0,
+      "pylat_occurrences": 26
+    },
+    "Okonch_susch_masc_Predlozhn_opredeliteln": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Opublikovani_vospominanija": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "PARAGRAPH_REPEAT_BEGINNING_RULE": {
+      "exact_case_occurrences": 308,
+      "java_occurrences": 308,
+      "mismatch_count": 0,
+      "pylat_occurrences": 357
+    },
+    "PARTICLE_JE_J": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PNN_Kak_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PODARIT_PODAROK": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "POJELAT_JELANIE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "POTREBOVAT_TREBOVANIE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "POZHALUJSTA": {
+      "exact_case_occurrences": 34,
+      "java_occurrences": 34,
+      "mismatch_count": 0,
+      "pylat_occurrences": 34
+    },
+    "PO_MERE_TOGO_KAK": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "PREDLOGI_KROME": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "PREP_C_and_ADJ": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "PREP_C_and_Noun": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "PREP_K_and_ADJ": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "PREP_K_and_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_K_and_Num": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "PREP_NA_VS_V": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_Na_And_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_Nad_and_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_ON_END": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_O_and_ADJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_O_and_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_Ob_And_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_PNN": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "PREP_POD_And_NOUN": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_PO_and_Noun": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "PREP_Pri_and_Noun": {
+      "exact_case_occurrences": 36,
+      "java_occurrences": 36,
+      "mismatch_count": 0,
+      "pylat_occurrences": 39
+    },
+    "PREP_Pro_And_Noun": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "PREP_U_and_ADJ": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "PREP_U_and_Noun": {
+      "exact_case_occurrences": 35,
+      "java_occurrences": 35,
+      "mismatch_count": 0,
+      "pylat_occurrences": 35
+    },
+    "PREP_V_VS_NA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_V_and_Noun": {
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
+      "mismatch_count": 0,
+      "pylat_occurrences": 20
+    },
+    "PREP_V_tom_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_Za_And_Noun": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PREP_and_DPT": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_and_PNN": {
+      "exact_case_occurrences": 21,
+      "java_occurrences": 21,
+      "mismatch_count": 0,
+      "pylat_occurrences": 21
+    },
+    "PREP_and_PNN1": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "PREP_cherez_and_ADJ": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "PREP_cherez_and_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PREP_vozle_and_Noun": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "PROGNOZ_NA_BUDUSHEE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "PT_BI": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "PUNCTUATION_PARAGRAPH_END2": {
+      "exact_case_occurrences": 45,
+      "java_occurrences": 45,
+      "mismatch_count": 0,
+      "pylat_occurrences": 45
+    },
+    "PUNCT_DPT": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "PUNCT_OBR": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "PUNCT_VB_INF_OBOROT": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "PUNKT_KAVITCHKI": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "PUNKT_KOTORIJ": {
+      "exact_case_occurrences": 25,
+      "java_occurrences": 25,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "PUNKT_KOTORIJ1": {
+      "exact_case_occurrences": 1,
+      "java_occurrences": 1,
+      "mismatch_count": 0,
+      "pylat_occurrences": 1
+    },
+    "Para_NN": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Parnoje_upotrebl_NI": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Paronimy": {
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
+      "mismatch_count": 0,
+      "pylat_occurrences": 20
+    },
+    "Pnn_compose_error": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Postrojenije_slovosochet_mnogo_malo_nemnogo_nemalo": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Postrojenije_slovosochetanij_skazuem_sing": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Postrojenije_slovosochetanij_sobir_noun": {
+      "exact_case_occurrences": 11,
+      "java_occurrences": 11,
+      "mismatch_count": 0,
+      "pylat_occurrences": 11
+    },
+    "Postrojenije_slovosochetanij_upravlenie1": {
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
+      "mismatch_count": 0,
+      "pylat_occurrences": 20
+    },
+    "Potok_and_Noun": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Pravopisanie_po-prezhnemu": {
+      "exact_case_occurrences": 68,
+      "java_occurrences": 68,
+      "mismatch_count": 0,
+      "pylat_occurrences": 68
+    },
+    "Pravopisanie_s_odnoj": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Pravopisanie_slitno1": {
+      "exact_case_occurrences": 56,
+      "java_occurrences": 56,
+      "mismatch_count": 0,
+      "pylat_occurrences": 56
+    },
+    "Predlog_v_zakluchenije": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Predlogi_iz_s": {
+      "exact_case_occurrences": 23,
+      "java_occurrences": 23,
+      "mismatch_count": 0,
+      "pylat_occurrences": 23
+    },
+    "Predlogi_vsledstvije_napodobije": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "Prep_i_2": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "Punct_PT_oborot": {
+      "exact_case_occurrences": 19,
+      "java_occurrences": 19,
+      "mismatch_count": 0,
+      "pylat_occurrences": 19
+    },
+    "Punct_PT_oborot_2": {
+      "exact_case_occurrences": 11,
+      "java_occurrences": 11,
+      "mismatch_count": 0,
+      "pylat_occurrences": 11
+    },
+    "Punct_and_spaces": {
+      "exact_case_occurrences": 31,
+      "java_occurrences": 31,
+      "mismatch_count": 0,
+      "pylat_occurrences": 31
+    },
+    "Punct_eh_ti": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Punct_nado_polagat": {
+      "exact_case_occurrences": 13,
+      "java_occurrences": 13,
+      "mismatch_count": 0,
+      "pylat_occurrences": 13
+    },
+    "Punct_skazano_sdelano": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Punct_skoree_chem": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Punct_sobstvenno_govorja": {
+      "exact_case_occurrences": 18,
+      "java_occurrences": 18,
+      "mismatch_count": 0,
+      "pylat_occurrences": 18
+    },
+    "Punct_tochki_zrenija": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "RIBNAJA_UHA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "RU_COMPOUNDS": {
+      "exact_case_occurrences": 93,
+      "java_occurrences": 93,
+      "mismatch_count": 0,
+      "pylat_occurrences": 93
+    },
+    "RU_DASH_RULE": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "RU_SIMPLE_REPLACE": {
+      "exact_case_occurrences": 29,
+      "java_occurrences": 29,
+      "mismatch_count": 0,
+      "pylat_occurrences": 29
+    },
+    "RU_SPECIFIC_CASE": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "RU_UNPAIRED_BRACKETS": {
+      "exact_case_occurrences": 203,
+      "java_occurrences": 203,
+      "mismatch_count": 0,
+      "pylat_occurrences": 204
+    },
+    "RU_VERB_CONJUGATION": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "RU_WORD_COHERENCY": {
+      "exact_case_occurrences": 18,
+      "java_occurrences": 18,
+      "mismatch_count": 0,
+      "pylat_occurrences": 18
+    },
+    "RU_WORD_REPEAT": {
+      "exact_case_occurrences": 682,
+      "java_occurrences": 682,
+      "mismatch_count": 0,
+      "pylat_occurrences": 685
+    },
+    "RU_WORD_ROOT_REPEAT": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "Rod_suschestvitelnykh_Fem_and_Masc": {
+      "exact_case_occurrences": 23,
+      "java_occurrences": 23,
+      "mismatch_count": 0,
+      "pylat_occurrences": 23
+    },
+    "Rod_suschestvitelnykh_Neut": {
+      "exact_case_occurrences": 21,
+      "java_occurrences": 21,
+      "mismatch_count": 0,
+      "pylat_occurrences": 24
+    },
+    "Rod_suschestvitelnykh_geograph": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Rod_suschestvitelnykh_odush_bird_animal": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "SENTENCE_WHITESPACE": {
+      "exact_case_occurrences": 46,
+      "java_occurrences": 46,
+      "mismatch_count": 0,
+      "pylat_occurrences": 46
+    },
+    "SPUSKATSJA_VNIZ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "SVOBODNAJA_VAKANSIJA": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "S_SO": {
+      "exact_case_occurrences": 30,
+      "java_occurrences": 30,
+      "mismatch_count": 0,
+      "pylat_occurrences": 30
+    },
+    "Skazuem_sovmestnoje_dejstvije": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 13
+    },
+    "Sklonenije_NUM_NN": {
+      "exact_case_occurrences": 21,
+      "java_occurrences": 21,
+      "mismatch_count": 0,
+      "pylat_occurrences": 21
+    },
+    "Sklonenije_chislitelnih": {
+      "exact_case_occurrences": 27,
+      "java_occurrences": 27,
+      "mismatch_count": 0,
+      "pylat_occurrences": 27
+    },
+    "Sklonenije_suschestvit_PL": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Slovosoch_interesnaja_kniga": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Slovosoch_v_proshlom": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "SoglasovanieNN_Verb": {
+      "exact_case_occurrences": 61,
+      "java_occurrences": 61,
+      "mismatch_count": 0,
+      "pylat_occurrences": 61
+    },
+    "SoglasovaniePNN_Verb": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Soglasovanie_NN_PT": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Stolko_mnogo": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Style_gipoteza_ssno_kotoroj": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Style_imeet_vid": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "TAKIM_KAK": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "TAKOJ_KAK": {
+      "exact_case_occurrences": 24,
+      "java_occurrences": 24,
+      "mismatch_count": 0,
+      "pylat_occurrences": 24
+    },
+    "TAK_JE": {
+      "exact_case_occurrences": 1,
+      "java_occurrences": 1,
+      "mismatch_count": 0,
+      "pylat_occurrences": 1
+    },
+    "TAK_JE_KAK": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "TOLPA_LUDEJ": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "TO_JE": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "TYPOGRAF_SYMBOL": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "TYPO_BOLE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tak_je_kak_i": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Tavtologija": {
+      "exact_case_occurrences": 18,
+      "java_occurrences": 18,
+      "mismatch_count": 0,
+      "pylat_occurrences": 18
+    },
+    "Tavtology_adres_mestojitelstva": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_bespolezno_propadajut": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_demobilizovatsja_iz_armii": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_glavnij_lejtmotiv": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_kivnul_golovoj": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_kollega_po_professii": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_landshaft_mestnosti": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_mahina": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_marshrut_sledovanija": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_mestnij_aborigen": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_nebolshaja_gorstka": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_neskolko_pobistree": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_plani_na_budushee": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_polnostju_zavershil": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_prejskurant_cen": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_prostaivat_bez_dela": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_samij_edinstvennij": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_tyomnij_mrak": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tavtology_upal_vniz": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "Tavtology_v_xx_mesjatse": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Tavtology_vernutsja_obratno": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Tavtology_vremenno_priostanovlen": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Tavtology_zaranee_predchuvstvovat": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Tavtology_zaranee_predupredit": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Teper_tak_kak": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Three_dot": {
+      "exact_case_occurrences": 103,
+      "java_occurrences": 103,
+      "mismatch_count": 0,
+      "pylat_occurrences": 103
+    },
+    "Tire_and_Verbs": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Tire_and_spaces": {
+      "exact_case_occurrences": 55,
+      "java_occurrences": 55,
+      "mismatch_count": 0,
+      "pylat_occurrences": 55
+    },
+    "Tire_and_two": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Trudn_sluchai_upravl": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Two_PREP": {
+      "exact_case_occurrences": 28,
+      "java_occurrences": 28,
+      "mismatch_count": 0,
+      "pylat_occurrences": 28
+    },
+    "UPPERCASE_SENTENCE_START": {
+      "exact_case_occurrences": 558,
+      "java_occurrences": 558,
+      "mismatch_count": 0,
+      "pylat_occurrences": 558
+    },
+    "Unify_Adj_NN_case": {
+      "exact_case_occurrences": 53,
+      "java_occurrences": 53,
+      "mismatch_count": 0,
+      "pylat_occurrences": 53
+    },
+    "Unify_Adj_NN_gender": {
+      "exact_case_occurrences": 76,
+      "java_occurrences": 76,
+      "mismatch_count": 0,
+      "pylat_occurrences": 76
+    },
+    "Unify_Adj_NN_number": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "Unify_Mult_Adj": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Unify_PADJ_NN_case": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Unify_PADJ_NN_gender": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Unify_PADJ_NN_number": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Upotreblenije_predlogov": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Upr_ne_verb_i_ni": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Use_prep_O": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "V.А": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "VB_O_KOM": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "VODJANOJ_VODNIJ": {
+      "exact_case_occurrences": 17,
+      "java_occurrences": 17,
+      "mismatch_count": 0,
+      "pylat_occurrences": 17
+    },
+    "VOZVRASHATSJA_OBRATNO": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "VO_VREMJA": {
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "VPERVIJE_ZNAKOMITSJA": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "VSE_KAK_NA_PODBOR": {
+      "exact_case_occurrences": 67,
+      "java_occurrences": 67,
+      "mismatch_count": 0,
+      "pylat_occurrences": 67
+    },
+    "VVODNOE_SLOVO": {
+      "exact_case_occurrences": 58,
+      "java_occurrences": 58,
+      "mismatch_count": 0,
+      "pylat_occurrences": 58
+    },
+    "V_K_IS": {
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
+      "mismatch_count": 0,
+      "pylat_occurrences": 20
+    },
+    "V_OTLICHIE": {
+      "exact_case_occurrences": 25,
+      "java_occurrences": 25,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "V_PRODOLJENIЕ": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 19
+    },
+    "V_TECHENII": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "V_TECHENIЕ": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "V_etoj_svyazy": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "V_sortimente": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "V_tom_chisle": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "Vazhno_chto_etogo": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "Verb_3P_and_inf": {
+      "exact_case_occurrences": 28,
+      "java_occurrences": 28,
+      "mismatch_count": 0,
+      "pylat_occurrences": 28
+    },
+    "Verb_IMP_OR_REAL": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "Verb_INF_OR_3P": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Verb_INF_OR_3P_3": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Verb_PT_short_Unification": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "Verb_and_NomDTV": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "Verb_and_PNN_Nom": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Verb_and_PREP": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "Verb_and_PT": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Verb_and_Verb": {
+      "exact_case_occurrences": 34,
+      "java_occurrences": 34,
+      "mismatch_count": 0,
+      "pylat_occurrences": 34
+    },
+    "Verb_and_wo_P": {
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
+      "mismatch_count": 0,
+      "pylat_occurrences": 5
+    },
+    "Verb_comma_Verb": {
+      "exact_case_occurrences": 64,
+      "java_occurrences": 64,
+      "mismatch_count": 0,
+      "pylat_occurrences": 64
+    },
+    "Verb_izbezhat_NN": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "Verb_number": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 9
+    },
+    "Verb_tsa_and_ttsya": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Vo_chto_by_to_ni_stalo": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Vo_izbezhanie": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "WHITESPACE_PARAGRAPH": {
+      "exact_case_occurrences": 132,
+      "java_occurrences": 132,
+      "mismatch_count": 0,
+      "pylat_occurrences": 133
+    },
+    "WHITESPACE_PARAGRAPH_BEGIN": {
+      "exact_case_occurrences": 57,
+      "java_occurrences": 57,
+      "mismatch_count": 0,
+      "pylat_occurrences": 57
+    },
+    "WHITESPACE_RULE": {
+      "exact_case_occurrences": 421,
+      "java_occurrences": 421,
+      "mismatch_count": 0,
+      "pylat_occurrences": 421
+    },
+    "WORD_REPEAT_RULE": {
+      "exact_case_occurrences": 265,
+      "java_occurrences": 265,
+      "mismatch_count": 0,
+      "pylat_occurrences": 265
+    },
+    "WRONG_INN": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "Word_root_repeat": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "Wrong_group_punct": {
+      "exact_case_occurrences": 32,
+      "java_occurrences": 32,
+      "mismatch_count": 0,
+      "pylat_occurrences": 32
+    },
+    "YEAR_20001": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "ZAKAZAT_ZAKAZ": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "ZASEDANIJE_ZAJEDANIJE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "adv_st": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "belogo_kalenija": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "bivshij_biloj": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "bolee_ili_menee_k": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "bolotnij_bolotistiy": {
+      "exact_case_occurrences": 25,
+      "java_occurrences": 25,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "bolshinstvo_vremeni": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "budniy_budnichnij": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "chto_li": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "comma_and_to_jest": {
+      "exact_case_occurrences": 9,
+      "java_occurrences": 9,
+      "mismatch_count": 0,
+      "pylat_occurrences": 11
+    },
+    "companija_campanija": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "da_and_da": {
+      "exact_case_occurrences": 18,
+      "java_occurrences": 18,
+      "mismatch_count": 0,
+      "pylat_occurrences": 18
+    },
+    "dlitelnij_dlinnij": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "dlya_togo_chtoby": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "dlya_togo_chtoby_2": {
+      "exact_case_occurrences": 19,
+      "java_occurrences": 19,
+      "mismatch_count": 0,
+      "pylat_occurrences": 19
+    },
+    "drug_s_drugom": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "dva_i_bolee": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "dvigatel_dvizhetel": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "economichesky_ekonomichniy": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "gerojsky_geroichesky": {
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
+      "mismatch_count": 0,
+      "pylat_occurrences": 22
+    },
+    "giloj_gilichnij": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "grammar_Duplication_by_the_pronoun_of_the_noun-subject": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "grammar_bez_ucheta_and_Noun": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "grammar_bolee_interesnee": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_coordination_of_verbal_participle_phrases": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "grammar_nemnogo_blednovat": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_o_tom_to_chto": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_po_sravneniju_s": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "grammar_poshel_k": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_s_dnem_rojdenja": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_soobrazno_dat": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_uverennost_v": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_v_adress_and_Noun": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 14
+    },
+    "grammar_v_protivorechii_s": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_v_sootvetstvii": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_v_vedenie_and_Noun": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "grammar_v_vidah_and_Noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "grammar_v_vide_and_Noun": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "grammar_vse_li_noun": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "i_and_i_and_i": {
+      "exact_case_occurrences": 18,
+      "java_occurrences": 18,
+      "mismatch_count": 0,
+      "pylat_occurrences": 18
+    },
+    "i_tak_dalee": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "ili_and_ili": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "imeet_mesto": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "kak_ni_stranno": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "kavalkada_mashin": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "kommentirovat_prep": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "kosvennaja_rech": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
+    },
+    "libo_and_libo": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "missing_2_verb": {
+      "exact_case_occurrences": 15,
+      "java_occurrences": 15,
+      "mismatch_count": 0,
+      "pylat_occurrences": 15
+    },
+    "missing_prep_v_vide": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "na_ladan_dishit": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "na_poverku": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "nagnat_strahu": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "naravne_s": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "ne_proronila_ni": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "ni_and_ni_and_ni": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "ni_v_koem_sluchae": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "noun_genitive_3": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "nе_igraet_nikakogo_znachenija": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "obschie_toscki_soprikosnovenija": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "odin_za_odnim": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "okazat_zabotu": {
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
+      "mismatch_count": 0,
+      "pylat_occurrences": 10
+    },
+    "oplachivat_prep": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "perehodny_peshehod": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "plit_lodkoj": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "plohoj_den": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "podvesti_rezultaty": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "podvesti_rezume": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "postscriptum": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "pouchastvovat": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "povisit_svoi_krugozor": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "predprinjat_meri": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "predstavlat_soboj": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "predstavlennie_neudobstva": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "pretenzia_na": {
+      "exact_case_occurrences": 3,
+      "java_occurrences": 3,
+      "mismatch_count": 0,
+      "pylat_occurrences": 3
+    },
+    "prev_st": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "prinat_tabеletku": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "prosit_proshenija": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "razvevatsja_razvivatsja": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "reczenzija_na": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "rugat_rugatsja": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "sdelat_ukol": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "skolko_vremeni": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "skrepja_serdce": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "skuchat_za": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "sojalet_ob_etom": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "solnij_instrument": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "sorvat_ovacii": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "sovestnij_sovmestnij": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "strong_m": {
+      "exact_case_occurrences": 26,
+      "java_occurrences": 26,
+      "mismatch_count": 0,
+      "pylat_occurrences": 26
+    },
+    "sud_da_delo": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "takim_obrazom_chto": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "talk": {
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
+      "mismatch_count": 0,
+      "pylat_occurrences": 20
+    },
+    "tcifra_zanijena": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "tem_ne_menee": {
+      "exact_case_occurrences": 7,
+      "java_occurrences": 7,
+      "mismatch_count": 0,
+      "pylat_occurrences": 7
+    },
+    "to_and_to": {
+      "exact_case_occurrences": 42,
+      "java_occurrences": 42,
+      "mismatch_count": 0,
+      "pylat_occurrences": 42
+    },
+    "toska_toskovat": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "translate_carreer_diplomat": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "udivlyatsja_na": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "ugasno_krasivij": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "upravlauchij_NN": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "uroven_uvelichilsja": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "urovnjat_uravnjat": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "v_kontakte_s": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "v_ruchnuju": {
+      "exact_case_occurrences": 21,
+      "java_occurrences": 21,
+      "mismatch_count": 0,
+      "pylat_occurrences": 24
+    },
+    "v_sochetanii_s": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "v_sravnenii_s": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "v_svjazi_s": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "vlasti_priderjashie": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "voinstvujuschij_voinstvennij": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "vopreki_NN": {
+      "exact_case_occurrences": 25,
+      "java_occurrences": 25,
+      "mismatch_count": 0,
+      "pylat_occurrences": 25
+    },
+    "vozmojno_oshibayas": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "vziskivat_uscherb": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "vzjat_s_nego_interview": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "zadat_test": {
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
+      "mismatch_count": 0,
+      "pylat_occurrences": 16
+    },
+    "zakonchit_shkolu": {
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
+      "mismatch_count": 0,
+      "pylat_occurrences": 8
+    },
+    "zaslujit_NN": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "zaslujivat_NN": {
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
+      "mismatch_count": 0,
+      "pylat_occurrences": 6
+    },
+    "znat_cenu": {
+      "exact_case_occurrences": 4,
+      "java_occurrences": 4,
+      "mismatch_count": 0,
+      "pylat_occurrences": 4
+    },
+    "А.H": {
+      "exact_case_occurrences": 64,
+      "java_occurrences": 64,
+      "mismatch_count": 0,
+      "pylat_occurrences": 64
+    }
+  },
+  "campaign_identity": {
+    "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
+    "fixed_seed": 140014,
+    "generator_version": "0014.1",
+    "stratum_signatures": {
+      "A": "8830ea3d03f380f4a8276074ad9d3bba091ff516f66dc88d041d751201418f9c",
+      "B": "0edc376c274cfd0fd2f3fc7c366dcc30ea9f03806486c19164cc229d5360306c",
+      "C": "1f36194507c01ebf1f68b16fb762cb68acf4f459b409fcb9a2763dc720c329ce",
+      "D": "b5289cf51d2980458cce56af44431b469f0240187971590d4161b988575f497a",
+      "E": "d282644c8eb4452770905379ed753c4d497fcc842397d29611c8ec3ea47d37b3"
+    }
+  },
+  "counts_by_profile": {
+    "all_ordinary_enabled": {
+      "cases": 5010,
+      "exact": 4973,
+      "java_findings": 4989,
+      "mismatch_counts_by_kind": {
+        "JAVA_ORACLE_ERROR": 37
+      },
+      "non_exact": 37,
+      "pylat_findings": 5075
+    },
+    "cfg_filler_words_2": {
+      "cases": 200,
+      "exact": 200,
+      "java_findings": 498,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 498
+    },
+    "cfg_long_paragraph_30": {
+      "cases": 200,
+      "exact": 200,
+      "java_findings": 498,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 498
+    },
+    "cfg_long_sentence_15": {
+      "cases": 200,
+      "exact": 200,
+      "java_findings": 498,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 498
+    },
+    "cfg_speller_yo": {
+      "cases": 2200,
+      "exact": 2200,
+      "java_findings": 1399,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 1399
+    },
+    "default": {
+      "cases": 9615,
+      "exact": 9615,
+      "java_findings": 18025,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 18025
+    }
+  },
+  "counts_by_stratum": {
+    "A": {
+      "cases": 5028,
+      "exact": 5028,
+      "java_findings": 2813,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 2813,
+      "unique_texts": 2514
+    },
+    "B": {
+      "cases": 4996,
+      "exact": 4959,
+      "java_findings": 5314,
+      "mismatch_counts_by_kind": {
+        "JAVA_ORACLE_ERROR": 37
+      },
+      "non_exact": 37,
+      "pylat_findings": 5400,
+      "unique_texts": 2342
+    },
+    "C": {
+      "cases": 4400,
+      "exact": 4400,
+      "java_findings": 2793,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 2793,
+      "unique_texts": 2200
+    },
+    "D": {
+      "cases": 2693,
+      "exact": 2693,
+      "java_findings": 14582,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 14582,
+      "unique_texts": 2405
+    },
+    "E": {
+      "cases": 308,
+      "exact": 308,
+      "java_findings": 405,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 405,
+      "unique_texts": 154
+    }
+  },
+  "external_corpus": {
+    "fixed_seed": 140014,
+    "schema_version": "1.0.0",
+    "sources": [
+      {
+        "api_url": "https://ru.wikipedia.org/w/api.php",
+        "categories": null,
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "local_file": "corpora/natural_ru_wikipedia_0014.jsonl",
+        "page_ids": [
+          12197,
+          9064392,
+          7126237,
+          10348592,
+          11366363,
+          5648814,
+          866759,
+          3981945,
+          10905961,
+          10030948,
+          1979783,
+          10960600,
+          10863425,
+          7959437,
+          7775214,
+          11320026,
+          576189,
+          9211340,
+          1631083,
+          11315265,
+          4622626,
+          244650,
+          86200,
+          86099,
+          1372756,
+          1556370,
+          6712973,
+          1786093,
+          803729,
+          5394543,
+          4347052,
+          4841106,
+          9059714,
+          1561989,
+          165911,
+          5985744,
+          1467003,
+          1889083,
+          4207519,
+          12068,
+          7846419,
+          1264164,
+          10411305,
+          10783872,
+          2958788,
+          5065613,
+          3992329,
+          5314436,
+          1336244,
+          9819042,
+          4400879,
+          2087595,
+          2220325,
+          4156095,
+          7358095,
+          3100976,
+          912924,
+          6134711,
+          86171,
+          86138,
+          4611206,
+          113262,
+          5025193,
+          5111324,
+          9905983,
+          1503279,
+          8849748,
+          8210026,
+          2900594,
+          6549115,
+          6549085,
+          4717058,
+          5328016,
+          10065306,
+          3510169,
+          6620162,
+          1367895,
+          2060979,
+          507643,
+          9246008,
+          4200077,
+          11557763,
+          11171338,
+          1368449,
+          1251617,
+          4112320,
+          6487681,
+          4386618,
+          8271554,
+          4021483,
+          10298072,
+          7846833,
+          1582594,
+          3548059,
+          5221024,
+          5222945,
+          2060919,
+          6457521,
+          5372105,
+          2287844,
+          1363722,
+          4032658,
+          4389474,
+          4216882,
+          7498496,
+          4512173,
+          5378063,
+          104612,
+          1580559,
+          1634222,
+          4386716,
+          8888364,
+          3377424,
+          7972181,
+          2375716,
+          300393,
+          2375718,
+          605817,
+          8687957,
+          4905965,
+          7227855,
+          119206,
+          7686315,
+          7381980,
+          7674554,
+          1018645,
+          2477516,
+          10163887,
+          10171381,
+          7228702,
+          1627961,
+          438071,
+          1152847,
+          432078,
+          4051542,
+          1671481,
+          7201324,
+          5334539,
+          1659989,
+          5473391,
+          1984254,
+          123702,
+          5664175,
+          4104248,
+          6763958,
+          1171089,
+          4386720,
+          1162516,
+          3353648,
+          3775825,
+          5137579,
+          1902315,
+          3459363,
+          4768248,
+          10836815,
+          708277,
+          3682789,
+          4096741,
+          3682804,
+          8669678,
+          8615607,
+          1334845,
+          6101516,
+          2900442,
+          8384426,
+          735044,
+          8283380,
+          2872005,
+          1233493,
+          7330119,
+          4955304,
+          2375733,
+          1235878,
+          10729403,
+          3260905,
+          2262899,
+          1068477,
+          10110287,
+          6477680,
+          11561074,
+          7602035,
+          3238890,
+          605544,
+          9748898,
+          1101212,
+          5371249,
+          7168218,
+          3465265,
+          10733881,
+          4043162,
+          1703383,
+          3337007,
+          10545406,
+          8961955,
+          7962498,
+          4657693,
+          2783597,
+          3411351,
+          580662,
+          4754902,
+          4782304,
+          2483457,
+          7118522,
+          11562533,
+          930789,
+          287407,
+          5099787,
+          5102653,
+          7380420,
+          2192923,
+          786158,
+          2734288,
+          54379,
+          1894375,
+          4753089,
+          4020962,
+          4981952,
+          3541173,
+          7717897,
+          2526485,
+          10909511,
+          2955307,
+          919219,
+          8338051,
+          1969774,
+          743982,
+          1184360,
+          4979141,
+          11512868,
+          4032093,
+          3570641,
+          8039180,
+          7279307,
+          11226269,
+          7922356,
+          332164,
+          147983,
+          6010013,
+          254821,
+          3399228,
+          4386726,
+          5358561,
+          1925075,
+          3223942,
+          2601938,
+          4591332,
+          8210666,
+          9811787,
+          8116379,
+          10161008,
+          1861931,
+          2079326,
+          6741823,
+          2632291,
+          6916797,
+          1491655,
+          11488871,
+          8772123,
+          8367119,
+          2648873,
+          6089956,
+          8964212,
+          8156081,
+          3873592,
+          10061184,
+          10061544,
+          10061224,
+          55153,
+          4016927,
+          9461935,
+          8533499,
+          6660091,
+          4279380,
+          8969556,
+          9891991,
+          9053096,
+          8474685,
+          2056119,
+          5990863,
+          9890683,
+          3365985,
+          10474873,
+          5671642,
+          2726611,
+          176813,
+          361405,
+          1031280,
+          9163912,
+          7083996,
+          7180591,
+          7727767,
+          9207824,
+          439593,
+          7760046,
+          362949,
+          7685304,
+          3500370,
+          4661434,
+          2483186,
+          5377151,
+          9255495,
+          8404135,
+          8369962,
+          5305804,
+          754189,
+          11309796,
+          4856475,
+          4466275,
+          2648437,
+          2651393,
+          2648042,
+          2648451,
+          1577079,
+          2157873,
+          2962525,
+          9822417,
+          8922559,
+          10329871,
+          4386730,
+          4037439,
+          7730049,
+          10745799,
+          1997781,
+          11507205,
+          7516648,
+          7193298,
+          4386734,
+          4074897,
+          3037390,
+          8945649,
+          8549994,
+          11517544,
+          3912712,
+          5254442,
+          2390517,
+          1876529,
+          3139675,
+          159459,
+          4452640,
+          4465125,
+          3897098,
+          5660639,
+          3416330,
+          2219024,
+          2218985,
+          5651321,
+          11516677,
+          5640121,
+          250929,
+          8900461,
+          2261885,
+          6705556,
+          7696006,
+          1207979,
+          6153890,
+          3371035,
+          10437324,
+          5393304,
+          6381202,
+          5093118,
+          2211135,
+          4025499,
+          9145551,
+          7834941,
+          4067188,
+          7112067,
+          3496648,
+          8398601,
+          9255439,
+          7289344,
+          3984525,
+          6649517,
+          6649514,
+          6650749,
+          8276029,
+          2581700,
+          3080367,
+          2730859,
+          11268167,
+          10262289,
+          1257390,
+          5033906,
+          1889277,
+          3409351,
+          7850028,
+          4697231,
+          4989282,
+          3402631,
+          8776667,
+          8944139,
+          5277877,
+          5277876,
+          4742296,
+          10340425,
+          10318161,
+          7465507,
+          4212361,
+          7300375,
+          8822620,
+          853740,
+          8962726,
+          593145,
+          191935,
+          562323,
+          4961908,
+          2572635,
+          2036810,
+          930549,
+          5482501,
+          3375384,
+          2853390,
+          8715159,
+          2227196,
+          3052279,
+          95420,
+          4769105,
+          2502802,
+          7957816,
+          1224136,
+          2553534,
+          1549283,
+          8766364,
+          6977849,
+          7073128,
+          786149,
+          2788417,
+          4608077,
+          340232,
+          2960754,
+          2154564,
+          1306109,
+          1542350,
+          1297876,
+          699376,
+          3812579,
+          571979,
+          7894185,
+          39280,
+          3207222,
+          2957205,
+          89099,
+          935947,
+          7095152,
+          353433,
+          6941761,
+          6466146,
+          168349,
+          5684920,
+          5239862,
+          2432727,
+          4629840,
+          10384525,
+          3622207,
+          7939072,
+          162787,
+          975033,
+          5717218,
+          969347,
+          3511311,
+          4391408
+        ],
+        "pages_contributing_blocks": 460,
+        "preprocessing": {
+          "block_unit": "blank-line separated block of the plain-text extract",
+          "deduplication": "exact duplicate block text removed within the source",
+          "markup_removal": "none; the API returns plain text",
+          "max_block_chars": 3000,
+          "max_blocks_per_page": 6,
+          "min_block_chars": 80,
+          "min_cyrillic_letter_ratio": 0.5,
+          "rejected_headings": "lines matching ^ *={2,}.*={2,} *$",
+          "text_edits": "none; blocks are accepted or rejected verbatim. No spelling, case, punctuation, typography, ё/е or whitespace normalisation is applied."
+        },
+        "raw_block_count": 1609,
+        "retained_block_count": 1605,
+        "retrieval_date": "2026-08-21",
+        "selection_method": "deterministic seeded PRNG draws two-letter Cyrillic start points; each start point walks namespace 0 with generator=allpages; plain text from prop=extracts explaintext=1",
+        "selection_points": [
+          "Си"
+        ],
+        "selection_seed": 140014,
+        "sha256": "7b2e8816890aaf8a1f0d977bab85b8327be1a074f0a62250ed7d41b566f80101",
+        "site": "ru.wikipedia.org",
+        "size_bytes": 1979945,
+        "source_id": "ru_wikipedia",
+        "start_alphabet": "абвгдежзиклмнопрстуфхцчшэюя",
+        "strategy": "allpages_textextracts",
+        "visited_pages": 460
+      },
+      {
+        "api_url": "https://ru.wikisource.org/w/api.php",
+        "categories": [
+          "Категория:Повести",
+          "Категория:Проза",
+          "Категория:Рассказы",
+          "Категория:Романы"
+        ],
+        "license": "CC BY-SA 4.0 (wiki layer); underlying works public domain",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "local_file": "corpora/natural_ru_wikisource_0014.jsonl",
+        "page_ids": [
+          1035912,
+          897464,
+          1002756,
+          1032381,
+          1026098,
+          1042652,
+          1030485,
+          1025799,
+          1024928,
+          1024934,
+          1017430,
+          1006796,
+          1022372,
+          1140590,
+          897787,
+          1043819,
+          366132,
+          1100085,
+          1027287,
+          1006557,
+          1043844,
+          1042171,
+          1009258,
+          1031762,
+          1028072,
+          1017429,
+          1031763,
+          1005384,
+          1004889,
+          1004888,
+          1042550,
+          1003772,
+          553952,
+          112553,
+          1140726,
+          1011210,
+          228334,
+          228335,
+          366130,
+          1005861,
+          4336,
+          1033347,
+          1098893,
+          579922,
+          579921,
+          1000260,
+          3424,
+          1020983,
+          1011841,
+          1041263,
+          1008383,
+          1008547,
+          1097948,
+          1002755,
+          1010524,
+          1033585,
+          1044472,
+          1003447,
+          4354,
+          1039983,
+          102116,
+          1043807,
+          174494,
+          1000928,
+          1000288,
+          1003872,
+          1020254,
+          1017701,
+          997145,
+          1017264,
+          1023687,
+          1002566,
+          1046446,
+          1032768,
+          1100555,
+          997358,
+          1015744,
+          36596,
+          360374,
+          360375,
+          1037175,
+          870758,
+          1051938,
+          1101032,
+          1000269,
+          1035765,
+          1035764,
+          1036241,
+          1010650,
+          1035742,
+          1100553,
+          1002263,
+          1046445,
+          1023112,
+          1045547,
+          1020258,
+          1016238,
+          1003417,
+          1009232,
+          1026822,
+          1013544,
+          1015319,
+          1007068,
+          1036238,
+          1013067,
+          997720,
+          1039805,
+          1011118,
+          1011122,
+          1034337,
+          1027426,
+          1010886,
+          1044498,
+          114990,
+          1026784,
+          1033892,
+          1043991,
+          1019621,
+          1006745,
+          1010974,
+          1043032,
+          1010333,
+          1010898,
+          1140515,
+          1022470,
+          393416,
+          393417,
+          380048,
+          380049,
+          3420,
+          1010889,
+          1008381,
+          1001545,
+          1033434,
+          1043963,
+          554022,
+          1000261,
+          1030234,
+          999064,
+          1025887,
+          1034394,
+          897799,
+          1003977,
+          5882,
+          1031866,
+          1044769,
+          5896,
+          1033366,
+          1043462,
+          1014806,
+          1046072,
+          1003968,
+          1039221,
+          1052000,
+          310142,
+          310144,
+          1042053,
+          1025899,
+          1043469,
+          366134,
+          1033937,
+          1000441,
+          1040605,
+          1019366,
+          897465,
+          1157305,
+          1021761,
+          1101609,
+          999461,
+          1041180,
+          1019403,
+          897462,
+          1035447,
+          1001942,
+          1045371,
+          1002867,
+          1029380,
+          1002927,
+          1209149,
+          1209148,
+          1097326
+        ],
+        "pages_contributing_blocks": 181,
+        "preprocessing": {
+          "block_unit": "one rendered <p> element",
+          "deduplication": "exact duplicate block text removed within the source",
+          "markup_removal": "<sup> reference markers dropped, remaining tags removed, HTML entities decoded",
+          "max_block_chars": 3000,
+          "max_blocks_per_page": 6,
+          "min_block_chars": 80,
+          "min_cyrillic_letter_ratio": 0.5,
+          "rejected_headings": "lines matching ^ *={2,}.*={2,} *$",
+          "text_edits": "none; blocks are accepted or rejected verbatim. No spelling, case, punctuation, typography, ё/е or whitespace normalisation is applied."
+        },
+        "raw_block_count": 1068,
+        "retained_block_count": 800,
+        "retrieval_date": "2026-08-20",
+        "selection_method": "fixed sorted prose categories walked with list=categorymembers (cmsort=sortkey); plain text from action=parse rendered <p> elements, because Wikisource articles are transclusions the extracts API does not resolve",
+        "selection_points": [
+          "Категория:Повести"
+        ],
+        "selection_seed": null,
+        "sha256": "5aa2e247c8e31be22e8749c36f75a216841f5e25d1ffbc58f8ffb2d6565c9df5",
+        "site": "ru.wikisource.org",
+        "size_bytes": 881701,
+        "source_id": "ru_wikisource",
+        "start_alphabet": null,
+        "strategy": "categorymembers_parse",
+        "visited_pages": 183
+      }
+    ],
+    "task": "0014",
+    "total_retained_blocks": 2405,
+    "total_unique_nonempty_blocks": 2405
+  },
+  "input_manifest_sha256": "9a93f537508dd3836f1d037dd0c48b8439bed4dad0a8771c0383cc1c3b0c0a5f",
+  "known_accepted_discrepancies": 0,
+  "language_model_rule": {
+    "excluded_from_java_surface": true,
+    "rule_class": "RussianConfusionProbabilityRule",
+    "rule_id": "CONFUSION_RULE",
+    "status": "LANGUAGE_MODEL_DEFERRED"
+  },
+  "mismatch_counts_by_kind": {
+    "JAVA_ORACLE_ERROR": 37
+  },
+  "mismatch_counts_by_rule_id": {},
+  "oracle": {
+    "build_id": "lt_6.8_source_build_jdk17_stefan",
+    "jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "pinned_lt_version": "6.8"
+  },
+  "ordinary_allowlist_entries": 0,
+  "parity": {
+    "category": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "finding_order": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "finding_sequence_exact": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "full_observable_field": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "message": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "rule_id": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "short_message": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "span": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "suggestion_content": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "suggestion_order": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "url": {
+      "denominator": 17388,
+      "numerator": 17388,
+      "rate": 1.0,
+      "state": "MEASURED"
+    }
+  },
+  "repository_sha": "abe5290d5c2e8e613937e180c7669638ff56b6af",
+  "schema_version": "1.0.0",
+  "suggestions": {
+    "duplicate_preservation_mismatches": 0,
+    "exact_ordered_suggestion_matches": 22687,
+    "java_findings_with_suggestions": 22687,
+    "suggestion_content_mismatches": 0,
+    "suggestion_order_only_mismatches": 0
+  },
+  "task": "0014",
+  "totals": {
+    "cases_total": 17425,
+    "comparable_cases": 17388,
+    "exact_cases": 17388,
+    "java_errors": 37,
+    "java_findings_comparable": 25907,
+    "java_findings_total": 25907,
+    "non_exact_cases": 37,
+    "profile_executions_total": 17425,
+    "pylat_findings_comparable": 25907,
+    "pylat_findings_total": 25993,
+    "python_errors": 0,
+    "unique_texts_total": 9615
+  },
+  "unexplained_case_ids": [],
+  "unexplained_discrepancies": 0,
+  "unicode_coverage": {
+    "combining_mark_cases": 459,
+    "combining_mark_exact": 459,
+    "non_bmp_cases": 638,
+    "non_bmp_exact": 638,
+    "soft_hyphen_cases": 178,
+    "soft_hyphen_exact": 178,
+    "utf16_parity_failures": 0
+  },
+  "upstream_defects": {
+    "by_defect_id": {
+      "PARAGRAPH_REPEAT_BEGINNING_RULE_EMPTY_SECOND_SPAN": 37
+    },
+    "explained": 37,
+    "java_error_cases": 37,
+    "record": "compat/differential_upstream_defects_0014.json",
+    "unexplained": 0,
+    "unexplained_case_ids": []
+  }
+}

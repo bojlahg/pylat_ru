@@ -38,11 +38,11 @@
   ],
   "fixture_bindings": [
     {
-      "path": "tests/fixtures/oracle_filters_synthetic.json",
-      "size_bytes": 281298,
-      "sha256": "1b907ac94e1f53b23dc9d41e0b27e0fe41946ef8fa796732b732ee09f51b9002",
+      "path": "tests/fixtures/differential_regressions_0014.json",
+      "size_bytes": 194897,
+      "sha256": "5dbf0408cc4b9ad8089806bf716808f21333cc2aef21dd384d4e9b1711616b4d",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 178
+      "case_count": 238
     },
     {
       "path": "tests/fixtures/oracle_filters_russian_rules.json",
@@ -52,18 +52,11 @@
       "case_count": 165
     },
     {
-      "path": "tests/fixtures/oracle_java_rules_0011_synthetic.json",
-      "size_bytes": 141499,
-      "sha256": "8d6202657139a1538cfd7c6c0efcc1675e3a0a021a5f0e7e24f64f7ad0bb4a42",
+      "path": "tests/fixtures/oracle_filters_synthetic.json",
+      "size_bytes": 281298,
+      "sha256": "1b907ac94e1f53b23dc9d41e0b27e0fe41946ef8fa796732b732ee09f51b9002",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 114
-    },
-    {
-      "path": "tests/fixtures/oracle_java_rules_0011_russian.json",
-      "size_bytes": 11396,
-      "sha256": "b7d216d5a06b32f72b826647d75705adc31e465877f998c4a63663dde7ba6531",
-      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 12
+      "case_count": 178
     },
     {
       "path": "tests/fixtures/oracle_java_rules_0011_combined.json",
@@ -73,25 +66,18 @@
       "case_count": 11
     },
     {
-      "path": "tests/fixtures/oracle_java_rules_0012_spelling.json",
-      "size_bytes": 62615,
-      "sha256": "1de3f0da0d975262b6e1f26dbff993b73a4b3a74d8da18df4ea36e8f35ef10a6",
+      "path": "tests/fixtures/oracle_java_rules_0011_russian.json",
+      "size_bytes": 11396,
+      "sha256": "b7d216d5a06b32f72b826647d75705adc31e465877f998c4a63663dde7ba6531",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 59
+      "case_count": 12
     },
     {
-      "path": "tests/fixtures/oracle_java_rules_0012_rules.json",
-      "size_bytes": 62346,
-      "sha256": "6237cf26b297f466d0d4cb42ddea916b084bcec9ec3c0df8b9c81a41513b4d6f",
+      "path": "tests/fixtures/oracle_java_rules_0011_synthetic.json",
+      "size_bytes": 141499,
+      "sha256": "8d6202657139a1538cfd7c6c0efcc1675e3a0a021a5f0e7e24f64f7ad0bb4a42",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 67
-    },
-    {
-      "path": "tests/fixtures/oracle_java_rules_0012_filter.json",
-      "size_bytes": 8633,
-      "sha256": "8f7c5dae39b8eead644822bb311e219a0ae7232a238334fda2e216675fc7cd19",
-      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 10
+      "case_count": 114
     },
     {
       "path": "tests/fixtures/oracle_java_rules_0012_combined.json",
@@ -101,11 +87,39 @@
       "case_count": 15
     },
     {
+      "path": "tests/fixtures/oracle_java_rules_0012_filter.json",
+      "size_bytes": 8633,
+      "sha256": "8f7c5dae39b8eead644822bb311e219a0ae7232a238334fda2e216675fc7cd19",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 10
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_rules.json",
+      "size_bytes": 62346,
+      "sha256": "6237cf26b297f466d0d4cb42ddea916b084bcec9ec3c0df8b9c81a41513b4d6f",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 67
+    },
+    {
+      "path": "tests/fixtures/oracle_java_rules_0012_spelling.json",
+      "size_bytes": 62615,
+      "sha256": "1de3f0da0d975262b6e1f26dbff993b73a4b3a74d8da18df4ea36e8f35ef10a6",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 59
+    },
+    {
       "path": "tests/fixtures/oracle_upstream_tests_0013.json",
       "size_bytes": 128094,
       "sha256": "82936751bf266498f10de8e21bd5d64c45fa723d5587268577f6dd4f4327cc0d",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 146
+    },
+    {
+      "path": "tests/fixtures/oracle_utf16_calibration_0014.json",
+      "size_bytes": 218100,
+      "sha256": "0a924e3b26fc0c5e946ab6d21da83fca4a3ac8fb82e4e2eec0a968e9aaaae161",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "case_count": 154
     }
   ],
   "description": "Trusted Java LanguageTool development oracle specification and reproducible build records for differential and fixture generation"

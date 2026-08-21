@@ -86,8 +86,19 @@ def _is_word(token: str) -> bool:
     return bool(token) and unicodedata.category(token[0])[0] in {"L", "N"}
 
 
+#: Pinned ``AnalyzedTokenReadings.NON_WORD_REGEX``, copied verbatim from the
+#: constant pool of ``org/languagetool/AnalyzedTokenReadings.class`` in the trusted
+#: jar.  It is a single-character class, and ``isNonWord()`` uses ``matches()``, so
+#: only a token that is exactly one of these characters is a non-word.  Braces and
+#: other punctuation outside the class deliberately count as words.
+_NON_WORD_REGEX = re.compile(
+    '[.?!…:;,~’\'"„“”»«‚‘›‹()\\[\\]\\-–—*×∗·+÷/=]'
+)
+
+
 def _is_non_word(token: str) -> bool:
-    return bool(token) and not any(unicodedata.category(ch)[0] in {"L", "N"} for ch in token)
+    """Pinned ``AnalyzedTokenReadings.isNonWord()``."""
+    return _NON_WORD_REGEX.fullmatch(token) is not None
 
 
 class NativeRule:
@@ -103,6 +114,12 @@ class NativeRule:
     # ``Example.fixed()`` literals, ``<marker>`` markup included.
     incorrect_examples: tuple[str, ...] = ()
     correct_examples: tuple[str, ...] = ()
+
+    #: True when the pinned rule extends ``TextLevelRule`` rather than ``Rule``.
+    #: ``JLanguageTool`` runs the text-level rules over the whole text and collects
+    #: their matches *before* the per-sentence ones, which decides who wins a
+    #: same-span overlap where both rules have equal priority and length.
+    text_level = False
 
     def __init__(self, registration_order: int, config: Mapping[str, Any] | None = None) -> None:
         self.registration_order = registration_order
@@ -282,6 +299,7 @@ class CommaWhitespaceRule(NativeRule):
 
 
 class UppercaseSentenceStartRule(NativeRule):
+    text_level = True
     rule_id = "UPPERCASE_SENTENCE_START"
     category_id = "CASING"
     category_name = "Заглавные буквы"
@@ -322,13 +340,21 @@ class UppercaseSentenceStartRule(NativeRule):
                 prevent = True
             if token and token[0].islower() and token not in self._exceptions and not prevent:
                 replacement = token[0].upper() + token[1:]
-                if replacement != token and not re.fullmatch(r"[a-z][A-Z].*", token):
+                # Pinned ONLY_LOWERCASE_START plus StringTools.isCamelCase, which is
+                # `matches("[a-z]+[A-Z][A-Za-z]+")`: a camel-cased product name such as
+                # "languageTool" is deliberately left alone.
+                if (
+                    replacement != token
+                    and not re.fullmatch(r"[a-z][A-Z].*", token)
+                    and not re.fullmatch(r"[a-z]+[A-Z][A-Za-z]+", token)
+                ):
                     out.append(self.finding(context, candidate.start, candidate.end, "Это предложение не начинается с заглавной буквы.", (replacement,), "Заглавные буквы"))
             previous_last = last
         return out
 
 
 class MultipleWhitespaceRule(NativeRule):
+    text_level = True
     rule_id = "WHITESPACE_RULE"
     category_id = "TYPOGRAPHY"
     category_name = "Типографика"
@@ -344,27 +370,38 @@ class MultipleWhitespaceRule(NativeRule):
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
         out: list[NativeRuleFinding] = []
-        t = context.token_spans
-        i = 0
-        while i < len(t):
-            if self._first(t[i].text):
-                first = i
-                i += 1
-                while i < len(t) and self._removable(t[i].text):
+        # The pinned rule walks each sentence's own token array, so a run of spaces
+        # split across a sentence boundary is never joined into one repetition.
+        for spans in context.sentence_token_spans:
+            i = 0
+            while i < len(spans):
+                if self._first(spans[i].text):
+                    first = i
                     i += 1
-                if i - 1 > first:
-                    out.append(self.finding(context, t[first].start, t[i - 1].end, "Повтор пробела", (t[first].text,)))
-                continue
-            if t[i].text in {"\n", "\r", "\r\n"}:
-                i += 1
-                while i < len(t) and self._removable(t[i].text):
+                    while i < len(spans) and self._removable(spans[i].text):
+                        i += 1
+                    if i - 1 > first:
+                        out.append(
+                            self.finding(
+                                context,
+                                spans[first].start,
+                                spans[i - 1].end,
+                                "Повтор пробела",
+                                (spans[first].text,),
+                            )
+                        )
+                    continue
+                if spans[i].text in {"\n", "\r", "\r\n"}:
                     i += 1
-                continue
-            i += 1
+                    while i < len(spans) and self._removable(spans[i].text):
+                        i += 1
+                    continue
+                i += 1
         return out
 
 
 class SentenceWhitespaceRule(NativeRule):
+    text_level = True
     rule_id = "SENTENCE_WHITESPACE"
     category_id = "TYPOGRAPHY"
     category_name = "Типографика"
@@ -381,6 +418,38 @@ class SentenceWhitespaceRule(NativeRule):
         return out
 
 
+#: Tokens the pinned ``AnalyzedTokenReadings.isLinebreak()`` recognises.
+_LINEBREAKS = frozenset(("\n", "\r", "\r\n"))
+
+#: Zero-width space, excluded from deletable whitespace by the pinned paragraph rules
+#: so office-suite fields (page number, page count) survive.
+_ZERO_WIDTH_SPACE = "\u200b"
+
+
+@dataclass(frozen=True)
+class _SentenceStart:
+    """Stand-in for the pinned zero-width SENT_START token at array index 0.
+
+    Reproducing it keeps every index in the ported paragraph rules identical to the
+    pinned ``sentence.getTokens()`` arithmetic.
+    """
+
+    start: int
+    end: int
+    text: str = ""
+
+
+def _java_sentence_tokens(context: NativeRuleContext, index: int) -> list[Any]:
+    """One sentence's tokens with the pinned SENT_START sentinel at index 0."""
+    unit = context.sentences[index]
+    return [_SentenceStart(unit.start, unit.start), *context.sentence_token_spans[index]]
+
+
+def _is_whitespace_token(text: str) -> bool:
+    """Pinned ``AnalyzedTokenReadings.isWhitespace()``: the trimmed token is empty."""
+    return text.strip() == ""
+
+
 def _paragraph_ranges(text: str) -> list[tuple[int, int]]:
     ranges: list[tuple[int, int]] = []
     start = 0
@@ -392,6 +461,7 @@ def _paragraph_ranges(text: str) -> list[tuple[int, int]]:
 
 
 class WhiteSpaceBeforeParagraphEnd(NativeRule):
+    text_level = True
     rule_id = "WHITESPACE_PARAGRAPH"
     category_id = "STYLE"
     category_name = "Стиль"
@@ -400,15 +470,46 @@ class WhiteSpaceBeforeParagraphEnd(NativeRule):
     priority = -50
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        out = []
-        for start, end in _paragraph_ranges(context.text):
-            m = re.search(r"[^\S\r\n]+$", context.text[start:end])
-            if m:
-                # The pinned token loop reports only the final removable token
-                # immediately before the paragraph line-break sequence.
-                b = start + m.end()
-                a = b - 1
-                out.append(self.finding(context, a, b, "Удалите пробел в конце абзаца"))
+        """Port of pinned ``WhiteSpaceBeforeParagraphEnd.match(List<AnalyzedSentence>)``.
+
+        The pinned rule walks back over the trailing line breaks, then back over the
+        trailing whitespace, and reports the span from the last non-whitespace token
+        through the end of the line-break run, suggesting that token on its own.
+        """
+        out: list[NativeRuleFinding] = []
+        for index in range(len(context.sentences)):
+            if not _is_paragraph_end(context.sentences, index):
+                continue
+            tokens = _java_sentence_tokens(context, index)
+            last_break = len(tokens) - 1
+            while last_break > 0 and tokens[last_break].text in _LINEBREAKS:
+                last_break -= 1
+            last_white = last_break
+            while (
+                last_white > 0
+                and _is_whitespace_token(tokens[last_white].text)
+                and tokens[last_white].text != _ZERO_WIDTH_SPACE
+            ):
+                last_white -= 1
+            if last_white >= last_break:
+                continue
+            if _is_whitespace_token(tokens[last_white].text):
+                from_pos = tokens[last_white + 1].start
+                suggestion = ""
+            else:
+                from_pos = tokens[last_white].start
+                suggestion = tokens[last_white].text if last_white > 0 else ""
+            out.append(
+                self.finding(
+                    context,
+                    from_pos,
+                    tokens[last_break].end,
+                    "Удалите пробел в конце абзаца",
+                    # Pinned setSuggestedReplacement("") leaves the match with no
+                    # suggestion at all rather than one empty replacement.
+                    (suggestion,) if suggestion else (),
+                )
+            )
         return out
 
 
@@ -421,20 +522,48 @@ class WhiteSpaceAtBeginOfParagraph(NativeRule):
     priority = -50
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        out = []
-        for start, end in _paragraph_ranges(context.text):
-            m = re.match(r"[^\S\r\n]+", context.text[start:end])
-            if not m:
-                continue
-            rest_start = start + m.end()
-            spans = tokens_to_spans(RussianWordTokenizer().tokenize(context.text[rest_start:end]), base_offset=rest_start, mapper=context.mapper)
-            first = next((span for span in spans if not span.text.isspace()), None)
-            if first:
-                out.append(self.finding(context, start, first.end, "Удалите пробел в начале абзаца", (first.text,)))
+        """Port of pinned ``WhiteSpaceAtBeginOfParagraph.match(AnalyzedSentence)``.
+
+        The pinned rule is sentence level, not paragraph level: every sentence whose
+        own token array starts with deletable whitespace is reported, which is why a
+        sentence that merely follows another on the same line still matches.
+        """
+        out: list[NativeRuleFinding] = []
+        for index in range(len(context.sentences)):
+            tokens = _java_sentence_tokens(context, index)
+            position = 1
+            while position < len(tokens) and self._is_whitespace_del(
+                tokens[position].text
+            ):
+                position += 1
+            if (
+                position > 1
+                and position < len(tokens)
+                and tokens[position].text not in _LINEBREAKS
+            ):
+                out.append(
+                    self.finding(
+                        context,
+                        tokens[1].start,
+                        tokens[position].end,
+                        "Удалите пробел в начале абзаца",
+                        (tokens[position].text,),
+                    )
+                )
         return out
+
+    @staticmethod
+    def _is_whitespace_del(text: str) -> bool:
+        """Pinned ``isWhitespaceDel``: whitespace that may actually be deleted."""
+        return (
+            _is_whitespace_token(text)
+            and text != _ZERO_WIDTH_SPACE
+            and text not in _LINEBREAKS
+        )
 
 
 class LongSentenceRule(NativeRule):
+    text_level = True
     rule_id = "TOO_LONG_SENTENCE"
     category_id = "STYLE"
     category_name = "Стиль"
@@ -482,6 +611,7 @@ class LongSentenceRule(NativeRule):
 
 
 class LongParagraphRule(NativeRule):
+    text_level = True
     rule_id = "TOO_LONG_PARAGRAPH"
     category_id = "STYLE"
     category_name = "Стиль"
@@ -506,38 +636,107 @@ class LongParagraphRule(NativeRule):
         return out
 
 
+def _is_paragraph_end(units: Sequence[SentenceUnit], index: int) -> bool:
+    """Port of pinned ``org.languagetool.tools.Tools.isParagraphEnd``.
+
+    The Russian sentence tokenizer reports ``singleLineBreaksMarksPara() == false``,
+    so only doubled line breaks — or a following sentence that itself starts with a
+    line break — end a paragraph.
+    """
+    if index >= len(units) - 1:
+        return True
+    text = units[index].text
+    if text.endswith("\n\n") or text.endswith("\n\r\n\r") or text.endswith("\r\n\r\n"):
+        return True
+    following = units[index + 1].text
+    return following.startswith("\n") or following.startswith("\r\n")
+
+
 class ParagraphRepeatBeginningRule(NativeRule):
+    text_level = True
     rule_id = "PARAGRAPH_REPEAT_BEGINNING_RULE"
     category_id = "STYLE"
     category_name = "Стиль"
     description = "Повтор начала абзаца"
     default_off = True
     priority = -50
-    _quotes = re.compile(r"[’'\"„“”»«‚‘›‹()\[\]]")
+    _quotes = re.compile(r"[’\'\"„“”»«‚‘›‹()\[\]]")
 
-    def _first(self, context: NativeRuleContext, start: int, end: int) -> TokenSpan | None:
-        spans = tokens_to_spans(RussianWordTokenizer().tokenize(context.text[start:end]), base_offset=start, mapper=context.mapper)
-        visible = [s for s in spans if not s.text.isspace()]
-        if not visible:
-            return None
-        idx = 1 if self._quotes.fullmatch(visible[0].text) and len(visible) > 1 else 0
-        return visible[idx] if visible[idx].text and visible[idx].text[0].isalpha() else None
+    @staticmethod
+    def _visible_tokens(context: NativeRuleContext, index: int) -> list[TokenSpan]:
+        """Non-whitespace tokens of one sentence.
+
+        Element 0 corresponds to pinned ``getTokensWithoutWhitespace()[1]``, because
+        the pinned array carries the zero-width SENT_START token at index 0.
+        """
+        return [span for span in context.sentence_token_spans[index] if not span.text.isspace()]
+
+    def _num_char_equal_beginning(
+        self, last: Sequence[TokenSpan], following: Sequence[TokenSpan], last_base: int
+    ) -> int:
+        """Port of pinned ``numCharEqualBeginning``.
+
+        Returns the **sentence-local** end offset of the matching token in the *last*
+        sentence, or 0.  The article branch of the pinned method tests ``DT`` part-of-
+        speech tags, which the Russian tagset never emits, so it can never be taken.
+        """
+        if not last or not following:
+            return 0
+        index = 0
+        last_token, next_token = last[index].text, following[index].text
+        if self._quotes.fullmatch(last_token) and last_token == next_token:
+            if len(last) <= index + 1 or len(following) <= index + 1:
+                return 0
+            index += 1
+            last_token, next_token = last[index].text, following[index].text
+        if not last_token or not last_token[0].isalpha():
+            return 0
+        if last_token == next_token:
+            return last[index].end - last_base
+        return 0
 
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        out = []
-        ranges = _paragraph_ranges(context.text)
-        for left, right in zip(ranges, ranges[1:]):
-            a, b = self._first(context, *left), self._first(context, *right)
-            if a and b and a.text == b.text:
-                msg = "Повтор начала последнего абзаца"
-                # Pinned ParagraphRepeatBeginningRule reuses the prior
-                # sentence-local end offset for the next paragraph, exposing
-                # this one-codepoint-short second span after the line break.
-                out.extend((self.finding(context, a.start, a.end, msg), self.finding(context, b.start, max(b.start, b.end - 1), msg)))
+        units = context.sentences
+        if not units:
+            return []
+        out: list[NativeRuleFinding] = []
+        last_index = 0
+        for index in range(len(units) - 1):
+            if not _is_paragraph_end(units, index):
+                continue
+            last_tokens = self._visible_tokens(context, last_index)
+            next_tokens = self._visible_tokens(context, index + 1)
+            last_base = units[last_index].start
+            next_base = units[index + 1].start
+            end_pos = self._num_char_equal_beginning(last_tokens, next_tokens, last_base)
+            if end_pos > 0:
+                start = last_tokens[0].start
+                if start < last_base + end_pos:
+                    msg = "Повтор начала последнего абзаца"
+                    out.append(self.finding(context, start, last_base + end_pos, msg))
+                    # The pinned rule reuses the *last* sentence's local end offset
+                    # against the *next* sentence's base, so the second span is only
+                    # as long as the first sentence's leading token.
+                    #
+                    # That second RuleMatch is built without the guard the first one
+                    # has, so when the two offsets coincide -- a repeated paragraph
+                    # whose first token is a single character -- pinned LanguageTool
+                    # 6.8 throws ``IllegalArgumentException: fromPos must be less than
+                    # toPos`` and abandons the whole check.  An empty span is not a
+                    # reportable match, so it is skipped here instead; Task 0014
+                    # records the resulting difference explicitly.
+                    if next_tokens[0].start < next_base + end_pos:
+                        out.append(
+                            self.finding(
+                                context, next_tokens[0].start, next_base + end_pos, msg
+                            )
+                        )
+            last_index = index + 1
         return out
 
 
 class RussianFillerWordsRule(NativeRule):
+    text_level = True
     rule_id = "FILLER_WORDS_RU"
     category_id = "CREATIVE_WRITING"
     category_name = "Стилистические подсказки для творческого письма"
@@ -569,6 +768,7 @@ class RussianFillerWordsRule(NativeRule):
 
 
 class PunctuationMarkAtParagraphEnd2(NativeRule):
+    text_level = True
     rule_id = "PUNCTUATION_PARAGRAPH_END2"
     category_id = "PUNCTUATION"
     category_name = "Пунктуация"
@@ -577,19 +777,104 @@ class PunctuationMarkAtParagraphEnd2(NativeRule):
     # Russian.java contains an orphan priority key PUNCT_DPT_2; it does not
     # match this pinned rule ID, so the effective priority is the base value.
 
+    #: Pinned ``TOKEN_THRESHOLD``.
+    token_threshold = 10
+
     def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        out = []
-        for start, end in _paragraph_ranges(context.text):
-            spans = [s for s in tokens_to_spans(RussianWordTokenizer().tokenize(context.text[start:end]), base_offset=start, mapper=context.mapper) if not s.text.isspace()]
-            words = [s for s in spans if not _is_non_word(s.text)]
-            if len(words) > 10 and spans:
-                last = spans[-1]
-                if last.text not in {":", ".", "?", "!", "…"} and not _is_non_word(last.text):
-                    out.append(self.finding(context, last.start, last.end, "Добавьте знак пунктуации в конце абзаца.", (last.text + ".",)))
+        """Port of pinned ``PunctuationMarkAtParagraphEnd2.match(List<AnalyzedSentence>)``.
+
+        The word count accumulates across the sentences of a paragraph and is reset
+        only at a paragraph end, so the threshold applies to the paragraph rather than
+        to any single sentence.
+        """
+        out: list[NativeRuleFinding] = []
+        token_count = 0
+        for index in range(len(context.sentences)):
+            tokens = _java_sentence_tokens(context, index)
+            for token in tokens:
+                if not _is_non_word(token.text) and not _is_whitespace_token(token.text):
+                    token_count += 1
+            last_non_space = next(
+                (t for t in reversed(tokens) if not _is_whitespace_token(t.text)), None
+            )
+            is_paragraph_end = _is_paragraph_end(context.sentences, index)
+            if (
+                is_paragraph_end
+                and token_count > self.token_threshold
+                and last_non_space is not None
+                and last_non_space.text not in {":", ".", "?", "!", "…"}
+                and not _is_non_word(last_non_space.text)
+            ):
+                out.append(
+                    self.finding(
+                        context,
+                        last_non_space.start,
+                        last_non_space.end,
+                        "Добавьте знак пунктуации в конце абзаца.",
+                        (last_non_space.text + ".",),
+                    )
+                )
+            if is_paragraph_end:
+                token_count = 0
         return out
 
 
+#: ``java.util.regex`` ``\p{Punct}`` is the ASCII punctuation block, not a Unicode
+#: property, so the pinned character classes are spelled out here rather than
+#: approximated with a Unicode class.
+_ASCII_PUNCT = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
+#: Pinned ``GenericUnpairedBracketsRule.PUNCTUATION`` = ``[\p{Punct}…–—]``.
+_PUNCTUATION = frozenset(_ASCII_PUNCT + "…–—")
+
+#: Pinned ``PUNCTUATION_NO_DOT`` = ``[ldmnstLDMNST]'|[–—\p{Punct}&&[^.]]``.
+_PUNCTUATION_NO_DOT_CHARS = frozenset(_ASCII_PUNCT.replace(".", "") + "–—")
+_PUNCTUATION_NO_DOT_APOSTROPHE = frozenset("ldmnstLDMNST")
+
+_URL_TOKEN = re.compile(r"https?://.+")
+_LIST_MARKER_CONTEXT = re.compile(r"\n[a-zA-Z]\)")
+_LIST_MARKER_CONTEXT_AT_START = re.compile(r"[a-zA-Z]\)")
+
+#: Pinned ``RussianUnpairedBracketsRule.NUMERALS_RU``.  The leading inline ``(?i)``
+#: makes the whole Java pattern case-insensitive, and ``Matcher.matches()`` anchors it,
+#: which is why the trailing ``$`` is dropped here.
+_NUMERALS_RU = re.compile(
+    r"\d{1,2}?[а-я]*|[а-я]|[А-Я]|[а-я][а-я]|[А-Я][А-Я]|\d{1,2}?[a-zA-Z']*"
+    r"|(?i:M*(D?C{0,3}|C[DM])(L?X{0,3}|X[LC])(V?I{0,3}|I[VX]))"
+)
+
+
+@dataclass
+class _SymbolLocator:
+    """Port of the pinned ``SymbolLocator``/``Symbol`` pair."""
+
+    symbol: str
+    opening: bool
+    index: int
+    start_pos: int
+    sentence_index: int
+
+
+def _index_of(values: Sequence[str], value: str) -> int:
+    """``List.indexOf`` semantics: -1 rather than an exception."""
+    try:
+        return list(values).index(value)
+    except ValueError:
+        return -1
+
+
 class RussianUnpairedBracketsRule(NativeRule):
+    text_level = True
+    """Faithful port of pinned ``RussianUnpairedBracketsRule``.
+
+    The pinned rule is ``GenericUnpairedBracketsRule`` parameterised with the Russian
+    symbol lists and numeral pattern.  Task 0014 replaced an earlier approximation that
+    diverged on three observable points: the numeral exception ignored the pinned
+    ``!(stack.peek() == "(")`` guard, symmetric symbols were popped instead of always
+    being pushed when preceded by whitespace, and the pinned
+    ``ruleMatchStack``/``createMatch`` cancellation pass was missing entirely.
+    """
+
     rule_id = "RU_UNPAIRED_BRACKETS"
     category_id = "PUNCTUATION"
     category_name = "Пунктуация"
@@ -604,52 +889,230 @@ class RussianUnpairedBracketsRule(NativeRule):
         "Самоотверженный поступок Оленина <marker>(</marker>подарок Лукашке коня) вызывает лишь удивление и усиливает недоверие к нему станичников.",
     )
 
-    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
-        stack: list[tuple[str, TokenSpan, bool]] = []
-        symmetric = {'\"', "'"}
-        visible = [s for s in context.token_spans if not s.text.isspace()]
-        for idx, span in enumerate(visible):
-            token = span.text
-            if token not in self.starts and token not in self.ends:
-                continue
-            prev = visible[idx - 1] if idx else None
-            prev2 = visible[idx - 2] if idx >= 2 else None
-            nxt = visible[idx + 1] if idx + 1 < len(visible) else None
-            if token in "()" and prev and (
-                (prev.text in {":", ";"} and prev.end == span.start)
-                or (prev2 and prev2.text in {":", ";"} and prev.text == "-" and prev2.end == prev.start)
+    def _is_no_exception(
+        self, tokens: Sequence[Any], index: int
+    ) -> bool:
+        """Port of ``isNoException``: smiley and URL exceptions."""
+        token = tokens[index].token
+        if index > 0:
+            previous = tokens[index - 1].token
+            if _URL_TOKEN.fullmatch(previous) and "(" in previous:
+                return False
+        if index >= 2:
+            previous_previous = tokens[index - 2].token
+            previous = tokens[index - 1].token
+            if previous_previous in (":", ";") and previous == "-" and token in (")", "("):
+                return False
+        if index >= 1:
+            previous = tokens[index - 1].token
+            if (
+                previous in (":", ";")
+                and not tokens[index].whitespace_before
+                and token in (")", "(")
             ):
-                continue
-            if token in symmetric:
-                preceded = idx == 0 or (prev is not None and prev.end < span.start) or (prev is not None and ((_is_non_word(prev.text) and prev.text != ".") or prev.text in self.starts))
-                followed = nxt is None or span.end < nxt.start or (nxt is not None and (_is_non_word(nxt.text) or nxt.text in self.ends or nxt.text.startswith("-") or nxt.text == "s"))
-                if stack and stack[-1][0] == token and followed:
-                    stack.pop()
-                elif preceded:
-                    stack.append((token, span, True))
-                continue
-            if token in self.starts:
-                stack.append((token, span, True))
-                continue
-            j = self.ends.index(token)
-            expected = self.starts[j]
-            prev_text = prev.text if prev else ""
-            if token == ")" and re.fullmatch(r"(?i)(\d{1,2}[а-яa-z']*|[а-яa-z]{1,2}|[ivxlcdm]+)\.?", prev_text):
-                continue
-            if stack and stack[-1][0] == expected:
+                return False
+        return True
+
+    def _preceded_by_whitespace(self, tokens: Sequence[Any], index: int, j: int) -> bool:
+        """Port of ``getPrecededByWhitespace``; only symmetric symbols are constrained."""
+        if self.starts[j] != self.ends[j]:
+            return True
+        previous = tokens[index - 1]
+        previous_token = previous.token
+        return bool(
+            previous.is_sentence_start
+            or tokens[index].whitespace_before
+            or (
+                len(previous_token) == 2
+                and previous_token[0] in _PUNCTUATION_NO_DOT_APOSTROPHE
+                and previous_token[1] == "'"
+            )
+            or (len(previous_token) == 1 and previous_token in _PUNCTUATION_NO_DOT_CHARS)
+            or previous_token in self.starts
+        )
+
+    def _special_case(self, tokens: Sequence[Any], index: int, j: int) -> bool:
+        """Port of ``getSpecialCase``; only symmetric symbols are constrained."""
+        if not (index < len(tokens) - 1 and self.starts[j] == self.ends[j]):
+            return True
+        following = tokens[index + 1].token
+        return bool(
+            tokens[index + 1].whitespace_before
+            or (len(following) == 1 and following in _PUNCTUATION)
+            or following in self.ends
+            or (index >= 1 and tokens[index - 1].token.endswith("-"))
+            or following.startswith("-")
+            or following == "s"
+        )
+
+    def _numeral_exception(
+        self, tokens: Sequence[Any], index: int, j: int, stack: Sequence[_SymbolLocator]
+    ) -> bool:
+        """Port of the pinned numbered-list exception for ``)``.
+
+        Both branches carry ``!(stack.peek() == "(")``: an enumerator such as ``(а)``
+        that actually closes an open parenthesis is paired normally rather than skipped.
+        """
+        if self.ends[j] != ")":
+            return False
+        top_is_open_paren = bool(stack) and stack[-1].symbol == "("
+        if top_is_open_paren:
+            return False
+        if (
+            index > 2
+            and (
+                tokens[index - 3].has_pos_tag("SENT_START")
+                or tokens[index - 2].whitespace_before
+            )
+            and tokens[index - 1].token == "."
+            and _NUMERALS_RU.fullmatch(tokens[index - 2].token)
+        ):
+            return True
+        return bool(index > 1 and _NUMERALS_RU.fullmatch(tokens[index - 1].token))
+
+    def _fill_symbol_stack(
+        self,
+        base: int,
+        tokens: Sequence[Any],
+        index: int,
+        j: int,
+        stack: list[_SymbolLocator],
+        sentence_index: int,
+    ) -> bool:
+        """Port of ``fillSymbolStack``.  Returns True when the symbol was consumed."""
+        token = tokens[index].token
+        if token != self.starts[j] and token != self.ends[j]:
+            return False
+        start_pos = base + tokens[index].start_pos
+        preceded = self._preceded_by_whitespace(tokens, index, j)
+        special = self._special_case(tokens, index, j)
+        if not self._is_no_exception(tokens, index):
+            return False
+
+        if preceded and token == self.starts[j]:
+            stack.append(
+                _SymbolLocator(self.starts[j], True, index, start_pos, sentence_index)
+            )
+            return True
+
+        if (special or tokens[index].is_sentence_end) and token == self.ends[j]:
+            if self._numeral_exception(tokens, index, j, stack):
+                return False
+            if not stack:
+                stack.append(
+                    _SymbolLocator(self.ends[j], False, index, start_pos, sentence_index)
+                )
+                return True
+            if stack[-1].symbol == self.starts[j]:
                 stack.pop()
-            else:
-                stack.append((token, span, False))
-        out = []
-        for symbol, span, opening in stack:
-            if opening:
-                sentence_index = next((index for index, unit in enumerate(context.sentences) if unit.start <= span.start < unit.end), len(context.sentences) - 1)
-                sentence_text = context.sentences[sentence_index].text.rstrip() if context.sentences else ""
-                if sentence_index == len(context.sentences) - 1 and not sentence_text.endswith((".", "?", "!")):
-                    continue
-            other = self.ends[self.starts.index(symbol)] if opening else self.starts[self.ends.index(symbol)]
-            out.append(self.finding(context, span.start, span.end, f"Непарный символ: «{other}» скорей всего пропущен"))
-        return out
+                return True
+            # Every Russian end symbol is unique within the end-symbol list, so the
+            # pinned ``isEndSymbolUnique`` branch always pushes here.
+            stack.append(
+                _SymbolLocator(self.ends[j], False, index, start_pos, sentence_index)
+            )
+            return True
+        return False
+
+    def _corresponding_symbol(self, symbol: str) -> str:
+        index = _index_of(self.starts, symbol)
+        if index >= 0:
+            return self.ends[index]
+        return self.starts[_index_of(self.ends, symbol)]
+
+    def _create_match(
+        self,
+        context: NativeRuleContext,
+        matches: list[NativeRuleFinding],
+        match_stack: list[_SymbolLocator],
+        locator: _SymbolLocator,
+    ) -> NativeRuleFinding | None:
+        """Port of ``createMatch``, including its cancellation of an earlier match."""
+        if match_stack:
+            index = _index_of(self.ends, locator.symbol)
+            if index >= 0:
+                previous = match_stack[-1]
+                if previous.symbol == self.starts[index]:
+                    if len(matches) > previous.index:
+                        del matches[previous.index]
+                        match_stack.pop()
+                        return None
+
+        # The pinned method pushes before the context guards below, so a suppressed
+        # match still participates in later cancellation.
+        match_stack.append(
+            _SymbolLocator(
+                locator.symbol, locator.opening, len(matches), locator.start_pos, locator.sentence_index
+            )
+        )
+        other = self._corresponding_symbol(locator.symbol)
+        text = context.text
+        start_pos = locator.start_pos
+        end_pos = start_pos + len(locator.symbol)
+        if end_pos < len(text):
+            if start_pos >= 2:
+                if _LIST_MARKER_CONTEXT.fullmatch(text[start_pos - 2 : end_pos]):
+                    return None
+            elif start_pos >= 1:
+                if _LIST_MARKER_CONTEXT_AT_START.fullmatch(text[start_pos - 1 : end_pos]):
+                    return None
+        return self.finding(
+            context,
+            start_pos,
+            end_pos,
+            f"Непарный символ: «{other}» скорей всего пропущен",
+        )
+
+    @staticmethod
+    def _ends_like_real_sentence(text: str) -> bool:
+        stripped = text.strip()
+        return stripped.endswith((".", "?", "!"))
+
+    def match(self, context: NativeRuleContext) -> list[NativeRuleFinding]:
+        stack: list[_SymbolLocator] = []
+        match_stack: list[_SymbolLocator] = []
+        matches: list[NativeRuleFinding] = []
+
+        for sentence_index, unit in enumerate(context.sentences):
+            tokens = unit.analyzed.non_blank_tokens
+            for index in range(1, len(tokens)):
+                for j in range(len(self.starts)):
+                    if self._fill_symbol_stack(
+                        unit.start, tokens, index, j, stack, sentence_index
+                    ):
+                        break
+
+        # If the stack is odd and symmetric, only the middle symbol is reported.
+        is_symmetric = False
+        size = len(stack)
+        if size > 2 and size % 2 == 1:
+            is_symmetric = True
+            for position in range(size // 2):
+                if _index_of(self.starts, stack[position].symbol) != _index_of(
+                    self.ends, stack[size - 1].symbol
+                ):
+                    is_symmetric = False
+                    break
+
+        if is_symmetric:
+            found = self._create_match(context, matches, match_stack, stack[size // 2])
+            if found is not None:
+                matches.append(found)
+            return matches
+
+        sentence_count = len(context.sentences)
+        for locator in stack:
+            found = self._create_match(context, matches, match_stack, locator)
+            if found is None:
+                continue
+            sentence_text = context.sentences[locator.sentence_index].text
+            if (
+                not locator.opening
+                or self._ends_like_real_sentence(sentence_text)
+                or sentence_count - 1 > locator.sentence_index
+            ):
+                matches.append(found)
+        return matches
 
 
 class RussianVerbConjugationRule(NativeRule):
@@ -1558,6 +2021,7 @@ def _load_word_coherency_data(name: str) -> dict[str, tuple[str, ...]]:
 
 
 class _WordCoherencyRuleBase(NativeRule):
+    text_level = True
     """Port of ``org.languagetool.rules.AbstractWordCoherencyRule`` (a TextLevelRule)."""
 
     resource_name = ""
@@ -1595,8 +2059,18 @@ class _WordCoherencyRuleBase(NativeRule):
                         marked = unit.text[
                             offsets.local(tmp_token.start_pos):offsets.local(_end_pos(tmp_token))
                         ]
+                        # Pinned createReplacement is
+                        # ``marked.replaceFirst("(?i)" + token, otherSpelling)``, and
+                        # Java's ``(?i)`` folds ASCII only without ``UNICODE_CASE``.
+                        # A Cyrillic word whose surface differs from its lemma only by
+                        # capitalisation is therefore left untouched, and the
+                        # ``equalsIgnoreCase`` guard below then drops the match.
                         replacement = re.sub(
-                            "(?i)" + re.escape(token), other_spelling, marked, count=1
+                            re.escape(token),
+                            other_spelling,
+                            marked,
+                            count=1,
+                            flags=re.IGNORECASE | re.ASCII,
                         )
                         if starts_with_uppercase(tmp_token.token):
                             replacement = uppercase_first_char(replacement)
@@ -1886,11 +2360,22 @@ class RussianJavaRulesEngine:
         return NativeRuleContext(text, tuple(units), mapper, token_spans, tuple(per_sentence))
 
     def check_context(self, context: NativeRuleContext, include_disabled: bool = False) -> list[NativeRuleFinding]:
+        """Run the enabled rules, text-level ones first.
+
+        ``JLanguageTool`` executes ``TextLevelRule`` instances over the whole text and
+        ``Rule`` instances per sentence, and the text-level matches reach the filter
+        chain first.  ``SameRuleGroupFilter`` sorts stably by start position, so for two
+        matches on the same span that order is what ``CleanOverlappingFilter`` breaks
+        the tie with.
+        """
         findings = []
-        for rule in self.rules:
-            if not include_disabled and not self.is_rule_enabled(rule.rule_id):
-                continue
-            findings.extend(rule.match(context))
+        for text_level in (True, False):
+            for rule in self.rules:
+                if rule.text_level is not text_level:
+                    continue
+                if not include_disabled and not self.is_rule_enabled(rule.rule_id):
+                    continue
+                findings.extend(rule.match(context))
         return findings
 
     def check(self, text: str, include_disabled: bool = False) -> list[NativeRuleFinding]:

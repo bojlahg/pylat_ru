@@ -149,33 +149,79 @@ def test_and_conjunction_matching() -> None:
     assert p_tok.matches_token(tok_failing) is False
 
 
-def test_scope_next_exception_rejection() -> None:
-    """Verify exception with scope='next' prevents match when next token satisfies exception."""
-    exc_next = PatternTokenException(
-        postag="NN:.*",
-        is_postag_regex=True,
-        scope="next",
+def test_scope_next_exception_rejection_without_skip() -> None:
+    """A scope='next' exception on an adjacent element tests the literal next token.
+
+    Pinned ``AbstractPatternRulePerformer.testAllReadings`` uses the current element's
+    next-scope exception against ``tokens[tokenNo + 1].getAnalyzedToken(0)`` only when
+    the previous element carries no ``skip``.
+    """
+    exc_next = PatternTokenException(postag="NN:.*", is_postag_regex=True, scope="next")
+    matcher = PatternRuleMatcher(
+        [PatternToken(string="в", exceptions=[exc_next]), PatternToken(string="город")]
     )
-    p1 = PatternToken(string="в", exceptions=[exc_next], skip=1)
-    p2 = PatternToken(string="город")
 
-    matcher = PatternRuleMatcher([p1, p2])
-
-    # Case 1: Next token after "в" is NN -> should be rejected by scope="next"
-    sent1 = _build_sentence([
+    rejected = _build_sentence([
         ("в", "в", "PREP"),
-        ("парке", "парк", "NN:Inanim:Masc:Sin:P"),
         ("город", "город", "NN:Inanim:Masc:Sin:Nom"),
     ])
-    assert len(matcher.find_matches(sent1)) == 0
+    assert len(matcher.find_matches(rejected)) == 0
 
-    # Case 2: Next token after "в" is ADJ -> should match!
-    sent2 = _build_sentence([
+
+def test_scope_next_exception_with_skip_tests_the_skipped_to_token() -> None:
+    """With ``skip`` on the previous element the exception tests the candidate token.
+
+    Pinned behaviour::
+
+        prevMatched = prevMatched || prevSkipNext > 0
+            && prevElement != null
+            && prevElement.isMatchedByScopeNextException(matchToken);
+
+    ``matchToken`` is a reading of the token currently being considered for the *next*
+    pattern element, not the token that literally follows the previous one.  Task 0014
+    confirmed this against the trusted oracle: the pinned Russian disambiguation rule
+    ``NOUN_R`` does not fire on "у лесную опушки", because the token it skips to is
+    itself a noun.
+    """
+    exc_next = PatternTokenException(postag="NN:.*", is_postag_regex=True, scope="next")
+    matcher = PatternRuleMatcher(
+        [
+            PatternToken(string="в", exceptions=[exc_next], skip=1),
+            PatternToken(string="город"),
+        ]
+    )
+
+    # The skipped-to token is itself a noun, so the previous element's next-scope
+    # exception rejects the match even though the literal next token is an adjective.
+    skipped_to_noun = _build_sentence([
         ("в", "в", "PREP"),
         ("красивый", "красивый", "ADJ:Masc:Sin:Nom"),
         ("город", "город", "NN:Inanim:Masc:Sin:Nom"),
     ])
-    assert len(matcher.find_matches(sent2)) == 1
+    assert len(matcher.find_matches(skipped_to_noun)) == 0
+
+
+def test_scope_next_exception_with_skip_allows_non_matching_candidate() -> None:
+    """The construct still matches when neither tested token satisfies the exception.
+
+    Both pinned branches have to pass: the literal next token is checked while the
+    element carrying the exception is matched, and the skipped-to candidate is checked
+    while the following element is matched.
+    """
+    exc_next = PatternTokenException(postag="NN:.*", is_postag_regex=True, scope="next")
+    matcher = PatternRuleMatcher(
+        [
+            PatternToken(string="в", exceptions=[exc_next], skip=1),
+            PatternToken(string="красивый"),
+        ]
+    )
+
+    sentence = _build_sentence([
+        ("в", "в", "PREP"),
+        ("очень", "очень", "ADV"),
+        ("красивый", "красивый", "ADJ:Masc:Sin:Nom"),
+    ])
+    assert len(matcher.find_matches(sentence)) == 1
 
 
 def test_antipattern_rejection() -> None:

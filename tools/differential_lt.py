@@ -21,9 +21,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from dataclasses import asdict, dataclass
+from collections import Counter
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import regex
 
@@ -166,9 +167,48 @@ def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
     return data
 
 
+# Mismatch classifications produced by :func:`compare_findings` diagnostic pairing.
+MISSING_FINDING = "MISSING_FINDING"
+EXTRA_FINDING = "EXTRA_FINDING"
+RULE_ID_MISMATCH = "RULE_ID_MISMATCH"
+CATEGORY_MISMATCH = "CATEGORY_MISMATCH"
+SPAN_MISMATCH = "SPAN_MISMATCH"
+MESSAGE_MISMATCH = "MESSAGE_MISMATCH"
+SHORT_MESSAGE_MISMATCH = "SHORT_MESSAGE_MISMATCH"
+SUGGESTION_CONTENT_MISMATCH = "SUGGESTION_CONTENT_MISMATCH"
+SUGGESTION_ORDER_MISMATCH = "SUGGESTION_ORDER_MISMATCH"
+FINDING_ORDER_MISMATCH = "FINDING_ORDER_MISMATCH"
+URL_MISMATCH = "URL_MISMATCH"
+JAVA_ORACLE_ERROR = "JAVA_ORACLE_ERROR"
+PYTHON_ERROR = "PYTHON_ERROR"
+
+MISMATCH_KINDS = (
+    MISSING_FINDING,
+    EXTRA_FINDING,
+    RULE_ID_MISMATCH,
+    CATEGORY_MISMATCH,
+    SPAN_MISMATCH,
+    MESSAGE_MISMATCH,
+    SHORT_MESSAGE_MISMATCH,
+    SUGGESTION_CONTENT_MISMATCH,
+    SUGGESTION_ORDER_MISMATCH,
+    FINDING_ORDER_MISMATCH,
+    URL_MISMATCH,
+    JAVA_ORACLE_ERROR,
+    PYTHON_ERROR,
+)
+
+
 @dataclass(frozen=True)
 class Finding:
-    """Standardized finding representation for differential comparisons."""
+    """Standardized finding representation for differential comparisons.
+
+    ``offset``/``length`` carry the primary comparison span.  For whole-pipeline
+    Task-0014 comparisons that span is the UTF-16 code-unit span, because Java
+    ``RuleMatch`` positions index a UTF-16 ``String``.  ``codepoint_offset`` and
+    ``codepoint_length`` retain the Python code-point view for diagnostics; they
+    are never part of the strict equality decision because Java has no equivalent.
+    """
 
     rule_id: str
     category_id: str
@@ -177,11 +217,60 @@ class Finding:
     length: int
     suggestions: List[str]
     source: str  # "java_lt" or "pylat_ru"
+    short_message: str = ""
+    url: str = ""
+    codepoint_offset: int = -1
+    codepoint_length: int = -1
+
+    def comparable(self) -> Tuple[Any, ...]:
+        """Return the tuple of every field that participates in strict equality."""
+        return (
+            self.rule_id,
+            self.category_id,
+            self.message,
+            self.short_message,
+            self.offset,
+            self.length,
+            tuple(self.suggestions),
+            self.url,
+        )
+
+    def comparable_json(self) -> List[Any]:
+        """:meth:`comparable` in the shape JSON round-trips to.
+
+        Committed fixtures store the suggestion sequence as a JSON array, so a
+        comparison against a parsed fixture has to use lists on both sides; the tuple
+        that makes :meth:`comparable` hashable would never equal one.
+        """
+        return [
+            list(value) if isinstance(value, tuple) else value
+            for value in self.comparable()
+        ]
+
+
+@dataclass(frozen=True)
+class FindingMismatch:
+    """One classified field-level difference between paired Java/Python findings."""
+
+    kind: str
+    java_index: Optional[int]
+    pylat_index: Optional[int]
+    rule_id: str
+    java_value: Any = None
+    pylat_value: Any = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
 
 
 @dataclass(frozen=True)
 class DifferentialComparisonResult:
-    """Structured differential comparison result between Java LT and pylat_ru."""
+    """Structured differential comparison result between Java LT and pylat_ru.
+
+    ``is_exact_match`` is true only when the ordered Java and Python finding
+    sequences are equal on every field of :meth:`Finding.comparable`.  The
+    ``mismatches`` list is diagnostic only and never influences that decision.
+    """
 
     text: str
     java_findings: List[Finding]
@@ -193,6 +282,12 @@ class DifferentialComparisonResult:
     span_matches: int
     suggestion_matches: int
     is_exact_match: bool
+    mismatches: List[FindingMismatch] = field(default_factory=list)
+
+    @property
+    def mismatch_kinds(self) -> List[str]:
+        """Deterministically sorted set of mismatch classifications."""
+        return sorted({m.kind for m in self.mismatches})
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -206,6 +301,8 @@ class DifferentialComparisonResult:
             "extra_in_pylat": self.extra_in_pylat,
             "span_matches": self.span_matches,
             "suggestion_matches": self.suggestion_matches,
+            "mismatch_kinds": self.mismatch_kinds,
+            "mismatches": [m.to_dict() for m in self.mismatches],
             "java_findings": [asdict(f) for f in self.java_findings],
             "pylat_findings": [asdict(f) for f in self.pylat_findings],
         }
@@ -449,6 +546,7 @@ public class OracleProbe {
                     if isinstance(r, dict)
                 ]
 
+                urls = rule.get("urls") or []
                 findings.append(
                     Finding(
                         rule_id=rule_id,
@@ -458,6 +556,11 @@ public class OracleProbe {
                         length=length,
                         suggestions=replacements,
                         source="java_lt",
+                        # The CLI reports the same observable fields the strict
+                        # comparator needs; leaving them empty would make every
+                        # comparison against this path fail on short message or URL.
+                        short_message=m.get("shortMessage", ""),
+                        url=urls[0].get("value", "") if urls else "",
                     )
                 )
             return findings
@@ -2261,51 +2364,221 @@ public class EvaluatePatternTokens {
 
 
 
+def _pair_findings(
+    java_findings: Sequence[Finding], pylat_findings: Sequence[Finding]
+) -> Tuple[List[Tuple[int, int]], List[int], List[int]]:
+    """Deterministically pair Java and Python findings for diagnostic purposes.
+
+    Pairing runs progressively weaker keys so an exactly equal finding is never
+    stolen by a merely similar one.  It is diagnostic only: the strict
+    exact/non-exact decision in :func:`compare_findings` never consults it.
+    """
+    key_functions = (
+        lambda f: f.comparable(),
+        lambda f: (f.rule_id, f.offset, f.length),
+        lambda f: (f.rule_id, f.offset),
+        lambda f: (f.rule_id,),
+        lambda f: (f.offset, f.length),
+    )
+
+    java_open = list(range(len(java_findings)))
+    pylat_open = list(range(len(pylat_findings)))
+    pairs: List[Tuple[int, int]] = []
+
+    for key in key_functions:
+        if not java_open or not pylat_open:
+            break
+        buckets: Dict[Any, List[int]] = {}
+        for pylat_index in pylat_open:
+            buckets.setdefault(key(pylat_findings[pylat_index]), []).append(pylat_index)
+        still_open: List[int] = []
+        taken: set[int] = set()
+        for java_index in java_open:
+            candidates = buckets.get(key(java_findings[java_index]))
+            if candidates:
+                pairs.append((java_index, candidates.pop(0)))
+                taken.add(pairs[-1][1])
+            else:
+                still_open.append(java_index)
+        java_open = still_open
+        pylat_open = [index for index in pylat_open if index not in taken]
+
+    pairs.sort()
+    return pairs, java_open, pylat_open
+
+
+def _classify_pair(
+    java_index: int, pylat_index: int, java: Finding, pylat: Finding
+) -> List[FindingMismatch]:
+    """Classify every field-level difference inside one paired finding."""
+    mismatches: List[FindingMismatch] = []
+
+    def add(kind: str, java_value: Any, pylat_value: Any) -> None:
+        mismatches.append(
+            FindingMismatch(
+                kind=kind,
+                java_index=java_index,
+                pylat_index=pylat_index,
+                rule_id=java.rule_id,
+                java_value=java_value,
+                pylat_value=pylat_value,
+            )
+        )
+
+    if java.rule_id != pylat.rule_id:
+        add(RULE_ID_MISMATCH, java.rule_id, pylat.rule_id)
+    if java.category_id != pylat.category_id:
+        add(CATEGORY_MISMATCH, java.category_id, pylat.category_id)
+    if (java.offset, java.length) != (pylat.offset, pylat.length):
+        add(SPAN_MISMATCH, [java.offset, java.length], [pylat.offset, pylat.length])
+    if java.message != pylat.message:
+        add(MESSAGE_MISMATCH, java.message, pylat.message)
+    if java.short_message != pylat.short_message:
+        add(SHORT_MESSAGE_MISMATCH, java.short_message, pylat.short_message)
+
+    java_suggestions = list(java.suggestions)
+    pylat_suggestions = list(pylat.suggestions)
+    if java_suggestions != pylat_suggestions:
+        # Sorting preserves multiplicity, so ["a", "a"] never looks like ["a"].
+        if sorted(java_suggestions) == sorted(pylat_suggestions):
+            add(SUGGESTION_ORDER_MISMATCH, java_suggestions, pylat_suggestions)
+        else:
+            add(SUGGESTION_CONTENT_MISMATCH, java_suggestions, pylat_suggestions)
+
+    if java.url != pylat.url:
+        add(URL_MISMATCH, java.url, pylat.url)
+
+    return mismatches
+
+
 def compare_findings(
     text: str,
     java_findings: List[Finding],
     pylat_findings: List[Finding],
 ) -> DifferentialComparisonResult:
-    """Compare two sets of findings and produce a structured differential result."""
-    java_rule_ids = [f.rule_id for f in java_findings]
-    pylat_rule_ids = [f.rule_id for f in pylat_findings]
+    """Strictly compare two ordered finding sequences.
 
-    matching_rule_ids = [r for r in pylat_rule_ids if r in java_rule_ids]
-    missing_in_pylat = [r for r in java_rule_ids if r not in pylat_rule_ids]
-    extra_in_pylat = [r for r in pylat_rule_ids if r not in java_rule_ids]
+    ``is_exact_match`` is true only when the two sequences are equal element by
+    element on every field of :meth:`Finding.comparable`, which includes rule id,
+    category, message, short message, span, ordered suggestions with duplicates,
+    and URL.  Nothing is normalised, set-converted or case folded.
+    """
+    java_comparable = [f.comparable() for f in java_findings]
+    pylat_comparable = [f.comparable() for f in pylat_findings]
+    is_exact = java_comparable == pylat_comparable
 
-    count_match = len(java_findings) == len(pylat_findings)
+    pairs, unmatched_java, unmatched_pylat = _pair_findings(java_findings, pylat_findings)
+
+    mismatches: List[FindingMismatch] = []
+    if not is_exact:
+        if Counter(java_comparable) == Counter(pylat_comparable):
+            # Same findings, different sequence: a pure ordering defect.
+            mismatches.append(
+                FindingMismatch(
+                    kind=FINDING_ORDER_MISMATCH,
+                    java_index=None,
+                    pylat_index=None,
+                    rule_id="",
+                    java_value=[f.rule_id for f in java_findings],
+                    pylat_value=[f.rule_id for f in pylat_findings],
+                )
+            )
+        else:
+            for java_index, pylat_index in pairs:
+                mismatches.extend(
+                    _classify_pair(
+                        java_index,
+                        pylat_index,
+                        java_findings[java_index],
+                        pylat_findings[pylat_index],
+                    )
+                )
+            for java_index in unmatched_java:
+                mismatches.append(
+                    FindingMismatch(
+                        kind=MISSING_FINDING,
+                        java_index=java_index,
+                        pylat_index=None,
+                        rule_id=java_findings[java_index].rule_id,
+                        java_value=list(java_comparable[java_index]),
+                        pylat_value=None,
+                    )
+                )
+            for pylat_index in unmatched_pylat:
+                mismatches.append(
+                    FindingMismatch(
+                        kind=EXTRA_FINDING,
+                        java_index=None,
+                        pylat_index=pylat_index,
+                        rule_id=pylat_findings[pylat_index].rule_id,
+                        java_value=None,
+                        pylat_value=list(pylat_comparable[pylat_index]),
+                    )
+                )
+            pylat_order = [pylat_index for _, pylat_index in pairs]
+            if any(a > b for a, b in zip(pylat_order, pylat_order[1:])):
+                mismatches.append(
+                    FindingMismatch(
+                        kind=FINDING_ORDER_MISMATCH,
+                        java_index=None,
+                        pylat_index=None,
+                        rule_id="",
+                        java_value=[java_index for java_index, _ in pairs],
+                        pylat_value=pylat_order,
+                    )
+                )
+
+    # Multiplicity-aware rule-id accounting; a rule id occurring twice in Java
+    # and once in Python is reported as one missing occurrence, not as matched.
+    java_rule_counts = Counter(f.rule_id for f in java_findings)
+    pylat_rule_counts = Counter(f.rule_id for f in pylat_findings)
+
+    missing_remaining = java_rule_counts - pylat_rule_counts
+    missing_in_pylat: List[str] = []
+    for finding in java_findings:
+        if missing_remaining[finding.rule_id] > 0:
+            missing_remaining[finding.rule_id] -= 1
+            missing_in_pylat.append(finding.rule_id)
+
+    extra_remaining = pylat_rule_counts - java_rule_counts
+    extra_in_pylat: List[str] = []
+    for finding in pylat_findings:
+        if extra_remaining[finding.rule_id] > 0:
+            extra_remaining[finding.rule_id] -= 1
+            extra_in_pylat.append(finding.rule_id)
+
+    matching_remaining = java_rule_counts & pylat_rule_counts
+    matching_rule_ids: List[str] = []
+    for finding in pylat_findings:
+        if matching_remaining[finding.rule_id] > 0:
+            matching_remaining[finding.rule_id] -= 1
+            matching_rule_ids.append(finding.rule_id)
 
     span_matches = 0
     suggestion_matches = 0
-
-    for jf in java_findings:
-        for pf in pylat_findings:
-            if jf.rule_id == pf.rule_id:
-                if jf.offset == pf.offset and jf.length == pf.length:
-                    span_matches += 1
-                if set(jf.suggestions) == set(pf.suggestions):
-                    suggestion_matches += 1
-                break
-
-    is_exact = (
-        count_match
-        and len(missing_in_pylat) == 0
-        and len(extra_in_pylat) == 0
-        and span_matches == len(java_findings)
-    )
+    for java_index, pylat_index in pairs:
+        java = java_findings[java_index]
+        pylat = pylat_findings[pylat_index]
+        if java.rule_id == pylat.rule_id and (java.offset, java.length) == (
+            pylat.offset,
+            pylat.length,
+        ):
+            span_matches += 1
+        if list(java.suggestions) == list(pylat.suggestions):
+            suggestion_matches += 1
 
     return DifferentialComparisonResult(
         text=text,
         java_findings=java_findings,
         pylat_findings=pylat_findings,
-        finding_count_match=count_match,
+        finding_count_match=len(java_findings) == len(pylat_findings),
         matching_rule_ids=matching_rule_ids,
         missing_in_pylat=missing_in_pylat,
         extra_in_pylat=extra_in_pylat,
         span_matches=span_matches,
         suggestion_matches=suggestion_matches,
         is_exact_match=is_exact,
+        mismatches=mismatches,
     )
 
 

@@ -163,6 +163,20 @@ class PatternToken:
 
         return any(self.matches_reading(r) for r in token_readings.readings)
 
+    def matches_scope_next_exception_reading(self, reading: AnalyzedToken) -> bool:
+        """Check whether one reading triggers a ``scope="next"`` exception.
+
+        Pinned ``AbstractPatternRulePerformer.testAllReadings`` tests the *previous*
+        element's next-scope exception against each reading of the token currently
+        being considered whenever that previous element carried a ``skip``.
+        """
+        for exc in self.exceptions:
+            if exc.scope != "next":
+                continue
+            if exc.matches_reading(reading):
+                return True
+        return False
+
     def matches_scope_next_exception(self, next_token: AnalyzedTokenReadings) -> bool:
         """Check if next_token triggers any scope='next' exception on this pattern token."""
         for exc in self.exceptions:
@@ -231,9 +245,22 @@ class PatternRuleMatcher:
                     break
 
                 if p_token.matches_token(tokens[cand_pos]):
-                    # If this pattern token has scope="next" exceptions, check immediate next token
-                    if cand_pos + 1 < n and p_token.matches_scope_next_exception(tokens[cand_pos + 1]):
-                        continue
+                    # Pinned AbstractPatternRulePerformer.testAllReadings: when the
+                    # previous element carried a skip, its scope="next" exception is
+                    # tested against the readings of *this* candidate token, not
+                    # against the literal following token.  Only without a skip does
+                    # the current element test its own next-exception against the
+                    # first reading of the token that follows.
+                    previous = self.pattern_tokens[p_idx - 1] if p_idx > 0 else None
+                    if prev_skip > 0 and previous is not None:
+                        if any(
+                            previous.matches_scope_next_exception_reading(reading)
+                            for reading in tokens[cand_pos].readings
+                        ):
+                            continue
+                    elif prev_skip == 0 and cand_pos + 1 < n:
+                        if p_token.matches_scope_next_exception(tokens[cand_pos + 1]):
+                            continue
 
                     res = match_step(
                         p_idx + 1,

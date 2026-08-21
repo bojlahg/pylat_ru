@@ -1,0 +1,6140 @@
+{
+  "cases": [
+    {
+      "case_id": "A000021_2d151e9ce1c5",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "От"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "от - вы",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000027_e1f5a5f07949",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Я"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "я сегодняшний день",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000131_205c95bb888c",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "VODJANOJ_VODNIJ",
+          "LOGIC",
+          "Имелось в виду <suggestion>водным спортом</suggestion>?",
+          "Логическая ошибка",
+          0,
+          15,
+          [
+            "водным спортом"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "водяным спортом",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000152_77bf68e0e98f",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "economichesky_ekonomichniy",
+          "LOGIC",
+          "Имелось в виду: <suggestion>экономичного автомобиль</suggestion>, <suggestion>экономичный автомобиль</suggestion>?",
+          "Логическая ошибка",
+          0,
+          24,
+          [
+            "экономичного автомобиль",
+            "экономичный автомобиль"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "экономический автомобиль",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000329_576fe0003f17",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Дом роста",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000344_f0da11d9beb7",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000346_5ace6f8d9121",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "О"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "о принципе согласно",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000348_fb17824a5f51",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Уменьшая (пороговый отрезка) проверить стабильность.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000497_a9268ce77899",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "И таким образом м",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000511_a651520bfce6",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Пролетели года и настало время.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000577_684206cc2090",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Однако, ка",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000616_f44c47541505",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          2,
+          [
+            "Не",
+            "Он",
+            "От",
+            "Же",
+            "Ее",
+            "Ли",
+            "Ни",
+            "Об",
+            "О",
+            "Ох",
+            "Ой",
+            "Де",
+            "Сие",
+            "Щи",
+            "Е",
+            "Ом",
+            "Си",
+            "Ди",
+            "Оят",
+            "Ми",
+            "Ор",
+            "Че",
+            "Оп",
+            "Пи",
+            "Ти",
+            "Бе",
+            "Ок",
+            "Ос",
+            "Оже",
+            "Ов",
+            "Аи",
+            "Би",
+            "Ея",
+            "Фи",
+            "Ля",
+            "Оз",
+            "Ре",
+            "Ёр",
+            "Ёре",
+            "Ёж",
+            "Ае",
+            "Ая",
+            "Бое",
+            "Цое",
+            "Её",
+            "Хе",
+            "Ии",
+            "Ия",
+            "Кие",
+            "Кое",
+            "Ле",
+            "Мое",
+            "Ное",
+            "Обе",
+            "Од",
+            "Оде",
+            "Охе",
+            "Оке",
+            "Оле",
+            "Оме",
+            "Осе",
+            "Озе",
+            "Ош",
+            "Оше",
+            "Пе",
+            "Пие",
+            "Рое",
+            "Сё",
+            "Сое",
+            "Те",
+            "Тое",
+            "Вое",
+            "Зи",
+            "Зое",
+            "Фе",
+            "О е"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ое искристое.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000698_c7db67f5905a",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": ", так сказать, представляет",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000710_90a408da5475",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Эта скорее всего представляет",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000713_9b848beda8a7",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          8,
+          [
+            "Получено"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "получено, однако, после появилась устойчивость,",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000754_a65b5588a3bc",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "В результате, приходится",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000872_c9d1d1808985",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а неизвестно, кто",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000921_6866f5a13b7c",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "(а) раз.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000926_ea4440b460da",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Я о том, что",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000933_7dae668373cd",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "У она.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A000996_c71626295bbf",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Не сложно проверить е",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001012_1fd2b93eced4",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": ", не решительна.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001105_3245890c3716",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_ADJ",
+          "GRAMMAR",
+          "Предлог «у» предполагает употребление прилагательного в родительном падеже: <suggestion>у лесной</suggestion> или <suggestion>лесную</suggestion>",
+          "Требуется родительный падеж",
+          0,
+          8,
+          [
+            "у лесной",
+            "лесную"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "у лесную опушки.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001139_719f017b9cbe",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Вокруг стадионом б",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001358_d95607a2e9e6",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Но"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "но программам, реализующее нов",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001601_7ed8f4cd7e2b",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001833_27672da8b8b5",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_Noun",
+          "GRAMMAR",
+          "Предлог «ИЗО» предполагает употребление существительного в родительном падеже: <suggestion>ИЗО ученя</suggestion> или <suggestion>учени</suggestion>",
+          "Требуется родительный падеж",
+          2,
+          9,
+          [
+            "ИЗО ученя",
+            "Учени"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "К ИЗО учени",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001841_ac6cf3d52dff",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Так отражение отсутствует, то",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001887_e90c3a593c1d",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а по поводу того",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001890_a4d296eed59b",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Н"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "н как бы нравится",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001953_a2f846a946dd",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Более-менее",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001966_a058bf66965e",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Е"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "е согласно расписания",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A001999_763b9ad78647",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Гимнаст справился",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002036_03a7039529a1",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "АЛЁША",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002271_97ac11c2208b",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "T"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "t'",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002288_70ebabca478f",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "..­.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002320_0a50440a987d",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "S"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          1,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "s  a  ",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002352_17e11ff79879",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that s",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002378_6c76881513cc",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e's filler.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002461_053fba1e23d5",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Н"
+          ],
+          ""
+        ],
+        [
+          "Two_PREP",
+          "STYLE",
+          "Два предлога подряд: <suggestion>по</suggestion> или <suggestion>по</suggestion>",
+          "Два предлога подряд",
+          2,
+          5,
+          [
+            "по"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "н по по дор",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002500_ce9ff5f0e64f",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          4,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ж­dя с",
+      "original_mismatch_type": [
+        "CATEGORY_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "RULE_ID_MISMATCH",
+        "SHORT_MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002535_a576017836d2",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "От"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "от - вы",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002541_d9c17703c0d0",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Я"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "я сегодняшний день",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002645_d82422938e18",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "VODJANOJ_VODNIJ",
+          "LOGIC",
+          "Имелось в виду <suggestion>водным спортом</suggestion>?",
+          "Логическая ошибка",
+          0,
+          15,
+          [
+            "водным спортом"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "водяным спортом",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002666_d4c057c7aa5f",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "economichesky_ekonomichniy",
+          "LOGIC",
+          "Имелось в виду: <suggestion>экономичного автомобиль</suggestion>, <suggestion>экономичный автомобиль</suggestion>?",
+          "Логическая ошибка",
+          0,
+          24,
+          [
+            "экономичного автомобиль",
+            "экономичный автомобиль"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "экономический автомобиль",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002843_6eabce14a1da",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Дом роста",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002858_574fc2d44618",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002860_8faae50335e7",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "О"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "о принципе согласно",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A002862_a6f176650b01",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Уменьшая (пороговый отрезка) проверить стабильность.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003011_2046bf44e2c7",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "И таким образом м",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003025_b4508ad6cd1e",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Пролетели года и настало время.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003091_7f918f5f6aea",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          8,
+          2,
+          [
+            "ко",
+            "на",
+            "к",
+            "но",
+            "по",
+            "за",
+            "до",
+            "ну",
+            "со",
+            "то",
+            "во",
+            "да",
+            "а",
+            "как",
+            "кот",
+            "кой",
+            "кг",
+            "км",
+            "ха",
+            "код",
+            "кох",
+            "ком",
+            "куб",
+            "фу",
+            "кол",
+            "кук",
+            "кум",
+            "кб",
+            "ока",
+            "ао",
+            "ба",
+            "па",
+            "кан",
+            "кп",
+            "мо",
+            "кун",
+            "кус",
+            "ша",
+            "шу",
+            "эка",
+            "га",
+            "кал",
+            "кон",
+            "куш",
+            "чу",
+            "ау",
+            "фа",
+            "кац",
+            "кап",
+            "кл",
+            "коб",
+            "кок",
+            "кош",
+            "кв",
+            "уа",
+            "ака",
+            "боа",
+            "йо",
+            "каю",
+            "кае",
+            "каф",
+            "ках",
+            "каи",
+            "кай",
+            "кая",
+            "кар",
+            "кас",
+            "кат",
+            "каш",
+            "кд",
+            "кеа",
+            "кою",
+            "кое",
+            "кои",
+            "коп",
+            "коя",
+            "кос",
+            "кож",
+            "ков",
+            "коз",
+            "кса",
+            "кую",
+            "куц",
+            "куй",
+            "куп",
+            "куя",
+            "кур",
+            "кут",
+            "кущ",
+            "куч",
+            "ква",
+            "кш",
+            "му",
+            "яка",
+            "рка",
+            "ска",
+            "су",
+            "та",
+            "ту",
+            "ука",
+            "Гоа",
+            "Ио",
+            "к а"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Однако, ка",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003130_3b27fdedbca2",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          2,
+          [
+            "Не",
+            "Он",
+            "От",
+            "Же",
+            "Ли",
+            "Ни",
+            "Об",
+            "О",
+            "Ох",
+            "Ой",
+            "Де",
+            "Сие",
+            "Щи",
+            "Е",
+            "Ом",
+            "Си",
+            "Ди",
+            "Ми",
+            "Оп",
+            "Пи",
+            "Ти",
+            "Ок",
+            "Ос",
+            "Аи",
+            "Ея",
+            "Фи",
+            "Ля",
+            "Оз",
+            "Ре",
+            "Ёр",
+            "Ёре",
+            "Ёж",
+            "Ае",
+            "Ая",
+            "Бое",
+            "Цое",
+            "Её",
+            "Ии",
+            "Ия",
+            "Кие",
+            "Кое",
+            "Ле",
+            "Ное",
+            "Обе",
+            "Од",
+            "Оде",
+            "Охе",
+            "Оке",
+            "Оле",
+            "Оме",
+            "Осе",
+            "Озе",
+            "Ош",
+            "Оше",
+            "Пие",
+            "Рое",
+            "Сое",
+            "Те",
+            "Тое",
+            "Вое",
+            "Зи",
+            "Зое",
+            "Фе",
+            "О е"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ое искристое.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003212_f2c5cbef550a",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": ", так сказать, представляет",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003224_49ec7f196abc",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Эта скорее всего представляет",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003227_55cf976b063c",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Е"
+          ],
+          ""
+        ],
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          95,
+          1,
+          [
+            "п."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "е решение было получено, однако, после реализации появилась его плохая численная устойчивость, п",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003268_cb36840e98eb",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "В результате, приходится",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003386_34817d5cd7b5",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а неизвестно, кто",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003435_23eedc75da65",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "(а) раз.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003440_93ace99c1f62",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Я о том, что",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003447_b0c373884155",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "У она.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003510_fa65ff1492fe",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Не сложно проверить е",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003526_92c5b0d8719a",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": ", не решительна.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003619_9d9fe1d042c0",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_ADJ",
+          "GRAMMAR",
+          "Предлог «у» предполагает употребление прилагательного в родительном падеже: <suggestion>у лесной</suggestion> или <suggestion>лесную</suggestion>",
+          "Требуется родительный падеж",
+          0,
+          8,
+          [
+            "у лесной",
+            "лесную"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "у лесную опушки.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003653_1c784c4423a3",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Вокруг стадионом б",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A003872_bbe8a01a5098",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Но"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "но программам, реализующее нов",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004115_21ba33011109",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004161_858d533f9534",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "Frazeologizm_nevernij",
+          "GRAMMAR",
+          "Фразеологизм: <suggestion>щекотливый вопрос</suggestion>.",
+          "Ошибка",
+          0,
+          18,
+          [
+            "щекотливый вопрос"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "щекотливая дилемма\n ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004347_a2b7cf27d216",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_Noun",
+          "GRAMMAR",
+          "Предлог «ИЗО» предполагает употребление существительного в родительном падеже: <suggestion>ИЗО ученя</suggestion> или <suggestion>учени</suggestion>",
+          "Требуется родительный падеж",
+          2,
+          9,
+          [
+            "ИЗО ученя",
+            "Учени"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "К ИЗО учени",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004355_5faf54570844",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Так отражение отсутствует, то",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004401_07e9010d8f2c",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а по поводу того",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004404_82dec21856bf",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Н"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "н как бы нравится",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004467_ada5b5295296",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Более-менее",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004480_3d7e5ef79a64",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Е"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "е согласно расписания",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004513_1a947ea7578a",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Гимнаст справился",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004550_9369ee3b9a27",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "АЛЁША",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004677_e26ea3ba49f4",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          0,
+          13,
+          [
+            "Осуществлять"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Осуществлять ",
+      "original_mismatch_type": [
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004785_5ca15faf088d",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "T"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "t'",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004802_e91880100301",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "Three_dot",
+          "TYPOGRAPHY",
+          "Заменить на типографский символ многоточия?<suggestion>…</suggestion>",
+          "Заменить на многоточие?",
+          0,
+          4,
+          [
+            "…"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "..­.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004834_e08923492aa8",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "S"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          1,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "s  a  ",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004866_bfb49824fd48",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "Now this is not a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a rather that text.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004892_a991356b87d5",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH_BEGIN",
+          "STYLE",
+          "Удалите пробел в начале абзаца",
+          "",
+          12,
+          2,
+          [
+            "A"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "e's filler.  A t",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A004975_44cb4ef2a0d2",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Н"
+          ],
+          ""
+        ],
+        [
+          "Two_PREP",
+          "STYLE",
+          "Два предлога подряд: <suggestion>по</suggestion> или <suggestion>по</suggestion>",
+          "Два предлога подряд",
+          2,
+          5,
+          [
+            "по"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "н по по дор",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "A005014_5d0b6259784f",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          4,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ж­dя с",
+      "original_mismatch_type": [
+        "CATEGORY_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "RULE_ID_MISMATCH",
+        "SHORT_MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000466_d1ba887e3282",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Во"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "во.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000514_9746e024cac3",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "geTool п",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000626_5f44a382688a",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "О"
+          ],
+          ""
+        ],
+        [
+          "Paronimy",
+          "EXTEND",
+          "Необходимо различать паронимы – близкие по звучанию, но разные по смыслу слова. Вы имели в виду: <suggestion>отличие От</suggestion>?",
+          "Правильно «отличие от»",
+          2,
+          11,
+          [
+            "Отличие От"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "о Различие От",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000637_75988cbc9800",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Oborot_nikto_inoj_ne",
+          "GRAMMAR",
+          "Оборот: <suggestion>ниЧТО ИНОЕ НЕ</suggestion>.",
+          "Ошибка",
+          0,
+          14,
+          [
+            "НИЧТО ИНОЕ НЕ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "НЕ ЧТО ИНОЕ НЕ МОГЛО",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000652_8bf5a48871aa",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Ni_to_ni_drugoe",
+          "GRAMMAR",
+          "Сложный союз: <suggestion>ни ТО, ни ДРУГОЕ</suggestion>.",
+          "Сложный союз \"ни то, ни другое\"",
+          7,
+          16,
+          [
+            "НИ ТО, НИ ДРУГОЕ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "МОЖЕТ, НЕ ТО, НЕ ДРУГОЕ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000653_149396149f18",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "grammar_bez_ucheta_and_Noun",
+          "GRAMMAR",
+          "Оборот «без учёта» предполагает употребление существительного в родительном падеже: <suggestion>БЕЗ УЧЁТА таксиста</suggestion>",
+          "Требуется родительный падеж",
+          0,
+          19,
+          [
+            "БЕЗ УЧЁТА ТАКСИСТА"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "БЕЗ УЧЁТА ТАКСИСТОМ МАШИ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000659_12380aeec8c3",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "В ИТОГЕ, ПРИХОДИТСЯ ОГРАН",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000679_44f8d43d6167",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Verb_3P_and_inf",
+          "GRAMMAR",
+          "Оба глагола должны быть в неопределённой форме. <suggestion>ПРОЧИТАТЬ И согласиться</suggestion>",
+          "Оба глагола должны быть в неопределённой форме",
+          7,
+          22,
+          [
+            "ПРОЧИТАТЬ И СОГЛАСИТЬСЯ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ДОЛЖНЫ ПРОЧИТАТЬ И СОГЛАСИТСЯ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000687_19a1dbd6bc82",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Obrazovanije_slozhnyh_slov",
+          "EXTEND",
+          "Если в сложном слове с корнем «пол» второе слово начинается с согласной «л», то пишем его через дефис. Вы имели в виду <suggestion>пол-луковицы</suggestion>?",
+          "«Пол-луковицы» пишем через дефис",
+          6,
+          12,
+          [
+            "ПОЛ-ЛУКОВИЦЫ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ЭТОГО ПОЛ ЛУКОВИЦЫ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000695_c94abf7eafc2",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_ADJ",
+          "GRAMMAR",
+          "Предлог «У» предполагает употребление прилагательного в родительном падеже: <suggestion>У лесной</suggestion> или <suggestion>ЛЕСНУЮ</suggestion>",
+          "Требуется родительный падеж",
+          6,
+          8,
+          [
+            "У ЛЕСНОЙ",
+            "ЛЕСНУЮ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ОСШИЙ У ЛЕСНУЮ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000801_e8a8926e3256",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Cap_Letters_Name",
+          "CASING",
+          "Имя пишется с большой буквы: <suggestion>Ий</suggestion>",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Ий"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ий - две несовместные.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000913_a076bdd7cb25",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e's filler.  «„unit“» standards.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MESSAGE_MISMATCH",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000917_2cc68ed31b6b",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "SENTENCE_WHITESPACE",
+          "TYPOGRAPHY",
+          "Добавьте пробел между предложениями.",
+          "",
+          13,
+          3,
+          [
+            " And"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          22,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "„This“» text.And there'",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "FINDING_ORDER_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B000959_0531a3c59774",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС в «„декабре“» г.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001644_86de349aca13",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          24,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Vertriebsniederlasами­ng Versorgungstechnik..­.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001768_89e78afcb4f9",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          11,
+          [
+            "Ще́котливая"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ще́котливая дилемма",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001779_56d2ca00e7e7",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "В заключе́нии выступления",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001797_d883342228cc",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          2,
+          [
+            "Я",
+            "С",
+            "Со",
+            "См",
+            "Сс",
+            "Си",
+            "Сяк",
+            "Ася",
+            "Сф",
+            "Сям",
+            "Сп",
+            "Соя",
+            "Ея",
+            "Ля",
+            "Сд",
+            "Ст",
+            "Ая",
+            "Ия",
+            "Ося",
+            "Яс",
+            "Яся",
+            "Сё",
+            "Сб",
+            "Сея",
+            "Сия",
+            "Сл",
+            "Ср",
+            "Су",
+            "Суя",
+            "Св",
+            "Сч",
+            "Вся",
+            "С я"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ся поёт в одну дуду́",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001806_624742152bc9",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Для́ того чтобы, желе",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001830_9688f7836551",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "О"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "о заслужи́ть доверию",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001843_409f2c48ec63",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "В в том чѝсле",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001859_1927824195b4",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "ABR_GENDER",
+          "GRAMMAR",
+          "Род аббревиатуры определяется по опорному слову: <suggestion>ООН о̀добрил</suggestion> — женский род.",
+          "Женский род",
+          0,
+          12,
+          [
+            "ООН о̀добрил"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ООН о̀добрил э",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001886_1dca3aa9e590",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Контро̀ль за деятельностью",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001919_ceba778c8421",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Predlogi_vsledstvije_napodobije",
+          "EXTEND",
+          "Это предлог «в» с существительным на «–ие» в винит. падеже, окончание которого совпадает с окончанием этого существительного в им. падеже. Пишется слитно. Вы имели в виду <suggestion>вследствие этого</suggestion>?",
+          "Правильно «вследствие»",
+          0,
+          18,
+          [
+            "Вследствие этого"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "В следствие эт­ого",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001928_ad5627553366",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "vopreki_NN",
+          "STYLE",
+          "Предлог «Вопреки» предполагает употребление зависимого слова в дательном падеже: <suggestion>Вопреки утверждению</suggestion>, <suggestion>Вопреки утвержденью</suggestion>",
+          "Требуется дательный падеж",
+          0,
+          20,
+          [
+            "Вопреки утверждению",
+            "Вопреки утвержденью"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Вопр­еки утверждения",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001934_661deb2969d3",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          4,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Cове­",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001953_c5a6087965a5",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "EST_CHEM_ZANJATSA",
+          "PUNCTUATION",
+          "Запятая не нужна: <suggestion>было чём подумать</suggestion>.",
+          "Запятая не нужна",
+          0,
+          19,
+          [
+            "было чём подумать"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "было, чём поду­мать",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B001959_c953cdfeb7a7",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          1,
+          [],
+          ""
+        ],
+        [
+          "Verb_and_Verb",
+          "GRAMMAR",
+          "Два глагола в личной форме подряд. Второй глагол должен быть в неопределённой форме: <suggestion>будет строиться</suggestion>",
+          "Ошибка в примыкании",
+          2,
+          15,
+          [
+            "будет строиться"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ь будет строи­тся в",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002001_afa30eb91b2c",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Obrazovanije_glagoln_form_imperativ",
+          "EXTEND",
+          "Ошибка в образовании повелительного наклонения. Правильно: <suggestion>принеси</suggestion>",
+          "Неправильная форма повелительного наклонения",
+          3,
+          13,
+          [
+            "Принеси"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "😀 Давай принеси",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002023_b02a0ac6e8af",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "translate_carreer_diplomat",
+          "LOGIC",
+          "Ошибка перевода: <suggestion>профессиональный дипломат</suggestion>?",
+          "Ошибка перевода",
+          3,
+          18,
+          [
+            "Профессиональный дипломат"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "😀 Карьерный дипломат",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002725_e71c030f8a0b",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Eins seven.\n\n\nEins",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002727_d411cc1e39a6",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          0,
+          5,
+          [],
+          ""
+        ],
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          15,
+          5,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "\"This tokens\"\n\n\"This",
+      "original_mismatch_type": [
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002748_60a6205a1e65",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          0,
+          1,
+          [],
+          ""
+        ],
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          9,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "В выбор\n\nВ итоге, приходится",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002762_0c1b6d4ff23c",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          0,
+          7,
+          [],
+          ""
+        ],
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          20,
+          7,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Встреча ЕврАзЭС г.\n\nВстреча",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002789_5062a1707e21",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          2,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          4,
+          10,
+          [
+            "Победителя"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          14,
+          2,
+          [
+            "."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "\n\n  победителя.\t",
+      "original_mismatch_type": [
+        "MISSING_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002794_f2d77a95cb62",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH_BEGIN",
+          "STYLE",
+          "Удалите пробел в начале абзаца",
+          "",
+          12,
+          2,
+          [
+            "A"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          19,
+          2,
+          [
+            "."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "e's filler.  A test. ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002796_022d370228b4",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          14,
+          2,
+          [
+            "."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "(p. 9) justice.\t",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002808_66831eb517a9",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Во"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          4,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "во.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002828_27dbd61135ef",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          4,
+          [
+            "Ирою",
+            "Ирак",
+            "Ира",
+            "Иран",
+            "Ирод",
+            "Ёрою",
+            "Юрою",
+            "Араю",
+            "Драю",
+            "Едаю",
+            "Едою",
+            "Екаю",
+            "Ерю",
+            "Ера",
+            "Ерах",
+            "Ерам",
+            "Еран",
+            "Ером",
+            "Еров",
+            "Еру",
+            "Евою",
+            "Фираю",
+            "Граю",
+            "Ибою",
+            "Идою",
+            "Играю",
+            "Икаю",
+            "Иную",
+            "Ипою",
+            "Ирад",
+            "Ирах",
+            "Ирам",
+            "Ират",
+            "Ирой",
+            "Иром",
+            "Иров",
+            "Иру",
+            "Ирью",
+            "Исаю",
+            "Исою",
+            "Ивою",
+            "Изою",
+            "Краю",
+            "Крою",
+            "Прою",
+            "Ярою",
+            "Ярую",
+            "Раю",
+            "Срою",
+            "Трою",
+            "Ураю",
+            "Врою",
+            "Эрою",
+            "И раю",
+            "Ир аю",
+            "Ира ю"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          15,
+          2,
+          [
+            "."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ираю шоколадное.\t",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002856_5ad48b3b241b",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "geTool п",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002928_6276532399bc",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Абрикос Абрикосный",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002968_c3067fcc1817",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "О"
+          ],
+          ""
+        ],
+        [
+          "Paronimy",
+          "EXTEND",
+          "Необходимо различать паронимы – близкие по звучанию, но разные по смыслу слова. Вы имели в виду: <suggestion>отличие От</suggestion>?",
+          "Правильно «отличие от»",
+          2,
+          11,
+          [
+            "Отличие От"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "о Различие От",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002979_b5c688355580",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Oborot_nikto_inoj_ne",
+          "GRAMMAR",
+          "Оборот: <suggestion>ниЧТО ИНОЕ НЕ</suggestion>.",
+          "Ошибка",
+          0,
+          14,
+          [
+            "НИЧТО ИНОЕ НЕ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "НЕ ЧТО ИНОЕ НЕ МОГЛО",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002994_8b60eec973d8",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Ni_to_ni_drugoe",
+          "GRAMMAR",
+          "Сложный союз: <suggestion>ни ТО, ни ДРУГОЕ</suggestion>.",
+          "Сложный союз \"ни то, ни другое\"",
+          7,
+          16,
+          [
+            "НИ ТО, НИ ДРУГОЕ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "МОЖЕТ, НЕ ТО, НЕ ДРУГОЕ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B002995_3b0d0d79fa9e",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "grammar_bez_ucheta_and_Noun",
+          "GRAMMAR",
+          "Оборот «без учёта» предполагает употребление существительного в родительном падеже: <suggestion>БЕЗ УЧЁТА таксиста</suggestion>",
+          "Требуется родительный падеж",
+          0,
+          19,
+          [
+            "БЕЗ УЧЁТА ТАКСИСТА"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "БЕЗ УЧЁТА ТАКСИСТОМ МАШИ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003001_56bcdcad965f",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "В ИТОГЕ, ПРИХОДИТСЯ ОГРАН",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003021_9e25dec533c8",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Verb_3P_and_inf",
+          "GRAMMAR",
+          "Оба глагола должны быть в неопределённой форме. <suggestion>ПРОЧИТАТЬ И согласиться</suggestion>",
+          "Оба глагола должны быть в неопределённой форме",
+          7,
+          22,
+          [
+            "ПРОЧИТАТЬ И СОГЛАСИТЬСЯ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ДОЛЖНЫ ПРОЧИТАТЬ И СОГЛАСИТСЯ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003029_e8622671673b",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Obrazovanije_slozhnyh_slov",
+          "EXTEND",
+          "Если в сложном слове с корнем «пол» второе слово начинается с согласной «л», то пишем его через дефис. Вы имели в виду <suggestion>пол-луковицы</suggestion>?",
+          "«Пол-луковицы» пишем через дефис",
+          6,
+          12,
+          [
+            "ПОЛ-ЛУКОВИЦЫ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ЭТОГО ПОЛ ЛУКОВИЦЫ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003037_fe531fa22c96",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_ADJ",
+          "GRAMMAR",
+          "Предлог «У» предполагает употребление прилагательного в родительном падеже: <suggestion>У лесной</suggestion> или <suggestion>ЛЕСНУЮ</suggestion>",
+          "Требуется родительный падеж",
+          6,
+          8,
+          [
+            "У ЛЕСНОЙ",
+            "ЛЕСНУЮ"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ОСШИЙ У ЛЕСНУЮ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003143_4e61cd75a9b1",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Cap_Letters_Name",
+          "CASING",
+          "Имя пишется с большой буквы: <suggestion>Ий</suggestion>",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Ий"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ий - две несовместные.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003255_fa9988802210",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH_BEGIN",
+          "STYLE",
+          "Удалите пробел в начале абзаца",
+          "",
+          12,
+          2,
+          [
+            "«"
+          ],
+          ""
+        ],
+        [
+          "KAVITCHKI",
+          "TYPOGRAPHY",
+          "Кавычки не соответствуют нормам типографики: <suggestion>„</suggestion>пример<suggestion>”</suggestion>.",
+          "Неправильные кавычки",
+          19,
+          1,
+          [
+            "„",
+            "”"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "e's filler.  «„unit“» standards.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MESSAGE_MISMATCH",
+        "MISSING_FINDING",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003259_c3b93ae69ebe",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "KAVITCHKI",
+          "TYPOGRAPHY",
+          "Кавычки не соответствуют нормам типографики: <suggestion>„</suggestion>пример<suggestion>”</suggestion>.",
+          "Неправильные кавычки",
+          5,
+          1,
+          [
+            "„",
+            "”"
+          ],
+          ""
+        ],
+        [
+          "SENTENCE_WHITESPACE",
+          "TYPOGRAPHY",
+          "Добавьте пробел между предложениями.",
+          "",
+          13,
+          3,
+          [
+            " And"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          22,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "„This“» text.And there'",
+      "original_mismatch_type": [
+        "FINDING_ORDER_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003301_5291d790b8c2",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "KAVITCHKI",
+          "TYPOGRAPHY",
+          "Кавычки не соответствуют нормам типографики: <suggestion>„</suggestion>пример<suggestion>”</suggestion>.",
+          "Неправильные кавычки",
+          19,
+          1,
+          [
+            "„",
+            "”"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ЕврАзЭС в «„декабре“» г.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003319_156794f6b6b6",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "S"
+          ],
+          ""
+        ],
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          42,
+          1,
+          [
+            "S."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "s as suggested by The {Chicago} Manual of S",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B003986_4a100cf9aa09",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          24,
+          [],
+          ""
+        ],
+        [
+          "Three_dot",
+          "TYPOGRAPHY",
+          "Заменить на типографский символ многоточия?<suggestion>…</suggestion>",
+          "Заменить на многоточие?",
+          43,
+          4,
+          [
+            "…"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Vertriebsniederlasами­ng Versorgungstechnik..­.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004047_f9064e3dd467",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          0,
+          4,
+          [],
+          ""
+        ],
+        [
+          "Three_dot",
+          "TYPOGRAPHY",
+          "Заменить на типографский символ многоточия?<suggestion>…</suggestion>",
+          "Заменить на многоточие?",
+          13,
+          3,
+          [
+            "…"
+          ],
+          ""
+        ],
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          19,
+          2,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "This sentence... \n This",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004102_373426356621",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          0,
+          4,
+          [],
+          ""
+        ],
+        [
+          "PARAGRAPH_REPEAT_BEGINNING_RULE",
+          "STYLE",
+          "Повтор начала последнего абзаца",
+          "",
+          19,
+          4,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Если - распродать\n\nЕсли",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004110_ec42210f55bc",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          0,
+          11,
+          [],
+          ""
+        ],
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          12,
+          9,
+          [
+            "дилемма"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ще́котливая дилемма\n ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004121_1a8ac13af435",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          2,
+          11,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "В заключе́нии выступления",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004139_576a7149a6f1",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          2,
+          [
+            "Я",
+            "С",
+            "Со",
+            "См",
+            "Си",
+            "Сяк",
+            "Ася",
+            "Сф",
+            "Сям",
+            "Сп",
+            "Соя",
+            "Ея",
+            "Ля",
+            "Ст",
+            "Ая",
+            "Ия",
+            "Ося",
+            "Яс",
+            "Яся",
+            "Сб",
+            "Сея",
+            "Сия",
+            "Сл",
+            "Ср",
+            "Су",
+            "Суя",
+            "Св",
+            "Вся",
+            "С я"
+          ],
+          ""
+        ],
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          15,
+          5,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ся поёт в одну дуду́.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004148_1578ae3e79c1",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Для́ того чтобы, желе",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004172_8941bf45182e",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          0,
+          10,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "заслужи́ть доверию",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004185_6c2fc29d7d11",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          8,
+          6,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "В в том чѝсле д",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004201_d7dfe4de4c97",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "ABR_GENDER",
+          "GRAMMAR",
+          "Род аббревиатуры определяется по опорному слову: <suggestion>ООН о̀добрил</suggestion> — женский род.",
+          "Женский род",
+          0,
+          12,
+          [
+            "ООН о̀добрил"
+          ],
+          ""
+        ],
+        [
+          "FILLER_WORDS_RU",
+          "CREATIVE_WRITING",
+          "Это — слово-паразит. Удалите его, если это возможно.",
+          "",
+          13,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ООН о̀добрил э",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004228_1fc37b310813",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_REPEAT",
+          "MISC",
+          "Повтор слов в предложении",
+          "Повтор слов в предложении",
+          0,
+          9,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Контро̀ль за деятельностью",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004239_fcd749674db6",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_PARAGRAPH_BEGIN",
+          "STYLE",
+          "Удалите пробел в начале абзаца",
+          "",
+          0,
+          10,
+          [
+            "По-моему"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": " По-моем­у,",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004246_d10fc5951150",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "S"
+          ],
+          ""
+        ],
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          43,
+          3,
+          [
+            "to."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "s is a really nice test, and it has enough t­o",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004250_13f7def83f7b",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "Ё­мкость а",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004253_727ce299779d",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_WORD_ROOT_REPEAT",
+          "MISC",
+          "«абрикос» и «абрикосный» – однокоренные слова, их не стоит использовать одновременно",
+          "",
+          11,
+          8,
+          [
+            "абрикосный"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Абрикосный абр­икос.",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "RULE_ID_MISMATCH",
+        "SHORT_MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004261_73e83b570610",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Predlogi_vsledstvije_napodobije",
+          "EXTEND",
+          "Это предлог «в» с существительным на «–ие» в винит. падеже, окончание которого совпадает с окончанием этого существительного в им. падеже. Пишется слитно. Вы имели в виду <suggestion>вследствие этого</suggestion>?",
+          "Правильно «вследствие»",
+          0,
+          18,
+          [
+            "Вследствие этого"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "В следствие эт­ого",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004264_8ca489778bbb",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_PARAGRAPH",
+          "STYLE",
+          "Удалите пробел в конце абзаца",
+          "",
+          12,
+          3,
+          [
+            "из"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Вернув­шись из ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004270_67dd6b7a5e00",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "vopreki_NN",
+          "STYLE",
+          "Предлог «Вопреки» предполагает употребление зависимого слова в дательном падеже: <suggestion>Вопреки утверждению</suggestion>, <suggestion>Вопреки утвержденью</suggestion>",
+          "Требуется дательный падеж",
+          0,
+          20,
+          [
+            "Вопреки утверждению",
+            "Вопреки утвержденью"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Вопр­еки утверждения",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004276_6b0e1a314f76",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Latin_letters",
+          "TYPOS",
+          "Возможно, нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот. Вместо букв из других алфавитов для обозначения ударения используйте символ U+0301 в кодировке Юникод.",
+          "Возможно нужна буква из кириллицы вместо аналогичной по начертанию латинской или наоборот",
+          0,
+          4,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Cове­",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004295_64d58a14e560",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "EST_CHEM_ZANJATSA",
+          "PUNCTUATION",
+          "Запятая не нужна: <suggestion>было чём подумать</suggestion>.",
+          "Запятая не нужна",
+          0,
+          19,
+          [
+            "было чём подумать"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "было, чём поду­мать",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004301_bfd28c76cda3",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          1,
+          [],
+          ""
+        ],
+        [
+          "Verb_and_Verb",
+          "GRAMMAR",
+          "Два глагола в личной форме подряд. Второй глагол должен быть в неопределённой форме: <suggestion>будет строиться</suggestion>",
+          "Ошибка в примыкании",
+          2,
+          15,
+          [
+            "будет строиться"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ь будет строи­тся в",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004343_d30cddc171eb",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "Obrazovanije_glagoln_form_imperativ",
+          "EXTEND",
+          "Ошибка в образовании повелительного наклонения. Правильно: <suggestion>принеси</suggestion>",
+          "Неправильная форма повелительного наклонения",
+          3,
+          13,
+          [
+            "Принеси"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "😀 Давай принеси",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004352_854c0ac93ba7",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          47,
+          10,
+          [
+            "распродать."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "📚 Если передумаешь - не тяни, а то я могу всё распродать",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004365_b97fd7842abb",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "translate_carreer_diplomat",
+          "LOGIC",
+          "Ошибка перевода: <suggestion>профессиональный дипломат</suggestion>?",
+          "Ошибка перевода",
+          3,
+          18,
+          [
+            "Профессиональный дипломат"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "😀 Карьерный дипломат",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004439_fff93bb315af",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ],
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          40,
+          2,
+          [
+            "😀."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "e's some text as filler. This is a long 😀",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004476_cb0fc003cc03",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "PUNCTUATION_PARAGRAPH_END2",
+          "PUNCTUATION",
+          "Добавьте знак пунктуации в конце абзаца.",
+          "",
+          77,
+          2,
+          [
+            "🤔."
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "🚀 Довольно часто авторы таких работ предоставляют к программам, реализующих 🤔",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004498_8ad92967b280",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «\"» скорей всего пропущен",
+          "",
+          0,
+          1,
+          [],
+          ""
+        ],
+        [
+          "Three_dot",
+          "TYPOGRAPHY",
+          "Заменить на типографский символ многоточия?<suggestion>…</suggestion>",
+          "Заменить на многоточие?",
+          19,
+          3,
+          [
+            "…"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «\"» скорей всего пропущен",
+          "",
+          22,
+          1,
+          [],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «(» скорей всего пропущен",
+          "",
+          23,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "\"iv. (This sentence...\") ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004684_565abd2ffe8c",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          2,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "\n\n  П",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004691_a01544749c72",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "(p. 9)",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004698_880f302d4715",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e'",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004714_739852658a0a",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "РАФИИ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004739_3d7ecf9faf76",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004788_2e5b99840cc6",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          2,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "\n\n  П",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004795_a47440d46437",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «\"» скорей всего пропущен",
+          "",
+          8,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e quote \"When days grow dark and nights grow dreary, we can be thankful that our God combines in his nature a creative synthesis of love and justice which will lead us life’s (p. 9)",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004802_84b9188618ff",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e'",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004818_8d5f1caa31ea",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "РАФИИ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004843_558301e5961c",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004892_0fef64948080",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          2,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "\n\n  П",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004906_f7b88ed50e4a",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "E"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «'» скорей всего пропущен",
+          "",
+          1,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "e'",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004922_efbff9773764",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "РАФИИ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "B004947_fc7c045e32cf",
+      "discovered_in_stratum": "B",
+      "expected_java_findings": [],
+      "minimized_text": "ЕврАзЭС",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "C002204_4981ed0cb47a",
+      "discovered_in_stratum": "C",
+      "expected_java_findings": [],
+      "minimized_text": "ОМНУЮ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_speller_yo",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "C003730_b16a01d2bf51",
+      "discovered_in_stratum": "C",
+      "expected_java_findings": [],
+      "minimized_text": "Слово РОСТА",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_speller_yo",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "C003914_63495157287d",
+      "discovered_in_stratum": "C",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Н"
+          ],
+          ""
+        ],
+        [
+          "Two_PREP",
+          "STYLE",
+          "Два предлога подряд: <suggestion>ВМЕСТО</suggestion> или <suggestion>на</suggestion>",
+          "Два предлога подряд",
+          2,
+          9,
+          [
+            "ВМЕСТО",
+            "На"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "н ВМЕСТО на д",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "cfg_speller_yo",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000042_cb4f813fe758",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "М"
+          ],
+          ""
+        ],
+        [
+          "OPREDELENIA",
+          "STYLE",
+          "Избыточные определения. В правильно составленном предложении не должно быть больше одного придаточного определения.",
+          "Избыточные определения",
+          2,
+          15,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "м которое котором",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000150_5f2c6cca337a",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "(60 Вт). Однако, и",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000153_d65c2bb9a464",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "(27.135 АМ) канал.\n27.190 МГц - вы",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000242_f4541a505c38",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Ми"
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ми.   ",
+      "original_mismatch_type": [
+        "SPAN_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000288_a1b53a749194",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Однако, сегодняшний день",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000290_58ae8ef9167e",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "М"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "м она. На сегодняшний день",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000291_a02b91ca4727",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "'Em '07 приятным.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000309_6691c17af668",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "В итоге, плен. Однако, з",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000390_0220908e10f1",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "В"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "в трёхметровый провал.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000519_7260157988f2",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          23,
+          10,
+          [
+            "хибинского",
+            "сабинского",
+            "себежского",
+            "селинского",
+            "севенского",
+            "сибирского",
+            "сивинского",
+            "собинского",
+            "Дебинского",
+            "Ребинского",
+            "Шибинского"
+          ],
+          ""
+        ],
+        [
+          "O_OB_OBO",
+          "GRAMMAR",
+          "Неправильная форма предлога. Исправление: <suggestion>об о</suggestion>.",
+          "Неправильная форма предлога",
+          158,
+          3,
+          [
+            "Об о"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "В 1957 году для записи сибинского наречия китайскими лингвистами был также разработан алфавит на основе кириллицы, который, однако, не использовался на деле: О о,",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000558_71fad5d3ce70",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "(Большая гл.  23)",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000611_5605546ebd8f",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "(55—65) за ближайший водоём.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000732_c0516b8f9d24",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "В 1998 году завоевала 1-ю золотую медаль, став чемпионом России на 20-километровой дистанции в Чебоксарах и обладательницей Высшего мирового достижения на этой дистанции, этот же результат Т. Сибилёва показала в 2001 году в Адлере, в 2003 году в Ижевске, в 2006 году вновь в Чебоксарах и в 2007 году в Сочи.\nВ (41:53).",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000929_b123ca67e7e9",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "В"
+          ],
+          ""
+        ],
+        [
+          "PREP_V_and_Noun",
+          "GRAMMAR",
+          "Предлог «в» предполагает употребление существительного в винительном или предложном падеже: <suggestion>алжире</suggestion>",
+          "Требуется винительный или предложный падеж",
+          10,
+          6,
+          [
+            "Алжире"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "в сборной Алжира",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000931_99abd29ba7ed",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "В"
+          ],
+          ""
+        ],
+        [
+          "PREP_V_and_Noun",
+          "GRAMMAR",
+          "Предлог «в» предполагает употребление существительного в винительном или предложном падеже: <suggestion>алжире</suggestion>",
+          "Требуется винительный или предложный падеж",
+          10,
+          6,
+          [
+            "Алжире"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "в главной Алжира (3:0).",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D000990_84af6c6a2f4a",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Е"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "е\nСИАН (исп. Ka’an) Мексике.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001103_ecec15b188c9",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": " После удачного выступления на национальном чемпионате удостоился права защищать честь страны на чемпионате в венгерском Сегеде — 200 таким образом сербский экипаж же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001129_d89a6a42c321",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": " Некоторые ораторы даже перечисляли те фракции, те народности или группы, которые должны иметь своих представителей, но в речах предыдущих ораторов я не слышал, чтобы кто-нибудь упомянул о том, что отдалённая далёкая Сибирь, этот огромнейший край, должна иметь и своего представителя в президиуме Государственной Думы. Я прибыл кажется, в числе. Поэтому я предлагаю или, не предрешая вопрос о числе помощников секретаря в президиуме, оставить одно место для группы сибирской, или, если будет окончательно решён вопрос о назначении точного и справедливого числа помощников секретаря, то при определении фракций и групп, принять во внимание интересы отдалённой заброшенной Сибири и оставив для сибирской группы",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001133_5d61e9580303",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          2,
+          [
+            "Лю",
+            "Мю",
+            "Ю",
+            "Хью",
+            "Аю",
+            "Бью",
+            "Ею",
+            "Ию",
+            "Кью",
+            "Лью",
+            "Ню",
+            "Нью",
+            "Пью",
+            "Тю",
+            "Вью",
+            "Шью",
+            "Чью"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "ью - каёмки.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001201_6f83757da3d9",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "Two_PREP",
+          "STYLE",
+          "Два предлога подряд: <suggestion>В</suggestion> или <suggestion>в</suggestion>",
+          "Два предлога подряд",
+          48,
+          3,
+          [
+            "В"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": " В университете дружил с (Hai Zi) мушкетерами». В в в",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001370_73ae46cb0c2a",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          9,
+          [
+            "Си бирочка"
+          ],
+          ""
+        ],
+        [
+          "RU_UNPAIRED_BRACKETS",
+          "PUNCTUATION",
+          "Непарный символ: «\"» скорей всего пропущен",
+          "",
+          12,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "\"…\"Сибирочка\"",
+      "original_mismatch_type": [
+        "CATEGORY_MISMATCH",
+        "FINDING_ORDER_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "RULE_ID_MISMATCH",
+        "SHORT_MESSAGE_MISMATCH",
+        "SPAN_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001407_5589496886a7",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          3,
+          [
+            "Тем"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "тем проводится тайное участвуют в",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001528_21a9a1613168",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Однако, в же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001661_ed14cb13fb06",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": " На конце второго ряда сидел молодой человек и посматривал на ближнюю ложу; но только женский глаз мог догадаться, что его двурогая трубка, блуждая в пространстве залы, останавливалась не случайно на одном и том предмете. А так как мы имеем выгодное мнение о польских красавицах и как вообще человеку не хочется никогда объяснить нового явления естественным образом, надобны во всем чудеса, то в театре разнеслась молва, что приехала польская графиня, у которой муж по политическим обстоятельствам бежал за границу, при побеге был ранен польским уланом, принявшим",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001666_ce084288dc28",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Я"
+          ],
+          ""
+        ],
+        [
+          "OPREDELENIA",
+          "STYLE",
+          "Избыточные определения. В правильно составленном предложении не должно быть больше одного придаточного определения.",
+          "Избыточные определения",
+          2,
+          19,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "я котором они котором Азии. Однако, н",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001704_32ea3eb3ccdb",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "OPREDELENIA",
+          "STYLE",
+          "Избыточные определения. В правильно составленном предложении не должно быть больше одного придаточного определения.",
+          "Избыточные определения",
+          13,
+          16,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "Александр же котором которого",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001734_82b9753e108b",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Алеше же не трудно",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001897_09f291eca119",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "Many_PNN",
+          "STYLE",
+          "Загруженность предложения местоимениями.",
+          "Загруженность местоимениями",
+          2,
+          55,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": ", ты, киска! — воскликнула его, он понял, что она на него",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D001999_0906d388c0b7",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "PREP_U_and_Noun",
+          "GRAMMAR",
+          "Предлог «у» предполагает употребление существительного в родительном падеже:  или <suggestion>миледи</suggestion>",
+          "Требуется родительный падеж",
+          0,
+          8,
+          [
+            "миледи"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "у миледи",
+      "original_mismatch_type": [
+        "MESSAGE_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002036_1515e5df7633",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          1,
+          4,
+          [
+            "Тот",
+            "От",
+            "Вот",
+            "Хотя",
+            "Хоть",
+            "Рот",
+            "Кот",
+            "Нота",
+            "Пот",
+            "Рота",
+            "Фото",
+            "Соты",
+            "Йота",
+            "Ото",
+            "Мотя",
+            "Боты",
+            "Гот",
+            "Котэ",
+            "Лото",
+            "Мот",
+            "Отк",
+            "Бот",
+            "Готт",
+            "Готье",
+            "Коти",
+            "Лот",
+            "Тото",
+            "Тоту",
+            "Уотс",
+            "Бота",
+            "Боте",
+            "Боту",
+            "Дот",
+            "Дота",
+            "Доте",
+            "Доту",
+            "Доты",
+            "Фот",
+            "Фота",
+            "Фоте",
+            "Фоту",
+            "Фоты",
+            "Гота",
+            "Готе",
+            "Готу",
+            "Готы",
+            "Хот",
+            "Хота",
+            "Хоте",
+            "Хоти",
+            "Хоту",
+            "Хоты",
+            "Йот",
+            "Йоте",
+            "Йоту",
+            "Йоты",
+            "Кота",
+            "Коте",
+            "Кото",
+            "Коту",
+            "Коты",
+            "Лёт",
+            "Лёта",
+            "Лёте",
+            "Лёту",
+            "Лота",
+            "Лоте",
+            "Лоту",
+            "Лоты",
+            "Мотю",
+            "Мота",
+            "Моте",
+            "Моти",
+            "Моту",
+            "Моть",
+            "Моты",
+            "Нот",
+            "Ноте",
+            "Ноту",
+            "Ноты",
+            "Отд",
+            "Отл",
+            "Отв",
+            "Пота",
+            "Поте",
+            "Поти",
+            "Поту",
+            "Поты",
+            "Роте",
+            "Роту",
+            "Роты",
+            "Сот",
+            "Соте",
+            "Сотр",
+            "Тётю",
+            "Тёте",
+            "Тёти",
+            "Тётя",
+            "Тёть",
+            "Шот",
+            "Шота",
+            "Шоте",
+            "Шоту",
+            "Шоты",
+            "Чёт",
+            "Чёта",
+            "Чёте",
+            "Чёту",
+            "Чёты",
+            "Гёте",
+            "Пётр",
+            "Вет",
+            "Вета",
+            "Вете",
+            "Вету",
+            "Веты",
+            "Вит",
+            "Витю",
+            "Вита",
+            "Вите",
+            "Вити",
+            "Витя",
+            "Виту",
+            "Вить",
+            "Виты",
+            "Воев",
+            "Волю",
+            "Воле",
+            "Воли",
+            "Воля",
+            "Воль",
+            "Вотев",
+            "Вотин",
+            "Воут",
+            "Воута",
+            "Воуте",
+            "Воуту",
+            "Воуты",
+            "Вов",
+            "Вова",
+            "Вове",
+            "Вову",
+            "Вовы",
+            "Вт"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "…Вотъ",
+      "original_mismatch_type": [
+        "CATEGORY_MISMATCH",
+        "MESSAGE_MISMATCH",
+        "RULE_ID_MISMATCH",
+        "SHORT_MESSAGE_MISMATCH",
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002139_1297e957b0a4",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Неизвестно, где Мать же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002284_40030097b12d",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ъ не далеко. Большая не довольна,",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002396_50bb572e844b",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          5,
+          8,
+          [
+            "крикнул",
+            "крикнула",
+            "крикнули",
+            "крикнуло"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а! — крикнулъ К",
+      "original_mismatch_type": [
+        "SUGGESTION_CONTENT_MISMATCH"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002398_3351c7c75286",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          42,
+          10,
+          [
+            "противным",
+            "противными"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          66,
+          9,
+          [
+            "педантом"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": " Но его знанія, смотря не мало барышни — „противнымъ“, сойтись, — педантомъ.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002404_6d9758d08457",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          1,
+          6,
+          [
+            "Знания"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": " знания, так сказать, барышни — „противным“, сойтись, — педантом.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002406_b9898336ca3c",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "К июлю поднялась в одиночном рейтинге до 116-го места, высшего в карьере, но к концу сотни.\nА 7-6(9), [8-10].",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002407_d2b775f626f7",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Десять лет ложный стыд удерживал меня от сознания, что я оскорбил тебя, и господь тяжко нака",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002415_1bdd46def930",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Наибольших успехов в карьере добилась в 1947 году, став третьей на национальном первенстве, где она мира.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002417_ee5a5bb9254b",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": ", прямостоячих.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002436_86dbd8566733",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Барышня же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002448_9114eb9d0075",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "В"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "в краю, поверхностным. Как много любопытных мест, доселе нетронутых, но они не могут и не умеют передать на бумагу",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002485_2fb006bf15ae",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "Гл"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "гл.  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002502_1772f2bb00dc",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "7-6(9), [8-10].",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002503_edb9e9ebf019",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          1,
+          [],
+          ""
+        ]
+      ],
+      "minimized_text": "ь братец, Иван Семенович! Десять лет ложный стыд удерживал меня от сознания, что я оскорбил тебя, и господь тяжко наказал медлившего. Наконец, ложась в могилу, готовый предстать перед судиею праведным, прошу тебя, отпусти мне вину — п",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002511_b62cbf713f95",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": ".  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002513_1582a8887bfe",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": ", прямостоячих.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002527_30bba55eda01",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "Т"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          148,
+          6,
+          [
+            "Булько",
+            "Только",
+            "Алька",
+            "Галька",
+            "Валька",
+            "Колька",
+            "Калька",
+            "Полька",
+            "Пулька",
+            "Долька",
+            "Кулько",
+            "Вуалька",
+            "Дольку",
+            "Фалька",
+            "Фальку",
+            "Гальку",
+            "Гулька",
+            "Гулько",
+            "Гульку",
+            "Кальку",
+            "Кольку",
+            "Кулька",
+            "Кульку",
+            "Малька",
+            "Мальку",
+            "Мулька",
+            "Мульку",
+            "Польку",
+            "Пульку",
+            "Ролька",
+            "Рольку",
+            "Рулька",
+            "Рульку",
+            "Талька",
+            "Тальку",
+            "Вальку",
+            "Шалька",
+            "Шальку",
+            "Бадько",
+            "Балюка",
+            "Балюку",
+            "Баллока",
+            "Баллоку",
+            "Бальца",
+            "Бальцу",
+            "Бальков",
+            "Бальта",
+            "Бальту",
+            "Банько",
+            "Басько",
+            "Белько",
+            "Бодько",
+            "Борька",
+            "Борьку",
+            "Босько",
+            "Будько",
+            "Буляка",
+            "Буляку",
+            "Бульба",
+            "Бульбу",
+            "Бульца",
+            "Бульцу",
+            "Бульков",
+            "Бульса",
+            "Бульсу",
+            "Бунько",
+            "Бусько",
+            "Бутько",
+            "Бузько",
+            "Дулько",
+            "Фалько",
+            "Галько",
+            "Калько",
+            "Колько",
+            "Малько",
+            "Молько",
+            "Мулько",
+            "Ралько",
+            "Салько",
+            "Талько",
+            "Жулька",
+            "Валько",
+            "Волька",
+            "Волько",
+            "Шалько",
+            "Б алька",
+            "Баль ка"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "т что-то шевелится между кочками песку, наваленного последним ветром у подножия ближней скалы. Он не ошибся, это газель, малая, лёгкая, прелестная. Балька тоже увидела её и понеслась стрелою в ту сторону: она не требует, чтоб у",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002532_b95a4934040a",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          1,
+          [
+            "А"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          31,
+          2,
+          [
+            "в",
+            "вы",
+            "во",
+            "вт",
+            "вм",
+            "вс",
+            "вч",
+            "вк",
+            "вр",
+            "вв"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          51,
+          2,
+          [
+            "с",
+            "со",
+            "см",
+            "сс",
+            "си",
+            "сф",
+            "сп",
+            "сд",
+            "ст",
+            "сё",
+            "сб",
+            "сл",
+            "ср",
+            "су",
+            "св",
+            "сч"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          113,
+          2,
+          [
+            "в",
+            "вы",
+            "во",
+            "вт",
+            "вм",
+            "вс",
+            "вч",
+            "вк",
+            "вр",
+            "вв"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          160,
+          8,
+          [
+            "дерзнёт",
+            "дерзнёте",
+            "дерзнет",
+            "дерзнете",
+            "дерзните"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          199,
+          3,
+          [
+            "уже",
+            "уж",
+            "ужо",
+            "ёжь",
+            "ежь",
+            "уль",
+            "ужа",
+            "ужи",
+            "ужу",
+            "узь"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "а заканчивается большею частью въ пятнадцать лѣтъ, съ этого времени обыкновенно начинается дѣвушка. Барышня же — въ тринадцать лѣтъ совсѣмъ готова: едва ли кто дерзнетъ назвать ее дѣвочкой, но за то ужь навѣрняка никто не рѣшится п",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002565_2fed7a708d05",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_long_paragraph_30",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002598_c62d5ab1bfbe",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "7-6(9), [8-10].",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002607_9e6bc61da2a5",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": ".  ",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002609_1495a4e137d4",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": ", прямостоячих.",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "D002628_9ae937c03f63",
+      "discovered_in_stratum": "D",
+      "expected_java_findings": [],
+      "minimized_text": "Барышня же",
+      "original_mismatch_type": [
+        "EXTRA_FINDING"
+      ],
+      "profile": "cfg_filler_words_2",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "E000011_85776c24f1d2",
+      "discovered_in_stratum": "E",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "То"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          5,
+          [
+            "ушиб",
+            "отшиб",
+            "улеб",
+            "ушер",
+            "абиб",
+            "адиб",
+            "ахиб",
+            "алиб",
+            "амеб",
+            "аше",
+            "ашею",
+            "ашей",
+            "ашер",
+            "ашет",
+            "аши",
+            "ашик",
+            "ашим",
+            "ашир",
+            "ашиш",
+            "обшиб",
+            "оше",
+            "ошею",
+            "ошей",
+            "ошем",
+            "оши",
+            "сшиб",
+            "ушей",
+            "ушек",
+            "ушел",
+            "уши",
+            "ушиба",
+            "ушибе",
+            "ушиби",
+            "ушибу",
+            "ушибы",
+            "ушиц",
+            "ушил",
+            "ушит",
+            "ушив",
+            "учеб",
+            "вшиб",
+            "зашиб",
+            "аши б"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "то а­шиб",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "default",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "E000165_ac11a530a3c1",
+      "discovered_in_stratum": "E",
+      "expected_java_findings": [
+        [
+          "UPPERCASE_SENTENCE_START",
+          "CASING",
+          "Это предложение не начинается с заглавной буквы.",
+          "Заглавные буквы",
+          0,
+          2,
+          [
+            "То"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          5,
+          [
+            "ушиб",
+            "отшиб",
+            "ушер",
+            "абиб",
+            "адиб",
+            "ахиб",
+            "алиб",
+            "аше",
+            "ашею",
+            "ашей",
+            "ашер",
+            "ашет",
+            "аши",
+            "ашик",
+            "ашим",
+            "ашир",
+            "ашиш",
+            "обшиб",
+            "оше",
+            "ошею",
+            "ошей",
+            "ошем",
+            "оши",
+            "сшиб",
+            "ушей",
+            "ушек",
+            "уши",
+            "ушиба",
+            "ушибе",
+            "ушиби",
+            "ушибу",
+            "ушибы",
+            "ушиц",
+            "ушил",
+            "ушит",
+            "ушив",
+            "вшиб",
+            "зашиб",
+            "аши б"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "то а­шиб",
+      "original_mismatch_type": [
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "E000166_dabda8cabf90",
+      "discovered_in_stratum": "E",
+      "expected_java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU_YO",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          6,
+          [
+            "ошибка",
+            "шибко",
+            "ошибке",
+            "ошибки",
+            "ошибкою",
+            "ошибкой",
+            "ошибку",
+            "ошибок",
+            "ушибло",
+            "а шибко"
+          ],
+          ""
+        ]
+      ],
+      "minimized_text": "Это­ тесто­вый ашибко­",
+      "original_mismatch_type": [
+        "EXTRA_FINDING",
+        "MISSING_FINDING"
+      ],
+      "profile": "all_ordinary_enabled",
+      "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    }
+  ],
+  "metadata": {
+    "empty_reason": "",
+    "finding_field_order": [
+      "rule_id",
+      "category_id",
+      "message",
+      "short_message",
+      "utf16_offset",
+      "utf16_length",
+      "suggestions",
+      "url"
+    ],
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "pinned_lt_version": "6.8"
+  },
+  "schema_version": "1.0.0",
+  "task": "0014"
+}

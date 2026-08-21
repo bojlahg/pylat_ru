@@ -77,13 +77,65 @@ def finitize(pattern: str, max_length: int = DEFAULT_MAX_LOOKBEHIND_LENGTH) -> s
     return finite
 
 
+#: Inline flags with which a Java pattern asks for Unicode semantics.  ``(?U)`` is
+#: UNICODE_CHARACTER_CLASS and ``(?u)`` is UNICODE_CASE; Python cannot separate the two,
+#: so either one leaves the pattern in Python's default Unicode mode.
+JAVA_UNICODE_FLAGS = ("(?U)", "(?iU)", "(?Ui)", "(?u)", "(?iu)", "(?ui)")
+
+#: ``java.util.regex`` resolves these shorthands against ASCII unless the pattern asks
+#: for ``UNICODE_CHARACTER_CLASS``; Python resolves them against Unicode.  A pattern
+#: that does not ask for Unicode therefore has its shorthands expanded to the exact sets
+#: Java uses.  Java's ``\\p{...}`` properties stay Unicode either way, which is why the
+#: expansion is textual rather than the global ``regex.ASCII`` flag: that flag would
+#: also restrict ``\\p{Lu}`` and stop ``Первое.Второе.`` from being split.
+JAVA_ASCII_SHORTHANDS = {
+    "s": "[ \\t\\n\\x0b\\f\\r]",
+    "S": "[^ \\t\\n\\x0b\\f\\r]",
+    "d": "[0-9]",
+    "D": "[^0-9]",
+    "w": "[a-zA-Z0-9_]",
+    "W": "[^a-zA-Z0-9_]",
+}
+
+
+def asciify_java_shorthands(pattern: str) -> str:
+    """Expand ``\\s``, ``\\d`` and ``\\w`` to the ASCII sets Java resolves them to.
+
+    Only occurrences outside a character class are rewritten: inside one the expansion
+    would have to contribute set members rather than a nested class, and no rule in the
+    pinned Russian SRX places a shorthand there.
+    """
+    out: List[str] = []
+    depth = 0
+    index = 0
+    while index < len(pattern):
+        character = pattern[index]
+        if character == "\\" and index + 1 < len(pattern):
+            following = pattern[index + 1]
+            if depth == 0 and following in JAVA_ASCII_SHORTHANDS:
+                out.append(JAVA_ASCII_SHORTHANDS[following])
+            else:
+                out.append(pattern[index : index + 2])
+            index += 2
+            continue
+        if character == "[":
+            depth += 1
+        elif character == "]":
+            depth = max(0, depth - 1)
+        out.append(character)
+        index += 1
+    return "".join(out)
+
+
 def adapt_java_regex(pattern: str) -> str:
-    """Convert Java inline regex flags to Python equivalents."""
+    """Convert a Java SRX pattern into one Python reads the same way."""
     if not pattern:
         return ""
     p = pattern.replace("(?U)", "(?u)")
     p = p.replace("(?iU)", "(?iu)")
     p = p.replace("(?Ui)", "(?iu)")
+    if not any(flag in pattern for flag in JAVA_UNICODE_FLAGS):
+        p = asciify_java_shorthands(p)
     return p
 
 

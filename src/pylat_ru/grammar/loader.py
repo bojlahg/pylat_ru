@@ -36,6 +36,7 @@ from pylat_ru.grammar.model import (
     SuggestionTemplate,
     UnificationDef,
 )
+from pylat_ru.tagging.string_tools import trim_whitespace
 
 # Canonical schema definitions
 ALLOWED_ROOT_ATTRS = {
@@ -835,7 +836,7 @@ class GrammarLoader:
         for exc_child in exc_elem:
             if exc_child.tail:
                 exc_text_parts.append(exc_child.tail)
-        combined_exc_text = "".join(exc_text_parts).strip()
+        combined_exc_text = trim_whitespace("".join(exc_text_parts))
         exc_text = combined_exc_text if combined_exc_text else None
 
         scope_val = exc_elem.attrib.get("scope", "current")
@@ -875,7 +876,7 @@ class GrammarLoader:
         for child in tok_elem:
             if child.tail:
                 raw_text_parts.append(child.tail)
-        combined_text = "".join(raw_text_parts).strip()
+        combined_text = trim_whitespace("".join(raw_text_parts))
         text = combined_text if combined_text else None
 
         postag = tok_elem.attrib.get("postag")

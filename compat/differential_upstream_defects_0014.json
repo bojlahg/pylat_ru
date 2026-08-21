@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "task": "0014",
+  "description": "Inputs on which the pinned Java LanguageTool 6.8 Russian pipeline raises instead of returning a result. No parity comparison is possible for such an input, because the trusted oracle produces no findings at all. Each entry records the exception signature, the pinned source that produces it, and how pylat_ru behaves instead. This is not an allowlist: it never suppresses a comparison that the oracle actually answered.",
+  "pinned_lt_version": "6.8",
+  "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+  "defects": [
+    {
+      "defect_id": "PARAGRAPH_REPEAT_BEGINNING_RULE_EMPTY_SECOND_SPAN",
+      "exception_signature": "IllegalArgumentException: fromPos",
+      "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+      "profiles": ["all_ordinary_enabled"],
+      "trigger": "A paragraph whose opening token repeats the previous paragraph's opening token, where that token is a single character and the following sentence begins with the paragraph line break, for example \"В адрес организацией мы направили письмо.\\n\\nВ адрес организацией мы направили письмо.\"",
+      "upstream_source": "languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java",
+      "upstream_evidence": "match(List<AnalyzedSentence>) guards only the first RuleMatch with `if (startPos < lastPos+endPos)`. The second RuleMatch is built unguarded from `nextPos + nextTokens[1].getStartPos()` to `nextPos + endPos`, so when those coincide the RuleMatch constructor throws IllegalArgumentException and JLanguageTool.check() abandons the whole text.",
+      "oracle_reproduction": "python -m tools.differential_corpus_0014 run --stratum B --profile all_ordinary_enabled",
+      "pylat_ru_behaviour": "RussianUnpairedBracketsRule is unaffected; ParagraphRepeatBeginningRule skips the degenerate empty span instead of raising, so the remaining findings for the text are returned normally. An empty span is not a reportable match in either implementation.",
+      "scope_reason": "Reproducing a crash is not a compatibility goal: the installed library must return results for ordinary Russian text. The difference is confined to the default-off PARAGRAPH_REPEAT_BEGINNING_RULE and only to inputs the pinned pipeline cannot process at all."
+    }
+  ]
+}

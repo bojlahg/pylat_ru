@@ -8,8 +8,8 @@
     "morfologik_version": "2.1.9"
   },
   "compatibility_status": {
-    "task_milestone": "0013_complete_upstream_russian_test_parity",
-    "overall_state": "COMPLETE_PINNED_RUSSIAN_TEST_PARITY",
+    "task_milestone": "0014_differential_corpus",
+    "overall_state": "FULL_PIPELINE_DIFFERENTIAL_PARITY",
     "summary": {
       "rules_total": 993,
       "grammar_rules_total": 892,
@@ -367,6 +367,64 @@
         }
       }
     },
-    "known_differences": []
+    "known_differences": [
+      {
+        "id": "PARAGRAPH_REPEAT_BEGINNING_RULE_EMPTY_SECOND_SPAN",
+        "kind": "PINNED_UPSTREAM_DEFECT",
+        "rule_id": "PARAGRAPH_REPEAT_BEGINNING_RULE",
+        "summary": "Pinned LanguageTool 6.8 raises IllegalArgumentException: fromPos and returns no result for these inputs, so no parity comparison is possible.",
+        "upstream_source": "languagetool-core/src/main/java/org/languagetool/rules/ParagraphRepeatBeginningRule.java",
+        "affected_executions": 37,
+        "record": "compat/differential_upstream_defects_0014.json"
+      }
+    ],
+    "task_0014_differential_corpus": {
+      "status": "COMPLETE",
+      "manifest": "compat/differential_corpus_0014_manifest.json",
+      "summary": "compat/differential_summary_0014.json",
+      "allowlist": "compat/differential_allowlist_0014.json",
+      "upstream_defects": "compat/differential_upstream_defects_0014.json",
+      "regression_fixture": "tests/fixtures/differential_regressions_0014.json",
+      "utf16_calibration_fixture": "tests/fixtures/oracle_utf16_calibration_0014.json",
+      "pinned_lt_version": "6.8",
+      "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+      "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+      "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+      "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
+      "input_manifest_sha256": "9a93f537508dd3836f1d037dd0c48b8439bed4dad0a8771c0383cc1c3b0c0a5f",
+      "unique_texts": 9615,
+      "profile_executions": 17425,
+      "comparable_executions": 17388,
+      "exact_cases": 17388,
+      "non_exact_cases": 0,
+      "java_findings": 25907,
+      "pylat_findings": 25993,
+      "java_oracle_error_cases": 37,
+      "python_errors": 0,
+      "unexplained_discrepancies": 0,
+      "ordinary_allowlist_entries": 0,
+      "full_observable_field_parity": 1.0,
+      "full_observable_field_parity_counts": {
+        "numerator": 17388,
+        "denominator": 17388
+      },
+      "committed_regression_cases": 238,
+      "profiles": [
+        "all_ordinary_enabled",
+        "cfg_filler_words_2",
+        "cfg_long_paragraph_30",
+        "cfg_long_sentence_15",
+        "cfg_speller_yo",
+        "default"
+      ],
+      "strata": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "external_corpus_committed": false
+    }
   }
 }

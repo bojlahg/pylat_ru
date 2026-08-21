@@ -7,7 +7,7 @@ server, Natasha, pymorphy, or another external NLP runtime.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any, List, Mapping, Sequence
 
 from pylat_ru.analysis import (
@@ -73,6 +73,69 @@ __all__ = [
 
 
 
+#: Characters pinned ``JLanguageTool.replaceSoftHyphens`` actually removes from the
+#: tokens the rules run on.  ``Russian.getIgnoredCharactersRegex()`` also names the
+#: combining acute and grave, but Task 0014 confirmed against the trusted oracle that
+#: the pinned check path leaves those in place: inside the pipeline a soft-hyphenated
+#: token appears cleaned, while a token carrying a combining mark keeps its original
+#: surface and its extra untagged reading.
+_IGNORED_CHARACTERS = "\u00ad"
+
+
+def _strip_ignored_characters(text: str) -> tuple[str, list[int] | None]:
+    """Remove the pinned ignored characters, returning the cleaned text and a map.
+
+    ``original_offsets[i]`` is the code-point index in ``text`` of the ``i``-th
+    character of the cleaned text; the list carries one extra trailing entry for the
+    end of the text.  ``None`` means the text had no ignored characters at all, so no
+    mapping is needed.
+    """
+    if not any(character in _IGNORED_CHARACTERS for character in text):
+        return text, None
+    cleaned_characters: list[str] = []
+    original_offsets: list[int] = []
+    for index, character in enumerate(text):
+        if character in _IGNORED_CHARACTERS:
+            continue
+        cleaned_characters.append(character)
+        original_offsets.append(index)
+    original_offsets.append(len(text))
+    return "".join(cleaned_characters), original_offsets
+
+
+def _restore_ignored_character_offsets(
+    match: "RuleMatch", original_offsets: list[int], text: str
+) -> "RuleMatch":
+    """Map one match from cleaned-text positions back onto the original text.
+
+    The end position is taken from the last covered character, so ignored characters
+    that sat inside the match are counted back into its length, exactly as the pinned
+    position fix-up does.
+    """
+    start = original_offsets[match.offset]
+    if match.length <= 0:
+        end = start
+    else:
+        end = original_offsets[match.offset + match.length - 1] + 1
+    utf16_start = _utf16_offset_of(text, start)
+    utf16_end = _utf16_offset_of(text, end)
+    return replace(
+        match,
+        offset=start,
+        length=end - start,
+        utf16_offset=utf16_start,
+        utf16_length=utf16_end - utf16_start,
+        original_error=text[start:end],
+    )
+
+
+def _utf16_offset_of(text: str, code_point_offset: int) -> int:
+    """UTF-16 code-unit offset of a code-point offset in ``text``."""
+    return code_point_offset + sum(
+        1 for character in text[:code_point_offset] if ord(character) > 0xFFFF
+    )
+
+
 @dataclass(frozen=True)
 class RuleMatch:
     """Represents a single rule match / finding."""
@@ -128,10 +191,22 @@ class LanguageToolRU:
                 self.grammar_engine.enable_rule(rule_id)
 
     def check(self, text: str) -> List[RuleMatch]:
-        """Check Russian text without Java or an external NLP runtime."""
+        r"""Check Russian text without Java or an external NLP runtime.
+
+        Pinned ``JLanguageTool`` removes the Russian ignored characters
+        ``[\u00AD\u0301\u0300]`` from every token before the rules run, so the whole
+        rule pipeline sees the cleaned text; only the reported positions are mapped
+        back onto the original.  ``RussianSentenceAnalyzer`` keeps the uncleaned
+        surface in an extra reading for the public analysis API, which is why a
+        rule-level check and a whole-pipeline check legitimately differ on such text.
+        """
         if not text:
             return []
-        return filter_rule_matches(self._collect_matches(text), text)
+        cleaned, original_offsets = _strip_ignored_characters(text)
+        matches = filter_rule_matches(self._collect_matches(cleaned), cleaned)
+        if original_offsets is None:
+            return matches
+        return [_restore_ignored_character_offsets(m, original_offsets, text) for m in matches]
 
     def _collect_matches(self, text: str) -> list[RuleMatch]:
         """Collect matches in pinned rule-execution order before global filters."""

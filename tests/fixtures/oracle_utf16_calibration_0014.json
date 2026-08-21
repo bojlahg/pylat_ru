@@ -1,0 +1,8857 @@
+{
+  "cases": [
+    {
+      "case_id": "utf16_0000",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "😀 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0001",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          26,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          24,
+          7
+        ]
+      ],
+      "text": "😀🚀 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 34,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0002",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          30,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          26,
+          7
+        ]
+      ],
+      "text": "😀🚀🤔📚 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0003",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          7
+        ]
+      ],
+      "text": "Это тестовый текст с ашибкой. 🤔",
+      "text_code_point_length": 31,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0004",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "📚 Это тестовый текст с ашибкой. 📚",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0005",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "Это 🚀 тестовый текст с ашибкой.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0006",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          41,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          33,
+          7
+        ]
+      ],
+      "text": "Это 😀🤔 тестовый 😀🤔 текст 😀🤔 с 😀🤔 ашибкой.",
+      "text_code_point_length": 41,
+      "text_utf16_length": 49,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0007",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          27,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          26,
+          7
+        ]
+      ],
+      "text": "❤ 😀 «Это тестовый текст с ашибкой.»",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0008",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          8,
+          [
+            "ошибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          8
+        ]
+      ],
+      "text": "Это тестовый текст с а́шибкой.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 30,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0009",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          22,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          22,
+          7
+        ]
+      ],
+      "text": "Это̀ тестовый текст с ашибкой.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 30,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0010",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          23,
+          8,
+          [
+            "ошибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          8
+        ]
+      ],
+      "text": "Это те́стовый те́кст с ашѝбкой.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 32,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0011",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          8,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [],
+      "text": "Это тестовый текст с а­шибкой.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 30,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0012",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          23,
+          8,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [],
+      "text": "Это­ тесто­вый текст с ашибко­й.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 32,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0013",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          7
+        ]
+      ],
+      "text": "Это тестовый текст с ашибкой.",
+      "text_code_point_length": 29,
+      "text_utf16_length": 29,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0014",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          27,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          25,
+          7
+        ]
+      ],
+      "text": "👨‍💻 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0015",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          26,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          24,
+          7
+        ]
+      ],
+      "text": "𝐀𝐁 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 34,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0016",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "🚀 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0017",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          54,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          7
+        ],
+        [
+          53,
+          7
+        ]
+      ],
+      "text": "Это тестовый текст с ашибкой. 📚 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 61,
+      "text_utf16_length": 62,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0018",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "«😀Это тестовый текст с ашибкой.🚀»",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0019",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          25,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          24,
+          7
+        ]
+      ],
+      "text": "🤔\n\nЭто тестовый текст с ашибкой.\n\n📚",
+      "text_code_point_length": 35,
+      "text_utf16_length": 37,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0020",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "text": "😀 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0021",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          9,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          20,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          7,
+          2
+        ],
+        [
+          18,
+          2
+        ]
+      ],
+      "text": "😀🚀 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0022",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          13,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          24,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ],
+        [
+          20,
+          2
+        ]
+      ],
+      "text": "😀🚀🤔📚 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 39,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0023",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , и папа тоже. 🤔",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0024",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "text": "📚 Мама  мыла раму , и папа тоже. 📚",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0025",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "text": "Мама 🚀  мыла раму , и папа тоже.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0026",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          9,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          35,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          7,
+          2
+        ],
+        [
+          27,
+          2
+        ]
+      ],
+      "text": "Мама 😀🤔  😀🤔 мыла 😀🤔 раму 😀🤔 , 😀🤔 и 😀🤔 папа 😀🤔 тоже.",
+      "text_code_point_length": 51,
+      "text_utf16_length": 65,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0027",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          10,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          21,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ],
+        [
+          20,
+          2
+        ]
+      ],
+      "text": "❤ 😀 «Мама  мыла раму , и папа тоже.»",
+      "text_code_point_length": 36,
+      "text_utf16_length": 37,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0028",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          5,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          16,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          5,
+          2
+        ],
+        [
+          16,
+          2
+        ]
+      ],
+      "text": "Ма́ма  мыла раму , и папа тоже.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0029",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , и папа то̀же.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0030",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , ѝ папа тоже́.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 32,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0031",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          5,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          16,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          5,
+          2
+        ],
+        [
+          16,
+          2
+        ]
+      ],
+      "text": "Ма­ма  мыла раму , и папа тоже.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0032",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , и папа то­же.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0033",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 30,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0034",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          10,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          21,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          8,
+          2
+        ],
+        [
+          19,
+          2
+        ]
+      ],
+      "text": "👨‍💻 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0035",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          9,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          20,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          7,
+          2
+        ],
+        [
+          18,
+          2
+        ]
+      ],
+      "text": "𝐀𝐁 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0036",
+      "has_combining": true,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          19,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          18,
+          2
+        ]
+      ],
+      "text": "🚀 Мама  мыла раму́ , и папа тоже.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 34,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0037",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          4,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ],
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          38,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          49,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          2
+        ],
+        [
+          15,
+          2
+        ],
+        [
+          37,
+          2
+        ],
+        [
+          48,
+          2
+        ]
+      ],
+      "text": "Мама  мыла раму , и папа тоже. 📚 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 63,
+      "text_utf16_length": 64,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0038",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "text": "«😀Мама  мыла раму , и папа тоже.🚀»",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0039",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Повтор пробела",
+          "",
+          8,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          19,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          7,
+          2
+        ],
+        [
+          18,
+          2
+        ]
+      ],
+      "text": "🤔\n\nМама  мыла раму , и папа тоже.\n\n📚",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0040",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "😀 Он сказал , что придёт завтра.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0041",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          14,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          2
+        ]
+      ],
+      "text": "😀🚀 Он сказал , что придёт завтра.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0042",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          2
+        ]
+      ],
+      "text": "😀🚀🤔📚 Он сказал , что придёт завтра.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 39,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0043",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ]
+      ],
+      "text": "Он сказал , что придёт завтра. 🤔",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0044",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "📚 Он сказал , что придёт завтра. 📚",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0045",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "Он 🚀 сказал , что придёт завтра.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0046",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          19,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          2
+        ]
+      ],
+      "text": "Он 😀🤔 сказал 😀🤔 , 😀🤔 что 😀🤔 придёт 😀🤔 завтра.",
+      "text_code_point_length": 45,
+      "text_utf16_length": 55,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0047",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          2
+        ]
+      ],
+      "text": "❤ 😀 «Он сказал , что придёт завтра.»",
+      "text_code_point_length": 36,
+      "text_utf16_length": 37,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0048",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          10,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          10,
+          2
+        ]
+      ],
+      "text": "Он ска́зал , что придёт завтра.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0049",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ]
+      ],
+      "text": "Он сказал , что̀ придёт завтра.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0050",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ]
+      ],
+      "text": "Он сказал , что прѝдёт завтра.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0051",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          10,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          10,
+          2
+        ]
+      ],
+      "text": "Он ска­зал , что придёт завтра.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0052",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ]
+      ],
+      "text": "Он сказал , что­ придёт завтра.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 31,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0053",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ]
+      ],
+      "text": "Он сказал , что придёт завтра.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 30,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0054",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          15,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          2
+        ]
+      ],
+      "text": "👨‍💻 Он сказал , что придёт завтра.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0055",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          14,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          2
+        ]
+      ],
+      "text": "𝐀𝐁 Он сказал , что придёт завтра.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0056",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "🚀 Он сказал , что придёт завтра.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0057",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          9,
+          2,
+          [
+            ","
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          43,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          9,
+          2
+        ],
+        [
+          42,
+          2
+        ]
+      ],
+      "text": "Он сказал , что придёт завтра. 📚 Он сказал , что придёт завтра.",
+      "text_code_point_length": 63,
+      "text_utf16_length": 64,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0058",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "«😀Он сказал , что придёт завтра.🚀»",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0059",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          13,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          2
+        ]
+      ],
+      "text": "🤔\n\nОн сказал , что придёт завтра.\n\n📚",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0060",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "😀 Ошибочный текст текст здесь.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0061",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          15,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          11
+        ]
+      ],
+      "text": "😀🚀 Ошибочный текст текст здесь.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0062",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          19,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          11
+        ]
+      ],
+      "text": "😀🚀🤔📚 Ошибочный текст текст здесь.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 37,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0063",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          10,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          10,
+          11
+        ]
+      ],
+      "text": "Ошибочный текст текст здесь. 🤔",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0064",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "📚 Ошибочный текст текст здесь. 📚",
+      "text_code_point_length": 32,
+      "text_utf16_length": 34,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0065",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "Ошибочный 🚀 текст текст здесь.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0066",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Ошибочный 😀🤔 текст 😀🤔 текст 😀🤔 здесь.",
+      "text_code_point_length": 37,
+      "text_utf16_length": 43,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0067",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          16,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          11
+        ]
+      ],
+      "text": "❤ 😀 «Ошибочный текст текст здесь.»",
+      "text_code_point_length": 34,
+      "text_utf16_length": 35,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0068",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          11,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          11
+        ]
+      ],
+      "text": "Ошибо̀чный текст текст здесь.",
+      "text_code_point_length": 29,
+      "text_utf16_length": 29,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0069",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          11,
+          13,
+          [
+            "те́кст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          13
+        ]
+      ],
+      "text": "Ошѝбочный те́кст те́кст зде́сь.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 32,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0070",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          11,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          11
+        ]
+      ],
+      "text": "Ошибо­чный текст текст здесь.",
+      "text_code_point_length": 29,
+      "text_utf16_length": 29,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0071",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          10,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          10,
+          11
+        ]
+      ],
+      "text": "Ошибочный текст текст здесь.",
+      "text_code_point_length": 28,
+      "text_utf16_length": 28,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0072",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          16,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          11
+        ]
+      ],
+      "text": "👨‍💻 Ошибочный текст текст здесь.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 34,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0073",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          15,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          11
+        ]
+      ],
+      "text": "𝐀𝐁 Ошибочный текст текст здесь.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0074",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "🚀 Ошибочный текст текст здесь.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0075",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          10,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ],
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          42,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          10,
+          11
+        ],
+        [
+          41,
+          11
+        ]
+      ],
+      "text": "Ошибочный текст текст здесь. 📚 Ошибочный текст текст здесь.",
+      "text_code_point_length": 59,
+      "text_utf16_length": 60,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0076",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "«😀Ошибочный текст текст здесь.🚀»",
+      "text_code_point_length": 32,
+      "text_utf16_length": 34,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0077",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          14,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          11
+        ]
+      ],
+      "text": "🤔\n\nОшибочный текст текст здесь.\n\n📚",
+      "text_code_point_length": 34,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0078",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "😀 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0079",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          19,
+          6
+        ]
+      ],
+      "text": "😀🚀 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0080",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          25,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          6
+        ]
+      ],
+      "text": "😀🚀🤔📚 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 38,
+      "text_utf16_length": 42,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0081",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          6
+        ]
+      ],
+      "text": "Всё хорошо, что харашо кончается. 🤔",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0082",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "📚 Всё хорошо, что харашо кончается. 📚",
+      "text_code_point_length": 37,
+      "text_utf16_length": 39,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0083",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "Всё 🚀 хорошо, что харашо кончается.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0084",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          31,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          25,
+          6
+        ]
+      ],
+      "text": "Всё 😀🤔 хорошо, 😀🤔 что 😀🤔 харашо 😀🤔 кончается.",
+      "text_code_point_length": 45,
+      "text_utf16_length": 53,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0085",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          22,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          21,
+          6
+        ]
+      ],
+      "text": "❤ 😀 «Всё хорошо, что харашо кончается.»",
+      "text_code_point_length": 39,
+      "text_utf16_length": 40,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0086",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          7,
+          [
+            "хорошо"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          7
+        ]
+      ],
+      "text": "Всё хорошо, что ха́рашо кончается.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 34,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0087",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          17,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          17,
+          6
+        ]
+      ],
+      "text": "Всё хо̀рошо, что харашо кончается.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 34,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0088",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          6
+        ]
+      ],
+      "text": "Всё хорошо, что харашо кончае́тся.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 34,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0089",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          7,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [],
+      "text": "Всё хорошо, что ха­рашо кончается.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 34,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0090",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          20,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [],
+      "text": "Всё хо­ро­шо­, что­ харашо­ ко­нчается.",
+      "text_code_point_length": 39,
+      "text_utf16_length": 39,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0091",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          6
+        ]
+      ],
+      "text": "Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 33,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0092",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          22,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          20,
+          6
+        ]
+      ],
+      "text": "👨‍💻 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 37,
+      "text_utf16_length": 39,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0093",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          19,
+          6
+        ]
+      ],
+      "text": "𝐀𝐁 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0094",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "🚀 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0095",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          53,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          6
+        ],
+        [
+          52,
+          6
+        ]
+      ],
+      "text": "Всё хорошо, что харашо кончается. 📚 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 69,
+      "text_utf16_length": 70,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0096",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "«😀Всё хорошо, что харашо кончается.🚀»",
+      "text_code_point_length": 37,
+      "text_utf16_length": 39,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0097",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          20,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          19,
+          6
+        ]
+      ],
+      "text": "🤔\n\nВсё хорошо, что харашо кончается.\n\n📚",
+      "text_code_point_length": 39,
+      "text_utf16_length": 41,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0098",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "😀 Она читала книгу и книгу читала.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0099",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "😀🚀 Она читала книгу и книгу читала.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 37,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0100",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "😀🚀🤔📚 Она читала книгу и книгу читала.",
+      "text_code_point_length": 37,
+      "text_utf16_length": 41,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0101",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она читала книгу и книгу читала. 🤔",
+      "text_code_point_length": 34,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0102",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "📚 Она читала книгу и книгу читала. 📚",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0103",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она 🚀 читала книгу и книгу читала.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 35,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0104",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она 😀🤔 читала 😀🤔 книгу 😀🤔 и 😀🤔 книгу 😀🤔 читала.",
+      "text_code_point_length": 47,
+      "text_utf16_length": 57,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0105",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "❤ 😀 «Она читала книгу и книгу читала.»",
+      "text_code_point_length": 38,
+      "text_utf16_length": 39,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0106",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она́ читала книгу и книгу читала.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 33,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0107",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она чѝтала кнѝгу ѝ кнѝгу чѝтала.",
+      "text_code_point_length": 37,
+      "text_utf16_length": 37,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0108",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она­ читала книгу и книгу читала.",
+      "text_code_point_length": 33,
+      "text_utf16_length": 33,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0109",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она читала книгу и книгу читала.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 32,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0110",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "👨‍💻 Она читала книгу и книгу читала.",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0111",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "𝐀𝐁 Она читала книгу и книгу читала.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 37,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0112",
+      "has_combining": true,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "🚀 Она читала книгу́ и книгу читала.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0113",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "Она читала книгу и книгу читала. 📚 Она читала книгу и книгу читала.",
+      "text_code_point_length": 67,
+      "text_utf16_length": 68,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0114",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "«😀Она читала книгу и книгу читала.🚀»",
+      "text_code_point_length": 36,
+      "text_utf16_length": 38,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0115",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "🤔\n\nОна читала книгу и книгу читала.\n\n📚",
+      "text_code_point_length": 38,
+      "text_utf16_length": 40,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0116",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          2,
+          3
+        ]
+      ],
+      "text": "😀 Ето неправильное слово.",
+      "text_code_point_length": 25,
+      "text_utf16_length": 26,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0117",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          5,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          3,
+          3
+        ]
+      ],
+      "text": "😀🚀 Ето неправильное слово.",
+      "text_code_point_length": 26,
+      "text_utf16_length": 28,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0118",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          9,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          5,
+          3
+        ]
+      ],
+      "text": "😀🚀🤔📚 Ето неправильное слово.",
+      "text_code_point_length": 28,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0119",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето неправильное слово. 🤔",
+      "text_code_point_length": 25,
+      "text_utf16_length": 26,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0120",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          2,
+          3
+        ]
+      ],
+      "text": "📚 Ето неправильное слово. 📚",
+      "text_code_point_length": 27,
+      "text_utf16_length": 29,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0121",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето 🚀 неправильное слово.",
+      "text_code_point_length": 25,
+      "text_utf16_length": 26,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0122",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето 😀🤔 неправильное 😀🤔 слово.",
+      "text_code_point_length": 29,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0123",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          6,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          5,
+          3
+        ]
+      ],
+      "text": "❤ 😀 «Ето неправильное слово.»",
+      "text_code_point_length": 29,
+      "text_utf16_length": 30,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0124",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето непра́вильное слово.",
+      "text_code_point_length": 24,
+      "text_utf16_length": 24,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0125",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          4,
+          [
+            "Тот",
+            "Что",
+            "Этот",
+            "Кто",
+            "То",
+            "Это",
+            "Стол",
+            "Чтоб",
+            "Сто",
+            "Итог",
+            "Тон",
+            "Том",
+            "Стон",
+            "Ток",
+            "Атом",
+            "Стоп",
+            "Стоя",
+            "Стог",
+            "Вто",
+            "Ото",
+            "Сток",
+            "Атон",
+            "Тоф",
+            "Тол",
+            "Топ",
+            "Тор",
+            "Гто",
+            "Той",
+            "Шток",
+            "Штос",
+            "Ютою",
+            "Ютой",
+            "Ютом",
+            "Ютов",
+            "Ато",
+            "Атою",
+            "Атой",
+            "Атол",
+            "Атос",
+            "Атот",
+            "Фтор",
+            "Отёк",
+            "Отёл",
+            "Отёр",
+            "Птоз",
+            "Яток",
+            "Ртом",
+            "Ртов",
+            "Стёб",
+            "Стёг",
+            "Стёк",
+            "Стёр",
+            "Стою",
+            "Стоа",
+            "Стой",
+            "Стом",
+            "Тою",
+            "Тое",
+            "Тог",
+            "Тои",
+            "Тоо",
+            "Тоя",
+            "Тож",
+            "Тов",
+            "Тош",
+            "Тощ",
+            "Утёк",
+            "Утёр",
+            "Утёс",
+            "Уток",
+            "Утоп",
+            "Утор",
+            "Втёк",
+            "Втёр",
+            "Втор",
+            "Штоф",
+            "Штор",
+            "Этою",
+            "Этой",
+            "Этом",
+            "Этос",
+            "Чтём",
+            "Чтёт",
+            "Атов",
+            "Егор",
+            "Егоз",
+            "Ектов",
+            "Елон",
+            "Енох",
+            "Енов",
+            "Ентою",
+            "Ентой",
+            "Ентов",
+            "Епов",
+            "Еров",
+            "Ертов",
+            "Есов",
+            "Етар",
+            "Етоев",
+            "Етров",
+            "Ежов",
+            "Евою",
+            "Евой",
+            "Езов",
+            "Итон",
+            "Ктов",
+            "Ятов",
+            "Утов",
+            "Штод"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          4
+        ]
+      ],
+      "text": "Ето̀ неправильное слово.",
+      "text_code_point_length": 24,
+      "text_utf16_length": 24,
+      "unicode_kind": "combining_grave"
+    },
+    {
+      "case_id": "utf16_0126",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето не́правѝльное́ слово.",
+      "text_code_point_length": 26,
+      "text_utf16_length": 26,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0127",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето непра­вильное слово.",
+      "text_code_point_length": 24,
+      "text_utf16_length": 24,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0128",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [],
+      "text": "Ето­ неправильно­е сло­во­.",
+      "text_code_point_length": 27,
+      "text_utf16_length": 27,
+      "unicode_kind": "soft_hyphen_many"
+    },
+    {
+      "case_id": "utf16_0129",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
+      "text": "Ето неправильное слово.",
+      "text_code_point_length": 23,
+      "text_utf16_length": 23,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0130",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          6,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          4,
+          3
+        ]
+      ],
+      "text": "👨‍💻 Ето неправильное слово.",
+      "text_code_point_length": 27,
+      "text_utf16_length": 29,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0131",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          5,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          3,
+          3
+        ]
+      ],
+      "text": "𝐀𝐁 Ето неправильное слово.",
+      "text_code_point_length": 26,
+      "text_utf16_length": 28,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0132",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          2,
+          3
+        ]
+      ],
+      "text": "🚀 Ето неправильное слово.",
+      "text_code_point_length": 25,
+      "text_utf16_length": 26,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0133",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          0,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          27,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ],
+        [
+          26,
+          3
+        ]
+      ],
+      "text": "Ето неправильное слово. 📚 Ето неправильное слово.",
+      "text_code_point_length": 49,
+      "text_utf16_length": 50,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0134",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "«😀Ето неправильное слово.🚀»",
+      "text_code_point_length": 27,
+      "text_utf16_length": 29,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0135",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          4,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          3,
+          3
+        ]
+      ],
+      "text": "🤔\n\nЕто неправильное слово.\n\n📚",
+      "text_code_point_length": 29,
+      "text_utf16_length": 31,
+      "unicode_kind": "nonbmp_paragraphs"
+    },
+    {
+      "case_id": "utf16_0136",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "😀 Привет, как дила у тебя?",
+      "text_code_point_length": 26,
+      "text_utf16_length": 27,
+      "unicode_kind": "nonbmp_prefix_single"
+    },
+    {
+      "case_id": "utf16_0137",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          17,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          4
+        ]
+      ],
+      "text": "😀🚀 Привет, как дила у тебя?",
+      "text_code_point_length": 27,
+      "text_utf16_length": 29,
+      "unicode_kind": "nonbmp_prefix_double"
+    },
+    {
+      "case_id": "utf16_0138",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          21,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          17,
+          4
+        ]
+      ],
+      "text": "😀🚀🤔📚 Привет, как дила у тебя?",
+      "text_code_point_length": 29,
+      "text_utf16_length": 33,
+      "unicode_kind": "nonbmp_prefix_quad"
+    },
+    {
+      "case_id": "utf16_0139",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          12,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          4
+        ]
+      ],
+      "text": "Привет, как дила у тебя? 🤔",
+      "text_code_point_length": 26,
+      "text_utf16_length": 27,
+      "unicode_kind": "nonbmp_suffix"
+    },
+    {
+      "case_id": "utf16_0140",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "📚 Привет, как дила у тебя? 📚",
+      "text_code_point_length": 28,
+      "text_utf16_length": 30,
+      "unicode_kind": "nonbmp_surround"
+    },
+    {
+      "case_id": "utf16_0141",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "Привет, 🚀 как дила у тебя?",
+      "text_code_point_length": 26,
+      "text_utf16_length": 27,
+      "unicode_kind": "nonbmp_infix_word"
+    },
+    {
+      "case_id": "utf16_0142",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          22,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          4
+        ]
+      ],
+      "text": "Привет, 😀🤔 как 😀🤔 дила 😀🤔 у 😀🤔 тебя?",
+      "text_code_point_length": 36,
+      "text_utf16_length": 44,
+      "unicode_kind": "nonbmp_repeated_infix"
+    },
+    {
+      "case_id": "utf16_0143",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          18,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          17,
+          4
+        ]
+      ],
+      "text": "❤ 😀 «Привет, как дила у тебя?»",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "bmp_and_nonbmp_mixture"
+    },
+    {
+      "case_id": "utf16_0144",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          13,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          4
+        ]
+      ],
+      "text": "Привет, ка́к дила у тебя?",
+      "text_code_point_length": 25,
+      "text_utf16_length": 25,
+      "unicode_kind": "combining_acute"
+    },
+    {
+      "case_id": "utf16_0145",
+      "has_combining": true,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          14,
+          5,
+          [
+            "дела",
+            "диола",
+            "диолу"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          5
+        ]
+      ],
+      "text": "Прѝве́т, как дѝла у те́бя?",
+      "text_code_point_length": 28,
+      "text_utf16_length": 28,
+      "unicode_kind": "combining_multiple"
+    },
+    {
+      "case_id": "utf16_0146",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          13,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          13,
+          4
+        ]
+      ],
+      "text": "Привет, ка­к дила у тебя?",
+      "text_code_point_length": 25,
+      "text_utf16_length": 25,
+      "unicode_kind": "soft_hyphen_infix"
+    },
+    {
+      "case_id": "utf16_0147",
+      "has_combining": false,
+      "has_non_bmp": false,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          12,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          4
+        ]
+      ],
+      "text": "Привет, как дила у тебя?",
+      "text_code_point_length": 24,
+      "text_utf16_length": 24,
+      "unicode_kind": "nbsp_boundaries"
+    },
+    {
+      "case_id": "utf16_0148",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          18,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          16,
+          4
+        ]
+      ],
+      "text": "👨‍💻 Привет, как дила у тебя?",
+      "text_code_point_length": 28,
+      "text_utf16_length": 30,
+      "unicode_kind": "zero_width_joiner"
+    },
+    {
+      "case_id": "utf16_0149",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          17,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          4
+        ]
+      ],
+      "text": "𝐀𝐁 Привет, как дила у тебя?",
+      "text_code_point_length": 27,
+      "text_utf16_length": 29,
+      "unicode_kind": "nonbmp_math_symbols"
+    },
+    {
+      "case_id": "utf16_0150",
+      "has_combining": true,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "🚀 Привет, как дила у́ тебя?",
+      "text_code_point_length": 27,
+      "text_utf16_length": 28,
+      "unicode_kind": "nonbmp_and_combining"
+    },
+    {
+      "case_id": "utf16_0151",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          12,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ],
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          40,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          4
+        ],
+        [
+          39,
+          4
+        ]
+      ],
+      "text": "Привет, как дила у тебя? 📚 Привет, как дила у тебя?",
+      "text_code_point_length": 51,
+      "text_utf16_length": 52,
+      "unicode_kind": "nonbmp_between_sentences"
+    },
+    {
+      "case_id": "utf16_0152",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "«😀Привет, как дила у тебя?🚀»",
+      "text_code_point_length": 28,
+      "text_utf16_length": 30,
+      "unicode_kind": "nonbmp_inside_quotes"
+    },
+    {
+      "case_id": "utf16_0153",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          16,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          15,
+          4
+        ]
+      ],
+      "text": "🤔\n\nПривет, как дила у тебя?\n\n📚",
+      "text_code_point_length": 30,
+      "text_utf16_length": 32,
+      "unicode_kind": "nonbmp_paragraphs"
+    }
+  ],
+  "metadata": {
+    "finding_field_order": [
+      "rule_id",
+      "category_id",
+      "message",
+      "short_message",
+      "utf16_offset",
+      "utf16_length",
+      "suggestions",
+      "url"
+    ],
+    "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
+    "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
+    "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
+    "pinned_lt_version": "6.8",
+    "position_domain": "UTF-16 code units, as produced by java.lang.String indexing",
+    "profile": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [],
+      "profile_id": "default",
+      "rule_config": {}
+    }
+  },
+  "schema_version": "1.0.0",
+  "task": "0014"
+}

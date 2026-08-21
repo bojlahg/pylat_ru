@@ -31,6 +31,10 @@ from pylat_ru.tagging.string_tools import (
 # know; PatternRuleHandler.PLEASE_SPELL_ME marks a suggestion that must be
 # dropped when that happens.  The suggestion text itself is never emitted, so a
 # private sentinel is enough to carry the same decision through formatting.
+#: Tags pinned ``MatchState.toFinalString`` treats as sentence/paragraph markers
+#: while deciding whether a lemma-less reading forces the surface form.
+_SENTENCE_BOUNDARY_TAGS = frozenset(("SENT_START", "SENT_END", "PARA_END"))
+
 SPELL_SUPPRESS_MARK = "\ue000pylat_ru:mistake\ue000"
 
 
@@ -249,12 +253,30 @@ def resolve_match_reference_forms(
     synthesis_failed = False
     if target_pos and synth:
         if ref.postag_regexp and ref.lemma is None:
-            # MatchState collects the forms of every reading in a TreeSet.
+            # MatchState collects the forms of every reading in a TreeSet, but only
+            # after a pre-pass over the lemma-less readings.  A reading with neither
+            # lemma nor POS tag -- which is what a token carrying a combining mark
+            # keeps alongside its tagged reading -- sets ``oneForm`` and contributes
+            # the surface token itself, and synthesis is then skipped altogether.
             forms: set = set()
+            one_form = False
             for rd in target_atr.readings:
-                produced = synth.synthesize(rd, target_pos, pos_tag_is_regex=True)
-                if produced:
-                    forms.update(produced)
+                if rd.lemma is not None:
+                    continue
+                if rd.pos_tag is None:
+                    forms.add(target_atr.token or "")
+                    one_form = True
+                elif rd.pos_tag in _SENTENCE_BOUNDARY_TAGS:
+                    if not one_form:
+                        forms.add(target_atr.token or "")
+                    one_form = True
+                else:
+                    one_form = False
+            if not one_form:
+                for rd in target_atr.readings:
+                    produced = synth.synthesize(rd, target_pos, pos_tag_is_regex=True)
+                    if produced:
+                        forms.update(produced)
             if forms:
                 words = sorted(forms)
             else:
@@ -265,7 +287,11 @@ def resolve_match_reference_forms(
             tok_input = ref.lemma if ref.lemma is not None else (target_at if target_at is not None else raw_word)
             synth_forms = synth.synthesize(tok_input, target_pos, pos_tag_is_regex=ref.postag_regexp)
             if synth_forms:
-                words = list(synth_forms)
+                # MatchState.toFinalString collects every synthesized form in a
+                # TreeSet in both of its branches, so upstream output is
+                # deduplicated and sorted.  A token whose readings all map to the
+                # same target tag otherwise yields the same form several times.
+                words = sorted(set(synth_forms))
             elif ref.lemma:
                 words = [ref.lemma]
             else:
@@ -431,10 +457,10 @@ class TemplateFormatter:
             if sug_block is not None:
                 message_chunks.append(f"<suggestion>{sug_block}</suggestion>")
 
-        formatted = "".join(message_chunks)
-        # Collapse multiple consecutive spaces
-        formatted = regex.sub(r" {2,}", " ", formatted)
-        return formatted
+        # Pinned PatternRuleMatcher only deletes the PLEASE_SPELL_ME and MISTAKE
+        # markers from the message; it never collapses the whitespace a removed
+        # <suggestion> block leaves behind, so neither does this.
+        return "".join(message_chunks)
 
     @staticmethod
     def format_suggestions_list(
