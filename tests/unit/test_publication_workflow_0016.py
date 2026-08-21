@@ -17,6 +17,9 @@ def load_workflow() -> dict[str, object]:
 def test_release_identity_and_evidence_contract() -> None:
     workflow = load_workflow()
     assert workflow["on"]["push"]["tags"] == ["v*"]
+    recovery = workflow["on"]["workflow_dispatch"]["inputs"]
+    assert set(recovery) == {"release_tag", "release_sha"}
+    assert all(value["required"] == "true" for value in recovery.values())
     evidence = json.loads((ROOT / "compat/publication_0016.json").read_text(encoding="utf-8"))
     assert evidence["release_version"] == "0.1.0a0"
     assert evidence["release_tag"] == "v0.1.0a0"
@@ -25,6 +28,23 @@ def test_release_identity_and_evidence_contract() -> None:
         "testpypi_environment": "testpypi", "pypi_environment": "pypi",
         "permanent_token_required": False,
     }
+
+
+def test_every_source_checkout_uses_the_immutable_release_tag() -> None:
+    workflow = load_workflow()
+    checkout_refs = [
+        step["with"]["ref"]
+        for job in workflow["jobs"].values()
+        for step in job["steps"]
+        if step.get("uses") == "actions/checkout@v4"
+    ]
+    assert checkout_refs
+    assert set(checkout_refs) == {"${{ env.RELEASE_TAG }}"}
+    verification = "\n".join(
+        str(step.get("run", "")) for step in workflow["jobs"]["verify-source"]["steps"]
+    )
+    assert 'git rev-list -n 1 "$RELEASE_TAG"' in verification
+    assert 'git rev-parse HEAD' in verification
 
 
 def test_publish_jobs_are_ordered_and_oidc_is_scoped() -> None:

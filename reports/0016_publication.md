@@ -12,8 +12,10 @@ remains zero unexplained discrepancies, and `RussianConfusionProbabilityRule` re
 
 ## Release architecture
 
-`.github/workflows/release.yml` is isolated from normal CI and runs only for `v*` tag
-pushes. It verifies the exact checkout/tag/source versions and refuses an occupied index
+`.github/workflows/release.yml` is isolated from normal CI and normally runs for `v*` tag
+pushes. A recovery-only manual dispatch requires both an existing immutable tag and its
+exact accepted source SHA; the workflow checks out the tag and proves that both identities
+match before continuing. It verifies the source versions and refuses an occupied index
 namespace or immutable version. It then reuses the Task-0015 preflight to build wheel and
 sdist once, run Twine validation and content audits, clean-install both artifacts, run
 `pip check`, and execute the installed functional smoke. The resulting manifest binds the
