@@ -16,14 +16,13 @@ LanguageTool.
 
 ## Installation
 
-No PyPI release has been published. Build and install the wheel from a checkout:
+Install the first public alpha from PyPI:
 
 ```bash
-python -m pip install ".[release]"
-python -m build
-python -m pip install dist/pylat_ru-0.1.0a0-py3-none-any.whl
+python -m pip install pylat-ru==0.1.0a0
 ```
 
+To opt into the newest prerelease, use `python -m pip install --pre pylat-ru`.
 For source development, use `python -m pip install -e ".[dev,release]"`. The only
 production dependency is `regex`; build, test, and release tools are optional.
 

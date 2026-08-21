@@ -101,6 +101,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=ROOT / "compat/package_contents_0015.json")
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--keep-dist", type=Path)
+    parser.add_argument("--release-tag")
     parser.add_argument("--skip-install", action="store_true")
     args = parser.parse_args()
 
@@ -177,10 +178,15 @@ def main() -> int:
         args.output.write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
         manifest = {"source_sha": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                    "package_version": "0.1.0a0", "wheel": {"filename": wheel.name, "sha256": sha256(wheel), "size_bytes": wheel.stat().st_size},
+                    "tag": args.release_tag, "package_version": "0.1.0a0", "wheel": {"filename": wheel.name, "sha256": sha256(wheel), "size_bytes": wheel.stat().st_size},
                     "sdist": {"filename": sdist.name, "sha256": sha256(sdist), "size_bytes": sdist.stat().st_size},
-                    "metadata_validation": "PASS", "content_audit": "PASS"}
+                    "metadata_validation": "PASS", "wheel_audit": "PASS", "sdist_audit": "PASS",
+                    "clean_wheel_install": "PASS" if not args.skip_install else "SKIPPED",
+                    "clean_sdist_install": "PASS" if not args.skip_install else "SKIPPED",
+                    "pip_check": "PASS" if not args.skip_install else "SKIPPED",
+                    "installed_functional_smoke": "PASS" if not args.skip_install else "SKIPPED"}
         if args.manifest:
+            args.manifest.parent.mkdir(parents=True, exist_ok=True)
             args.manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
         if args.keep_dist:
             args.keep_dist.mkdir(parents=True, exist_ok=True)

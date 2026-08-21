@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "task": "0016",
+  "distribution_name": "pylat-ru",
+  "normalized_distribution_name": "pylat-ru",
+  "import_package": "pylat_ru",
+  "release_version": "0.1.0a0",
+  "release_tag": "v0.1.0a0",
+  "workflow_paths": [".github/workflows/release.yml"],
+  "github_environments": ["testpypi", "pypi"],
+  "trusted_publishing": {
+    "owner": "bojlahg",
+    "repository": "pylat_ru",
+    "workflow": "release.yml",
+    "testpypi_environment": "testpypi",
+    "pypi_environment": "pypi",
+    "permanent_token_required": false
+  },
+  "artifact_policy": {
+    "build_once": true,
+    "wheel_tag": "py3-none-any",
+    "artifacts": ["wheel", "sdist"],
+    "same_bytes_testpypi_pypi_github_release": true,
+    "github_release_attachments": ["wheel", "sdist"]
+  },
+  "publication_state_model": [
+    "SOURCE_VERIFIED",
+    "ARTIFACTS_VALIDATED",
+    "TESTPYPI_PUBLISHED",
+    "TESTPYPI_VERIFIED",
+    "PYPI_APPROVED",
+    "PYPI_PUBLISHED",
+    "PYPI_VERIFIED",
+    "GITHUB_PRERELEASE_CREATED"
+  ],
+  "production_gate": "GitHub pypi environment required-reviewer protection",
+  "failure_policy": "fail closed; never overwrite or silently bump an occupied version",
+  "publication_state_at_commit": "INFRASTRUCTURE_PREPARED; live run evidence belongs in final handoff"
+}

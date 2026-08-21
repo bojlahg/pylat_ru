@@ -1,0 +1,197 @@
+name: Publish release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-source:
+    name: Verify source, tag, and index availability
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Verify exact tag checkout
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$GITHUB_REF_TYPE" = "tag"
+          test "$(git rev-list -n 1 "$GITHUB_REF_NAME")" = "$GITHUB_SHA"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify source and tag versions
+        run: python -m tools.verify_release_0016 --tag "$GITHUB_REF_NAME"
+      - name: Refuse occupied namespace or immutable version
+        run: python -m tools.check_index_availability_0016
+
+  build-and-validate:
+    name: Build and validate immutable artifacts
+    needs: verify-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Verify exact checkout SHA
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install release tooling
+        run: python -m pip install '.[release]'
+      - name: Build, audit, validate, and clean-install artifacts
+        run: >-
+          python -m tools.release_preflight_0015
+          --output package-contents-0016.json
+          --keep-dist dist
+          --manifest artifact-manifest-0016.json
+          --release-tag "$GITHUB_REF_NAME"
+      - name: Verify source, tag, wheel, sdist, and manifest versions
+        run: >-
+          python -m tools.verify_release_0016
+          --tag "$GITHUB_REF_NAME"
+          --dist dist
+          --manifest artifact-manifest-0016.json
+      - name: Upload validated release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: |
+            dist/*
+            artifact-manifest-0016.json
+          if-no-files-found: error
+          retention-days: 30
+
+  publish-testpypi:
+    name: Publish exact artifacts to TestPyPI
+    needs: build-and-validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/pylat-ru/0.1.0a0/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: release
+      - name: Publish only to TestPyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: release/dist/
+          repository-url: https://test.pypi.org/legacy/
+
+  verify-testpypi:
+    name: Verify TestPyPI page, artifacts, install, and smoke
+    needs: publish-testpypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: release
+      - name: Verify exact TestPyPI artifacts and isolated functional install
+        run: >-
+          python -m tools.verify_published_0016
+          --index testpypi
+          --manifest release/artifact-manifest-0016.json
+
+  publish-pypi:
+    name: Publish exact artifacts to PyPI
+    needs: verify-testpypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: pypi
+      url: https://pypi.org/project/pylat-ru/0.1.0a0/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: release
+      - name: Publish only to production PyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: release/dist/
+
+  verify-pypi:
+    name: Verify PyPI page, artifacts, install, and smoke
+    needs: publish-pypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: release
+      - name: Verify exact PyPI artifacts and isolated functional install
+        run: >-
+          python -m tools.verify_published_0016
+          --index pypi
+          --manifest release/artifact-manifest-0016.json
+
+  github-prerelease:
+    name: Create GitHub prerelease from exact PyPI artifacts
+    needs: verify-pypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: pylat-ru-release-${{ github.sha }}
+          path: release
+      - name: Render release notes with artifact hashes
+        run: >-
+          python -m tools.render_release_notes_0016
+          release/artifact-manifest-0016.json
+          release/release-notes.md
+      - name: Create prerelease with exactly wheel and sdist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          release/dist/*.whl
+          release/dist/*.tar.gz
+          --repo "$GITHUB_REPOSITORY"
+          --target "$GITHUB_SHA"
+          --verify-tag
+          --prerelease
+          --title "pylat-ru 0.1.0a0"
+          --notes-file release/release-notes.md
