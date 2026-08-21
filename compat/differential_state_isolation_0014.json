@@ -1,5 +1,5 @@
 {
-  "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
+  "corpus_signature": "fdcda0efc876bef3962a0d750f8118d5e5a086527d36002f47ce4469b2aed179",
   "divergent_case_ids": [],
   "java_fresh_matches_shared": true,
   "java_reverse_matches_forward": true,
@@ -20,6 +20,7 @@
     "cfg_speller_yo",
     "default",
     "ref_filler_words_default",
+    "ref_long_paragraph_default",
     "ref_picky"
   ],
   "python_fresh_matches_shared": true,

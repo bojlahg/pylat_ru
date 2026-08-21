@@ -73,7 +73,7 @@ SCHEMA_VERSION = "2.0.0"
 FIXED_SEED = 140014
 
 #: Bumped whenever generated corpus content changes semantically.
-GENERATOR_VERSION = "0014.2-review-fix"
+GENERATOR_VERSION = "0014.3-second-review-fix"
 
 CORPORA_DIR = REPO_ROOT / "corpora"
 RESULTS_DIR = CORPORA_DIR / "results_0014"
@@ -218,6 +218,11 @@ def build_profiles() -> Dict[str, Profile]:
         ),
         Profile(
             profile_id="ref_picky",
+            level="PICKY",
+        ),
+        Profile(
+            profile_id="ref_long_paragraph_default",
+            enabled_rules=("TOO_LONG_PARAGRAPH",),
             level="PICKY",
         ),
         Profile(
@@ -963,6 +968,7 @@ UNICODE_DECORATIONS: tuple[tuple[str, Callable[[str], str]], ...] = (
     ("nbsp_boundaries", lambda t: t.replace(" ", NBSP, 2)),
     ("zero_width_joiner", lambda t: "\U0001F468‍\U0001F4BB " + t),
     ("nonbmp_math_symbols", lambda t: "\U0001D400\U0001D401 " + t),
+    ("supplementary_letter_prefix", lambda t: "\U00010400 " + t),
     ("nonbmp_and_combining", lambda t: EMOJI[1] + " " + t.replace("у", "у" + COMBINING_ACUTE, 1)),
     ("nonbmp_between_sentences", lambda t: t + " " + EMOJI[3] + " " + t),
     ("nonbmp_inside_quotes", lambda t: "«" + EMOJI[0] + t + EMOJI[1] + "»"),
@@ -990,6 +996,11 @@ def build_stratum_e() -> List[Tuple[str, Dict[str, Any]]]:
                             unicodedata.combining(c) for c in text
                         ),
                         "has_soft_hyphen": SOFT_HYPHEN in text,
+                        "has_supplementary_letter": any(
+                            ord(c) > 0xFFFF
+                            and unicodedata.category(c).startswith("L")
+                            for c in text
+                        ),
                     },
                 )
             )
@@ -1026,17 +1037,37 @@ CONFIG_CONTROL_WORDS = tuple(
     "снег облако птица дерево трава цветок сад берег остров деревня площадь".split()
 )
 
+SUPPLEMENTARY_LETTER = "\U00010400"
+SUPPLEMENTARY_LONG_SENTENCE_TEXT = (
+    SUPPLEMENTARY_LETTER + " " + " ".join(CONFIG_CONTROL_WORDS[:15]) + "."
+)
+
 CONFIG_SENSITIVITY_SPECS: Dict[str, Dict[str, Any]] = {
     "cfg_long_sentence_15": {
         "reference_profile": "ref_picky",
-        "texts": tuple(" ".join(CONFIG_CONTROL_WORDS[:count]) + "." for count in (14, 15, 16, 20)),
+        "intended_rule_config_delta": {
+            "rule_id": "TOO_LONG_SENTENCE",
+            "options": ("maxWords",),
+        },
+        "texts": (
+            *(" ".join(CONFIG_CONTROL_WORDS[:count]) + "." for count in (14, 15, 16, 20)),
+            SUPPLEMENTARY_LONG_SENTENCE_TEXT,
+        ),
     },
     "cfg_long_paragraph_30": {
-        "reference_profile": "ref_picky",
+        "reference_profile": "ref_long_paragraph_default",
+        "intended_rule_config_delta": {
+            "rule_id": "TOO_LONG_PARAGRAPH",
+            "options": ("maxWords",),
+        },
         "texts": tuple(" ".join(CONFIG_CONTROL_WORDS[:count]) + "." for count in (29, 30, 31, 36)),
     },
     "cfg_filler_words_2": {
         "reference_profile": "ref_filler_words_default",
+        "intended_rule_config_delta": {
+            "rule_id": "FILLER_WORDS_RU",
+            "options": ("excludeDirectSpeech", "minPercent"),
+        },
         "texts": (
             "ах " + " ".join(["слово"] * 20) + ".",
             "ну " + " ".join(["слово"] * 20) + ".",
@@ -1045,6 +1076,10 @@ CONFIG_SENSITIVITY_SPECS: Dict[str, Dict[str, Any]] = {
     },
     "cfg_speller_conf_ru_1": {
         "reference_profile": "cfg_speller_conf_ru_0",
+        "intended_rule_config_delta": {
+            "rule_id": "MORFOLOGIK_RULE_RU_RU",
+            "options": ("conf_ru_Value",),
+        },
         "texts": (
             "The quick brown fox.",
             "wordd написано здесь.",
@@ -1053,10 +1088,109 @@ CONFIG_SENSITIVITY_SPECS: Dict[str, Dict[str, Any]] = {
     },
 }
 
+PINNED_ORACLE_REGRESSION_CASES: tuple[Dict[str, Any], ...] = (
+    {
+        "case_id": "second_review_long_sentence_supplementary_letter",
+        "discovered_in_stratum": "A",
+        "original_mismatch_kinds": ["UTF16_FIRST_CODE_UNIT_SEMANTICS"],
+        "minimized_text": SUPPLEMENTARY_LONG_SENTENCE_TEXT,
+        "profile": "cfg_long_sentence_15",
+        "upstream_proof": (
+            "pinned LongSentenceRule.isWordCount uses substring(0,1), so U+10400 "
+            "contributes an unpaired surrogate rather than a Unicode letter"
+        ),
+    },
+)
+
+
+def validate_config_sensitivity_profiles(
+    profiles: Mapping[str, Profile] | None = None,
+) -> Dict[str, Dict[str, Any]]:
+    """Fail closed unless every pair differs only in its declared rule option."""
+    declared_profiles = dict(build_profiles() if profiles is None else profiles)
+    proof: Dict[str, Dict[str, Any]] = {}
+    missing = object()
+    for target_id, spec in sorted(CONFIG_SENSITIVITY_SPECS.items()):
+        reference_id = spec["reference_profile"]
+        if target_id not in declared_profiles or reference_id not in declared_profiles:
+            raise ValueError(
+                f"Unknown config-sensitivity profile pair: {target_id}/{reference_id}"
+            )
+        delta = spec.get("intended_rule_config_delta")
+        if (
+            not isinstance(delta, Mapping)
+            or not delta.get("rule_id")
+            or not delta.get("options")
+        ):
+            raise ValueError(f"Missing intended rule_config delta for {target_id}")
+
+        target = declared_profiles[target_id]
+        reference = declared_profiles[reference_id]
+        dimensions = (
+            "enabled_rules",
+            "disabled_rules",
+            "level",
+            "enable_all_default_off",
+        )
+        changed_dimensions = [
+            name
+            for name in dimensions
+            if getattr(target, name) != getattr(reference, name)
+        ]
+        if changed_dimensions:
+            raise ValueError(
+                f"Unrelated profile dimensions differ for {target_id}: "
+                f"{changed_dimensions}"
+            )
+
+        rule_id = str(delta["rule_id"])
+        options = tuple(str(option) for option in delta["options"])
+        if not options or len(options) != len(set(options)):
+            raise ValueError(f"Invalid intended options for {target_id}: {options}")
+        target_config = {
+            key: dict(value) for key, value in target.rule_config.items()
+        }
+        reference_config = {
+            key: dict(value) for key, value in reference.rule_config.items()
+        }
+        all_rules = set(target_config) | set(reference_config)
+        unrelated_rules = sorted(
+            key
+            for key in all_rules
+            if key != rule_id
+            and target_config.get(key, {}) != reference_config.get(key, {})
+        )
+        if unrelated_rules:
+            raise ValueError(
+                f"Unrelated rule_config differs for {target_id}: {unrelated_rules}"
+            )
+
+        target_rule = target_config.get(rule_id, {})
+        reference_rule = reference_config.get(rule_id, {})
+        changed_options = {
+            option
+            for option in set(target_rule) | set(reference_rule)
+            if target_rule.get(option, missing) != reference_rule.get(option, missing)
+        }
+        if changed_options != set(options):
+            raise ValueError(
+                f"Declared/actual option delta differs for {target_id}: "
+                f"declared={sorted(options)}, actual={sorted(changed_options)}"
+            )
+        proof[target_id] = {
+            "reference_profile": reference_id,
+            "rule_id": rule_id,
+            "options": list(options),
+            "unrelated_profile_dimensions_equal": True,
+            "only_intended_rule_config_differs": True,
+        }
+    return proof
+
 
 def build_corpus(seed: int = FIXED_SEED) -> Tuple[List[CorpusCase], Dict[str, Any]]:
     """Build the complete deterministic corpus and its accounting."""
     profiles = build_profiles()
+    validate_config_sensitivity_profiles(profiles)
 
     stratum_texts: Dict[str, List[Tuple[str, Dict[str, Any]]]] = {}
     stratum_texts["A"] = build_stratum_a()
@@ -1141,6 +1275,14 @@ def build_corpus(seed: int = FIXED_SEED) -> Tuple[List[CorpusCase], Dict[str, An
         },
         "non_bmp_executions": sum(
             1 for case in cases if any(ord(c) > 0xFFFF for c in case.text)
+        ),
+        "supplementary_letter_executions": sum(
+            1
+            for case in cases
+            if any(
+                ord(c) > 0xFFFF and unicodedata.category(c).startswith("L")
+                for c in case.text
+            )
         ),
         "combining_mark_executions": sum(
             1
@@ -1256,6 +1398,7 @@ def build_manifest(cases: Sequence[CorpusCase], accounting: Mapping[str, Any]) -
         REPO_ROOT / "compat" / "oracle_manifest.json"
     )
     profiles = build_profiles()
+    config_structure = validate_config_sensitivity_profiles(profiles)
     natural = natural_corpus_metadata()
 
     return {
@@ -1291,10 +1434,17 @@ def build_manifest(cases: Sequence[CorpusCase], accounting: Mapping[str, Any]) -
         "config_sensitivity_specs": {
             profile_id: {
                 "reference_profile": spec["reference_profile"],
+                "intended_rule_config_delta": {
+                    "rule_id": spec["intended_rule_config_delta"]["rule_id"],
+                    "options": list(
+                        spec["intended_rule_config_delta"]["options"]
+                    ),
+                },
                 "text_sha256": [hashlib.sha256(t.encode("utf-8")).hexdigest() for t in spec["texts"]],
             }
             for profile_id, spec in sorted(CONFIG_SENSITIVITY_SPECS.items())
         },
+        "config_sensitivity_structure": config_structure,
         "counts": dict(accounting),
         "corpus_signature": corpus_signature(cases),
         "stratum_signatures": {
@@ -1599,6 +1749,7 @@ def build_summary(
 
     allowlist = load_allowlist()
     upstream_defects = load_upstream_defects()
+    config_structure = validate_config_sensitivity_profiles(build_profiles())
     by_case = {case.case_id: case for case in cases}
 
     exact = sum(1 for r in results if r.is_exact)
@@ -1704,6 +1855,17 @@ def build_summary(
         }
 
     non_bmp = [r for r in results if any(ord(c) > 0xFFFF for c in by_case[r.case_id].text)]
+    supplementary_letter = [
+        r
+        for r in results
+        if any(
+            ord(c) > 0xFFFF and unicodedata.category(c).startswith("L")
+            for c in by_case[r.case_id].text
+        )
+    ]
+    supplementary_letter_comparable = [
+        r for r in supplementary_letter if not r.java_error
+    ]
     combining = [
         r
         for r in results
@@ -1750,6 +1912,7 @@ def build_summary(
             "python_cases_with_same_observable_delta": len(python_deltas),
             "java_python_exact_cases": sum(1 for target, _ in pairs if target.is_exact),
             "delta_rule_ids": delta_rule_ids,
+            "structural_proof": config_structure[profile_id],
         }
         config_sensitivity[profile_id] = block
         if (
@@ -1831,6 +1994,13 @@ def build_summary(
         "unicode_coverage": {
             "non_bmp_cases": len(non_bmp),
             "non_bmp_exact": sum(1 for r in non_bmp if r.is_exact),
+            "supplementary_letter_cases": len(supplementary_letter),
+            "supplementary_letter_comparable_cases": len(
+                supplementary_letter_comparable
+            ),
+            "supplementary_letter_exact": sum(
+                1 for r in supplementary_letter_comparable if r.is_exact
+            ),
             "combining_mark_cases": len(combining),
             "combining_mark_exact": sum(1 for r in combining if r.is_exact),
             "soft_hyphen_cases": len(soft_hyphen),
@@ -1962,6 +2132,9 @@ def generate_utf16_calibration() -> Dict[str, Any]:
                     "has_non_bmp": provenance["has_non_bmp"],
                     "has_combining": provenance["has_combining"],
                     "has_soft_hyphen": provenance["has_soft_hyphen"],
+                    "has_supplementary_letter": provenance[
+                        "has_supplementary_letter"
+                    ],
                     "java_findings": [f.comparable_json() for f in java],
                     "python_code_point_spans": [
                         [m.offset, m.length] for m in matches
@@ -2524,12 +2697,15 @@ def _build_regressions_command(args: argparse.Namespace) -> int:
     manifest_data = validate_oracle_manifest(REPO_ROOT / "compat" / "oracle_manifest.json")
     profiles = build_profiles()
 
+    regression_inputs = [*minimized, *PINNED_ORACLE_REGRESSION_CASES]
     cases: List[Dict[str, Any]] = []
-    if minimized:
+    if regression_inputs:
         with BatchJavaOracle() as oracle:
-            for profile_id in sorted({entry["profile"] for entry in minimized}):
+            for profile_id in sorted(
+                {entry["profile"] for entry in regression_inputs}
+            ):
                 oracle.define_profile(profiles[profile_id])
-            for entry in sorted(minimized, key=lambda e: e["case_id"]):
+            for entry in sorted(regression_inputs, key=lambda e: e["case_id"]):
                 java = oracle.check(
                     entry["case_id"], entry["profile"], entry["minimized_text"]
                 )

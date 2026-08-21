@@ -73,6 +73,7 @@ def test_manifest_has_the_required_schema(manifest: dict) -> None:
         "source_inventory",
         "mutation_families",
         "profiles",
+        "config_sensitivity_structure",
         "counts",
         "corpus_signature",
         "stratum_signatures",
@@ -125,6 +126,9 @@ def test_manifest_profiles_match_the_generator(manifest: dict) -> None:
 def test_manifest_declares_level_and_config_sensitivity_evidence(manifest: dict) -> None:
     assert manifest["profiles"]["default"]["level"] == "DEFAULT"
     assert manifest["profiles"]["ref_picky"]["level"] == "PICKY"
+    paragraph_reference = manifest["profiles"]["ref_long_paragraph_default"]
+    assert paragraph_reference["level"] == "PICKY"
+    assert paragraph_reference["enabled_rules"] == ["TOO_LONG_PARAGRAPH"]
     specs = manifest["config_sensitivity_specs"]
     assert set(specs) == {
         "cfg_long_sentence_15",
@@ -133,6 +137,17 @@ def test_manifest_declares_level_and_config_sensitivity_evidence(manifest: dict)
         "cfg_speller_conf_ru_1",
     }
     assert all(spec["text_sha256"] for spec in specs.values())
+    assert specs["cfg_long_paragraph_30"]["reference_profile"] == (
+        "ref_long_paragraph_default"
+    )
+    assert all(spec["intended_rule_config_delta"] for spec in specs.values())
+    structure = manifest["config_sensitivity_structure"]
+    assert set(structure) == set(specs)
+    assert all(
+        block["unrelated_profile_dimensions_equal"]
+        and block["only_intended_rule_config_differs"]
+        for block in structure.values()
+    )
 
 
 def test_manifest_default_off_list_is_derived_not_invented(manifest: dict) -> None:
@@ -159,6 +174,7 @@ def test_manifest_meets_the_mandatory_campaign_minimums(manifest: dict) -> None:
     assert counts["unique_texts_by_stratum"]["C"] >= 2000
     assert counts["unique_texts_by_stratum"]["D"] >= 2000
     assert counts["non_bmp_executions"] >= 500
+    assert counts["supplementary_letter_executions"] > 0
 
 
 def test_manifest_signatures_are_hex_and_regenerable(manifest: dict) -> None:
@@ -366,6 +382,11 @@ def test_unicode_coverage_is_reported(summary: dict) -> None:
     coverage = summary["unicode_coverage"]
     assert coverage["non_bmp_cases"] >= 500
     assert coverage["non_bmp_exact"] == coverage["non_bmp_cases"]
+    assert coverage["supplementary_letter_cases"] > 0
+    assert coverage["supplementary_letter_comparable_cases"] > 0
+    assert coverage["supplementary_letter_exact"] == coverage[
+        "supplementary_letter_comparable_cases"
+    ]
     assert coverage["combining_mark_cases"] > 0
     assert coverage["soft_hyphen_cases"] > 0
 
@@ -418,6 +439,14 @@ def test_summary_proves_every_required_configuration_is_observable(summary: dict
         assert block["python_cases_with_same_observable_delta"] > 0, profile_id
         assert block["java_python_exact_cases"] == block["targeted_cases"], profile_id
         assert block["delta_rule_ids"], profile_id
+        assert block["structural_proof"][
+            "unrelated_profile_dimensions_equal"
+        ], profile_id
+        assert block["structural_proof"][
+            "only_intended_rule_config_differs"
+        ], profile_id
+    paragraph = evidence["cfg_long_paragraph_30"]
+    assert paragraph["reference_profile"] == "ref_long_paragraph_default"
 
 
 def test_new_strict_metadata_fields_have_full_parity(summary: dict) -> None:

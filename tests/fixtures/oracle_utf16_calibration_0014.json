@@ -5,6 +5,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -42,6 +43,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -79,6 +81,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -116,6 +119,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -153,6 +157,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -190,6 +195,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -227,6 +233,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -264,6 +271,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -301,6 +309,7 @@
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -333,6 +342,7 @@
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -370,6 +380,7 @@
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -402,6 +413,7 @@
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -439,6 +451,7 @@
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -476,6 +489,7 @@
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -513,6 +527,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -550,6 +565,7 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -587,6 +603,45 @@
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Проверка орфографии",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          24,
+          7,
+          [
+            "ошибкой",
+            "ошибкою",
+            "сшибкой",
+            "ушивкой",
+            "шибкой",
+            "а шибкой"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          23,
+          7
+        ]
+      ],
+      "text": "𐐀 Это тестовый текст с ашибкой.",
+      "text_code_point_length": 31,
+      "text_utf16_length": 32,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0017",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -620,10 +675,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0017",
+      "case_id": "utf16_0018",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -680,10 +736,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0018",
+      "case_id": "utf16_0019",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -717,10 +774,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0019",
+      "case_id": "utf16_0020",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -754,10 +812,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0020",
+      "case_id": "utf16_0021",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -804,10 +863,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0021",
+      "case_id": "utf16_0022",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -854,10 +914,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0022",
+      "case_id": "utf16_0023",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -904,10 +965,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0023",
+      "case_id": "utf16_0024",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -954,10 +1016,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0024",
+      "case_id": "utf16_0025",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1004,10 +1067,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0025",
+      "case_id": "utf16_0026",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1054,10 +1118,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0026",
+      "case_id": "utf16_0027",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1104,10 +1169,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0027",
+      "case_id": "utf16_0028",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1154,10 +1220,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0028",
+      "case_id": "utf16_0029",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1204,10 +1271,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0029",
+      "case_id": "utf16_0030",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1254,10 +1322,11 @@
       "unicode_kind": "combining_grave"
     },
     {
-      "case_id": "utf16_0030",
+      "case_id": "utf16_0031",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1304,10 +1373,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0031",
+      "case_id": "utf16_0032",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1354,10 +1424,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0032",
+      "case_id": "utf16_0033",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1404,10 +1475,11 @@
       "unicode_kind": "soft_hyphen_many"
     },
     {
-      "case_id": "utf16_0033",
+      "case_id": "utf16_0034",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1454,10 +1526,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0034",
+      "case_id": "utf16_0035",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1504,10 +1577,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0035",
+      "case_id": "utf16_0036",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1554,10 +1628,62 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0036",
+      "case_id": "utf16_0037",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
+          "TYPOGRAPHY",
+          "Типографика",
+          "Повтор пробела",
+          "",
+          7,
+          2,
+          [
+            " "
+          ],
+          ""
+        ],
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Типографика",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          18,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          6,
+          2
+        ],
+        [
+          17,
+          2
+        ]
+      ],
+      "text": "𐐀 Мама  мыла раму , и папа тоже.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0038",
       "has_combining": true,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1604,10 +1730,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0037",
+      "case_id": "utf16_0039",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1690,10 +1817,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0038",
+      "case_id": "utf16_0040",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1740,10 +1868,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0039",
+      "case_id": "utf16_0041",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WHITESPACE_RULE",
@@ -1790,10 +1919,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0040",
+      "case_id": "utf16_0042",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1822,10 +1952,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0041",
+      "case_id": "utf16_0043",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1854,10 +1985,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0042",
+      "case_id": "utf16_0044",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1886,10 +2018,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0043",
+      "case_id": "utf16_0045",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1918,10 +2051,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0044",
+      "case_id": "utf16_0046",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1950,10 +2084,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0045",
+      "case_id": "utf16_0047",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -1982,10 +2117,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0046",
+      "case_id": "utf16_0048",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2014,10 +2150,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0047",
+      "case_id": "utf16_0049",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2046,10 +2183,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0048",
+      "case_id": "utf16_0050",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2078,10 +2216,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0049",
+      "case_id": "utf16_0051",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2110,10 +2249,11 @@
       "unicode_kind": "combining_grave"
     },
     {
-      "case_id": "utf16_0050",
+      "case_id": "utf16_0052",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2142,10 +2282,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0051",
+      "case_id": "utf16_0053",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2174,10 +2315,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0052",
+      "case_id": "utf16_0054",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2206,10 +2348,11 @@
       "unicode_kind": "soft_hyphen_many"
     },
     {
-      "case_id": "utf16_0053",
+      "case_id": "utf16_0055",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2238,10 +2381,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0054",
+      "case_id": "utf16_0056",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2270,10 +2414,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0055",
+      "case_id": "utf16_0057",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2302,10 +2447,44 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0056",
+      "case_id": "utf16_0058",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
+          "TYPOGRAPHY",
+          "Типографика",
+          "Поставьте пробел после запятой, а не перед ней.",
+          "",
+          12,
+          2,
+          [
+            ","
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          11,
+          2
+        ]
+      ],
+      "text": "𐐀 Он сказал , что придёт завтра.",
+      "text_code_point_length": 32,
+      "text_utf16_length": 33,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0059",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2334,10 +2513,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0057",
+      "case_id": "utf16_0060",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2384,10 +2564,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0058",
+      "case_id": "utf16_0061",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2416,10 +2597,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0059",
+      "case_id": "utf16_0062",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
@@ -2448,10 +2630,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0060",
+      "case_id": "utf16_0063",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2480,10 +2663,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0061",
+      "case_id": "utf16_0064",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2512,10 +2696,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0062",
+      "case_id": "utf16_0065",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2544,10 +2729,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0063",
+      "case_id": "utf16_0066",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2576,10 +2762,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0064",
+      "case_id": "utf16_0067",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2608,10 +2795,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0065",
+      "case_id": "utf16_0068",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2640,10 +2828,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0066",
+      "case_id": "utf16_0069",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Ошибочный 😀🤔 текст 😀🤔 текст 😀🤔 здесь.",
@@ -2652,10 +2841,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0067",
+      "case_id": "utf16_0070",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2684,10 +2874,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0068",
+      "case_id": "utf16_0071",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2716,10 +2907,11 @@
       "unicode_kind": "combining_grave"
     },
     {
-      "case_id": "utf16_0069",
+      "case_id": "utf16_0072",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2748,10 +2940,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0070",
+      "case_id": "utf16_0073",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2780,10 +2973,11 @@
       "unicode_kind": "soft_hyphen_many"
     },
     {
-      "case_id": "utf16_0071",
+      "case_id": "utf16_0074",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2812,10 +3006,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0072",
+      "case_id": "utf16_0075",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2844,10 +3039,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0073",
+      "case_id": "utf16_0076",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2876,10 +3072,44 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0074",
+      "case_id": "utf16_0077",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
+          "MISC",
+          "Общие правила",
+          "Возможная опечатка: повтор слова",
+          "Повтор слова",
+          13,
+          11,
+          [
+            "текст"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          12,
+          11
+        ]
+      ],
+      "text": "𐐀 Ошибочный текст текст здесь.",
+      "text_code_point_length": 30,
+      "text_utf16_length": 31,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0078",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2908,10 +3138,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0075",
+      "case_id": "utf16_0079",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2958,10 +3189,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0076",
+      "case_id": "utf16_0080",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -2990,10 +3222,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0077",
+      "case_id": "utf16_0081",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
@@ -3022,10 +3255,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0078",
+      "case_id": "utf16_0082",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3057,10 +3291,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0079",
+      "case_id": "utf16_0083",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3092,10 +3327,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0080",
+      "case_id": "utf16_0084",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3127,10 +3363,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0081",
+      "case_id": "utf16_0085",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3162,10 +3399,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0082",
+      "case_id": "utf16_0086",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3197,10 +3435,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0083",
+      "case_id": "utf16_0087",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3232,10 +3471,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0084",
+      "case_id": "utf16_0088",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3267,10 +3507,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0085",
+      "case_id": "utf16_0089",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3302,10 +3543,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0086",
+      "case_id": "utf16_0090",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3334,10 +3576,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0087",
+      "case_id": "utf16_0091",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3369,10 +3612,11 @@
       "unicode_kind": "combining_grave"
     },
     {
-      "case_id": "utf16_0088",
+      "case_id": "utf16_0092",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3404,10 +3648,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0089",
+      "case_id": "utf16_0093",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3439,10 +3684,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0090",
+      "case_id": "utf16_0094",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3474,10 +3720,11 @@
       "unicode_kind": "soft_hyphen_many"
     },
     {
-      "case_id": "utf16_0091",
+      "case_id": "utf16_0095",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3509,10 +3756,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0092",
+      "case_id": "utf16_0096",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3544,10 +3792,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0093",
+      "case_id": "utf16_0097",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3579,10 +3828,47 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0094",
+      "case_id": "utf16_0098",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Проверка орфографии",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          19,
+          6,
+          [
+            "хорошо",
+            "хорош",
+            "хороша",
+            "хороши"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          18,
+          6
+        ]
+      ],
+      "text": "𐐀 Всё хорошо, что харашо кончается.",
+      "text_code_point_length": 35,
+      "text_utf16_length": 36,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0099",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3614,10 +3900,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0095",
+      "case_id": "utf16_0100",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3670,10 +3957,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0096",
+      "case_id": "utf16_0101",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3705,10 +3993,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0097",
+      "case_id": "utf16_0102",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3740,10 +4029,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0098",
+      "case_id": "utf16_0103",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "😀 Она читала книгу и книгу читала.",
@@ -3752,10 +4042,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0099",
+      "case_id": "utf16_0104",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "😀🚀 Она читала книгу и книгу читала.",
@@ -3764,10 +4055,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0100",
+      "case_id": "utf16_0105",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "😀🚀🤔📚 Она читала книгу и книгу читала.",
@@ -3776,10 +4068,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0101",
+      "case_id": "utf16_0106",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она читала книгу и книгу читала. 🤔",
@@ -3788,10 +4081,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0102",
+      "case_id": "utf16_0107",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "📚 Она читала книгу и книгу читала. 📚",
@@ -3800,10 +4094,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0103",
+      "case_id": "utf16_0108",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она 🚀 читала книгу и книгу читала.",
@@ -3812,10 +4107,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0104",
+      "case_id": "utf16_0109",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она 😀🤔 читала 😀🤔 книгу 😀🤔 и 😀🤔 книгу 😀🤔 читала.",
@@ -3824,10 +4120,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0105",
+      "case_id": "utf16_0110",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "❤ 😀 «Она читала книгу и книгу читала.»",
@@ -3836,10 +4133,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0106",
+      "case_id": "utf16_0111",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она́ читала книгу и книгу читала.",
@@ -3848,10 +4146,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0107",
+      "case_id": "utf16_0112",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она чѝтала кнѝгу ѝ кнѝгу чѝтала.",
@@ -3860,10 +4159,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0108",
+      "case_id": "utf16_0113",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она­ читала книгу и книгу читала.",
@@ -3872,10 +4172,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0109",
+      "case_id": "utf16_0114",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она читала книгу и книгу читала.",
@@ -3884,10 +4185,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0110",
+      "case_id": "utf16_0115",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "👨‍💻 Она читала книгу и книгу читала.",
@@ -3896,10 +4198,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0111",
+      "case_id": "utf16_0116",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "𝐀𝐁 Она читала книгу и книгу читала.",
@@ -3908,10 +4211,24 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0112",
+      "case_id": "utf16_0117",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [],
+      "python_code_point_spans": [],
+      "text": "𐐀 Она читала книгу и книгу читала.",
+      "text_code_point_length": 34,
+      "text_utf16_length": 35,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0118",
       "has_combining": true,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "🚀 Она читала книгу́ и книгу читала.",
@@ -3920,10 +4237,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0113",
+      "case_id": "utf16_0119",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "Она читала книгу и книгу читала. 📚 Она читала книгу и книгу читала.",
@@ -3932,10 +4250,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0114",
+      "case_id": "utf16_0120",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "«😀Она читала книгу и книгу читала.🚀»",
@@ -3944,10 +4263,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0115",
+      "case_id": "utf16_0121",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "🤔\n\nОна читала книгу и книгу читала.\n\n📚",
@@ -3956,10 +4276,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0116",
+      "case_id": "utf16_0122",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -3997,10 +4318,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0117",
+      "case_id": "utf16_0123",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4038,10 +4360,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0118",
+      "case_id": "utf16_0124",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4079,10 +4402,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0119",
+      "case_id": "utf16_0125",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4120,10 +4444,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0120",
+      "case_id": "utf16_0126",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4161,10 +4486,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0121",
+      "case_id": "utf16_0127",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4202,10 +4528,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0122",
+      "case_id": "utf16_0128",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4243,10 +4570,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0123",
+      "case_id": "utf16_0129",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4284,10 +4612,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0124",
+      "case_id": "utf16_0130",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4325,10 +4654,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0125",
+      "case_id": "utf16_0131",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4465,10 +4795,11 @@
       "unicode_kind": "combining_grave"
     },
     {
-      "case_id": "utf16_0126",
+      "case_id": "utf16_0132",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4506,10 +4837,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0127",
+      "case_id": "utf16_0133",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4547,10 +4879,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0128",
+      "case_id": "utf16_0134",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4588,10 +4921,11 @@
       "unicode_kind": "soft_hyphen_many"
     },
     {
-      "case_id": "utf16_0129",
+      "case_id": "utf16_0135",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4629,10 +4963,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0130",
+      "case_id": "utf16_0136",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4670,10 +5005,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0131",
+      "case_id": "utf16_0137",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4711,10 +5047,53 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0132",
+      "case_id": "utf16_0138",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Проверка орфографии",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          3,
+          3,
+          [
+            "Что",
+            "Кто",
+            "То",
+            "Это",
+            "Сто",
+            "Вто",
+            "Ото",
+            "Гто",
+            "Ато",
+            "Е то"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          2,
+          3
+        ]
+      ],
+      "text": "𐐀 Ето неправильное слово.",
+      "text_code_point_length": 25,
+      "text_utf16_length": 26,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0139",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4752,10 +5131,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0133",
+      "case_id": "utf16_0140",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4820,10 +5200,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0134",
+      "case_id": "utf16_0141",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [],
       "python_code_point_spans": [],
       "text": "«😀Ето неправильное слово.🚀»",
@@ -4832,10 +5213,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0135",
+      "case_id": "utf16_0142",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -4873,10 +5255,11 @@
       "unicode_kind": "nonbmp_paragraphs"
     },
     {
-      "case_id": "utf16_0136",
+      "case_id": "utf16_0143",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -5111,10 +5494,11 @@
       "unicode_kind": "nonbmp_prefix_single"
     },
     {
-      "case_id": "utf16_0137",
+      "case_id": "utf16_0144",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -5349,10 +5733,11 @@
       "unicode_kind": "nonbmp_prefix_double"
     },
     {
-      "case_id": "utf16_0138",
+      "case_id": "utf16_0145",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -5587,10 +5972,11 @@
       "unicode_kind": "nonbmp_prefix_quad"
     },
     {
-      "case_id": "utf16_0139",
+      "case_id": "utf16_0146",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -5825,10 +6211,11 @@
       "unicode_kind": "nonbmp_suffix"
     },
     {
-      "case_id": "utf16_0140",
+      "case_id": "utf16_0147",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -6063,10 +6450,11 @@
       "unicode_kind": "nonbmp_surround"
     },
     {
-      "case_id": "utf16_0141",
+      "case_id": "utf16_0148",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -6301,10 +6689,11 @@
       "unicode_kind": "nonbmp_infix_word"
     },
     {
-      "case_id": "utf16_0142",
+      "case_id": "utf16_0149",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -6539,10 +6928,11 @@
       "unicode_kind": "nonbmp_repeated_infix"
     },
     {
-      "case_id": "utf16_0143",
+      "case_id": "utf16_0150",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -6777,10 +7167,11 @@
       "unicode_kind": "bmp_and_nonbmp_mixture"
     },
     {
-      "case_id": "utf16_0144",
+      "case_id": "utf16_0151",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -7015,10 +7406,11 @@
       "unicode_kind": "combining_acute"
     },
     {
-      "case_id": "utf16_0145",
+      "case_id": "utf16_0152",
       "has_combining": true,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -7049,10 +7441,11 @@
       "unicode_kind": "combining_multiple"
     },
     {
-      "case_id": "utf16_0146",
+      "case_id": "utf16_0153",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": true,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -7287,10 +7680,11 @@
       "unicode_kind": "soft_hyphen_infix"
     },
     {
-      "case_id": "utf16_0147",
+      "case_id": "utf16_0154",
       "has_combining": false,
       "has_non_bmp": false,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -7525,10 +7919,11 @@
       "unicode_kind": "nbsp_boundaries"
     },
     {
-      "case_id": "utf16_0148",
+      "case_id": "utf16_0155",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -7763,10 +8158,11 @@
       "unicode_kind": "zero_width_joiner"
     },
     {
-      "case_id": "utf16_0149",
+      "case_id": "utf16_0156",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -8001,10 +8397,250 @@
       "unicode_kind": "nonbmp_math_symbols"
     },
     {
-      "case_id": "utf16_0150",
+      "case_id": "utf16_0157",
+      "has_combining": false,
+      "has_non_bmp": true,
+      "has_soft_hyphen": false,
+      "has_supplementary_letter": true,
+      "java_findings": [
+        [
+          "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
+          "TYPOS",
+          "Проверка орфографии",
+          "Возможно найдена орфографическая ошибка.",
+          "Орфографическая ошибка",
+          15,
+          4,
+          [
+            "дело",
+            "дела",
+            "делу",
+            "сила",
+            "тело",
+            "село",
+            "дима",
+            "пила",
+            "депо",
+            "дева",
+            "дико",
+            "жила",
+            "дуло",
+            "гелла",
+            "вилла",
+            "шило",
+            "дина",
+            "диво",
+            "кило",
+            "мило",
+            "чело",
+            "белла",
+            "мила",
+            "дека",
+            "делон",
+            "дюла",
+            "диао",
+            "дива",
+            "долу",
+            "дилле",
+            "удила",
+            "адила",
+            "аила",
+            "аилу",
+            "бела",
+            "беллу",
+            "бело",
+            "белу",
+            "била",
+            "билла",
+            "биллу",
+            "било",
+            "цела",
+            "целла",
+            "целлу",
+            "цело",
+            "дала",
+            "дало",
+            "деда",
+            "деду",
+            "дега",
+            "дегу",
+            "деку",
+            "дел",
+            "делю",
+            "делаю",
+            "делах",
+            "делай",
+            "делал",
+            "делам",
+            "делан",
+            "делая",
+            "делав",
+            "деле",
+            "дели",
+            "делом",
+            "делор",
+            "деля",
+            "дель",
+            "дема",
+            "демо",
+            "дему",
+            "дена",
+            "дену",
+            "дера",
+            "деру",
+            "дета",
+            "дето",
+            "дежа",
+            "дежу",
+            "деву",
+            "дика",
+            "дику",
+            "дилю",
+            "дилан",
+            "дилар",
+            "диле",
+            "дили",
+            "дилон",
+            "дилор",
+            "диля",
+            "диль",
+            "диму",
+            "дину",
+            "диола",
+            "дира",
+            "диру",
+            "диву",
+            "длила",
+            "доила",
+            "дола",
+            "дула",
+            "дулу",
+            "дэлла",
+            "дэллу",
+            "фила",
+            "филу",
+            "геллу",
+            "хила",
+            "хило",
+            "ила",
+            "йелла",
+            "йеллу",
+            "кила",
+            "килу",
+            "лела",
+            "лелу",
+            "лила",
+            "лилла",
+            "лиллу",
+            "лило",
+            "лилу",
+            "мела",
+            "мело",
+            "мелу",
+            "милу",
+            "нела",
+            "нелла",
+            "неллу",
+            "нелу",
+            "нила",
+            "нилла",
+            "ниллу",
+            "нилу",
+            "пела",
+            "пело",
+            "пило",
+            "пилу",
+            "рила",
+            "рилу",
+            "села",
+            "селу",
+            "сило",
+            "силу",
+            "тела",
+            "телу",
+            "уела",
+            "уело",
+            "жило",
+            "жилу",
+            "вела",
+            "велла",
+            "велло",
+            "веллу",
+            "вело",
+            "вила",
+            "виллу",
+            "вило",
+            "зело",
+            "зила",
+            "зилу",
+            "шелла",
+            "шеллу",
+            "шила",
+            "шилу",
+            "эдила",
+            "чела",
+            "челу",
+            "Адила",
+            "Аила",
+            "Аилу",
+            "Бела",
+            "Белла",
+            "Беллу",
+            "Белу",
+            "Билла",
+            "Биллу",
+            "Фила",
+            "Филу",
+            "Гелла",
+            "Гелло",
+            "Геллу",
+            "Лела",
+            "Лелу",
+            "Лила",
+            "Лилла",
+            "Лиллу",
+            "Лилу",
+            "Мила",
+            "Мило",
+            "Милу",
+            "Нела",
+            "Нелла",
+            "Неллу",
+            "Нелу",
+            "Нила",
+            "Нилла",
+            "Ниллу",
+            "Нилу",
+            "Селло",
+            "Тилло",
+            "Велла",
+            "Велло",
+            "Веллу",
+            "Вилла",
+            "Виллу",
+            "д ила"
+          ],
+          ""
+        ]
+      ],
+      "python_code_point_spans": [
+        [
+          14,
+          4
+        ]
+      ],
+      "text": "𐐀 Привет, как дила у тебя?",
+      "text_code_point_length": 26,
+      "text_utf16_length": 27,
+      "unicode_kind": "supplementary_letter_prefix"
+    },
+    {
+      "case_id": "utf16_0158",
       "has_combining": true,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -8239,10 +8875,11 @@
       "unicode_kind": "nonbmp_and_combining"
     },
     {
-      "case_id": "utf16_0151",
+      "case_id": "utf16_0159",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -8701,10 +9338,11 @@
       "unicode_kind": "nonbmp_between_sentences"
     },
     {
-      "case_id": "utf16_0152",
+      "case_id": "utf16_0160",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
@@ -8939,10 +9577,11 @@
       "unicode_kind": "nonbmp_inside_quotes"
     },
     {
-      "case_id": "utf16_0153",
+      "case_id": "utf16_0161",
       "has_combining": false,
       "has_non_bmp": true,
       "has_soft_hyphen": false,
+      "has_supplementary_letter": false,
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",

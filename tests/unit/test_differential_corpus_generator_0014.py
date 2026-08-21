@@ -18,6 +18,7 @@ import pytest
 
 from tools.differential_batch_oracle_0014 import Profile
 from tools.differential_corpus_0014 import (
+    CONFIG_SENSITIVITY_SPECS,
     FIXED_SEED,
     MUTATION_FAMILIES,
     MUTATION_FAMILY_NAMES,
@@ -34,6 +35,7 @@ from tools.differential_corpus_0014 import (
     java_rule_default_off_ids,
     make_case_id,
     semantic_identity,
+    validate_config_sensitivity_profiles,
     xml_rule_default_off_ids,
 )
 
@@ -313,10 +315,68 @@ def test_required_config_profiles_and_references_have_matching_levels() -> None:
     assert profiles["cfg_long_sentence_15"].level == "PICKY"
     assert profiles["cfg_long_paragraph_30"].level == "PICKY"
     assert profiles["ref_picky"].level == "PICKY"
+    assert profiles["ref_long_paragraph_default"].level == "PICKY"
     assert profiles["cfg_filler_words_2"].level == "DEFAULT"
     assert profiles["cfg_speller_conf_ru_1"].rule_config == {
         "MORFOLOGIK_RULE_RU_RU": {"conf_ru_Value": 1}
     }
+
+
+def test_long_paragraph_reference_differs_only_by_max_words() -> None:
+    profiles = build_profiles()
+    target = profiles["cfg_long_paragraph_30"]
+    reference = profiles["ref_long_paragraph_default"]
+    assert CONFIG_SENSITIVITY_SPECS["cfg_long_paragraph_30"][
+        "reference_profile"
+    ] == "ref_long_paragraph_default"
+    assert target.enabled_rules == reference.enabled_rules == (
+        "TOO_LONG_PARAGRAPH",
+    )
+    assert target.disabled_rules == reference.disabled_rules == ()
+    assert target.level == reference.level == "PICKY"
+    assert target.enable_all_default_off is reference.enable_all_default_off is False
+    assert target.rule_config == {"TOO_LONG_PARAGRAPH": {"maxWords": 30}}
+    assert reference.rule_config == {}
+
+
+def test_every_config_reference_has_only_its_declared_structural_delta() -> None:
+    proof = validate_config_sensitivity_profiles()
+    assert set(proof) == set(CONFIG_SENSITIVITY_SPECS)
+    assert all(
+        block["unrelated_profile_dimensions_equal"]
+        and block["only_intended_rule_config_differs"]
+        for block in proof.values()
+    )
+
+
+def test_config_reference_validation_fails_on_unrelated_level_change() -> None:
+    profiles = build_profiles()
+    reference = profiles["ref_long_paragraph_default"]
+    profiles["ref_long_paragraph_default"] = Profile(
+        profile_id=reference.profile_id,
+        enabled_rules=reference.enabled_rules,
+        disabled_rules=reference.disabled_rules,
+        rule_config=reference.rule_config,
+        enable_all_default_off=reference.enable_all_default_off,
+        level="DEFAULT",
+    )
+    with pytest.raises(ValueError, match="Unrelated profile dimensions"):
+        validate_config_sensitivity_profiles(profiles)
+
+
+def test_config_reference_validation_fails_on_unrelated_enablement_change() -> None:
+    profiles = build_profiles()
+    reference = profiles["ref_long_paragraph_default"]
+    profiles["ref_long_paragraph_default"] = Profile(
+        profile_id=reference.profile_id,
+        enabled_rules=(),
+        disabled_rules=reference.disabled_rules,
+        rule_config=reference.rule_config,
+        enable_all_default_off=reference.enable_all_default_off,
+        level=reference.level,
+    )
+    with pytest.raises(ValueError, match="Unrelated profile dimensions"):
+        validate_config_sensitivity_profiles(profiles)
 
 
 def test_profile_config_spec_is_deterministic_and_sorted() -> None:
@@ -352,3 +412,11 @@ def test_unicode_decorations_produce_the_declared_properties() -> None:
         assert provenance["has_combining"] == any(
             unicodedata.combining(c) for c in text
         )
+        assert provenance["has_supplementary_letter"] == any(
+            ord(c) > 0xFFFF and unicodedata.category(c).startswith("L")
+            for c in text
+        )
+    assert any(
+        provenance["unicode_kind"] == "supplementary_letter_prefix"
+        for _, provenance in build_stratum_e()
+    )

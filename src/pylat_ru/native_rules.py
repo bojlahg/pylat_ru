@@ -91,9 +91,17 @@ def _is_long_sentence_word(token: str) -> bool:
 
     ``StringTools.isNotWordCharacter`` treats a leading digit as non-word here,
     unlike several other generic rules that intentionally count numeric tokens.
+    Java's ``substring(0, 1)`` selects one UTF-16 code unit.  A supplementary-plane
+    letter therefore becomes an unpaired high surrogate, which does not match
+    ``\\p{L}``.  Python indexes Unicode scalars, so reject that case explicitly.
     Keep this predicate local to LongSentenceRule instead of changing their surface.
     """
-    return bool(token) and unicodedata.category(token[0]).startswith("L")
+    if not token:
+        return False
+    first = token[0]
+    if ord(first) > 0xFFFF:
+        return False
+    return unicodedata.category(first).startswith("L")
 
 
 #: Pinned ``AnalyzedTokenReadings.NON_WORD_REGEX``, copied verbatim from the

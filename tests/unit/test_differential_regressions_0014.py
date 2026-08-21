@@ -78,6 +78,33 @@ def test_regression_cases_carry_their_required_provenance(regressions: dict) -> 
         assert case["profile"] in build_profiles()
 
 
+def test_pinned_oracle_records_supplementary_long_sentence_semantics(
+    regressions: dict, tools: dict
+) -> None:
+    case = next(
+        item
+        for item in regressions["cases"]
+        if item["case_id"]
+        == "second_review_long_sentence_supplementary_letter"
+    )
+    assert unicodedata.category(case["minimized_text"][0]).startswith("L")
+    assert case["profile"] == "cfg_long_sentence_15"
+    assert all(
+        finding[0] != "TOO_LONG_SENTENCE"
+        for finding in case["expected_java_findings"]
+    )
+    profile = build_profiles()[case["profile"]]
+    actual = [
+        finding.comparable_json()
+        for finding in pylat_findings(
+            tools[case["profile"]].check(
+                case["minimized_text"], level=profile.level
+            )
+        )
+    ]
+    assert actual == case["expected_java_findings"]
+
+
 def test_regression_fixture_declares_the_complete_strict_schema(regressions: dict) -> None:
     assert regressions["metadata"]["finding_field_order"] == [
         "rule_id",
@@ -138,6 +165,7 @@ def test_calibration_covers_the_required_unicode_categories(calibration: dict) -
     assert sum(1 for case in cases if case["has_non_bmp"]) >= 50
     assert sum(1 for case in cases if case["has_combining"]) >= 10
     assert sum(1 for case in cases if case["has_soft_hyphen"]) >= 10
+    assert any(case["has_supplementary_letter"] for case in cases)
     assert any(
         case["text_utf16_length"] - case["text_code_point_length"] >= 4
         for case in cases

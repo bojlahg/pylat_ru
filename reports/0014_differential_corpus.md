@@ -1,17 +1,18 @@
 # Task 0014 — Differential Corpus and Full-Pipeline Compatibility Audit
 
-## Review-fix completion addendum (2026-08-21)
+## Second review-fix authoritative completion evidence (2026-08-21)
 
-This addendum is the authoritative completion evidence for
-`tasks/0014_review_fix_extended_handoff.md` and supersedes the historical Task-0014
-counts and CI reference later in this report.  The earlier body is retained as the
-record of the original campaign.  Per the review-fix exact-SHA policy, the new GitHub
+This section is the authoritative completion evidence for
+the Task-0014 review-fix specifications and supersedes the historical Task-0014
+counts and CI reference later in this report. The earlier body is retained only as the
+record of the original campaign. Per the exact-SHA policy, the new GitHub
 Actions run is recorded only in the final handoff after the final commit is pushed;
 there is no post-CI documentation commit.
 
 ### Scope and implementation
 
-Review baseline: `f5cd5fb630c71ba3ee251471aaceaee4134d4522`.
+Review baseline: `af4f64da366b87cb9ea46005c1053dad9faa9d60`; parent review
+baseline: `f5cd5fb630c71ba3ee251471aaceaee4134d4522`.
 Pinned LanguageTool remains `6.8` at
 `e807fcde6a6506191e1470744d2345da28c26be6`; trusted oracle build
 `lt_6.8_source_build_jdk17_stefan`, jar SHA-256
@@ -37,19 +38,25 @@ production level filter.  Long-sentence and long-paragraph target and reference
 profiles both use `PICKY`, so the measured delta comes from `maxWords`, not from a
 level change.
 
-The corpus now contains controlled target/reference pairs for all required options.
-Summary generation fails closed if a required profile has no target cases, no Java
-observable delta, no corresponding Python delta, or a non-exact configured result.
-The ordinary speller is covered by real `conf_ru_Value=0` and `conf_ru_Value=1`
-profiles.  State isolation deterministically includes every declared profile and
-copies the checking level into fresh Java instances.
+The corpus contains controlled target/reference pairs for all required options.
+`ref_long_paragraph_default` explicitly enables default-off
+`TOO_LONG_PARAGRAPH` at `PICKY` with its pinned default threshold of 220; its target
+differs only by `maxWords=30`. A machine-readable structural proof now fails closed
+if any config pair changes enablement, disabled rules, level, default-off handling,
+an unrelated rule, or an undeclared option. Summary generation also fails closed for
+zero target cases, zero Java/Python observable deltas, or non-exact target output.
+
+LongSentence's rule-local predicate now reproduces Java `substring(0,1)` UTF-16
+semantics: a supplementary-plane letter yields an unpaired surrogate and is not
+counted. U+10400 DESERET CAPITAL LETTER LONG I is covered directly, in a trusted
+oracle regression, and in threshold-sensitive whole-pipeline PICKY evidence.
 
 ### Config-sensitive whole-pipeline evidence
 
 | Target profile | Reference | Targeted | Java deltas | Python deltas | Exact target cases |
 | --- | --- | ---: | ---: | ---: | ---: |
-| `cfg_long_sentence_15` | `ref_picky` | 4 | 2 | 2 | 4/4 |
-| `cfg_long_paragraph_30` | `ref_picky` | 4 | 1 | 1 | 4/4 |
+| `cfg_long_sentence_15` | `ref_picky` | 5 | 2 | 2 | 5/5 |
+| `cfg_long_paragraph_30` | `ref_long_paragraph_default` | 4 | 1 | 1 | 4/4 |
 | `cfg_filler_words_2` | `ref_filler_words_default` | 3 | 1 | 1 | 3/3 |
 | `cfg_speller_conf_ru_1` | `cfg_speller_conf_ru_0` | 3 | 2 | 2 | 3/3 |
 
@@ -57,33 +64,31 @@ copies the checking level into fresh Java instances.
 
 | Metric | Result |
 | --- | ---: |
-| Unique texts | 9,628 |
-| Profile executions | 16,853 |
-| Comparable cases | 16,816 |
-| Exact comparable cases | 16,816 |
+| Unique texts | 9,637 |
+| Profile executions | 16,871 |
+| Comparable cases | 16,834 |
+| Exact comparable cases | 16,834 |
 | Ordinary comparable non-exact cases | 0 |
-| Java findings (comparable) | 24,500 |
-| Python findings (comparable) | 24,500 |
-| Java findings with suggestions | 21,391 |
-| Ordered suggestion matches | 21,391 |
+| Java findings (comparable) | 24,518 |
+| Python findings (comparable) | 24,518 |
 | Java oracle error cases | 37 |
 | Confirmed pinned-upstream defect cases | 37 |
 | Unexplained ordinary discrepancies | 0 |
 | Ordinary allowlist entries | 0 |
-| Minimized regressions | 238 |
+| Minimized regressions | 239 |
 
 Every strict field dimension, including `full_rule_id` and `category_name`, is
-16,816/16,816.  Non-BMP cases are 614/614 exact; combining-mark cases 438/438;
-soft-hyphen cases 178/178; Python UTF-16 self-consistency failures are zero.  The 37
+16,834/16,834. Non-BMP cases are 632/632 exact; supplementary-letter cases are
+36/36 comparable exact; combining-mark cases 438/438; soft-hyphen cases 178/178;
+Python UTF-16 self-consistency failures are zero. The 37
 non-comparable cases retain the narrow
 `PARAGRAPH_REPEAT_BEGINNING_RULE_EMPTY_SECOND_SPAN` pinned-upstream classification;
 the count did not change.  `RussianConfusionProbabilityRule` remains
 `LANGUAGE_MODEL_DEFERRED`.
 
-### Additional production defects exposed by strict regression replay
+### Production defects covered by strict regression replay
 
-Regenerating the 238 minimized findings with the strict schema exposed two edge cases
-outside the final corpus inputs:
+The first review-fix exposed two edge cases outside its final corpus inputs:
 
 1. `LongSentenceRule` counted digit-leading tokens as words, while pinned
    `StringTools.isNotWordCharacter` excludes them for this rule.  A rule-local
@@ -93,20 +98,21 @@ outside the final corpus inputs:
    became a Python replacement equal to `""`.  Pinned `RuleMatch` exposes no replacement
    for that payload; Python now preserves the message markup and omits the empty item.
 
-All 238/238 minimized regressions now reproduce the trusted Java output under the
-10-field schema.
+The second review-fix adds the UTF-16 first-code-unit correction described above.
+All 239/239 committed regressions now reproduce the trusted Java output under the
+10-field schema; UTF-16 calibration contains 162 oracle-generated cases.
 
 ### Verification and boundary
 
 ```text
-Focused Task-0014 tests: 128 passed
-Full pytest:             1132 passed
+Focused Task-0014 tests: 141 passed
+Full pytest:             1138 passed
 Failures:                0
 Errors:                  0
 Skipped:                 0
-Wall time:               230.98 s
+Wall time:               225.93 s
 Wheel isolation:         PASS
-State/order isolation:   PASS (299 comparable selected cases, all 10 profiles)
+State/order isolation:   PASS (299 comparable selected cases, all 11 profiles)
 ```
 
 Production remains Java-free, oracle-free, corpus-free, and network-free.  The

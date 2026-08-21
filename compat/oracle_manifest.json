@@ -39,10 +39,10 @@
   "fixture_bindings": [
     {
       "path": "tests/fixtures/differential_regressions_0014.json",
-      "size_bytes": 217433,
-      "sha256": "a7ceb3309581a8204a5cb719ca4f38774146cfd488ef12b4f7bf014887118e53",
+      "size_bytes": 218082,
+      "sha256": "912ef765183bb8b2d5c6330ee68ded35426db8e03ba30f15920541843e8ba470",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 238
+      "case_count": 239
     },
     {
       "path": "tests/fixtures/oracle_filters_russian_rules.json",
@@ -116,10 +116,10 @@
     },
     {
       "path": "tests/fixtures/oracle_utf16_calibration_0014.json",
-      "size_bytes": 231284,
-      "sha256": "f26f1d500ecf0bdebb85251b6f051f66c834a4de20069a12dd8d6e9956f5bac3",
+      "size_bytes": 249921,
+      "sha256": "bad4187af631ce86a50058b0784e2fb9ff5e346ec4085f2529359f7c09255205",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
-      "case_count": 154
+      "case_count": 162
     }
   ],
   "description": "Trusted Java LanguageTool development oracle specification and reproducible build records for differential and fixture generation"

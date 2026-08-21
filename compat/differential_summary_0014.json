@@ -97,10 +97,10 @@
       "pylat_occurrences": 17
     },
     "COMMA_PARENTHESIS_WHITESPACE": {
-      "exact_case_occurrences": 706,
-      "java_occurrences": 706,
+      "exact_case_occurrences": 710,
+      "java_occurrences": 710,
       "mismatch_count": 0,
-      "pylat_occurrences": 706
+      "pylat_occurrences": 710
     },
     "COMPLEX_SOUZ_NO_COMMA": {
       "exact_case_occurrences": 24,
@@ -619,16 +619,16 @@
       "pylat_occurrences": 3
     },
     "MORFOLOGIK_RULE_RU_RU": {
-      "exact_case_occurrences": 14362,
-      "java_occurrences": 14362,
+      "exact_case_occurrences": 14366,
+      "java_occurrences": 14366,
       "mismatch_count": 0,
-      "pylat_occurrences": 14362
+      "pylat_occurrences": 14366
     },
     "MORFOLOGIK_RULE_RU_RU_YO": {
-      "exact_case_occurrences": 1959,
-      "java_occurrences": 1959,
+      "exact_case_occurrences": 1963,
+      "java_occurrences": 1963,
       "mismatch_count": 0,
-      "pylat_occurrences": 1962
+      "pylat_occurrences": 1966
     },
     "Many_PNN": {
       "exact_case_occurrences": 53,
@@ -1339,10 +1339,10 @@
       "pylat_occurrences": 18
     },
     "RU_WORD_REPEAT": {
-      "exact_case_occurrences": 682,
-      "java_occurrences": 682,
+      "exact_case_occurrences": 684,
+      "java_occurrences": 684,
       "mismatch_count": 0,
-      "pylat_occurrences": 685
+      "pylat_occurrences": 687
     },
     "RU_WORD_ROOT_REPEAT": {
       "exact_case_occurrences": 15,
@@ -2011,16 +2011,16 @@
       "pylat_occurrences": 57
     },
     "WHITESPACE_RULE": {
-      "exact_case_occurrences": 385,
-      "java_occurrences": 385,
+      "exact_case_occurrences": 387,
+      "java_occurrences": 387,
       "mismatch_count": 0,
-      "pylat_occurrences": 385
+      "pylat_occurrences": 387
     },
     "WORD_REPEAT_RULE": {
-      "exact_case_occurrences": 329,
-      "java_occurrences": 329,
+      "exact_case_occurrences": 331,
+      "java_occurrences": 331,
       "mismatch_count": 0,
-      "pylat_occurrences": 329
+      "pylat_occurrences": 331
     },
     "WRONG_INN": {
       "exact_case_occurrences": 4,
@@ -2774,15 +2774,15 @@
     }
   },
   "campaign_identity": {
-    "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
+    "corpus_signature": "fdcda0efc876bef3962a0d750f8118d5e5a086527d36002f47ce4469b2aed179",
     "fixed_seed": 140014,
-    "generator_version": "0014.2-review-fix",
+    "generator_version": "0014.3-second-review-fix",
     "stratum_signatures": {
-      "A": "44f4b168ee21388065c3acd9f762719439640896092250304d418308c93036be",
+      "A": "ff317f5d0036648237c5708cff767e07113e9d523dad3063d27158e04e4d8d05",
       "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
       "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
       "D": "9576e4294b878f9bf9e7e839925dd1bb0c74ba8bde2d8b85ac410ed9c18fda35",
-      "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
+      "E": "3676a5ecc9479e998e4d4e7bda9800400e3f5b5bb07296c006d9ef37a406cec6"
     }
   },
   "config_sensitivity": {
@@ -2797,6 +2797,16 @@
       "profile_id": "cfg_filler_words_2",
       "python_cases_with_same_observable_delta": 1,
       "reference_profile": "ref_filler_words_default",
+      "structural_proof": {
+        "only_intended_rule_config_differs": true,
+        "options": [
+          "excludeDirectSpeech",
+          "minPercent"
+        ],
+        "reference_profile": "ref_filler_words_default",
+        "rule_id": "FILLER_WORDS_RU",
+        "unrelated_profile_dimensions_equal": true
+      },
       "targeted_cases": 3
     },
     "cfg_long_paragraph_30": {
@@ -2807,7 +2817,16 @@
       "java_python_exact_cases": 4,
       "profile_id": "cfg_long_paragraph_30",
       "python_cases_with_same_observable_delta": 1,
-      "reference_profile": "ref_picky",
+      "reference_profile": "ref_long_paragraph_default",
+      "structural_proof": {
+        "only_intended_rule_config_differs": true,
+        "options": [
+          "maxWords"
+        ],
+        "reference_profile": "ref_long_paragraph_default",
+        "rule_id": "TOO_LONG_PARAGRAPH",
+        "unrelated_profile_dimensions_equal": true
+      },
       "targeted_cases": 4
     },
     "cfg_long_sentence_15": {
@@ -2815,11 +2834,20 @@
         "TOO_LONG_SENTENCE"
       ],
       "java_cases_with_observable_delta": 2,
-      "java_python_exact_cases": 4,
+      "java_python_exact_cases": 5,
       "profile_id": "cfg_long_sentence_15",
       "python_cases_with_same_observable_delta": 2,
       "reference_profile": "ref_picky",
-      "targeted_cases": 4
+      "structural_proof": {
+        "only_intended_rule_config_differs": true,
+        "options": [
+          "maxWords"
+        ],
+        "reference_profile": "ref_picky",
+        "rule_id": "TOO_LONG_SENTENCE",
+        "unrelated_profile_dimensions_equal": true
+      },
+      "targeted_cases": 5
     },
     "cfg_speller_conf_ru_1": {
       "delta_rule_ids": [
@@ -2831,19 +2859,28 @@
       "profile_id": "cfg_speller_conf_ru_1",
       "python_cases_with_same_observable_delta": 2,
       "reference_profile": "cfg_speller_conf_ru_0",
+      "structural_proof": {
+        "only_intended_rule_config_differs": true,
+        "options": [
+          "conf_ru_Value"
+        ],
+        "reference_profile": "cfg_speller_conf_ru_0",
+        "rule_id": "MORFOLOGIK_RULE_RU_RU",
+        "unrelated_profile_dimensions_equal": true
+      },
       "targeted_cases": 3
     }
   },
   "counts_by_profile": {
     "all_ordinary_enabled": {
-      "cases": 5010,
-      "exact": 4973,
-      "java_findings": 4989,
+      "cases": 5018,
+      "exact": 4981,
+      "java_findings": 4999,
       "mismatch_counts_by_kind": {
         "JAVA_ORACLE_ERROR": 37
       },
       "non_exact": 37,
-      "pylat_findings": 5075
+      "pylat_findings": 5085
     },
     "cfg_filler_words_2": {
       "cases": 3,
@@ -2862,8 +2899,8 @@
       "pylat_findings": 1
     },
     "cfg_long_sentence_15": {
-      "cases": 4,
-      "exact": 4,
+      "cases": 5,
+      "exact": 5,
       "java_findings": 2,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
@@ -2894,12 +2931,12 @@
       "pylat_findings": 1399
     },
     "default": {
-      "cases": 9615,
-      "exact": 9615,
-      "java_findings": 18025,
+      "cases": 9623,
+      "exact": 9623,
+      "java_findings": 18033,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 18025
+      "pylat_findings": 18033
     },
     "ref_filler_words_default": {
       "cases": 3,
@@ -2909,9 +2946,17 @@
       "non_exact": 0,
       "pylat_findings": 38
     },
+    "ref_long_paragraph_default": {
+      "cases": 4,
+      "exact": 4,
+      "java_findings": 0,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 0
+    },
     "ref_picky": {
-      "cases": 8,
-      "exact": 8,
+      "cases": 5,
+      "exact": 5,
       "java_findings": 0,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
@@ -2920,13 +2965,13 @@
   },
   "counts_by_stratum": {
     "A": {
-      "cases": 5056,
-      "exact": 5056,
+      "cases": 5058,
+      "exact": 5058,
       "java_findings": 2900,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
       "pylat_findings": 2900,
-      "unique_texts": 2527
+      "unique_texts": 2528
     },
     "B": {
       "cases": 4684,
@@ -2958,13 +3003,13 @@
       "unique_texts": 2405
     },
     "E": {
-      "cases": 308,
-      "exact": 308,
-      "java_findings": 405,
+      "cases": 324,
+      "exact": 324,
+      "java_findings": 423,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 405,
-      "unique_texts": 154
+      "pylat_findings": 423,
+      "unique_texts": 162
     }
   },
   "external_corpus": {
@@ -3694,7 +3739,7 @@
     "total_retained_blocks": 2405,
     "total_unique_nonempty_blocks": 2405
   },
-  "input_manifest_sha256": "c2747bf1ec6ebc56e3f6e6b8ed9ae12aba9b013fb38db995819e9142ce544247",
+  "input_manifest_sha256": "504a3473069e94d03627bde7ff5362cefd39f94afe74197933de1407083fd207",
   "known_accepted_discrepancies": 0,
   "language_model_rule": {
     "excluded_from_java_surface": true,
@@ -3715,117 +3760,120 @@
   "ordinary_allowlist_entries": 0,
   "parity": {
     "category": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "category_name": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "finding_order": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "finding_sequence_exact": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "full_observable_field": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "full_rule_id": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "message": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "rule_id": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "short_message": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "span": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "suggestion_content": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "suggestion_order": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "url": {
-      "denominator": 16816,
-      "numerator": 16816,
+      "denominator": 16834,
+      "numerator": 16834,
       "rate": 1.0,
       "state": "MEASURED"
     }
   },
-  "repository_sha": "f5cd5fb630c71ba3ee251471aaceaee4134d4522",
+  "repository_sha": "af4f64da366b87cb9ea46005c1053dad9faa9d60",
   "schema_version": "2.0.0",
   "suggestions": {
     "duplicate_preservation_mismatches": 0,
-    "exact_ordered_suggestion_matches": 21391,
-    "java_findings_with_suggestions": 21391,
+    "exact_ordered_suggestion_matches": 21407,
+    "java_findings_with_suggestions": 21407,
     "suggestion_content_mismatches": 0,
     "suggestion_order_only_mismatches": 0
   },
   "task": "0014",
   "totals": {
-    "cases_total": 16853,
-    "comparable_cases": 16816,
-    "exact_cases": 16816,
+    "cases_total": 16871,
+    "comparable_cases": 16834,
+    "exact_cases": 16834,
     "java_errors": 37,
-    "java_findings_comparable": 24500,
-    "java_findings_total": 24500,
+    "java_findings_comparable": 24518,
+    "java_findings_total": 24518,
     "non_exact_cases": 37,
-    "profile_executions_total": 16853,
-    "pylat_findings_comparable": 24500,
-    "pylat_findings_total": 24586,
+    "profile_executions_total": 16871,
+    "pylat_findings_comparable": 24518,
+    "pylat_findings_total": 24604,
     "python_errors": 0,
-    "unique_texts_total": 9628
+    "unique_texts_total": 9637
   },
   "unexplained_case_ids": [],
   "unexplained_discrepancies": 0,
   "unicode_coverage": {
     "combining_mark_cases": 438,
     "combining_mark_exact": 438,
-    "non_bmp_cases": 614,
-    "non_bmp_exact": 614,
+    "non_bmp_cases": 632,
+    "non_bmp_exact": 632,
     "soft_hyphen_cases": 178,
     "soft_hyphen_exact": 178,
+    "supplementary_letter_cases": 36,
+    "supplementary_letter_comparable_cases": 36,
+    "supplementary_letter_exact": 36,
     "utf16_parity_failures": 0
   },
   "upstream_defects": {

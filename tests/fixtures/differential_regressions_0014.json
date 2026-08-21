@@ -6773,6 +6773,17 @@
       ],
       "profile": "all_ordinary_enabled",
       "upstream_proof": "pinned LanguageTool 6.8 Russian pipeline at commit e807fcde6a6506191e1470744d2345da28c26be6"
+    },
+    {
+      "case_id": "second_review_long_sentence_supplementary_letter",
+      "discovered_in_stratum": "A",
+      "expected_java_findings": [],
+      "minimized_text": "𐐀 Город улица дом окно книга автор читатель школа учитель ученик работа время место страна человек.",
+      "original_mismatch_type": [
+        "UTF16_FIRST_CODE_UNIT_SEMANTICS"
+      ],
+      "profile": "cfg_long_sentence_15",
+      "upstream_proof": "pinned LongSentenceRule.isWordCount uses substring(0,1), so U+10400 contributes an unpaired surrogate rather than a Unicode letter"
     }
   ],
   "metadata": {

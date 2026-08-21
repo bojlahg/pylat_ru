@@ -2,10 +2,21 @@
 
 from __future__ import annotations
 
+import unicodedata
+
 import pytest
 
 from pylat_ru import LanguageToolRU
-from pylat_ru.native_rules import RussianJavaRulesEngine, TASK_0011_RULE_CLASSES
+from pylat_ru.native_rules import (
+    RussianJavaRulesEngine,
+    TASK_0011_RULE_CLASSES,
+    _is_long_sentence_word,
+)
+from tools.differential_corpus_0014 import (
+    CONFIG_CONTROL_WORDS,
+    SUPPLEMENTARY_LETTER,
+    SUPPLEMENTARY_LONG_SENTENCE_TEXT,
+)
 
 
 EXPECTED_IDS = {
@@ -25,6 +36,23 @@ EXPECTED_IDS = {
     "RU_DASH_RULE",
     "RU_SPECIFIC_CASE",
 }
+
+
+def test_long_sentence_uses_pinned_utf16_first_code_unit_semantics() -> None:
+    assert unicodedata.category(SUPPLEMENTARY_LETTER).startswith("L")
+    assert _is_long_sentence_word("Слово")
+    assert not _is_long_sentence_word("1слово")
+    assert not _is_long_sentence_word(".слово")
+    assert not _is_long_sentence_word(SUPPLEMENTARY_LETTER + "слово")
+
+    engine = RussianJavaRulesEngine(
+        {"TOO_LONG_SENTENCE": {"maxWords": 15}}
+    )
+    assert not engine.check_rule(
+        SUPPLEMENTARY_LONG_SENTENCE_TEXT, "TOO_LONG_SENTENCE"
+    )
+    bmp_control = " ".join(CONFIG_CONTROL_WORDS[:16]) + "."
+    assert engine.check_rule(bmp_control, "TOO_LONG_SENTENCE")
 
 
 def test_task_0011_inventory_and_defaults() -> None:

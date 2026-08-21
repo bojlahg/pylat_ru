@@ -1,6 +1,13 @@
 {
   "config_sensitivity_specs": {
     "cfg_filler_words_2": {
+      "intended_rule_config_delta": {
+        "options": [
+          "excludeDirectSpeech",
+          "minPercent"
+        ],
+        "rule_id": "FILLER_WORDS_RU"
+      },
       "reference_profile": "ref_filler_words_default",
       "text_sha256": [
         "76b3d02d63805765c9b9a6472176dff5386dca7ea89012c9849de6078b26411f",
@@ -9,7 +16,13 @@
       ]
     },
     "cfg_long_paragraph_30": {
-      "reference_profile": "ref_picky",
+      "intended_rule_config_delta": {
+        "options": [
+          "maxWords"
+        ],
+        "rule_id": "TOO_LONG_PARAGRAPH"
+      },
+      "reference_profile": "ref_long_paragraph_default",
       "text_sha256": [
         "add3196c59b43e09ea9dde74354d88f0ae01e740fda36428388ba2cfa07952d2",
         "4e9e02d6552067e39ecd58edffa5fef62a9e54cdffd83f4d0dbf075d857933ab",
@@ -18,15 +31,28 @@
       ]
     },
     "cfg_long_sentence_15": {
+      "intended_rule_config_delta": {
+        "options": [
+          "maxWords"
+        ],
+        "rule_id": "TOO_LONG_SENTENCE"
+      },
       "reference_profile": "ref_picky",
       "text_sha256": [
         "9974224bd2501d084e196168c85247ef66c1c2cf068467d1a9e36d301aa3c7de",
         "85e4503f51ef2e8502702320d4186d0ddb40e41be35f1cd5bd35cb4953c1f35c",
         "699f8e08db397ab4550f44e16393bf2e159d6d48292bec0d28e34fd1a6427af7",
-        "02ffe8dc9719bee7400880c6f22ca9293e115e277260f4e324aa63291608c868"
+        "02ffe8dc9719bee7400880c6f22ca9293e115e277260f4e324aa63291608c868",
+        "18238bac5d28453c7c2ed6ccd4fe4c601ede37d7aad6a63f832b42ffb585c622"
       ]
     },
     "cfg_speller_conf_ru_1": {
+      "intended_rule_config_delta": {
+        "options": [
+          "conf_ru_Value"
+        ],
+        "rule_id": "MORFOLOGIK_RULE_RU_RU"
+      },
       "reference_profile": "cfg_speller_conf_ru_0",
       "text_sha256": [
         "42e25dd386eb55b56db34af535fab5231db8cf1b588af95bc9c32ef849507fc5",
@@ -35,35 +61,75 @@
       ]
     }
   },
+  "config_sensitivity_structure": {
+    "cfg_filler_words_2": {
+      "only_intended_rule_config_differs": true,
+      "options": [
+        "excludeDirectSpeech",
+        "minPercent"
+      ],
+      "reference_profile": "ref_filler_words_default",
+      "rule_id": "FILLER_WORDS_RU",
+      "unrelated_profile_dimensions_equal": true
+    },
+    "cfg_long_paragraph_30": {
+      "only_intended_rule_config_differs": true,
+      "options": [
+        "maxWords"
+      ],
+      "reference_profile": "ref_long_paragraph_default",
+      "rule_id": "TOO_LONG_PARAGRAPH",
+      "unrelated_profile_dimensions_equal": true
+    },
+    "cfg_long_sentence_15": {
+      "only_intended_rule_config_differs": true,
+      "options": [
+        "maxWords"
+      ],
+      "reference_profile": "ref_picky",
+      "rule_id": "TOO_LONG_SENTENCE",
+      "unrelated_profile_dimensions_equal": true
+    },
+    "cfg_speller_conf_ru_1": {
+      "only_intended_rule_config_differs": true,
+      "options": [
+        "conf_ru_Value"
+      ],
+      "reference_profile": "cfg_speller_conf_ru_0",
+      "rule_id": "MORFOLOGIK_RULE_RU_RU",
+      "unrelated_profile_dimensions_equal": true
+    }
+  },
   "corpus_file": {
     "committed": false,
     "path": "corpora/differential_corpus_0014.jsonl",
     "reason": "contains external natural-corpus text; never committed"
   },
-  "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
+  "corpus_signature": "fdcda0efc876bef3962a0d750f8118d5e5a086527d36002f47ce4469b2aed179",
   "counts": {
     "cases_by_profile": {
-      "all_ordinary_enabled": 5010,
+      "all_ordinary_enabled": 5018,
       "cfg_filler_words_2": 3,
       "cfg_long_paragraph_30": 4,
-      "cfg_long_sentence_15": 4,
+      "cfg_long_sentence_15": 5,
       "cfg_speller_conf_ru_0": 3,
       "cfg_speller_conf_ru_1": 3,
       "cfg_speller_yo": 2200,
-      "default": 9615,
+      "default": 9623,
       "ref_filler_words_default": 3,
-      "ref_picky": 8
+      "ref_long_paragraph_default": 4,
+      "ref_picky": 5
     },
     "cases_by_stratum": {
-      "A": 5056,
+      "A": 5058,
       "B": 4684,
       "C": 4400,
       "D": 2405,
-      "E": 308
+      "E": 324
     },
-    "cases_total": 16853,
+    "cases_total": 16871,
     "combining_mark_executions": 438,
-    "non_bmp_executions": 614,
+    "non_bmp_executions": 632,
     "semantic_duplicates_skipped": 422,
     "soft_hyphen_executions": 178,
     "source_texts_by_stratum": {
@@ -71,16 +137,17 @@
       "B": 2354,
       "C": 2200,
       "D": 2405,
-      "E": 154
+      "E": 162
     },
+    "supplementary_letter_executions": 36,
     "unique_texts_by_stratum": {
-      "A": 2527,
+      "A": 2528,
       "B": 2342,
       "C": 2200,
       "D": 2405,
-      "E": 154
+      "E": 162
     },
-    "unique_texts_total": 9628
+    "unique_texts_total": 9637
   },
   "default_off_rule_ids": [
     "COMPLEX_SOUZ_PUNCT_2",
@@ -838,7 +905,7 @@
     "D"
   ],
   "fixed_seed": 140014,
-  "generator_version": "0014.2-review-fix",
+  "generator_version": "0014.3-second-review-fix",
   "internal_strata": [
     "A",
     "B",
@@ -849,7 +916,7 @@
     "A": "4c5f7004382254b2b946ec46df43288ea3b5c2d72473f55fa6d5f43ce71756c8",
     "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
     "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
-    "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
+    "E": "3676a5ecc9479e998e4d4e7bda9800400e3f5b5bb07296c006d9ef37a406cec6"
   },
   "language_model_rule": {
     "excluded_from_java_surface": true,
@@ -921,6 +988,7 @@
     "cfg_speller_yo": "686f42c9bfdd15bf",
     "default": "8b3d349995a8e653",
     "ref_filler_words_default": "7e14c8cb86a2c3fb",
+    "ref_long_paragraph_default": "4e565757708da760",
     "ref_picky": "be092ce9c06a6b64"
   },
   "profiles": {
@@ -1051,6 +1119,16 @@
       "profile_id": "ref_filler_words_default",
       "rule_config": {}
     },
+    "ref_long_paragraph_default": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [
+        "TOO_LONG_PARAGRAPH"
+      ],
+      "level": "PICKY",
+      "profile_id": "ref_long_paragraph_default",
+      "rule_config": {}
+    },
     "ref_picky": {
       "disabled_rules": [],
       "enable_all_default_off": false,
@@ -1111,11 +1189,11 @@
     ]
   },
   "stratum_signatures": {
-    "A": "44f4b168ee21388065c3acd9f762719439640896092250304d418308c93036be",
+    "A": "ff317f5d0036648237c5708cff767e07113e9d523dad3063d27158e04e4d8d05",
     "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
     "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
     "D": "9576e4294b878f9bf9e7e839925dd1bb0c74ba8bde2d8b85ac410ed9c18fda35",
-    "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
+    "E": "3676a5ecc9479e998e4d4e7bda9800400e3f5b5bb07296c006d9ef37a406cec6"
   },
   "targeted_config_profiles": [
     "cfg_long_sentence_15",
@@ -1141,6 +1219,7 @@
     "nbsp_boundaries",
     "zero_width_joiner",
     "nonbmp_math_symbols",
+    "supplementary_letter_prefix",
     "nonbmp_and_combining",
     "nonbmp_between_sentences",
     "nonbmp_inside_quotes",
