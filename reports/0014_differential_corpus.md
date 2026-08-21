@@ -715,3 +715,31 @@ python -m tools.differential_corpus_0014 state-isolation --sample 300
 Task 0015 was not started. No packaging or release work, no upstream-version upgrade and
 no language-model work was carried out. `RussianConfusionProbabilityRule` remains
 `LANGUAGE_MODEL_DEFERRED` and is excluded from the Java differential surface.
+
+## 25. Exact-SHA GitHub Actions verification
+
+| Item | Value |
+| --- | --- |
+| Run ID | `32447074657` |
+| Run URL | https://github.com/bojlahg/pylat_ru/actions/runs/32447074657 |
+| Event | push |
+| Head SHA | `e8c7d2a027bb651d583bee9fa1cd532ed5c4a1d0` |
+| Status | completed |
+| Conclusion | **success** |
+
+| Job | Conclusion |
+| --- | --- |
+| Python 3.10 | **success** |
+| Python 3.12 | **success** |
+
+The run is bound to this commit, not merely to the branch: the workflow's first
+step, `Verify exact checkout SHA`, asserts `git rev-parse HEAD == GITHUB_SHA`, and
+the `head_sha` above is the implementation commit itself. Both jobs also ran
+`Enforce zero failures, errors, and skips`, which parses the pytest JUnit report and
+fails the job unless `failures == 0 and errors == 0 and skipped == 0`.
+
+Per-job pass counts are not reproduced here: job logs and the uploaded
+`pytest-results.xml` artifacts need repository credentials this environment does not
+have. The machine-enforced gate is green on both interpreters, and the local run of
+the same suite on the same commit reported 1120 passed / 0 failed / 0 errors /
+0 skipped (section 22).
