@@ -1,0 +1,94 @@
+name: Release Preflight
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-preflight-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux-release-preflight:
+    name: Linux release preflight (Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact checkout SHA
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install release tooling
+        run: python -m pip install '.[release]'
+      - name: Build, audit, validate, and clean-install artifacts
+        run: python -m tools.release_preflight_0015 --keep-dist dist --manifest artifact-manifest-0015.json
+      - name: Upload exact-SHA artifacts and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: |
+            dist/*
+            artifact-manifest-0015.json
+          if-no-files-found: error
+          retention-days: 14
+
+  python-311-artifact-smoke:
+    name: Python 3.11 artifact smoke
+    needs: linux-release-preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact checkout SHA
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: release
+      - name: Install exact wheel and smoke outside repository
+        shell: bash
+        run: |
+          python -m venv /tmp/pylat-311
+          /tmp/pylat-311/bin/python -m pip install release/dist/*.whl
+          cd /tmp
+          /tmp/pylat-311/bin/python -I "$GITHUB_WORKSPACE/tools/installed_smoke_0015.py" --expected-prefix /tmp/pylat-311
+
+  windows-wheel-smoke:
+    name: Windows wheel smoke (Python 3.12)
+    needs: linux-release-preflight
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact checkout SHA
+        shell: pwsh
+        run: if ((git rev-parse HEAD) -ne $env:GITHUB_SHA) { throw "checkout SHA mismatch" }
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: release
+      - name: Install exact wheel and smoke outside repository
+        shell: pwsh
+        run: |
+          $venv = Join-Path $env:RUNNER_TEMP "pylat-312"
+          python -m venv $venv
+          $wheel = (Get-ChildItem release\dist\*.whl).FullName
+          & "$venv\Scripts\python.exe" -m pip install $wheel
+          Push-Location $env:RUNNER_TEMP
+          & "$venv\Scripts\python.exe" -I "$env:GITHUB_WORKSPACE\tools\installed_smoke_0015.py" --expected-prefix $venv
+          Pop-Location

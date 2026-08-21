@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "task": "0015",
+  "package_name": "pylat_ru",
+  "package_version": "0.1.0a0",
+  "primary_public_symbols": ["LanguageToolRU", "RuleMatch", "__version__"],
+  "checking_level_symbols": ["LEVEL_DEFAULT", "LEVEL_PICKY"],
+  "all_exported_symbols": [
+    "__version__", "AnalyzedSentence", "AnalyzedToken", "AnalyzedTokenReadings",
+    "BaseSynthesizer", "DictionaryEntry", "LanguageToolRU", "LEVEL_DEFAULT",
+    "LEVEL_PICKY", "ManualSynthesizer", "MorfologikDictionary", "RuleMatch",
+    "RussianHybridDisambiguator", "RussianJavaRulesEngine", "RussianSentenceAnalyzer",
+    "RussianSentenceTokenizer", "RussianSynthesizer", "RussianTag", "RussianTagger",
+    "RussianWordTokenizer", "SentenceSpan", "Synthesizer", "TextSpan", "TokenSpan",
+    "create_raw_analyzed_sentence", "parse_tag"
+  ],
+  "language_tool_ru_init_signature": "(disabled_rules=None, enabled_rules=None, rule_config=None)",
+  "language_tool_ru_check_signature": "(self, text, level='DEFAULT')",
+  "rule_match_fields": [
+    "rule_id", "category_id", "message", "offset", "length", "replacements",
+    "short_message", "source", "category_name", "url", "priority", "full_rule_id",
+    "tags", "registration_order", "included_in_errors_corrected_all_at_once",
+    "original_error", "utf16_offset", "utf16_length"
+  ],
+  "rule_match_defaults": {
+    "rule_id": "REQUIRED", "category_id": "REQUIRED", "message": "REQUIRED",
+    "offset": "REQUIRED", "length": "REQUIRED", "replacements": "REQUIRED",
+    "short_message": "", "source": "pylat_ru", "category_name": "", "url": null,
+    "priority": 0, "full_rule_id": "", "tags": [], "registration_order": 0,
+    "included_in_errors_corrected_all_at_once": false, "original_error": "",
+    "utf16_offset": 0, "utf16_length": 0
+  },
+  "checking_levels": {"default": "DEFAULT", "picky": "PICKY"},
+  "offset_domain": {
+    "offset_length": "Python Unicode code-point indices into the original input text",
+    "utf16_offset_length": "UTF-16 code-unit positions compatible with Java LanguageTool indexing"
+  }
+}

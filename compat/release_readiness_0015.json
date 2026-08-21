@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "task": "0015",
+  "baseline": "a80dfcfe019ee1cd6ffd26feee2a9313f60c195f",
+  "package": {"name": "pylat_ru", "version": "0.1.0a0", "requires_python": ">=3.10"},
+  "primary_api": {"LanguageToolRU": "PASS", "RuleMatch": "PASS", "__version__": "PASS", "DEFAULT_PICKY": "PASS"},
+  "python_support": {
+    "3.10": {"local": "PASS", "ci": "CONFIGURED"},
+    "3.11": {"artifact_smoke_ci": "CONFIGURED"},
+    "3.12": {"full_and_artifact_ci": "CONFIGURED"}
+  },
+  "platform_smoke": {"windows_local": "PASS", "linux_ci": "CONFIGURED", "windows_3_12_ci": "CONFIGURED"},
+  "artifact_build": {"wheel": "PASS", "sdist": "PASS", "two_clean_builds": "PASS"},
+  "metadata_validation": {"wheel": "PASS", "sdist": "PASS", "readme": "PASS"},
+  "wheel_audit": {"forbidden_files": 0, "py_typed": "PASS", "critical_resource_hashes": "PASS"},
+  "sdist_audit": {"forbidden_files": 0},
+  "clean_install": {"wheel": "PASS", "sdist": "PASS", "outside_repository": "PASS", "pip_check": "PASS"},
+  "licensing": {"root_license": "PASS", "distribution_license_files": "PASS", "critical_resource_provenance": "PASS", "blocked_resources_shipped": 0},
+  "performance": {"baseline": "compat/performance_baseline_0015.json", "bounded_soak": "PASS", "strict_timing_ci_gate": false},
+  "task_0014_compatibility_preserved": true,
+  "ordinary_unexplained_discrepancies": 0,
+  "language_model_rule": {"id": "RussianConfusionProbabilityRule", "status": "LANGUAGE_MODEL_DEFERRED"},
+  "publication": "NOT PUBLISHED",
+  "exact_final_sha_ci": "RECORDED_IN_FINAL_HANDOFF_ONLY"
+}

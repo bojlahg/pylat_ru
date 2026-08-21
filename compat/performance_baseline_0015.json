@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "task": "0015",
+  "benchmark_suite_version": "1.0",
+  "source_tree_baseline": "a80dfcfe019ee1cd6ffd26feee2a9313f60c195f",
+  "python_version": "3.10.11",
+  "python_implementation": "CPython",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "logical_cpu_count": 32,
+  "inputs": {
+    "short_clean": {
+      "code_points": 135,
+      "utf8_bytes": 252,
+      "sha256": "f3b0b2c7f61a21fc957158cd1dfe762eb36baa9d87f4868162f7bf935ea15952"
+    },
+    "short_errors": {
+      "code_points": 64,
+      "utf8_bytes": 115,
+      "sha256": "799fd0cfef6ab79468c60d9992931ad13ef2b5f009ac733e7c0dec893dd85a7f"
+    },
+    "short_spelling": {
+      "code_points": 62,
+      "utf8_bytes": 113,
+      "sha256": "311418ffa104ab0928b88cd3a2d9487439687d5813f16e033d03a003f7ed4c40"
+    },
+    "medium": {
+      "code_points": 1870,
+      "utf8_bytes": 3366,
+      "sha256": "505666104eeff7d98c3a37cb4664f6d5056c78dbf00f0417839e4db08fa07cd7"
+    },
+    "long": {
+      "code_points": 10750,
+      "utf8_bytes": 20125,
+      "sha256": "642f65dfeeda47900c568734cd8d3c4c632afad7fd9501129b893611ce7e9d9c"
+    },
+    "picky": {
+      "code_points": 25,
+      "utf8_bytes": 45,
+      "sha256": "0f522a17bf5ee05692c2d0f6bd85fedf2b74ea14552572912a70db16d293102c"
+    },
+    "configured_speller": {
+      "code_points": 50,
+      "utf8_bytes": 75,
+      "sha256": "e817dadcb915a1b52b67c617638aa2ce81b8b334e6c077972dd49628465691e7"
+    }
+  },
+  "warmup_count": 1,
+  "repeat_count": 3,
+  "construction": {
+    "iterations": 3,
+    "median_seconds": 0.24751929997000843,
+    "min_seconds": 0.24167710007168353,
+    "max_seconds": 0.274502000072971,
+    "p95_seconds": 0.274502000072971,
+    "characters_per_second": 0.0
+  },
+  "warm_checks": {
+    "short_clean": {
+      "iterations": 3,
+      "median_seconds": 0.033414100063964725,
+      "min_seconds": 0.033385699964128435,
+      "max_seconds": 0.03584379993844777,
+      "p95_seconds": 0.03584379993844777,
+      "characters_per_second": 4040.2105620552115
+    },
+    "short_errors": {
+      "iterations": 3,
+      "median_seconds": 0.023489100043661892,
+      "min_seconds": 0.023168499930761755,
+      "max_seconds": 0.02397059998475015,
+      "p95_seconds": 0.02397059998475015,
+      "characters_per_second": 2724.668032450619
+    },
+    "short_spelling": {
+      "iterations": 3,
+      "median_seconds": 0.017718099988996983,
+      "min_seconds": 0.017449500039219856,
+      "max_seconds": 0.01829330006148666,
+      "p95_seconds": 0.01829330006148666,
+      "characters_per_second": 3499.2465353792036
+    },
+    "medium": {
+      "iterations": 3,
+      "median_seconds": 0.9639693000353873,
+      "min_seconds": 0.94943380006589,
+      "max_seconds": 0.966532799997367,
+      "p95_seconds": 0.966532799997367,
+      "characters_per_second": 1939.8958036644449
+    },
+    "long": {
+      "iterations": 2,
+      "median_seconds": 3.1364321499713697,
+      "min_seconds": 3.099537599948235,
+      "max_seconds": 3.1733266999945045,
+      "p95_seconds": 3.1733266999945045,
+      "characters_per_second": 3427.461359270319
+    },
+    "picky": {
+      "iterations": 3,
+      "median_seconds": 0.01642520003952086,
+      "min_seconds": 0.01604719995521009,
+      "max_seconds": 0.01666980003938079,
+      "p95_seconds": 0.01666980003938079,
+      "characters_per_second": 1522.0514782070975
+    },
+    "configured_speller": {
+      "iterations": 3,
+      "median_seconds": 0.024346699938178062,
+      "min_seconds": 0.021364000043831766,
+      "max_seconds": 0.024929799954406917,
+      "p95_seconds": 0.024929799954406917,
+      "characters_per_second": 2053.6664158576577
+    }
+  },
+  "memory": {
+    "before_construction_rss_bytes": 23072768,
+    "after_construction_rss_bytes": 64282624,
+    "after_warmup_rss_bytes": 230993920,
+    "after_bounded_soak_rss_bytes": 248016896
+  },
+  "bounded_soak": {
+    "iterations": 100,
+    "seconds": 3.469830199959688,
+    "rss_before_bytes": 247734272,
+    "rss_after_bytes": 248016896,
+    "rss_delta_bytes": 282624,
+    "result": "PASS"
+  },
+  "notes": [
+    "Wall-clock values are a local regression baseline, not a cross-machine SLA.",
+    "RSS is peak RSS on Unix and working-set RSS on Windows; those domains are not directly comparable.",
+    "Construction samples are in an already-imported process and may benefit from immutable resource caches."
+  ]
+}

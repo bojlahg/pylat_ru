@@ -17,7 +17,7 @@ from pylat_ru.analysis import (
 )
 from pylat_ru.disambiguation import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
-from pylat_ru.match_filters import LEVEL_DEFAULT, filter_rule_matches
+from pylat_ru.match_filters import LEVEL_DEFAULT, LEVEL_PICKY, filter_rule_matches
 from pylat_ru.native_rules import NativeRuleFinding, RussianJavaRulesEngine
 from pylat_ru.morfologik import (
     DictionaryEntry,
@@ -52,6 +52,8 @@ __all__ = [
     "BaseSynthesizer",
     "DictionaryEntry",
     "LanguageToolRU",
+    "LEVEL_DEFAULT",
+    "LEVEL_PICKY",
     "ManualSynthesizer",
     "MorfologikDictionary",
     "RuleMatch",

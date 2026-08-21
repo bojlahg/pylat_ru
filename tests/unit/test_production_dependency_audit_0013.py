@@ -117,7 +117,10 @@ def test_wheel_contains_no_upstream_test_or_oracle_material() -> None:
         if "/src/test/" in entry
         or entry.endswith(".java")
         or entry.endswith(".jar")
-        or "third_party/" in entry
+        or (
+            "third_party/" in entry
+            and ".dist-info/licenses/third_party/" not in entry
+        )
         or "/tools/" in entry
         or entry.startswith("tools/")
         or "oracle_" in entry
@@ -125,3 +128,5 @@ def test_wheel_contains_no_upstream_test_or_oracle_material() -> None:
     ]
     assert forbidden == [], "dev-only material shipped in the wheel:\n  " + "\n  ".join(forbidden)
     assert any(e.endswith("pylat_ru/resources/rules/ru/grammar.xml") for e in entries)
+    assert any(e.endswith("licenses/third_party/languagetool/COPYING.txt") for e in entries)
+    assert any(e.endswith("licenses/third_party/languagetool/LICENSES.md") for e in entries)

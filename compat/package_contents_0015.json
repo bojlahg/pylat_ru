@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0",
+  "task": "0015",
+  "package_version": "0.1.0a0",
+  "wheel": {
+    "filename": "pylat_ru-0.1.0a0-py3-none-any.whl",
+    "size_bytes": 6327561,
+    "file_count": 99,
+    "package_files": [
+      "pylat_ru/__init__.py",
+      "pylat_ru/analysis.py",
+      "pylat_ru/chunking/__init__.py",
+      "pylat_ru/chunking/russian.py",
+      "pylat_ru/chunking/token_expression.py",
+      "pylat_ru/disambiguation/__init__.py",
+      "pylat_ru/disambiguation/errors.py",
+      "pylat_ru/disambiguation/filters.py",
+      "pylat_ru/disambiguation/hybrid.py",
+      "pylat_ru/disambiguation/multiwords.py",
+      "pylat_ru/disambiguation/pattern_matcher.py",
+      "pylat_ru/disambiguation/rules.py",
+      "pylat_ru/disambiguation/xml_loader.py",
+      "pylat_ru/grammar/__init__.py",
+      "pylat_ru/grammar/classifier.py",
+      "pylat_ru/grammar/engine.py",
+      "pylat_ru/grammar/errors.py",
+      "pylat_ru/grammar/filters/__init__.py",
+      "pylat_ru/grammar/filters/advanced_synthesizer.py",
+      "pylat_ru/grammar/filters/base.py",
+      "pylat_ru/grammar/filters/date_check.py",
+      "pylat_ru/grammar/filters/evaluator.py",
+      "pylat_ru/grammar/filters/future_date.py",
+      "pylat_ru/grammar/filters/inn.py",
+      "pylat_ru/grammar/filters/partial_pos.py",
+      "pylat_ru/grammar/filters/registry.py",
+      "pylat_ru/grammar/filters/suppress_misspelled.py",
+      "pylat_ru/grammar/formatter.py",
+      "pylat_ru/grammar/loader.py",
+      "pylat_ru/grammar/matcher.py",
+      "pylat_ru/grammar/model.py",
+      "pylat_ru/grammar/unification.py",
+      "pylat_ru/match_filters.py",
+      "pylat_ru/morfologik/__init__.py",
+      "pylat_ru/morfologik/dictionary.py",
+      "pylat_ru/morfologik/errors.py",
+      "pylat_ru/morfologik/fsa.py",
+      "pylat_ru/morfologik/metadata.py",
+      "pylat_ru/morfologik/sequence_encoder.py",
+      "pylat_ru/morfologik/speller.py",
+      "pylat_ru/native_rules.py",
+      "pylat_ru/py.typed",
+      "pylat_ru/resources/ru/__init__.py",
+      "pylat_ru/resources/ru/added.txt",
+      "pylat_ru/resources/ru/added_custom.txt",
+      "pylat_ru/resources/ru/compounds.txt",
+      "pylat_ru/resources/ru/disambiguation.xml",
+      "pylat_ru/resources/ru/hunspell/__init__.py",
+      "pylat_ru/resources/ru/hunspell/ignore.txt",
+      "pylat_ru/resources/ru/hunspell/prohibit.txt",
+      "pylat_ru/resources/ru/hunspell/ru_RU.dict",
+      "pylat_ru/resources/ru/hunspell/ru_RU.info",
+      "pylat_ru/resources/ru/hunspell/ru_RU_yo.dict",
+      "pylat_ru/resources/ru/hunspell/ru_RU_yo.info",
+      "pylat_ru/resources/ru/hunspell/spelling.txt",
+      "pylat_ru/resources/ru/multiwords.txt",
+      "pylat_ru/resources/ru/removed.txt",
+      "pylat_ru/resources/ru/removed_custom.txt",
+      "pylat_ru/resources/ru/russian.dict",
+      "pylat_ru/resources/ru/russian.info",
+      "pylat_ru/resources/ru/russian_synth.dict",
+      "pylat_ru/resources/ru/russian_synth.info",
+      "pylat_ru/resources/ru/specific_case.txt",
+      "pylat_ru/resources/ru/tags_russian.txt",
+      "pylat_ru/resources/rules/__init__.py",
+      "pylat_ru/resources/rules/ru/__init__.py",
+      "pylat_ru/resources/rules/ru/coherency.txt",
+      "pylat_ru/resources/rules/ru/grammar.xml",
+      "pylat_ru/resources/rules/ru/replace.txt",
+      "pylat_ru/resources/rules/ru/wordrootrep.txt",
+      "pylat_ru/resources/russian_srx_rules.json",
+      "pylat_ru/resources/spelling_global.txt",
+      "pylat_ru/sentence_analyzer.py",
+      "pylat_ru/spelling.py",
+      "pylat_ru/synthesis/__init__.py",
+      "pylat_ru/synthesis/errors.py",
+      "pylat_ru/synthesis/manual.py",
+      "pylat_ru/synthesis/roman.py",
+      "pylat_ru/synthesis/synthesizer.py",
+      "pylat_ru/tagging/__init__.py",
+      "pylat_ru/tagging/errors.py",
+      "pylat_ru/tagging/russian.py",
+      "pylat_ru/tagging/string_tools.py",
+      "pylat_ru/tagging/word_tagger.py",
+      "pylat_ru/tagset.py",
+      "pylat_ru/tokenization/__init__.py",
+      "pylat_ru/tokenization/errors.py",
+      "pylat_ru/tokenization/offsets.py",
+      "pylat_ru/tokenization/sentence.py",
+      "pylat_ru/tokenization/srx.py",
+      "pylat_ru/tokenization/word.py",
+      "pylat_ru/utils.py"
+    ],
+    "largest_files": [
+      {
+        "path": "pylat_ru/resources/ru/russian.dict",
+        "size_bytes": 2322253
+      },
+      {
+        "path": "pylat_ru/resources/ru/hunspell/ru_RU.dict",
+        "size_bytes": 1889147
+      },
+      {
+        "path": "pylat_ru/resources/ru/hunspell/ru_RU_yo.dict",
+        "size_bytes": 1783672
+      },
+      {
+        "path": "pylat_ru/resources/ru/russian_synth.dict",
+        "size_bytes": 1481255
+      },
+      {
+        "path": "pylat_ru/resources/rules/ru/grammar.xml",
+        "size_bytes": 1194903
+      },
+      {
+        "path": "pylat_ru/resources/ru/compounds.txt",
+        "size_bytes": 899551
+      },
+      {
+        "path": "pylat_ru/resources/rules/ru/wordrootrep.txt",
+        "size_bytes": 565589
+      },
+      {
+        "path": "pylat_ru/resources/spelling_global.txt",
+        "size_bytes": 454892
+      },
+      {
+        "path": "pylat_ru/native_rules.py",
+        "size_bytes": 104106
+      },
+      {
+        "path": "pylat_ru/resources/ru/added.txt",
+        "size_bytes": 92745
+      },
+      {
+        "path": "pylat_ru/resources/russian_srx_rules.json",
+        "size_bytes": 55096
+      },
+      {
+        "path": "pylat_ru/grammar/loader.py",
+        "size_bytes": 50914
+      },
+      {
+        "path": "pylat_ru/grammar/matcher.py",
+        "size_bytes": 50580
+      },
+      {
+        "path": "pylat_ru/resources/ru/disambiguation.xml",
+        "size_bytes": 47039
+      },
+      {
+        "path": "pylat_ru/spelling.py",
+        "size_bytes": 41239
+      },
+      {
+        "path": "pylat_ru/resources/ru/hunspell/spelling.txt",
+        "size_bytes": 39687
+      },
+      {
+        "path": "pylat_ru/morfologik/speller.py",
+        "size_bytes": 36196
+      },
+      {
+        "path": "pylat_ru/resources/ru/tags_russian.txt",
+        "size_bytes": 27195
+      },
+      {
+        "path": "pylat_ru/grammar/engine.py",
+        "size_bytes": 27056
+      },
+      {
+        "path": "pylat_ru-0.1.0a0.dist-info/licenses/third_party/languagetool/COPYING.txt",
+        "size_bytes": 26432
+      }
+    ],
+    "forbidden_file_matches": []
+  },
+  "sdist": {
+    "filename": "pylat_ru-0.1.0a0.tar.gz",
+    "size_bytes": 6301810,
+    "file_count": 106,
+    "forbidden_file_matches": []
+  },
+  "runtime_resource_totals": {
+    "file_count": 30,
+    "size_bytes": 10881559
+  },
+  "critical_resource_provenance": {
+    "pylat_ru/resources/rules/ru/grammar.xml": {
+      "sha256": "e9bfa390cc417b07a72a762b14097451892355172d65dbe80e979251da2647ec",
+      "inventory_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/rules/ru/grammar.xml",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED_LGPL"
+    },
+    "pylat_ru/resources/ru/russian.dict": {
+      "sha256": "387f9fcf652a574c9d361397c30aa87ef6f7397a76d3d51cd04c94e8dcbc4015",
+      "inventory_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian.dict",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED_LGPL"
+    },
+    "pylat_ru/resources/ru/russian_synth.dict": {
+      "sha256": "299addaa9d5ccf7e95b84e48eeef5ccbd1a2137112204f56e4d5234fc6c86311",
+      "inventory_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/russian_synth.dict",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED_LGPL"
+    },
+    "pylat_ru/resources/ru/disambiguation.xml": {
+      "sha256": "088da5e49938e7f4b1251e4de29de059822ab7e9fc299b07fbeca970b73d0f18",
+      "inventory_path": "languagetool-language-modules/ru/src/main/resources/org/languagetool/resource/ru/disambiguation.xml",
+      "license": "LGPL-2.1-or-later",
+      "status": "VERIFIED_LGPL"
+    }
+  },
+  "reproducibility": {
+    "comparison_mode": "two clean SOURCE_DATE_EPOCH builds",
+    "byte_identical": {
+      "wheel": true,
+      "sdist": false
+    },
+    "member_set_identical": true,
+    "member_content_identical": true,
+    "differences": []
+  }
+}
