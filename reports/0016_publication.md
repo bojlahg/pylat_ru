@@ -25,8 +25,10 @@ The same uploaded workflow artifact proceeds through TestPyPI publication, TestP
 and hash validation, exact wheel download and isolated smoke, a protected production
 `pypi` environment, PyPI publication, equivalent production validation, and finally a
 GitHub prerelease. The release receives exactly the validated wheel and sdist; notes are
-rendered from the manifest and include both SHA-256 values. Publication jobs alone receive
-`id-token: write`; only the final GitHub release job receives `contents: write`.
+rendered from the manifest and include both SHA-256 values. Release creation verifies the
+existing tag and deliberately omits a redundant API `target_commitish`, so the restricted
+workflow token never needs permission to authorize workflow-file history. Publication jobs
+alone receive `id-token: write`; only the final GitHub release job receives `contents: write`.
 
 ## Important files
 

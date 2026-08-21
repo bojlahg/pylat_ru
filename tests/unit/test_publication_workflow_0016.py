@@ -83,4 +83,6 @@ def test_validation_precedes_every_publication() -> None:
     assert jobs["github-prerelease"]["permissions"] == {"contents": "write"}
     release_command = jobs["github-prerelease"]["steps"][-1]["run"]
     assert "--prerelease" in release_command
+    assert "--verify-tag" in release_command
+    assert "--target" not in release_command
     assert "*.whl" in release_command and "*.tar.gz" in release_command

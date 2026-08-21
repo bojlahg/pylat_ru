@@ -208,7 +208,6 @@ jobs:
           release/dist/*.whl
           release/dist/*.tar.gz
           --repo "$GITHUB_REPOSITORY"
-          --target "$RELEASE_SHA"
           --verify-tag
           --prerelease
           --title "pylat-ru 0.1.0a0"
