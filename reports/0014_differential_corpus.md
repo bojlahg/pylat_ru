@@ -1,5 +1,120 @@
 # Task 0014 — Differential Corpus and Full-Pipeline Compatibility Audit
 
+## Review-fix completion addendum (2026-08-21)
+
+This addendum is the authoritative completion evidence for
+`tasks/0014_review_fix_extended_handoff.md` and supersedes the historical Task-0014
+counts and CI reference later in this report.  The earlier body is retained as the
+record of the original campaign.  Per the review-fix exact-SHA policy, the new GitHub
+Actions run is recorded only in the final handoff after the final commit is pushed;
+there is no post-CI documentation commit.
+
+### Scope and implementation
+
+Review baseline: `f5cd5fb630c71ba3ee251471aaceaee4134d4522`.
+Pinned LanguageTool remains `6.8` at
+`e807fcde6a6506191e1470744d2345da28c26be6`; trusted oracle build
+`lt_6.8_source_build_jdk17_stefan`, jar SHA-256
+`b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc`.
+
+The canonical `Finding` now compares this ordered 10-field schema exactly:
+
+```text
+rule_id, full_rule_id, category_id, category_name, message, short_message,
+UTF-16 offset, UTF-16 length, ordered suggestions (duplicates preserved), URL
+```
+
+Finding order and multiplicity remain significant.  Diagnostic pairing gained
+`FULL_RULE_ID_MISMATCH` and `CATEGORY_NAME_MISMATCH`; it still cannot influence the
+strict verdict.  Java and Python projections now populate both fields, and both
+committed oracle fixtures were regenerated and rebound by byte hash.
+
+`Profile` now carries `level=DEFAULT|PICKY`; level participates in deterministic
+serialization, signature, and semantic case identity.  The Java helper calls the
+pinned `tool.check(text, JLanguageTool.Level...)` API.  The public Python API accepts
+`LanguageToolRU.check(text, level=...)`, defaults to `DEFAULT`, and uses the existing
+production level filter.  Long-sentence and long-paragraph target and reference
+profiles both use `PICKY`, so the measured delta comes from `maxWords`, not from a
+level change.
+
+The corpus now contains controlled target/reference pairs for all required options.
+Summary generation fails closed if a required profile has no target cases, no Java
+observable delta, no corresponding Python delta, or a non-exact configured result.
+The ordinary speller is covered by real `conf_ru_Value=0` and `conf_ru_Value=1`
+profiles.  State isolation deterministically includes every declared profile and
+copies the checking level into fresh Java instances.
+
+### Config-sensitive whole-pipeline evidence
+
+| Target profile | Reference | Targeted | Java deltas | Python deltas | Exact target cases |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `cfg_long_sentence_15` | `ref_picky` | 4 | 2 | 2 | 4/4 |
+| `cfg_long_paragraph_30` | `ref_picky` | 4 | 1 | 1 | 4/4 |
+| `cfg_filler_words_2` | `ref_filler_words_default` | 3 | 1 | 1 | 3/3 |
+| `cfg_speller_conf_ru_1` | `cfg_speller_conf_ru_0` | 3 | 2 | 2 | 3/3 |
+
+### Corrected full differential campaign
+
+| Metric | Result |
+| --- | ---: |
+| Unique texts | 9,628 |
+| Profile executions | 16,853 |
+| Comparable cases | 16,816 |
+| Exact comparable cases | 16,816 |
+| Ordinary comparable non-exact cases | 0 |
+| Java findings (comparable) | 24,500 |
+| Python findings (comparable) | 24,500 |
+| Java findings with suggestions | 21,391 |
+| Ordered suggestion matches | 21,391 |
+| Java oracle error cases | 37 |
+| Confirmed pinned-upstream defect cases | 37 |
+| Unexplained ordinary discrepancies | 0 |
+| Ordinary allowlist entries | 0 |
+| Minimized regressions | 238 |
+
+Every strict field dimension, including `full_rule_id` and `category_name`, is
+16,816/16,816.  Non-BMP cases are 614/614 exact; combining-mark cases 438/438;
+soft-hyphen cases 178/178; Python UTF-16 self-consistency failures are zero.  The 37
+non-comparable cases retain the narrow
+`PARAGRAPH_REPEAT_BEGINNING_RULE_EMPTY_SECOND_SPAN` pinned-upstream classification;
+the count did not change.  `RussianConfusionProbabilityRule` remains
+`LANGUAGE_MODEL_DEFERRED`.
+
+### Additional production defects exposed by strict regression replay
+
+Regenerating the 238 minimized findings with the strict schema exposed two edge cases
+outside the final corpus inputs:
+
+1. `LongSentenceRule` counted digit-leading tokens as words, while pinned
+   `StringTools.isNotWordCharacter` excludes them for this rule.  A rule-local
+   first-character letter predicate now matches pinned behavior without changing rules
+   that intentionally count numeric tokens.
+2. An empty XML `<suggestion></suggestion>` remained in the message but incorrectly
+   became a Python replacement equal to `""`.  Pinned `RuleMatch` exposes no replacement
+   for that payload; Python now preserves the message markup and omits the empty item.
+
+All 238/238 minimized regressions now reproduce the trusted Java output under the
+10-field schema.
+
+### Verification and boundary
+
+```text
+Focused Task-0014 tests: 128 passed
+Full pytest:             1132 passed
+Failures:                0
+Errors:                  0
+Skipped:                 0
+Wall time:               230.98 s
+Wheel isolation:         PASS
+State/order isolation:   PASS (299 comparable selected cases, all 10 profiles)
+```
+
+Production remains Java-free, oracle-free, corpus-free, and network-free.  The
+external Wikipedia/Wikisource corpus files remain ignored and outside the wheel; their
+recorded hashes and provenance are unchanged.  Compatibility accounting remains XML
+892/892, examples 2446/2446, variants 907/907, ordinary Java rules 23/23, and XML
+filters 7/7.  Task 0015 was not started.
+
 ## 0. Required elements
 
 Where each of the twenty-five elements required by section 24 of the task

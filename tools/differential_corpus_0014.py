@@ -67,13 +67,13 @@ from tools.differential_lt import (  # noqa: E402
 # --------------------------------------------------------------------------
 
 TASK = "0014"
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "2.0.0"
 
 #: Committed fixed seed for every generated Task-0014 stratum.
 FIXED_SEED = 140014
 
 #: Bumped whenever generated corpus content changes semantically.
-GENERATOR_VERSION = "0014.1"
+GENERATOR_VERSION = "0014.2-review-fix"
 
 CORPORA_DIR = REPO_ROOT / "corpora"
 RESULTS_DIR = CORPORA_DIR / "results_0014"
@@ -193,11 +193,13 @@ def build_profiles() -> Dict[str, Profile]:
         Profile(
             profile_id="cfg_long_sentence_15",
             rule_config={"TOO_LONG_SENTENCE": {"maxWords": 15}},
+            level="PICKY",
         ),
         Profile(
             profile_id="cfg_long_paragraph_30",
             enabled_rules=("TOO_LONG_PARAGRAPH",),
             rule_config={"TOO_LONG_PARAGRAPH": {"maxWords": 30}},
+            level="PICKY",
         ),
         Profile(
             profile_id="cfg_filler_words_2",
@@ -205,6 +207,22 @@ def build_profiles() -> Dict[str, Profile]:
             rule_config={
                 "FILLER_WORDS_RU": {"minPercent": 2, "excludeDirectSpeech": False}
             },
+        ),
+        Profile(
+            profile_id="cfg_speller_conf_ru_0",
+            rule_config={"MORFOLOGIK_RULE_RU_RU": {"conf_ru_Value": 0}},
+        ),
+        Profile(
+            profile_id="cfg_speller_conf_ru_1",
+            rule_config={"MORFOLOGIK_RULE_RU_RU": {"conf_ru_Value": 1}},
+        ),
+        Profile(
+            profile_id="ref_picky",
+            level="PICKY",
+        ),
+        Profile(
+            profile_id="ref_filler_words_default",
+            enabled_rules=("FILLER_WORDS_RU",),
         ),
         Profile(
             profile_id="cfg_speller_yo",
@@ -998,8 +1016,42 @@ TARGETED_CONFIG_PROFILES: tuple[str, ...] = (
     "cfg_long_sentence_15",
     "cfg_long_paragraph_30",
     "cfg_filler_words_2",
+    "cfg_speller_conf_ru_1",
 )
-TARGETED_CONFIG_SAMPLE = 200
+
+CONFIG_CONTROL_WORDS = tuple(
+    "Город улица дом окно книга автор читатель школа учитель ученик работа время место "
+    "страна человек вопрос ответ пример задача решение история наука музыка театр музей "
+    "парк река озеро море гора поле лес дорога поезд самолёт корабль солнце ветер дождь "
+    "снег облако птица дерево трава цветок сад берег остров деревня площадь".split()
+)
+
+CONFIG_SENSITIVITY_SPECS: Dict[str, Dict[str, Any]] = {
+    "cfg_long_sentence_15": {
+        "reference_profile": "ref_picky",
+        "texts": tuple(" ".join(CONFIG_CONTROL_WORDS[:count]) + "." for count in (14, 15, 16, 20)),
+    },
+    "cfg_long_paragraph_30": {
+        "reference_profile": "ref_picky",
+        "texts": tuple(" ".join(CONFIG_CONTROL_WORDS[:count]) + "." for count in (29, 30, 31, 36)),
+    },
+    "cfg_filler_words_2": {
+        "reference_profile": "ref_filler_words_default",
+        "texts": (
+            "ах " + " ".join(["слово"] * 20) + ".",
+            "ну " + " ".join(["слово"] * 20) + ".",
+            "в общем " + " ".join(["слово"] * 30) + ".",
+        ),
+    },
+    "cfg_speller_conf_ru_1": {
+        "reference_profile": "cfg_speller_conf_ru_0",
+        "texts": (
+            "The quick brown fox.",
+            "wordd написано здесь.",
+            "teхt написан смешанными буквами.",
+        ),
+    },
+}
 
 
 def build_corpus(seed: int = FIXED_SEED) -> Tuple[List[CorpusCase], Dict[str, Any]]:
@@ -1051,29 +1103,19 @@ def build_corpus(seed: int = FIXED_SEED) -> Tuple[List[CorpusCase], Dict[str, An
             for text, provenance in stratum_texts[stratum]:
                 emit(stratum, text, provenance, profile)
 
-    # Bounded targeted non-default configuration evidence: a deterministic sample of
-    # natural and mutated texts run through the whole pipeline with rule options set.
-    config_pool = sorted(
-        {text for text, _ in stratum_texts["D"]}
-        | {text for text, _ in stratum_texts["B"]}
-    )
-    stratum_index = _stratum_index(stratum_texts)
-    picker = random.Random(f"{seed}:targeted-config")
-    sample_size = min(TARGETED_CONFIG_SAMPLE, len(config_pool))
-    sampled = (
-        [config_pool[i] for i in sorted(picker.sample(range(len(config_pool)), sample_size))]
-        if sample_size
-        else []
-    )
+    # Controlled boundary/effect cases are executed under a target and a reference
+    # profile that differs only in the option being proved.  This makes a zero-effect
+    # configuration a validation failure instead of vacuous parity evidence.
     for profile_id in TARGETED_CONFIG_PROFILES:
-        profile = profiles[profile_id]
-        for text in sampled:
-            emit(
-                stratum_index.get(text, "D"),
-                text,
-                {"source": "targeted_config", "profile_id": profile_id},
-                profile,
-            )
+        spec = CONFIG_SENSITIVITY_SPECS[profile_id]
+        for text in spec["texts"]:
+            provenance = {
+                "source": "config_sensitivity",
+                "target_profile": profile_id,
+                "reference_profile": spec["reference_profile"],
+            }
+            emit("A", text, provenance, profiles[spec["reference_profile"]])
+            emit("A", text, provenance, profiles[profile_id])
 
     unique_texts = {case.text for case in cases}
     accounting = {
@@ -1155,7 +1197,7 @@ def internal_stratum_signature(cases: Sequence[CorpusCase], stratum: str) -> str
             case
             for case in cases
             if case.source_stratum == stratum
-            and case.provenance.get("source") != "targeted_config"
+            and case.provenance.get("source") != "config_sensitivity"
         ]
     )
 
@@ -1246,7 +1288,13 @@ def build_manifest(cases: Sequence[CorpusCase], accounting: Mapping[str, Any]) -
         "stratum_names": dict(STRATUM_NAMES),
         "stratum_profiles": {k: list(v) for k, v in sorted(STRATUM_PROFILES.items())},
         "targeted_config_profiles": list(TARGETED_CONFIG_PROFILES),
-        "targeted_config_sample": TARGETED_CONFIG_SAMPLE,
+        "config_sensitivity_specs": {
+            profile_id: {
+                "reference_profile": spec["reference_profile"],
+                "text_sha256": [hashlib.sha256(t.encode("utf-8")).hexdigest() for t in spec["texts"]],
+            }
+            for profile_id, spec in sorted(CONFIG_SENSITIVITY_SPECS.items())
+        },
         "counts": dict(accounting),
         "corpus_signature": corpus_signature(cases),
         "stratum_signatures": {
@@ -1300,6 +1348,8 @@ class CaseResult:
     java_error: Optional[str] = None
     python_error: Optional[str] = None
     utf16_self_consistent: bool = True
+    java_comparable: List[List[Any]] = field(default_factory=list)
+    pylat_comparable: List[List[Any]] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -1354,7 +1404,9 @@ def run_campaign(
             oracle.define_profile(profiles[profile_id])
 
         for index, case in enumerate(pending, 1):
-            result = _run_single(oracle, python_tools[case.profile], case)
+            result = _run_single(
+                oracle, python_tools[case.profile], profiles[case.profile], case
+            )
             results.append(result)
             handle.write(json.dumps(result.to_dict(), ensure_ascii=False) + "\n")
             if progress_every and index % progress_every == 0:
@@ -1367,7 +1419,9 @@ def run_campaign(
     return results
 
 
-def _run_single(oracle: BatchJavaOracle, tool: Any, case: CorpusCase) -> CaseResult:
+def _run_single(
+    oracle: BatchJavaOracle, tool: Any, profile: Profile, case: CorpusCase
+) -> CaseResult:
     text_sha = hashlib.sha256(case.text.encode("utf-8")).hexdigest()
     java_error: Optional[str] = None
     python_error: Optional[str] = None
@@ -1381,7 +1435,7 @@ def _run_single(oracle: BatchJavaOracle, tool: Any, case: CorpusCase) -> CaseRes
         java_error = f"{type(error).__name__}: {error}"
 
     try:
-        matches = tool.check(case.text)
+        matches = tool.check(case.text, level=profile.level)
         utf16_ok = _check_utf16_consistency(case.text, matches)
         pylat = pylat_findings(matches)
     except Exception as error:  # noqa: BLE001 - recorded, never swallowed
@@ -1409,6 +1463,8 @@ def _run_single(oracle: BatchJavaOracle, tool: Any, case: CorpusCase) -> CaseRes
             java_error=java_error,
             python_error=python_error,
             utf16_self_consistent=utf16_ok,
+            java_comparable=[f.comparable_json() for f in java],
+            pylat_comparable=[f.comparable_json() for f in pylat],
         )
 
     comparison = compare_findings(case.text, java, pylat)
@@ -1427,6 +1483,8 @@ def _run_single(oracle: BatchJavaOracle, tool: Any, case: CorpusCase) -> CaseRes
         mismatches=[m.to_dict() for m in comparison.mismatches],
         java_findings_with_suggestions=sum(1 for f in java if f.suggestions),
         utf16_self_consistent=utf16_ok,
+        java_comparable=[f.comparable_json() for f in java],
+        pylat_comparable=[f.comparable_json() for f in pylat],
     )
 
 
@@ -1660,6 +1718,50 @@ def build_summary(
     unique_texts = {case.text for case in cases}
     input_manifest_payload = json.dumps(manifest, ensure_ascii=False, sort_keys=True)
 
+    result_by_profile_text = {
+        (result.profile, result.text_sha256): result for result in results
+    }
+    config_sensitivity: Dict[str, Dict[str, Any]] = {}
+    for profile_id, spec in sorted(CONFIG_SENSITIVITY_SPECS.items()):
+        reference_profile = spec["reference_profile"]
+        pairs: List[Tuple[CaseResult, CaseResult]] = []
+        for text in spec["texts"]:
+            text_sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+            target = result_by_profile_text.get((profile_id, text_sha))
+            reference = result_by_profile_text.get((reference_profile, text_sha))
+            if target is not None and reference is not None:
+                pairs.append((target, reference))
+        java_deltas = [pair for pair in pairs if pair[0].java_comparable != pair[1].java_comparable]
+        python_deltas = [pair for pair in pairs if pair[0].pylat_comparable != pair[1].pylat_comparable]
+        delta_rule_ids = sorted(
+            {
+                finding[0]
+                for target, reference in java_deltas
+                for sequence in (target.java_comparable, reference.java_comparable)
+                for finding in sequence
+                if finding
+            }
+        )
+        block = {
+            "profile_id": profile_id,
+            "reference_profile": reference_profile,
+            "targeted_cases": len(pairs),
+            "java_cases_with_observable_delta": len(java_deltas),
+            "python_cases_with_same_observable_delta": len(python_deltas),
+            "java_python_exact_cases": sum(1 for target, _ in pairs if target.is_exact),
+            "delta_rule_ids": delta_rule_ids,
+        }
+        config_sensitivity[profile_id] = block
+        if (
+            block["targeted_cases"] == 0
+            or block["java_cases_with_observable_delta"] == 0
+            or block["python_cases_with_same_observable_delta"] == 0
+            or block["java_python_exact_cases"] != block["targeted_cases"]
+        ):
+            raise RuntimeError(
+                f"Config sensitivity validation failed closed for {profile_id}: {block}"
+            )
+
     return {
         "schema_version": SCHEMA_VERSION,
         "task": TASK,
@@ -1705,7 +1807,9 @@ def build_summary(
             "rule_id": field_parity(
                 ["RULE_ID_MISMATCH", "MISSING_FINDING", "EXTRA_FINDING"]
             ),
+            "full_rule_id": field_parity(["FULL_RULE_ID_MISMATCH"]),
             "category": field_parity(["CATEGORY_MISMATCH"]),
+            "category_name": field_parity(["CATEGORY_NAME_MISMATCH"]),
             "span": field_parity(["SPAN_MISMATCH"]),
             "message": field_parity(["MESSAGE_MISMATCH"]),
             "short_message": field_parity(["SHORT_MESSAGE_MISMATCH"]),
@@ -1715,6 +1819,7 @@ def build_summary(
             "url": field_parity(["URL_MISMATCH"]),
             "full_observable_field": _rate(exact, len(comparable)),
         },
+        "config_sensitivity": config_sensitivity,
         "counts_by_stratum": {stratum: stratum_block(stratum) for stratum in STRATA},
         "counts_by_profile": {
             profile_id: profile_block(profile_id)
@@ -1845,7 +1950,7 @@ def generate_utf16_calibration() -> Dict[str, Any]:
         oracle.define_profile(profile)
         for index, (text, provenance) in enumerate(build_stratum_e()):
             java = oracle.check(f"utf16_{index:04d}", profile.profile_id, text)
-            matches = tool.check(text)
+            matches = tool.check(text, level=profile.level)
             prefix = utf16_prefix_table(text)
             cases.append(
                 {
@@ -1876,7 +1981,9 @@ def generate_utf16_calibration() -> Dict[str, Any]:
             "position_domain": "UTF-16 code units, as produced by java.lang.String indexing",
             "finding_field_order": [
                 "rule_id",
+                "full_rule_id",
                 "category_id",
+                "category_name",
                 "message",
                 "short_message",
                 "utf16_offset",
@@ -1901,7 +2008,7 @@ def _fingerprint_of(text: str, profile: Profile, oracle: BatchJavaOracle, tool: 
     except Exception:  # noqa: BLE001
         return "JAVA_ORACLE_ERROR"
     try:
-        matches = tool.check(text)
+        matches = tool.check(text, level=profile.level)
         pylat = pylat_findings(matches)
     except Exception:  # noqa: BLE001
         return "PYTHON_ERROR"
@@ -2004,10 +2111,21 @@ def state_isolation_check(
     """
     profiles = build_profiles()
     picker = random.Random(f"{FIXED_SEED}:state-isolation")
-    chosen = [
-        cases[i]
-        for i in sorted(picker.sample(range(len(cases)), min(sample, len(cases))))
-    ]
+    # Always exercise every declared profile, then fill the remaining bounded sample
+    # deterministically.  A purely random sample could omit the small config-sensitive
+    # profiles and leave their state isolation unproved.
+    first_by_profile: Dict[str, CorpusCase] = {}
+    for case in cases:
+        first_by_profile.setdefault(case.profile, case)
+    mandatory_ids = {case.case_id for case in first_by_profile.values()}
+    remaining = [case for case in cases if case.case_id not in mandatory_ids]
+    random_count = min(max(sample - len(first_by_profile), 0), len(remaining))
+    random_indexes = sorted(picker.sample(range(len(remaining)), random_count))
+    case_order = {case.case_id: index for index, case in enumerate(cases)}
+    chosen = sorted(
+        list(first_by_profile.values()) + [remaining[i] for i in random_indexes],
+        key=lambda case: case_order[case.case_id],
+    )
 
     def signature(results: Mapping[str, List[Finding]]) -> Dict[str, str]:
         return {
@@ -2051,7 +2169,9 @@ def state_isolation_check(
                 continue
             shared_java[case.case_id] = found
             shared_python[case.case_id] = pylat_findings(
-                shared_tools[case.profile].check(case.text)
+                shared_tools[case.profile].check(
+                    case.text, level=profiles[case.profile].level
+                )
             )
 
         for case in reversed(chosen):
@@ -2060,7 +2180,9 @@ def state_isolation_check(
                 continue
             reverse_java[case.case_id] = found
             reverse_python[case.case_id] = pylat_findings(
-                shared_tools[case.profile].check(case.text)
+                shared_tools[case.profile].check(
+                    case.text, level=profiles[case.profile].level
+                )
             )
 
         # Fresh Java profiles and fresh Python instances for the same inputs.
@@ -2072,6 +2194,7 @@ def state_isolation_check(
                     disabled_rules=profiles[profile_id].disabled_rules,
                     rule_config=profiles[profile_id].rule_config,
                     enable_all_default_off=profiles[profile_id].enable_all_default_off,
+                    level=profiles[profile_id].level,
                 )
             )
         for case in chosen:
@@ -2080,7 +2203,9 @@ def state_isolation_check(
                 continue
             fresh_java[case.case_id] = found
             fresh_python[case.case_id] = pylat_findings(
-                python_tool(profiles[case.profile]).check(case.text)
+                python_tool(profiles[case.profile]).check(
+                    case.text, level=profiles[case.profile].level
+                )
             )
 
     comparable = sorted(
@@ -2436,7 +2561,9 @@ def _build_regressions_command(args: argparse.Namespace) -> int:
             "oracle_jar_sha256": manifest_data["oracle_sha256"],
             "finding_field_order": [
                 "rule_id",
+                "full_rule_id",
                 "category_id",
+                "category_name",
                 "message",
                 "short_message",
                 "utf16_offset",
@@ -2473,7 +2600,9 @@ def _verify_regressions_command() -> int:
         tool = python_tool(profiles[case["profile"]])
         actual = [
             f.comparable_json()
-            for f in pylat_findings(tool.check(case["minimized_text"]))
+            for f in pylat_findings(
+                tool.check(case["minimized_text"], level=profiles[case["profile"]].level)
+            )
         ]
         expected = [list(f) for f in case["expected_java_findings"]]
         if actual != expected:

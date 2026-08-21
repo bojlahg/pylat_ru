@@ -86,6 +86,16 @@ def _is_word(token: str) -> bool:
     return bool(token) and unicodedata.category(token[0])[0] in {"L", "N"}
 
 
+def _is_long_sentence_word(token: str) -> bool:
+    """Pinned ``LongSentenceRule.isWordCount`` first-character semantics.
+
+    ``StringTools.isNotWordCharacter`` treats a leading digit as non-word here,
+    unlike several other generic rules that intentionally count numeric tokens.
+    Keep this predicate local to LongSentenceRule instead of changing their surface.
+    """
+    return bool(token) and unicodedata.category(token[0]).startswith("L")
+
+
 #: Pinned ``AnalyzedTokenReadings.NON_WORD_REGEX``, copied verbatim from the
 #: constant pool of ``org/languagetool/AnalyzedTokenReadings.class`` in the trusted
 #: jar.  It is a single-character class, and ``isNonWord()`` uses ``matches()``, so
@@ -596,11 +606,14 @@ class LongSentenceRule(NativeRule):
                     quote = opening.index(token)
                 elif quote > -1 and token in closing and closing.index(token) == quote:
                     quote = -1
-                elif quote == -1 and _is_word(token):
+                elif quote == -1 and _is_long_sentence_word(token):
                     if first is None:
                         first = span
                     if count == self.max_words:
-                        last = next((s for s in reversed(spans) if _is_word(s.text)), span)
+                        last = next(
+                            (s for s in reversed(spans) if _is_long_sentence_word(s.text)),
+                            span,
+                        )
                         idx = spans.index(last)
                         if idx + 1 < len(spans) and spans[idx + 1].text in ".?!":
                             last = spans[idx + 1]

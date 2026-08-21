@@ -30,7 +30,7 @@ import org.languagetool.rules.RuleMatch;
  * <p>Requests (one per line, tab separated):
  *
  * <pre>
- * PROFILE   &lt;profile_id&gt; &lt;b64 enabled_csv&gt; &lt;b64 disabled_csv&gt; &lt;b64 config_spec&gt; &lt;0|1 enable_all_default_off&gt;
+ * PROFILE   &lt;profile_id&gt; &lt;b64 enabled_csv&gt; &lt;b64 disabled_csv&gt; &lt;b64 config_spec&gt; &lt;0|1 enable_all_default_off&gt; &lt;DEFAULT|PICKY&gt;
  * CHECK     &lt;case_id&gt; &lt;profile_id&gt; &lt;b64 text&gt;
  * INVENTORY &lt;profile_id&gt;
  * PING
@@ -73,6 +73,7 @@ public final class DifferentialCorpusOracle0014 {
         new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
     PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
     Map<String, JLanguageTool> profiles = new LinkedHashMap<>();
+    Map<String, JLanguageTool.Level> levels = new LinkedHashMap<>();
 
     String line;
     while ((line = in.readLine()) != null) {
@@ -93,6 +94,7 @@ public final class DifferentialCorpusOracle0014 {
               buildProfile(
                   decode(fields[2]), decode(fields[3]), decode(fields[4]), fields[5].equals("1"));
           profiles.put(profileId, tool);
+          levels.put(profileId, JLanguageTool.Level.valueOf(fields[6]));
           out.println("PROFILE_OK\t" + profileId + "\t" + tool.getAllActiveRules().size());
         } else if (command.equals("INVENTORY")) {
           String profileId = fields[1];
@@ -114,7 +116,7 @@ public final class DifferentialCorpusOracle0014 {
           String caseId = fields[1];
           JLanguageTool tool = requireProfile(profiles, fields[2]);
           String text = decode(fields[3]);
-          List<RuleMatch> matches = tool.check(text);
+          List<RuleMatch> matches = tool.check(text, levels.get(fields[2]));
           List<String> lines = new ArrayList<>();
           for (RuleMatch match : matches) {
             if (match.getRule().getId().equals(LANGUAGE_MODEL_RULE_ID)) {

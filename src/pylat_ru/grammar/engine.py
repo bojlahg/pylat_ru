@@ -441,7 +441,17 @@ class RussianGrammarEngine:
                         continue
 
                 # Format suggestions
-                sug_matches = regex.findall(r"<suggestion>(.*?)</suggestion>", message)
+                # Pinned RuleMatch ignores an empty <suggestion></suggestion>
+                # payload: it remains in the human-readable message but does not
+                # become a replacement containing the empty string.
+                raw_sug_matches = regex.findall(
+                    r"<suggestion>(.*?)</suggestion>", message
+                )
+                sug_matches = [
+                    suggestion
+                    for suggestion in raw_sug_matches
+                    if suggestion
+                ]
                 first_err_tok = error_tokens[0].token or "" if error_tokens else ""
                 is_sentence_start = bool(match_res.error_start_idx <= 1)
 
@@ -501,7 +511,7 @@ class RussianGrammarEngine:
                     following = non_blank_tokens[case_idx + 1].token or ""
                     starts_upper = bool(following and following[0].isupper())
 
-                if sug_matches:
+                if raw_sug_matches:
                     suggestions = _adapt_suggestion_case(
                         sug_matches,
                         is_all_upper=is_all_upper,

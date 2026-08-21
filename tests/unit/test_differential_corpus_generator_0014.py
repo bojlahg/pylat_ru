@@ -279,6 +279,7 @@ def test_profiles_cover_the_mandatory_configurations() -> None:
         "disabled_rules": [],
         "rule_config": {},
         "enable_all_default_off": False,
+        "level": "DEFAULT",
     }
     assert profiles["all_ordinary_enabled"].enable_all_default_off is True
     assert set(profiles["all_ordinary_enabled"].enabled_rules) == set(
@@ -293,6 +294,28 @@ def test_profiles_cover_the_mandatory_configurations() -> None:
         "cfg_long_sentence_15",
         "cfg_long_paragraph_30",
         "cfg_filler_words_2",
+        "cfg_speller_conf_ru_0",
+        "cfg_speller_conf_ru_1",
+    }
+
+
+def test_checking_level_changes_profile_signature_and_semantic_identity() -> None:
+    default = Profile("same", level="DEFAULT")
+    picky = Profile("same", level="PICKY")
+    assert default.signature() != picky.signature()
+    assert semantic_identity("один текст", default) != semantic_identity(
+        "один текст", picky
+    )
+
+
+def test_required_config_profiles_and_references_have_matching_levels() -> None:
+    profiles = build_profiles()
+    assert profiles["cfg_long_sentence_15"].level == "PICKY"
+    assert profiles["cfg_long_paragraph_30"].level == "PICKY"
+    assert profiles["ref_picky"].level == "PICKY"
+    assert profiles["cfg_filler_words_2"].level == "DEFAULT"
+    assert profiles["cfg_speller_conf_ru_1"].rule_config == {
+        "MORFOLOGIK_RULE_RU_RU": {"conf_ru_Value": 1}
     }
 
 

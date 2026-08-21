@@ -17,7 +17,7 @@ from pylat_ru.analysis import (
 )
 from pylat_ru.disambiguation import RussianHybridDisambiguator
 from pylat_ru.grammar.engine import RussianGrammarEngine
-from pylat_ru.match_filters import filter_rule_matches
+from pylat_ru.match_filters import LEVEL_DEFAULT, filter_rule_matches
 from pylat_ru.native_rules import NativeRuleFinding, RussianJavaRulesEngine
 from pylat_ru.morfologik import (
     DictionaryEntry,
@@ -190,7 +190,7 @@ class LanguageToolRU:
             elif self.grammar_engine.get_rule(rule_id):
                 self.grammar_engine.enable_rule(rule_id)
 
-    def check(self, text: str) -> List[RuleMatch]:
+    def check(self, text: str, level: str = LEVEL_DEFAULT) -> List[RuleMatch]:
         r"""Check Russian text without Java or an external NLP runtime.
 
         Pinned ``JLanguageTool`` removes the Russian ignored characters
@@ -203,7 +203,7 @@ class LanguageToolRU:
         if not text:
             return []
         cleaned, original_offsets = _strip_ignored_characters(text)
-        matches = filter_rule_matches(self._collect_matches(cleaned), cleaned)
+        matches = filter_rule_matches(self._collect_matches(cleaned), cleaned, level=level)
         if original_offsets is None:
             return matches
         return [_restore_ignored_character_offsets(m, original_offsets, text) for m in matches]

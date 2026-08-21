@@ -40,6 +40,9 @@ SUGGESTION_SEPARATOR = "\u0001"
 
 #: Language-model rule kept outside the ordinary/non-LM differential surface.
 LANGUAGE_MODEL_RULE_ID = "CONFUSION_RULE"
+LEVEL_DEFAULT = "DEFAULT"
+LEVEL_PICKY = "PICKY"
+CHECKING_LEVELS = (LEVEL_DEFAULT, LEVEL_PICKY)
 
 
 class OracleProtocolError(RuntimeError):
@@ -55,6 +58,13 @@ class Profile:
     disabled_rules: tuple[str, ...] = ()
     rule_config: Mapping[str, Mapping[str, Any]] = field(default_factory=dict)
     enable_all_default_off: bool = False
+    level: str = LEVEL_DEFAULT
+
+    def __post_init__(self) -> None:
+        if self.level not in CHECKING_LEVELS:
+            raise ValueError(
+                f"Unsupported checking level {self.level!r}; expected one of {CHECKING_LEVELS}"
+            )
 
     def config_spec(self) -> str:
         """Serialise ``rule_config`` deterministically for the Java helper."""
@@ -77,6 +87,7 @@ class Profile:
                 for rule_id in sorted(self.rule_config)
             },
             "enable_all_default_off": self.enable_all_default_off,
+            "level": self.level,
         }
 
     def signature(self) -> str:
@@ -258,6 +269,7 @@ class BatchJavaOracle:
                 _b64(",".join(profile.disabled_rules)),
                 _b64(profile.config_spec()),
                 "1" if profile.enable_all_default_off else "0",
+                profile.level,
             ]
         )
         response = self._request(request)
@@ -344,7 +356,9 @@ def _parse_finding(line: str) -> Finding:
     suggestions = raw_suggestions.split(SUGGESTION_SEPARATOR) if raw_suggestions else []
     return Finding(
         rule_id=_unb64(fields[3]),
+        full_rule_id=_unb64(fields[4]),
         category_id=_unb64(fields[5]),
+        category_name=_unb64(fields[6]),
         message=_unb64(fields[7]),
         offset=from_pos,
         length=to_pos - from_pos,
@@ -366,7 +380,9 @@ def pylat_findings(matches: Sequence[Any]) -> List[Finding]:
         findings.append(
             Finding(
                 rule_id=match.rule_id,
+                full_rule_id=match.full_rule_id,
                 category_id=match.category_id,
+                category_name=match.category_name,
                 message=match.message,
                 offset=match.utf16_offset,
                 length=match.utf16_length,

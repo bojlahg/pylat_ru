@@ -390,23 +390,23 @@
       "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "oracle_jar_sha256": "b88f235819adbc49f11988e232bc065b61740381f6f40bfa99dc502505390efc",
-      "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
-      "input_manifest_sha256": "9a93f537508dd3836f1d037dd0c48b8439bed4dad0a8771c0383cc1c3b0c0a5f",
-      "unique_texts": 9615,
-      "profile_executions": 17425,
-      "comparable_executions": 17388,
-      "exact_cases": 17388,
+      "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
+      "input_manifest_sha256": "c2747bf1ec6ebc56e3f6e6b8ed9ae12aba9b013fb38db995819e9142ce544247",
+      "unique_texts": 9628,
+      "profile_executions": 16853,
+      "comparable_executions": 16816,
+      "exact_cases": 16816,
       "non_exact_cases": 0,
-      "java_findings": 25907,
-      "pylat_findings": 25993,
+      "java_findings": 24500,
+      "pylat_findings": 24586,
       "java_oracle_error_cases": 37,
       "python_errors": 0,
       "unexplained_discrepancies": 0,
       "ordinary_allowlist_entries": 0,
       "full_observable_field_parity": 1.0,
       "full_observable_field_parity_counts": {
-        "numerator": 17388,
-        "denominator": 17388
+        "numerator": 16816,
+        "denominator": 16816
       },
       "committed_regression_cases": 238,
       "profiles": [
@@ -414,8 +414,12 @@
         "cfg_filler_words_2",
         "cfg_long_paragraph_30",
         "cfg_long_sentence_15",
+        "cfg_speller_conf_ru_0",
+        "cfg_speller_conf_ru_1",
         "cfg_speller_yo",
-        "default"
+        "default",
+        "ref_filler_words_default",
+        "ref_picky"
       ],
       "strata": [
         "A",

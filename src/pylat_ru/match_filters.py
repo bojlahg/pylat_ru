@@ -150,6 +150,10 @@ def level_filter(matches: Sequence[MatchT], level: str = LEVEL_DEFAULT) -> list[
     stream pipeline places it, so a suppressed picky match can never influence group
     or overlap resolution.
     """
+    if level not in (LEVEL_DEFAULT, LEVEL_PICKY):
+        raise ValueError(
+            f"Unsupported checking level {level!r}; expected DEFAULT or PICKY"
+        )
     if level == LEVEL_PICKY:
         return list(matches)
     return [

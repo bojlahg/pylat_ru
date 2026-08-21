@@ -20,8 +20,10 @@ import pytest
 
 from tools.differential_lt import (
     CATEGORY_MISMATCH,
+    CATEGORY_NAME_MISMATCH,
     EXTRA_FINDING,
     FINDING_ORDER_MISMATCH,
+    FULL_RULE_ID_MISMATCH,
     MESSAGE_MISMATCH,
     MISMATCH_KINDS,
     MISSING_FINDING,
@@ -41,6 +43,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 def java(
     rule_id: str = "RULE_A",
     category_id: str = "TYPOS",
+    category_name: str = "Опечатки",
+    full_rule_id: str = "RULE_A",
     message: str = "сообщение",
     offset: int = 0,
     length: int = 4,
@@ -50,7 +54,9 @@ def java(
 ) -> Finding:
     return Finding(
         rule_id=rule_id,
+        full_rule_id=full_rule_id,
         category_id=category_id,
+        category_name=category_name,
         message=message,
         offset=offset,
         length=length,
@@ -65,7 +71,9 @@ def pylat(**kwargs) -> Finding:
     finding = java(**kwargs)
     return Finding(
         rule_id=finding.rule_id,
+        full_rule_id=finding.full_rule_id,
         category_id=finding.category_id,
+        category_name=finding.category_name,
         message=finding.message,
         offset=finding.offset,
         length=finding.length,
@@ -134,6 +142,45 @@ def test_category_mismatch_fails() -> None:
     )
     assert result.is_exact_match is False
     assert CATEGORY_MISMATCH in result.mismatch_kinds
+
+
+def test_full_rule_id_mismatch_fails_with_same_base_id() -> None:
+    result = compare_findings(
+        TEXT,
+        [java(rule_id="XML_RULE", full_rule_id="XML_RULE[1]")],
+        [pylat(rule_id="XML_RULE", full_rule_id="XML_RULE[2]")],
+    )
+    assert result.is_exact_match is False
+    assert FULL_RULE_ID_MISMATCH in result.mismatch_kinds
+
+
+def test_identical_full_rule_id_is_exact() -> None:
+    result = compare_findings(
+        TEXT,
+        [java(full_rule_id="XML_RULE[2]")],
+        [pylat(full_rule_id="XML_RULE[2]")],
+    )
+    assert result.is_exact_match is True
+
+
+def test_repeated_base_ids_with_distinct_full_ids_do_not_collapse() -> None:
+    result = compare_findings(
+        TEXT,
+        [java(full_rule_id="RULE_A[1]"), java(full_rule_id="RULE_A[2]", offset=10)],
+        [pylat(full_rule_id="RULE_A[1]")],
+    )
+    assert result.is_exact_match is False
+    assert MISSING_FINDING in result.mismatch_kinds
+
+
+def test_category_name_mismatch_fails_with_same_category_id() -> None:
+    result = compare_findings(
+        TEXT,
+        [java(category_id="TYPOS", category_name="Опечатки")],
+        [pylat(category_id="TYPOS", category_name="Другое имя")],
+    )
+    assert result.is_exact_match is False
+    assert CATEGORY_NAME_MISMATCH in result.mismatch_kinds
 
 
 def test_message_mismatch_fails() -> None:
@@ -314,7 +361,7 @@ def test_recorded_java_offsets_are_utf16_not_code_points(calibration: dict) -> N
         for finding, (code_point_offset, _) in zip(
             case["java_findings"], case["python_code_point_spans"]
         ):
-            java_offset = finding[4]
+            java_offset = finding[6]
             surrogates = sum(1 for c in text[:code_point_offset] if ord(c) > 0xFFFF)
             assert java_offset == code_point_offset + surrogates
             if surrogates:

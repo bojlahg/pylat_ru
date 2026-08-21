@@ -8,7 +8,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           24,
@@ -43,7 +45,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           26,
@@ -78,7 +82,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           30,
@@ -113,7 +119,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -148,7 +156,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           24,
@@ -183,7 +193,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           24,
@@ -218,7 +230,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           41,
@@ -253,7 +267,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           27,
@@ -288,7 +304,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -318,7 +336,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           22,
@@ -353,7 +373,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           23,
@@ -383,7 +405,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -399,7 +423,12 @@
           ""
         ]
       ],
-      "python_code_point_spans": [],
+      "python_code_point_spans": [
+        [
+          21,
+          8
+        ]
+      ],
       "text": "Это тестовый текст с а­шибкой.",
       "text_code_point_length": 30,
       "text_utf16_length": 30,
@@ -413,7 +442,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           23,
@@ -429,7 +460,12 @@
           ""
         ]
       ],
-      "python_code_point_spans": [],
+      "python_code_point_spans": [
+        [
+          23,
+          8
+        ]
+      ],
       "text": "Это­ тесто­вый текст с ашибко­й.",
       "text_code_point_length": 32,
       "text_utf16_length": 32,
@@ -443,7 +479,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -478,7 +516,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           27,
@@ -513,7 +553,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           26,
@@ -548,7 +590,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           24,
@@ -583,7 +627,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -600,7 +646,9 @@
         ],
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           54,
@@ -639,7 +687,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           24,
@@ -674,7 +724,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           25,
@@ -709,7 +761,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           7,
@@ -721,7 +775,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           18,
@@ -755,7 +811,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           9,
@@ -767,7 +825,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           20,
@@ -801,7 +861,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           13,
@@ -813,7 +875,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           24,
@@ -847,7 +911,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -859,7 +925,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -893,7 +961,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           7,
@@ -905,7 +975,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           18,
@@ -939,7 +1011,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           7,
@@ -951,7 +1025,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           18,
@@ -985,7 +1061,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           9,
@@ -997,7 +1075,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           35,
@@ -1031,7 +1111,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           10,
@@ -1043,7 +1125,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           21,
@@ -1077,7 +1161,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           5,
@@ -1089,7 +1175,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           16,
@@ -1123,7 +1211,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -1135,7 +1225,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1169,7 +1261,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -1181,7 +1275,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1215,7 +1311,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           5,
@@ -1227,7 +1325,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           16,
@@ -1261,7 +1361,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -1273,7 +1375,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1307,7 +1411,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -1319,7 +1425,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1353,7 +1461,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           10,
@@ -1365,7 +1475,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           21,
@@ -1399,7 +1511,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           9,
@@ -1411,7 +1525,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           20,
@@ -1445,7 +1561,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           7,
@@ -1457,7 +1575,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           19,
@@ -1491,7 +1611,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           4,
@@ -1503,7 +1625,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1515,7 +1639,9 @@
         ],
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           38,
@@ -1527,7 +1653,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           49,
@@ -1569,7 +1697,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           7,
@@ -1581,7 +1711,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           18,
@@ -1615,7 +1747,9 @@
       "java_findings": [
         [
           "WHITESPACE_RULE",
+          "WHITESPACE_RULE",
           "TYPOGRAPHY",
+          "Типографика",
           "Повтор пробела",
           "",
           8,
@@ -1627,7 +1761,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           19,
@@ -1661,7 +1797,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           12,
@@ -1691,7 +1829,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           14,
@@ -1721,7 +1861,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           18,
@@ -1751,7 +1893,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -1781,7 +1925,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           12,
@@ -1811,7 +1957,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           12,
@@ -1841,7 +1989,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           19,
@@ -1871,7 +2021,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -1901,7 +2053,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           10,
@@ -1931,7 +2085,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -1961,7 +2117,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -1991,7 +2149,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           10,
@@ -2021,7 +2181,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -2051,7 +2213,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -2081,7 +2245,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           15,
@@ -2111,7 +2277,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           14,
@@ -2141,7 +2309,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           12,
@@ -2171,7 +2341,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           9,
@@ -2183,7 +2355,9 @@
         ],
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           43,
@@ -2217,7 +2391,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           12,
@@ -2247,7 +2423,9 @@
       "java_findings": [
         [
           "COMMA_PARENTHESIS_WHITESPACE",
+          "COMMA_PARENTHESIS_WHITESPACE",
           "TYPOGRAPHY",
+          "Типографика",
           "Поставьте пробел после запятой, а не перед ней.",
           "",
           13,
@@ -2277,7 +2455,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           13,
@@ -2307,7 +2487,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           15,
@@ -2337,7 +2519,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           19,
@@ -2367,7 +2551,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           10,
@@ -2397,7 +2583,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           13,
@@ -2427,7 +2615,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           13,
@@ -2469,7 +2659,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           16,
@@ -2499,7 +2691,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           11,
@@ -2529,7 +2723,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           11,
@@ -2559,7 +2755,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           11,
@@ -2589,7 +2787,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           10,
@@ -2619,7 +2819,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           16,
@@ -2649,7 +2851,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           15,
@@ -2679,7 +2883,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           13,
@@ -2709,7 +2915,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           10,
@@ -2721,7 +2929,9 @@
         ],
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           42,
@@ -2755,7 +2965,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           13,
@@ -2785,7 +2997,9 @@
       "java_findings": [
         [
           "WORD_REPEAT_RULE",
+          "WORD_REPEAT_RULE",
           "MISC",
+          "Общие правила",
           "Возможная опечатка: повтор слова",
           "Повтор слова",
           14,
@@ -2815,7 +3029,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           19,
@@ -2848,7 +3064,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -2881,7 +3099,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           25,
@@ -2914,7 +3134,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -2947,7 +3169,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           19,
@@ -2980,7 +3204,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           19,
@@ -3013,7 +3239,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           31,
@@ -3046,7 +3274,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           22,
@@ -3079,7 +3309,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -3109,7 +3341,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           17,
@@ -3142,7 +3376,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -3175,7 +3411,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -3189,7 +3427,12 @@
           ""
         ]
       ],
-      "python_code_point_spans": [],
+      "python_code_point_spans": [
+        [
+          16,
+          7
+        ]
+      ],
       "text": "Всё хорошо, что ха­рашо кончается.",
       "text_code_point_length": 34,
       "text_utf16_length": 34,
@@ -3203,7 +3446,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           20,
@@ -3217,7 +3462,12 @@
           ""
         ]
       ],
-      "python_code_point_spans": [],
+      "python_code_point_spans": [
+        [
+          20,
+          6
+        ]
+      ],
       "text": "Всё хо­ро­шо­, что­ харашо­ ко­нчается.",
       "text_code_point_length": 39,
       "text_utf16_length": 39,
@@ -3231,7 +3481,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -3264,7 +3516,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           22,
@@ -3297,7 +3551,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -3330,7 +3586,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           19,
@@ -3363,7 +3621,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -3378,7 +3638,9 @@
         ],
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           53,
@@ -3415,7 +3677,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           19,
@@ -3448,7 +3712,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           20,
@@ -3697,7 +3963,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           3,
@@ -3736,7 +4004,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           5,
@@ -3775,7 +4045,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           9,
@@ -3814,7 +4086,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -3853,7 +4127,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           3,
@@ -3892,7 +4168,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -3931,7 +4209,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -3970,7 +4250,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           6,
@@ -4009,7 +4291,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4048,7 +4332,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4186,7 +4472,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4225,7 +4513,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4264,7 +4554,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4284,7 +4576,12 @@
           ""
         ]
       ],
-      "python_code_point_spans": [],
+      "python_code_point_spans": [
+        [
+          0,
+          3
+        ]
+      ],
       "text": "Ето­ неправильно­е сло­во­.",
       "text_code_point_length": 27,
       "text_utf16_length": 27,
@@ -4298,7 +4595,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4337,7 +4636,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           6,
@@ -4376,7 +4677,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           5,
@@ -4415,7 +4718,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           3,
@@ -4454,7 +4759,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           0,
@@ -4475,7 +4782,9 @@
         ],
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           27,
@@ -4530,7 +4839,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           4,
@@ -4569,7 +4880,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           15,
@@ -4805,7 +5118,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           17,
@@ -5041,7 +5356,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           21,
@@ -5277,7 +5594,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           12,
@@ -5513,7 +5832,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           15,
@@ -5749,7 +6070,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           15,
@@ -5985,7 +6308,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           22,
@@ -6221,7 +6546,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           18,
@@ -6457,7 +6784,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           13,
@@ -6693,7 +7022,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           14,
@@ -6725,7 +7056,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           13,
@@ -6961,7 +7294,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           12,
@@ -7197,7 +7532,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           18,
@@ -7433,7 +7770,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           17,
@@ -7669,7 +8008,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           15,
@@ -7905,7 +8246,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           12,
@@ -8123,7 +8466,9 @@
         ],
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           40,
@@ -8363,7 +8708,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           15,
@@ -8599,7 +8946,9 @@
       "java_findings": [
         [
           "MORFOLOGIK_RULE_RU_RU",
+          "MORFOLOGIK_RULE_RU_RU",
           "TYPOS",
+          "Проверка орфографии",
           "Возможно найдена орфографическая ошибка.",
           "Орфографическая ошибка",
           16,
@@ -8831,7 +9180,9 @@
   "metadata": {
     "finding_field_order": [
       "rule_id",
+      "full_rule_id",
       "category_id",
+      "category_name",
       "message",
       "short_message",
       "utf16_offset",
@@ -8848,10 +9199,11 @@
       "disabled_rules": [],
       "enable_all_default_off": false,
       "enabled_rules": [],
+      "level": "DEFAULT",
       "profile_id": "default",
       "rule_config": {}
     }
   },
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "task": "0014"
 }

@@ -7,10 +7,10 @@
       "pylat_occurrences": 4
     },
     "ABR_GENDER": {
-      "exact_case_occurrences": 36,
-      "java_occurrences": 36,
+      "exact_case_occurrences": 33,
+      "java_occurrences": 33,
       "mismatch_count": 0,
-      "pylat_occurrences": 36
+      "pylat_occurrences": 33
     },
     "ADV_Navstrechu_and_Noun": {
       "exact_case_occurrences": 2,
@@ -37,16 +37,16 @@
       "pylat_occurrences": 2
     },
     "Adv_vposledstvii": {
-      "exact_case_occurrences": 19,
-      "java_occurrences": 19,
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
       "mismatch_count": 0,
-      "pylat_occurrences": 19
+      "pylat_occurrences": 16
     },
     "BLIZKIJ_BLIZHNIJ": {
-      "exact_case_occurrences": 25,
-      "java_occurrences": 25,
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
       "mismatch_count": 0,
-      "pylat_occurrences": 25
+      "pylat_occurrences": 22
     },
     "BOLSHAJA_POLOVINA": {
       "exact_case_occurrences": 2,
@@ -97,16 +97,16 @@
       "pylat_occurrences": 17
     },
     "COMMA_PARENTHESIS_WHITESPACE": {
-      "exact_case_occurrences": 742,
-      "java_occurrences": 742,
+      "exact_case_occurrences": 706,
+      "java_occurrences": 706,
       "mismatch_count": 0,
-      "pylat_occurrences": 742
+      "pylat_occurrences": 706
     },
     "COMPLEX_SOUZ_NO_COMMA": {
-      "exact_case_occurrences": 27,
-      "java_occurrences": 27,
+      "exact_case_occurrences": 24,
+      "java_occurrences": 24,
       "mismatch_count": 0,
-      "pylat_occurrences": 27
+      "pylat_occurrences": 24
     },
     "COMPLEX_SOUZ_NO_COMMA2": {
       "exact_case_occurrences": 10,
@@ -163,10 +163,10 @@
       "pylat_occurrences": 12
     },
     "Com_Num": {
-      "exact_case_occurrences": 83,
-      "java_occurrences": 83,
+      "exact_case_occurrences": 74,
+      "java_occurrences": 74,
       "mismatch_count": 0,
-      "pylat_occurrences": 89
+      "pylat_occurrences": 80
     },
     "Comma_Chtobi_2VERB": {
       "exact_case_occurrences": 3,
@@ -193,16 +193,16 @@
       "pylat_occurrences": 14
     },
     "DEFIS_COMMA": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "DOUBLE_PUNCTUATION": {
-      "exact_case_occurrences": 47,
-      "java_occurrences": 47,
+      "exact_case_occurrences": 41,
+      "java_occurrences": 41,
       "mismatch_count": 0,
-      "pylat_occurrences": 47
+      "pylat_occurrences": 41
     },
     "DOUBL_KAVITCHKI": {
       "exact_case_occurrences": 32,
@@ -247,10 +247,10 @@
       "pylat_occurrences": 4
     },
     "DotOrCase": {
-      "exact_case_occurrences": 162,
-      "java_occurrences": 162,
+      "exact_case_occurrences": 147,
+      "java_occurrences": 147,
       "mismatch_count": 0,
-      "pylat_occurrences": 162
+      "pylat_occurrences": 147
     },
     "DoubleIH": {
       "exact_case_occurrences": 2,
@@ -301,16 +301,16 @@
       "pylat_occurrences": 10
     },
     "FILLER_WORDS_RU": {
-      "exact_case_occurrences": 4,
-      "java_occurrences": 4,
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
       "mismatch_count": 0,
-      "pylat_occurrences": 4
+      "pylat_occurrences": 5
     },
     "Frazeologizm_nevernij": {
-      "exact_case_occurrences": 68,
-      "java_occurrences": 68,
+      "exact_case_occurrences": 56,
+      "java_occurrences": 56,
       "mismatch_count": 0,
-      "pylat_occurrences": 68
+      "pylat_occurrences": 56
     },
     "GDE_COMMA": {
       "exact_case_occurrences": 2,
@@ -469,10 +469,10 @@
       "pylat_occurrences": 2
     },
     "Latin_letters": {
-      "exact_case_occurrences": 114,
-      "java_occurrences": 114,
+      "exact_case_occurrences": 110,
+      "java_occurrences": 110,
       "mismatch_count": 0,
-      "pylat_occurrences": 114
+      "pylat_occurrences": 110
     },
     "Latin_single_letter": {
       "exact_case_occurrences": 30,
@@ -487,10 +487,10 @@
       "pylat_occurrences": 2
     },
     "Lishnij_sojuz": {
-      "exact_case_occurrences": 14,
-      "java_occurrences": 14,
+      "exact_case_occurrences": 11,
+      "java_occurrences": 11,
       "mismatch_count": 0,
-      "pylat_occurrences": 14
+      "pylat_occurrences": 11
     },
     "Logical_biographia_gizni": {
       "exact_case_occurrences": 4,
@@ -583,10 +583,10 @@
       "pylat_occurrences": 2
     },
     "Logical_svoja_avtobiographija": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "Logical_uluchshenie_otmechennih_nedostatkov": {
       "exact_case_occurrences": 2,
@@ -595,10 +595,10 @@
       "pylat_occurrences": 2
     },
     "Logical_vidajuschijsja_as": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "Logical_zalozheno_xx_derevjev": {
       "exact_case_occurrences": 6,
@@ -619,10 +619,10 @@
       "pylat_occurrences": 3
     },
     "MORFOLOGIK_RULE_RU_RU": {
-      "exact_case_occurrences": 15539,
-      "java_occurrences": 15539,
+      "exact_case_occurrences": 14362,
+      "java_occurrences": 14362,
       "mismatch_count": 0,
-      "pylat_occurrences": 15539
+      "pylat_occurrences": 14362
     },
     "MORFOLOGIK_RULE_RU_RU_YO": {
       "exact_case_occurrences": 1959,
@@ -631,10 +631,10 @@
       "pylat_occurrences": 1962
     },
     "Many_PNN": {
-      "exact_case_occurrences": 56,
-      "java_occurrences": 56,
+      "exact_case_occurrences": 53,
+      "java_occurrences": 53,
       "mismatch_count": 0,
-      "pylat_occurrences": 56
+      "pylat_occurrences": 53
     },
     "MissingYO": {
       "exact_case_occurrences": 236,
@@ -739,10 +739,10 @@
       "pylat_occurrences": 4
     },
     "Ni_to_ni_drugoe": {
-      "exact_case_occurrences": 15,
-      "java_occurrences": 15,
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
       "mismatch_count": 0,
-      "pylat_occurrences": 15
+      "pylat_occurrences": 12
     },
     "Not_Comma_eto": {
       "exact_case_occurrences": 6,
@@ -769,10 +769,10 @@
       "pylat_occurrences": 2
     },
     "OPREDELENIA": {
-      "exact_case_occurrences": 42,
-      "java_occurrences": 42,
+      "exact_case_occurrences": 33,
+      "java_occurrences": 33,
       "mismatch_count": 0,
-      "pylat_occurrences": 42
+      "pylat_occurrences": 33
     },
     "O_KOTORIJ": {
       "exact_case_occurrences": 2,
@@ -811,10 +811,10 @@
       "pylat_occurrences": 6
     },
     "Oborot_nikto_inoj_ne": {
-      "exact_case_occurrences": 39,
-      "java_occurrences": 39,
+      "exact_case_occurrences": 30,
+      "java_occurrences": 30,
       "mismatch_count": 0,
-      "pylat_occurrences": 39
+      "pylat_occurrences": 30
     },
     "Obrazovanie_form_pril_i_mestoimenij": {
       "exact_case_occurrences": 8,
@@ -853,10 +853,10 @@
       "pylat_occurrences": 8
     },
     "Opublikovani_vospominanija": {
-      "exact_case_occurrences": 15,
-      "java_occurrences": 15,
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
       "mismatch_count": 0,
-      "pylat_occurrences": 15
+      "pylat_occurrences": 12
     },
     "PARAGRAPH_REPEAT_BEGINNING_RULE": {
       "exact_case_occurrences": 308,
@@ -1021,10 +1021,10 @@
       "pylat_occurrences": 9
     },
     "PREP_U_and_Noun": {
-      "exact_case_occurrences": 35,
-      "java_occurrences": 35,
+      "exact_case_occurrences": 32,
+      "java_occurrences": 32,
       "mismatch_count": 0,
-      "pylat_occurrences": 35
+      "pylat_occurrences": 32
     },
     "PREP_V_VS_NA": {
       "exact_case_occurrences": 2,
@@ -1081,10 +1081,10 @@
       "pylat_occurrences": 2
     },
     "PREP_vozle_and_Noun": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "PROGNOZ_NA_BUDUSHEE": {
       "exact_case_occurrences": 2,
@@ -1129,10 +1129,10 @@
       "pylat_occurrences": 12
     },
     "PUNKT_KOTORIJ": {
-      "exact_case_occurrences": 25,
-      "java_occurrences": 25,
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
       "mismatch_count": 0,
-      "pylat_occurrences": 25
+      "pylat_occurrences": 22
     },
     "PUNKT_KOTORIJ1": {
       "exact_case_occurrences": 1,
@@ -1177,10 +1177,10 @@
       "pylat_occurrences": 8
     },
     "Postrojenije_slovosochetanij_sobir_noun": {
-      "exact_case_occurrences": 11,
-      "java_occurrences": 11,
+      "exact_case_occurrences": 8,
+      "java_occurrences": 8,
       "mismatch_count": 0,
-      "pylat_occurrences": 11
+      "pylat_occurrences": 8
     },
     "Postrojenije_slovosochetanij_upravlenie1": {
       "exact_case_occurrences": 20,
@@ -1207,22 +1207,22 @@
       "pylat_occurrences": 2
     },
     "Pravopisanie_slitno1": {
-      "exact_case_occurrences": 56,
-      "java_occurrences": 56,
+      "exact_case_occurrences": 53,
+      "java_occurrences": 53,
       "mismatch_count": 0,
-      "pylat_occurrences": 56
+      "pylat_occurrences": 53
     },
     "Predlog_v_zakluchenije": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "Predlogi_iz_s": {
-      "exact_case_occurrences": 23,
-      "java_occurrences": 23,
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
       "mismatch_count": 0,
-      "pylat_occurrences": 23
+      "pylat_occurrences": 20
     },
     "Predlogi_vsledstvije_napodobije": {
       "exact_case_occurrences": 14,
@@ -1237,10 +1237,10 @@
       "pylat_occurrences": 7
     },
     "Punct_PT_oborot": {
-      "exact_case_occurrences": 19,
-      "java_occurrences": 19,
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
       "mismatch_count": 0,
-      "pylat_occurrences": 19
+      "pylat_occurrences": 16
     },
     "Punct_PT_oborot_2": {
       "exact_case_occurrences": 11,
@@ -1249,10 +1249,10 @@
       "pylat_occurrences": 11
     },
     "Punct_and_spaces": {
-      "exact_case_occurrences": 31,
-      "java_occurrences": 31,
+      "exact_case_occurrences": 28,
+      "java_occurrences": 28,
       "mismatch_count": 0,
-      "pylat_occurrences": 31
+      "pylat_occurrences": 28
     },
     "Punct_eh_ti": {
       "exact_case_occurrences": 2,
@@ -1261,10 +1261,10 @@
       "pylat_occurrences": 2
     },
     "Punct_nado_polagat": {
-      "exact_case_occurrences": 13,
-      "java_occurrences": 13,
+      "exact_case_occurrences": 10,
+      "java_occurrences": 10,
       "mismatch_count": 0,
-      "pylat_occurrences": 13
+      "pylat_occurrences": 10
     },
     "Punct_skazano_sdelano": {
       "exact_case_occurrences": 2,
@@ -1297,10 +1297,10 @@
       "pylat_occurrences": 2
     },
     "RU_COMPOUNDS": {
-      "exact_case_occurrences": 93,
-      "java_occurrences": 93,
+      "exact_case_occurrences": 90,
+      "java_occurrences": 90,
       "mismatch_count": 0,
-      "pylat_occurrences": 93
+      "pylat_occurrences": 90
     },
     "RU_DASH_RULE": {
       "exact_case_occurrences": 6,
@@ -1321,10 +1321,10 @@
       "pylat_occurrences": 4
     },
     "RU_UNPAIRED_BRACKETS": {
-      "exact_case_occurrences": 203,
-      "java_occurrences": 203,
+      "exact_case_occurrences": 197,
+      "java_occurrences": 197,
       "mismatch_count": 0,
-      "pylat_occurrences": 204
+      "pylat_occurrences": 198
     },
     "RU_VERB_CONJUGATION": {
       "exact_case_occurrences": 6,
@@ -1351,10 +1351,10 @@
       "pylat_occurrences": 15
     },
     "Rod_suschestvitelnykh_Fem_and_Masc": {
-      "exact_case_occurrences": 23,
-      "java_occurrences": 23,
+      "exact_case_occurrences": 20,
+      "java_occurrences": 20,
       "mismatch_count": 0,
-      "pylat_occurrences": 23
+      "pylat_occurrences": 20
     },
     "Rod_suschestvitelnykh_Neut": {
       "exact_case_occurrences": 21,
@@ -1393,10 +1393,10 @@
       "pylat_occurrences": 3
     },
     "S_SO": {
-      "exact_case_occurrences": 30,
-      "java_occurrences": 30,
+      "exact_case_occurrences": 24,
+      "java_occurrences": 24,
       "mismatch_count": 0,
-      "pylat_occurrences": 30
+      "pylat_occurrences": 24
     },
     "Skazuem_sovmestnoje_dejstvije": {
       "exact_case_occurrences": 10,
@@ -1435,10 +1435,10 @@
       "pylat_occurrences": 6
     },
     "SoglasovanieNN_Verb": {
-      "exact_case_occurrences": 61,
-      "java_occurrences": 61,
+      "exact_case_occurrences": 55,
+      "java_occurrences": 55,
       "mismatch_count": 0,
-      "pylat_occurrences": 61
+      "pylat_occurrences": 55
     },
     "SoglasovaniePNN_Verb": {
       "exact_case_occurrences": 10,
@@ -1500,11 +1500,23 @@
       "mismatch_count": 0,
       "pylat_occurrences": 2
     },
-    "TO_JE": {
-      "exact_case_occurrences": 15,
-      "java_occurrences": 15,
+    "TOO_LONG_PARAGRAPH": {
+      "exact_case_occurrences": 1,
+      "java_occurrences": 1,
       "mismatch_count": 0,
-      "pylat_occurrences": 15
+      "pylat_occurrences": 1
+    },
+    "TOO_LONG_SENTENCE": {
+      "exact_case_occurrences": 2,
+      "java_occurrences": 2,
+      "mismatch_count": 0,
+      "pylat_occurrences": 2
+    },
+    "TO_JE": {
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
+      "mismatch_count": 0,
+      "pylat_occurrences": 12
     },
     "TYPOGRAF_SYMBOL": {
       "exact_case_occurrences": 10,
@@ -1717,16 +1729,16 @@
       "pylat_occurrences": 28
     },
     "UPPERCASE_SENTENCE_START": {
-      "exact_case_occurrences": 558,
-      "java_occurrences": 558,
+      "exact_case_occurrences": 531,
+      "java_occurrences": 531,
       "mismatch_count": 0,
-      "pylat_occurrences": 558
+      "pylat_occurrences": 531
     },
     "Unify_Adj_NN_case": {
-      "exact_case_occurrences": 53,
-      "java_occurrences": 53,
+      "exact_case_occurrences": 50,
+      "java_occurrences": 50,
       "mismatch_count": 0,
-      "pylat_occurrences": 53
+      "pylat_occurrences": 50
     },
     "Unify_Adj_NN_gender": {
       "exact_case_occurrences": 76,
@@ -1753,10 +1765,10 @@
       "pylat_occurrences": 6
     },
     "Unify_PADJ_NN_gender": {
-      "exact_case_occurrences": 8,
-      "java_occurrences": 8,
+      "exact_case_occurrences": 5,
+      "java_occurrences": 5,
       "mismatch_count": 0,
-      "pylat_occurrences": 8
+      "pylat_occurrences": 5
     },
     "Unify_PADJ_NN_number": {
       "exact_case_occurrences": 2,
@@ -1795,10 +1807,10 @@
       "pylat_occurrences": 8
     },
     "VODJANOJ_VODNIJ": {
-      "exact_case_occurrences": 17,
-      "java_occurrences": 17,
+      "exact_case_occurrences": 14,
+      "java_occurrences": 14,
       "mismatch_count": 0,
-      "pylat_occurrences": 17
+      "pylat_occurrences": 14
     },
     "VOZVRASHATSJA_OBRATNO": {
       "exact_case_occurrences": 2,
@@ -1819,10 +1831,10 @@
       "pylat_occurrences": 2
     },
     "VSE_KAK_NA_PODBOR": {
-      "exact_case_occurrences": 67,
-      "java_occurrences": 67,
+      "exact_case_occurrences": 64,
+      "java_occurrences": 64,
       "mismatch_count": 0,
-      "pylat_occurrences": 67
+      "pylat_occurrences": 64
     },
     "VVODNOE_SLOVO": {
       "exact_case_occurrences": 58,
@@ -1837,16 +1849,16 @@
       "pylat_occurrences": 20
     },
     "V_OTLICHIE": {
-      "exact_case_occurrences": 25,
-      "java_occurrences": 25,
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
       "mismatch_count": 0,
-      "pylat_occurrences": 25
+      "pylat_occurrences": 22
     },
     "V_PRODOLJENIЕ": {
-      "exact_case_occurrences": 16,
-      "java_occurrences": 16,
+      "exact_case_occurrences": 13,
+      "java_occurrences": 13,
       "mismatch_count": 0,
-      "pylat_occurrences": 19
+      "pylat_occurrences": 16
     },
     "V_TECHENII": {
       "exact_case_occurrences": 2,
@@ -1939,10 +1951,10 @@
       "pylat_occurrences": 2
     },
     "Verb_and_Verb": {
-      "exact_case_occurrences": 34,
-      "java_occurrences": 34,
+      "exact_case_occurrences": 31,
+      "java_occurrences": 31,
       "mismatch_count": 0,
-      "pylat_occurrences": 34
+      "pylat_occurrences": 31
     },
     "Verb_and_wo_P": {
       "exact_case_occurrences": 5,
@@ -1963,10 +1975,10 @@
       "pylat_occurrences": 2
     },
     "Verb_number": {
-      "exact_case_occurrences": 9,
-      "java_occurrences": 9,
+      "exact_case_occurrences": 6,
+      "java_occurrences": 6,
       "mismatch_count": 0,
-      "pylat_occurrences": 9
+      "pylat_occurrences": 6
     },
     "Verb_tsa_and_ttsya": {
       "exact_case_occurrences": 8,
@@ -1999,16 +2011,16 @@
       "pylat_occurrences": 57
     },
     "WHITESPACE_RULE": {
-      "exact_case_occurrences": 421,
-      "java_occurrences": 421,
+      "exact_case_occurrences": 385,
+      "java_occurrences": 385,
       "mismatch_count": 0,
-      "pylat_occurrences": 421
+      "pylat_occurrences": 385
     },
     "WORD_REPEAT_RULE": {
-      "exact_case_occurrences": 265,
-      "java_occurrences": 265,
+      "exact_case_occurrences": 329,
+      "java_occurrences": 329,
       "mismatch_count": 0,
-      "pylat_occurrences": 265
+      "pylat_occurrences": 329
     },
     "WRONG_INN": {
       "exact_case_occurrences": 4,
@@ -2023,10 +2035,10 @@
       "pylat_occurrences": 8
     },
     "Wrong_group_punct": {
-      "exact_case_occurrences": 32,
-      "java_occurrences": 32,
+      "exact_case_occurrences": 29,
+      "java_occurrences": 29,
       "mismatch_count": 0,
-      "pylat_occurrences": 32
+      "pylat_occurrences": 29
     },
     "YEAR_20001": {
       "exact_case_occurrences": 2,
@@ -2071,10 +2083,10 @@
       "pylat_occurrences": 6
     },
     "bolotnij_bolotistiy": {
-      "exact_case_occurrences": 25,
-      "java_occurrences": 25,
+      "exact_case_occurrences": 22,
+      "java_occurrences": 22,
       "mismatch_count": 0,
-      "pylat_occurrences": 25
+      "pylat_occurrences": 22
     },
     "bolshinstvo_vremeni": {
       "exact_case_occurrences": 2,
@@ -2125,10 +2137,10 @@
       "pylat_occurrences": 4
     },
     "dlya_togo_chtoby_2": {
-      "exact_case_occurrences": 19,
-      "java_occurrences": 19,
+      "exact_case_occurrences": 16,
+      "java_occurrences": 16,
       "mismatch_count": 0,
-      "pylat_occurrences": 19
+      "pylat_occurrences": 16
     },
     "drug_s_drugom": {
       "exact_case_occurrences": 2,
@@ -2323,10 +2335,10 @@
       "pylat_occurrences": 12
     },
     "libo_and_libo": {
-      "exact_case_occurrences": 15,
-      "java_occurrences": 15,
+      "exact_case_occurrences": 12,
+      "java_occurrences": 12,
       "mismatch_count": 0,
-      "pylat_occurrences": 15
+      "pylat_occurrences": 12
     },
     "missing_2_verb": {
       "exact_case_occurrences": 15,
@@ -2611,10 +2623,10 @@
       "pylat_occurrences": 7
     },
     "to_and_to": {
-      "exact_case_occurrences": 42,
-      "java_occurrences": 42,
+      "exact_case_occurrences": 33,
+      "java_occurrences": 33,
       "mismatch_count": 0,
-      "pylat_occurrences": 42
+      "pylat_occurrences": 33
     },
     "toska_toskovat": {
       "exact_case_occurrences": 4,
@@ -2762,15 +2774,64 @@
     }
   },
   "campaign_identity": {
-    "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
+    "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
     "fixed_seed": 140014,
-    "generator_version": "0014.1",
+    "generator_version": "0014.2-review-fix",
     "stratum_signatures": {
-      "A": "8830ea3d03f380f4a8276074ad9d3bba091ff516f66dc88d041d751201418f9c",
-      "B": "0edc376c274cfd0fd2f3fc7c366dcc30ea9f03806486c19164cc229d5360306c",
-      "C": "1f36194507c01ebf1f68b16fb762cb68acf4f459b409fcb9a2763dc720c329ce",
-      "D": "b5289cf51d2980458cce56af44431b469f0240187971590d4161b988575f497a",
-      "E": "d282644c8eb4452770905379ed753c4d497fcc842397d29611c8ec3ea47d37b3"
+      "A": "44f4b168ee21388065c3acd9f762719439640896092250304d418308c93036be",
+      "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
+      "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
+      "D": "9576e4294b878f9bf9e7e839925dd1bb0c74ba8bde2d8b85ac410ed9c18fda35",
+      "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
+    }
+  },
+  "config_sensitivity": {
+    "cfg_filler_words_2": {
+      "delta_rule_ids": [
+        "FILLER_WORDS_RU",
+        "UPPERCASE_SENTENCE_START",
+        "WORD_REPEAT_RULE"
+      ],
+      "java_cases_with_observable_delta": 1,
+      "java_python_exact_cases": 3,
+      "profile_id": "cfg_filler_words_2",
+      "python_cases_with_same_observable_delta": 1,
+      "reference_profile": "ref_filler_words_default",
+      "targeted_cases": 3
+    },
+    "cfg_long_paragraph_30": {
+      "delta_rule_ids": [
+        "TOO_LONG_PARAGRAPH"
+      ],
+      "java_cases_with_observable_delta": 1,
+      "java_python_exact_cases": 4,
+      "profile_id": "cfg_long_paragraph_30",
+      "python_cases_with_same_observable_delta": 1,
+      "reference_profile": "ref_picky",
+      "targeted_cases": 4
+    },
+    "cfg_long_sentence_15": {
+      "delta_rule_ids": [
+        "TOO_LONG_SENTENCE"
+      ],
+      "java_cases_with_observable_delta": 2,
+      "java_python_exact_cases": 4,
+      "profile_id": "cfg_long_sentence_15",
+      "python_cases_with_same_observable_delta": 2,
+      "reference_profile": "ref_picky",
+      "targeted_cases": 4
+    },
+    "cfg_speller_conf_ru_1": {
+      "delta_rule_ids": [
+        "MORFOLOGIK_RULE_RU_RU",
+        "UPPERCASE_SENTENCE_START"
+      ],
+      "java_cases_with_observable_delta": 2,
+      "java_python_exact_cases": 3,
+      "profile_id": "cfg_speller_conf_ru_1",
+      "python_cases_with_same_observable_delta": 2,
+      "reference_profile": "cfg_speller_conf_ru_0",
+      "targeted_cases": 3
     }
   },
   "counts_by_profile": {
@@ -2785,28 +2846,44 @@
       "pylat_findings": 5075
     },
     "cfg_filler_words_2": {
-      "cases": 200,
-      "exact": 200,
-      "java_findings": 498,
+      "cases": 3,
+      "exact": 3,
+      "java_findings": 38,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 498
+      "pylat_findings": 38
     },
     "cfg_long_paragraph_30": {
-      "cases": 200,
-      "exact": 200,
-      "java_findings": 498,
+      "cases": 4,
+      "exact": 4,
+      "java_findings": 1,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 498
+      "pylat_findings": 1
     },
     "cfg_long_sentence_15": {
-      "cases": 200,
-      "exact": 200,
-      "java_findings": 498,
+      "cases": 4,
+      "exact": 4,
+      "java_findings": 2,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 498
+      "pylat_findings": 2
+    },
+    "cfg_speller_conf_ru_0": {
+      "cases": 3,
+      "exact": 3,
+      "java_findings": 2,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 2
+    },
+    "cfg_speller_conf_ru_1": {
+      "cases": 3,
+      "exact": 3,
+      "java_findings": 6,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 6
     },
     "cfg_speller_yo": {
       "cases": 2200,
@@ -2823,27 +2900,43 @@
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
       "pylat_findings": 18025
+    },
+    "ref_filler_words_default": {
+      "cases": 3,
+      "exact": 3,
+      "java_findings": 38,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 38
+    },
+    "ref_picky": {
+      "cases": 8,
+      "exact": 8,
+      "java_findings": 0,
+      "mismatch_counts_by_kind": {},
+      "non_exact": 0,
+      "pylat_findings": 0
     }
   },
   "counts_by_stratum": {
     "A": {
-      "cases": 5028,
-      "exact": 5028,
-      "java_findings": 2813,
+      "cases": 5056,
+      "exact": 5056,
+      "java_findings": 2900,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 2813,
-      "unique_texts": 2514
+      "pylat_findings": 2900,
+      "unique_texts": 2527
     },
     "B": {
-      "cases": 4996,
-      "exact": 4959,
-      "java_findings": 5314,
+      "cases": 4684,
+      "exact": 4647,
+      "java_findings": 5047,
       "mismatch_counts_by_kind": {
         "JAVA_ORACLE_ERROR": 37
       },
       "non_exact": 37,
-      "pylat_findings": 5400,
+      "pylat_findings": 5133,
       "unique_texts": 2342
     },
     "C": {
@@ -2856,12 +2949,12 @@
       "unique_texts": 2200
     },
     "D": {
-      "cases": 2693,
-      "exact": 2693,
-      "java_findings": 14582,
+      "cases": 2405,
+      "exact": 2405,
+      "java_findings": 13355,
       "mismatch_counts_by_kind": {},
       "non_exact": 0,
-      "pylat_findings": 14582,
+      "pylat_findings": 13355,
       "unique_texts": 2405
     },
     "E": {
@@ -3601,7 +3694,7 @@
     "total_retained_blocks": 2405,
     "total_unique_nonempty_blocks": 2405
   },
-  "input_manifest_sha256": "9a93f537508dd3836f1d037dd0c48b8439bed4dad0a8771c0383cc1c3b0c0a5f",
+  "input_manifest_sha256": "c2747bf1ec6ebc56e3f6e6b8ed9ae12aba9b013fb38db995819e9142ce544247",
   "known_accepted_discrepancies": 0,
   "language_model_rule": {
     "excluded_from_java_surface": true,
@@ -3622,103 +3715,115 @@
   "ordinary_allowlist_entries": 0,
   "parity": {
     "category": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "category_name": {
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "finding_order": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "finding_sequence_exact": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "full_observable_field": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
+      "rate": 1.0,
+      "state": "MEASURED"
+    },
+    "full_rule_id": {
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "message": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "rule_id": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "short_message": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "span": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "suggestion_content": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "suggestion_order": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     },
     "url": {
-      "denominator": 17388,
-      "numerator": 17388,
+      "denominator": 16816,
+      "numerator": 16816,
       "rate": 1.0,
       "state": "MEASURED"
     }
   },
-  "repository_sha": "abe5290d5c2e8e613937e180c7669638ff56b6af",
-  "schema_version": "1.0.0",
+  "repository_sha": "f5cd5fb630c71ba3ee251471aaceaee4134d4522",
+  "schema_version": "2.0.0",
   "suggestions": {
     "duplicate_preservation_mismatches": 0,
-    "exact_ordered_suggestion_matches": 22687,
-    "java_findings_with_suggestions": 22687,
+    "exact_ordered_suggestion_matches": 21391,
+    "java_findings_with_suggestions": 21391,
     "suggestion_content_mismatches": 0,
     "suggestion_order_only_mismatches": 0
   },
   "task": "0014",
   "totals": {
-    "cases_total": 17425,
-    "comparable_cases": 17388,
-    "exact_cases": 17388,
+    "cases_total": 16853,
+    "comparable_cases": 16816,
+    "exact_cases": 16816,
     "java_errors": 37,
-    "java_findings_comparable": 25907,
-    "java_findings_total": 25907,
+    "java_findings_comparable": 24500,
+    "java_findings_total": 24500,
     "non_exact_cases": 37,
-    "profile_executions_total": 17425,
-    "pylat_findings_comparable": 25907,
-    "pylat_findings_total": 25993,
+    "profile_executions_total": 16853,
+    "pylat_findings_comparable": 24500,
+    "pylat_findings_total": 24586,
     "python_errors": 0,
-    "unique_texts_total": 9615
+    "unique_texts_total": 9628
   },
   "unexplained_case_ids": [],
   "unexplained_discrepancies": 0,
   "unicode_coverage": {
-    "combining_mark_cases": 459,
-    "combining_mark_exact": 459,
-    "non_bmp_cases": 638,
-    "non_bmp_exact": 638,
+    "combining_mark_cases": 438,
+    "combining_mark_exact": 438,
+    "non_bmp_cases": 614,
+    "non_bmp_exact": 614,
     "soft_hyphen_cases": 178,
     "soft_hyphen_exact": 178,
     "utf16_parity_failures": 0

@@ -1,11 +1,11 @@
 {
-  "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
+  "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
   "divergent_case_ids": [],
   "java_fresh_matches_shared": true,
   "java_reverse_matches_forward": true,
   "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
   "oracle_error_case_ids": [
-    "B004074_51fb8e84a42d"
+    "B004076_ab08317337e1"
   ],
   "oracle_error_cases": 1,
   "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
@@ -15,13 +15,17 @@
     "cfg_filler_words_2",
     "cfg_long_paragraph_30",
     "cfg_long_sentence_15",
+    "cfg_speller_conf_ru_0",
+    "cfg_speller_conf_ru_1",
     "cfg_speller_yo",
-    "default"
+    "default",
+    "ref_filler_words_default",
+    "ref_picky"
   ],
   "python_fresh_matches_shared": true,
   "python_reverse_matches_forward": true,
   "requested_sample": 300,
   "sample_size": 299,
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "task": "0014"
 }

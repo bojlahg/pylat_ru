@@ -39,8 +39,8 @@
   "fixture_bindings": [
     {
       "path": "tests/fixtures/differential_regressions_0014.json",
-      "size_bytes": 194897,
-      "sha256": "5dbf0408cc4b9ad8089806bf716808f21333cc2aef21dd384d4e9b1711616b4d",
+      "size_bytes": 217433,
+      "sha256": "a7ceb3309581a8204a5cb719ca4f38774146cfd488ef12b4f7bf014887118e53",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 238
     },
@@ -116,8 +116,8 @@
     },
     {
       "path": "tests/fixtures/oracle_utf16_calibration_0014.json",
-      "size_bytes": 218100,
-      "sha256": "0a924e3b26fc0c5e946ab6d21da83fca4a3ac8fb82e4e2eec0a968e9aaaae161",
+      "size_bytes": 231284,
+      "sha256": "f26f1d500ecf0bdebb85251b6f051f66c834a4de20069a12dd8d6e9956f5bac3",
       "oracle_build_id": "lt_6.8_source_build_jdk17_stefan",
       "case_count": 154
     }

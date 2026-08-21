@@ -171,7 +171,9 @@ def validate_oracle_manifest(manifest_path: Path) -> Dict[str, Any]:
 MISSING_FINDING = "MISSING_FINDING"
 EXTRA_FINDING = "EXTRA_FINDING"
 RULE_ID_MISMATCH = "RULE_ID_MISMATCH"
+FULL_RULE_ID_MISMATCH = "FULL_RULE_ID_MISMATCH"
 CATEGORY_MISMATCH = "CATEGORY_MISMATCH"
+CATEGORY_NAME_MISMATCH = "CATEGORY_NAME_MISMATCH"
 SPAN_MISMATCH = "SPAN_MISMATCH"
 MESSAGE_MISMATCH = "MESSAGE_MISMATCH"
 SHORT_MESSAGE_MISMATCH = "SHORT_MESSAGE_MISMATCH"
@@ -186,7 +188,9 @@ MISMATCH_KINDS = (
     MISSING_FINDING,
     EXTRA_FINDING,
     RULE_ID_MISMATCH,
+    FULL_RULE_ID_MISMATCH,
     CATEGORY_MISMATCH,
+    CATEGORY_NAME_MISMATCH,
     SPAN_MISMATCH,
     MESSAGE_MISMATCH,
     SHORT_MESSAGE_MISMATCH,
@@ -217,6 +221,8 @@ class Finding:
     length: int
     suggestions: List[str]
     source: str  # "java_lt" or "pylat_ru"
+    full_rule_id: str = ""
+    category_name: str = ""
     short_message: str = ""
     url: str = ""
     codepoint_offset: int = -1
@@ -226,7 +232,9 @@ class Finding:
         """Return the tuple of every field that participates in strict equality."""
         return (
             self.rule_id,
+            self.full_rule_id,
             self.category_id,
+            self.category_name,
             self.message,
             self.short_message,
             self.offset,
@@ -536,7 +544,10 @@ public class OracleProbe {
             for m in matches:
                 rule = m.get("rule", {})
                 rule_id = rule.get("id", "")
-                cat_id = rule.get("category", {}).get("id", "")
+                sub_id = rule.get("subId", "")
+                full_rule_id = f"{rule_id}[{sub_id}]" if sub_id else rule_id
+                category = rule.get("category", {})
+                cat_id = category.get("id", "")
                 message = m.get("message", "")
                 offset = m.get("offset", 0)
                 length = m.get("length", 0)
@@ -550,7 +561,9 @@ public class OracleProbe {
                 findings.append(
                     Finding(
                         rule_id=rule_id,
+                        full_rule_id=full_rule_id,
                         category_id=cat_id,
+                        category_name=category.get("name", ""),
                         message=message,
                         offset=offset,
                         length=length,
@@ -2427,8 +2440,12 @@ def _classify_pair(
 
     if java.rule_id != pylat.rule_id:
         add(RULE_ID_MISMATCH, java.rule_id, pylat.rule_id)
+    if java.full_rule_id != pylat.full_rule_id:
+        add(FULL_RULE_ID_MISMATCH, java.full_rule_id, pylat.full_rule_id)
     if java.category_id != pylat.category_id:
         add(CATEGORY_MISMATCH, java.category_id, pylat.category_id)
+    if java.category_name != pylat.category_name:
+        add(CATEGORY_NAME_MISMATCH, java.category_name, pylat.category_name)
     if (java.offset, java.length) != (pylat.offset, pylat.length):
         add(SPAN_MISMATCH, [java.offset, java.length], [pylat.offset, pylat.length])
     if java.message != pylat.message:
@@ -3366,5 +3383,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-

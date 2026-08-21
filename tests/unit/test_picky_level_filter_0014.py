@@ -79,6 +79,11 @@ def test_level_filter_defaults_to_the_pinned_default_level() -> None:
     assert level_filter(matches) == []
 
 
+def test_unknown_checking_level_fails_closed() -> None:
+    with pytest.raises(ValueError, match="Unsupported checking level"):
+        LanguageToolRU().check("Обычный текст.", level="UNKNOWN")
+
+
 def test_level_filter_runs_before_grouping_and_overlap_resolution() -> None:
     """A suppressed picky match must not influence grouping or overlap cleanup.
 
@@ -99,6 +104,15 @@ def test_picky_rules_are_never_reported_by_the_default_pipeline() -> None:
     tool = LanguageToolRU()
     text = "Ну, в общем, это как бы просто, ну, такой, в общем, текст."
     assert [match.rule_id for match in tool.check(text)] == []
+
+
+def test_public_check_level_exposes_picky_candidates_without_reimplementing_filtering() -> None:
+    tool = LanguageToolRU(rule_config={"TOO_LONG_SENTENCE": {"maxWords": 4}})
+    text = "Один два три четыре пять."
+    assert "TOO_LONG_SENTENCE" not in {m.rule_id for m in tool.check(text)}
+    assert "TOO_LONG_SENTENCE" in {
+        m.rule_id for m in tool.check(text, level=LEVEL_PICKY)
+    }
 
 
 def test_no_picky_rule_id_can_reach_a_default_check() -> None:

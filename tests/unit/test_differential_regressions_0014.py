@@ -49,9 +49,14 @@ def test_regression_cases_reproduce_pinned_java_findings(
 ) -> None:
     """Every minimized regression case must match the recorded pinned-Java result."""
     for case in regressions["cases"]:
+        profile = build_profiles()[case["profile"]]
         actual = [
             finding.comparable_json()
-            for finding in pylat_findings(tools[case["profile"]].check(case["minimized_text"]))
+            for finding in pylat_findings(
+                tools[case["profile"]].check(
+                    case["minimized_text"], level=profile.level
+                )
+            )
         ]
         expected = [list(finding) for finding in case["expected_java_findings"]]
         assert actual == expected, case["case_id"]
@@ -71,6 +76,26 @@ def test_regression_cases_carry_their_required_provenance(regressions: dict) -> 
             assert key in case, (case.get("case_id"), key)
         assert case["minimized_text"].strip()
         assert case["profile"] in build_profiles()
+
+
+def test_regression_fixture_declares_the_complete_strict_schema(regressions: dict) -> None:
+    assert regressions["metadata"]["finding_field_order"] == [
+        "rule_id",
+        "full_rule_id",
+        "category_id",
+        "category_name",
+        "message",
+        "short_message",
+        "utf16_offset",
+        "utf16_length",
+        "suggestions",
+        "url",
+    ]
+    assert all(
+        len(finding) == 10
+        for case in regressions["cases"]
+        for finding in case["expected_java_findings"]
+    )
 
 
 def test_calibration_cases_reproduce_pinned_java_findings(

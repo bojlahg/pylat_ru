@@ -122,6 +122,19 @@ def test_manifest_profiles_match_the_generator(manifest: dict) -> None:
         ].signature()
 
 
+def test_manifest_declares_level_and_config_sensitivity_evidence(manifest: dict) -> None:
+    assert manifest["profiles"]["default"]["level"] == "DEFAULT"
+    assert manifest["profiles"]["ref_picky"]["level"] == "PICKY"
+    specs = manifest["config_sensitivity_specs"]
+    assert set(specs) == {
+        "cfg_long_sentence_15",
+        "cfg_long_paragraph_30",
+        "cfg_filler_words_2",
+        "cfg_speller_conf_ru_1",
+    }
+    assert all(spec["text_sha256"] for spec in specs.values())
+
+
 def test_manifest_default_off_list_is_derived_not_invented(manifest: dict) -> None:
     assert manifest["default_off_rule_ids"] == default_off_rule_ids()
     assert "CONFUSION_RULE" not in manifest["default_off_rule_ids"]
@@ -391,6 +404,29 @@ def test_summary_stratum_and_profile_views_cover_everything(summary: dict) -> No
         assert block["cases"] > 0, profile_id
 
 
+def test_summary_proves_every_required_configuration_is_observable(summary: dict) -> None:
+    evidence = summary["config_sensitivity"]
+    assert set(evidence) == {
+        "cfg_long_sentence_15",
+        "cfg_long_paragraph_30",
+        "cfg_filler_words_2",
+        "cfg_speller_conf_ru_1",
+    }
+    for profile_id, block in evidence.items():
+        assert block["targeted_cases"] > 0, profile_id
+        assert block["java_cases_with_observable_delta"] > 0, profile_id
+        assert block["python_cases_with_same_observable_delta"] > 0, profile_id
+        assert block["java_python_exact_cases"] == block["targeted_cases"], profile_id
+        assert block["delta_rule_ids"], profile_id
+
+
+def test_new_strict_metadata_fields_have_full_parity(summary: dict) -> None:
+    comparable = summary["totals"]["comparable_cases"]
+    for field in ("full_rule_id", "category_name"):
+        assert summary["parity"][field]["numerator"] == comparable
+        assert summary["parity"][field]["denominator"] == comparable
+
+
 # -- regression fixture -----------------------------------------------------
 
 
@@ -512,6 +548,7 @@ def test_state_and_order_invariance_evidence_is_committed(manifest: dict) -> Non
     assert payload["python_fresh_matches_shared"] is True
     assert payload["python_reverse_matches_forward"] is True
     assert payload["divergent_case_ids"] == []
+    assert set(payload["profiles"]) == set(build_profiles())
 
 
 def test_comparable_finding_totals_agree(summary: dict) -> None:

@@ -1,29 +1,69 @@
 {
+  "config_sensitivity_specs": {
+    "cfg_filler_words_2": {
+      "reference_profile": "ref_filler_words_default",
+      "text_sha256": [
+        "76b3d02d63805765c9b9a6472176dff5386dca7ea89012c9849de6078b26411f",
+        "7d05e61775d466279a77219024a92b0ed787a9dd1df909e784569cea80a2b985",
+        "cf35ac63008626c4963811544b324417d32e3594b2e6782c74edff77517fe40c"
+      ]
+    },
+    "cfg_long_paragraph_30": {
+      "reference_profile": "ref_picky",
+      "text_sha256": [
+        "add3196c59b43e09ea9dde74354d88f0ae01e740fda36428388ba2cfa07952d2",
+        "4e9e02d6552067e39ecd58edffa5fef62a9e54cdffd83f4d0dbf075d857933ab",
+        "92b24fda739624f2c4e969cbc67d86e7ea3bc62afdd08c1df1e7df0b777def24",
+        "b9b66aa7e81c4cf70766f89193557c69418bb304d1f95a89e57400063127b6e4"
+      ]
+    },
+    "cfg_long_sentence_15": {
+      "reference_profile": "ref_picky",
+      "text_sha256": [
+        "9974224bd2501d084e196168c85247ef66c1c2cf068467d1a9e36d301aa3c7de",
+        "85e4503f51ef2e8502702320d4186d0ddb40e41be35f1cd5bd35cb4953c1f35c",
+        "699f8e08db397ab4550f44e16393bf2e159d6d48292bec0d28e34fd1a6427af7",
+        "02ffe8dc9719bee7400880c6f22ca9293e115e277260f4e324aa63291608c868"
+      ]
+    },
+    "cfg_speller_conf_ru_1": {
+      "reference_profile": "cfg_speller_conf_ru_0",
+      "text_sha256": [
+        "42e25dd386eb55b56db34af535fab5231db8cf1b588af95bc9c32ef849507fc5",
+        "596796b604b5c21aa837ff5e5136a1fe7ecf16e0e9af7bb5432d8e6bc95c79b1",
+        "99457a99057d220eccc7d2b55e4fee6ca049d20cfed679150da69a6ababbc397"
+      ]
+    }
+  },
   "corpus_file": {
     "committed": false,
     "path": "corpora/differential_corpus_0014.jsonl",
     "reason": "contains external natural-corpus text; never committed"
   },
-  "corpus_signature": "3d6b066624b5dc8f160eb0fa62079f4dd33191bc9806df54fb87da84bc533a83",
+  "corpus_signature": "71f865b3cc99255810826a96dbcc92021edcfe742bd92a270a7d33145cb24ca4",
   "counts": {
     "cases_by_profile": {
       "all_ordinary_enabled": 5010,
-      "cfg_filler_words_2": 200,
-      "cfg_long_paragraph_30": 200,
-      "cfg_long_sentence_15": 200,
+      "cfg_filler_words_2": 3,
+      "cfg_long_paragraph_30": 4,
+      "cfg_long_sentence_15": 4,
+      "cfg_speller_conf_ru_0": 3,
+      "cfg_speller_conf_ru_1": 3,
       "cfg_speller_yo": 2200,
-      "default": 9615
+      "default": 9615,
+      "ref_filler_words_default": 3,
+      "ref_picky": 8
     },
     "cases_by_stratum": {
-      "A": 5028,
-      "B": 4996,
+      "A": 5056,
+      "B": 4684,
       "C": 4400,
-      "D": 2693,
+      "D": 2405,
       "E": 308
     },
-    "cases_total": 17425,
-    "combining_mark_executions": 459,
-    "non_bmp_executions": 638,
+    "cases_total": 16853,
+    "combining_mark_executions": 438,
+    "non_bmp_executions": 614,
     "semantic_duplicates_skipped": 422,
     "soft_hyphen_executions": 178,
     "source_texts_by_stratum": {
@@ -34,13 +74,13 @@
       "E": 154
     },
     "unique_texts_by_stratum": {
-      "A": 2514,
+      "A": 2527,
       "B": 2342,
       "C": 2200,
       "D": 2405,
       "E": 154
     },
-    "unique_texts_total": 9615
+    "unique_texts_total": 9628
   },
   "default_off_rule_ids": [
     "COMPLEX_SOUZ_PUNCT_2",
@@ -798,7 +838,7 @@
     "D"
   ],
   "fixed_seed": 140014,
-  "generator_version": "0014.1",
+  "generator_version": "0014.2-review-fix",
   "internal_strata": [
     "A",
     "B",
@@ -806,10 +846,10 @@
     "E"
   ],
   "internal_stratum_signatures": {
-    "A": "8830ea3d03f380f4a8276074ad9d3bba091ff516f66dc88d041d751201418f9c",
-    "B": "68b4674ecfedcc5ecf4645e3f61562bde30710a505e5c97d1db0c558ea93d0a4",
-    "C": "1f36194507c01ebf1f68b16fb762cb68acf4f459b409fcb9a2763dc720c329ce",
-    "E": "d282644c8eb4452770905379ed753c4d497fcc842397d29611c8ec3ea47d37b3"
+    "A": "4c5f7004382254b2b946ec46df43288ea3b5c2d72473f55fa6d5f43ce71756c8",
+    "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
+    "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
+    "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
   },
   "language_model_rule": {
     "excluded_from_java_surface": true,
@@ -872,12 +912,16 @@
   "pinned_lt_commit": "e807fcde6a6506191e1470744d2345da28c26be6",
   "pinned_lt_version": "6.8",
   "profile_signatures": {
-    "all_ordinary_enabled": "22dcff53d7358db4",
-    "cfg_filler_words_2": "7b0d8a7fcd6dd41d",
-    "cfg_long_paragraph_30": "e9ca212143f55d89",
-    "cfg_long_sentence_15": "5ff782b207818324",
-    "cfg_speller_yo": "bfc1f9a505491c3e",
-    "default": "d879265ee14eaa99"
+    "all_ordinary_enabled": "8c236758c8128909",
+    "cfg_filler_words_2": "adde9d4334ae1e3b",
+    "cfg_long_paragraph_30": "6c71b8b10ab1715b",
+    "cfg_long_sentence_15": "a05d4b19ff421388",
+    "cfg_speller_conf_ru_0": "e0d2ac064a8411f5",
+    "cfg_speller_conf_ru_1": "e1a8a9182fd92961",
+    "cfg_speller_yo": "686f42c9bfdd15bf",
+    "default": "8b3d349995a8e653",
+    "ref_filler_words_default": "7e14c8cb86a2c3fb",
+    "ref_picky": "be092ce9c06a6b64"
   },
   "profiles": {
     "all_ordinary_enabled": {
@@ -908,6 +952,7 @@
         "WHITESPACE_PARAGRAPH",
         "WHITESPACE_PARAGRAPH_BEGIN"
       ],
+      "level": "DEFAULT",
       "profile_id": "all_ordinary_enabled",
       "rule_config": {}
     },
@@ -917,6 +962,7 @@
       "enabled_rules": [
         "FILLER_WORDS_RU"
       ],
+      "level": "DEFAULT",
       "profile_id": "cfg_filler_words_2",
       "rule_config": {
         "FILLER_WORDS_RU": {
@@ -931,6 +977,7 @@
       "enabled_rules": [
         "TOO_LONG_PARAGRAPH"
       ],
+      "level": "PICKY",
       "profile_id": "cfg_long_paragraph_30",
       "rule_config": {
         "TOO_LONG_PARAGRAPH": {
@@ -942,10 +989,35 @@
       "disabled_rules": [],
       "enable_all_default_off": false,
       "enabled_rules": [],
+      "level": "PICKY",
       "profile_id": "cfg_long_sentence_15",
       "rule_config": {
         "TOO_LONG_SENTENCE": {
           "maxWords": 15
+        }
+      }
+    },
+    "cfg_speller_conf_ru_0": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [],
+      "level": "DEFAULT",
+      "profile_id": "cfg_speller_conf_ru_0",
+      "rule_config": {
+        "MORFOLOGIK_RULE_RU_RU": {
+          "conf_ru_Value": 0
+        }
+      }
+    },
+    "cfg_speller_conf_ru_1": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [],
+      "level": "DEFAULT",
+      "profile_id": "cfg_speller_conf_ru_1",
+      "rule_config": {
+        "MORFOLOGIK_RULE_RU_RU": {
+          "conf_ru_Value": 1
         }
       }
     },
@@ -957,6 +1029,7 @@
       "enabled_rules": [
         "MORFOLOGIK_RULE_RU_RU_YO"
       ],
+      "level": "DEFAULT",
       "profile_id": "cfg_speller_yo",
       "rule_config": {}
     },
@@ -964,11 +1037,30 @@
       "disabled_rules": [],
       "enable_all_default_off": false,
       "enabled_rules": [],
+      "level": "DEFAULT",
       "profile_id": "default",
+      "rule_config": {}
+    },
+    "ref_filler_words_default": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [
+        "FILLER_WORDS_RU"
+      ],
+      "level": "DEFAULT",
+      "profile_id": "ref_filler_words_default",
+      "rule_config": {}
+    },
+    "ref_picky": {
+      "disabled_rules": [],
+      "enable_all_default_off": false,
+      "enabled_rules": [],
+      "level": "PICKY",
+      "profile_id": "ref_picky",
       "rule_config": {}
     }
   },
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "source_inventory": {
     "compat/extracted_grammar_examples.json": "c33c8660e1aabe68b5b16970df0532bb328b1f89d469c026e8d9ddcc504c8ada",
     "compat/russian_java_rules_inventory.json": "ce920d2b3411871be01a02d3b3ab57b366bfae1ab9572efa23414bd3b492480d",
@@ -1019,18 +1111,18 @@
     ]
   },
   "stratum_signatures": {
-    "A": "8830ea3d03f380f4a8276074ad9d3bba091ff516f66dc88d041d751201418f9c",
-    "B": "0edc376c274cfd0fd2f3fc7c366dcc30ea9f03806486c19164cc229d5360306c",
-    "C": "1f36194507c01ebf1f68b16fb762cb68acf4f459b409fcb9a2763dc720c329ce",
-    "D": "b5289cf51d2980458cce56af44431b469f0240187971590d4161b988575f497a",
-    "E": "d282644c8eb4452770905379ed753c4d497fcc842397d29611c8ec3ea47d37b3"
+    "A": "44f4b168ee21388065c3acd9f762719439640896092250304d418308c93036be",
+    "B": "fe4853db10582aae5caedec43a13a63315e2471981da2a2b40c8da6bab04c7a8",
+    "C": "35938fe97eb06fc27eacd4a7ad6e9a02a89266b40dc38b81bdc779fc9baef95d",
+    "D": "9576e4294b878f9bf9e7e839925dd1bb0c74ba8bde2d8b85ac410ed9c18fda35",
+    "E": "e4008a46f32d6b576a40e900ee02e50eccc383f303f8e86b626d6770b302227a"
   },
   "targeted_config_profiles": [
     "cfg_long_sentence_15",
     "cfg_long_paragraph_30",
-    "cfg_filler_words_2"
+    "cfg_filler_words_2",
+    "cfg_speller_conf_ru_1"
   ],
-  "targeted_config_sample": 200,
   "task": "0014",
   "unicode_kinds": [
     "nonbmp_prefix_single",
